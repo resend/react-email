@@ -29,6 +29,22 @@ const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
   return templatePaths;
 };
 
+/**
+ * Splits an array into chunks of specified size
+ */
+const chunkArray = <T>(array: T[], chunkSize: number): T[][] => {
+  const chunks: T[][] = [];
+  for (let i = 0; i < array.length; i += chunkSize) {
+    chunks.push(array.slice(i, i + chunkSize));
+  }
+  return chunks;
+};
+
+/**
+ * Number of templates to process in each chunk to avoid memory issues
+ */
+const TEMPLATE_CHUNK_SIZE = 50;
+
 type ExportTemplatesOptions = Options & {
   silent?: boolean;
   pretty?: boolean;
@@ -75,82 +91,107 @@ export const exportTemplates = async (
   }
 
   const allTemplates = getEmailTemplatesFromDirectory(emailsDirectoryMetadata);
+  const templateChunks = chunkArray(allTemplates, TEMPLATE_CHUNK_SIZE);
+  const totalChunks = templateChunks.length;
 
-  try {
-    await build({
-      bundle: true,
-      entryPoints: allTemplates,
-      format: 'cjs',
-      jsx: 'automatic',
-      loader: { '.js': 'jsx' },
-      logLevel: 'silent',
-      outExtension: { '.js': '.cjs' },
-      outdir: pathToWhereEmailMarkupShouldBeDumped,
-      platform: 'node',
-      plugins: [renderingUtilitiesExporter(allTemplates)],
-      write: true,
-    });
-  } catch (exception) {
+  // Track existing built files to identify newly created ones after each chunk build
+  let existingBuiltFiles = new Set<string>();
+
+  // Process templates in chunks to avoid memory issues
+  for (const [chunkIndex, chunk] of templateChunks.entries()) {
+    const chunkNumber = chunkIndex + 1;
+
     if (spinner) {
-      spinner.stopAndPersist({
-        symbol: logSymbols.error,
-        text: 'Failed to build emails',
-      });
+      spinner.text = `Building chunk ${chunkNumber}/${totalChunks} (${chunk.length} templates)...`;
+      spinner.render();
     }
 
-    const buildFailure = exception as BuildFailure;
-    console.error(`\n${buildFailure.message}`);
-
-    process.exit(1);
-  }
-
-  if (spinner) {
-    spinner.succeed();
-  }
-
-  const allBuiltTemplates = glob.sync(
-    normalize(`${pathToWhereEmailMarkupShouldBeDumped}/**/*.cjs`),
-    {
-      absolute: true,
-    },
-  );
-
-  for await (const template of allBuiltTemplates) {
     try {
-      if (spinner) {
-        spinner.text = `rendering ${template.split('/').pop()}`;
-        spinner.render();
-      }
-      delete require.cache[template];
-      const emailModule = require(template) as {
-        default: React.FC;
-        render: (
-          element: React.ReactElement,
-          options: Record<string, unknown>,
-        ) => Promise<string>;
-        reactEmailCreateReactElement: typeof React.createElement;
-      };
-      const rendered = await emailModule.render(
-        emailModule.reactEmailCreateReactElement(emailModule.default, {}),
-        options,
-      );
-      const htmlPath = template.replace(
-        '.cjs',
-        options.plainText ? '.txt' : '.html',
-      );
-      writeFileSync(htmlPath, rendered);
-      unlinkSync(template);
+      await build({
+        bundle: true,
+        entryPoints: chunk,
+        format: 'cjs',
+        jsx: 'automatic',
+        loader: { '.js': 'jsx' },
+        logLevel: 'silent',
+        outExtension: { '.js': '.cjs' },
+        outdir: pathToWhereEmailMarkupShouldBeDumped,
+        platform: 'node',
+        plugins: [renderingUtilitiesExporter(chunk)],
+        write: true,
+      });
     } catch (exception) {
       if (spinner) {
         spinner.stopAndPersist({
           symbol: logSymbols.error,
-          text: `failed when rendering ${template.split('/').pop()}`,
+          text: `Failed to build emails (chunk ${chunkNumber}/${totalChunks})`,
         });
       }
-      console.error(exception);
+
+      const buildFailure = exception as BuildFailure;
+      console.error(`\n${buildFailure.message}`);
+
       process.exit(1);
     }
+
+    // Get all built templates after this chunk's build
+    const allBuiltTemplates = glob.sync(
+      normalize(`${pathToWhereEmailMarkupShouldBeDumped}/**/*.cjs`),
+      {
+        absolute: true,
+      },
+    );
+
+    // Find newly created files from this chunk (not in existingBuiltFiles)
+    const newChunkTemplates = allBuiltTemplates.filter(
+      (template) => !existingBuiltFiles.has(normalize(template)),
+    );
+
+    // Update the set of existing files for the next iteration
+    existingBuiltFiles = new Set(
+      allBuiltTemplates.map((template) => normalize(template)),
+    );
+
+    // Render templates from this chunk immediately after building
+    // This helps free up memory before processing the next chunk
+    for (const template of newChunkTemplates) {
+      try {
+        if (spinner) {
+          spinner.text = `Rendering ${template.split('/').pop()} (chunk ${chunkNumber}/${totalChunks})...`;
+          spinner.render();
+        }
+        delete require.cache[template];
+        const emailModule = require(template) as {
+          default: React.FC;
+          render: (
+            element: React.ReactElement,
+            options: Record<string, unknown>,
+          ) => Promise<string>;
+          reactEmailCreateReactElement: typeof React.createElement;
+        };
+        const rendered = await emailModule.render(
+          emailModule.reactEmailCreateReactElement(emailModule.default, {}),
+          options,
+        );
+        const htmlPath = template.replace(
+          '.cjs',
+          options.plainText ? '.txt' : '.html',
+        );
+        writeFileSync(htmlPath, rendered);
+        unlinkSync(template);
+      } catch (exception) {
+        if (spinner) {
+          spinner.stopAndPersist({
+            symbol: logSymbols.error,
+            text: `failed when rendering ${template.split('/').pop()}`,
+          });
+        }
+        console.error(exception);
+        process.exit(1);
+      }
+    }
   }
+
   if (spinner) {
     spinner.succeed('Rendered all files');
     spinner.text = 'Copying static files';
