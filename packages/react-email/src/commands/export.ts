@@ -3,7 +3,7 @@ import { createRequire } from 'node:module';
 import path from 'node:path';
 import url from 'node:url';
 import type { Options } from '@react-email/components';
-import { type BuildFailure, build } from 'esbuild';
+import { type BuildFailure, build, buildSync } from 'esbuild';
 import { glob } from 'glob';
 import logSymbols from 'log-symbols';
 import normalize from 'normalize-path';
@@ -107,7 +107,7 @@ export const exportTemplates = async (
     }
 
     try {
-      await build({
+      buildSync({
         bundle: true,
         entryPoints: chunk,
         format: 'cjs',
