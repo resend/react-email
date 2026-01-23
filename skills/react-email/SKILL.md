@@ -270,7 +270,7 @@ When requested: container black (#000), background dark gray (#151516)
 ```tsx
 import * as React from "react";
 import tailwindConfig, { brandAssets } from './tailwind.config';
-import { Tailwind, Img } from '@react-email/components';
+import { Tailwind, Img, Body, Container, Button } from '@react-email/components';
 
 <Tailwind config={tailwindConfig}>
   <Body className="bg-gray-100 font-sans">
