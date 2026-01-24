@@ -1,12 +1,12 @@
 #!/usr/bin/env node
+
 /**
  * Worker script to render a single email template in a separate process.
  * This helps isolate memory usage and prevents OOM errors when processing many templates.
  */
 
-import { createRequire } from 'node:module';
 import fs from 'node:fs';
-import path from 'node:path';
+import { createRequire } from 'node:module';
 import type React from 'react';
 
 const require = createRequire(import.meta.url);
@@ -44,7 +44,7 @@ async function renderTemplate(input: WorkerInput): Promise<void> {
 
     // Send success message to parent process
     process.stdout.write(
-      JSON.stringify({ success: true, templatePath: input.templatePath }) + '\n',
+      JSON.stringify({ success: true, templatePath: input.templatePath }),
     );
   } catch (error) {
     // Send error message to parent process
@@ -53,7 +53,7 @@ async function renderTemplate(input: WorkerInput): Promise<void> {
         success: false,
         templatePath: input.templatePath,
         error: error instanceof Error ? error.message : String(error),
-      }) + '\n',
+      }),
     );
     process.exit(1);
   }
@@ -67,7 +67,7 @@ if (!inputData) {
     JSON.stringify({
       success: false,
       error: 'No input data provided',
-    }) + '\n',
+    }),
   );
   process.exit(1);
 }
@@ -80,7 +80,7 @@ try {
         success: false,
         templatePath: input.templatePath,
         error: error instanceof Error ? error.message : String(error),
-      }) + '\n',
+      }),
     );
     process.exit(1);
   });
@@ -89,7 +89,7 @@ try {
     JSON.stringify({
       success: false,
       error: `Failed to parse input: ${error instanceof Error ? error.message : String(error)}`,
-    }) + '\n',
+    }),
   );
   process.exit(1);
 }

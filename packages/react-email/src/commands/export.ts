@@ -1,5 +1,5 @@
-import fs from 'node:fs';
 import { spawn } from 'node:child_process';
+import fs from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
 import type { Options } from '@react-email/components';
@@ -142,10 +142,14 @@ export const exportTemplates = async (
 
     await new Promise<void>((resolve, reject) => {
       // Spawn worker process using the compiled JavaScript file
-      const worker = spawn(process.execPath, [workerScriptPath, JSON.stringify(workerInput)], {
-        cwd: process.cwd(),
-        stdio: ['ignore', 'pipe', 'pipe'],
-      });
+      const worker = spawn(
+        process.execPath,
+        [workerScriptPath, JSON.stringify(workerInput)],
+        {
+          cwd: process.cwd(),
+          stdio: ['ignore', 'pipe', 'pipe'],
+        },
+      );
 
       let stdout = '';
       let stderr = '';
