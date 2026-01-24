@@ -1,5 +1,5 @@
-import fs, { unlinkSync, writeFileSync } from 'node:fs';
-import { createRequire } from 'node:module';
+import fs from 'node:fs';
+import { spawn } from 'node:child_process';
 import path from 'node:path';
 import url from 'node:url';
 import type { Options } from '@react-email/components';
@@ -8,7 +8,6 @@ import { glob } from 'glob';
 import logSymbols from 'log-symbols';
 import normalize from 'normalize-path';
 import ora, { type Ora } from 'ora';
-import type React from 'react';
 import { renderingUtilitiesExporter } from '../utils/esbuild/renderring-utilities-exporter.js';
 import {
   type EmailsDirectory,
@@ -29,30 +28,13 @@ const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
   return templatePaths;
 };
 
-/**
- * Splits an array into chunks of specified size
- */
-const chunkArray = <T>(array: T[], chunkSize: number): T[][] => {
-  const chunks: T[][] = [];
-  for (let i = 0; i < array.length; i += chunkSize) {
-    chunks.push(array.slice(i, i + chunkSize));
-  }
-  return chunks;
-};
-
-/**
- * Number of templates to process in each chunk to avoid memory issues
- */
-const TEMPLATE_CHUNK_SIZE = 50;
-
 type ExportTemplatesOptions = Options & {
   silent?: boolean;
   pretty?: boolean;
 };
 
 const filename = url.fileURLToPath(import.meta.url);
-
-const require = createRequire(filename);
+const dirname = path.dirname(filename);
 
 /*
   This first builds all the templates using esbuild and then puts the output in the `.js`
@@ -91,107 +73,152 @@ export const exportTemplates = async (
   }
 
   const allTemplates = getEmailTemplatesFromDirectory(emailsDirectoryMetadata);
-  const templateChunks = chunkArray(allTemplates, TEMPLATE_CHUNK_SIZE);
-  const totalChunks = templateChunks.length;
 
-  // Track existing built files to identify newly created ones after each chunk build
-  let existingBuiltFiles = new Set<string>();
+  try {
+    await build({
+      bundle: true,
+      entryPoints: allTemplates,
+      format: 'cjs',
+      jsx: 'automatic',
+      loader: { '.js': 'jsx' },
+      logLevel: 'silent',
+      outExtension: { '.js': '.cjs' },
+      outdir: pathToWhereEmailMarkupShouldBeDumped,
+      platform: 'node',
+      plugins: [renderingUtilitiesExporter(allTemplates)],
+      write: true,
+    });
+  } catch (exception) {
+    if (spinner) {
+      spinner.stopAndPersist({
+        symbol: logSymbols.error,
+        text: 'Failed to build emails',
+      });
+    }
 
-  // Process templates in chunks to avoid memory issues
-  for (const [chunkIndex, chunk] of templateChunks.entries()) {
-    const chunkNumber = chunkIndex + 1;
+    const buildFailure = exception as BuildFailure;
+    console.error(`\n${buildFailure.message}`);
+
+    process.exit(1);
+  }
+
+  if (spinner) {
+    spinner.succeed();
+  }
+
+  const allBuiltTemplates = glob.sync(
+    normalize(`${pathToWhereEmailMarkupShouldBeDumped}/**/*.cjs`),
+    {
+      absolute: true,
+    },
+  );
+
+  // Render templates in separate processes to avoid memory issues
+  // The worker script is compiled to dist/commands/export-worker.js
+  const workerScriptPath = path.join(dirname, 'export-worker.js');
+  const totalTemplates = allBuiltTemplates.length;
+
+  for (let i = 0; i < allBuiltTemplates.length; i++) {
+    const template = allBuiltTemplates[i];
+    if (!template) continue;
+
+    const templateName = template.split('/').pop() || 'unknown';
 
     if (spinner) {
-      spinner.text = `Building chunk ${chunkNumber}/${totalChunks} (${chunk.length} templates)...`;
+      spinner.text = `Rendering ${templateName} (${i + 1}/${totalTemplates})...`;
       spinner.render();
     }
 
-    try {
-      await build({
-        bundle: true,
-        entryPoints: chunk,
-        format: 'cjs',
-        jsx: 'automatic',
-        loader: { '.js': 'jsx' },
-        logLevel: 'silent',
-        outExtension: { '.js': '.cjs' },
-        outdir: pathToWhereEmailMarkupShouldBeDumped,
-        platform: 'node',
-        plugins: [renderingUtilitiesExporter(chunk)],
-        write: true,
+    const htmlPath = template.replace(
+      '.cjs',
+      options.plainText ? '.txt' : '.html',
+    );
+
+    const workerInput = {
+      templatePath: template,
+      htmlPath,
+      options,
+    };
+
+    await new Promise<void>((resolve, reject) => {
+      // Spawn worker process using the compiled JavaScript file
+      const worker = spawn(process.execPath, [workerScriptPath, JSON.stringify(workerInput)], {
+        cwd: process.cwd(),
+        stdio: ['ignore', 'pipe', 'pipe'],
       });
-    } catch (exception) {
-      if (spinner) {
-        spinner.stopAndPersist({
-          symbol: logSymbols.error,
-          text: `Failed to build emails (chunk ${chunkNumber}/${totalChunks})`,
-        });
-      }
 
-      const buildFailure = exception as BuildFailure;
-      console.error(`\n${buildFailure.message}`);
+      let stdout = '';
+      let stderr = '';
 
-      process.exit(1);
-    }
+      worker.stdout?.on('data', (data) => {
+        stdout += data.toString();
+      });
 
-    // Get all built templates after this chunk's build
-    const allBuiltTemplates = glob.sync(
-      normalize(`${pathToWhereEmailMarkupShouldBeDumped}/**/*.cjs`),
-      {
-        absolute: true,
-      },
-    );
+      worker.stderr?.on('data', (data) => {
+        stderr += data.toString();
+      });
 
-    // Find newly created files from this chunk (not in existingBuiltFiles)
-    const newChunkTemplates = allBuiltTemplates.filter(
-      (template) => !existingBuiltFiles.has(normalize(template)),
-    );
+      worker.on('close', (code) => {
+        if (code === 0) {
+          // Try to parse success message
+          try {
+            const lines = stdout.trim().split('\n');
+            const lastLine = lines[lines.length - 1];
+            if (lastLine) {
+              const result = JSON.parse(lastLine);
+              if (result.success) {
+                resolve();
+                return;
+              }
+            }
+          } catch {
+            // If parsing fails but exit code is 0, assume success
+            resolve();
+            return;
+          }
+          resolve();
+        } else {
+          // Try to parse error message
+          let errorMessage = `Worker process exited with code ${code}`;
+          try {
+            const lines = stderr.trim().split('\n');
+            const lastLine = lines[lines.length - 1];
+            if (lastLine) {
+              const error = JSON.parse(lastLine);
+              if (error.error) {
+                errorMessage = error.error;
+              }
+            }
+          } catch {
+            // Use stderr as fallback
+            if (stderr) {
+              errorMessage = stderr;
+            }
+          }
 
-    // Update the set of existing files for the next iteration
-    existingBuiltFiles = new Set(
-      allBuiltTemplates.map((template) => normalize(template)),
-    );
-
-    // Render templates from this chunk immediately after building
-    // This helps free up memory before processing the next chunk
-    for (const template of newChunkTemplates) {
-      try {
-        if (spinner) {
-          spinner.text = `Rendering ${template.split('/').pop()} (chunk ${chunkNumber}/${totalChunks})...`;
-          spinner.render();
+          if (spinner) {
+            spinner.stopAndPersist({
+              symbol: logSymbols.error,
+              text: `Failed when rendering ${templateName}`,
+            });
+          }
+          console.error(errorMessage);
+          reject(new Error(errorMessage));
         }
-        delete require.cache[template];
-        const emailModule = require(template) as {
-          default: React.FC;
-          render: (
-            element: React.ReactElement,
-            options: Record<string, unknown>,
-          ) => Promise<string>;
-          reactEmailCreateReactElement: typeof React.createElement;
-        };
-        const rendered = await emailModule.render(
-          emailModule.reactEmailCreateReactElement(emailModule.default, {}),
-          options,
-        );
-        const htmlPath = template.replace(
-          '.cjs',
-          options.plainText ? '.txt' : '.html',
-        );
-        writeFileSync(htmlPath, rendered);
-        unlinkSync(template);
-      } catch (exception) {
+      });
+
+      worker.on('error', (error) => {
         if (spinner) {
           spinner.stopAndPersist({
             symbol: logSymbols.error,
-            text: `failed when rendering ${template.split('/').pop()}`,
+            text: `Failed to spawn worker for ${templateName}`,
           });
         }
-        console.error(exception);
-        process.exit(1);
-      }
-    }
+        console.error(`Failed to spawn worker: ${error.message}`);
+        reject(error);
+      });
+    });
   }
-
   if (spinner) {
     spinner.succeed('Rendered all files');
     spinner.text = 'Copying static files';
