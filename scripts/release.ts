@@ -1,5 +1,5 @@
 // Most of this code was adapted from https://github.com/changesets/action,
-// which unfortunately doesn't support more granular usage of their code,
+// which unfortunately doesn't support more granular usage of their code
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import * as core from '@actions/core';
@@ -161,7 +161,7 @@ const createRelease = async ({
   ]);
   for (const pkg of releasedPackages) {
     const tagName = `${pkg.packageJson.name}@${pkg.packageJson.version}`;
-    octokit.rest.git
+    await octokit.rest.git
       .createRef({
         ...github.context.repo,
         ref: `refs/tags/${tagName}`,
@@ -170,7 +170,6 @@ const createRelease = async ({
       .catch((error: unknown) => {
         core.warning(`Failed to create tag ${tagName}: ${error}`);
       });
-    await exec('git', ['push', 'origin', tagName]);
 
     console.log(`Creating release for ${tagName}`);
     await createRelease({ pkg, tagName });
