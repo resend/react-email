@@ -1,5 +1,5 @@
 // Most of this code was adapted from https://github.com/changesets/action,
-// which unfortunately doesn't support more granular usage of their code,
+// which unfortunately doesn't support more granular usage of their code
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import * as core from '@actions/core';
