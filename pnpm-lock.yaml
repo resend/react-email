@@ -459,7 +459,7 @@ importers:
         specifier: workspace:0.0.17
         version: link:../section
       '@react-email/tailwind':
-        specifier: workspace:2.0.3
+        specifier: workspace:2.0.4-canary.0
         version: link:../tailwind
       '@react-email/text':
         specifier: workspace:0.1.6
@@ -738,7 +738,7 @@ importers:
         specifier: workspace:*
         version: link:../preview
       '@react-email/tailwind':
-        specifier: workspace:2.0.3
+        specifier: workspace:2.0.4-canary.0
         version: link:../tailwind
       '@react-email/text':
         specifier: workspace:*
