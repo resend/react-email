@@ -26,7 +26,6 @@ import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
 const userProjectLocation = '${process.cwd().replace(/\\/g, '/')}';
 const previewServerLocation = '${appPath.replace(/\\/g, '/')}';
-const rootDirectory = '${path.relative(rootDirectory, appPath).replace(/\\/g, '/')}';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
@@ -37,9 +36,9 @@ const nextConfig = {
     USER_PROJECT_LOCATION: userProjectLocation
   },
   turbopack: {
-    root: rootDirectory,
+    root: previewServerLocation,
   },
-  outputFileTracingRoot: rootDirectory,
+  outputFileTracingRoot: previewServerLocation,
   serverExternalPackages: ['esbuild'],
   typescript: {
     ignoreBuildErrors: true
