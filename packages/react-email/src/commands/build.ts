@@ -26,7 +26,7 @@ import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
 const userProjectLocation = '${process.cwd().replace(/\\/g, '/')}';
 const previewServerLocation = '${appPath.replace(/\\/g, '/')}';
-const rootDirectory = '${rootDirectory.replace(/\\/g, '/')}';
+const rootDirectory = '${path.relative(rootDirectory, appPath).replace(/\\/g, '/')}';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
@@ -70,7 +70,7 @@ const getEmailSlugsFromEmailDirectory = (
       path
         .join(directoryPathRelativeToEmailsDirectory, filename)
         .split(path.sep)
-        // sometimes it gets empty segments due to trailing slashes
+        // Sometimes it gets empty segments due to trailing slashes
         .filter((segment) => segment.length > 0),
     );
   }
