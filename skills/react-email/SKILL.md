@@ -112,8 +112,8 @@ export default function WelcomeEmail({ name, verificationUrl }: WelcomeEmailProp
         }}
       >
         <Head />
-        <Preview>Welcome - Verify your email</Preview>
         <Body className="bg-gray-100 font-sans">
+        <Preview>Welcome - Verify your email</Preview>
           <Container className="max-w-xl mx-auto p-5">
             <Heading className="text-2xl text-gray-800">
               Welcome!
@@ -123,7 +123,7 @@ export default function WelcomeEmail({ name, verificationUrl }: WelcomeEmailProp
             </Text>
             <Button
               href={verificationUrl}
-              className="bg-brand text-white px-5 py-3 rounded block text-center no-underline"
+              className="bg-brand text-white px-5 py-3 rounded block text-center no-underline box-border"
             >
               Verify Email
             </Button>
@@ -152,16 +152,16 @@ See [references/COMPONENTS.md](references/COMPONENTS.md) for complete component 
 - `Body` - Main content wrapper
 - `Container` - Centers content (max-width layout)
 - `Section` - Layout sections
-- `Row` & `Column` - Multi-column layouts
+- `Row` & `Column` - Multi-column layouts (table-based, won't stack on mobile)
 - `Tailwind` - Enables Tailwind CSS utility classes
 
 **Content:**
-- `Preview` - Inbox preview text, always first in `Body`
+- `Preview` - Inbox preview text, place immediately after `Body` opening tag
 - `Heading` - h1-h6 headings
 - `Text` - Paragraphs
 - `Button` - Styled link buttons
 - `Link` - Hyperlinks
-- `Img` - Images (use absolute URLs; use dev server BASE_URL in dev, ask user for production BASE_URL)
+- `Img` - Images (use absolute URLs; copy local images to `/emails/static/` and use dev server BASE_URL in dev, ask user for production BASE_URL)
 - `Hr` - Horizontal dividers
 
 **Specialized:**
@@ -196,7 +196,7 @@ Never write the `{{variableName}}` pattern directly in the component structure -
 
 ## Styling
 
-See [references/STYLING.md](references/STYLING.md) for complete styling documentation.
+See [references/STYLING.md](references/STYLING.md) for complete styling documentation, including shared Tailwind config patterns for multiple templates.
 
 **Key rules:**
 - Use `pixelBasedPreset` - email clients don't support `rem` units
@@ -271,7 +271,7 @@ See [references/I18N.md](references/I18N.md) for complete i18n documentation wit
 | Using media queries (sm:, md:) | Design mobile-first with stacked layouts |
 | Template vars in JSX (`{{name}}`) | Use props: `{props.name}` |
 | Missing border type | Always specify: `border-solid`, `border-dashed`, etc. |
-| Fixed image dimensions | Use responsive: `w-full h-auto` |
+| Fixed image dimensions on content images | Use responsive: `w-full h-auto` (fixed OK for small icons) |
 | Emails over 102KB | Gmail clips larger emails - reduce size |
 
 ## Best Practices

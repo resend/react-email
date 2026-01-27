@@ -40,6 +40,7 @@ import { pixelBasedPreset } from '@react-email/components';
 Email clients have significant CSS restrictions. Follow these rules:
 
 ### Unsupported Features
+
 - **SVG/WEBP images** - Use PNG or JPEG only
 - **Flexbox/Grid** - Use `Row`/`Column` components or tables
 - **Media queries** - `sm:`, `md:`, `lg:`, `xl:` prefixes don't work
@@ -47,6 +48,7 @@ Email clients have significant CSS restrictions. Follow these rules:
 - **rem units** - Use `pixelBasedPreset` for pixel conversion
 
 ### Border Handling
+
 Always specify border style and reset other sides when needed:
 
 ```tsx
@@ -63,6 +65,7 @@ Always specify border style and reset other sides when needed:
 ## Component Structure
 
 ### Head Placement
+
 Always define `<Head />` inside `<Tailwind>` when using Tailwind CSS:
 
 ```tsx
@@ -75,6 +78,7 @@ Always define `<Head />` inside `<Tailwind>` when using Tailwind CSS:
 ```
 
 ### PreviewProps
+
 Only include props that the component actually uses:
 
 ```tsx
@@ -94,18 +98,23 @@ Email.PreviewProps = {
 ## Default Layout Structure
 
 ### Body
+
 ```tsx
 <Body className="font-sans py-10 bg-gray-100">
 ```
 
 ### Container
+
 White background, centered, left-aligned content:
+
 ```tsx
 <Container className="mx-auto bg-white p-6 rounded">
 ```
 
 ### Footer
+
 Include physical address, unsubscribe link, current year:
+
 ```tsx
 <Section className="text-center text-gray-500 text-sm">
   <Text className="m-0">123 Main St, City, State 12345</Text>
@@ -117,25 +126,30 @@ Include physical address, unsubscribe link, current year:
 ## Typography
 
 ### Titles
+
 Bold, larger font, larger margins:
+
 ```tsx
 <Heading className="text-2xl font-bold text-gray-900 mb-4">
 ```
 
 ### Paragraphs
+
 Regular weight, smaller font, smaller margins:
+
 ```tsx
 <Text className="text-base text-gray-700 mb-3">
 ```
 
 ### Hierarchy
+
 Use consistent spacing that respects content hierarchy. Larger margins for headings, smaller for body text.
 
 ## Images
 
 - Only include if user requests
-- Use responsive sizing: `w-full`, `h-auto`
-- Never use fixed width/height
+- Content images: use responsive sizing (`w-full`, `h-auto`)
+- Small icons (24-48px): fixed dimensions are acceptable
 - Never distort user-provided images
 - Never create SVG images
 - Always use absolute URLs
@@ -165,12 +179,15 @@ Always use `box-border` to prevent padding overflow:
 ## Layout
 
 ### Mobile-First
+
 Always design for mobile by default:
+
 - Use stacked layouts that work on all screen sizes
 - Max-width around 600px for main container
 - Remove default spacing/margins/padding between list items
 
 ### Multi-Column
+
 Use `Row` and `Column` components instead of flexbox/grid:
 
 ```tsx
@@ -183,6 +200,7 @@ Use `Row` and `Column` components instead of flexbox/grid:
 ## Dark Mode
 
 When requested, use dark backgrounds:
+
 - Container: black (`#000`)
 - Background: dark gray (`#151516`)
 
@@ -196,6 +214,7 @@ When requested, use dark backgrounds:
 ### Gathering Brand Colors
 
 Before creating emails, collect these colors from the user:
+
 - **Primary**: Main brand color for buttons, links, key accents
 - **Secondary**: Supporting color for borders, backgrounds, less prominent elements
 - **Text**: Main body text color (suggest `#1a1a1a` for light backgrounds)
@@ -259,6 +278,20 @@ import tailwindConfig, { brandAssets } from './tailwind.config';
 - **Use semantic names** - `bg-brand-primary` not `bg-[#007bff]`
 - **Ensure contrast** - Test that text is readable against backgrounds (WCAG AA: 4.5:1 ratio)
 
+## Asset Locations
+
+Direct users to place brand assets in appropriate locations:
+
+- **Logo and images**: Host on a CDN or public URL. For local development, place in `emails/static/`.
+- **Custom fonts**: Use the `Font` component with a web font URL (Google Fonts, Adobe Fonts, or self-hosted).
+
+**Example prompt for gathering brand info:**
+> "Before I create your email template, I need some brand information to ensure consistency. Could you provide:
+> 1. Your primary brand color (hex code, e.g., #007bff)
+> 2. Your logo URL (must be a publicly accessible PNG or JPEG)
+> 3. Any secondary colors you'd like to use
+> 4. Style preference (modern/minimal or classic/traditional)"
+
 ## Best Practices
 
 1. **Make templates unique** - Not generic, tailored to user's request
@@ -266,3 +299,4 @@ import tailwindConfig, { brandAssets } from './tailwind.config';
 3. **Keep file size under 102KB** - Gmail clips larger emails
 4. **Use keywords strategically** - Increase engagement in email body
 5. **Inline styles as fallback** - Some clients strip `<style>` tags
+
