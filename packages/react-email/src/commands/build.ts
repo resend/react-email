@@ -1,6 +1,5 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { getPackages } from '@manypkg/get-packages';
 import logSymbols from 'log-symbols';
 import { type PackageManagerName, runScript } from 'nypm';
 import ora from 'ora';
@@ -19,7 +18,6 @@ interface Args {
 const setNextEnvironmentVariablesForBuild = async (
   emailsDirRelativePath: string,
   appPath: string,
-  rootDirectory: string,
 ) => {
   const nextConfigContents = `
 import path from 'path';
@@ -157,7 +155,6 @@ export const build = async ({
 }: Args) => {
   try {
     const previewServerLocation = await getPreviewServerLocation();
-    const { rootDir: rootDirectory } = await getPackages(process.cwd());
 
     const spinner = ora({
       text: 'Starting build process...',
@@ -227,7 +224,6 @@ export const build = async ({
     await setNextEnvironmentVariablesForBuild(
       emailsDirRelativePath,
       builtPreviewAppPath,
-      rootDirectory,
     );
 
     spinner.text = 'Setting server side generation for the email preview pages';
