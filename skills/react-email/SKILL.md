@@ -196,112 +196,15 @@ Never write the `{{variableName}}` pattern directly in the component structure -
 
 ## Styling
 
-Use the Tailwind component if the user's project uses Tailwind CSS. Otherwise, use inline styles.
+See [references/STYLING.md](references/STYLING.md) for complete styling documentation.
 
 **Key rules:**
 - Use `pixelBasedPreset` - email clients don't support `rem` units
-- Never use flexbox or grid - use table-based layouts (Row/Column components)
-- Each component must use inline styles or utility classes
-
-### Email Client Limitations
-
-- **Never use** SVG or WEBP - rendering issues across clients
-- **Never use** flexbox - use Row/Column components or tables
-- **Never use** CSS media queries (sm:, md:, lg:, xl:) - not supported
-- **Never use** theme selectors (dark:, light:) - not supported
-- **Always specify** border type (border-solid, border-dashed, etc.)
-- **When defining** borders for one side, reset others (e.g., `border-none border-l`)
-
-### Component Structure
-
-- Always define `<Head />` inside `<Tailwind>` when using Tailwind CSS
-- Only use PreviewProps when passing props to a component
-- Only include props in PreviewProps that the component actually uses
-
-```tsx
-const Email = (props) => {
-  return (
-    <div>
-      <a href={props.source}>Click here</a>
-    </div>
-  );
-}
-
-Email.PreviewProps = {
-  source: "https://example.com",
-};
-```
-
-### Default Structure
-
-- Body: `font-sans py-10 bg-gray-100`
-- Container: white, centered, content left-aligned
-- Footer: physical address, unsubscribe link, current year with `m-0` on address/copyright
-
-### Typography
-
-- Titles: bold, larger font, larger margins
-- Paragraphs: regular weight, smaller font, smaller margins
-- Use consistent spacing respecting content hierarchy
-
-### Images
-
-- Only include if user requests
-- Never use fixed width/height - use responsive units (w-full, h-auto)
-- Never distort user-provided images
-- Never create or use SVG images (they are not supported in email clients) - only use provided or web images
-
-### Buttons
-
-- Always use `box-border` to prevent padding overflow
-
-### Layout
-
-- Always mobile-friendly by default
-- Use stacked layouts that work on all screen sizes
-- Remove default spacing/margins/padding between list items
-
-### Dark Mode
-
-When requested: container black (#000), background dark gray (#151516)
-
-### Using Tailwind Config in Templates
-
-```tsx
-import * as React from "react";
-import tailwindConfig, { brandAssets } from './tailwind.config';
-import { Tailwind, Img, Body, Container, Button } from '@react-email/components';
-
-<Tailwind config={tailwindConfig}>
-  <Body className="bg-gray-100 font-sans">
-    <Container className="max-w-xl mx-auto bg-white p-6">
-      <Img
-        src={brandAssets.logo.src}
-        alt={brandAssets.logo.alt}
-        width={brandAssets.logo.width}
-        className="mx-auto mb-6"
-      />
-      <Button className="bg-brand-primary text-white rounded px-5 py-3">
-        Call to Action
-      </Button>
-    </Container>
-  </Body>
-</Tailwind>
-```
-
-### Asset Locations
-
-Direct users to place brand assets in appropriate locations:
-
-- **Logo and images**: Host on a CDN or public URL. For local development, place in `emails/static/`.
-- **Custom fonts**: Use the `Font` component with a web font URL (Google Fonts, Adobe Fonts, or self-hosted).
-
-**Example prompt for gathering brand info:**
-> "Before I create your email template, I need some brand information to ensure consistency. Could you provide:
-> 1. Your primary brand color (hex code, e.g., #007bff)
-> 2. Your logo URL (must be a publicly accessible PNG or JPEG)
-> 3. Any secondary colors you'd like to use
-> 4. Style preference (modern/minimal or classic/traditional)"
+- Never use flexbox/grid - use `Row`/`Column` components
+- Never use SVG/WEBP images - use PNG/JPEG only
+- Never use media queries (`sm:`, `md:`) or theme selectors (`dark:`)
+- Always specify border type (`border-solid`, `border-dashed`)
+- Always use `box-border` on buttons
 
 ## Rendering
 
@@ -356,59 +259,7 @@ Resend can receive a React component directly. If not included in the call, Rese
 
 ## Internationalization
 
-See [references/I18N.md](references/I18N.md) for complete i18n documentation.
-
-Supports: next-intl, react-i18next, react-intl.
-
-### Quick Example (next-intl)
-
-```tsx
-import { createTranslator } from 'next-intl';
-import {
-  Html, Body, Container, Text, Button, Tailwind, pixelBasedPreset
-} from '@react-email/components';
-
-interface EmailProps {
-  name: string;
-  locale: string;
-}
-
-export default async function WelcomeEmail({ name, locale }: EmailProps) {
-  const t = createTranslator({
-    messages: await import(`../messages/${locale}.json`),
-    namespace: 'welcome-email',
-    locale
-  });
-
-  return (
-    <Html lang={locale}>
-      <Tailwind config={{ presets: [pixelBasedPreset] }}>
-        <Body className="bg-gray-100 font-sans">
-          <Container className="max-w-xl mx-auto p-5">
-            <Text className="text-base text-gray-800">{t('greeting')} {name},</Text>
-            <Text className="text-base text-gray-800">{t('body')}</Text>
-            <Button href="https://example.com" className="bg-blue-600 text-white px-5 py-3 rounded">
-              {t('cta')}
-            </Button>
-          </Container>
-        </Body>
-      </Tailwind>
-    </Html>
-  );
-}
-```
-
-Message files (`messages/en.json`, `messages/es.json`, etc.):
-
-```json
-{
-  "welcome-email": {
-    "greeting": "Hi",
-    "body": "Thanks for signing up!",
-    "cta": "Get Started"
-  }
-}
-```
+See [references/I18N.md](references/I18N.md) for complete i18n documentation with examples for next-intl, react-i18next, and react-intl.
 
 ## Common Mistakes
 
