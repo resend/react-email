@@ -31,7 +31,11 @@
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "demo#build": {
-      "dependsOn": ["^build", "^postbuild", "@react-email/preview-server#build"],
+      "dependsOn": [
+        "^build",
+        "^postbuild",
+        "@react-email/preview-server#build"
+      ],
       "outputs": [".react-email/**", "!.react-email/.next/cache/**"]
     },
     "react-email#build": {
