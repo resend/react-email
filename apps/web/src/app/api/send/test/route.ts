@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { type NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { checkRateLimit } from '@vercel/firewall';
 import { z } from 'zod';
 
 export function OPTIONS() {
@@ -14,6 +15,24 @@ const bodySchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
+  const { rateLimited, error } = await checkRateLimit('test-email-sending');
+
+  if (error === 'not-found') {
+    throw new Error(
+      'Firewall rule not found, failing all requests going forward to guard our reputation.',
+    );
+  }
+  if (rateLimited) {
+    return NextResponse.json(
+      {
+        error: 'Rate limit exceeded',
+      },
+      {
+        status: 429,
+      },
+    );
+  }
+
   const resend = new Resend(process.env.RESEND_API_KEY);
   const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_ANON_KEY;
