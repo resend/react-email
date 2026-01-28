@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
+import { checkRateLimit } from '@vercel/firewall';
 import { type NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
-import { checkRateLimit } from '@vercel/firewall';
 import { z } from 'zod';
 
 export function OPTIONS() {
