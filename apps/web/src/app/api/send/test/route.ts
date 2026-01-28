@@ -15,7 +15,7 @@ const bodySchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
-  const { rateLimited, error } = await checkRateLimit('update-object', {
+  const { rateLimited, error } = await checkRateLimit('test-email-sending', {
     request: req,
   });
 
