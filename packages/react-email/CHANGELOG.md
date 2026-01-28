@@ -1,5 +1,11 @@
 # react-email
 
+## 5.3.0-canary.2
+
+### Patch Changes
+
+- 1b9df29: ensure that installed preview server also has dev dependencies
+
 ## 5.3.0-canary.1
 
 ### Patch Changes
