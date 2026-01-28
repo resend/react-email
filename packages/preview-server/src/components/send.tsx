@@ -15,19 +15,15 @@ export const Send = ({ markup }: { markup: string }) => {
     setIsSending(true);
 
     try {
-      const response = await fetch(
-        'https://react.email/api/send/test',
-        {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            to,
-            subject,
-            html: markup,
-          }),
-        },
-      );
+      const response = await fetch('https://react.email/api/send/test', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to,
+          subject,
+          html: markup,
+        }),
+      });
 
       if (response.ok) {
         toast.success('Email sent! Check your inbox.');
