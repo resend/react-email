@@ -1,5 +1,11 @@
 # react-email
 
+## 5.3.0-canary.1
+
+### Patch Changes
+
+- 0289914: fix random errors due to root directory not being the preview's path
+
 ## 5.3.0-canary.0
 
 ### Minor Changes

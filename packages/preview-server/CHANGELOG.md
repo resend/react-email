@@ -1,5 +1,7 @@
 # @react-email/preview-server
 
+## 5.3.0-canary.1
+
 ## 5.3.0-canary.0
 
 ### Patch Changes
