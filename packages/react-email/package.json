@@ -51,7 +51,7 @@
     "@types/babel__traverse": "7.20.7",
     "@types/mime-types": "2.1.4",
     "@types/prompts": "2.4.9",
-    "next": "16.0.10",
+    "next": "16.1.5",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "shlex": "3.0.0",
