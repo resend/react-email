@@ -11,7 +11,10 @@ import { extract } from 'tar';
 import { packageJson } from './packageJson.js';
 import { registerSpinnerAutostopping } from './register-spinner-autostopping.js';
 
-const isInMonorepo = !import.meta.dirname.includes('node_modules');
+/**
+ * This is only true in the React Email monorepo, and is meant to improve the DX on our side without affect user's DX.
+ */
+export const isInMonorepo = !import.meta.dirname.includes('node_modules');
 
 export async function installPreviewServer(directory: string, version: string) {
   const spinner = ora({
