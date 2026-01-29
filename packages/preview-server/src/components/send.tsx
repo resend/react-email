@@ -1,7 +1,6 @@
 import * as Popover from '@radix-ui/react-popover';
 import { useId, useState } from 'react';
 import { toast } from 'sonner';
-import { sendTestEmail } from '../actions/send-test-email';
 import { Button } from './button';
 import { Text } from './text';
 
@@ -15,13 +14,25 @@ export const Send = ({ markup }: { markup: string }) => {
     e.preventDefault();
     setIsSending(true);
 
-    const response = await sendTestEmail(to, subject, markup);
+    try {
+      const response = await fetch('https://react.email/api/send/test', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to,
+          subject,
+          html: markup,
+        }),
+      });
 
-    if (response.ok) {
-      toast.success('Email sent! Check your inbox.');
-    } else if (response.status === 429) {
-      toast.error('Too many requests. Try again in around 1 minute');
-    } else {
+      if (response.ok) {
+        toast.success('Email sent! Check your inbox.');
+      } else if (response.status === 429) {
+        toast.error('Too many requests. Try again in around 1 minute');
+      } else {
+        toast.error('Something went wrong. Please try again.');
+      }
+    } catch {
       toast.error('Something went wrong. Please try again.');
     }
 

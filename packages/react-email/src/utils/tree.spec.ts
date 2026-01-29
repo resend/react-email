@@ -1,3 +1,4 @@
+import path from 'node:path';
 import { tree } from './tree.js';
 
 test('tree(__dirname, 2)', async () => {
@@ -15,9 +16,11 @@ test('tree(__dirname, 2)', async () => {
     ├── types
     │   ├── hot-reload-change.ts
     │   └── hot-reload-event.ts
+    ├── .gitignore
     ├── conf.ts
     ├── get-emails-directory-metadata.spec.ts
     ├── get-emails-directory-metadata.ts
+    ├── get-preview-server-location.spec.ts
     ├── get-preview-server-location.ts
     ├── index.ts
     ├── packageJson.ts

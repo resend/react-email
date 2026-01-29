@@ -1,5 +1,11 @@
 # @react-email/tailwind
 
+## 2.0.4-canary.0
+
+### Patch Changes
+
+- a8764ee: fix non-inlined styles getting html entities in React 18
+
 ## 2.0.3
 
 ### Patch Changes

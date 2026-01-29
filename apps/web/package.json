@@ -49,6 +49,7 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@types/three": "0.170.0",
+    "@vercel/firewall": "1.1.2",
     "autoprefixer": "10.4.23",
     "classnames": "2.5.1",
     "html-to-ast": "0.0.6",
