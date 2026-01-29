@@ -1,8 +1,10 @@
 /** ONLY ACCESSIBLE ON THE SERVER */
-export const userProjectLocation = process.env.__REACT_EMAIL_INTERNAL_USER_PROJECT_LOCATION!;
+export const userProjectLocation =
+  process.env.__REACT_EMAIL_INTERNAL_USER_PROJECT_LOCATION!;
 
 /** ONLY ACCESSIBLE ON THE SERVER */
-export const previewServerLocation = process.env.__REACT_EMAIL_INTERNAL_PREVIEW_SERVER_LOCATION!;
+export const previewServerLocation =
+  process.env.__REACT_EMAIL_INTERNAL_PREVIEW_SERVER_LOCATION!;
 
 /** ONLY ACCESSIBLE ON THE SERVER */
 export const emailsDirectoryAbsolutePath =
