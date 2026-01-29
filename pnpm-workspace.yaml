@@ -27,11 +27,5 @@ catalog:
   yalc: 1.0.0-pre.53
   zod: 4.1.12
 
-overrides:
-  "@types/react": "catalog:"
-  "@types/react-dom": "catalog:"
-  react-dom: "catalog:"
-  react: "catalog:"
-
 
 autoInstallPeers: true
