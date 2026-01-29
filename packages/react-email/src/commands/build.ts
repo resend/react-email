@@ -34,10 +34,10 @@ const rootDir = ${isInMonorepo ? `'${rootDir.replace(/\\/g, '/')}'` : 'previewSe
 const nextConfig = {
   env: {
     NEXT_PUBLIC_IS_BUILDING: 'true',
-    EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath,
-    EMAILS_DIR_ABSOLUTE_PATH: path.resolve(userProjectLocation, emailsDirRelativePath),
-    PREVIEW_SERVER_LOCATION: previewServerLocation,
-    USER_PROJECT_LOCATION: userProjectLocation
+    REACT_EMAIL_INTERNAL_EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath,
+    REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH: path.resolve(userProjectLocation, emailsDirRelativePath),
+    REACT_EMAIL_INTERNAL_PREVIEW_SERVER_LOCATION: previewServerLocation,
+    REACT_EMAIL_INTERNAL_USER_PROJECT_LOCATION: userProjectLocation
   },
   turbopack: {
     root: rootDir,
