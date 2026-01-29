@@ -15,8 +15,8 @@ catalog:
   "@types/babel__core": 7.20.5
   "@types/babel__traverse": 7.20.7
   "@types/node": 22.19.7
-  "@types/react": 19.0.10
-  "@types/react-dom": 19.0.4
+  "@types/react": 19.2.10
+  "@types/react-dom": 19.2.3
   log-symbols: 7.0.0
   next: 16.1.5
   ora: 8.0.0
