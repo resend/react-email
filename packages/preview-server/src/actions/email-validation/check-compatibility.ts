@@ -5,23 +5,20 @@ import traverse from '@babel/traverse';
 import type {
   SourceLocation,
   StylePropertyUsage,
-} from '../../utils/caniemail/ast/get-used-style-properties';
+} from '../../utils/ast/get-used-style-properties';
 import {
   convertLocationIntoObject,
   doesPropertyHaveLocation,
   getUsedStyleProperties,
-} from '../../utils/caniemail/ast/get-used-style-properties';
-import type {
-  CompatibilityStats,
-  SupportStatus,
-} from '../../utils/caniemail/get-compatibility-stats-for-entry';
-import { getCompatibilityStatsForEntry } from '../../utils/caniemail/get-compatibility-stats-for-entry';
-import { getCssFunctions } from '../../utils/caniemail/get-css-functions';
-import { getCssPropertyNames } from '../../utils/caniemail/get-css-property-names';
-import { getCssPropertyWithValue } from '../../utils/caniemail/get-css-property-with-value';
-import { getCssUnit } from '../../utils/caniemail/get-css-unit';
-import { getElementAttributes } from '../../utils/caniemail/get-element-attributes';
-import { getElementNames } from '../../utils/caniemail/get-element-names';
+} from '../../utils/ast/get-used-style-properties';
+import {
+  type CompatibilityStats,
+  type SupportStatus,
+  type EmailClient,
+  checkSupportForAttribute,
+  checkSupportForElement,
+  checkSupportForStyleDeclaration,
+} from 'react-email';
 import { snakeToCamel } from '../../utils/snake-to-camel';
 import { supportEntries } from './caniemail-data';
 
@@ -61,6 +58,23 @@ export const checkCompatibility = async (
   );
   const readableStream = new ReadableStream<CompatibilityCheckingResult>({
     async start(controller) {
+      traverse(ast, {
+        JSXOpeningElement(path) {
+          if (path.node.name.type === 'JSXIdentifier' && path.node.name.loc) {
+            const elementName = path.node.name.name;
+            const stats = checkSupportForElement(elementName, relevantEmailClients);
+            if (stats.length > 0) {
+              controller.enqueue({
+                source: getSourceCodeAt(path.node.name.loc),
+                location: convertLocationIntoObject(path.node.name.loc),
+                statsPerEmailClient: compatibilityStats.perEmailClient,
+                status: compatibilityStats.status,
+              });
+            }
+          }
+        },
+      });
+
       for (const entry of supportEntries) {
         const compatibilityStats = getCompatibilityStatsForEntry(
           entry,
@@ -91,26 +105,6 @@ export const checkCompatibility = async (
 
           let addedInsight = false;
           if (htmlEntryType === 'element') {
-            traverse(ast, {
-              JSXOpeningElement(path) {
-                if (path.node.name.type === 'JSXIdentifier' && !addedInsight) {
-                  const elementName = path.node.name.name;
-                  if (
-                    entryElements.includes(elementName) &&
-                    path.node.name.loc
-                  ) {
-                    addedInsight = true;
-                    controller.enqueue({
-                      entry,
-                      source: getSourceCodeAt(path.node.name.loc),
-                      location: convertLocationIntoObject(path.node.name.loc),
-                      statsPerEmailClient: compatibilityStats.perEmailClient,
-                      status: compatibilityStats.status,
-                    });
-                  }
-                }
-              },
-            });
           } else {
             traverse(ast, {
               JSXAttribute(path) {
