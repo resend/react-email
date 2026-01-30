@@ -5,12 +5,14 @@ This directory contains an Agent Skill for building HTML emails with React Email
 ## Structure
 
 ```
-react-email/
-├── SKILL.md                  # Main skill instructions
-└── references/
-    ├── COMPONENTS.md         # Complete component reference
-    ├── I18N.md              # Internationalization guide
-    └── PATTERNS.md          # Common email patterns and examples
+skills/
+└── react-email/
+    ├── SKILL.md              # Main skill instructions
+    └── references/
+        ├── COMPONENTS.md     # Complete component reference
+        ├── I18N.md           # Internationalization guide
+        ├── PATTERNS.md       # Common email patterns and examples
+        └── SENDING.md        # Email sending guide
 ```
 
 ## What is an Agent Skill?

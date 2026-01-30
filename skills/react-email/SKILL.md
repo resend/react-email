@@ -4,7 +4,7 @@ description: Use when creating HTML email templates with React components - welc
 license: MIT
 metadata:
   author: Resend
-  repository: https://github.com/resend/react-email
+  version: "1.1.0"
 ---
 
 # React Email
