@@ -1,5 +1,16 @@
 # @react-email/preview-server
 
+## 5.3.0-canary.2
+
+## 5.3.0-canary.1
+
+## 5.3.0-canary.0
+
+### Patch Changes
+
+- Updated dependencies [a8764ee]
+  - @react-email/tailwind@2.0.4-canary.0
+
 ## 5.2.5
 
 ## 5.2.4
