@@ -1,8 +1,8 @@
 import traverse, { type Node, type NodePath } from '@babel/traverse';
 import { inlineStyles, sanitizeStyleSheet } from '@react-email/tailwind';
 import type { StyleSheet } from 'css-tree';
-import type { AST } from '../../../actions/email-validation/check-compatibility';
-import { getTailwindMetadata } from '../tailwind/get-tailwind-metadata';
+import type { AST } from '../../actions/email-validation/check-compatibility';
+import { getTailwindMetadata } from '../caniemail/tailwind/get-tailwind-metadataata';
 
 export interface StylePropertyUsage {
   location: SourceLocation | undefined | null;

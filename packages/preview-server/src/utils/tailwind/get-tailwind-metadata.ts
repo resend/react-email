@@ -4,7 +4,7 @@ import {
   type TailwindConfig,
   type TailwindSetup,
 } from '@react-email/tailwind';
-import type { AST } from '../../../actions/email-validation/check-compatibility';
+import type { AST } from '../../actions/email-validation/check-compatibility';
 import { getTailwindConfig } from './get-tailwind-config';
 
 export const getTailwindMetadata = async (

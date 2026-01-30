@@ -4,10 +4,10 @@ import traverse from '@babel/traverse';
 import type { TailwindConfig } from '@react-email/tailwind';
 import * as esbuild from 'esbuild';
 import type { RawSourceMap } from 'source-map-js';
-import type { AST } from '../../../actions/email-validation/check-compatibility';
-import { convertStackWithSourceMap } from '../../convert-stack-with-sourcemap';
-import { isErr } from '../../result';
-import { runBundledCode } from '../../run-bundled-code';
+import type { AST } from '../../actions/email-validation/check-compatibility';
+import { convertStackWithSourceMap } from '../convert-stack-with-sourcemap';
+import { isErr } from '../result';
+import { runBundledCode } from '../run-bundled-code';
 
 export const getTailwindConfig = async (
   sourceCode: string,
