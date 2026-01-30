@@ -18,6 +18,7 @@
     "useIgnoreFile": false
   },
   "formatter": {
+    "lineEnding": "lf",
     "indentStyle": "space",
     "indentWidth": 2,
     "lineWidth": 80
