@@ -77,68 +77,46 @@ export interface SupportEntry {
   notes_by_num: Record<number, string> | null;
 }
 
-export type SupportStatus = DetailedSupportStatus['status'];
-
-export type DetailedSupportStatus =
-  | {
-    status: 'success';
-  }
-  | {
-    status: 'error';
-  }
-  | {
-    status: 'warning';
-    notes: string;
-  };
-
-type EmailClientStats = {
-  status: SupportStatus;
-  perPlatform: Partial<Record<Platform, DetailedSupportStatus>>;
-};
+export type SupportStatus = CompatibilityStats['status'];
 
 export type CompatibilityStats = {
-  status: SupportStatus;
-  perEmailClient: Partial<Record<EmailClient, EmailClientStats>>;
-};
+  client: EmailClient;
+  platform: Platform;
+} & (
+    | {
+      status: 'success';
+    }
+    | {
+      status: 'error';
+    }
+    | {
+      status: 'warning';
+      notes: string[];
+    }
+  );
 
 const noteNumbersRegex = /#(?<noteNumber>\d+)/g;
 
 export function parseCompatibilityStats(
   entry: SupportEntry,
   emailClients: EmailClient[],
-): CompatibilityStats {
-  const stats: CompatibilityStats = {
-    status: 'success',
-    perEmailClient: {},
-  };
+): CompatibilityStats[] {
+  const stats: CompatibilityStats[] = [];
   for (const emailClient of emailClients) {
     const rawStats = entry.stats[emailClient];
     if (rawStats) {
-      const emailClientStats: EmailClientStats = {
-        status: 'success',
-        perPlatform: {},
-      };
-
       for (const [platform, statusPerVersion] of Object.entries(rawStats)) {
         const latestStatus = statusPerVersion[statusPerVersion.length - 1];
-        if (latestStatus === undefined)
-          throw new Error(
-            'Cannot load in status because there are none recorded for this platform/email client',
-            {
-              cause: {
-                latestStatus,
-                statusPerVersion,
-                platform,
-                emailClient,
-                supportEntry: entry,
-              },
-            },
-          );
+        if (latestStatus === undefined) {
+          continue;
+        }
         const statusString = latestStatus[Object.keys(latestStatus)[0]!]!;
-        if (statusString.startsWith('u')) continue;
+        if (statusString.startsWith('u')) {
+          continue;
+        }
         if (statusString.startsWith('a')) {
-          const notes: string[] = [];
           noteNumbersRegex.lastIndex = 0;
+          const notes: string[] = [];
           for (const match of statusString.matchAll(noteNumbersRegex)) {
             if (match.groups?.noteNumber) {
               const { noteNumber } = match.groups;
@@ -149,31 +127,26 @@ export function parseCompatibilityStats(
               }
             }
           }
-          if (emailClientStats.status === 'success')
-            emailClientStats.status = 'warning';
-          if (stats.status === 'success') stats.status = 'warning';
-          emailClientStats.perPlatform[platform as Platform] = {
+          stats.push({
+            client: emailClient,
+            platform: platform as Platform,
             status: 'warning',
-            notes:
-              notes.length === 1
-                ? notes[0]!
-                : notes.map((note) => `- ${note}`).join('\n'),
-          };
+            notes,
+          });
         } else if (statusString.startsWith('y')) {
-          emailClientStats.perPlatform[platform as Platform] = {
+          stats.push({
+            client: emailClient,
+            platform: platform as Platform,
             status: 'success',
-          };
+          });
         } else if (statusString.startsWith('n')) {
-          if (emailClientStats.status !== 'error')
-            emailClientStats.status = 'error';
-          if (stats.status !== 'error') stats.status = 'error';
-          emailClientStats.perPlatform[platform as Platform] = {
+          stats.push({
+            client: emailClient,
+            platform: platform as Platform,
             status: 'error',
-          };
+          });
         }
       }
-
-      stats.perEmailClient[emailClient] = emailClientStats;
     }
   }
 
