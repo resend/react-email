@@ -140,10 +140,10 @@ export function ResendIntegration({
                       prevItems.map((item, index) =>
                         index === i
                           ? {
-                            ...item,
-                            status: 'succeeded',
-                            id: exportResult.data!.id,
-                          }
+                              ...item,
+                              status: 'succeeded',
+                              id: exportResult.data!.id,
+                            }
                           : item,
                       ),
                     );
