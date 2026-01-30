@@ -9,6 +9,7 @@
   "scripts": {
     "build": "tsdown",
     "build:watch": "tsdown --watch src",
+    "caniemail:fetch": "tsx ./scripts/fill-caniemail-data.mts",
     "clean": "rm -rf dist",
     "test": "vitest run",
     "test:watch": "vitest"
