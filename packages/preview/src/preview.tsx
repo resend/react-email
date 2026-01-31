@@ -6,7 +6,7 @@ export type PreviewProps = Readonly<
   }
 >;
 
-const PREVIEW_MAX_LENGTH = 150;
+const PREVIEW_MAX_LENGTH = 200;
 
 export const Preview = React.forwardRef<HTMLDivElement, PreviewProps>(
   ({ children = '', ...props }, ref) => {
