@@ -1,8 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { getPackages } from '@manypkg/get-packages';
 import logSymbols from 'log-symbols';
-import { type PackageManagerName, runScript } from 'nypm';
+import { installDependencies, type PackageManagerName, runScript } from 'nypm';
 import ora from 'ora';
 import {
   type EmailsDirectory,
@@ -18,15 +17,13 @@ interface Args {
 
 const setNextEnvironmentVariablesForBuild = async (
   emailsDirRelativePath: string,
-  appPath: string,
-  rootDirectory: string,
+  builtPreviewAppPath: string,
 ) => {
   const nextConfigContents = `
 import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
 const userProjectLocation = '${process.cwd().replace(/\\/g, '/')}';
-const previewServerLocation = '${appPath.replace(/\\/g, '/')}';
-const rootDirectory = '${rootDirectory.replace(/\\/g, '/')}';
+const previewServerLocation = '${builtPreviewAppPath.replace(/\\/g, '/')}';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
@@ -36,10 +33,7 @@ const nextConfig = {
     REACT_EMAIL_INTERNAL_PREVIEW_SERVER_LOCATION: previewServerLocation,
     REACT_EMAIL_INTERNAL_USER_PROJECT_LOCATION: userProjectLocation
   },
-  turbopack: {
-    root: rootDirectory,
-  },
-  outputFileTracingRoot: rootDirectory,
+  outputFileTracingRoot: previewServerLocation,
   serverExternalPackages: ['esbuild'],
   typescript: {
     ignoreBuildErrors: true
@@ -50,7 +44,7 @@ const nextConfig = {
 export default nextConfig`;
 
   await fs.promises.writeFile(
-    path.resolve(appPath, './next.config.mjs'),
+    path.resolve(builtPreviewAppPath, './next.config.mjs'),
     nextConfigContents,
     'utf8',
   );
@@ -90,7 +84,7 @@ const getEmailSlugsFromEmailDirectory = (
 // after build
 const forceSSGForEmailPreviews = async (
   emailsDirPath: string,
-  appPath: string,
+  builtPreviewAppPath: string,
 ) => {
   const emailDirectoryMetadata = (await getEmailsDirectoryMetadata(
     emailsDirPath,
@@ -110,13 +104,15 @@ const forceSSGForEmailPreviews = async (
       'utf8',
     );
   };
-  await removeForceDynamic(path.resolve(appPath, './src/app/layout.tsx'));
   await removeForceDynamic(
-    path.resolve(appPath, './src/app/preview/[...slug]/page.tsx'),
+    path.resolve(builtPreviewAppPath, './src/app/layout.tsx'),
+  );
+  await removeForceDynamic(
+    path.resolve(builtPreviewAppPath, './src/app/preview/[...slug]/page.tsx'),
   );
 
   await fs.promises.appendFile(
-    path.resolve(appPath, './src/app/preview/[...slug]/page.tsx'),
+    path.resolve(builtPreviewAppPath, './src/app/preview/[...slug]/page.tsx'),
     `
 
 export function generateStaticParams() { 
@@ -128,8 +124,8 @@ export function generateStaticParams() {
   );
 };
 
-const updatePackageJson = async (appPath: string) => {
-  const packageJsonPath = path.resolve(appPath, './package.json');
+const updatePackageJson = async (builtPreviewAppPath: string) => {
+  const packageJsonPath = path.resolve(builtPreviewAppPath, './package.json');
   const packageJson = JSON.parse(
     await fs.promises.readFile(packageJsonPath, 'utf8'),
   ) as {
@@ -138,11 +134,22 @@ const updatePackageJson = async (appPath: string) => {
     dependencies: Record<string, string>;
     devDependencies: Record<string, string>;
   };
+  // Turbopack has some errors with the imports in @react-email/tailwind
   packageJson.scripts.build =
     'cross-env NODE_OPTIONS="--experimental-vm-modules --disable-warning=ExperimentalWarning" next build';
   packageJson.scripts.start =
     'cross-env NODE_OPTIONS="--experimental-vm-modules --disable-warning=ExperimentalWarning" next start';
+  delete packageJson.scripts.postbuild;
 
+  packageJson.name = 'preview-server';
+
+  for (const [dependency, version] of Object.entries(
+    packageJson.devDependencies,
+  )) {
+    packageJson.devDependencies[dependency] = version.replace('workspace:', '');
+  }
+
+  delete packageJson.devDependencies['@react-email/components'];
   delete packageJson.scripts.prepare;
 
   await fs.promises.writeFile(
@@ -158,7 +165,6 @@ export const build = async ({
 }: Args) => {
   try {
     const previewServerLocation = await getPreviewServerLocation();
-    const { rootDir: rootDirectory } = await getPackages(process.cwd());
 
     const spinner = ora({
       text: 'Starting build process...',
@@ -168,10 +174,6 @@ export const build = async ({
 
     spinner.text = `Checking if ${emailsDirRelativePath} folder exists`;
     if (!fs.existsSync(emailsDirRelativePath)) {
-      spinner.stopAndPersist({
-        symbol: logSymbols.error,
-        text: `Directory does not exist: ${emailsDirRelativePath}`,
-      });
       process.exit(1);
     }
 
@@ -185,31 +187,19 @@ export const build = async ({
       await fs.promises.rm(builtPreviewAppPath, { recursive: true });
     }
 
-    spinner.text = 'Copying UI source to `.react-email`';
+    spinner.text = 'Copying preview app from CLI to `.react-email`';
     await fs.promises.cp(previewServerLocation, builtPreviewAppPath, {
       recursive: true,
       filter: (source: string) => {
-        const relativeSource = path.relative(previewServerLocation, source);
+        // do not copy the CLI files
         return (
-          !/\.next/.test(relativeSource) &&
-          !/\.turbo/.test(relativeSource) &&
-          !/node_modules\/.bin/.test(relativeSource)
+          !/(\/|\\)cli(\/|\\)?/.test(source) &&
+          !/(\/|\\)\.next(\/|\\)?/.test(source) &&
+          !/(\/|\\)\.turbo(\/|\\)?/.test(source) &&
+          !/(\/|\\)node_modules(\/|\\)?$/.test(source)
         );
       },
     });
-
-    await fs.promises.cp(
-      path.resolve(previewServerLocation, 'node_modules/.bin'),
-      path.resolve(builtPreviewAppPath, 'node_modules/.bin'),
-      {
-        recursive: true,
-        // With this enabled, means the symlinks remain relative, which is
-        // what we want for copying it over. If we don't enable this,
-        // it resolves the symlink to the original location on disk,
-        // which ends up causing unexpected errors.
-        verbatimSymlinks: true,
-      },
-    );
 
     if (fs.existsSync(staticPath)) {
       spinner.text =
@@ -228,7 +218,6 @@ export const build = async ({
     await setNextEnvironmentVariablesForBuild(
       emailsDirRelativePath,
       builtPreviewAppPath,
-      rootDirectory,
     );
 
     spinner.text = 'Setting server side generation for the email preview pages';
@@ -236,6 +225,13 @@ export const build = async ({
 
     spinner.text = "Updating package.json's build and start scripts";
     await updatePackageJson(builtPreviewAppPath);
+
+    spinner.text = 'Installing dependencies on `.react-email`';
+    await installDependencies({
+      cwd: builtPreviewAppPath,
+      silent: true,
+      packageManager,
+    });
 
     spinner.stopAndPersist({
       text: 'Successfully prepared `.react-email` for `next build`',
