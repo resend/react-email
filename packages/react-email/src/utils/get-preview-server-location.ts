@@ -5,6 +5,7 @@ import path from 'node:path';
 import url from 'node:url';
 import { getPackages } from '@manypkg/get-packages';
 import logSymbols from 'log-symbols';
+import { installDependencies } from 'nypm';
 import ora from 'ora';
 import { extract } from 'tar';
 import { packageJson } from './packageJson.js';
@@ -65,9 +66,10 @@ export async function installPreviewServer(directory: string, version: string) {
       });
     }
 
-    child_process.execSync('npm install --production=false --silent', {
+    await installDependencies({
+      packageManager: 'npm',
       cwd: directory,
-      stdio: 'ignore',
+      silent: true,
     });
   } catch (exception) {
     spinner.stopAndPersist({
