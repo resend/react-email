@@ -13,7 +13,7 @@
   },
   "main": "./index.mjs",
   "dependencies": {
-    "next": "16.1.5"
+    "next": "16.2.0-canary.23"
   },
   "devDependencies": {
     "@babel/core": "7.26.10",
@@ -60,6 +60,7 @@
     "framer-motion": "12.23.22",
     "log-symbols": "4.1.0",
     "module-punycode": "npm:punycode@2.3.1",
+    "next": "16.2.0-canary.23",
     "next-safe-action": "8.0.11",
     "node-html-parser": "7.0.2",
     "ora": "5.4.1",
