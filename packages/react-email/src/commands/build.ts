@@ -1,6 +1,5 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { getPackages } from '@manypkg/get-packages';
 import logSymbols from 'log-symbols';
 import { type PackageManagerName, runScript } from 'nypm';
 import ora from 'ora';
@@ -8,10 +7,7 @@ import {
   type EmailsDirectory,
   getEmailsDirectoryMetadata,
 } from '../utils/get-emails-directory-metadata.js';
-import {
-  getPreviewServerLocation,
-  isInMonorepo,
-} from '../utils/get-preview-server-location.js';
+import { getPreviewServerLocation } from '../utils/get-preview-server-location.js';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping.js';
 
 interface Args {
@@ -23,13 +19,11 @@ const setNextEnvironmentVariablesForBuild = async (
   emailsDirRelativePath: string,
   appPath: string,
 ) => {
-  const { rootDir } = await getPackages(appPath);
   const nextConfigContents = `
 import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
 const userProjectLocation = '${process.cwd().replace(/\\/g, '/')}';
 const previewServerLocation = '${appPath.replace(/\\/g, '/')}';
-const rootDir = ${isInMonorepo ? `'${rootDir.replace(/\\/g, '/')}'` : 'previewServerLocation'};
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
@@ -40,9 +34,9 @@ const nextConfig = {
     REACT_EMAIL_INTERNAL_USER_PROJECT_LOCATION: userProjectLocation
   },
   turbopack: {
-    root: rootDir,
+    root: previewServerLocation,
   },
-  outputFileTracingRoot: rootDir,
+  outputFileTracingRoot: previewServerLocation,
   serverExternalPackages: ['esbuild'],
   typescript: {
     ignoreBuildErrors: true
