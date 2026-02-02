@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { getPackages } from '@manypkg/get-packages';
 import logSymbols from 'log-symbols';
 import { type PackageManagerName, runScript } from 'nypm';
 import ora from 'ora';
@@ -18,12 +19,14 @@ interface Args {
 const setNextEnvironmentVariablesForBuild = async (
   emailsDirRelativePath: string,
   appPath: string,
+  rootDirectory: string,
 ) => {
   const nextConfigContents = `
 import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
 const userProjectLocation = '${process.cwd().replace(/\\/g, '/')}';
 const previewServerLocation = '${appPath.replace(/\\/g, '/')}';
+const rootDirectory = '${rootDirectory.replace(/\\/g, '/')}';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
@@ -34,9 +37,9 @@ const nextConfig = {
     REACT_EMAIL_INTERNAL_USER_PROJECT_LOCATION: userProjectLocation
   },
   turbopack: {
-    root: previewServerLocation,
+    root: rootDirectory,
   },
-  outputFileTracingRoot: previewServerLocation,
+  outputFileTracingRoot: rootDirectory,
   serverExternalPackages: ['esbuild'],
   typescript: {
     ignoreBuildErrors: true
@@ -67,7 +70,7 @@ const getEmailSlugsFromEmailDirectory = (
       path
         .join(directoryPathRelativeToEmailsDirectory, filename)
         .split(path.sep)
-        // Sometimes it gets empty segments due to trailing slashes
+        // sometimes it gets empty segments due to trailing slashes
         .filter((segment) => segment.length > 0),
     );
   }
@@ -155,6 +158,7 @@ export const build = async ({
 }: Args) => {
   try {
     const previewServerLocation = await getPreviewServerLocation();
+    const { rootDir: rootDirectory } = await getPackages(process.cwd());
 
     const spinner = ora({
       text: 'Starting build process...',
@@ -224,6 +228,7 @@ export const build = async ({
     await setNextEnvironmentVariablesForBuild(
       emailsDirRelativePath,
       builtPreviewAppPath,
+      rootDirectory,
     );
 
     spinner.text = 'Setting server side generation for the email preview pages';
