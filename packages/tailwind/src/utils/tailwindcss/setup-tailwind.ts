@@ -17,7 +17,10 @@ interface SetupTailwindProps {
   config?: TailwindConfig;
   cssConfigs?: CSSConfigs;
 }
-export async function setupTailwind({ config, cssConfigs }: SetupTailwindProps) {
+export async function setupTailwind({
+  config,
+  cssConfigs,
+}: SetupTailwindProps) {
   const baseCss = `
 @layer theme, base, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);

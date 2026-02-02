@@ -108,7 +108,7 @@ export function Tailwind({ children, config, theme, utility }: TailwindProps) {
     cssConfigs: {
       theme,
       utility,
-    }
+    },
   };
   const tailwindSetup = useSuspensedPromise(
     () => setupTailwind(twConfigData),

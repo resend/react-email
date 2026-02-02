@@ -1168,8 +1168,14 @@ describe('Tailwind component', () => {
       `;
 
       const actualOutput = await render(
-        <Tailwind config={customConfig} theme={customTheme} utility={customUtilities}>
-          <div className="bg-primary text-secondary special-border">All three props</div>
+        <Tailwind
+          config={customConfig}
+          theme={customTheme}
+          utility={customUtilities}
+        >
+          <div className="bg-primary text-secondary special-border">
+            All three props
+          </div>
         </Tailwind>,
       ).then(pretty);
 
