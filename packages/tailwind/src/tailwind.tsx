@@ -10,12 +10,8 @@ import { mapReactTree } from './utils/react/map-react-tree';
 import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element-with-inlined-styles';
 import { setupTailwind } from './utils/tailwindcss/setup-tailwind';
 
+export type CSSString = string;
 export type TailwindConfig = Omit<Config, 'content'>;
-
-export interface TailwindProps {
-  children: React.ReactNode;
-  config?: TailwindConfig;
-}
 
 export interface EmailElementProps {
   children?: React.ReactNode;
@@ -23,6 +19,10 @@ export interface EmailElementProps {
   style?: React.CSSProperties;
 }
 
+/**
+ * The pixel based preset is the preset recommended to use for emails.
+ * It is used to style the email with a pixel based system.
+ */
 export const pixelBasedPreset: TailwindConfig = {
   theme: {
     extend: {
@@ -82,15 +82,40 @@ export const pixelBasedPreset: TailwindConfig = {
   },
 };
 
-export function Tailwind({ children, config }: TailwindProps) {
-  const tailwindSetup = useSuspensedPromise(
-    () => setupTailwind(config ?? {}),
-    JSON.stringify(config, (_key, value) =>
-      typeof value === 'function' ? value.toString() : value,
-    ),
+/**
+ * Stringifies the data to a JSON string that is safe to use.
+ * It will replace functions with their string representation.
+ */
+function JSONStringify(data: object) {
+  return JSON.stringify(data, (_key, value) =>
+    typeof value === 'function' ? value.toString() : value,
   );
-  let classesUsed: string[] = [];
+}
 
+export interface TailwindProps {
+  children: React.ReactNode;
+  /** Tailwind config object. Used in Tailwind v3. */
+  config?: TailwindConfig;
+  /** Tailwind theme in CSS. Used in Tailwind v4. */
+  theme?: CSSString;
+  /** Tailwind utilities in CSS. Used in Tailwind v4. */
+  utility?: CSSString;
+}
+
+export function Tailwind({ children, config, theme, utility }: TailwindProps) {
+  const twConfigData = {
+    config: config ?? {},
+    cssConfigs: {
+      theme: theme ?? '',
+      utility: utility ?? '',
+    }
+  };
+  const tailwindSetup = useSuspensedPromise(
+    () => setupTailwind(twConfigData),
+    JSONStringify(twConfigData),
+  );
+
+  let classesUsed: string[] = [];
   let mappedChildren: React.ReactNode = mapReactTree(children, (node) => {
     if (React.isValidElement<EmailElementProps>(node)) {
       if (node.props.className) {
