@@ -27,35 +27,36 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
-    "@babel/parser": "^7.27.0",
-    "@babel/traverse": "^7.27.0",
+    "@babel/parser": "catalog:",
+    "@babel/traverse": "catalog:",
     "chokidar": "^4.0.3",
     "commander": "^13.0.0",
     "conf": "^15.0.2",
     "debounce": "^2.0.0",
     "esbuild": "^0.25.0",
     "glob": "^11.0.0",
-    "jiti": "^2.4.2",
-    "log-symbols": "^7.0.0",
+    "jiti": "2.4.2",
+    "log-symbols": "catalog:",
     "mime-types": "^3.0.0",
     "normalize-path": "^3.0.0",
-    "ora": "^8.0.0",
-    "prompts": "^2.4.2",
+    "nypm": "0.6.2",
+    "ora": "catalog:",
+    "prompts": "2.4.2",
     "socket.io": "^4.8.1",
     "tar": "^7.5.7",
     "tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {
     "@react-email/components": "workspace:*",
-    "@types/babel__core": "7.20.5",
-    "@types/babel__traverse": "7.20.7",
+    "@types/babel__core": "catalog:",
+    "@types/babel__traverse": "catalog:",
     "@types/mime-types": "2.1.4",
     "@types/prompts": "2.4.9",
-    "next": "16.1.5",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "shlex": "3.0.0",
     "tsx": "4.21.0",
-    "typescript": "5.8.3"
+    "typescript": "catalog:"
   }
 }

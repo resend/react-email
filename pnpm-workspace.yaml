@@ -6,4 +6,26 @@ packages:
   - packages/react-email/dev
   - playground
 
+ignoredBuiltDependencies:
+  - sharp
+
+catalog:
+  "@babel/parser": 7.27.0
+  "@babel/traverse": 7.27.0
+  "@types/babel__core": 7.20.5
+  "@types/babel__traverse": 7.20.7
+  "@types/node": 22.19.7
+  "@types/react": 19.2.10
+  "@types/react-dom": 19.2.3
+  log-symbols: 7.0.0
+  next: 16.1.5
+  ora: 8.0.0
+  react-dom: 19.0.0
+  react: 19.0.0
+  tailwindcss: 4.1.18
+  typescript: 5.8.3
+  yalc: 1.0.0-pre.53
+  zod: 4.1.12
+
+
 autoInstallPeers: true
