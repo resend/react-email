@@ -52,15 +52,9 @@ This is most likely not an issue with the preview server. Maybe there was a typo
     );
   }
 
-  let emailPath: string;
-  try {
-    emailPath = await getEmailPathFromSlug(slug);
-  } catch (exception) {
-    if (exception instanceof Error) {
-      console.warn(exception.message);
-      redirect('/');
-    }
-    throw exception;
+  const emailPath = await getEmailPathFromSlug(slug);
+  if (!emailPath) {
+    redirect('/');
   }
 
   const serverEmailRenderingResult = await renderEmailByPath(emailPath);
