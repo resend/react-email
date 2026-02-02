@@ -112,6 +112,11 @@ export function ResendIntegration({
 
                 try {
                   const emailPath = await getEmailPathFromSlug(emailSlug);
+                  if (!emailPath) {
+                    throw new Error(
+                      `Could not find email template that should be at ${emailSlug}`,
+                    );
+                  }
                   const renderResult = await renderEmailByPath(emailPath);
 
                   if ('error' in renderResult) {
