@@ -35,10 +35,5 @@
     "tsconfig": "0.0.0",
     "playground": "0.0.14"
   },
-  "changesets": [
-    "itchy-towns-stop",
-    "plenty-cities-tan",
-    "rare-meals-lie",
-    "spicy-shirts-unite"
-  ]
+  "changesets": ["rare-meals-lie"]
 }
