@@ -9,16 +9,15 @@ import utilitiesCss from './tailwind-stylesheets/utilities';
 export type TailwindSetup = Awaited<ReturnType<typeof setupTailwind>>;
 
 interface CSSConfigs {
-  theme: CSSString;
-  utility: CSSString;
+  theme?: CSSString;
+  utility?: CSSString;
 }
 
 interface SetupTailwindProps {
-  config: TailwindConfig;
-  cssConfigs: CSSConfigs;
+  config?: TailwindConfig;
+  cssConfigs?: CSSConfigs;
 }
 export async function setupTailwind({ config, cssConfigs }: SetupTailwindProps) {
-
   const baseCss = `
 @layer theme, base, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
@@ -34,7 +33,7 @@ export async function setupTailwind({ config, cssConfigs }: SetupTailwindProps) 
         return {
           path: id,
           base: base,
-          module: config,
+          module: config ?? {},
         };
       }
 
@@ -80,7 +79,7 @@ export async function setupTailwind({ config, cssConfigs }: SetupTailwindProps) 
         return {
           base,
           path: id,
-          content: cssConfigs.theme,
+          content: cssConfigs?.theme ?? '',
         };
       }
 
@@ -88,7 +87,7 @@ export async function setupTailwind({ config, cssConfigs }: SetupTailwindProps) 
         return {
           base,
           path: id,
-          content: cssConfigs.utility,
+          content: cssConfigs?.utility ?? '',
         };
       }
 

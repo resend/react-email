@@ -104,10 +104,10 @@ export interface TailwindProps {
 
 export function Tailwind({ children, config, theme, utility }: TailwindProps) {
   const twConfigData = {
-    config: config ?? {},
+    config,
     cssConfigs: {
-      theme: theme ?? '',
-      utility: utility ?? '',
+      theme,
+      utility,
     }
   };
   const tailwindSetup = useSuspensedPromise(

@@ -2,7 +2,7 @@ import { generate } from 'css-tree';
 import { setupTailwind } from './setup-tailwind';
 
 test('setupTailwind() and addUtilities()', async () => {
-  const { addUtilities, getStyleSheet } = await setupTailwind({});
+  const { addUtilities, getStyleSheet } = await setupTailwind({ config: {} });
 
   addUtilities(['text-red-500', 'sm:bg-blue-300', 'bg-slate-900']);
 
