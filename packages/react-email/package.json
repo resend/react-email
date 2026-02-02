@@ -47,6 +47,13 @@
   "dependencies": {
     "@babel/parser": "^7.27.0",
     "@babel/traverse": "^7.27.0",
+    "@tiptap/core": "3.18.0",
+    "@tiptap/extension-color": "3.18.0",
+    "@tiptap/extension-highlight": "3.18.0",
+    "@tiptap/extension-text-style": "3.18.0",
+    "@tiptap/extension-underline": "3.18.0",
+    "@tiptap/extensions": "3.18.0",
+    "@tiptap/starter-kit": "3.18.0",
     "chokidar": "^4.0.3",
     "commander": "^13.0.0",
     "conf": "^15.0.2",
@@ -61,6 +68,7 @@
     "ora": "^8.0.0",
     "prompts": "2.4.2",
     "socket.io": "^4.8.1",
+    "tiptap-markdown": "0.9.0",
     "tsconfig-paths": "4.2.0"
   },
   "devDependencies": {
