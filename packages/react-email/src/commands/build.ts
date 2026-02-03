@@ -1,5 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { getPackages } from '@manypkg/get-packages';
 import logSymbols from 'log-symbols';
 import { installDependencies, type PackageManagerName, runScript } from 'nypm';
 import ora from 'ora';
@@ -15,15 +17,24 @@ interface Args {
   packageManager: PackageManagerName;
 }
 
+const dirname = path.dirname(fileURLToPath(import.meta.url));
+const isInReactEmailMonorepo = !dirname.includes('node_modules');
+
 const setNextEnvironmentVariablesForBuild = async (
   emailsDirRelativePath: string,
   builtPreviewAppPath: string,
+  usersProjectLocation: string,
 ) => {
+  let rootDir = 'previewServerLocation';
+  if (isInReactEmailMonorepo) {
+    rootDir = `'${await getPackages(usersProjectLocation).then((p) => p.rootDir.replaceAll('\\', '/'))}'`;
+  }
   const nextConfigContents = `
 import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
-const userProjectLocation = '${process.cwd().replace(/\\/g, '/')}';
-const previewServerLocation = '${builtPreviewAppPath.replace(/\\/g, '/')}';
+const userProjectLocation = '${process.cwd().replaceAll('\\', '/')}';
+const previewServerLocation = '${builtPreviewAppPath.replaceAll('\\', '/')}';
+const rootDir = ${rootDir};
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
@@ -33,7 +44,10 @@ const nextConfig = {
     REACT_EMAIL_INTERNAL_PREVIEW_SERVER_LOCATION: previewServerLocation,
     REACT_EMAIL_INTERNAL_USER_PROJECT_LOCATION: userProjectLocation
   },
-  outputFileTracingRoot: previewServerLocation,
+  turbopack: {
+    root: rootDir,
+  },
+  outputFileTracingRoot: rootDir,
   serverExternalPackages: ['esbuild'],
   typescript: {
     ignoreBuildErrors: true
@@ -164,6 +178,7 @@ export const build = async ({
   packageManager,
 }: Args) => {
   try {
+    const usersProjectLocation = process.cwd();
     const previewServerLocation = await getPreviewServerLocation();
 
     const spinner = ora({
@@ -177,10 +192,13 @@ export const build = async ({
       process.exit(1);
     }
 
-    const emailsDirPath = path.join(process.cwd(), emailsDirRelativePath);
+    const emailsDirPath = path.join(
+      usersProjectLocation,
+      emailsDirRelativePath,
+    );
     const staticPath = path.join(emailsDirPath, 'static');
 
-    const builtPreviewAppPath = path.join(process.cwd(), '.react-email');
+    const builtPreviewAppPath = path.join(usersProjectLocation, '.react-email');
 
     if (fs.existsSync(builtPreviewAppPath)) {
       spinner.text = 'Deleting pre-existing `.react-email` folder';
@@ -191,12 +209,11 @@ export const build = async ({
     await fs.promises.cp(previewServerLocation, builtPreviewAppPath, {
       recursive: true,
       filter: (source: string) => {
-        // do not copy the CLI files
+        const relativeSource = path.relative(previewServerLocation, source);
         return (
-          !/(\/|\\)cli(\/|\\)?/.test(source) &&
-          !/(\/|\\)\.next(\/|\\)?/.test(source) &&
-          !/(\/|\\)\.turbo(\/|\\)?/.test(source) &&
-          !/(\/|\\)node_modules(\/|\\)?$/.test(source)
+          !/\.next/.test(relativeSource) &&
+          !/\.turbo/.test(relativeSource) &&
+          (isInReactEmailMonorepo || !/node_modules/.test(relativeSource))
         );
       },
     });
@@ -218,6 +235,7 @@ export const build = async ({
     await setNextEnvironmentVariablesForBuild(
       emailsDirRelativePath,
       builtPreviewAppPath,
+      usersProjectLocation,
     );
 
     spinner.text = 'Setting server side generation for the email preview pages';
@@ -226,12 +244,14 @@ export const build = async ({
     spinner.text = "Updating package.json's build and start scripts";
     await updatePackageJson(builtPreviewAppPath);
 
-    spinner.text = 'Installing dependencies on `.react-email`';
-    await installDependencies({
-      cwd: builtPreviewAppPath,
-      silent: true,
-      packageManager,
-    });
+    if (!isInReactEmailMonorepo) {
+      spinner.text = 'Installing dependencies on `.react-email`';
+      await installDependencies({
+        cwd: builtPreviewAppPath,
+        silent: true,
+        packageManager,
+      });
+    }
 
     spinner.stopAndPersist({
       text: 'Successfully prepared `.react-email` for `next build`',
