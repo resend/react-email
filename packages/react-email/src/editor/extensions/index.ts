@@ -1,36 +1,25 @@
 import type { Extensions } from '@tiptap/core';
 import { Color } from '@tiptap/extension-color';
-import Highlight from '@tiptap/extension-highlight';
 import { TextStyle } from '@tiptap/extension-text-style';
 import TiptapUnderline from '@tiptap/extension-underline';
-import { TrailingNode } from '@tiptap/extensions';
 import StarterKit, { type StarterKitOptions } from '@tiptap/starter-kit';
-import { Markdown } from 'tiptap-markdown';
 import { AlignmentAttribute } from './alignment-attribute.js';
 import { Body } from './body.js';
 import { Bold } from './bold.js';
 import { ClassAttribute } from './class-attribute.js';
 import { CodeBlockPrism } from './code-block.js';
-import { Html } from './custom-html.js';
 import { Div } from './div.js';
 import { Divider } from './divider.js';
 import { DragAndDrop } from './drag-and-drop.js';
 import { EditorButton } from './editor-button.js';
-import { Footer } from './footer.js';
 import { Heading } from './heading.js';
-import { MaxNesting } from './limit-nested.js';
 import { Link } from './link.js';
 import { placeholder } from './placeholder.js';
-import { PreservedStyle } from './preserved-style.js';
 import { PreviewText } from './preview-text.js';
 import { ResizableImage } from './resizable-image.js';
 import { Section } from './section-node.js';
-import { SocialLinks } from './social-links.js';
 import { StyleAttribute } from './style-attribute.js';
 import { Sup } from './sup.js';
-import { Table, TableCell, TableHeader, TableRow } from './table.js';
-import { EditorTwitter } from './twitter.js';
-import { EditorYouTube } from './youtube.js';
 
 interface Options {
   starterKit?: Partial<StarterKitOptions> | undefined;
@@ -113,11 +102,7 @@ export function emailTipTapEditorExtensions(options?: Options): Extensions {
     Color,
     Body,
     Div,
-    Html,
     EditorButton,
-    EditorYouTube,
-    EditorTwitter,
-    TrailingNode,
     Section,
     DragAndDrop,
     AlignmentAttribute.configure({

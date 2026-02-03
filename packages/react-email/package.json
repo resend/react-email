@@ -66,7 +66,7 @@
     "@tiptap/react": "^3.19.0",
     "@tiptap/starter-kit": "^3.19.0",
     "@tiptap/suggestion": "^3.19.0",
-    "@uiw/react-codemirror": "4.25.4",
+    "@uiw/react-codemirror": "^4.25.4",
     "chokidar": "^4.0.3",
     "commander": "^13.0.0",
     "conf": "^15.0.2",

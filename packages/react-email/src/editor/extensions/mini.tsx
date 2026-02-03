@@ -151,8 +151,6 @@ export const coreMiniExtensions = ({
   }),
   Footer,
   SocialLinks,
-  TrailingNode,
-  EditorYouTube,
   EditorButton,
   Section,
   DragAndDrop,
