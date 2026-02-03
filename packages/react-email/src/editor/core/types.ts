@@ -4,10 +4,7 @@
  */
 
 import type { Content, Editor as EditorClass } from '@tiptap/core';
-import type {
-  ContextProperties,
-  NodeClickedEvent,
-} from '../styles.js';
+import type { ContextProperties, NodeClickedEvent } from '../styles.js';
 
 // Re-export external types for convenience
 export type { Content, EditorClass };

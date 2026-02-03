@@ -53,7 +53,7 @@ export function mergeCssJs(original: CssJs, newCssJs: CssJs) {
     const keyType = key as keyof CssJs;
 
     if (
-      merged.hasOwnProperty(key) &&
+      Object.hasOwn(merged, key) &&
       typeof merged[keyType] === 'object' &&
       !Array.isArray(merged[keyType])
     ) {

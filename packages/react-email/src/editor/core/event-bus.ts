@@ -1,8 +1,8 @@
-import type { NodeClickedEvent } from '../styles.js';
 // TODO: Architecture violation - core imports from plugins.
 // Fix: Move CustomVariable type to a shared types location (e.g., core/types.ts or @/types/editor/)
 // since it's used by the event bus which is core infrastructure.
 import type { CustomVariable } from '../plugins/variables/extension.js';
+import type { NodeClickedEvent } from '../styles.js';
 
 export type EditorEventMap = {
   'node-clicked': NodeClickedEvent;

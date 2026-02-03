@@ -670,7 +670,7 @@ export const composeReactEmail = async ({
             <React.Fragment key={index}>
               {`{{{#each ${list}}}}`}
               {parseContent(node.content)}
-              {`{{{/each}}}`}
+              {'{{{/each}}}'}
             </React.Fragment>
           );
         }
@@ -682,7 +682,7 @@ export const composeReactEmail = async ({
 
           const negate = Boolean(node.attrs?.negate);
           const open = negate ? `{{{#unless ${test}}}}` : `{{{#if ${test}}}}`;
-          const close = negate ? `{{{/unless}}}` : `{{{/if}}}`;
+          const close = negate ? '{{{/unless}}}' : '{{{/if}}}';
           return (
             <React.Fragment key={index}>
               {open}

@@ -111,19 +111,9 @@ export function emailTipTapEditorExtensions(options?: Options): Extensions {
     TiptapUnderline,
     TextStyle,
     Color,
-    Markdown.configure({
-      html: false,
-      transformCopiedText: false,
-      transformPastedText: true,
-    }),
-    Table,
-    TableRow,
-    TableCell,
-    TableHeader,
     Body,
     Div,
     Html,
-    SocialLinks,
     EditorButton,
     EditorYouTube,
     EditorTwitter,
@@ -197,10 +187,6 @@ export function emailTipTapEditorExtensions(options?: Options): Extensions {
         'tableHeader',
         'link',
       ],
-    }),
-    MaxNesting.configure({
-      maxDepth: 50,
-      nodeTypes: ['section', 'bulletList', 'orderedList'],
     }),
   ];
 }
