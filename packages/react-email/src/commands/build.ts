@@ -227,7 +227,7 @@ export const build = async ({
     spinner.text = "Updating package.json's build and start scripts";
     await updatePackageJson(builtPreviewAppPath);
 
-    if (isInReactEmailMonorepo) {
+    if (!isInReactEmailMonorepo) {
       spinner.text = 'Installing dependencies on `.react-email`';
       await installDependencies({
         cwd: builtPreviewAppPath,
