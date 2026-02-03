@@ -111,16 +111,11 @@ export function emailTipTapEditorExtensions(options?: Options): Extensions {
     TiptapUnderline,
     TextStyle,
     Color,
-    PreservedStyle,
-    Highlight.configure({
-      multicolor: true,
-    }),
     Markdown.configure({
       html: false,
       transformCopiedText: false,
       transformPastedText: true,
     }),
-    Footer,
     Table,
     TableRow,
     TableCell,

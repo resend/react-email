@@ -12,7 +12,7 @@ import * as Dialog from '@/ui/dialog';
 import { vesperInit } from '@/utils/codemirror-theme';
 // NOTE: Extensions layer imports from plugins and ui layers - this is acceptable.
 import { useAgnosticSelf } from '../plugins/collaboration/liveblocks';
-import { EditorDialog } from '../ui/dialogs/editor-dialog';
+import { EditorDialog } from '../ui/dialogs/editor-dialog.js';
 import { elementFromString } from './custom-html-utils';
 
 type HtmlNodeProps = {

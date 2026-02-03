@@ -3,7 +3,7 @@ import {
   COMMON_HTML_ATTRIBUTES,
   createStandardAttributes,
   LAYOUT_ATTRIBUTES,
-} from './attribute-helpers';
+} from './attribute-helpers.js';
 
 export interface DivOptions {
   HTMLAttributes: Record<string, any>;

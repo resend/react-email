@@ -7,7 +7,7 @@ import {
   TABLE_ATTRIBUTES,
   TABLE_CELL_ATTRIBUTES,
   TABLE_HEADER_ATTRIBUTES,
-} from './attribute-helpers';
+} from './attribute-helpers.js';
 
 declare module '@tiptap/core' {
   interface NodeConfig<Options, Storage> {

@@ -1,6 +1,6 @@
 import { mergeAttributes, Node } from '@tiptap/core';
 import { ReactNodeViewRenderer } from '@tiptap/react';
-import { HtmlNode } from './react-html-node';
+import { HtmlNode } from './react-html-node.js';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
