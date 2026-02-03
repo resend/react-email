@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { getPackages } from '@manypkg/get-packages';
 import logSymbols from 'log-symbols';
 import { installDependencies, type PackageManagerName, runScript } from 'nypm';
 import ora from 'ora';
@@ -20,12 +21,18 @@ const isInReactEmailMonorepo = !import.meta.dirname.includes('node_modules');
 const setNextEnvironmentVariablesForBuild = async (
   emailsDirRelativePath: string,
   builtPreviewAppPath: string,
+  usersProjectLocation: string,
 ) => {
+  let rootDir = 'previewServerLocation';
+  if (isInReactEmailMonorepo) {
+    rootDir = `'${await getPackages(usersProjectLocation).then((p) => p.rootDir.replaceAll('\\', '/'))}'`;
+  }
   const nextConfigContents = `
 import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
-const userProjectLocation = '${process.cwd().replace(/\\/g, '/')}';
-const previewServerLocation = '${builtPreviewAppPath.replace(/\\/g, '/')}';
+const userProjectLocation = '${process.cwd().replaceAll('\\', '/')}';
+const previewServerLocation = '${builtPreviewAppPath.replaceAll('\\', '/')}';
+const rootDir = ${rootDir};
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
@@ -35,7 +42,10 @@ const nextConfig = {
     REACT_EMAIL_INTERNAL_PREVIEW_SERVER_LOCATION: previewServerLocation,
     REACT_EMAIL_INTERNAL_USER_PROJECT_LOCATION: userProjectLocation
   },
-  outputFileTracingRoot: previewServerLocation,
+  turbopack: {
+    root: rootDir,
+  },
+  outputFileTracingRoot: rootDir,
   serverExternalPackages: ['esbuild'],
   typescript: {
     ignoreBuildErrors: true
@@ -166,6 +176,7 @@ export const build = async ({
   packageManager,
 }: Args) => {
   try {
+    const usersProjectLocation = process.cwd();
     const previewServerLocation = await getPreviewServerLocation();
 
     const spinner = ora({
@@ -179,10 +190,13 @@ export const build = async ({
       process.exit(1);
     }
 
-    const emailsDirPath = path.join(process.cwd(), emailsDirRelativePath);
+    const emailsDirPath = path.join(
+      usersProjectLocation,
+      emailsDirRelativePath,
+    );
     const staticPath = path.join(emailsDirPath, 'static');
 
-    const builtPreviewAppPath = path.join(process.cwd(), '.react-email');
+    const builtPreviewAppPath = path.join(usersProjectLocation, '.react-email');
 
     if (fs.existsSync(builtPreviewAppPath)) {
       spinner.text = 'Deleting pre-existing `.react-email` folder';
@@ -219,6 +233,7 @@ export const build = async ({
     await setNextEnvironmentVariablesForBuild(
       emailsDirRelativePath,
       builtPreviewAppPath,
+      usersProjectLocation,
     );
 
     spinner.text = 'Setting server side generation for the email preview pages';
