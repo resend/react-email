@@ -1,6 +1,6 @@
 {
   "name": "playground",
-  "version": "0.0.15-canary.0",
+  "version": "0.0.15",
   "private": true,
   "scripts": {
     "dev": "email dev",
