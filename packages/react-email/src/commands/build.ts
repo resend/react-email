@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { getPackages } from '@manypkg/get-packages';
 import logSymbols from 'log-symbols';
 import { installDependencies, type PackageManagerName, runScript } from 'nypm';
@@ -16,7 +17,8 @@ interface Args {
   packageManager: PackageManagerName;
 }
 
-const isInReactEmailMonorepo = !import.meta.dirname.includes('node_modules');
+const dirname = path.dirname(fileURLToPath(import.meta.url));
+const isInReactEmailMonorepo = !dirname.includes('node_modules');
 
 const setNextEnvironmentVariablesForBuild = async (
   emailsDirRelativePath: string,
