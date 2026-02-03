@@ -9,6 +9,7 @@ declare module '@tiptap/core' {
   }
 }
 
+// TODO: the name is ambiguous, rename to ReactEmailButton 
 export const EditorButton = Node.create({
   name: 'button',
   group: 'block',
