@@ -9,6 +9,7 @@ import {
 } from '../utils/get-emails-directory-metadata.js';
 import { getPreviewServerLocation } from '../utils/get-preview-server-location.js';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping.js';
+import { spawnSync } from 'node:child_process';
 
 interface Args {
   dir: string;
@@ -227,10 +228,10 @@ export const build = async ({
     await updatePackageJson(builtPreviewAppPath);
 
     spinner.text = 'Installing dependencies on `.react-email`';
-    await installDependencies({
+    spawnSync('npm install --force', {
+      shell: true,
       cwd: builtPreviewAppPath,
-      silent: true,
-      packageManager,
+      stdio: 'inherit',
     });
 
     spinner.stopAndPersist({
