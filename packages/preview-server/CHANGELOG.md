@@ -1,5 +1,12 @@
 # @react-email/preview-server
 
+## 5.2.6
+
+### Patch Changes
+
+- b019159: improve error messages for when an email template is missing
+- 11f56c5: fix RESEND_API_KEY being overwritten in email preview
+
 ## 5.3.0-canary.2
 
 ## 5.3.0-canary.1
