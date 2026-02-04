@@ -6,11 +6,9 @@ import StarterKit, { type StarterKitOptions } from '@tiptap/starter-kit';
 import { AlignmentAttribute } from './alignment-attribute.js';
 import { Body } from './body.js';
 import { Bold } from './bold.js';
-import { ClassAttribute } from './class-attribute.js';
 import { CodeBlockPrism } from './code-block.js';
 import { Div } from './div.js';
 import { Divider } from './divider.js';
-import { DragAndDrop } from './drag-and-drop.js';
 import { EditorButton } from './editor-button.js';
 import { Heading } from './heading.js';
 import { Link } from './link.js';
@@ -18,7 +16,6 @@ import { placeholder } from './placeholder.js';
 import { PreviewText } from './preview-text.js';
 import { ResizableImage } from './resizable-image.js';
 import { Section } from './section-node.js';
-import { StyleAttribute } from './style-attribute.js';
 import { Sup } from './sup.js';
 
 interface Options {
@@ -104,7 +101,6 @@ export function emailTipTapEditorExtensions(options?: Options): Extensions {
     Div,
     EditorButton,
     Section,
-    DragAndDrop,
     AlignmentAttribute.configure({
       types: [
         'heading',
@@ -122,55 +118,6 @@ export function emailTipTapEditorExtensions(options?: Options): Extensions {
         'tableRow',
         'tableCell',
         'tableHeader',
-      ],
-    }),
-    StyleAttribute.configure({
-      types: [
-        'heading',
-        'paragraph',
-        'image',
-        'blockquote',
-        'codeBlock',
-        'bulletList',
-        'orderedList',
-        'listItem',
-        'button',
-        'youtube',
-        'twitter',
-        'horizontalRule',
-        'footer',
-        'section',
-        'div',
-        'body',
-        'table',
-        'tableRow',
-        'tableCell',
-        'tableHeader',
-        'link',
-      ],
-    }),
-    ClassAttribute.configure({
-      types: [
-        'heading',
-        'paragraph',
-        'image',
-        'blockquote',
-        'bulletList',
-        'orderedList',
-        'listItem',
-        'button',
-        'youtube',
-        'twitter',
-        'horizontalRule',
-        'footer',
-        'section',
-        'div',
-        'body',
-        'table',
-        'tableRow',
-        'tableCell',
-        'tableHeader',
-        'link',
       ],
     }),
   ];
