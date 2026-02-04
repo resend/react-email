@@ -1,5 +1,11 @@
 # react-email
 
+## 5.2.6
+
+### Patch Changes
+
+- 11f56c5: fix RESEND_API_KEY being overwritten in email preview
+
 ## 5.3.0-canary.2
 
 ### Patch Changes
