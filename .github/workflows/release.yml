@@ -10,7 +10,7 @@ jobs:
     runs-on: blacksmith-2vcpu-ubuntu-2204
     permissions: 
       id-token: write
-      contents: read
+      contents: write
     container:
       image: node:22
     steps:
