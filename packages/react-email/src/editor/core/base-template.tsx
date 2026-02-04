@@ -28,9 +28,9 @@ export function BaseTemplate({
 
         {globalCss && <style>{globalCss}</style>}
       </Head>
-      {previewText && previewText !== '' && <Preview>{previewText}</Preview>}
 
       <Body>
+        {previewText && previewText !== '' && <Preview>{previewText}</Preview>}
         <Section width="100%" align="center" style={styles.body}>
           <Section
             align={styles.container?.align}
