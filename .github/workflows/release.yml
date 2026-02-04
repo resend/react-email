@@ -19,6 +19,10 @@ jobs:
         with:
           fetch-depth: 1
       - run: git config --global --add safe.directory $GITHUB_WORKSPACE
+      # NPM 11 is required so that we can do trusted publishing.
+      # See https://docs.npmjs.com/trusted-publishers#supported-cicd-providers
+      - name: Install npm v11
+        run: npm install -g npm@11
       - name: pnpm setup
         uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
       - name: Install packages
