@@ -17,6 +17,7 @@
     "@actions/core": "2.0.2",
     "@actions/exec": "2.0.0",
     "@actions/github": "7.0.0",
+    "@actions/http-client": "4.0.0",
     "@biomejs/biome": "2.3.11",
     "@changesets/cli": "2.29.8",
     "@changesets/pre": "2.0.2",
