@@ -3,7 +3,7 @@ import type {
   PanelGroup,
   ResetTheme,
   SupportedCssProperties,
-} from '@/types/editor/styles';
+} from '../../styles.js';
 
 const THEME_BASIC: PanelGroup[] = [
   {

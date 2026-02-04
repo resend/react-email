@@ -1,4 +1,4 @@
-import type { CssJs, PanelGroup } from '@/types/editor/styles';
+import type { CssJs, PanelGroup } from '../../styles.js';
 
 export function transformToCssJs(styleArray: PanelGroup[]): CssJs {
   const cssJS = {} as CssJs;

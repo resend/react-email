@@ -34,6 +34,6 @@
     "types": ["vitest/globals"],
     "outDir": "dist"
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/editor/extensions/link.tt"],
   "exclude": ["dist", "node_modules"]
 }

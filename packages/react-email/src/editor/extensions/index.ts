@@ -12,7 +12,7 @@ import { Divider } from './divider.js';
 import { EditorButton } from './editor-button.js';
 import { Heading } from './heading.js';
 import { Image } from './image.js';
-import { Link } from './link.js';
+import { Link } from './link.tt';
 import { placeholder } from './placeholder.js';
 import { PreviewText } from './preview-text.js';
 import { Section } from './section-node.js';

@@ -1,6 +1,6 @@
 import { Body, Head, Html, Preview, Section } from '@react-email/components';
 import type * as React from 'react';
-import type { CssJs } from '@/types/editor/styles';
+import type { CssJs } from '../styles.js';
 
 type BaseTemplateProps = {
   children: React.ReactNode;

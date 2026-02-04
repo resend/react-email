@@ -2,11 +2,11 @@
 
 import type { Editor } from '@tiptap/core';
 import * as React from 'react';
-import type { ContextValue } from '@/types/editor/styles';
 import {
   GLOBAL_CONTENT_NODE_TYPE,
   type GlobalContentData,
 } from '../../extensions/global-content';
+import type { ContextValue } from '../../styles.js';
 import {
   injectGlobalPlainCss,
   injectThemeCss,

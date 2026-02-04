@@ -1,9 +1,9 @@
 import { Hr } from '@react-email/components';
 import type { Node } from '@tiptap/pm/model';
 import { NodeViewWrapper } from '@tiptap/react';
-import { inlineCSSToJS } from '@/utils/convert-css-object';
 // NOTE: Extensions layer imports from plugins layer - this is acceptable.
-import { useEditorStyles } from '../plugins/theming/context';
+import { useEditorStyles } from '../plugins/theming/context.js';
+import { inlineCSSToJS } from '../utils/convert-css-object.js';
 
 type ReactEmailDividerProps = {
   node: Node;
