@@ -7,7 +7,7 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   release:
-    runs-on: blacksmith-2vcpu-ubuntu-2204
+    runs-on: ubuntu-latest
     permissions: 
       id-token: write
       contents: write
