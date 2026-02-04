@@ -9,8 +9,8 @@ jobs:
   release:
     runs-on: blacksmith-2vcpu-ubuntu-2204
     permissions: 
+      id-token: write
       contents: write
-      pull-requests: write
     container:
       image: node:22
     steps:
@@ -23,13 +23,6 @@ jobs:
         uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
       - name: Install packages
         run: pnpm install --frozen-lockfile --prefer-offline
-      - name: Creating .npmrc
-        run: |
-          cat << EOF > "$HOME/.npmrc"
-            //registry.npmjs.org/:_authToken=$NPM_TOKEN
-          EOF
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish stable release
         run: pnpm tsx ./scripts/release.ts
         env: 
