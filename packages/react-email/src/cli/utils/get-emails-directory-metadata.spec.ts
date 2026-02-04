@@ -1,10 +1,10 @@
 import path from 'node:path';
-import { getEmailsDirectoryMetadata } from './get-emails-directory-metadata';
+import { getEmailsDirectoryMetadata } from './get-emails-directory-metadata.js';
 
 test('getEmailsDirectoryMetadata on demo emails', async () => {
   const emailsDirectoryPath = path.resolve(
     __dirname,
-    '../../../../apps/demo/emails',
+    '../../../../../apps/demo/emails',
   );
   expect(await getEmailsDirectoryMetadata(emailsDirectoryPath)).toEqual({
     absolutePath: emailsDirectoryPath,
