@@ -1,5 +1,6 @@
 import type { Extensions } from '@tiptap/core';
 import { Color } from '@tiptap/extension-color';
+import type { LinkOptions } from '@tiptap/extension-link';
 import { TextStyle } from '@tiptap/extension-text-style';
 import TiptapUnderline from '@tiptap/extension-underline';
 import StarterKit, { type StarterKitOptions } from '@tiptap/starter-kit';
@@ -12,7 +13,7 @@ import { Divider } from './divider.js';
 import { EditorButton } from './editor-button.js';
 import { Heading } from './heading.js';
 import { Image } from './image.js';
-import { Link } from './link.tt';
+import { Link } from './link.js';
 import { placeholder } from './placeholder.js';
 import { PreviewText } from './preview-text.js';
 import { Section } from './section-node.js';
@@ -20,6 +21,7 @@ import { Sup } from './sup.js';
 
 interface Options {
   starterKit?: Partial<StarterKitOptions> | undefined;
+  link?: Partial<LinkOptions> | undefined;
 }
 
 export function emailTipTapEditorExtensions(options?: Options): Extensions {
@@ -84,10 +86,10 @@ export function emailTipTapEditorExtensions(options?: Options): Extensions {
       },
     }),
     Link.configure({
-      openOnClick: false,
       HTMLAttributes: {
         class: 'node-link',
       },
+      ...options?.link
     }),
     Image,
     placeholder,
@@ -102,6 +104,7 @@ export function emailTipTapEditorExtensions(options?: Options): Extensions {
     EditorButton,
     Section,
     AlignmentAttribute.configure({
+      // should this include all types
       types: [
         'heading',
         'paragraph',
@@ -112,7 +115,7 @@ export function emailTipTapEditorExtensions(options?: Options): Extensions {
         'orderedList',
         'listItem',
         'button',
-        'youtube',
+        'youtube', // How can we easily allow extending this, 'youtube' is from external extensions
         'twitter',
         'table',
         'tableRow',

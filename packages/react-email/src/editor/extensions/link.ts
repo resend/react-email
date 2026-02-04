@@ -1,5 +1,4 @@
 import TiptapLink from '@tiptap/extension-link';
-import { editorEventBus } from '../core/event-bus.js';
 import { processStylesForUnlink } from './preserved-style.js';
 
 export const Link = TiptapLink.extend({
@@ -94,8 +93,6 @@ export const Link = TiptapLink.extend({
   addKeyboardShortcuts() {
     return {
       'Mod-k': () => {
-        editorEventBus.dispatch('add-link', undefined);
-        // unselect
         return this.editor.chain().focus().toggleLink({ href: '' }).run();
       },
     };

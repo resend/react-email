@@ -1,9 +1,7 @@
 import { Heading } from '@react-email/components';
 import type { Node } from '@tiptap/pm/model';
 import { NodeViewContent, NodeViewWrapper } from '@tiptap/react';
-import { inlineCSSToJS } from '@/utils/convert-css-object';
-// NOTE: Extensions layer imports from plugins layer - this is acceptable.
-import { useEditorStyles } from '../plugins/theming/context';
+import { inlineCSSToJS } from '../utils/convert-css-object.js';
 
 type ReactEmailHeadingProps = {
   node: Node;
@@ -12,9 +10,6 @@ type ReactEmailHeadingProps = {
 export const ReactEmailHeading = (props: ReactEmailHeadingProps) => {
   const node = props.node;
   const { class: className, ...rest } = node.attrs;
-
-  const editorStyles = useEditorStyles();
-  const stylesCss = editorStyles.styles.toCss();
 
   const attrs = {
     ...rest,
