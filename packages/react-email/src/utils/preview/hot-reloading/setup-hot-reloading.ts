@@ -1,43 +1,28 @@
-import type http from 'node:http';
+import type { ChildProcess } from 'node:child_process';
 import path from 'node:path';
 import { watch } from 'chokidar';
 import debounce from 'debounce';
-import { type Socket, Server as SocketServer } from 'socket.io';
 import type { HotReloadChange } from '../../types/hot-reload-change.js';
 import { createDependencyGraph } from './create-dependency-graph.js';
 
 export const setupHotreloading = async (
-  devServer: http.Server,
+  appProcess: ChildProcess,
   emailDirRelativePath: string,
 ) => {
-  let clients: Socket[] = [];
-  const io = new SocketServer(devServer);
-
-  io.on('connection', (client) => {
-    clients.push(client);
-
-    client.on('disconnect', () => {
-      clients = clients.filter((item) => item !== client);
-    });
-  });
-
   // used to keep track of all changes
-  // and send them at once to the preview app through the web socket
+  // and send them at once to the preview app through IPC
   let changes = [] as HotReloadChange[];
 
   const reload = debounce(() => {
-    // we detect these using the useHotreload hook on the Next app
-    clients.forEach((client) => {
-      client.emit(
-        'reload',
-        changes.filter((change) =>
-          // Ensures only changes inside the emails directory are emitted
-          path
-            .resolve(absolutePathToEmailsDirectory, change.filename)
-            .startsWith(absolutePathToEmailsDirectory),
-        ),
-      );
-    });
+    appProcess.emit(
+      'reload',
+      changes.filter((change) =>
+        // Ensures only changes inside the emails directory are emitted
+        path
+          .resolve(absolutePathToEmailsDirectory, change.filename)
+          .startsWith(absolutePathToEmailsDirectory),
+      ),
+    );
 
     changes = [];
   }, 150);

@@ -3,7 +3,7 @@
   "version": "5.2.6",
   "description": "A live preview of your emails right in your browser.",
   "scripts": {
-    "build": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --disable-warning=ExperimentalWarning\" tsx ./scripts/build-preview-server.mts",
+    "build": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --disable-warning=ExperimentalWarning\" tsx ./scripts/build.mts",
     "caniemail:fetch": "tsx ./scripts/fill-caniemail-data.mts",
     "clean": "rimraf dist",
     "dev": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --disable-warning=ExperimentalWarning\" tsx ./scripts/dev.mts",
@@ -12,9 +12,6 @@
     "test:watch": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --disable-warning=ExperimentalWarning\" vitest"
   },
   "main": "./index.mjs",
-  "dependencies": {
-    "next": "16.1.6"
-  },
   "devDependencies": {
     "@babel/core": "7.26.10",
     "@babel/parser": "7.27.0",
@@ -60,6 +57,7 @@
     "framer-motion": "12.23.22",
     "log-symbols": "4.1.0",
     "module-punycode": "npm:punycode@2.3.1",
+    "next": "16.1.6",
     "next-safe-action": "8.0.11",
     "node-html-parser": "7.0.2",
     "ora": "5.4.1",
