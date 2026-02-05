@@ -1,5 +1,4 @@
 import type { IncomingMessage } from 'node:http';
-import { Readable } from 'node:stream';
 import { checkImages, type ImageCheckingResult } from './check-images';
 
 vi.mock('./quick-fetch', () => ({
