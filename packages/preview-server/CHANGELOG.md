@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 5.2.7
+
+### Patch Changes
+
+- d47d37e: fix default imports of node modules breaking
+
 ## 5.2.6
 
 ### Patch Changes
