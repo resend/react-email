@@ -122,7 +122,7 @@ export async function runBundledCode(
         ) as string[];
 
         const syntheticModule = new vm.SyntheticModule(
-          [...exportKeys, 'default'],
+          [...exportKeys.filter((k) => k !== 'default'), 'default'],
           function () {
             for (const key of exportKeys) {
               this.setExport(key, moduleExports[key]);
