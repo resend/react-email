@@ -148,6 +148,165 @@ describe('sanitizeDeclarations', () => {
     );
   });
 
+  test('hsl to rgb conversion', () => {
+    let stylesheet = parse('div { color: hsl(198, 65%, 45%); }');
+    sanitizeDeclarations(stylesheet);
+    expect(
+      generate(stylesheet),
+      'conversion without alpha',
+    ).toMatchInlineSnapshot(`"div{color:rgb(40,145,189)}"`);
+
+    stylesheet = parse('div { color: hsl(0, 100%, 50%); }');
+    sanitizeDeclarations(stylesheet);
+    expect(generate(stylesheet), 'pure red').toMatchInlineSnapshot(
+      `"div{color:rgb(255,0,0)}"`,
+    );
+
+    stylesheet = parse('div { color: hsl(120, 100%, 50%); }');
+    sanitizeDeclarations(stylesheet);
+    expect(generate(stylesheet), 'pure green').toMatchInlineSnapshot(
+      `"div{color:rgb(0,255,0)}"`,
+    );
+
+    stylesheet = parse('div { color: hsl(240, 100%, 50%); }');
+    sanitizeDeclarations(stylesheet);
+    expect(generate(stylesheet), 'pure blue').toMatchInlineSnapshot(
+      `"div{color:rgb(0,0,255)}"`,
+    );
+
+    stylesheet = parse('div { color: hsl(0, 0%, 0%); }');
+    sanitizeDeclarations(stylesheet);
+    expect(generate(stylesheet), 'black').toMatchInlineSnapshot(
+      `"div{color:rgb(0,0,0)}"`,
+    );
+
+    stylesheet = parse('div { color: hsl(0, 0%, 100%); }');
+    sanitizeDeclarations(stylesheet);
+    expect(generate(stylesheet), 'white').toMatchInlineSnapshot(
+      `"div{color:rgb(255,255,255)}"`,
+    );
+
+    stylesheet = parse('div { color: hsl(0, 0%, 50%); }');
+    sanitizeDeclarations(stylesheet);
+    expect(generate(stylesheet), 'grey with no saturation').toMatchInlineSnapshot(
+      `"div{color:rgb(128,128,128)}"`,
+    );
+
+    stylesheet = parse('div { color: hsl(198deg, 65%, 45%); }');
+    sanitizeDeclarations(stylesheet);
+    expect(
+      generate(stylesheet),
+      'conversion with deg unit',
+    ).toMatchInlineSnapshot(`"div{color:rgb(40,145,189)}"`);
+
+    stylesheet = parse('div { color: hsl(198 65% 45%); }');
+    sanitizeDeclarations(stylesheet);
+    expect(
+      generate(stylesheet),
+      'space syntax without alpha',
+    ).toMatchInlineSnapshot(`"div{color:rgb(40,145,189)}"`);
+
+    stylesheet = parse('div { color: hsl(198 65% 45% / 0.5); }');
+    sanitizeDeclarations(stylesheet);
+    expect(
+      generate(stylesheet),
+      'space syntax with alpha',
+    ).toMatchInlineSnapshot(`"div{color:rgb(40,145,189,0.5)}"`);
+
+    stylesheet = parse('div { color: hsl(198 65% 45% / 50%); }');
+    sanitizeDeclarations(stylesheet);
+    expect(
+      generate(stylesheet),
+      'space syntax with percentage alpha',
+    ).toMatchInlineSnapshot(`"div{color:rgb(40,145,189,0.5)}"`);
+
+    stylesheet = parse(
+      'div { background: linear-gradient(hsl(0, 100%, 50%), hsl(120, 100%, 50%)); }',
+    );
+    sanitizeDeclarations(stylesheet);
+    expect(
+      generate(stylesheet),
+      'hsl inside linear-gradient',
+    ).toMatchInlineSnapshot(
+      `"div{background:linear-gradient(rgb(255,0,0),rgb(0,255,0))}"`,
+    );
+
+    stylesheet = parse(`
+      div {
+        color: hsl(0, 100%, 50%);
+        background-color: hsl(120, 100%, 50%);
+        border-color: hsl(240, 100%, 50%);
+      }
+    `);
+    sanitizeDeclarations(stylesheet);
+    expect(
+      generate(stylesheet),
+      'multiple hsl declarations',
+    ).toMatchInlineSnapshot(
+      `"div{color:rgb(255,0,0);background-color:rgb(0,255,0);border-color:rgb(0,0,255)}"`,
+    );
+  });
+
+  test('hsla to rgb conversion', () => {
+    let stylesheet = parse('div { color: hsla(90, 80%, 50%, 0.5); }');
+    sanitizeDeclarations(stylesheet);
+    expect(
+      generate(stylesheet),
+      'comma syntax with alpha',
+    ).toMatchInlineSnapshot(`"div{color:rgb(128,230,25,0.5)}"`);
+
+    stylesheet = parse('div { color: hsla(0, 100%, 50%, 1); }');
+    sanitizeDeclarations(stylesheet);
+    expect(generate(stylesheet), 'alpha of 1').toMatchInlineSnapshot(
+      `"div{color:rgb(255,0,0)}"`,
+    );
+
+    stylesheet = parse('div { color: hsla(0, 100%, 50%, 0); }');
+    sanitizeDeclarations(stylesheet);
+    expect(
+      generate(stylesheet),
+      'fully transparent',
+    ).toMatchInlineSnapshot(`"div{color:rgb(255,0,0,0)}"`);
+
+    stylesheet = parse('div { color: hsla(240, 100%, 50%, 0.75); }');
+    sanitizeDeclarations(stylesheet);
+    expect(generate(stylesheet), 'blue with alpha').toMatchInlineSnapshot(
+      `"div{color:rgb(0,0,255,0.75)}"`,
+    );
+
+    stylesheet = parse('div { color: hsla(198deg, 65%, 45%, 0.8); }');
+    sanitizeDeclarations(stylesheet);
+    expect(
+      generate(stylesheet),
+      'deg unit with alpha',
+    ).toMatchInlineSnapshot(`"div{color:rgb(40,145,189,0.8)}"`);
+
+    stylesheet = parse('div { color: hsla(198 65% 45% / 0.3); }');
+    sanitizeDeclarations(stylesheet);
+    expect(
+      generate(stylesheet),
+      'space syntax with slash alpha',
+    ).toMatchInlineSnapshot(`"div{color:rgb(40,145,189,0.3)}"`);
+
+    stylesheet = parse('div { color: hsla(198 65% 45% / 70%); }');
+    sanitizeDeclarations(stylesheet);
+    expect(
+      generate(stylesheet),
+      'space syntax with percentage alpha',
+    ).toMatchInlineSnapshot(`"div{color:rgb(40,145,189,0.7)}"`);
+
+    stylesheet = parse(
+      'div { background: linear-gradient(hsla(0, 100%, 50%, 0), hsla(0, 100%, 50%, 1)); }',
+    );
+    sanitizeDeclarations(stylesheet);
+    expect(
+      generate(stylesheet),
+      'hsla inside linear-gradient',
+    ).toMatchInlineSnapshot(
+      `"div{background:linear-gradient(rgb(255,0,0,0),rgb(255,0,0))}"`,
+    );
+  });
+
   test('rgba space syntax to comma syntax conversion', () => {
     let stylesheet = parse('div { color: rgb(255 0 128); }');
     sanitizeDeclarations(stylesheet);
