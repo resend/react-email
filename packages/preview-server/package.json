@@ -26,6 +26,7 @@
     ".next/**/*"
   ],
   "dependencies": {
+    "esbuild": "0.25.10",
     "next": "16.1.6"
   },
   "devDependencies": {
@@ -69,7 +70,6 @@
     "clsx": "2.1.1",
     "colorjs.io": "0.5.2",
     "cross-env": "^10.1.0",
-    "esbuild": "0.25.10",
     "framer-motion": "12.23.22",
     "log-symbols": "4.1.0",
     "module-punycode": "npm:punycode@2.3.1",
