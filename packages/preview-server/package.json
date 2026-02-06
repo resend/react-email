@@ -12,6 +12,19 @@
     "test:watch": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --disable-warning=ExperimentalWarning\" vitest"
   },
   "main": "./index.mjs",
+  "files": [
+    "jsx-runtime",
+    "scripts",
+    "src",
+    "index.mjs",
+    "license.md",
+    "next.config.mjs",
+    "package.json",
+    "postcss.config.js",
+    "readme.md",
+    "tsconfig.json",
+    ".next"
+  ],
   "dependencies": {
     "next": "16.1.6"
   },
