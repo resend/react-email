@@ -1,5 +1,6 @@
 .react-email
 /emails
 /emails/static
+# It's important that only the root node_modules is ignored, since we're also publishing the node_modules that's "bundled" in with the built preview server
 /node_modules
 .turbo
