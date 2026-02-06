@@ -119,7 +119,7 @@ importers:
     dependencies:
       mintlify:
         specifier: 4.2.280
-        version: 4.2.280(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/node@22.19.7)(@types/react@19.2.10)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3)
+        version: 4.2.280(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/node@25.0.6)(@types/react@19.2.10)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3)
       zod:
         specifier: 3.24.3
         version: 3.24.3
@@ -673,10 +673,6 @@ importers:
         version: 5.8.3
 
   packages/preview-server:
-    dependencies:
-      next:
-        specifier: 16.1.6
-        version: 16.1.6(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
     devDependencies:
       '@babel/core':
         specifier: 7.26.10
@@ -810,6 +806,9 @@ importers:
       module-punycode:
         specifier: npm:punycode@2.3.1
         version: punycode@2.3.1
+      next:
+        specifier: 16.1.6
+        version: 16.1.6(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       next-safe-action:
         specifier: 8.0.11
         version: 8.0.11(next@16.1.6(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -11034,51 +11033,51 @@ snapshots:
 
   '@inquirer/ansi@1.0.2': {}
 
-  '@inquirer/checkbox@4.3.1(@types/node@22.19.7)':
+  '@inquirer/checkbox@4.3.1(@types/node@25.0.6)':
     dependencies:
       '@inquirer/ansi': 1.0.2
-      '@inquirer/core': 10.3.1(@types/node@22.19.7)
+      '@inquirer/core': 10.3.1(@types/node@25.0.6)
       '@inquirer/figures': 1.0.15
-      '@inquirer/type': 3.0.10(@types/node@22.19.7)
+      '@inquirer/type': 3.0.10(@types/node@25.0.6)
       yoctocolors-cjs: 2.1.3
     optionalDependencies:
-      '@types/node': 22.19.7
+      '@types/node': 25.0.6
 
-  '@inquirer/confirm@5.1.20(@types/node@22.19.7)':
+  '@inquirer/confirm@5.1.20(@types/node@25.0.6)':
     dependencies:
-      '@inquirer/core': 10.3.1(@types/node@22.19.7)
-      '@inquirer/type': 3.0.10(@types/node@22.19.7)
+      '@inquirer/core': 10.3.1(@types/node@25.0.6)
+      '@inquirer/type': 3.0.10(@types/node@25.0.6)
     optionalDependencies:
-      '@types/node': 22.19.7
+      '@types/node': 25.0.6
 
-  '@inquirer/core@10.3.1(@types/node@22.19.7)':
+  '@inquirer/core@10.3.1(@types/node@25.0.6)':
     dependencies:
       '@inquirer/ansi': 1.0.2
       '@inquirer/figures': 1.0.15
-      '@inquirer/type': 3.0.10(@types/node@22.19.7)
+      '@inquirer/type': 3.0.10(@types/node@25.0.6)
       cli-width: 4.1.0
       mute-stream: 3.0.0
       signal-exit: 4.1.0
       wrap-ansi: 6.2.0
       yoctocolors-cjs: 2.1.3
     optionalDependencies:
-      '@types/node': 22.19.7
+      '@types/node': 25.0.6
 
-  '@inquirer/editor@4.2.22(@types/node@22.19.7)':
+  '@inquirer/editor@4.2.22(@types/node@25.0.6)':
     dependencies:
-      '@inquirer/core': 10.3.1(@types/node@22.19.7)
-      '@inquirer/external-editor': 1.0.3(@types/node@22.19.7)
-      '@inquirer/type': 3.0.10(@types/node@22.19.7)
+      '@inquirer/core': 10.3.1(@types/node@25.0.6)
+      '@inquirer/external-editor': 1.0.3(@types/node@25.0.6)
+      '@inquirer/type': 3.0.10(@types/node@25.0.6)
     optionalDependencies:
-      '@types/node': 22.19.7
+      '@types/node': 25.0.6
 
-  '@inquirer/expand@4.0.22(@types/node@22.19.7)':
+  '@inquirer/expand@4.0.22(@types/node@25.0.6)':
     dependencies:
-      '@inquirer/core': 10.3.1(@types/node@22.19.7)
-      '@inquirer/type': 3.0.10(@types/node@22.19.7)
+      '@inquirer/core': 10.3.1(@types/node@25.0.6)
+      '@inquirer/type': 3.0.10(@types/node@25.0.6)
       yoctocolors-cjs: 2.1.3
     optionalDependencies:
-      '@types/node': 22.19.7
+      '@types/node': 25.0.6
 
   '@inquirer/external-editor@1.0.3(@types/node@22.19.7)':
     dependencies:
@@ -11087,90 +11086,97 @@ snapshots:
     optionalDependencies:
       '@types/node': 22.19.7
 
+  '@inquirer/external-editor@1.0.3(@types/node@25.0.6)':
+    dependencies:
+      chardet: 2.1.1
+      iconv-lite: 0.7.0
+    optionalDependencies:
+      '@types/node': 25.0.6
+
   '@inquirer/figures@1.0.15': {}
 
-  '@inquirer/input@4.3.0(@types/node@22.19.7)':
+  '@inquirer/input@4.3.0(@types/node@25.0.6)':
     dependencies:
-      '@inquirer/core': 10.3.1(@types/node@22.19.7)
-      '@inquirer/type': 3.0.10(@types/node@22.19.7)
+      '@inquirer/core': 10.3.1(@types/node@25.0.6)
+      '@inquirer/type': 3.0.10(@types/node@25.0.6)
     optionalDependencies:
-      '@types/node': 22.19.7
+      '@types/node': 25.0.6
 
-  '@inquirer/number@3.0.22(@types/node@22.19.7)':
+  '@inquirer/number@3.0.22(@types/node@25.0.6)':
     dependencies:
-      '@inquirer/core': 10.3.1(@types/node@22.19.7)
-      '@inquirer/type': 3.0.10(@types/node@22.19.7)
+      '@inquirer/core': 10.3.1(@types/node@25.0.6)
+      '@inquirer/type': 3.0.10(@types/node@25.0.6)
     optionalDependencies:
-      '@types/node': 22.19.7
+      '@types/node': 25.0.6
 
-  '@inquirer/password@4.0.22(@types/node@22.19.7)':
-    dependencies:
-      '@inquirer/ansi': 1.0.2
-      '@inquirer/core': 10.3.1(@types/node@22.19.7)
-      '@inquirer/type': 3.0.10(@types/node@22.19.7)
-    optionalDependencies:
-      '@types/node': 22.19.7
-
-  '@inquirer/prompts@7.10.0(@types/node@22.19.7)':
-    dependencies:
-      '@inquirer/checkbox': 4.3.1(@types/node@22.19.7)
-      '@inquirer/confirm': 5.1.20(@types/node@22.19.7)
-      '@inquirer/editor': 4.2.22(@types/node@22.19.7)
-      '@inquirer/expand': 4.0.22(@types/node@22.19.7)
-      '@inquirer/input': 4.3.0(@types/node@22.19.7)
-      '@inquirer/number': 3.0.22(@types/node@22.19.7)
-      '@inquirer/password': 4.0.22(@types/node@22.19.7)
-      '@inquirer/rawlist': 4.1.10(@types/node@22.19.7)
-      '@inquirer/search': 3.2.1(@types/node@22.19.7)
-      '@inquirer/select': 4.4.1(@types/node@22.19.7)
-    optionalDependencies:
-      '@types/node': 22.19.7
-
-  '@inquirer/prompts@7.9.0(@types/node@22.19.7)':
-    dependencies:
-      '@inquirer/checkbox': 4.3.1(@types/node@22.19.7)
-      '@inquirer/confirm': 5.1.20(@types/node@22.19.7)
-      '@inquirer/editor': 4.2.22(@types/node@22.19.7)
-      '@inquirer/expand': 4.0.22(@types/node@22.19.7)
-      '@inquirer/input': 4.3.0(@types/node@22.19.7)
-      '@inquirer/number': 3.0.22(@types/node@22.19.7)
-      '@inquirer/password': 4.0.22(@types/node@22.19.7)
-      '@inquirer/rawlist': 4.1.10(@types/node@22.19.7)
-      '@inquirer/search': 3.2.1(@types/node@22.19.7)
-      '@inquirer/select': 4.4.1(@types/node@22.19.7)
-    optionalDependencies:
-      '@types/node': 22.19.7
-
-  '@inquirer/rawlist@4.1.10(@types/node@22.19.7)':
-    dependencies:
-      '@inquirer/core': 10.3.1(@types/node@22.19.7)
-      '@inquirer/type': 3.0.10(@types/node@22.19.7)
-      yoctocolors-cjs: 2.1.3
-    optionalDependencies:
-      '@types/node': 22.19.7
-
-  '@inquirer/search@3.2.1(@types/node@22.19.7)':
-    dependencies:
-      '@inquirer/core': 10.3.1(@types/node@22.19.7)
-      '@inquirer/figures': 1.0.15
-      '@inquirer/type': 3.0.10(@types/node@22.19.7)
-      yoctocolors-cjs: 2.1.3
-    optionalDependencies:
-      '@types/node': 22.19.7
-
-  '@inquirer/select@4.4.1(@types/node@22.19.7)':
+  '@inquirer/password@4.0.22(@types/node@25.0.6)':
     dependencies:
       '@inquirer/ansi': 1.0.2
-      '@inquirer/core': 10.3.1(@types/node@22.19.7)
-      '@inquirer/figures': 1.0.15
-      '@inquirer/type': 3.0.10(@types/node@22.19.7)
+      '@inquirer/core': 10.3.1(@types/node@25.0.6)
+      '@inquirer/type': 3.0.10(@types/node@25.0.6)
+    optionalDependencies:
+      '@types/node': 25.0.6
+
+  '@inquirer/prompts@7.10.0(@types/node@25.0.6)':
+    dependencies:
+      '@inquirer/checkbox': 4.3.1(@types/node@25.0.6)
+      '@inquirer/confirm': 5.1.20(@types/node@25.0.6)
+      '@inquirer/editor': 4.2.22(@types/node@25.0.6)
+      '@inquirer/expand': 4.0.22(@types/node@25.0.6)
+      '@inquirer/input': 4.3.0(@types/node@25.0.6)
+      '@inquirer/number': 3.0.22(@types/node@25.0.6)
+      '@inquirer/password': 4.0.22(@types/node@25.0.6)
+      '@inquirer/rawlist': 4.1.10(@types/node@25.0.6)
+      '@inquirer/search': 3.2.1(@types/node@25.0.6)
+      '@inquirer/select': 4.4.1(@types/node@25.0.6)
+    optionalDependencies:
+      '@types/node': 25.0.6
+
+  '@inquirer/prompts@7.9.0(@types/node@25.0.6)':
+    dependencies:
+      '@inquirer/checkbox': 4.3.1(@types/node@25.0.6)
+      '@inquirer/confirm': 5.1.20(@types/node@25.0.6)
+      '@inquirer/editor': 4.2.22(@types/node@25.0.6)
+      '@inquirer/expand': 4.0.22(@types/node@25.0.6)
+      '@inquirer/input': 4.3.0(@types/node@25.0.6)
+      '@inquirer/number': 3.0.22(@types/node@25.0.6)
+      '@inquirer/password': 4.0.22(@types/node@25.0.6)
+      '@inquirer/rawlist': 4.1.10(@types/node@25.0.6)
+      '@inquirer/search': 3.2.1(@types/node@25.0.6)
+      '@inquirer/select': 4.4.1(@types/node@25.0.6)
+    optionalDependencies:
+      '@types/node': 25.0.6
+
+  '@inquirer/rawlist@4.1.10(@types/node@25.0.6)':
+    dependencies:
+      '@inquirer/core': 10.3.1(@types/node@25.0.6)
+      '@inquirer/type': 3.0.10(@types/node@25.0.6)
       yoctocolors-cjs: 2.1.3
     optionalDependencies:
-      '@types/node': 22.19.7
+      '@types/node': 25.0.6
 
-  '@inquirer/type@3.0.10(@types/node@22.19.7)':
+  '@inquirer/search@3.2.1(@types/node@25.0.6)':
+    dependencies:
+      '@inquirer/core': 10.3.1(@types/node@25.0.6)
+      '@inquirer/figures': 1.0.15
+      '@inquirer/type': 3.0.10(@types/node@25.0.6)
+      yoctocolors-cjs: 2.1.3
     optionalDependencies:
-      '@types/node': 22.19.7
+      '@types/node': 25.0.6
+
+  '@inquirer/select@4.4.1(@types/node@25.0.6)':
+    dependencies:
+      '@inquirer/ansi': 1.0.2
+      '@inquirer/core': 10.3.1(@types/node@25.0.6)
+      '@inquirer/figures': 1.0.15
+      '@inquirer/type': 3.0.10(@types/node@25.0.6)
+      yoctocolors-cjs: 2.1.3
+    optionalDependencies:
+      '@types/node': 25.0.6
+
+  '@inquirer/type@3.0.10(@types/node@25.0.6)':
+    optionalDependencies:
+      '@types/node': 25.0.6
 
   '@isaacs/balanced-match@4.0.1': {}
 
@@ -11321,9 +11327,9 @@ snapshots:
 
   '@mediapipe/tasks-vision@0.10.17': {}
 
-  '@mintlify/cli@4.0.884(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/node@22.19.7)(@types/react@19.2.10)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3)':
+  '@mintlify/cli@4.0.884(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/node@25.0.6)(@types/react@19.2.10)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3)':
     dependencies:
-      '@inquirer/prompts': 7.9.0(@types/node@22.19.7)
+      '@inquirer/prompts': 7.9.0(@types/node@25.0.6)
       '@mintlify/common': 1.0.666(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
       '@mintlify/link-rot': 3.0.823(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/react@19.2.10)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.9.3)
       '@mintlify/models': 0.0.257
@@ -11337,7 +11343,7 @@ snapshots:
       front-matter: 4.0.2
       fs-extra: 11.2.0
       ink: 6.3.0(@types/react@19.2.10)(react@19.0.0)
-      inquirer: 12.3.0(@types/node@22.19.7)
+      inquirer: 12.3.0(@types/node@25.0.6)
       js-yaml: 4.1.0
       mdast-util-mdx-jsx: 3.2.0
       react: 19.0.0
@@ -13708,7 +13714,6 @@ snapshots:
   '@types/node@25.0.6':
     dependencies:
       undici-types: 7.16.0
-    optional: true
 
   '@types/normalize-path@3.0.2': {}
 
@@ -16062,12 +16067,12 @@ snapshots:
 
   inline-style-parser@0.2.4: {}
 
-  inquirer@12.3.0(@types/node@22.19.7):
+  inquirer@12.3.0(@types/node@25.0.6):
     dependencies:
-      '@inquirer/core': 10.3.1(@types/node@22.19.7)
-      '@inquirer/prompts': 7.10.0(@types/node@22.19.7)
-      '@inquirer/type': 3.0.10(@types/node@22.19.7)
-      '@types/node': 22.19.7
+      '@inquirer/core': 10.3.1(@types/node@25.0.6)
+      '@inquirer/prompts': 7.10.0(@types/node@25.0.6)
+      '@inquirer/type': 3.0.10(@types/node@25.0.6)
+      '@types/node': 25.0.6
       ansi-escapes: 4.3.2
       mute-stream: 2.0.0
       run-async: 3.0.0
@@ -17113,9 +17118,9 @@ snapshots:
       minipass: 3.3.6
       yallist: 4.0.0
 
-  mintlify@4.2.280(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/node@22.19.7)(@types/react@19.2.10)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3):
+  mintlify@4.2.280(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/node@25.0.6)(@types/react@19.2.10)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3):
     dependencies:
-      '@mintlify/cli': 4.0.884(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/node@22.19.7)(@types/react@19.2.10)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3)
+      '@mintlify/cli': 4.0.884(@radix-ui/react-popover@1.1.15(@types/react-dom@19.0.1)(@types/react@19.2.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(@types/node@25.0.6)(@types/react@19.2.10)(acorn@8.11.2)(react-dom@19.0.0(react@19.0.0))(typescript@5.9.3)
     transitivePeerDependencies:
       - '@radix-ui/react-popover'
       - '@types/node'
@@ -19429,8 +19434,7 @@ snapshots:
 
   undici-types@6.21.0: {}
 
-  undici-types@7.16.0:
-    optional: true
+  undici-types@7.16.0: {}
 
   undici@5.29.0:
     dependencies:
