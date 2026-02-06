@@ -49,12 +49,10 @@ export const Columns = React.forwardRef<HTMLTableElement, ColumnsProps>(
             const fraction = pct / 100;
             return `calc((100% - ${totalGapCss}) * ${fraction})`;
           })
-        : Array.from(
-            { length: n },
-            () =>
-              hasGap
-                ? `calc((100% - ${totalGapCss}) / ${n})`
-                : `${100 / cols}%`,
+        : Array.from({ length: n }, () =>
+            hasGap
+              ? `calc((100% - ${totalGapCss}) / ${cols})`
+              : `${100 / cols}%`,
           );
 
     if (!hasGap) {
