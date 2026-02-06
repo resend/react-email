@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 5.2.8
+
+### Patch Changes
+
+- bdf0f1b: update to latest Next.js
+
 ## 5.2.7
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@react-email/preview-server",
-  "version": "5.2.7",
+  "version": "5.2.8",
   "description": "A live preview of your emails right in your browser.",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --disable-warning=ExperimentalWarning\" tsx ./scripts/build.mts",
