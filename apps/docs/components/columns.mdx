@@ -1,0 +1,116 @@
+---
+title: "Columns"
+sidebarTitle: "Columns"
+description: "Place content side by side in two or more columns. Equal or custom widths, with optional spacing—no need to hand-wire Row and Column."
+"og:image": "https://react.email/static/covers/section.png"
+icon: "columns"
+---
+
+import Support from '/snippets/support.mdx'
+
+## Install
+
+Install component from your command line.
+
+<CodeGroup>
+
+```sh npm
+npm install @react-email/components -E
+
+# or get the individual package
+
+npm install @react-email/columns -E
+```
+
+```sh yarn
+yarn add @react-email/components -E
+
+# or get the individual package
+
+yarn add @react-email/columns -E
+```
+
+```sh pnpm
+pnpm add @react-email/components -E
+
+# or get the individual package
+
+pnpm add @react-email/columns -E
+```
+
+</CodeGroup>
+
+## Getting started
+
+Use Columns to place content side by side in two or more columns. Add it inside a **Section**; set `gap` for space between columns and optionally `columnWidths` for custom widths.
+
+```jsx
+import { Section, Columns, Text } from "@react-email/components";
+
+const Email = () => (
+  <Section>
+    <Columns gap={16}>
+      <Text>Left column</Text>
+      <Text>Right column</Text>
+    </Columns>
+  </Section>
+);
+```
+
+## Compared to Row + Column
+
+The same layout can be built with **Row** and **Column**—manual widths and padding for gap. Columns is a thin wrapper that does it with one component and optional `gap` and `columnWidths` props.
+
+**With Row + Column (primitives):**
+
+```jsx
+import { Section, Row, Column, Text } from "@react-email/components";
+
+const Email = () => (
+  <Section>
+    <Row>
+      <Column style={{ width: "50%", paddingRight: "8px" }}>
+        <Text>Left column</Text>
+      </Column>
+      <Column style={{ width: "50%", paddingLeft: "8px" }}>
+        <Text>Right column</Text>
+      </Column>
+    </Row>
+  </Section>
+);
+```
+
+**With Columns (same result, less code):**
+
+```jsx
+import { Section, Columns, Text } from "@react-email/components";
+
+const Email = () => (
+  <Section>
+    <Columns gap={16}>
+      <Text>Left column</Text>
+      <Text>Right column</Text>
+    </Columns>
+  </Section>
+);
+```
+
+## Props
+
+<ResponseField name="cols" type="number">
+  Number of columns for equal-width layout. Defaults to the number of children.
+</ResponseField>
+
+<ResponseField name="gap" type="string | number" default="0">
+  Space between columns, applied as padding on cells. A number is treated as pixels; a string is used as-is.
+</ResponseField>
+
+<ResponseField name="columnWidths" type="string[]">
+  Explicit width per column (e.g. `["60%", "40%"]`). When provided, overrides equal splitting.
+</ResponseField>
+
+<ResponseField name="style" type="object">
+  Inline styles applied to the underlying row.
+</ResponseField>
+
+<Support/>
