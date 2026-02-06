@@ -89,6 +89,37 @@ function oklchToOklab(oklch: { l: number; c: number; h: number }) {
   };
 }
 
+function hueToChannel(p: number, q: number, t: number) {
+  let tn = t;
+  if (tn < 0) tn += 1;
+  if (tn > 1) tn -= 1;
+  if (tn < 1 / 6) return p + (q - p) * 6 * tn;
+  if (tn < 1 / 2) return q;
+  if (tn < 2 / 3) return p + (q - p) * (2 / 3 - tn) * 6;
+  return p;
+}
+
+/** Convert HSL to RGB */
+function hslToRgb(hsl: { h: number; s: number; l: number }) {
+  const h = ((hsl.h % 360) + 360) % 360 / 360;
+  const s = clamp(hsl.s, 0, 1);
+  const l = clamp(hsl.l, 0, 1);
+
+  if (s === 0) {
+    const v = Math.round(l * 255);
+    return { r: v, g: v, b: v };
+  }
+
+  const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+  const p = 2 * l - q;
+
+  return {
+    r: clamp(Math.round(hueToChannel(p, q, h + 1 / 3) * 255), 0, 255),
+    g: clamp(Math.round(hueToChannel(p, q, h) * 255), 0, 255),
+    b: clamp(Math.round(hueToChannel(p, q, h - 1 / 3) * 255), 0, 255),
+  };
+}
+
 /** Convert oklab to RGB */
 function oklchToRgb(oklch: { l: number; c: number; h: number }) {
   const oklab = oklchToOklab(oklch);
@@ -161,6 +192,7 @@ function separteShorthandDeclaration(
  * Here's the transformations it does so far:
  * - convert all `rgb` with space-based syntax into a comma based one;
  * - convert all `oklch` values into `rgb`;
+ * - convert all `hsl`/`hsla` values into `rgb`;
  * - convert all hex values into `rgb`;
  * - convert `padding-inline` into `padding-left` and `padding-right`;
  * - convert `padding-block` into `padding-top` and `padding-bottom`;
@@ -242,6 +274,57 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
               c,
               h,
             });
+
+            funcParentListItem.data = rgbNode(rgb.r, rgb.g, rgb.b, a);
+          }
+
+          if (func.name === 'hsl' || func.name === 'hsla') {
+            let h: number | undefined;
+            let s: number | undefined;
+            let l: number | undefined;
+            let a: number | undefined;
+            for (const child of children) {
+              if (child.type === 'Number') {
+                if (h === undefined) {
+                  h = Number.parseFloat(child.value);
+                  continue;
+                }
+                if (a === undefined) {
+                  a = Number.parseFloat(child.value);
+                  continue;
+                }
+              }
+              if (child.type === 'Dimension' && child.unit === 'deg') {
+                if (h === undefined) {
+                  h = Number.parseFloat(child.value);
+                  continue;
+                }
+              }
+              if (child.type === 'Percentage') {
+                if (s === undefined) {
+                  s = Number.parseFloat(child.value) / 100;
+                  continue;
+                }
+                if (l === undefined) {
+                  l = Number.parseFloat(child.value) / 100;
+                  continue;
+                }
+                if (a === undefined) {
+                  a = Number.parseFloat(child.value) / 100;
+                }
+              }
+            }
+
+            if (h === undefined || s === undefined || l === undefined) {
+              throw new Error(
+                `Could not determine the parameters of an ${func.name}() function.`,
+                {
+                  cause: declaration,
+                },
+              );
+            }
+
+            const rgb = hslToRgb({ h, s, l });
 
             funcParentListItem.data = rgbNode(rgb.r, rgb.g, rgb.b, a);
           }
