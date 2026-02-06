@@ -23,14 +23,14 @@ describe('<Stack> component', () => {
     expect(html).toContain('background-color:red');
   });
 
-  it('applies gap as marginBottom between rows', async () => {
+  it('applies gap as paddingBottom on cells (Outlook-safe)', async () => {
     const html = await render(
       <Stack gap={16}>
         <span>A</span>
         <span>B</span>
       </Stack>,
     );
-    expect(html).toContain('margin-bottom:16px');
+    expect(html).toContain('padding-bottom:16px');
   });
 
   it('accepts gap as string', async () => {
@@ -40,7 +40,7 @@ describe('<Stack> component', () => {
         <span>B</span>
       </Stack>,
     );
-    expect(html).toContain('margin-bottom:1em');
+    expect(html).toContain('padding-bottom:1em');
   });
 
   it('renders correctly', async () => {
@@ -55,7 +55,7 @@ describe('<Stack> component', () => {
     expect(actual).toContain('<tr');
     expect(actual).toContain('data-id="__react-email-column"');
     expect(actual).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="margin-bottom:8px"><tbody style="width:100%"><tr style="width:100%"><td data-id="__react-email-column" style="vertical-align:top"><span>One</span></td></tr></tbody></table><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation"><tbody style="width:100%"><tr style="width:100%"><td data-id="__react-email-column" style="vertical-align:top"><span>Two</span></td></tr></tbody></table><!--/$-->"`,
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation"><tbody style="width:100%"><tr style="width:100%"><td data-id="__react-email-column" style="vertical-align:top;padding-bottom:8px"><span>One</span></td></tr></tbody></table><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation"><tbody style="width:100%"><tr style="width:100%"><td data-id="__react-email-column" style="vertical-align:top"><span>Two</span></td></tr></tbody></table><!--/$-->"`,
     );
   });
 });

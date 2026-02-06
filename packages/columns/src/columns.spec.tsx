@@ -44,15 +44,15 @@ describe('<Columns> component', () => {
     expect(html).toContain('width:40%');
   });
 
-  it('applies gap as padding between columns', async () => {
+  it('applies gap via spacer columns (Outlook-safe, no overflow)', async () => {
     const html = await render(
       <Columns gap={16}>
         <span>A</span>
         <span>B</span>
       </Columns>,
     );
-    expect(html).toContain('padding-left:8px');
-    expect(html).toContain('padding-right:8px');
+    expect(html).toContain('width:16px');
+    expect(html).toContain('calc((100% - 16px) / 2)');
   });
 
   it('renders correctly', async () => {
@@ -63,7 +63,7 @@ describe('<Columns> component', () => {
       </Columns>,
     );
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation"><tbody style="width:100%"><tr style="width:100%"><td data-id="__react-email-column" style="width:50%;vertical-align:top;padding-right:0px"><span>One</span></td><td data-id="__react-email-column" style="width:50%;vertical-align:top;padding-left:0px"><span>Two</span></td></tr></tbody></table><!--/$-->"`,
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation"><tbody style="width:100%"><tr style="width:100%"><td data-id="__react-email-column" style="width:50%;vertical-align:top"><span>One</span></td><td data-id="__react-email-column" style="width:50%;vertical-align:top"><span>Two</span></td></tr></tbody></table><!--/$-->"`,
     );
   });
 });

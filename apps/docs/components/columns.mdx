@@ -102,7 +102,7 @@ const Email = () => (
 </ResponseField>
 
 <ResponseField name="gap" type="string | number" default="0">
-  Space between columns, applied as padding on cells. A number is treated as pixels; a string is used as-is.
+  Space between columns. Implemented with spacer columns and <code>calc()</code> widths so total width stays 100%. A number is treated as pixels; a string is used as-is.
 </ResponseField>
 
 <ResponseField name="columnWidths" type="string[]">

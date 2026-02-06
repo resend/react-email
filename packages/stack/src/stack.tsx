@@ -23,16 +23,15 @@ export const Stack = React.forwardRef<HTMLTableElement, StackProps>(
     return (
       <>
         {items.map((child, index) => (
-          <Row
-            key={index}
-            ref={index === 0 ? ref : undefined}
-            style={{
-              ...(index < items.length - 1 ? { marginBottom: gapCss } : {}),
-              ...style,
-            }}
-            {...props}
-          >
-            <Column style={{ verticalAlign: 'top' }}>{child}</Column>
+          <Row key={index} ref={index === 0 ? ref : undefined} style={style} {...props}>
+            <Column
+              style={{
+                verticalAlign: 'top',
+                ...(index < items.length - 1 ? { paddingBottom: gapCss } : {}),
+              }}
+            >
+              {child}
+            </Column>
           </Row>
         ))}
       </>
