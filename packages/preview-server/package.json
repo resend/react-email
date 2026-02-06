@@ -13,8 +13,8 @@
   },
   "main": "./index.mjs",
   "dependencies": {
-    "next": "16.1.6",
-    "esbuild": "0.25.10"
+    "esbuild": "0.27.3",
+    "next": "16.1.6"
   },
   "devDependencies": {
     "@babel/core": "7.26.10",
