@@ -1,5 +1,5 @@
 .react-email
-./emails
-./emails/static
-./node_modules
+/emails
+/emails/static
+/node_modules
 .turbo
