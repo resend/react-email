@@ -13,7 +13,6 @@ const nextConfig = {
   //
   // TODO: Open an issue on Nextjs about this.
   transpilePackages: ['react-email', 'prettier'],
-  output: 'standalone',
 };
 
 export default nextConfig;
