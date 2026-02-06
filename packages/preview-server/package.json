@@ -23,10 +23,11 @@
     "postcss.config.js",
     "readme.md",
     "tsconfig.json",
-    ".next"
+    ".next/**/*"
   ],
   "dependencies": {
-    "next": "16.1.6"
+    "next": "16.1.6",
+    "esbuild": "0.27.2"
   },
   "devDependencies": {
     "@babel/core": "7.26.10",
@@ -69,7 +70,6 @@
     "clsx": "2.1.1",
     "colorjs.io": "0.5.2",
     "cross-env": "^10.1.0",
-    "esbuild": "0.27.2",
     "framer-motion": "12.23.22",
     "log-symbols": "4.1.0",
     "module-punycode": "npm:punycode@2.3.1",

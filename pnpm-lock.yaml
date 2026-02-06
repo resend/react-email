@@ -674,6 +674,9 @@ importers:
 
   packages/preview-server:
     dependencies:
+      esbuild:
+        specifier: 0.27.2
+        version: 0.27.2
       next:
         specifier: 16.1.6
         version: 16.1.6(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -798,9 +801,6 @@ importers:
       cross-env:
         specifier: ^10.1.0
         version: 10.1.0
-      esbuild:
-        specifier: 0.27.2
-        version: 0.27.2
       framer-motion:
         specifier: 12.23.22
         version: 12.23.22(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
