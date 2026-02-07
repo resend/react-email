@@ -54,6 +54,7 @@ const IntegrationSection = () => {
                 <Line />
                 <Blur />
               </div>
+              <span className="sr-only">{item.name}</span>
             </Link>
           ))}
         </div>
@@ -164,18 +165,22 @@ const Logos = {
 const items = [
   {
     href: '/docs/integrations/resend',
+    name: 'Resend',
     logo: <Logos.resend />,
   },
   {
     href: '/docs/integrations/sendgrid',
+    name: 'SendGrid',
     logo: <Logos.sendgrid />,
   },
   {
     href: '/docs/integrations/aws-ses',
+    name: 'Amazon Web Services',
     logo: <Logos.ses />,
   },
   {
     href: '/docs/integrations/postmark',
+    name: 'Postmark',
     logo: <Logos.postmark />,
   },
 ];
