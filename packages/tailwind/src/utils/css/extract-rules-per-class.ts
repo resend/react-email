@@ -30,7 +30,9 @@ export function extractRulesPerClass(root: CssNode, classes: string[]) {
           if (inlinablePart) {
             inlinableRules.set(className, inlinablePart);
           }
-          nonInlinableRules.set(className, nonInlinablePart);
+          if (nonInlinablePart) {
+            nonInlinableRules.set(className, nonInlinablePart);
+          }
         }
       }
     },
