@@ -11,7 +11,25 @@ export interface Server {
 export function runServer(pathToCliScript: string) {
   return new Promise<Server>((resolve, reject) => {
     const node = spawn('node', [pathToCliScript, 'dev'], {
-      cwd: path.resolve(__dirname, '../../../../apps/demo'),
+      cwd: path.resolve(import.meta.dirname, '../../../../apps/demo'),
+    });
+
+    const kill = () => {
+      node.kill();
+    };
+
+    process.addListener('exit', kill);
+    process.addListener('SIGINT', kill);
+    process.addListener('SIGTERM', kill);
+    process.addListener('SIGUSR1', kill);
+    process.addListener('SIGUSR2', kill);
+
+    node.on('close', () => {
+      process.removeListener('exit', kill);
+      process.removeListener('SIGINT', kill);
+      process.removeListener('SIGTERM', kill);
+      process.removeListener('SIGUSR1', kill);
+      process.removeListener('SIGUSR2', kill);
     });
 
     node.stdout.on('data', (data) => {

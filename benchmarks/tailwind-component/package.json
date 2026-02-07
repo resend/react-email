@@ -1,7 +1,7 @@
 {
   "name": "@benchmarks/tailwind-component",
   "private": true,
-  "main": "dist/benchmark.js",
+  "type": "module",
   "version": "0.0.0",
   "scripts": {
     "with-vs-without": "tsx ./src/benchmark-with-vs-without",
