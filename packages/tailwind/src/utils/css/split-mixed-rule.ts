@@ -6,7 +6,7 @@ import { isPartInlinable } from './is-part-inlinable';
  * for which isRuleInlinable(rule) is false. Returns clones so the original stylesheet is never mutated.
  *
  * @returns inlinablePart: rule with only inlinable block children, or null if none.
- *          nonInlinablePart: rule with only non-inlinable block children (full clone when no split).
+ *          nonInlinablePart: rule with only non-inlinable block children, or same prelude + empty block when none.
  */
 export function splitMixedRule(rule: Rule): {
   inlinablePart: Rule | null;
@@ -46,7 +46,13 @@ export function splitMixedRule(rule: Rule): {
             children: new List<CssNode>().fromArray(nonInlinableParts),
           },
         }
-      : ruleCloneNonInlinable;
+      : {
+          ...ruleCloneNonInlinable,
+          block: {
+            type: 'Block' as const,
+            children: new List<CssNode>(),
+          },
+        };
 
   return { inlinablePart, nonInlinablePart };
 }
