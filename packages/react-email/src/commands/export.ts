@@ -1,5 +1,5 @@
-import fs, { unlinkSync, writeFileSync } from 'node:fs';
-import { createRequire } from 'node:module';
+import { spawn } from 'node:child_process';
+import fs from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
 import type { Options } from '@react-email/components';
@@ -8,7 +8,6 @@ import { glob } from 'glob';
 import logSymbols from 'log-symbols';
 import normalize from 'normalize-path';
 import ora, { type Ora } from 'ora';
-import type React from 'react';
 import { renderingUtilitiesExporter } from '../utils/esbuild/renderring-utilities-exporter.js';
 import {
   type EmailsDirectory,
@@ -35,8 +34,7 @@ type ExportTemplatesOptions = Options & {
 };
 
 const filename = url.fileURLToPath(import.meta.url);
-
-const require = createRequire(filename);
+const dirname = path.dirname(filename);
 
 /*
   This first builds all the templates using esbuild and then puts the output in the `.js`
@@ -115,41 +113,115 @@ export const exportTemplates = async (
     },
   );
 
-  for await (const template of allBuiltTemplates) {
-    try {
-      if (spinner) {
-        spinner.text = `rendering ${template.split('/').pop()}`;
-        spinner.render();
-      }
-      delete require.cache[template];
-      const emailModule = require(template) as {
-        default: React.FC;
-        render: (
-          element: React.ReactElement,
-          options: Record<string, unknown>,
-        ) => Promise<string>;
-        reactEmailCreateReactElement: typeof React.createElement;
-      };
-      const rendered = await emailModule.render(
-        emailModule.reactEmailCreateReactElement(emailModule.default, {}),
-        options,
-      );
-      const htmlPath = template.replace(
-        '.cjs',
-        options.plainText ? '.txt' : '.html',
-      );
-      writeFileSync(htmlPath, rendered);
-      unlinkSync(template);
-    } catch (exception) {
-      if (spinner) {
-        spinner.stopAndPersist({
-          symbol: logSymbols.error,
-          text: `failed when rendering ${template.split('/').pop()}`,
-        });
-      }
-      console.error(exception);
-      process.exit(1);
+  // Render templates in separate processes to avoid memory issues
+  // The worker script is compiled to dist/commands/export-worker.js
+  const workerScriptPath = path.join(dirname, 'export-worker.js');
+  const totalTemplates = allBuiltTemplates.length;
+
+  for (let i = 0; i < allBuiltTemplates.length; i++) {
+    const template = allBuiltTemplates[i];
+    if (!template) continue;
+
+    const templateName = template.split('/').pop() || 'unknown';
+
+    if (spinner) {
+      spinner.text = `Rendering ${templateName} (${i + 1}/${totalTemplates})...`;
+      spinner.render();
     }
+
+    const htmlPath = template.replace(
+      '.cjs',
+      options.plainText ? '.txt' : '.html',
+    );
+
+    const workerInput = {
+      templatePath: template,
+      htmlPath,
+      options,
+    };
+
+    await new Promise<void>((resolve, reject) => {
+      // Spawn worker process using the compiled JavaScript file
+      const worker = spawn(
+        process.execPath,
+        [workerScriptPath, JSON.stringify(workerInput)],
+        {
+          cwd: process.cwd(),
+          stdio: ['ignore', 'pipe', 'pipe'],
+        },
+      );
+
+      let stdout = '';
+      let stderr = '';
+
+      worker.stdout?.on('data', (data) => {
+        stdout += data.toString();
+      });
+
+      worker.stderr?.on('data', (data) => {
+        stderr += data.toString();
+      });
+
+      worker.on('close', (code) => {
+        if (code === 0) {
+          // Try to parse success message
+          try {
+            const lines = stdout.trim().split('\n');
+            const lastLine = lines[lines.length - 1];
+            if (lastLine) {
+              const result = JSON.parse(lastLine);
+              if (result.success) {
+                resolve();
+                return;
+              }
+            }
+          } catch {
+            // If parsing fails but exit code is 0, assume success
+            resolve();
+            return;
+          }
+          resolve();
+        } else {
+          // Try to parse error message
+          let errorMessage = `Worker process exited with code ${code}`;
+          try {
+            const lines = stderr.trim().split('\n');
+            const lastLine = lines[lines.length - 1];
+            if (lastLine) {
+              const error = JSON.parse(lastLine);
+              if (error.error) {
+                errorMessage = error.error;
+              }
+            }
+          } catch {
+            // Use stderr as fallback
+            if (stderr) {
+              errorMessage = stderr;
+            }
+          }
+
+          if (spinner) {
+            spinner.stopAndPersist({
+              symbol: logSymbols.error,
+              text: `Failed when rendering ${templateName}`,
+            });
+          }
+          console.error(errorMessage);
+          reject(new Error(errorMessage));
+        }
+      });
+
+      worker.on('error', (error) => {
+        if (spinner) {
+          spinner.stopAndPersist({
+            symbol: logSymbols.error,
+            text: `Failed to spawn worker for ${templateName}`,
+          });
+        }
+        console.error(`Failed to spawn worker: ${error.message}`);
+        reject(error);
+      });
+    });
   }
   if (spinner) {
     spinner.succeed('Rendered all files');
