@@ -1,6 +1,6 @@
 import { parse, type StyleSheet } from 'css-tree';
 import { compile } from 'tailwindcss';
-import type { TailwindConfig } from '../../tailwind';
+import type { CSSString, TailwindConfig } from '../../tailwind';
 import indexCss from './tailwind-stylesheets/index';
 import preflightCss from './tailwind-stylesheets/preflight';
 import themeCss from './tailwind-stylesheets/theme';
@@ -8,20 +8,35 @@ import utilitiesCss from './tailwind-stylesheets/utilities';
 
 export type TailwindSetup = Awaited<ReturnType<typeof setupTailwind>>;
 
-export async function setupTailwind(config: TailwindConfig) {
+interface CSSConfigs {
+  theme?: CSSString;
+  utility?: CSSString;
+}
+
+interface SetupTailwindProps {
+  config?: TailwindConfig;
+  cssConfigs?: CSSConfigs;
+}
+export async function setupTailwind({
+  config,
+  cssConfigs,
+}: SetupTailwindProps) {
   const baseCss = `
 @layer theme, base, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
+@import "custom-theme.css" layer(theme);
+@import "custom-utilities.css" layer(utilities);
 @config;
 `;
+
   const compiler = await compile(baseCss, {
     async loadModule(id, base, resourceHint) {
       if (resourceHint === 'config') {
         return {
           path: id,
           base: base,
-          module: config,
+          module: config ?? {},
         };
       }
 
@@ -60,6 +75,22 @@ export async function setupTailwind(config: TailwindConfig) {
           base,
           path: id,
           content: utilitiesCss,
+        };
+      }
+
+      if (id === 'custom-theme.css') {
+        return {
+          base,
+          path: id,
+          content: cssConfigs?.theme ?? '',
+        };
+      }
+
+      if (id === 'custom-utilities.css') {
+        return {
+          base,
+          path: id,
+          content: cssConfigs?.utility ?? '',
         };
       }
 
