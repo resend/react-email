@@ -24,7 +24,10 @@ export function cloneElementWithInlinedStyles(
       const rule = inlinableRules.get(className);
       if (rule) {
         rules.push(rule);
-      } else {
+      }
+      if (nonInlinableRules.has(className)) {
+        residualClasses.push(className);
+      } else if (!rule) {
         residualClasses.push(className);
       }
     }

@@ -1,5 +1,6 @@
 import { type CssNode, type Rule, string, walk } from 'css-tree';
 import { isRuleInlinable } from './is-rule-inlinable';
+import { splitMixedRule } from './split-mixed-rule';
 
 export function extractRulesPerClass(root: CssNode, classes: string[]) {
   const classSet = new Set(classes);
@@ -23,9 +24,14 @@ export function extractRulesPerClass(root: CssNode, classes: string[]) {
           }
         }
       } else {
+        const { inlinablePart, nonInlinablePart } = splitMixedRule(rule);
         for (const className of selectorClasses) {
-          if (classSet.has(className)) {
-            nonInlinableRules.set(className, rule);
+          if (!classSet.has(className)) continue;
+          if (inlinablePart) {
+            inlinableRules.set(className, inlinablePart);
+          }
+          if (nonInlinablePart) {
+            nonInlinableRules.set(className, nonInlinablePart);
           }
         }
       }

@@ -77,4 +77,39 @@ describe('extractRulesPerClass()', async () => {
       }
     `);
   });
+
+  it('splits mixed rules (base + media) into inlinable base and non-inlinable media', async () => {
+    const tailwind = await setupTailwind({
+      plugins: [
+        {
+          handler: (api) => {
+            api.addUtilities({
+              '.text-body': {
+                '@apply text-[green] sm:text-[darkgreen]': {},
+              },
+            });
+          },
+        },
+      ],
+    });
+    const classes = ['text-body'];
+    tailwind.addUtilities(classes);
+
+    const stylesheet = tailwind.getStyleSheet();
+    const { inlinable, nonInlinable } = extractRulesPerClass(
+      stylesheet,
+      classes,
+    );
+
+    expect(convertToComparable(inlinable)).toMatchInlineSnapshot(`
+      {
+        "text-body": ".text-body{color:green}",
+      }
+    `);
+    expect(convertToComparable(nonInlinable)).toMatchInlineSnapshot(`
+      {
+        "text-body": ".text-body{@media (width>=40rem){color:darkgreen}}",
+      }
+    `);
+  });
 });
