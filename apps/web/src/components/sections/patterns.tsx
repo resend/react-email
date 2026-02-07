@@ -106,7 +106,7 @@ const ContentComponent = ({ component }: { component: string }) => {
   switch (component) {
     case 'Heading':
       return (
-        <Heading size="8" weight="medium" className="text-white/80">
+        <Heading as="h2" size="8" weight="medium" className="text-white/80">
           Ready-to-use Components
         </Heading>
       );
