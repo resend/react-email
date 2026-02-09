@@ -1,0 +1,79 @@
+---
+title: 'Send email using SendLayer'
+sidebarTitle: 'SendLayer'
+description: 'Learn how to send an email using React Email and the SendLayer Node.js SDK.'
+'og:image': 'https://react.email/static/covers/react-email.png'
+---
+
+## 1. Install dependencies
+
+Get the [@react-email/components](https://www.npmjs.com/package/@react-email/components) package and the [SendLayer Node.js SDK](https://www.npmjs.com/package/sendlayer).
+
+<CodeGroup>
+
+```sh npm
+npm install sendlayer @react-email/components
+```
+
+```sh yarn
+yarn add sendlayer @react-email/components
+```
+
+```sh pnpm
+pnpm add sendlayer @react-email/components
+```
+
+</CodeGroup>
+
+## 2. Create an email using React
+
+Start by building your email template in a `.jsx` or `.tsx` file.
+
+```tsx email.tsx
+import * as React from 'react';
+import { Html, Button } from "@react-email/components";
+
+export function Email(props) {
+  const { url } = props;
+
+  return (
+    <Html lang="en">
+      <Button href={url}>Click me</Button>
+    </Html>
+  );
+}
+```
+
+## 3. Convert to HTML and send email
+
+Import the email template you just built, convert into an HTML string, and use the MailerSend SDK to send it.
+
+```tsx
+import { render } from '@react-email/components';
+import { SendLayer } from "sendlayer";
+import { Email } from './email';
+
+const sendlayer = new SendLayer(process.env.SENDLAYER_API_KEY || '');
+
+const emailHtml = await render(<Email url="https://example.com" />);
+
+const options = {
+  from: 'you@example.com',
+  to: 'user@gmail.com',
+  subject: 'hello world',
+  html: emailHtml,
+};
+
+await sendlayer.Emails.send(options);
+```
+
+## Try it yourself
+
+<Card
+  title="SendLayer example"
+  icon='arrow-up-right-from-square'
+  iconType="duotone"
+  href="https://github.com/resend/react-email/tree/main/examples/sendlayer"
+>
+  See the full source code.
+</Card>

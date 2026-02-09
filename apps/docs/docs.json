@@ -99,7 +99,8 @@
               "integrations/aws-ses",
               "integrations/mailersend",
               "integrations/scaleway",
-              "integrations/plunk"
+              "integrations/plunk",
+              "integrations/sendlayer"
             ]
           },
           {
