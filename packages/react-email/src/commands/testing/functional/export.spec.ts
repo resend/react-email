@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { exportTemplates } from '../export.js';
+import { exportTemplates } from '../../export.js';
 
 test('email export', { retry: 3 }, async () => {
   const pathToEmailsDirectory = path.resolve(__dirname, './emails');
