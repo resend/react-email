@@ -17,7 +17,7 @@
     "@react-email/components": "^1.0.7",
     "react": "^19",
     "react-dom": "^19",
-    "sendlayer": "^1.0.2"
+    "sendlayer": "^1.0.3"
   },
   "devDependencies": {
     "tsdown": "^0.15.1",
