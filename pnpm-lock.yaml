@@ -105,12 +105,6 @@ importers:
       '@react-email/preview-server':
         specifier: workspace:*
         version: link:../../packages/preview-server
-      '@types/react':
-        specifier: 19.2.13
-        version: 19.2.13
-      '@types/react-dom':
-        specifier: 19.2.3
-        version: 19.2.3(@types/react@19.2.13)
       next:
         specifier: 16.1.5
         version: 16.1.5(@babel/core@7.26.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -223,12 +217,6 @@ importers:
       '@types/node':
         specifier: ^22.0.0
         version: 22.14.1
-      '@types/react':
-        specifier: 19.2.13
-        version: 19.2.13
-      '@types/react-dom':
-        specifier: 19.2.3
-        version: 19.2.3(@types/react@19.2.13)
       '@types/three':
         specifier: 0.170.0
         version: 0.170.0
@@ -982,12 +970,6 @@ importers:
       '@types/html-to-text':
         specifier: 9.0.4
         version: 9.0.4
-      '@types/react':
-        specifier: 19.2.13
-        version: 19.2.13
-      '@types/react-dom':
-        specifier: 19.2.3
-        version: 19.2.3(@types/react@19.2.13)
       jsdom:
         specifier: 26.1.0
         version: 26.1.0
@@ -1151,12 +1133,6 @@ importers:
       '@react-email/preview-server':
         specifier: workspace:*
         version: link:../packages/preview-server
-      '@types/react':
-        specifier: 19.2.13
-        version: 19.2.13
-      '@types/react-dom':
-        specifier: 19.2.3
-        version: 19.2.3(@types/react@19.2.13)
       react-email:
         specifier: workspace:*
         version: link:../packages/react-email
