@@ -115,7 +115,14 @@ export const exportTemplates = async (
 
   // Render templates in separate processes to avoid memory issues
   // The worker script is compiled to dist/commands/export-worker.js
-  const workerScriptPath = path.join(dirname, '..', '..', 'dist', 'commands', 'export-worker.js');
+  const workerScriptPath = path.join(
+    dirname,
+    '..',
+    '..',
+    'dist',
+    'commands',
+    'export-worker.js'
+  );
   const totalTemplates = allBuiltTemplates.length;
 
   for (let i = 0; i < allBuiltTemplates.length; i++) {
