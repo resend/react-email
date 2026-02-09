@@ -2,13 +2,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { exportTemplates } from '../export.js';
 
-test.skip('email export', { retry: 3 }, async () => {
+test('email export', async () => {
   const pathToEmailsDirectory = path.resolve(__dirname, './emails');
   const pathToDumpMarkup = path.resolve(__dirname, './out');
   await exportTemplates(pathToDumpMarkup, pathToEmailsDirectory, {
     silent: true,
     pretty: true,
-  });
+  },
+  path.resolve(__dirname, '..', '..', '..', 'dist', 'commands', 'export-worker.js'),
+  );
 
   expect(fs.existsSync(pathToDumpMarkup)).toBe(true);
   expect(
