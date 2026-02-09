@@ -121,7 +121,7 @@ export const exportTemplates = async (
     '..',
     'dist',
     'commands',
-    'export-worker.js'
+    'export-worker.js',
   );
   const totalTemplates = allBuiltTemplates.length;
 
