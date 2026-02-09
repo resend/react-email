@@ -1,0 +1,26 @@
+{
+  "name": "react-email-with-sendlayer",
+  "license": "MIT",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "main": "./dist/index.js",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsdown src/index.tsx --format esm --target node20",
+    "dev": "tsdown src/index.tsx --format esm --target node20 --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@react-email/components": "^1.0.7",
+    "react": "^19",
+    "react-dom": "^19",
+    "sendlayer": "^1.0.2"
+  },
+  "devDependencies": {
+    "tsdown": "^0.15.1",
+    "typescript": "^5"
+  }
+}
