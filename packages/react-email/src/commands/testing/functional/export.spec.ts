@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { expect, test } from 'vitest';
 import { exportTemplates } from '../../export.js';
 
 test('email export', { retry: 3 }, async () => {
