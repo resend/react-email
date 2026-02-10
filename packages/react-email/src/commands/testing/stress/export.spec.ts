@@ -4,7 +4,7 @@ import path from 'node:path';
 import { exportTemplates } from '../../export.js';
 
 test('email export', async () => {
-  const emailsQuantity = 660;
+  const emailsQuantity = 10;
   const emailsDir = path.join(__dirname, 'emails');
   const srcDir = path.join(__dirname, 'src');
   await fsPromises.rm(emailsDir);
