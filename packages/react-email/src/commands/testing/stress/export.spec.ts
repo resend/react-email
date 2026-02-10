@@ -3,7 +3,7 @@ import path from 'node:path';
 import { exportTemplates } from '../../export.js';
 
 test('email export', async () => {
-  const emailsQuantity = 10;
+  const emailsQuantity = 100;
   const emailsDir = path.join(__dirname, 'emails');
   const srcDir = path.join(__dirname, 'src');
   const outDir = path.join(__dirname, 'out');
