@@ -14,8 +14,6 @@
   },
   "devDependencies": {
     "@react-email/preview-server": "workspace:*",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
     "react-email": "workspace:*",
     "tsconfig": "workspace:*"
   }
