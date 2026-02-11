@@ -1,3 +1,4 @@
+import path from 'node:path';
 import { z } from 'zod';
 import { isErr, isOk } from './result';
 import { runBundledCode } from './run-bundled-code';
@@ -49,6 +50,24 @@ describe('runBundledCode()', () => {
         })
         .parse(result.value).default,
     ).toEqual(42);
+  });
+
+  // see https://github.com/resend/react-email/issues/2930
+  it('works when using default imports for node:path', async () => {
+    const result = await runBundledCode(
+      `
+import path from 'node:path';
+
+export default path.join('a', 'b', 'c');
+    `,
+      'test-path.js',
+    );
+    if (!isOk(result)) {
+      expect(isOk(result), 'there should be no errors').toBe(true);
+      console.log(result.error);
+      return;
+    }
+    expect(result.value).toEqual({ default: path.join('a', 'b', 'c') });
   });
 
   it('returns an error if the code throws', async () => {

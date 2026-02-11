@@ -26,7 +26,7 @@
     "email-dev": "workspace:*",
     "framer-motion": "12.23.22",
     "lucide-react": "^0.544.0",
-    "next": "16.0.10",
+    "next": "16.1.5",
     "prism-react-renderer": "2.4.1",
     "react": "^19",
     "react-dom": "^19",
@@ -46,9 +46,8 @@
     "@types/babel__core": "7.20.5",
     "@types/babel__traverse": "7.20.7",
     "@types/node": "^22.0.0",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
     "@types/three": "0.170.0",
+    "@vercel/firewall": "1.1.2",
     "autoprefixer": "10.4.23",
     "classnames": "2.5.1",
     "html-to-ast": "0.0.6",
@@ -56,7 +55,7 @@
     "tailwindcss": "3.4.3",
     "tsconfig": "workspace:*",
     "typescript": "5.8.3",
-    "webpack": "5.99.6",
+    "webpack": "5.104.1",
     "zod": "3.24.3"
   }
 }

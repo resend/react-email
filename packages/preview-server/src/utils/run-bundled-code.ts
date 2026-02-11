@@ -117,19 +117,17 @@ export async function runBundledCode(
 
       if (m in staticNodeModulesForVM) {
         const moduleExports = staticNodeModulesForVM[m];
-        // Get all own property keys (including symbols and non-enumerable)
         const exportKeys = Reflect.ownKeys(moduleExports).filter(
           (key) => typeof key === 'string',
         ) as string[];
 
-        // Create a SyntheticModule that exports the static module
         const syntheticModule = new vm.SyntheticModule(
-          exportKeys,
+          [...exportKeys.filter((k) => k !== 'default'), 'default'],
           function () {
-            // Set all exports from the static module
             for (const key of exportKeys) {
               this.setExport(key, moduleExports[key]);
             }
+            this.setExport('default', moduleExports);
           },
           {
             context,
@@ -139,13 +137,10 @@ export async function runBundledCode(
         return syntheticModule;
       }
 
-      // For external modules, import them and create a SyntheticModule
       const importedModule = await import(specifier, {
         with: extra.attributes as ImportAttributes,
       });
 
-      // Get all own property keys (including symbols and non-enumerable)
-      // Filter to only string keys as SyntheticModule only supports string export names
       const exportKeys = Reflect.ownKeys(importedModule).filter(
         (key) => typeof key === 'string',
       ) as string[];
@@ -153,7 +148,6 @@ export async function runBundledCode(
       const syntheticModule = new vm.SyntheticModule(
         exportKeys,
         function () {
-          // Set all exports from the imported module
           for (const key of exportKeys) {
             this.setExport(key, importedModule[key]);
           }

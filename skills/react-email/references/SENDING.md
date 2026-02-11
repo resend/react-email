@@ -1,5 +1,7 @@
 Below are general guidelines for sending emails with React Email.
 
+Important: Use verified domains in `from` addresses. Ask the user for the verified domain and use it in the `from` address. If the user does not have a verified domain, ask them to verify one with their email service provider.
+
 ### Send with Resend (Recommended)
 
 When you have access to the Resend MCP tool:

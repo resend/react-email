@@ -1,5 +1,33 @@
 # react-email
 
+## 5.2.8
+
+## 5.2.7
+
+## 5.2.6
+
+### Patch Changes
+
+- 11f56c5: fix RESEND_API_KEY being overwritten in email preview
+
+## 5.3.0-canary.2
+
+### Patch Changes
+
+- 1b9df29: ensure that installed preview server also has dev dependencies
+
+## 5.3.0-canary.1
+
+### Patch Changes
+
+- 0289914: fix random errors due to root directory not being the preview's path
+
+## 5.3.0-canary.0
+
+### Minor Changes
+
+- 7c18bd3: don't require installing @react-email/preview-server in the project, pack it into `$HOME/.react-email`
+
 ## 5.2.5
 
 ### Patch Changes

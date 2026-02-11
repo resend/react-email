@@ -24,9 +24,5 @@ export const getEmailPathFromSlug = cache(async (slug: string) => {
     return `${pathWithoutExtension}.js`;
   }
 
-  throw new Error(
-    `Could not find your email file based on the slug (${slug}) by guessing the file extension. Tried .tsx, .jsx, .ts and .js.
-
-    This is most likely not an issue with the preview server. It most likely is that the email doesn't exist.`,
-  );
+  return undefined;
 });

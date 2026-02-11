@@ -3,7 +3,6 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const nextBuildProcess = spawn('pnpm next build', {
-  detached: true,
   shell: true,
   stdio: 'inherit',
   cwd: path.resolve(import.meta.dirname, '../'),

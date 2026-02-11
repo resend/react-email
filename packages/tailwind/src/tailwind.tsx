@@ -134,7 +134,11 @@ export function Tailwind({ children, config }: TailwindProps) {
       if (elementWithInlinedStyles.type === 'head') {
         appliedNonInlineStyles = true;
 
-        const styleElement = <style>{generate(nonInlineStyles)}</style>;
+        const styleElement = (
+          <style
+            dangerouslySetInnerHTML={{ __html: generate(nonInlineStyles) }}
+          />
+        );
 
         return React.cloneElement(
           elementWithInlinedStyles,
