@@ -45,6 +45,7 @@
     "@react-email/code-block": "workspace:0.2.1",
     "@react-email/code-inline": "workspace:0.0.6",
     "@react-email/column": "workspace:0.0.14",
+    "@react-email/columns": "workspace:*",
     "@react-email/container": "workspace:0.0.16",
     "@react-email/font": "workspace:0.0.10",
     "@react-email/head": "workspace:0.0.13",
@@ -58,6 +59,7 @@
     "@react-email/render": "workspace:2.0.4",
     "@react-email/row": "workspace:0.0.13",
     "@react-email/section": "workspace:0.0.17",
+    "@react-email/stack": "workspace:*",
     "@react-email/tailwind": "workspace:2.0.4",
     "@react-email/text": "workspace:0.1.6"
   },

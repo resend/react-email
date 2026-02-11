@@ -1,0 +1,117 @@
+---
+title: "Stack"
+sidebarTitle: "Stack"
+description: "Place blocks one under the other with consistent spacing between them. No need to hand-wire rows or margins."
+"og:image": "https://react.email/static/covers/section.png"
+icon: "layer-group"
+---
+
+import Support from '/snippets/support.mdx'
+
+## Install
+
+Install component from your command line.
+
+<CodeGroup>
+
+```sh npm
+npm install @react-email/components -E
+
+# or get the individual package
+
+npm install @react-email/stack -E
+```
+
+```sh yarn
+yarn add @react-email/components -E
+
+# or get the individual package
+
+yarn add @react-email/stack -E
+```
+
+```sh pnpm
+pnpm add @react-email/components -E
+
+# or get the individual package
+
+pnpm add @react-email/stack -E
+```
+
+</CodeGroup>
+
+## Getting started
+
+Use Stack to place blocks one under the other with consistent spacing. Add it inside a **Section**; set `gap` for the space between items.
+
+```jsx
+import { Section, Stack, Text } from "@react-email/components";
+
+const Email = () => (
+  <Section>
+    <Stack gap={16}>
+      <Text>First block</Text>
+      <Text>Second block</Text>
+      <Text>Third block</Text>
+    </Stack>
+  </Section>
+);
+```
+
+## Compared to Section + Row
+
+The same layout can be built with **Section**, **Row**, and **Column** — one row per block, each block in a Column. Stack is a thin wrapper around **Row** and **Column** (same primitives as **Columns**) that does it with one component and a single `gap` prop.
+
+**With Section + Row (primitives):**
+
+```jsx
+import { Section, Row, Column, Text } from "@react-email/components";
+
+const Email = () => (
+  <Section>
+    <Row style={{ marginBottom: 16 }}>
+      <Column>
+        <Text>First block</Text>
+      </Column>
+    </Row>
+    <Row style={{ marginBottom: 16 }}>
+      <Column>
+        <Text>Second block</Text>
+      </Column>
+    </Row>
+    <Row>
+      <Column>
+        <Text>Third block</Text>
+      </Column>
+    </Row>
+  </Section>
+);
+```
+
+**With Stack (same result, less code):**
+
+```jsx
+import { Section, Stack, Text } from "@react-email/components";
+
+const Email = () => (
+  <Section>
+    <Stack gap={16}>
+      <Text>First block</Text>
+      <Text>Second block</Text>
+      <Text>Third block</Text>
+    </Stack>
+  </Section>
+);
+```
+
+## Props
+
+<ResponseField name="gap" type="string | number" default="0">
+  Spacing between stacked children. A number is treated as pixels (e.g. `16` → `16px`); a string is used as-is (e.g. `"1em"`).
+</ResponseField>
+
+<ResponseField name="style" type="object">
+  Inline styles applied to each row (Stack renders one Row per child).
+</ResponseField>
+
+<Support/>
