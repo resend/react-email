@@ -165,7 +165,7 @@ export default function WelcomeEmail({ name, verificationUrl }: WelcomeEmailProp
             </Text>
             <Button
               href={verificationUrl}
-              className="bg-brand text-white px-5 py-3 rounded block text-center no-underline"
+              className="bg-brand text-white px-5 py-3 rounded block text-center no-underline box-border"
             >
               Verify Email
             </Button>
@@ -306,6 +306,7 @@ export default EmailTemplate;
 Use the Tailwind component for styling if the user is actively using Tailwind CSS in their project. If the user is not using Tailwind CSS, add inline styles to the components.
 
 - Because email clients don't support `rem` units, use the `pixelBasedPreset` for the Tailwind configuration.
+- **Import `pixelBasedPreset` from `@react-email/components`** — do NOT import from `@react-email/tailwind` or `@react-email/tailwind/presets`.
 - Never use flexbox or grid for layout, use table-based layouts instead.
 - Each component must be styled with inline styles or utility classes.
 
@@ -316,6 +317,16 @@ Use the Tailwind component for styling if the user is actively using Tailwind CS
 - Never use theme selectors (dark:, light:) - not supported
 - Always specify border type (border-solid, border-dashed, etc.)
 - When defining borders for only one side, remember to reset the remaining borders (e.g., border-none border-l)
+
+### Required Classes
+
+These classes are **always required** on their respective components — omitting them causes rendering bugs across email clients:
+
+| Component | Required Class | Why |
+|-----------|---------------|-----|
+| `Button` | `box-border` | Prevents padding from overflowing the button width |
+| `Hr` / any border | `border-solid` (or `border-dashed`, etc.) | Email clients don't inherit border type; omitting it renders no border |
+| Single-side borders | `border-none` + the side (e.g., `border-none border-t border-solid`) | Resets default borders on other sides |
 
 ### Component Structure
 - Always define `<Head />` inside `<Tailwind>` when using Tailwind CSS
