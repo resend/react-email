@@ -106,6 +106,9 @@ const createRelease = async ({
     );
   }
 
+  // https://docs.npmjs.com/generating-provenance-statements#publishing-packages-with-provenance-via-github-actions
+  const npmIdToken = await core.getIDToken('npm:registry.npmjs.org');
+
   const isCanaryBranch = github.context.ref === 'refs/heads/canary';
   const isMainBranch = github.context.ref === 'refs/heads/main';
 
@@ -129,7 +132,14 @@ const createRelease = async ({
     );
   }
 
-  const changesetPublishOutput = await getExecOutput('pnpm release');
+  const changesetPublishOutput = await getExecOutput('pnpm', ['release'], {
+    env: {
+      ...process.env,
+      NPM_ID_TOKEN: npmIdToken,
+      // https://docs.npmjs.com/generating-provenance-statements#using-third-party-package-publishing-tools
+      NPM_CONFIG_PROVENANCE: 'true',
+    },
+  });
 
   const { packages } = await getPackages(process.cwd());
 

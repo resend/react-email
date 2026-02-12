@@ -21,6 +21,7 @@ export function Topbar({
         href="/"
       >
         <Logo />
+        <span className="sr-only">Home</span>
       </Link>
       <Menu />
     </header>
