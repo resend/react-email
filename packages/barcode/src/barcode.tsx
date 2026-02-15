@@ -6,7 +6,7 @@ import {
   enforceColumnUniformity,
 } from './compression';
 import { generateBwip } from './generate-bwip';
-import { generateQR } from './generate-qr';
+import { generateQr } from './generate-qr';
 import { packBestOrientation } from './packing';
 import { renderTable } from './table-renderer';
 import {
@@ -54,7 +54,7 @@ export const Barcode = React.forwardRef<HTMLDivElement, BarcodeProps>(
     let moduleCols: number;
 
     if (cfg.lib === 'qr') {
-      const result = generateQR(value, errorCorrection, pad);
+      const result = generateQr(value, errorCorrection, pad);
       grid = result.grid;
       moduleRows = result.moduleRows;
       moduleCols = result.moduleCols;
@@ -62,7 +62,7 @@ export const Barcode = React.forwardRef<HTMLDivElement, BarcodeProps>(
       const result = generateBwip(
         type,
         value,
-        cfg.hasEC,
+        cfg.hasEc,
         errorCorrection,
         pad,
       );
@@ -83,7 +83,7 @@ export const Barcode = React.forwardRef<HTMLDivElement, BarcodeProps>(
         ecPct = EC_RATES[errorCorrection];
       } else {
         protect = buildQuietZoneMask(pad, totalRows, totalCols);
-        ecPct = cfg.hasEC
+        ecPct = cfg.hasEc
           ? BWIP_EC_RATES[errorCorrection]
           : (cfg.ecRate ?? 0.02);
       }

@@ -12,7 +12,7 @@ const EC_MAP: Record<ErrorCorrectionLevel, number> = {
 export function generateBwip(
   bcid: BarcodeType,
   text: string,
-  hasEC: boolean,
+  hasEc: boolean,
   ecLevel: ErrorCorrectionLevel,
   pad: number,
 ): { grid: Grid; moduleRows: number; moduleCols: number } {
@@ -26,7 +26,7 @@ export function generateBwip(
     padding: 0,
   };
 
-  if (hasEC) {
+  if (hasEc) {
     opts.eclevel = EC_MAP[ecLevel] || 23;
   }
 

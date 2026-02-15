@@ -22,46 +22,46 @@ export interface Span {
 export interface BarcodeTypeConfig {
   lib: 'qr' | 'bwip';
   type: '1d' | '2d';
-  hasEC: boolean;
+  hasEc: boolean;
   hasLossy: boolean;
   ecRate?: number;
 }
 
 export const BARCODE_TYPES: Record<BarcodeType, BarcodeTypeConfig> = {
-  qrcode: { lib: 'qr', type: '2d', hasEC: true, hasLossy: true },
-  azteccode: { lib: 'bwip', type: '2d', hasEC: true, hasLossy: true },
+  qrcode: { lib: 'qr', type: '2d', hasEc: true, hasLossy: true },
+  azteccode: { lib: 'bwip', type: '2d', hasEc: true, hasLossy: true },
   datamatrix: {
     lib: 'bwip',
     type: '2d',
-    hasEC: false,
+    hasEc: false,
     hasLossy: true,
     ecRate: 0.15,
   },
   code128: {
     lib: 'bwip',
     type: '1d',
-    hasEC: false,
+    hasEc: false,
     hasLossy: true,
     ecRate: 0.02,
   },
   code39: {
     lib: 'bwip',
     type: '1d',
-    hasEC: false,
+    hasEc: false,
     hasLossy: true,
     ecRate: 0.02,
   },
   ean13: {
     lib: 'bwip',
     type: '1d',
-    hasEC: false,
+    hasEc: false,
     hasLossy: true,
     ecRate: 0.02,
   },
   upca: {
     lib: 'bwip',
     type: '1d',
-    hasEC: false,
+    hasEc: false,
     hasLossy: true,
     ecRate: 0.02,
   },
