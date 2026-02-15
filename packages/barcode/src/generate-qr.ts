@@ -1,13 +1,13 @@
 import qrcode from 'qrcode-generator';
 import type { ErrorCorrectionLevel, Grid } from './types';
 
-export function generateQR(
+export function generateQr(
   text: string,
   ecLevel: ErrorCorrectionLevel,
   pad: number,
 ): { grid: Grid; moduleRows: number; moduleCols: number } {
   const qr = qrcode(0, ecLevel);
-  qr.addData(text);
+  qr.addData(text, 'Byte');
   qr.make();
 
   const moduleCount = qr.getModuleCount();
