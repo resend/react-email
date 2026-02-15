@@ -31,12 +31,7 @@ export function buildProtectionMask(
   // 1. Quiet zone (all padding cells)
   for (let r = 0; r < totalSize; r++)
     for (let c = 0; c < totalSize; c++)
-      if (
-        r < pad ||
-        r >= totalSize - pad ||
-        c < pad ||
-        c >= totalSize - pad
-      )
+      if (r < pad || r >= totalSize - pad || c < pad || c >= totalSize - pad)
         p[r][c] = 1;
 
   // 2. Finder patterns (7x7) + separator (1 module border)
@@ -56,13 +51,13 @@ export function buildProtectionMask(
     if (i + pad < totalSize) p[i + pad][8 + pad] = 1;
   }
   for (let i = 0; i < 8; i++) {
-    if (n - 1 - i >= 0) p[8 + pad][(n - 1 - i) + pad] = 1;
+    if (n - 1 - i >= 0) p[8 + pad][n - 1 - i + pad] = 1;
   }
   for (let i = 0; i < 7; i++) {
-    if (n - 1 - i >= 0) p[(n - 1 - i) + pad][8 + pad] = 1;
+    if (n - 1 - i >= 0) p[n - 1 - i + pad][8 + pad] = 1;
   }
   // Dark module
-  if (4 * 1 + 9 < n) p[(n - 8) + pad][8 + pad] = 1;
+  if (4 * 1 + 9 < n) p[n - 8 + pad][8 + pad] = 1;
 
   // 5. Alignment patterns (5x5 each)
   const version = Math.ceil((n - 17) / 4);
@@ -102,12 +97,7 @@ export function buildQuietZoneMask(
   if (pad > 0) {
     for (let r = 0; r < totalRows; r++)
       for (let c = 0; c < totalCols; c++)
-        if (
-          r < pad ||
-          r >= totalRows - pad ||
-          c < pad ||
-          c >= totalCols - pad
-        )
+        if (r < pad || r >= totalRows - pad || c < pad || c >= totalCols - pad)
           p[r][c] = 1;
   }
   return p;

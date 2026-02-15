@@ -7,7 +7,7 @@ function shortHex(hex: string): string {
     hex[3] === hex[4] &&
     hex[5] === hex[6]
   )
-    return '#' + hex[1] + hex[3] + hex[5];
+    return `#${hex[1]}${hex[3]}${hex[5]}`;
   return hex;
 }
 

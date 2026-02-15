@@ -9,8 +9,9 @@ export function packGreedy(
   totalRows: number,
   totalCols: number,
 ): { spans: (Span | null)[][]; cellCount: number } {
-  const used = Array.from({ length: totalRows }, () =>
-    new Uint8Array(totalCols),
+  const used = Array.from(
+    { length: totalRows },
+    () => new Uint8Array(totalCols),
   );
 
   function findBestRect(r: number, c: number) {

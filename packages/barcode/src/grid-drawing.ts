@@ -45,7 +45,10 @@ export class GridDrawing {
   ) {
     const half = linew / 2;
     const w = Math.round(linew);
-    let minX: number, maxX: number, minY: number, maxY: number;
+    let minX: number;
+    let maxX: number;
+    let minY: number;
+    let maxY: number;
 
     if (Math.abs(y0 - y1) < 0.1) {
       // Horizontal line
@@ -134,13 +137,7 @@ export class GridDrawing {
 
   clip(_polys: number[][][]) {}
   unclip() {}
-  text(
-    _x: number,
-    _y: number,
-    _str: string,
-    _rgb: string,
-    _font: unknown,
-  ) {}
+  text(_x: number, _y: number, _str: string, _rgb: string, _font: unknown) {}
 
   end(): boolean[][] {
     return this._grid;

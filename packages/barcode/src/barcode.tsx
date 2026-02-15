@@ -59,13 +59,7 @@ export const Barcode = React.forwardRef<HTMLDivElement, BarcodeProps>(
       moduleRows = result.moduleRows;
       moduleCols = result.moduleCols;
     } else {
-      const result = generateBwip(
-        type,
-        value,
-        cfg.hasEc,
-        errorCorrection,
-        pad,
-      );
+      const result = generateBwip(type, value, cfg.hasEc, errorCorrection, pad);
       grid = result.grid;
       moduleRows = result.moduleRows;
       moduleCols = result.moduleCols;
