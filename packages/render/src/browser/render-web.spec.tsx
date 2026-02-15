@@ -135,6 +135,9 @@ describe('render on the browser environment', () => {
   });
 
   it('waits for Suspense boundaries to ending before resolving', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response('<p>Hello</p>'),
+    );
     const htmlPromise = fetch('https://example.com').then((res) => res.text());
     const EmailTemplate = () => {
       const html = use(htmlPromise);
@@ -144,10 +147,7 @@ describe('render on the browser environment', () => {
 
     const renderedTemplate = await render(<EmailTemplate />);
 
-    expect(renderedTemplate).toMatchInlineSnapshot(`
-      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$?--><template id="B:0"></template><!--/$--><div hidden id="S:0"><div><!doctype html><html lang="en"><head><title>Example Domain</title><meta name="viewport" content="width=device-width, initial-scale=1"><style>body{background:#eee;width:60vw;margin:15vh auto;font-family:system-ui,sans-serif}h1{font-size:1.5em}div{opacity:0.8}a:link,a:visited{color:#348}</style><body><div><h1>Example Domain</h1><p>This domain is for use in documentation examples without needing permission. Avoid use in operations.<p><a href="https://iana.org/domains/example">Learn more</a></div></body></html>
-      </div></div><script>$RC=function(b,c,e){c=document.getElementById(c);c.parentNode.removeChild(c);var a=document.getElementById(b);if(a){b=a.previousSibling;if(e)b.data="$!",a.setAttribute("data-dgst",e);else{e=b.parentNode;a=b.nextSibling;var f=0;do{if(a&&8===a.nodeType){var d=a.data;if("/$"===d)if(0===f)break;else f--;else"$"!==d&&"$?"!==d&&"$!"!==d||f++}d=a.nextSibling;e.removeChild(a);a=d}while(a);for(;c.firstChild;)e.insertBefore(c.firstChild,a);b.data="$"}b._reactRetry&&b._reactRetry()}};$RC("B:0","S:0")</script>"
-    `);
+    expect(renderedTemplate).toMatchInlineSnapshot(`"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div><p>Hello</p></div><!--/$-->"`);
   });
 
   // See https://github.com/resend/react-email/issues/2263
