@@ -147,7 +147,9 @@ describe('render on the browser environment', () => {
 
     const renderedTemplate = await render(<EmailTemplate />);
 
-    expect(renderedTemplate).toMatchInlineSnapshot(`"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div><p>Hello</p></div><!--/$-->"`);
+    expect(renderedTemplate).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div><p>Hello</p></div><!--/$-->"`,
+    );
   });
 
   // See https://github.com/resend/react-email/issues/2263
