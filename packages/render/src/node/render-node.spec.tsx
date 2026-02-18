@@ -116,7 +116,9 @@ describe('render on node environments', () => {
       </Suspense>,
     );
 
-    expect(renderedTemplate).toMatchInlineSnapshot(`"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><!--$--><div><p>example content with some multibyte characters: 情報Ⅰ</p></div><!--/$--><!--/$-->"`);
+    expect(renderedTemplate).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><!--$--><div><p>example content with some multibyte characters: 情報Ⅰ</p></div><!--/$--><!--/$-->"`,
+    );
   });
 
   it('converts a React component into HTML', async () => {
