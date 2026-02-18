@@ -546,9 +546,6 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0
     devDependencies:
-      '@react-email/render':
-        specifier: workspace:*
-        version: link:../render
       '@types/prismjs':
         specifier: 1.26.5
         version: 1.26.5
