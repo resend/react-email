@@ -1,6 +1,6 @@
 {
   "name": "@react-email/editor",
-  "version": "0.0.0-experimental.1",
+  "version": "0.0.0-experimental.0",
   "description": "",
   "sideEffects": false,
   "main": "./dist/index.js",
