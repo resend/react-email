@@ -1,0 +1,62 @@
+{
+  "name": "@react-email/barcode",
+  "version": "0.0.1",
+  "description": "Generate barcodes as pure HTML tables for email — no images needed.",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsdown src/index.ts --format esm,cjs --dts --external react",
+    "build:watch": "tsdown src/index.ts --format esm,cjs --dts --external react --watch",
+    "clean": "rm -rf dist",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "react",
+    "email",
+    "barcode",
+    "qrcode",
+    "html-table"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resend/react-email.git",
+    "directory": "packages/barcode"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "bwip-js": "^4.5.1",
+    "qrcode-generator": "^1.4.4"
+  },
+  "peerDependencies": {
+    "react": "^18.0 || ^19.0 || ^19.0.0-rc"
+  },
+  "devDependencies": {
+    "@react-email/render": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "5.8.3"
+  }
+}
