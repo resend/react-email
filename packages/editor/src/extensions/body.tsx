@@ -1,11 +1,11 @@
 import { mergeAttributes } from '@tiptap/core';
-import { EmailNode } from '../core/serializer/email-node';
-import { inlineCssToJs } from '../utils/styles';
+import { EmailNode } from '../core/email-node';
 import {
   COMMON_HTML_ATTRIBUTES,
   createStandardAttributes,
   LAYOUT_ATTRIBUTES,
-} from './attribute-helpers';
+} from '../utils/attribute-helpers';
+import { inlineCssToJs } from '../utils/styles';
 
 export interface BodyOptions {
   HTMLAttributes: Record<string, unknown>;

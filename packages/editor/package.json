@@ -42,7 +42,15 @@
     "node": ">=20.0.0"
   },
   "peerDependencies": {
-    "react": "^18.0 || ^19.0 || ^19.0.0-rc"
+    "react": "^18.0 || ^19.0 || ^19.0.0-rc",
+    "@react-email/components": "workspace:*"
+  },
+  "dependencies": {
+    "@tiptap/core": "3.10.7",
+    "@tiptap/extension-heading": "3.10.7",
+    "@tiptap/extension-horizontal-rule": "3.10.7",
+    "@tiptap/pm": "3.10.7",
+    "@tiptap/react": "3.10.7"
   },
   "devDependencies": {
     "@react-email/render": "workspace:*",

@@ -1,6 +1,6 @@
-import { Button, Column, Row } from '@react-email/components';
+import { Button as ReactEmailButton, Column, Row } from '@react-email/components';
 import { mergeAttributes } from '@tiptap/core';
-import { EmailNode } from '../core/serializer/email-node';
+import { EmailNode } from '../core/email-node';
 import { inlineCssToJs } from '../utils/styles';
 
 interface EditorButtonOptions {
@@ -17,7 +17,7 @@ declare module '@tiptap/core' {
   }
 }
 
-export const EditorButton = EmailNode.create<EditorButtonOptions>({
+export const Button = EmailNode.create<EditorButtonOptions>({
   name: 'button',
   group: 'block',
   content: 'inline*',
@@ -84,23 +84,23 @@ export const EditorButton = EmailNode.create<EditorButtonOptions>({
     return {
       updateButton:
         (attributes) =>
-        ({ commands }) => {
-          return commands.updateAttributes('button', attributes);
-        },
+          ({ commands }) => {
+            return commands.updateAttributes('button', attributes);
+          },
 
       setButton:
         () =>
-        ({ commands }) => {
-          return commands.insertContent({
-            type: 'button',
-            content: [
-              {
-                type: 'text',
-                text: 'Button',
-              },
-            ],
-          });
-        },
+          ({ commands }) => {
+            return commands.insertContent({
+              type: 'button',
+              content: [
+                {
+                  type: 'text',
+                  text: 'Button',
+                },
+              ],
+            });
+          },
     };
   },
 
@@ -109,7 +109,7 @@ export const EditorButton = EmailNode.create<EditorButtonOptions>({
     return (
       <Row>
         <Column align={node.attrs?.align || node.attrs?.alignment}>
-          <Button
+          <ReactEmailButton
             className={node.attrs?.class || undefined}
             href={node.attrs?.href}
             style={{
@@ -119,7 +119,7 @@ export const EditorButton = EmailNode.create<EditorButtonOptions>({
             }}
           >
             {children}
-          </Button>
+          </ReactEmailButton>
         </Column>
       </Row>
     );

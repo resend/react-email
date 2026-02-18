@@ -1,10 +1,10 @@
 import { render } from '@react-email/components';
 import { RESET_THEMES } from '../plugins/theming/themes';
-import { EditorButton } from './editor-button';
+import { Button } from './button';
 
 describe('EditorButton Node', () => {
   it('renders React Email properly', async () => {
-    const Component = EditorButton.config.renderToReactEmail;
+    const Component = Button.config.renderToReactEmail;
     expect(Component).toBeDefined();
     expect(
       await render(
