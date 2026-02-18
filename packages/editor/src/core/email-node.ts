@@ -5,7 +5,7 @@ import {
   type NodeConfig,
   type NodeType,
 } from '@tiptap/core';
-import type { CssJs } from '@/types/editor/styles';
+import type { CssJs } from '../types';
 
 export type RendererComponent = (props: {
   node: JSONContent;
