@@ -51,10 +51,13 @@
     "@tiptap/extension-heading": "3.10.7",
     "@tiptap/extension-horizontal-rule": "3.10.7",
     "@tiptap/pm": "3.10.7",
-    "@tiptap/react": "3.10.7"
+    "@tiptap/react": "3.10.7",
+    "hast-util-from-html": "2.0.3",
+    "prismjs": "1.30.0"
   },
   "devDependencies": {
     "@react-email/render": "workspace:*",
+    "@types/prismjs": "1.26.5",
     "tsconfig": "workspace:*",
     "typescript": "5.8.3"
   },
