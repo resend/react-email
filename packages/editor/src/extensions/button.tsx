@@ -1,4 +1,8 @@
-import { Button as ReactEmailButton, Column, Row } from '@react-email/components';
+import {
+  Column,
+  Button as ReactEmailButton,
+  Row,
+} from '@react-email/components';
 import { mergeAttributes } from '@tiptap/core';
 import { EmailNode } from '../core/email-node';
 import { inlineCssToJs } from '../utils/styles';
@@ -84,23 +88,23 @@ export const Button = EmailNode.create<EditorButtonOptions>({
     return {
       updateButton:
         (attributes) =>
-          ({ commands }) => {
-            return commands.updateAttributes('button', attributes);
-          },
+        ({ commands }) => {
+          return commands.updateAttributes('button', attributes);
+        },
 
       setButton:
         () =>
-          ({ commands }) => {
-            return commands.insertContent({
-              type: 'button',
-              content: [
-                {
-                  type: 'text',
-                  text: 'Button',
-                },
-              ],
-            });
-          },
+        ({ commands }) => {
+          return commands.insertContent({
+            type: 'button',
+            content: [
+              {
+                type: 'text',
+                text: 'Button',
+              },
+            ],
+          });
+        },
     };
   },
 

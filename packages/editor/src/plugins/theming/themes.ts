@@ -558,4 +558,3 @@ export const SUPPORTED_CSS_PROPERTIES: SupportedCssProperties = {
     category: 'layout',
   },
 };
-
