@@ -2,20 +2,20 @@
  * @vitest-environment jsdom
  */
 
-import { createElement, use } from 'react';
-import { Preview } from '../shared/utils/testing/preview';
-import { Template } from '../shared/utils/testing/template';
-import { render } from './render';
+import { createElement, use } from "react";
+import { Preview } from "../shared/utils/testing/preview";
+import { Template } from "../shared/utils/testing/template";
+import { render } from "./render";
 
-type Import = typeof import('react-dom/server') & {
-  default: typeof import('react-dom/server');
+type Import = typeof import("react-dom/server") & {
+  default: typeof import("react-dom/server");
 };
 
-describe('render on the browser environment', () => {
+describe("render on the browser environment", () => {
   beforeEach(() => {
     vi.mock(
-      'react-dom/server',
-      (_importOriginal) => import('react-dom/server.browser'),
+      "react-dom/server",
+      (_importOriginal) => import("react-dom/server.browser"),
     );
   });
 
@@ -23,13 +23,13 @@ describe('render on the browser environment', () => {
     vi.resetAllMocks();
   });
 
-  it('converts a React component into HTML with Next 14 error stubs', async () => {
-    vi.mock('react-dom/server', async (_importOriginal) => {
+  it("converts a React component into HTML with Next 14 error stubs", async () => {
+    vi.mock("react-dom/server", async (_importOriginal) => {
       const ReactDOMServerBrowser = await vi.importActual<Import>(
-        'react-dom/server.browser',
+        "react-dom/server.browser",
       );
       const ERROR_MESSAGE =
-        'Internal Error: do not use legacy react-dom/server APIs. If you encountered this error, please open an issue on the Next.js repo.';
+        "Internal Error: do not use legacy react-dom/server APIs. If you encountered this error, please open an issue on the Next.js repo.";
 
       return {
         ...ReactDOMServerBrowser,
@@ -58,22 +58,22 @@ describe('render on the browser environment', () => {
     );
   });
 
-  it('properly handles component throw error', async () => {
+  it("properly handles component throw error", async () => {
     function ThrowingComponent(): React.ReactNode {
-      throw new Error('This should be trown by render');
+      throw new Error("This should be trown by render");
     }
 
     await expect(render(<ThrowingComponent />)).rejects.toThrow();
   });
 
   // This is a test to ensure we have no regressions for https://github.com/resend/react-email/issues/1667
-  it('handles characters with a higher byte count gracefully', async () => {
+  it("handles characters with a higher byte count gracefully", async () => {
     const actualOutput = await render(
       <>
         <p>Test Normal 情報Ⅰコース担当者様</p>
         <p>
           平素よりお世話になっております。 情報Ⅰサポートチームです。
-          情報Ⅰ本講座につきまして仕様変更のためご連絡させていただきました。{' '}
+          情報Ⅰ本講座につきまして仕様変更のためご連絡させていただきました。{" "}
         </p>
         今後ジクタス上の講座につきましては、8回分の授業をひとまとまりとしてパート分けされた状態で公開されてまいります。
         <p>
@@ -104,7 +104,7 @@ describe('render on the browser environment', () => {
     );
   });
 
-  it('converts a React component into HTML', async () => {
+  it("converts a React component into HTML", async () => {
     const actualOutput = await render(<Template firstName="Jim" />);
 
     expect(actualOutput).toMatchInlineSnapshot(
@@ -112,7 +112,7 @@ describe('render on the browser environment', () => {
     );
   });
 
-  it('converts a React component into PlainText', async () => {
+  it("converts a React component into PlainText", async () => {
     const actualOutput = await render(<Template firstName="Jim" />, {
       plainText: true,
     });
@@ -124,7 +124,7 @@ describe('render on the browser environment', () => {
     `);
   });
 
-  it('converts to plain text and removes reserved ID', async () => {
+  it("converts to plain text and removes reserved ID", async () => {
     const actualOutput = await render(<Preview />, {
       plainText: true,
     });
@@ -134,8 +134,16 @@ describe('render on the browser environment', () => {
     );
   });
 
-  it('waits for Suspense boundaries to ending before resolving', async () => {
-    const htmlPromise = fetch('https://example.com').then((res) => res.text());
+  it("waits for Suspense boundaries to ending before resolving", async () => {
+    const htmlPromise = new Promise<string>((resolve) =>
+      setTimeout(
+        () =>
+          resolve(
+            "<p>example content with some multibyte characters: 情報Ⅰ</p>",
+          ),
+        500,
+      ),
+    );
     const EmailTemplate = () => {
       const html = use(htmlPromise);
 
@@ -144,14 +152,13 @@ describe('render on the browser environment', () => {
 
     const renderedTemplate = await render(<EmailTemplate />);
 
-    expect(renderedTemplate).toMatchInlineSnapshot(`
-      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$?--><template id="B:0"></template><!--/$--><div hidden id="S:0"><div><!doctype html><html lang="en"><head><title>Example Domain</title><meta name="viewport" content="width=device-width, initial-scale=1"><style>body{background:#eee;width:60vw;margin:15vh auto;font-family:system-ui,sans-serif}h1{font-size:1.5em}div{opacity:0.8}a:link,a:visited{color:#348}</style></head><body><div><h1>Example Domain</h1><p>This domain is for use in documentation examples without needing permission. Avoid use in operations.</p><p><a href="https://iana.org/domains/example">Learn more</a></p></div></body></html>
-      </div></div><script>$RC=function(b,c,e){c=document.getElementById(c);c.parentNode.removeChild(c);var a=document.getElementById(b);if(a){b=a.previousSibling;if(e)b.data="$!",a.setAttribute("data-dgst",e);else{e=b.parentNode;a=b.nextSibling;var f=0;do{if(a&&8===a.nodeType){var d=a.data;if("/$"===d)if(0===f)break;else f--;else"$"!==d&&"$?"!==d&&"$!"!==d||f++}d=a.nextSibling;e.removeChild(a);a=d}while(a);for(;c.firstChild;)e.insertBefore(c.firstChild,a);b.data="$"}b._reactRetry&&b._reactRetry()}};$RC("B:0","S:0")</script>"
-    `);
+    expect(renderedTemplate).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$?--><template id="B:0"></template><!--/$--><div hidden id="S:0"><div><p>example content with some multibyte characters: 情報Ⅰ</p></div></div><script>$RC=function(b,c,e){c=document.getElementById(c);c.parentNode.removeChild(c);var a=document.getElementById(b);if(a){b=a.previousSibling;if(e)b.data="$!",a.setAttribute("data-dgst",e);else{e=b.parentNode;a=b.nextSibling;var f=0;do{if(a&&8===a.nodeType){var d=a.data;if("/$"===d)if(0===f)break;else f--;else"$"!==d&&"$?"!==d&&"$!"!==d||f++}d=a.nextSibling;e.removeChild(a);a=d}while(a);for(;c.firstChild;)e.insertBefore(c.firstChild,a);b.data="$"}b._reactRetry&&b._reactRetry()}};$RC("B:0","S:0")</script>"`,
+    );
   });
 
   // See https://github.com/resend/react-email/issues/2263
-  it('throws error of rendering an invalid element instead of writing them into a template tag', async () => {
+  it("throws error of rendering an invalid element instead of writing them into a template tag", async () => {
     // @ts-expect-error we know this is not correct, and we want to test the error handling for it
     const element = createElement(undefined);
     await expect(render(element)).rejects.toThrowErrorMatchingSnapshot();
@@ -163,7 +170,7 @@ describe('render on the browser environment', () => {
    *
    * @see https://github.com/resend/react-email/issues/2353
    */
-  it('renders large emails without hydration markers', async () => {
+  it("renders large emails without hydration markers", async () => {
     const LargeEmailTemplate = () => {
       const largeContent = Array(100)
         .fill(null)

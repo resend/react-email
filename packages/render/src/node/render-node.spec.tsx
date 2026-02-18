@@ -2,21 +2,21 @@
  * @vitest-environment node
  */
 
-import { Suspense, use } from 'react';
-import { Preview } from '../shared/utils/testing/preview';
-import { Template } from '../shared/utils/testing/template';
-import { render } from './render';
+import { Suspense, use } from "react";
+import { Preview } from "../shared/utils/testing/preview";
+import { Template } from "../shared/utils/testing/template";
+import { render } from "./render";
 
-type Import = typeof import('react-dom/server') & {
-  default: typeof import('react-dom/server');
+type Import = typeof import("react-dom/server") & {
+  default: typeof import("react-dom/server");
 };
 
-describe('render on node environments', () => {
-  it('converts a React component into HTML with Next 14 error stubs', async () => {
-    vi.mock('react-dom/server', async () => {
-      const ReactDOMServer = await vi.importActual<Import>('react-dom/server');
+describe("render on node environments", () => {
+  it("converts a React component into HTML with Next 14 error stubs", async () => {
+    vi.mock("react-dom/server", async () => {
+      const ReactDOMServer = await vi.importActual<Import>("react-dom/server");
       const ERROR_MESSAGE =
-        'Internal Error: do not use legacy react-dom/server APIs. If you encountered this error, please open an issue on the Next.js repo.';
+        "Internal Error: do not use legacy react-dom/server APIs. If you encountered this error, please open an issue on the Next.js repo.";
 
       return {
         ...ReactDOMServer,
@@ -47,9 +47,9 @@ describe('render on node environments', () => {
     vi.resetAllMocks();
   });
 
-  it('properly handles component throw error', async () => {
+  it("properly handles component throw error", async () => {
     function ThrowingComponent(): React.ReactNode {
-      throw new Error('This should be trown by render');
+      throw new Error("This should be trown by render");
     }
 
     await expect(render(<ThrowingComponent />)).rejects.toThrow();
@@ -57,13 +57,13 @@ describe('render on node environments', () => {
 
   // This is a test to ensure we have no regressions for https://github.com/resend/react-email/issues/1667
   // The error only happens with React 18, and thus is tested on React 18.
-  it('handles characters with a higher byte count gracefully in React 18', async () => {
+  it("handles characters with a higher byte count gracefully in React 18", async () => {
     const actualOutput = await render(
       <>
         <p>Test Normal 情報Ⅰコース担当者様</p>
         <p>
           平素よりお世話になっております。 情報Ⅰサポートチームです。
-          情報Ⅰ本講座につきまして仕様変更のためご連絡させていただきました。{' '}
+          情報Ⅰ本講座につきまして仕様変更のためご連絡させていただきました。{" "}
         </p>
         今後ジクタス上の講座につきましては、8回分の授業をひとまとまりとしてパート分けされた状態で公開されてまいります。
         <p>
@@ -94,8 +94,16 @@ describe('render on node environments', () => {
     );
   });
 
-  it('that it properly waits for Suspense boundaries to resolve before resolving', async () => {
-    const htmlPromise = fetch('https://example.com').then((res) => res.text());
+  it("that it properly waits for Suspense boundaries to resolve before resolving", async () => {
+    const htmlPromise = new Promise<string>((resolve) =>
+      setTimeout(
+        () =>
+          resolve(
+            "<p>example content with some multibyte characters: 情報Ⅰ</p>",
+          ),
+        500,
+      ),
+    );
     const EmailTemplate = () => {
       const html = use(htmlPromise);
 
@@ -108,13 +116,12 @@ describe('render on node environments', () => {
       </Suspense>,
     );
 
-    expect(renderedTemplate).toMatchInlineSnapshot(`
-      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><!--$--><div><!doctype html><html lang="en"><head><title>Example Domain</title><meta name="viewport" content="width=device-width, initial-scale=1"><style>body{background:#eee;width:60vw;margin:15vh auto;font-family:system-ui,sans-serif}h1{font-size:1.5em}div{opacity:0.8}a:link,a:visited{color:#348}</style></head><body><div><h1>Example Domain</h1><p>This domain is for use in documentation examples without needing permission. Avoid use in operations.</p><p><a href="https://iana.org/domains/example">Learn more</a></p></div></body></html>
-      </div><!--/$--><!--/$-->"
-    `);
+    expect(renderedTemplate).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><!--$--><div><p>example content with some multibyte characters: 情報Ⅰ</p></div><!--/$--><!--/$-->"`,
+    );
   });
 
-  it('converts a React component into HTML', async () => {
+  it("converts a React component into HTML", async () => {
     const actualOutput = await render(<Template firstName="Jim" />);
 
     expect(actualOutput).toMatchInlineSnapshot(
@@ -122,7 +129,7 @@ describe('render on node environments', () => {
     );
   });
 
-  it('converts a React component into PlainText', async () => {
+  it("converts a React component into PlainText", async () => {
     const actualOutput = await render(<Template firstName="Jim" />, {
       plainText: true,
     });
@@ -134,7 +141,7 @@ describe('render on node environments', () => {
     `);
   });
 
-  it('converts to plain text and removes reserved ID', async () => {
+  it("converts to plain text and removes reserved ID", async () => {
     const actualOutput = await render(<Preview />, {
       plainText: true,
     });
@@ -150,7 +157,7 @@ describe('render on node environments', () => {
    *
    * @see https://github.com/resend/react-email/issues/2353
    */
-  it('renders large emails without hydration markers', async () => {
+  it("renders large emails without hydration markers", async () => {
     const LargeEmailTemplate = () => {
       const largeContent = Array(100)
         .fill(null)
