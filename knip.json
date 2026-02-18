@@ -1,0 +1,15 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "ignoreExportsUsedInFile": {
+    "interface": true,
+    "type": true
+  },
+  "tags": ["-lintignore"],
+  "ignore": ["**/public/**", "apps/web/components/**", "apps/web/src/illustrations/**", ""],
+  "entry": ["scripts/*.ts", "**/emails/**/*.tsx"],
+  "ignoreDependencies": [
+    "next",
+    "@react-email/preview-server"
+  ],
+  "exclude": ["duplicates"]
+}
