@@ -44,17 +44,17 @@ export const Section = EmailNode.create<SectionOptions>({
     return {
       insertSection:
         () =>
-          ({ commands }) => {
-            return commands.insertContent({
-              type: this.name,
-              content: [
-                {
-                  type: 'paragraph',
-                  content: [],
-                },
-              ],
-            });
-          },
+        ({ commands }) => {
+          return commands.insertContent({
+            type: this.name,
+            content: [
+              {
+                type: 'paragraph',
+                content: [],
+              },
+            ],
+          });
+        },
     };
   },
 
