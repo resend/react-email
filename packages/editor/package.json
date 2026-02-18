@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "@tiptap/core": "3.10.7",
+    "@tiptap/extension-code-block": "3.10.7",
     "@tiptap/extension-heading": "3.10.7",
     "@tiptap/extension-horizontal-rule": "3.10.7",
     "@tiptap/pm": "3.10.7",
