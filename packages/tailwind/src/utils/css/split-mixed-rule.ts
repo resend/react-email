@@ -1,4 +1,4 @@
-import { type CssNode, clone, List, type Rule } from 'css-tree';
+import { type CssNode, clone, find, List, type Rule } from 'css-tree';
 import { isPartInlinable } from './is-part-inlinable';
 
 /**
@@ -12,6 +12,22 @@ export function splitMixedRule(rule: Rule): {
   inlinablePart: Rule | null;
   nonInlinablePart: Rule | null;
 } {
+  // If the selector itself contains pseudo-selectors, every declaration in the
+  // block only applies in that pseudo context — splitting would incorrectly
+  // inline them as base styles. Return the whole rule as non-inlinable.
+  const selectorHasPseudo =
+    rule.prelude !== null &&
+    find(
+      rule.prelude,
+      (node) =>
+        node.type === 'PseudoClassSelector' ||
+        node.type === 'PseudoElementSelector',
+    ) !== null;
+
+  if (selectorHasPseudo) {
+    return { inlinablePart: null, nonInlinablePart: clone(rule) as Rule };
+  }
+
   const ruleCloneInlinable = clone(rule) as Rule;
   const ruleCloneNonInlinable = clone(rule) as Rule;
 

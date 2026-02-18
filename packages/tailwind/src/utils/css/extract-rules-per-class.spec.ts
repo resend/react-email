@@ -112,4 +112,35 @@ describe('extractRulesPerClass()', async () => {
       }
     `);
   });
+
+  it('treats rules with pseudo-selectors as fully non-inlinable', async () => {
+    const tailwind = await setupTailwind({
+      plugins: [
+        {
+          handler: (api) => {
+            api.addUtilities({
+              '.btn:hover': {
+                color: 'red',
+              },
+            });
+          },
+        },
+      ],
+    });
+    const classes = ['btn'];
+    tailwind.addUtilities(classes);
+
+    const stylesheet = tailwind.getStyleSheet();
+    const { inlinable, nonInlinable } = extractRulesPerClass(
+      stylesheet,
+      classes,
+    );
+
+    expect(convertToComparable(inlinable)).toMatchInlineSnapshot('{}');
+    expect(convertToComparable(nonInlinable)).toMatchInlineSnapshot(`
+      {
+        "btn": ".btn{&:hover{color:red}}",
+      }
+    `);
+  });
 });
