@@ -12,11 +12,6 @@ import { IconCloudCheck } from '../icons/icon-cloud-check';
 import { IconLoader } from '../icons/icon-loader';
 import { Results } from './results';
 
-export interface ResendStatus {
-  hasApiKey: boolean;
-  error: string | null;
-}
-
 interface ResendItem {
   status: 'uploading' | 'failed' | 'succeeded';
   name: string;
