@@ -2,20 +2,20 @@
  * @vitest-environment jsdom
  */
 
-import { createElement, use } from "react";
-import { Preview } from "../shared/utils/testing/preview";
-import { Template } from "../shared/utils/testing/template";
-import { render } from "./render";
+import { createElement, use } from 'react';
+import { Preview } from '../shared/utils/testing/preview';
+import { Template } from '../shared/utils/testing/template';
+import { render } from './render';
 
-type Import = typeof import("react-dom/server") & {
-  default: typeof import("react-dom/server");
+type Import = typeof import('react-dom/server') & {
+  default: typeof import('react-dom/server');
 };
 
-describe("render on the browser environment", () => {
+describe('render on the browser environment', () => {
   beforeEach(() => {
     vi.mock(
-      "react-dom/server",
-      (_importOriginal) => import("react-dom/server.browser"),
+      'react-dom/server',
+      (_importOriginal) => import('react-dom/server.browser'),
     );
   });
 
@@ -23,13 +23,13 @@ describe("render on the browser environment", () => {
     vi.resetAllMocks();
   });
 
-  it("converts a React component into HTML with Next 14 error stubs", async () => {
-    vi.mock("react-dom/server", async (_importOriginal) => {
+  it('converts a React component into HTML with Next 14 error stubs', async () => {
+    vi.mock('react-dom/server', async (_importOriginal) => {
       const ReactDOMServerBrowser = await vi.importActual<Import>(
-        "react-dom/server.browser",
+        'react-dom/server.browser',
       );
       const ERROR_MESSAGE =
-        "Internal Error: do not use legacy react-dom/server APIs. If you encountered this error, please open an issue on the Next.js repo.";
+        'Internal Error: do not use legacy react-dom/server APIs. If you encountered this error, please open an issue on the Next.js repo.';
 
       return {
         ...ReactDOMServerBrowser,
@@ -58,22 +58,22 @@ describe("render on the browser environment", () => {
     );
   });
 
-  it("properly handles component throw error", async () => {
+  it('properly handles component throw error', async () => {
     function ThrowingComponent(): React.ReactNode {
-      throw new Error("This should be trown by render");
+      throw new Error('This should be trown by render');
     }
 
     await expect(render(<ThrowingComponent />)).rejects.toThrow();
   });
 
   // This is a test to ensure we have no regressions for https://github.com/resend/react-email/issues/1667
-  it("handles characters with a higher byte count gracefully", async () => {
+  it('handles characters with a higher byte count gracefully', async () => {
     const actualOutput = await render(
       <>
         <p>Test Normal 情報Ⅰコース担当者様</p>
         <p>
           平素よりお世話になっております。 情報Ⅰサポートチームです。
-          情報Ⅰ本講座につきまして仕様変更のためご連絡させていただきました。{" "}
+          情報Ⅰ本講座につきまして仕様変更のためご連絡させていただきました。{' '}
         </p>
         今後ジクタス上の講座につきましては、8回分の授業をひとまとまりとしてパート分けされた状態で公開されてまいります。
         <p>
@@ -104,7 +104,7 @@ describe("render on the browser environment", () => {
     );
   });
 
-  it("converts a React component into HTML", async () => {
+  it('converts a React component into HTML', async () => {
     const actualOutput = await render(<Template firstName="Jim" />);
 
     expect(actualOutput).toMatchInlineSnapshot(
@@ -112,7 +112,7 @@ describe("render on the browser environment", () => {
     );
   });
 
-  it("converts a React component into PlainText", async () => {
+  it('converts a React component into PlainText', async () => {
     const actualOutput = await render(<Template firstName="Jim" />, {
       plainText: true,
     });
@@ -124,7 +124,7 @@ describe("render on the browser environment", () => {
     `);
   });
 
-  it("converts to plain text and removes reserved ID", async () => {
+  it('converts to plain text and removes reserved ID', async () => {
     const actualOutput = await render(<Preview />, {
       plainText: true,
     });
@@ -134,12 +134,12 @@ describe("render on the browser environment", () => {
     );
   });
 
-  it("waits for Suspense boundaries to ending before resolving", async () => {
+  it('waits for Suspense boundaries to ending before resolving', async () => {
     const htmlPromise = new Promise<string>((resolve) =>
       setTimeout(
         () =>
           resolve(
-            "<p>example content with some multibyte characters: 情報Ⅰ</p>",
+            '<p>example content with some multibyte characters: 情報Ⅰ</p>',
           ),
         500,
       ),
@@ -158,7 +158,7 @@ describe("render on the browser environment", () => {
   });
 
   // See https://github.com/resend/react-email/issues/2263
-  it("throws error of rendering an invalid element instead of writing them into a template tag", async () => {
+  it('throws error of rendering an invalid element instead of writing them into a template tag', async () => {
     // @ts-expect-error we know this is not correct, and we want to test the error handling for it
     const element = createElement(undefined);
     await expect(render(element)).rejects.toThrowErrorMatchingSnapshot();
@@ -170,7 +170,7 @@ describe("render on the browser environment", () => {
    *
    * @see https://github.com/resend/react-email/issues/2353
    */
-  it("renders large emails without hydration markers", async () => {
+  it('renders large emails without hydration markers', async () => {
     const LargeEmailTemplate = () => {
       const largeContent = Array(100)
         .fill(null)
