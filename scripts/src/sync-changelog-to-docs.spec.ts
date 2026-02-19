@@ -15,7 +15,8 @@ import {
   toMdxBlock,
   toMdxSection,
   dateHeaderToKey,
-} from "./sync-changelog-to-docs.mjs";
+  type ExecSyncLike,
+} from "./sync-changelog-to-docs";
 
 describe("displayName", () => {
   it("returns known display names for packages with hyphens", () => {
@@ -119,20 +120,22 @@ describe("parseChangelog", () => {
 
 describe("getTagDate", () => {
   it("returns null when exec fails (e.g. missing tag)", () => {
-    const fakeExec = vi.fn(() => {
+    const fakeExec: ExecSyncLike = vi.fn(() => {
       throw new Error("not found");
-    });
+    }) as unknown as ExecSyncLike;
     expect(getTagDate("nonexistent@1.0.0", "/tmp", fakeExec)).toBeNull();
   });
 
   it("returns dateKey and header when exec returns ISO date", () => {
-    const fakeExec = vi.fn(() => "2025-12-29 09:58:25 -0300");
+    const fakeExec: ExecSyncLike = vi.fn(
+      () => "2025-12-29 09:58:25 -0300",
+    ) as unknown as ExecSyncLike;
     const result = getTagDate("body@0.2.1", "/tmp", fakeExec);
     expect(result).toEqual({ dateKey: "2025-12-29", header: "December 29, 2025" });
   });
 
   it("returns null when exec returns empty string", () => {
-    const fakeExec = vi.fn(() => "");
+    const fakeExec: ExecSyncLike = vi.fn(() => "") as unknown as ExecSyncLike;
     expect(getTagDate("x@1.0.0", "/tmp", fakeExec)).toBeNull();
   });
 });

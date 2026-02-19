@@ -4,10 +4,10 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const DOCS_CHANGELOG = join(ROOT, 'apps/docs/changelog.mdx');
 
-const displayNames = {
+const displayNames: Record<string, string> = {
   'react-email': 'React Email',
   'preview-server': 'Preview Server',
   components: 'Components',
@@ -35,21 +35,24 @@ const displayNames = {
   container: 'Container',
   column: 'Column',
   text: 'Text',
-} as const;
+};
 
-type Package = keyof typeof displayNames;
-
-export function displayName(pkg: Package) {
+export function displayName(pkg: string): string {
   return (
     displayNames[pkg] ??
     pkg
-      .replace(/-([a-z])/g, (_, c) => c.toUpperCase())
+      .replace(/-([a-z])/g, (_, c: string) => c.toUpperCase())
       .replace(/^./, (c) => c.toUpperCase())
   );
 }
 
-export function parseChangelog(content: string) {
-  const versions = [];
+export interface ChangelogVersion {
+  version: string;
+  bullets: string[];
+}
+
+export function parseChangelog(content: string): ChangelogVersion[] {
+  const versions: ChangelogVersion[] = [];
   const lines = content.split('\n');
   let i = 0;
   while (i < lines.length) {
@@ -60,7 +63,7 @@ export function parseChangelog(content: string) {
         i++;
         continue;
       }
-      const bullets = [];
+      const bullets: string[] = [];
       i++;
       while (i < lines.length && !lines[i].match(/^##\s+/)) {
         if (lines[i].match(/^###\s+/)) {
@@ -84,7 +87,22 @@ export function parseChangelog(content: string) {
   return versions;
 }
 
-export function getTagDate(tag: string, _root = ROOT, _execSync = execSync) {
+export interface TagDateResult {
+  dateKey: string;
+  header: string;
+}
+
+/** Accepts execSync or a test double that returns a string (e.g. ISO date). */
+export type ExecSyncLike = (
+  command: string,
+  options?: { cwd?: string; encoding: 'utf-8' },
+) => string;
+
+export function getTagDate(
+  tag: string,
+  _root: string = ROOT,
+  _execSync: ExecSyncLike = execSync as unknown as ExecSyncLike,
+): TagDateResult | null {
   try {
     const out = _execSync(`git log -1 --format="%ci" "${tag}"`, {
       cwd: _root,
@@ -92,6 +110,7 @@ export function getTagDate(tag: string, _root = ROOT, _execSync = execSync) {
     }).trim();
     if (!out) return null;
     const datePart = out.split(' ')[0];
+    if (!datePart) return null;
     const [y, m, d] = datePart.split('-').map(Number);
     const months =
       'January,February,March,April,May,June,July,August,September,October,November,December'.split(
@@ -103,13 +122,17 @@ export function getTagDate(tag: string, _root = ROOT, _execSync = execSync) {
   }
 }
 
-export function getTagForPackage(pkgDir: string, version: string) {
+export function getTagForPackage(pkgDir: string, version: string): string {
   if (pkgDir === 'react-email') return `react-email@${version}`;
   if (pkgDir === 'create-email') return `create-email@${version}`;
   return `@react-email/${pkgDir}@${version}`;
 }
 
-export function alreadyInDocs(content: string, name: string, version: string) {
+export function alreadyInDocs(
+  content: string,
+  name: string,
+  version: string,
+): boolean {
   const re1 = new RegExp(
     `\\*\\*${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s+${version.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*\\*\\*`,
     'i',
@@ -121,7 +144,7 @@ export function alreadyInDocs(content: string, name: string, version: string) {
   return re1.test(content) || re2.test(content);
 }
 
-const ORDER = [
+const ORDER: string[] = [
   'React Email',
   'Preview Server',
   'Create Email',
@@ -148,7 +171,17 @@ const ORDER = [
   'Text',
   'Editor',
 ];
-export function entryOrder(a, b) {
+
+export interface ChangelogEntry {
+  name: string;
+  version: string;
+  bullets: string[];
+}
+
+export function entryOrder(
+  a: Pick<ChangelogEntry, 'name'>,
+  b: Pick<ChangelogEntry, 'name'>,
+): number {
   const i = ORDER.indexOf(a.name);
   const j = ORDER.indexOf(b.name);
   if (i !== -1 && j !== -1) return i - j;
@@ -157,65 +190,76 @@ export function entryOrder(a, b) {
   return (a.name || '').localeCompare(b.name || '');
 }
 
-export function cleanBullets(bullets) {
+export function cleanBullets(bullets: string[]): string[] {
   return bullets
     .filter((b) => b !== '(no changelog bullets)')
     .map((b) => b.replace(/^\s*-\s*/, '').trim())
-    .filter(Boolean);
+    .filter((s): s is string => Boolean(s));
 }
 
-export function toMdxBlock(entry) {
+export function toMdxBlock(entry: ChangelogEntry): string {
   const bullets = cleanBullets(entry.bullets);
   const lines = [`**${entry.name} ${entry.version}**`, ''];
-  if (bullets.length) bullets.forEach((b) => lines.push(`- ${b}`));
-  else lines.push('- (no release notes)');
+  if (bullets.length) {
+    bullets.forEach((b) => {
+      lines.push(`- ${b}`);
+    });
+  } else {
+    lines.push('- (no release notes)');
+  }
   return lines.join('\n');
 }
 
-export function toMdxSection(dateKey, data) {
+export interface DateSectionData {
+  header: string;
+  entries: ChangelogEntry[];
+}
+
+export function toMdxSection(dateKey: string, data: DateSectionData): string {
   const entries = [...data.entries].sort(entryOrder);
   const blocks = entries.map(toMdxBlock).join('\n\n');
   return `## ${data.header}\n\n${blocks}`;
 }
 
-export function dateHeaderToKey(header) {
-  const months = {
-    january: 1,
-    february: 2,
-    march: 3,
-    april: 4,
-    may: 5,
-    june: 6,
-    july: 7,
-    august: 8,
-    september: 9,
-    october: 10,
-    november: 11,
-    december: 12,
-    jan: 1,
-    feb: 2,
-    mar: 3,
-    apr: 4,
-    jun: 6,
-    jul: 7,
-    aug: 8,
-    sep: 9,
-    oct: 10,
-    nov: 11,
-    dec: 12,
-  };
+const MONTH_NAMES: Record<string, number> = {
+  january: 1,
+  february: 2,
+  march: 3,
+  april: 4,
+  may: 5,
+  june: 6,
+  july: 7,
+  august: 8,
+  september: 9,
+  october: 10,
+  november: 11,
+  december: 12,
+  jan: 1,
+  feb: 2,
+  mar: 3,
+  apr: 4,
+  jun: 6,
+  jul: 7,
+  aug: 8,
+  sep: 9,
+  oct: 10,
+  nov: 11,
+  dec: 12,
+};
+
+export function dateHeaderToKey(header: string): string | null {
   const m = header
     .replace(/^##\s*/, '')
     .trim()
     .match(/(\w+)\s+(\d+),?\s*(\d{4})/i);
   if (!m) return null;
-  const mon = months[m[1].toLowerCase()];
+  const mon = MONTH_NAMES[m[1].toLowerCase()];
   if (mon == null) return null;
   const d = String(Number(m[2])).padStart(2, '0');
   return `${m[3]}-${String(mon).padStart(2, '0')}-${d}`;
 }
 
-const changelogPaths = [
+const changelogPaths: string[] = [
   'packages/body/CHANGELOG.md',
   'packages/button/CHANGELOG.md',
   'packages/code-block/CHANGELOG.md',
@@ -243,14 +287,15 @@ const changelogPaths = [
   'packages/text/CHANGELOG.md',
 ];
 
-function run() {
+function run(): void {
   const docsContent = readFileSync(DOCS_CHANGELOG, 'utf-8');
-  const byDate = new Map();
+  const byDate = new Map<string, DateSectionData>();
   for (const relPath of changelogPaths) {
     const fullPath = join(ROOT, relPath);
     if (!existsSync(fullPath)) continue;
     const content = readFileSync(fullPath, 'utf-8');
     const pkgDir = relPath.split('/')[1];
+    if (!pkgDir) continue;
     const name = displayName(pkgDir);
     const versions = parseChangelog(content);
     for (const { version, bullets } of versions) {
@@ -258,32 +303,47 @@ function run() {
       const tag = getTagForPackage(pkgDir, version);
       const dateInfo = getTagDate(tag);
       if (!dateInfo) continue;
-      if (!byDate.has(dateInfo.dateKey)) {
-        byDate.set(dateInfo.dateKey, { header: dateInfo.header, entries: [] });
+      const existing = byDate.get(dateInfo.dateKey);
+      if (existing) {
+        existing.entries.push({
+          name,
+          version,
+          bullets: bullets.length ? bullets : ['(no changelog bullets)'],
+        });
+      } else {
+        byDate.set(dateInfo.dateKey, {
+          header: dateInfo.header,
+          entries: [
+            {
+              name,
+              version,
+              bullets: bullets.length ? bullets : ['(no changelog bullets)'],
+            },
+          ],
+        });
       }
-      byDate.get(dateInfo.dateKey).entries.push({
-        name,
-        version,
-        bullets: bullets.length ? bullets : ['(no changelog bullets)'],
-      });
     }
   }
-  const sortedDates = [...byDate.entries()].sort((a, b) =>
+  const sortedDates = Array.from(byDate.entries()).sort((a, b) =>
     b[0].localeCompare(a[0]),
   );
   const mdxSections = sortedDates.map(([dateKey, data]) =>
     toMdxSection(dateKey, data),
   );
-  const mdxByDate = Object.fromEntries(
+  const mdxByDate: Record<string, string> = Object.fromEntries(
     sortedDates.map(([k, v]) => [k, toMdxSection(k, v)]),
   );
 
   if (process.argv[2] === '--apply') {
     const existing = readFileSync(DOCS_CHANGELOG, 'utf-8');
     const parts = existing.split(/\n(?=## )/);
-    const frontmatter = parts[0].includes('---') ? parts[0] + '\n\n' : '';
+    const frontmatter = parts[0].includes('---') ? `${parts[0]}\n\n}` : '';
     const existingSections = parts[0].includes('---') ? parts.slice(1) : parts;
-    const sectionsWithContent = existingSections.map((block) => {
+    const sectionsWithContent: {
+      key: string | null;
+      header: string;
+      content: string;
+    }[] = existingSections.map((block) => {
       const firstLine = block
         .split('\n')[0]
         .replace(/^##\s*/, '')
@@ -292,7 +352,7 @@ function run() {
       return { key, header: firstLine, content: block };
     });
     const newDateKeys = sortedDates.map(([k]) => k);
-    const toInsert = [];
+    const toInsert: { dateKey: string; mdx: string }[] = [];
     for (const dateKey of newDateKeys) {
       const mdx = mdxByDate[dateKey];
       if (!mdx) continue;
@@ -309,14 +369,17 @@ function run() {
         toInsert.push({ dateKey, mdx });
       }
     }
-    const allSections = [
+    const allSections: { dateKey: string; content: string }[] = [
       ...toInsert.map(({ dateKey, mdx }) => ({ dateKey, content: mdx.trim() })),
       ...sectionsWithContent
-        .filter((s) => s.key)
+        .filter(
+          (s): s is { key: string; header: string; content: string } =>
+            s.key != null,
+        )
         .map((s) => ({ dateKey: s.key, content: s.content })),
     ];
     allSections.sort((a, b) => b.dateKey.localeCompare(a.dateKey));
-    let out = frontmatter + allSections.map((s) => s.content).join('\n\n');
+    const out = frontmatter + allSections.map((s) => s.content).join('\n\n');
     writeFileSync(DOCS_CHANGELOG, out);
     console.error(
       'Applied: added',
@@ -339,7 +402,7 @@ function run() {
   }
 }
 
-const isMain = process.argv[1]?.includes('sync-changelog-to-docs.mjs');
+const isMain = process.argv[1]?.includes('sync-changelog-to-docs');
 if (isMain) {
   run();
 }
