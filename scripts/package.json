@@ -1,0 +1,9 @@
+{
+  "name": "scripts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "vitest run",
+    "test:Watch": "vitest"
+  }
+}
