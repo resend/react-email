@@ -89,19 +89,21 @@ export function Tailwind({ children, config }: TailwindProps) {
       typeof value === 'function' ? value.toString() : value,
     ),
   );
-  let classesUsed: string[] = [];
+  const classesUsed: string[] = [];
 
   let mappedChildren: React.ReactNode = mapReactTree(children, (node) => {
     if (React.isValidElement<EmailElementProps>(node)) {
       if (node.props.className) {
-        const classes = node.props.className?.split(/\s+/);
-        classesUsed = [...classesUsed, ...classes];
-        tailwindSetup.addUtilities(classes);
+        const classes = node.props.className.split(/\s+/);
+        classesUsed.push(...classes);
       }
     }
 
     return node;
   });
+
+  const uniqueClasses = [...new Set(classesUsed)];
+  tailwindSetup.addUtilities(uniqueClasses);
 
   const styleSheet = tailwindSetup.getStyleSheet();
   sanitizeStyleSheet(styleSheet);
@@ -162,10 +164,10 @@ export function Tailwind({ children, config }: TailwindProps) {
 For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
 the Tailwind component tried finding a <head> element but just wasn't able to find it.
 
-Make sure that you have a <head> element at some point inside of the <Tailwind> component at any depth. 
+Make sure that you have a <head> element at some point inside of the <Tailwind> component at any depth.
 This can also be our <Head> component.
 
-If you do already have a <head> element at some depth, 
+If you do already have a <head> element at some depth,
 please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.`,
     );
   }
