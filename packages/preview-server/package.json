@@ -54,7 +54,7 @@
     "@react-email/img": "workspace:*",
     "@react-email/link": "workspace:*",
     "@react-email/preview": "workspace:*",
-    "@react-email/tailwind": "workspace:2.0.4",
+    "@react-email/tailwind": "workspace:2.0.5",
     "@react-email/text": "workspace:*",
     "@tailwindcss/postcss": "4.1.17",
     "@types/babel__core": "7.20.5",
