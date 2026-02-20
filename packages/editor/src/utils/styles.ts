@@ -1,3 +1,5 @@
+import type { CssJs } from "./types";
+
 const WHITE_SPACE_REGEX = /\s+/;
 
 export const jsToInlineCss = (styleObject: { [key: string]: any }) => {
@@ -225,4 +227,28 @@ function convertBorderValue(value: string | number): {
         color: 'black',
       };
   }
+}
+
+/**
+ * Resolves conflicts between reset styles and inline styles by expanding
+ * shorthand properties (margin, padding) to longhand before merging.
+ * This prevents shorthand properties from overriding specific longhand properties.
+ *
+ * @param resetStyles - Base reset styles that may contain shorthand properties
+ * @param inlineStyles - Inline styles that should override reset styles
+ * @returns Merged styles with inline styles taking precedence
+ */
+export function resolveConflictingStyles(
+  resetStyles: CssJs['reset'],
+  inlineStyles: Record<string, string>,
+) {
+  const expandedResetStyles = expandShorthandProperties(
+    resetStyles as Record<string, string>,
+  );
+  const expandedInlineStyles = expandShorthandProperties(inlineStyles);
+
+  return {
+    ...expandedResetStyles,
+    ...expandedInlineStyles,
+  };
 }
