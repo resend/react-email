@@ -1,4 +1,4 @@
-import { promises as fs, existsSync } from 'node:fs';
+import { existsSync, promises as fs } from 'node:fs';
 import http from 'node:http';
 import os from 'node:os';
 import path from 'node:path';
@@ -166,7 +166,7 @@ export const startDevServer = async (
           process.env.ESBUILD_BINARY_PATH = await fs.realpath(candidateBinPath);
         }
       }
-    } catch { }
+    } catch {}
   }
 
   const next = await previewServer.import<typeof import('next')['default']>(
@@ -227,21 +227,21 @@ const makeExitHandler =
       | { shouldKillProcess: false }
       | { shouldKillProcess: true; killWithErrorCode: boolean },
   ) =>
-    (codeSignalOrError: number | NodeJS.Signals | Error) => {
-      if (typeof devServer !== 'undefined') {
-        console.log('\nshutting down dev server');
-        devServer.close();
-        devServer = undefined;
-      }
+  (codeSignalOrError: number | NodeJS.Signals | Error) => {
+    if (typeof devServer !== 'undefined') {
+      console.log('\nshutting down dev server');
+      devServer.close();
+      devServer = undefined;
+    }
 
-      if (codeSignalOrError instanceof Error) {
-        console.error(codeSignalOrError);
-      }
+    if (codeSignalOrError instanceof Error) {
+      console.error(codeSignalOrError);
+    }
 
-      if (options?.shouldKillProcess) {
-        process.exit(options.killWithErrorCode ? 1 : 0);
-      }
-    };
+    if (options?.shouldKillProcess) {
+      process.exit(options.killWithErrorCode ? 1 : 0);
+    }
+  };
 
 // do something when app is closing
 process.on('exit', makeExitHandler());
