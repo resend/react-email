@@ -519,28 +519,28 @@ importers:
         specifier: workspace:*
         version: link:../components
       '@tiptap/core':
-        specifier: 3.10.7
+        specifier: ^3.10.7
         version: 3.10.7(@tiptap/pm@3.10.7)
       '@tiptap/extension-code-block':
-        specifier: 3.10.7
+        specifier: ^3.10.7
         version: 3.10.7(@tiptap/core@3.10.7(@tiptap/pm@3.10.7))(@tiptap/pm@3.10.7)
       '@tiptap/extension-heading':
-        specifier: 3.10.7
+        specifier: ^3.10.7
         version: 3.10.7(@tiptap/core@3.10.7(@tiptap/pm@3.10.7))
       '@tiptap/extension-horizontal-rule':
-        specifier: 3.10.7
+        specifier: ^3.10.7
         version: 3.10.7(@tiptap/core@3.10.7(@tiptap/pm@3.10.7))(@tiptap/pm@3.10.7)
       '@tiptap/pm':
-        specifier: 3.10.7
+        specifier: ^3.10.7
         version: 3.10.7
       '@tiptap/react':
-        specifier: 3.10.7
+        specifier: ^3.10.7
         version: 3.10.7(@floating-ui/dom@1.6.12)(@tiptap/core@3.10.7(@tiptap/pm@3.10.7))(@tiptap/pm@3.10.7)(@types/react-dom@19.2.3(@types/react@19.2.13))(@types/react@19.2.13)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       hast-util-from-html:
-        specifier: 2.0.3
+        specifier: ^2.0.3
         version: 2.0.3
       prismjs:
-        specifier: 1.30.0
+        specifier: ^1.30.0
         version: 1.30.0
       react:
         specifier: ^19.0.0
