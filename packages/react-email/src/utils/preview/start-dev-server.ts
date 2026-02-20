@@ -1,4 +1,6 @@
+import { promises as fs, existsSync } from 'node:fs';
 import http from 'node:http';
+import os from 'node:os';
 import path from 'node:path';
 import url from 'node:url';
 import { createJiti } from 'jiti';
@@ -135,6 +137,37 @@ export const startDevServer = async (
       conf.get('resendApiKey'),
     ),
   };
+  if (!process.env.ESBUILD_BINARY_PATH) {
+    try {
+      const esbuildPkgJsonPath = await fs.realpath(
+        previewServer.esmResolve('esbuild/package.json'),
+      );
+      const esbuildDir = path.dirname(esbuildPkgJsonPath);
+      const nodeModulesDir = path.dirname(esbuildDir);
+      const esbuildVersion = JSON.parse(
+        await fs.readFile(esbuildPkgJsonPath, 'utf8'),
+      ).version;
+
+      const platformPkg = `@esbuild/${process.platform}-${os.arch()}`;
+      const subpath =
+        process.platform === 'win32' ? 'esbuild.exe' : 'bin/esbuild';
+      const candidateBinPath = path.join(nodeModulesDir, platformPkg, subpath);
+      const candidatePkgJson = path.join(
+        nodeModulesDir,
+        platformPkg,
+        'package.json',
+      );
+
+      if (existsSync(candidateBinPath) && existsSync(candidatePkgJson)) {
+        const candidateVersion = JSON.parse(
+          await fs.readFile(candidatePkgJson, 'utf8'),
+        ).version;
+        if (candidateVersion === esbuildVersion) {
+          process.env.ESBUILD_BINARY_PATH = await fs.realpath(candidateBinPath);
+        }
+      }
+    } catch { }
+  }
 
   const next = await previewServer.import<typeof import('next')['default']>(
     'next',
@@ -194,21 +227,21 @@ const makeExitHandler =
       | { shouldKillProcess: false }
       | { shouldKillProcess: true; killWithErrorCode: boolean },
   ) =>
-  (codeSignalOrError: number | NodeJS.Signals | Error) => {
-    if (typeof devServer !== 'undefined') {
-      console.log('\nshutting down dev server');
-      devServer.close();
-      devServer = undefined;
-    }
+    (codeSignalOrError: number | NodeJS.Signals | Error) => {
+      if (typeof devServer !== 'undefined') {
+        console.log('\nshutting down dev server');
+        devServer.close();
+        devServer = undefined;
+      }
 
-    if (codeSignalOrError instanceof Error) {
-      console.error(codeSignalOrError);
-    }
+      if (codeSignalOrError instanceof Error) {
+        console.error(codeSignalOrError);
+      }
 
-    if (options?.shouldKillProcess) {
-      process.exit(options.killWithErrorCode ? 1 : 0);
-    }
-  };
+      if (options?.shouldKillProcess) {
+        process.exit(options.killWithErrorCode ? 1 : 0);
+      }
+    };
 
 // do something when app is closing
 process.on('exit', makeExitHandler());
