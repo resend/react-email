@@ -100,18 +100,20 @@ export function Tailwind({ children, config, theme, utility }: TailwindProps) {
     ),
   );
 
-  let classesUsed: string[] = [];
+  const classesUsed: string[] = [];
   let mappedChildren: React.ReactNode = mapReactTree(children, (node) => {
     if (React.isValidElement<EmailElementProps>(node)) {
       if (node.props.className) {
         const classes = node.props.className?.split(/\s+/);
-        classesUsed = [...classesUsed, ...classes];
-        tailwindSetup.addUtilities(classes);
+        classesUsed.push(...classes);
       }
     }
 
     return node;
   });
+
+  const uniqueClasses = [...new Set(classesUsed)];
+  tailwindSetup.addUtilities(uniqueClasses);
 
   const styleSheet = tailwindSetup.getStyleSheet();
   sanitizeStyleSheet(styleSheet);

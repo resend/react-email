@@ -11,22 +11,25 @@ export function extractRulesPerClass(root: CssNode, classes: string[]) {
     visit: 'Rule',
     enter(rule) {
       const selectorClasses: string[] = [];
-      walk(rule, {
-        visit: 'ClassSelector',
-        enter(classSelector) {
-          selectorClasses.push(string.decode(classSelector.name));
-        },
-      });
+      if (rule.prelude) {
+        walk(rule.prelude, {
+          visit: 'ClassSelector',
+          enter(classSelector) {
+            selectorClasses.push(string.decode(classSelector.name));
+          },
+        });
+      }
+
+      const matchingClasses = selectorClasses.filter((c) => classSet.has(c));
+      if (matchingClasses.length === 0) return;
+
       if (isRuleInlinable(rule)) {
-        for (const className of selectorClasses) {
-          if (classSet.has(className)) {
-            inlinableRules.set(className, rule);
-          }
+        for (const className of matchingClasses) {
+          inlinableRules.set(className, rule);
         }
       } else {
         const { inlinablePart, nonInlinablePart } = splitMixedRule(rule);
-        for (const className of selectorClasses) {
-          if (!classSet.has(className)) continue;
+        for (const className of matchingClasses) {
           if (inlinablePart) {
             inlinableRules.set(className, inlinablePart);
           }
