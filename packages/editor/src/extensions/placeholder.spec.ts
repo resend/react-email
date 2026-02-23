@@ -110,7 +110,7 @@ describe('Placeholder Extension', () => {
       expect(paragraph).toBeTruthy();
       expect(
         paragraph?.classList.contains('is-empty') ||
-        paragraph?.hasAttribute('data-placeholder'),
+          paragraph?.hasAttribute('data-placeholder'),
       ).toBe(true);
     });
 
@@ -160,7 +160,7 @@ describe('Placeholder Extension', () => {
       expect(paragraphs[0].textContent).toBe('');
       expect(
         paragraphs[0].classList.contains('is-empty') ||
-        paragraphs[0].hasAttribute('data-placeholder'),
+          paragraphs[0].hasAttribute('data-placeholder'),
       ).toBe(true);
     });
 
