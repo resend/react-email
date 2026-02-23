@@ -5,8 +5,8 @@ import { TextSelection } from '@tiptap/pm/state';
 import { EmailNode } from '../core/email-node';
 import {
   COMMON_HTML_ATTRIBUTES,
-  LAYOUT_ATTRIBUTES,
   createStandardAttributes,
+  LAYOUT_ATTRIBUTES,
 } from '../utils/attribute-helpers';
 import { inlineCssToJs } from '../utils/styles';
 
