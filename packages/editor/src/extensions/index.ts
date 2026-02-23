@@ -8,6 +8,7 @@ export * from './div';
 export * from './max-nesting';
 export * from './placeholder';
 export * from './preserved-style';
+export * from './preview-text';
 export * from './section';
 export * from './style-attribute';
 export * from './sup';
