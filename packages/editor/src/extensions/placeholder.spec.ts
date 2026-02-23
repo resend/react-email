@@ -1,14 +1,14 @@
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { createPlaceholderExtension, placeholder } from './placeholder';
+import { Placeholder } from './placeholder';
 
 describe('Placeholder Extension', () => {
   let editor: Editor;
 
   beforeEach(() => {
     editor = new Editor({
-      extensions: [StarterKit.configure({}), placeholder],
+      extensions: [StarterKit.configure({}), Placeholder],
       content: '',
     });
   });
@@ -28,10 +28,13 @@ describe('Placeholder Extension', () => {
     });
 
     it('allows custom configuration', () => {
-      const customExtension = createPlaceholderExtension({
+      const customExtension = Placeholder.configure({
         includeChildren: false,
       });
 
+      expect(customExtension.options.placeholder).toStrictEqual(
+        Placeholder.options.placeholder,
+      );
       expect(customExtension.options.includeChildren).toBe(false);
     });
   });
@@ -54,7 +57,7 @@ describe('Placeholder Extension', () => {
 
     it('returns heading placeholder for heading nodes', () => {
       const testEditor = new Editor({
-        extensions: [StarterKit.configure({ heading: {} }), placeholder],
+        extensions: [StarterKit.configure({ heading: {} }), Placeholder],
         content: '',
       });
 
@@ -76,7 +79,7 @@ describe('Placeholder Extension', () => {
 
     it('supports different heading levels', () => {
       const testEditor = new Editor({
-        extensions: [StarterKit.configure({ heading: {} }), placeholder],
+        extensions: [StarterKit.configure({ heading: {} }), Placeholder],
         content: '',
       });
 
@@ -107,7 +110,7 @@ describe('Placeholder Extension', () => {
       expect(paragraph).toBeTruthy();
       expect(
         paragraph?.classList.contains('is-empty') ||
-          paragraph?.hasAttribute('data-placeholder'),
+        paragraph?.hasAttribute('data-placeholder'),
       ).toBe(true);
     });
 
@@ -157,7 +160,7 @@ describe('Placeholder Extension', () => {
       expect(paragraphs[0].textContent).toBe('');
       expect(
         paragraphs[0].classList.contains('is-empty') ||
-          paragraphs[0].hasAttribute('data-placeholder'),
+        paragraphs[0].hasAttribute('data-placeholder'),
       ).toBe(true);
     });
 
