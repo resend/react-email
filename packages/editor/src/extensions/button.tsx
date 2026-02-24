@@ -7,7 +7,7 @@ import { mergeAttributes } from '@tiptap/core';
 import { EmailNode } from '../core/email-node';
 import { inlineCssToJs } from '../utils/styles';
 
-interface EditorButtonOptions {
+export interface EditorButtonOptions {
   HTMLAttributes: Record<string, unknown>;
   [key: string]: unknown;
 }
@@ -108,7 +108,7 @@ export const Button = EmailNode.create<EditorButtonOptions>({
     };
   },
 
-  renderToReactEmail({ children, node, styles }) {
+  renderToReactEmail({ children, node, style }) {
     const inlineStyles = inlineCssToJs(node.attrs?.style);
     return (
       <Row>
@@ -117,8 +117,7 @@ export const Button = EmailNode.create<EditorButtonOptions>({
             className={node.attrs?.class || undefined}
             href={node.attrs?.href}
             style={{
-              ...styles.reset,
-              ...styles.button,
+              ...style,
               ...inlineStyles,
             }}
           >

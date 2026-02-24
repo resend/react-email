@@ -1,6 +1,6 @@
 import { Extension } from '@tiptap/core';
 
-interface ClassAttributeOptions {
+export interface ClassAttributeOptions {
   types: string[];
   class: string[];
 }

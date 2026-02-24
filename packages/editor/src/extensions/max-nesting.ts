@@ -2,7 +2,7 @@ import { Extension } from '@tiptap/core';
 import type { NodeRange } from '@tiptap/pm/model';
 import { Plugin, PluginKey } from '@tiptap/pm/state';
 
-interface MaxNestingOptions {
+export interface MaxNestingOptions {
   maxDepth: number;
   nodeTypes?: string[];
 }

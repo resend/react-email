@@ -82,7 +82,7 @@ export const Table = EmailNode.create<TableOptions>({
     return ['table', attrs, ['tbody', {}, 0]];
   },
 
-  renderToReactEmail({ children, node, styles }) {
+  renderToReactEmail({ children, node, style }) {
     const inlineStyles = inlineCssToJs(node.attrs?.style);
     const alignment = node.attrs?.align || node.attrs?.alignment;
     const width = node.attrs?.width;
@@ -94,7 +94,7 @@ export const Table = EmailNode.create<TableOptions>({
       <Section
         className={node.attrs?.class || undefined}
         align={alignment}
-        style={resolveConflictingStyles(styles.reset, {
+        style={resolveConflictingStyles(style, {
           ...inlineStyles,
           ...centeringStyles,
         })}
@@ -106,7 +106,7 @@ export const Table = EmailNode.create<TableOptions>({
   },
 });
 
-interface TableRowOptions extends Record<string, unknown> {
+export interface TableRowOptions extends Record<string, unknown> {
   HTMLAttributes?: Record<string, unknown>;
 }
 
@@ -152,13 +152,13 @@ export const TableRow = EmailNode.create<TableRowOptions>({
     return ['tr', HTMLAttributes, 0];
   },
 
-  renderToReactEmail({ children, node, styles }) {
+  renderToReactEmail({ children, node, style }) {
     const inlineStyles = inlineCssToJs(node.attrs?.style);
     return (
       <tr
         className={node.attrs?.class || undefined}
         style={{
-          ...styles.reset,
+          ...style,
           ...inlineStyles,
         }}
       >
@@ -168,7 +168,7 @@ export const TableRow = EmailNode.create<TableRowOptions>({
   },
 });
 
-interface TableCellOptions extends Record<string, unknown> {
+export interface TableCellOptions extends Record<string, unknown> {
   HTMLAttributes?: Record<string, unknown>;
 }
 

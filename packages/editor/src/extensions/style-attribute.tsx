@@ -1,6 +1,6 @@
 import { Extension } from '@tiptap/core';
 
-interface StyleAttributeOptions {
+export interface StyleAttributeOptions {
   types: string[];
   style: string[];
 }
