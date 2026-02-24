@@ -4,6 +4,7 @@ export * from './bold';
 export * from './button';
 export * from './class-attribute';
 export * from './code-block';
+export * from './columns';
 export * from './div';
 export * from './max-nesting';
 export * from './placeholder';
