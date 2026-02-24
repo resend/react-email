@@ -187,6 +187,35 @@ export const ColumnsColumn = EmailNode.create({
 
   addKeyboardShortcuts() {
     return {
+      Backspace: ({ editor }) => {
+        const { state } = editor;
+        const { selection } = state;
+        const { empty, $from } = selection;
+
+        if (!empty) return false;
+
+        for (let depth = $from.depth; depth >= 1; depth--) {
+          if ($from.pos !== $from.start(depth)) break;
+
+          const indexInParent = $from.index(depth - 1);
+
+          if (indexInParent === 0) continue;
+
+          const parent = $from.node(depth - 1);
+          const prevNode = parent.child(indexInParent - 1);
+
+          if (COLUMN_PARENT_SET.has(prevNode.type.name)) {
+            const deleteFrom = $from.before(depth) - prevNode.nodeSize;
+            const deleteTo = $from.before(depth);
+            editor.view.dispatch(state.tr.delete(deleteFrom, deleteTo));
+            return true;
+          }
+
+          break;
+        }
+
+        return false;
+      },
       'Mod-a': ({ editor }) => {
         const { state } = editor;
         const { $from } = state.selection;
