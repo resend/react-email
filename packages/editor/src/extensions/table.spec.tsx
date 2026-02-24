@@ -65,4 +65,3 @@ describe('Table Nodes', () => {
     ).toMatchSnapshot();
   });
 });
-

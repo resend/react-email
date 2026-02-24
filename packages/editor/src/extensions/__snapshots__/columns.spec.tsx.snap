@@ -1,0 +1,124 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Column Variants > renders ColumnsColumn with custom width 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--$-->
+<td data-id="__react-email-column" style="margin:0;padding:0;width:200px">
+  Column content
+</td>
+<!--/$-->
+"
+`;
+
+exports[`Column Variants > renders ColumnsColumn with inline styles 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--$-->
+<td
+  data-id="__react-email-column"
+  style="margin:0;padding:0;background-color:red">
+  Content
+</td>
+<!--/$-->
+"
+`;
+
+exports[`Column Variants > renders FourColumns with 4 column children 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--$-->
+<table
+  align="center"
+  width="100%"
+  border="0"
+  cellpadding="0"
+  cellspacing="0"
+  role="presentation"
+  style="margin:0;padding:0">
+  <tbody style="width:100%">
+    <tr style="width:100%">
+      <td data-id="__react-email-column" style="margin:0;padding:0">A</td>
+      <td data-id="__react-email-column" style="margin:0;padding:0">B</td>
+      <td data-id="__react-email-column" style="margin:0;padding:0">C</td>
+      <td data-id="__react-email-column" style="margin:0;padding:0">D</td>
+    </tr>
+  </tbody>
+</table>
+<!--/$-->
+"
+`;
+
+exports[`Column Variants > renders ThreeColumns with 3 column children 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--$-->
+<table
+  align="center"
+  width="100%"
+  border="0"
+  cellpadding="0"
+  cellspacing="0"
+  role="presentation"
+  style="margin:0;padding:0">
+  <tbody style="width:100%">
+    <tr style="width:100%">
+      <td data-id="__react-email-column" style="margin:0;padding:0">
+        Column A
+      </td>
+      <td data-id="__react-email-column" style="margin:0;padding:0">
+        Column B
+      </td>
+      <td data-id="__react-email-column" style="margin:0;padding:0">
+        Column C
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!--/$-->
+"
+`;
+
+exports[`Column Variants > renders TwoColumns with 2 column children 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--$-->
+<table
+  align="center"
+  width="100%"
+  border="0"
+  cellpadding="0"
+  cellspacing="0"
+  role="presentation"
+  style="margin:0;padding:0">
+  <tbody style="width:100%">
+    <tr style="width:100%">
+      <td data-id="__react-email-column" style="margin:0;padding:0">
+        Column A
+      </td>
+      <td data-id="__react-email-column" style="margin:0;padding:0">
+        Column B
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!--/$-->
+"
+`;
+
+exports[`Column Variants > renders column parent with inline styles 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--$-->
+<table
+  align="center"
+  width="100%"
+  border="0"
+  cellpadding="0"
+  cellspacing="0"
+  role="presentation"
+  class="custom-class"
+  style="margin:0;padding:10px">
+  <tbody style="width:100%">
+    <tr style="width:100%">
+      Content
+    </tr>
+  </tbody>
+</table>
+<!--/$-->
+"
+`;

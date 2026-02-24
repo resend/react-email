@@ -20,13 +20,13 @@ declare module '@tiptap/core' {
      * @example () => 'table'
      */
     tableRole?:
-    | string
-    | ((this: {
-      name: string;
-      options: Options;
-      storage: Storage;
-      parent: ParentConfig<NodeConfig<Options>>['tableRole'];
-    }) => string);
+      | string
+      | ((this: {
+          name: string;
+          options: Options;
+          storage: Storage;
+          parent: ParentConfig<NodeConfig<Options>>['tableRole'];
+        }) => string);
   }
 }
 
