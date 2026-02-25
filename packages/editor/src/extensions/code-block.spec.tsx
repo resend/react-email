@@ -1,7 +1,10 @@
 import { dracula, render } from '@react-email/components';
 import { describe, expect, it } from 'vitest';
-import { RESET_THEMES } from '../plugins/theming/themes';
+import { DEFAULT_STYLES } from '../utils/default-styles';
 import { CodeBlockPrism } from './code-block';
+
+// Resolved style matching snapshot: codeBlock only, no reset (theme provides padding/margin)
+const codeBlockStyle = { ...DEFAULT_STYLES.codeBlock };
 
 describe('CodeBlockPrism Node', () => {
   it('renders React Email properly', async () => {
@@ -15,7 +18,7 @@ describe('CodeBlockPrism Node', () => {
             attrs: { language: 'javascript', theme: 'dracula' },
             content: [{ type: 'text', text: 'const x = 1;' }],
           }}
-          styles={{ ...RESET_THEMES.basic }}
+          style={codeBlockStyle}
         />,
         { pretty: true },
       ),
@@ -42,7 +45,7 @@ describe('CodeBlockPrism Node', () => {
             },
           ],
         }}
-        styles={{ ...RESET_THEMES.basic }}
+        style={codeBlockStyle}
       />,
       { pretty: true },
     );

@@ -216,14 +216,14 @@ export const TableCell = EmailNode.create<TableCellOptions>({
     return ['td', HTMLAttributes, 0];
   },
 
-  renderToReactEmail({ children, node, styles }) {
+  renderToReactEmail({ children, node, style }) {
     const inlineStyles = inlineCssToJs(node.attrs?.style);
     return (
       <Column
         className={node.attrs?.class || undefined}
         align={node.attrs?.align || node.attrs?.alignment}
         style={{
-          ...styles.reset,
+          ...style,
           ...inlineStyles,
         }}
       >

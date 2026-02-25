@@ -1,6 +1,8 @@
 import { render } from '@react-email/components';
-import { RESET_THEMES } from '../plugins/theming/themes';
+import { DEFAULT_STYLES } from '../utils/default-styles';
 import { Div } from './div';
+
+const divStyle = { ...DEFAULT_STYLES.reset };
 
 describe('Div Node', () => {
   it('renders React Email properly', async () => {
@@ -15,7 +17,7 @@ describe('Div Node', () => {
               class: 'div-class',
             },
           }}
-          styles={{ ...RESET_THEMES.basic }}
+          style={divStyle}
         >
           Div content
         </Component>,
