@@ -102,6 +102,20 @@ describe('makeStylesEmailCompatible', () => {
     });
   });
 
+  describe('converts rem to px in legacy Feature nodes', () => {
+    it('converts rem in min-width Feature', () => {
+      const input = '@media (min-width:40rem){.test{color:red}}';
+      const output = transform(input);
+      expect(output).toBe('@media (min-width:640px){.test{color:red}}');
+    });
+
+    it('converts rem in max-width Feature', () => {
+      const input = '@media (max-width:48rem){.test{color:blue}}';
+      const output = transform(input);
+      expect(output).toBe('@media (max-width:768px){.test{color:blue}}');
+    });
+  });
+
   describe('handles edge cases', () => {
     it('handles rules with multiple declarations', () => {
       const input =
@@ -116,6 +130,20 @@ describe('makeStylesEmailCompatible', () => {
       const input = '.plain{color:red!important}';
       const output = transform(input);
       expect(output).toBe('.plain{color:red!important}');
+    });
+
+    it('preserves multiple non-media rules without dropping any', () => {
+      const input =
+        '.a:hover{color:red!important}.b:focus{color:blue!important}';
+      const output = transform(input);
+      expect(output).toContain('.a:hover{color:red!important}');
+      expect(output).toContain('.b:focus{color:blue!important}');
+    });
+
+    it('handles & replacement with comma-separated parent selectors', () => {
+      const input = '.a,.b{&:hover{color:red!important}}';
+      const output = transform(input);
+      expect(output).toBe('.a:hover,.b:hover{color:red!important}');
     });
   });
 });

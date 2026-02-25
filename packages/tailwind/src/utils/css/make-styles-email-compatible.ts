@@ -141,7 +141,7 @@ function flattenNestedContent(
 function resolveNestedRule(parentRule: Rule, nestedRule: Rule): CssNode[] {
   const parentSelector = generate(parentRule.prelude);
   const nestedSelector = generate(nestedRule.prelude);
-  const resolvedSelector = nestedSelector.replace(/&/g, parentSelector);
+  const resolvedSelector = resolveAmpersand(parentSelector, nestedSelector);
 
   const result: CssNode[] = [];
   const declarations: CssNode[] = [];
@@ -189,6 +189,26 @@ function resolveNestedRule(parentRule: Rule, nestedRule: Rule): CssNode[] {
   return result;
 }
 
+/**
+ * Replace `&` in nested selectors, correctly handling comma-separated parent
+ * selectors (e.g. `.a, .b` + `&:hover` → `.a:hover, .b:hover`).
+ */
+function resolveAmpersand(
+  parentSelector: string,
+  nestedSelector: string,
+): string {
+  if (!nestedSelector.includes('&')) return nestedSelector;
+
+  const parentParts = parentSelector.split(',').map((s) => s.trim());
+  if (parentParts.length <= 1) {
+    return nestedSelector.replace(/&/g, parentSelector);
+  }
+
+  return parentParts
+    .map((part) => nestedSelector.replace(/&/g, part))
+    .join(',');
+}
+
 function createRuleFromSelector(
   selectorStr: string,
   children: CssNode[],
@@ -226,11 +246,14 @@ function convertAllMediaQueryConditions(nodes: CssNode[]): void {
       enter(atrule) {
         if (atrule.name === 'media' && atrule.prelude) {
           walk(atrule.prelude, (preludeNode, item, list) => {
-            if (preludeNode.type === 'FeatureRange' && item && list) {
+            if (!item || !list) return;
+            if (preludeNode.type === 'FeatureRange') {
               const feature = convertFeatureRange(preludeNode);
               if (feature) {
                 item.data = feature;
               }
+            } else if (preludeNode.type === 'Feature') {
+              convertFeatureRemToPx(preludeNode);
             }
           });
         }
@@ -293,6 +316,24 @@ function convertFeatureRange(range: CssNode): CssNode | null {
 }
 
 /**
+ * Convert rem units to px in a legacy `Feature` node (e.g.
+ * `min-width: 40rem` → `min-width: 640px`).
+ */
+function convertFeatureRemToPx(feature: CssNode): void {
+  if (feature.type !== 'Feature' || !feature.value) return;
+
+  if (feature.value.type === 'Dimension' && feature.value.unit === 'rem') {
+    const pxValue = Number.parseFloat(feature.value.value) * REM_TO_PX;
+    feature.value = {
+      type: 'Dimension',
+      loc: null,
+      value: String(pxValue),
+      unit: 'px',
+    };
+  }
+}
+
+/**
  * Group consecutive `@media` rules that share the same query into a single
  * `@media` block, reducing output size and improving readability.
  */
@@ -300,6 +341,7 @@ function groupByMediaQuery(nodes: CssNode[]): CssNode[] {
   const mediaGroups = new Map<string, CssNode[]>();
   const result: CssNode[] = [];
   const insertionOrder: string[] = [];
+  let nonMediaCounter = 0;
 
   for (const node of nodes) {
     if (node.type === 'Atrule' && node.name === 'media' && node.prelude) {
@@ -312,7 +354,7 @@ function groupByMediaQuery(nodes: CssNode[]): CssNode[] {
         mediaGroups.get(key)!.push(...node.block.children.toArray());
       }
     } else {
-      const uniqueKey = `__non_media_${result.length}`;
+      const uniqueKey = `__non_media_${nonMediaCounter++}`;
       insertionOrder.push(uniqueKey);
       mediaGroups.set(uniqueKey, [node]);
     }
