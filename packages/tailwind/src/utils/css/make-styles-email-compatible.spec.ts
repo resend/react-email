@@ -45,22 +45,19 @@ describe('makeStylesEmailCompatible', () => {
 
   describe('converts range syntax to legacy min-width/max-width', () => {
     it('converts width >= Xrem to min-width: Xpx', () => {
-      const input =
-        '.sm_p-2{@media (width>=40rem){padding:8px!important}}';
+      const input = '.sm_p-2{@media (width>=40rem){padding:8px!important}}';
       const output = transform(input);
       expect(output).toContain('@media (min-width:640px)');
     });
 
     it('converts width < Xrem to max-width: (X-0.02)px', () => {
-      const input =
-        '.max-sm_text{@media (width<40rem){color:red!important}}';
+      const input = '.max-sm_text{@media (width<40rem){color:red!important}}';
       const output = transform(input);
       expect(output).toContain('@media (max-width:639.98px)');
     });
 
     it('handles px units in breakpoints (no rem conversion needed)', () => {
-      const input =
-        '.xl_bg{@media (width>=1280px){background:blue!important}}';
+      const input = '.xl_bg{@media (width>=1280px){background:blue!important}}';
       const output = transform(input);
       expect(output).toContain('@media (min-width:1280px)');
     });
@@ -68,8 +65,7 @@ describe('makeStylesEmailCompatible', () => {
 
   describe('resolves CSS nesting selectors', () => {
     it('resolves &:hover nesting', () => {
-      const input =
-        '.focus_bg-red{&:focus{background-color:red!important}}';
+      const input = '.focus_bg-red{&:focus{background-color:red!important}}';
       const output = transform(input);
       expect(output).toBe(
         '.focus_bg-red:focus{background-color:red!important}',
