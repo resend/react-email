@@ -1,11 +1,11 @@
 import {
   type Atrule,
   type CssNode,
-  type Rule,
-  type StyleSheet,
   clone,
   generate,
   List,
+  type Rule,
+  type StyleSheet,
   walk,
 } from 'css-tree';
 
@@ -182,10 +182,7 @@ function resolveNestedRule(parentRule: Rule, nestedRule: Rule): CssNode[] {
   }
 
   if (declarations.length > 0) {
-    const resolvedRule = createRuleFromSelector(
-      resolvedSelector,
-      declarations,
-    );
+    const resolvedRule = createRuleFromSelector(resolvedSelector, declarations);
     result.unshift(resolvedRule);
   }
 
@@ -312,9 +309,7 @@ function groupByMediaQuery(nodes: CssNode[]): CssNode[] {
         insertionOrder.push(key);
       }
       if (node.block) {
-        mediaGroups
-          .get(key)!
-          .push(...node.block.children.toArray());
+        mediaGroups.get(key)!.push(...node.block.children.toArray());
       }
     } else {
       const uniqueKey = `__non_media_${result.length}`;
