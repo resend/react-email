@@ -17,10 +17,16 @@ describe('Column Variants', () => {
     expect(
       await render(
         <Parent node={{ type: 'twoColumns', attrs: {} }} style={columnsStyle}>
-          <Child node={{ type: 'columnsColumn', attrs: {} }} style={columnsStyle}>
+          <Child
+            node={{ type: 'columnsColumn', attrs: {} }}
+            style={columnsStyle}
+          >
             Column A
           </Child>
-          <Child node={{ type: 'columnsColumn', attrs: {} }} style={columnsStyle}>
+          <Child
+            node={{ type: 'columnsColumn', attrs: {} }}
+            style={columnsStyle}
+          >
             Column B
           </Child>
         </Parent>,
@@ -36,13 +42,22 @@ describe('Column Variants', () => {
     expect(
       await render(
         <Parent node={{ type: 'threeColumns', attrs: {} }} style={columnsStyle}>
-          <Child node={{ type: 'columnsColumn', attrs: {} }} style={columnsStyle}>
+          <Child
+            node={{ type: 'columnsColumn', attrs: {} }}
+            style={columnsStyle}
+          >
             Column A
           </Child>
-          <Child node={{ type: 'columnsColumn', attrs: {} }} style={columnsStyle}>
+          <Child
+            node={{ type: 'columnsColumn', attrs: {} }}
+            style={columnsStyle}
+          >
             Column B
           </Child>
-          <Child node={{ type: 'columnsColumn', attrs: {} }} style={columnsStyle}>
+          <Child
+            node={{ type: 'columnsColumn', attrs: {} }}
+            style={columnsStyle}
+          >
             Column C
           </Child>
         </Parent>,
@@ -58,16 +73,28 @@ describe('Column Variants', () => {
     expect(
       await render(
         <Parent node={{ type: 'fourColumns', attrs: {} }} style={columnsStyle}>
-          <Child node={{ type: 'columnsColumn', attrs: {} }} style={columnsStyle}>
+          <Child
+            node={{ type: 'columnsColumn', attrs: {} }}
+            style={columnsStyle}
+          >
             A
           </Child>
-          <Child node={{ type: 'columnsColumn', attrs: {} }} style={columnsStyle}>
+          <Child
+            node={{ type: 'columnsColumn', attrs: {} }}
+            style={columnsStyle}
+          >
             B
           </Child>
-          <Child node={{ type: 'columnsColumn', attrs: {} }} style={columnsStyle}>
+          <Child
+            node={{ type: 'columnsColumn', attrs: {} }}
+            style={columnsStyle}
+          >
             C
           </Child>
-          <Child node={{ type: 'columnsColumn', attrs: {} }} style={columnsStyle}>
+          <Child
+            node={{ type: 'columnsColumn', attrs: {} }}
+            style={columnsStyle}
+          >
             D
           </Child>
         </Parent>,

@@ -147,24 +147,24 @@ export const CodeBlockPrism = EmailNode.from(
     // Without theme, render a gray code block
     const theme = userTheme
       ? {
-        ...userTheme,
-        base: {
-          ...userTheme.base,
-          borderRadius: '0.125rem',
-          padding: '0.75rem 1rem',
-        },
-      }
+          ...userTheme,
+          base: {
+            ...userTheme.base,
+            borderRadius: '0.125rem',
+            padding: '0.75rem 1rem',
+          },
+        }
       : {
-        base: {
-          color: '#1e293b',
-          background: '#f1f5f9',
-          lineHeight: '1.5',
-          fontFamily:
-            '"Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace',
-          padding: '0.75rem 1rem',
-          borderRadius: '0.125rem',
-        },
-      };
+          base: {
+            color: '#1e293b',
+            background: '#f1f5f9',
+            lineHeight: '1.5',
+            fontFamily:
+              '"Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace',
+            padding: '0.75rem 1rem',
+            borderRadius: '0.125rem',
+          },
+        };
 
     return (
       <ReactEmailCodeBlock

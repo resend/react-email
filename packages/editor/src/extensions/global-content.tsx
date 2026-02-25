@@ -2,7 +2,7 @@ import { mergeAttributes, Node } from '@tiptap/core';
 
 export const GLOBAL_CONTENT_NODE_TYPE = 'globalContent' as const;
 
-const initialState: Record<string, unknown> = { };
+const initialState: Record<string, unknown> = {};
 
 export type GlobalContentData = Record<string, unknown>;
 
@@ -99,4 +99,3 @@ export const GlobalContent = Node.create<GlobalContentOptions>({
     };
   },
 });
-
