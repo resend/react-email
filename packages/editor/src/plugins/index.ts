@@ -1,7 +1,10 @@
-import type { Editor, JSONContent } from "@tiptap/core";
+import type { Editor, JSONContent } from '@tiptap/core';
 
-export interface EditorPlugin {
+export interface Plugin {
   setup(editor: Editor): void;
   mapNodeStyles?(node: JSONContent, editor: Editor): React.CSSProperties;
 }
 
+export function createPlugin<T extends Plugin>(plugin: T): T {
+  return plugin;
+}
