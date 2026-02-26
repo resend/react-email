@@ -5,12 +5,14 @@ interface Args {
   dir: string;
   port: string;
   resendApiKey?: string;
+  from?: string;
 }
 
 export const dev = async ({
   dir: emailsDirRelativePath,
   port,
   resendApiKey,
+  from,
 }: Args) => {
   try {
     if (!fs.existsSync(emailsDirRelativePath)) {
@@ -23,6 +25,7 @@ export const dev = async ({
       emailsDirRelativePath, // defaults to ./emails/static for the static files that are served to the preview
       Number.parseInt(port, 10),
       resendApiKey,
+      from,
     );
 
     await setupHotreloading(devServer, emailsDirRelativePath);

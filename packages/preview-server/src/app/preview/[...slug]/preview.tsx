@@ -25,9 +25,10 @@ import { ErrorOverlay } from './error-overlay';
 
 interface PreviewProps extends React.ComponentProps<'div'> {
   emailTitle: string;
+  canSendLocally: boolean;
 }
 
-const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
+const Preview = ({ emailTitle, canSendLocally, className, ...props }: PreviewProps) => {
   const { renderingResult, renderedEmailMetadata } = usePreviewContext();
 
   const router = useRouter();
@@ -128,7 +129,7 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
         />
         {hasRenderingMetadata ? (
           <div className="flex justify-end">
-            <Send markup={renderedEmailMetadata.markup} />
+            <Send markup={renderedEmailMetadata.markup} canSendLocally={canSendLocally} />
           </div>
         ) : null}
       </Topbar>

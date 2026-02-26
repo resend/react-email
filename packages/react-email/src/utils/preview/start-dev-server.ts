@@ -33,6 +33,7 @@ export const startDevServer = async (
   staticBaseDirRelativePath: string,
   port: number,
   resendApiKey?: string,
+  from?: string,
 ): Promise<http.Server> => {
   const [majorNodeVersion] = process.versions.node.split('.');
   if (majorNodeVersion && Number.parseInt(majorNodeVersion, 10) < 20) {
@@ -99,6 +100,7 @@ export const startDevServer = async (
       staticBaseDirRelativePath,
       nextPortToTry,
       resendApiKey,
+      from,
     );
   }
 
@@ -135,6 +137,7 @@ export const startDevServer = async (
       previewServerLocation,
       process.cwd(),
       resendApiKey ?? conf.get('resendApiKey'),
+      from,
     ),
   };
 
