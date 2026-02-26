@@ -50,6 +50,10 @@ if (!hasRequiredFlags) {
       './emails',
     )
     .option('-p --port <port>', 'Port to run dev server on', '3000')
+    .option(
+      '--resend-api-key <key>',
+      'Resend API key for the preview app (overrides stored config)',
+    )
     .action(dev);
 
   program
