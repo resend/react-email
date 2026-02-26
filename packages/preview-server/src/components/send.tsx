@@ -6,7 +6,13 @@ import { sendEmail } from '../actions/send-email';
 import { Button } from './button';
 import { Text } from './text';
 
-export const Send = ({ markup, canSendLocally }: { markup: string; canSendLocally: boolean }) => {
+export const Send = ({
+  markup,
+  canSendLocally,
+}: {
+  markup: string;
+  canSendLocally: boolean;
+}) => {
   const [to, setTo] = useState('');
   const [subject, setSubject] = useState('Testing React Email');
   const [isSending, setIsSending] = useState(false);
@@ -25,9 +31,10 @@ export const Send = ({ markup, canSendLocally }: { markup: string; canSendLocall
         if (result?.data?.status === 'succeeded') {
           toast.success('Email sent! Check your inbox.');
         } else {
-          const errorMessage = result?.data?.status === 'failed'
-            ? result.data.error
-            : 'Something went wrong. Please try again.';
+          const errorMessage =
+            result?.data?.status === 'failed'
+              ? result.data.error
+              : 'Something went wrong. Please try again.';
           toast.error(errorMessage);
         }
       } else {

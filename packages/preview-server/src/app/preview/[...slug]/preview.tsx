@@ -28,7 +28,12 @@ interface PreviewProps extends React.ComponentProps<'div'> {
   canSendLocally: boolean;
 }
 
-const Preview = ({ emailTitle, canSendLocally, className, ...props }: PreviewProps) => {
+const Preview = ({
+  emailTitle,
+  canSendLocally,
+  className,
+  ...props
+}: PreviewProps) => {
   const { renderingResult, renderedEmailMetadata } = usePreviewContext();
 
   const router = useRouter();
@@ -129,7 +134,10 @@ const Preview = ({ emailTitle, canSendLocally, className, ...props }: PreviewPro
         />
         {hasRenderingMetadata ? (
           <div className="flex justify-end">
-            <Send markup={renderedEmailMetadata.markup} canSendLocally={canSendLocally} />
+            <Send
+              markup={renderedEmailMetadata.markup}
+              canSendLocally={canSendLocally}
+            />
           </div>
         ) : null}
       </Topbar>

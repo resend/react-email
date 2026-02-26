@@ -18,11 +18,17 @@ export const sendEmail = baseActionClient
   )
   .action(async ({ parsedInput }) => {
     if (!resendApiKey) {
-      return { status: 'failed' as const, error: 'Resend API key is not configured' };
+      return {
+        status: 'failed' as const,
+        error: 'Resend API key is not configured',
+      };
     }
 
     if (!fromAddress) {
-      return { status: 'failed' as const, error: 'Sender address is not configured. Use --from to set it.' };
+      return {
+        status: 'failed' as const,
+        error: 'Sender address is not configured. Use --from to set it.',
+      };
     }
 
     const resend = new Resend(resendApiKey);
