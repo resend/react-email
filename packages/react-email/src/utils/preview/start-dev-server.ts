@@ -1,5 +1,6 @@
 import { existsSync, promises as fs } from 'node:fs';
 import http from 'node:http';
+import { createRequire } from 'node:module';
 import os from 'node:os';
 import path from 'node:path';
 import url from 'node:url';
@@ -139,20 +140,28 @@ export const startDevServer = async (
   };
   if (!process.env.ESBUILD_BINARY_PATH) {
     try {
-      const esbuild = createJiti(previewServer.esmResolve('esbuild'));
-      const platformPackage = `@esbuild/${process.platform}-${os.arch()}`;
+      // Resolve from this package so we use the same esbuild version that
+      // react-email depends on. With pnpm, @esbuild/platform lives inside
+      // the esbuild package's node_modules, not at top level, so we resolve
+      // "esbuild" first then look for the platform binary inside it.
+      const requireFromThisPackage = createRequire(import.meta.url);
+      const esbuildPkgDir = path.dirname(
+        requireFromThisPackage.resolve('esbuild/package.json'),
+      );
+      const platformPkg = path.join(
+        esbuildPkgDir,
+        'node_modules',
+        `@esbuild/${process.platform}-${os.arch()}`,
+      );
       const subpath =
         process.platform === 'win32' ? 'esbuild.exe' : 'bin/esbuild';
-      const candidateBinaryPath = path.join(
-        await fs.realpath(esbuild.esmResolve(platformPackage)),
-        subpath,
-      );
+      const candidateBinaryPath = path.join(platformPkg, subpath);
       if (existsSync(candidateBinaryPath)) {
         process.env.ESBUILD_BINARY_PATH =
           await fs.realpath(candidateBinaryPath);
       }
-    } catch (exception) {
-      console.error(exception);
+    } catch (_exception) {
+      // Optional: platform binary may be missing; esbuild will use its default resolution.
     }
   }
 
