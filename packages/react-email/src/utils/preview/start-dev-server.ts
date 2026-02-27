@@ -145,21 +145,15 @@ export const startDevServer = async (
       // the esbuild package's node_modules, not at top level, so we resolve
       // "esbuild" first then look for the platform binary inside it.
       const requireFromThisPackage = createRequire(import.meta.url);
-      const esbuildPkgDir = path.dirname(
-        requireFromThisPackage.resolve('esbuild/package.json'),
-      );
-      const platformPkg = path.join(
-        esbuildPkgDir,
-        'node_modules',
-        `@esbuild/${process.platform}-${os.arch()}`,
-      );
       const subpath =
         process.platform === 'win32' ? 'esbuild.exe' : 'bin/esbuild';
-      const candidateBinaryPath = path.join(platformPkg, subpath);
-      if (existsSync(candidateBinaryPath)) {
-        process.env.ESBUILD_BINARY_PATH =
-          await fs.realpath(candidateBinaryPath);
-      }
+      const esbuildBinaryPath = path.dirname(
+        requireFromThisPackage.resolve(
+          `@esbuild/${process.platform}-${os.arch()}/${subpath}`,
+        ),
+      );
+      console.log(esbuildBinaryPath);
+      process.env.ESBUILD_BINARY_PATH = esbuildBinaryPath;
     } catch (_exception) {
       // Optional: platform binary may be missing; esbuild will use its default resolution.
     }
@@ -223,21 +217,21 @@ const makeExitHandler =
       | { shouldKillProcess: false }
       | { shouldKillProcess: true; killWithErrorCode: boolean },
   ) =>
-  (codeSignalOrError: number | NodeJS.Signals | Error) => {
-    if (typeof devServer !== 'undefined') {
-      console.log('\nshutting down dev server');
-      devServer.close();
-      devServer = undefined;
-    }
+    (codeSignalOrError: number | NodeJS.Signals | Error) => {
+      if (typeof devServer !== 'undefined') {
+        console.log('\nshutting down dev server');
+        devServer.close();
+        devServer = undefined;
+      }
 
-    if (codeSignalOrError instanceof Error) {
-      console.error(codeSignalOrError);
-    }
+      if (codeSignalOrError instanceof Error) {
+        console.error(codeSignalOrError);
+      }
 
-    if (options?.shouldKillProcess) {
-      process.exit(options.killWithErrorCode ? 1 : 0);
-    }
-  };
+      if (options?.shouldKillProcess) {
+        process.exit(options.killWithErrorCode ? 1 : 0);
+      }
+    };
 
 // do something when app is closing
 process.on('exit', makeExitHandler());
