@@ -1,4 +1,7 @@
+import { existsSync, promises as fs } from 'node:fs';
 import http from 'node:http';
+import { createRequire } from 'node:module';
+import os from 'node:os';
 import path from 'node:path';
 import url from 'node:url';
 import { createJiti } from 'jiti';
@@ -135,6 +138,21 @@ export const startDevServer = async (
       conf.get('resendApiKey'),
     ),
   };
+  if (!process.env.ESBUILD_BINARY_PATH) {
+    try {
+      const esbuild = createJiti(previewServer.esmResolve('esbuild'));
+      const subpath =
+        process.platform === 'win32' ? 'esbuild.exe' : 'bin/esbuild';
+      const esbuildBinaryPath = url.fileURLToPath(
+        esbuild.esmResolve(
+          `@esbuild/${process.platform}-${os.arch()}/${subpath}`,
+        ),
+      );
+      process.env.ESBUILD_BINARY_PATH = esbuildBinaryPath;
+    } catch (_exception) {
+      // Optional: platform binary may be missing; esbuild will use its default resolution.
+    }
+  }
 
   const next = await previewServer.import<typeof import('next')['default']>(
     'next',
