@@ -1,5 +1,12 @@
 # @react-email/tailwind
 
+## 2.0.5
+
+### Patch Changes
+
+- 698f962: fix mixed pseudo selectors not being split
+- 6ff41b7: - enhance CSS rule extraction and inline style handling
+
 ## 2.0.4
 
 ### Patch Changes
