@@ -140,10 +140,13 @@ export const startDevServer = async (
   };
   if (!process.env.ESBUILD_BINARY_PATH) {
     try {
+      const esbuild = createJiti(previewServer.esmResolve('esbuild'));
       const subpath =
         process.platform === 'win32' ? 'esbuild.exe' : 'bin/esbuild';
-      const esbuildBinaryPath = previewServer.esmResolve(
-        `@esbuild/${process.platform}-${os.arch()}/${subpath}`,
+      const esbuildBinaryPath = url.fileURLToPath(
+        esbuild.esmResolve(
+          `@esbuild/${process.platform}-${os.arch()}/${subpath}`,
+        ),
       );
       process.env.ESBUILD_BINARY_PATH = esbuildBinaryPath;
     } catch (_exception) {
