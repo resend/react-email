@@ -140,19 +140,11 @@ export const startDevServer = async (
   };
   if (!process.env.ESBUILD_BINARY_PATH) {
     try {
-      // Resolve from this package so we use the same esbuild version that
-      // react-email depends on. With pnpm, @esbuild/platform lives inside
-      // the esbuild package's node_modules, not at top level, so we resolve
-      // "esbuild" first then look for the platform binary inside it.
-      const requireFromThisPackage = createRequire(import.meta.url);
       const subpath =
         process.platform === 'win32' ? 'esbuild.exe' : 'bin/esbuild';
-      const esbuildBinaryPath = path.dirname(
-        requireFromThisPackage.resolve(
-          `@esbuild/${process.platform}-${os.arch()}/${subpath}`,
-        ),
+      const esbuildBinaryPath = previewServer.esmResolve(
+        `@esbuild/${process.platform}-${os.arch()}/${subpath}`,
       );
-      console.log(esbuildBinaryPath);
       process.env.ESBUILD_BINARY_PATH = esbuildBinaryPath;
     } catch (_exception) {
       // Optional: platform binary may be missing; esbuild will use its default resolution.
