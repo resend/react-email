@@ -2,6 +2,7 @@ import * as ReactEmailComponents from '@react-email/components';
 import {
   type PrismLanguage,
   CodeBlock as ReactEmailCodeBlock,
+  type Theme,
 } from '@react-email/components';
 import { mergeAttributes } from '@tiptap/core';
 import type { CodeBlockOptions } from '@tiptap/extension-code-block';
@@ -15,6 +16,19 @@ export interface CodeBlockPrismOptions extends CodeBlockOptions {
   defaultTheme: string;
 }
 
+const DEFAULT_TAB_SIZE = 2;
+
+function getThemeTabSize(themeName: string | undefined): number {
+  if (!themeName) return DEFAULT_TAB_SIZE;
+  // @ts-expect-error -- dynamic access to theme exports
+  const theme = ReactEmailComponents[themeName] as Theme | undefined;
+  if (!theme?.base) return DEFAULT_TAB_SIZE;
+  const raw = (theme.base as Record<string, unknown>).tabSize;
+  if (raw == null) return DEFAULT_TAB_SIZE;
+  const parsed = Number(raw);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : DEFAULT_TAB_SIZE;
+}
+
 export const CodeBlockPrism = EmailNode.from(
   CodeBlock.extend<CodeBlockPrismOptions>({
     addOptions(): CodeBlockPrismOptions {
@@ -23,7 +37,7 @@ export const CodeBlockPrism = EmailNode.from(
         exitOnTripleEnter: false,
         exitOnArrowDown: false,
         enableTabIndentation: true,
-        tabSize: 2,
+        tabSize: DEFAULT_TAB_SIZE,
         defaultLanguage: 'javascript',
         defaultTheme: 'default',
         HTMLAttributes: {},
@@ -64,6 +78,109 @@ export const CodeBlockPrism = EmailNode.from(
         theme: {
           default: this.options.defaultTheme,
           rendered: false,
+        },
+      };
+    },
+
+    addKeyboardShortcuts() {
+      return {
+        ...this.parent?.(),
+        Tab: ({ editor }) => {
+          if (!this.options.enableTabIndentation) {
+            return false;
+          }
+          const { state } = editor;
+          const { selection } = state;
+          const { $from, empty } = selection;
+          if ($from.parent.type !== this.type) {
+            return false;
+          }
+          const tabSize = getThemeTabSize($from.parent.attrs.theme);
+          const indent = ' '.repeat(tabSize);
+          if (empty) {
+            return editor.commands.insertContent(indent);
+          }
+          return editor.commands.command(({ tr }) => {
+            const { from, to } = selection;
+            const text = state.doc.textBetween(from, to, '\n', '\n');
+            const lines = text.split('\n');
+            const indentedText = lines
+              .map((line) => indent + line)
+              .join('\n');
+            tr.replaceWith(from, to, state.schema.text(indentedText));
+            return true;
+          });
+        },
+        'Shift-Tab': ({ editor }) => {
+          if (!this.options.enableTabIndentation) {
+            return false;
+          }
+          const { state } = editor;
+          const { selection } = state;
+          const { $from, empty } = selection;
+          if ($from.parent.type !== this.type) {
+            return false;
+          }
+          const tabSize = getThemeTabSize($from.parent.attrs.theme);
+          if (empty) {
+            return editor.commands.command(({ tr }) => {
+              const { pos } = $from;
+              const codeBlockStart = $from.start();
+              const codeBlockEnd = $from.end();
+              const allText = state.doc.textBetween(
+                codeBlockStart,
+                codeBlockEnd,
+                '\n',
+                '\n',
+              );
+              const lines = allText.split('\n');
+              let currentLineIndex = 0;
+              let charCount = 0;
+              const relativeCursorPos = pos - codeBlockStart;
+              for (let i = 0; i < lines.length; i += 1) {
+                if (charCount + lines[i].length >= relativeCursorPos) {
+                  currentLineIndex = i;
+                  break;
+                }
+                charCount += lines[i].length + 1;
+              }
+              const currentLine = lines[currentLineIndex];
+              const leadingSpaces = currentLine.match(/^ */)?.[0] || '';
+              const spacesToRemove = Math.min(leadingSpaces.length, tabSize);
+              if (spacesToRemove === 0) {
+                return true;
+              }
+              let lineStartPos = codeBlockStart;
+              for (let i = 0; i < currentLineIndex; i += 1) {
+                lineStartPos += lines[i].length + 1;
+              }
+              tr.delete(lineStartPos, lineStartPos + spacesToRemove);
+              const cursorPosInLine = pos - lineStartPos;
+              if (cursorPosInLine <= spacesToRemove) {
+                tr.setSelection(
+                  TextSelection.create(tr.doc, lineStartPos),
+                );
+              }
+              return true;
+            });
+          }
+          return editor.commands.command(({ tr }) => {
+            const { from, to } = selection;
+            const text = state.doc.textBetween(from, to, '\n', '\n');
+            const lines = text.split('\n');
+            const reverseIndentText = lines
+              .map((line) => {
+                const leadingSpaces = line.match(/^ */)?.[0] || '';
+                const spacesToRemove = Math.min(
+                  leadingSpaces.length,
+                  tabSize,
+                );
+                return line.slice(spacesToRemove);
+              })
+              .join('\n');
+            tr.replaceWith(from, to, state.schema.text(reverseIndentText));
+            return true;
+          });
         },
       };
     },
