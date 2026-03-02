@@ -27,6 +27,5 @@ jobs:
         run: pnpm install --frozen-lockfile --prefer-offline
       - name: Run Lint
         run: pnpm lint
-        e
-         nv:
+        env:
           SKIP_ENV_VALIDATION: true
