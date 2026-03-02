@@ -6,6 +6,7 @@ import {
 import { mergeAttributes } from '@tiptap/core';
 import type { CodeBlockOptions } from '@tiptap/extension-code-block';
 import CodeBlock from '@tiptap/extension-code-block';
+import { TextSelection } from '@tiptap/pm/state';
 import { EmailNode } from '../core/email-node';
 import { PrismPlugin } from './prism-plugin';
 
@@ -90,6 +91,38 @@ export const CodeBlockPrism = EmailNode.from(
           0,
         ],
       ];
+    },
+
+    addKeyboardShortcuts() {
+      return {
+        ...this.parent?.(),
+        'Mod-a': ({ editor }) => {
+          const { state } = editor;
+          const { selection } = state;
+          const { $from } = selection;
+
+          for (let depth = $from.depth; depth >= 1; depth--) {
+            if ($from.node(depth).type.name === this.name) {
+              const blockStart = $from.start(depth);
+              const blockEnd = $from.end(depth);
+
+              const alreadyFullySelected =
+                selection.from === blockStart && selection.to === blockEnd;
+              if (alreadyFullySelected) {
+                return false;
+              }
+
+              const tr = state.tr.setSelection(
+                TextSelection.create(state.doc, blockStart, blockEnd),
+              );
+              editor.view.dispatch(tr);
+              return true;
+            }
+          }
+
+          return false;
+        },
+      };
     },
 
     addProseMirrorPlugins() {
