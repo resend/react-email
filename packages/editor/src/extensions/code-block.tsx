@@ -1,46 +1,8 @@
 import * as ReactEmailComponents from '@react-email/components';
 import {
-  a11yDark,
-  atomDark,
-  baseAteliersulphurpoolLight,
-  cb,
-  coldarkCold,
-  coldarkDark,
-  coyWithoutShadows,
-  darcula,
-  dracula,
-  duotoneDark,
-  duotoneEarth,
-  duotoneForest,
-  duotoneLight,
-  duotoneSea,
-  duotoneSpace,
-  ghcolors,
-  gruvboxDark,
-  gruvboxLight,
-  holiTheme,
-  hopscotch,
-  laserwave,
-  lucario,
-  materialDark,
-  materialLight,
-  materialOceanic,
-  nightOwl,
-  nord,
-  oneDark,
-  oneLight,
   type PrismLanguage,
-  pojoaque,
   CodeBlock as ReactEmailCodeBlock,
-  shadesOfPurple,
-  solarizedDarkAtom,
-  synthwave84,
   type Theme,
-  vesper,
-  vs,
-  vscDarkPlus,
-  xonokai,
-  zTouch,
 } from '@react-email/components';
 import { mergeAttributes } from '@tiptap/core';
 import type { CodeBlockOptions } from '@tiptap/extension-code-block';
@@ -54,58 +16,7 @@ export interface CodeBlockPrismOptions extends CodeBlockOptions {
   defaultTheme: string;
 }
 
-const DEFAULT_TAB_SIZE = 2;
-
-const themesByName: Record<string, Theme> = {
-  a11yDark,
-  atomDark,
-  baseAteliersulphurpoolLight,
-  cb,
-  coldarkCold,
-  coldarkDark,
-  coyWithoutShadows,
-  darcula,
-  dracula,
-  duotoneDark,
-  duotoneEarth,
-  duotoneForest,
-  duotoneLight,
-  duotoneSea,
-  duotoneSpace,
-  ghcolors,
-  gruvboxDark,
-  gruvboxLight,
-  holiTheme,
-  hopscotch,
-  laserwave,
-  lucario,
-  materialDark,
-  materialLight,
-  materialOceanic,
-  nightOwl,
-  nord,
-  oneDark,
-  oneLight,
-  pojoaque,
-  shadesOfPurple,
-  solarizedDarkAtom,
-  synthwave84,
-  vesper,
-  vs,
-  vscDarkPlus,
-  xonokai,
-  zTouch,
-};
-
-function getThemeTabSize(themeName: string | undefined): number {
-  if (!themeName) return DEFAULT_TAB_SIZE;
-  const theme = themesByName[themeName];
-  if (!theme?.base) return DEFAULT_TAB_SIZE;
-  const raw = (theme.base as Record<string, unknown>).tabSize;
-  if (raw == null) return DEFAULT_TAB_SIZE;
-  const parsed = Number(raw);
-  return Number.isFinite(parsed) && parsed > 0 ? parsed : DEFAULT_TAB_SIZE;
-}
+const tabSize = 2;
 
 export const CodeBlockPrism = EmailNode.from(
   CodeBlock.extend<CodeBlockPrismOptions>({
@@ -115,7 +26,7 @@ export const CodeBlockPrism = EmailNode.from(
         exitOnTripleEnter: false,
         exitOnArrowDown: false,
         enableTabIndentation: true,
-        tabSize: DEFAULT_TAB_SIZE,
+        tabSize: tabSize,
         defaultLanguage: 'javascript',
         defaultTheme: 'default',
         HTMLAttributes: {},
@@ -173,7 +84,6 @@ export const CodeBlockPrism = EmailNode.from(
           if ($from.parent.type !== this.type) {
             return false;
           }
-          const tabSize = getThemeTabSize($from.parent.attrs.theme);
           const indent = ' '.repeat(tabSize);
           if (empty) {
             return editor.commands.insertContent(indent);
@@ -197,7 +107,6 @@ export const CodeBlockPrism = EmailNode.from(
           if ($from.parent.type !== this.type) {
             return false;
           }
-          const tabSize = getThemeTabSize($from.parent.attrs.theme);
           if (empty) {
             return editor.commands.command(({ tr }) => {
               const { pos } = $from;
