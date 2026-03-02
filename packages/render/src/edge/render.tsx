@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import { pretty } from '../node';
+import { decodeHtmlEntities } from '../shared/utils/decode-html-entities';
 import { createErrorBoundary } from '../shared/error-boundary';
 import type { Options } from '../shared/options';
 import { readStream } from '../shared/read-stream.browser';
@@ -44,7 +45,9 @@ export const render = async (
   const doctype =
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
 
-  const document = `${doctype}${html.replace(/<!DOCTYPE.*?>/, '')}`;
+  const document = decodeHtmlEntities(
+    `${doctype}${html.replace(/<!DOCTYPE.*?>/, '')}`,
+  );
 
   if (options?.pretty) {
     return pretty(document);
