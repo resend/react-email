@@ -15,10 +15,6 @@ import {
 import * as React from 'react';
 import { useBubbleMenuContext } from './context';
 
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
-
 export type NodeType =
   | 'Text'
   | 'Title'
@@ -35,10 +31,6 @@ export interface NodeSelectorItem {
   command: () => void;
   isActive: boolean;
 }
-
-// ---------------------------------------------------------------------------
-// Context (shared between Root → Trigger / Content)
-// ---------------------------------------------------------------------------
 
 interface NodeSelectorContextValue {
   items: NodeSelectorItem[];
@@ -59,10 +51,6 @@ function useNodeSelectorContext(): NodeSelectorContextValue {
   }
   return context;
 }
-
-// ---------------------------------------------------------------------------
-// Root
-// ---------------------------------------------------------------------------
 
 export interface NodeSelectorRootProps {
   /** Block types to exclude */
@@ -224,10 +212,6 @@ export function NodeSelectorRoot({
   );
 }
 
-// ---------------------------------------------------------------------------
-// Trigger
-// ---------------------------------------------------------------------------
-
 export interface NodeSelectorTriggerProps {
   className?: string;
   children?: React.ReactNode;
@@ -254,10 +238,6 @@ export function NodeSelectorTrigger({
     </Popover.Trigger>
   );
 }
-
-// ---------------------------------------------------------------------------
-// Content
-// ---------------------------------------------------------------------------
 
 export interface NodeSelectorContentProps {
   className?: string;
@@ -305,10 +285,6 @@ export function NodeSelectorContent({
     </Popover.Content>
   );
 }
-
-// ---------------------------------------------------------------------------
-// Monolithic convenience component (backward-compatible)
-// ---------------------------------------------------------------------------
 
 export interface BubbleMenuNodeSelectorProps {
   /** Block types to exclude */
