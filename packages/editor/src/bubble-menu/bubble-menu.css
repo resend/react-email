@@ -1,0 +1,216 @@
+:root {
+  --ree-bubble-bg: #fff;
+  --ree-bubble-border: #e5e5e5;
+  --ree-bubble-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --ree-bubble-radius: 12px;
+  --ree-bubble-btn-hover: rgba(0, 0, 0, 0.04);
+  --ree-bubble-btn-active: rgba(0, 0, 0, 0.08);
+  --ree-bubble-btn-text: #6b6b6b;
+  --ree-bubble-btn-text-active: #171717;
+  --ree-bubble-separator: #e5e5e5;
+  --ree-bubble-input-text: #6b6b6b;
+  --ree-bubble-input-placeholder: #a3a3a3;
+  --ree-bubble-unlink-text: #dc2626;
+  --ree-bubble-unlink-hover: rgba(220, 38, 38, 0.08);
+}
+
+/* Root */
+[data-part="bubble-menu-root"] {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  background: var(--ree-bubble-bg);
+  border: 1px solid var(--ree-bubble-border);
+  border-radius: var(--ree-bubble-radius);
+  box-shadow: var(--ree-bubble-shadow);
+  overflow: hidden;
+}
+
+/* Group */
+[data-part="bubble-menu-group"] {
+  display: flex;
+  align-items: center;
+}
+
+/* Separator */
+[data-part="bubble-menu-separator"] {
+  width: 1px;
+  align-self: stretch;
+  background: var(--ree-bubble-separator);
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Button */
+[data-part="bubble-menu-button"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  color: var(--ree-bubble-btn-text);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+
+[data-part="bubble-menu-button"]:hover {
+  background-color: var(--ree-bubble-btn-hover);
+}
+
+[data-part="bubble-menu-button"]:active {
+  background-color: var(--ree-bubble-btn-active);
+}
+
+[data-part="bubble-menu-button"][data-active] {
+  color: var(--ree-bubble-btn-text-active);
+  background-color: var(--ree-bubble-btn-active);
+}
+
+[data-part="bubble-menu-button"][aria-pressed="true"] {
+  color: var(--ree-bubble-btn-text-active);
+  background-color: var(--ree-bubble-btn-active);
+}
+
+[data-part="bubble-menu-button"] svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Node Selector Trigger */
+[data-part="node-selector-trigger"] {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  color: var(--ree-bubble-btn-text);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color 0.15s ease;
+}
+
+[data-part="node-selector-trigger"]:hover {
+  background-color: var(--ree-bubble-btn-hover);
+}
+
+[data-part="node-selector-trigger"] svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Node Selector Content */
+[data-part="node-selector-content"] {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 50;
+  margin-top: 4px;
+  min-width: 160px;
+  background: var(--ree-bubble-bg);
+  border: 1px solid var(--ree-bubble-border);
+  border-radius: 8px;
+  box-shadow: var(--ree-bubble-shadow);
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Node Selector Item */
+[data-part="node-selector-item"] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ree-bubble-btn-text);
+  cursor: pointer;
+  font-size: 14px;
+  text-align: left;
+  width: 100%;
+  transition: background-color 0.15s ease;
+}
+
+[data-part="node-selector-item"]:hover {
+  background-color: var(--ree-bubble-btn-hover);
+}
+
+[data-part="node-selector-item"][data-active] {
+  color: var(--ree-bubble-btn-text-active);
+  font-weight: 500;
+}
+
+/* Link Form */
+[data-part="link-form"] {
+  display: flex;
+  align-items: center;
+  padding: 4px 4px 4px 8px;
+  gap: 2px;
+}
+
+[data-part="link-form-input"] {
+  flex: 1;
+  padding: 4px;
+  border: none;
+  background: transparent;
+  color: var(--ree-bubble-input-text);
+  font-size: 14px;
+  outline: none;
+  min-width: 0;
+  max-width: 176px;
+}
+
+[data-part="link-form-input"]::placeholder {
+  color: var(--ree-bubble-input-placeholder);
+}
+
+[data-part="link-form-submit"],
+[data-part="link-form-unlink"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 4px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+[data-part="link-form-submit"] {
+  color: var(--ree-bubble-btn-text);
+}
+
+[data-part="link-form-submit"]:hover {
+  background-color: var(--ree-bubble-btn-hover);
+}
+
+[data-part="link-form-unlink"] {
+  color: var(--ree-bubble-unlink-text);
+}
+
+[data-part="link-form-unlink"]:hover {
+  background-color: var(--ree-bubble-unlink-hover);
+}
+
+[data-part="link-form-submit"] svg,
+[data-part="link-form-unlink"] svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Node Selector wrapper — needs relative positioning for dropdown */
+[data-part="node-selector"] {
+  position: relative;
+}

@@ -6,6 +6,7 @@ export * from './class-attribute';
 export * from './code-block';
 export * from './columns';
 export * from './div';
+export * from './link';
 export * from './max-nesting';
 export * from './placeholder';
 export * from './preserved-style';

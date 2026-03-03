@@ -2,7 +2,9 @@
   "name": "@react-email/editor",
   "version": "0.0.0-experimental.6",
   "description": "",
-  "sideEffects": false,
+  "sideEffects": [
+    "*.css"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -19,12 +21,23 @@
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
       }
-    }
+    },
+    "./bubble-menu": {
+      "import": {
+        "types": "./dist/bubble-menu/index.d.mts",
+        "default": "./dist/bubble-menu/index.mjs"
+      },
+      "require": {
+        "types": "./dist/bubble-menu/index.d.ts",
+        "default": "./dist/bubble-menu/index.js"
+      }
+    },
+    "./bubble-menu.css": "./dist/bubble-menu/bubble-menu.css"
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsdown src/index.ts --format esm,cjs --dts --external react",
-    "build:watch": "tsdown src/index.ts --format esm,cjs --dts --external react --watch",
+    "build": "tsdown src/index.ts src/bubble-menu/index.ts --format esm,cjs --dts --external react && cp src/bubble-menu/bubble-menu.css dist/bubble-menu/bubble-menu.css",
+    "build:watch": "tsdown src/index.ts src/bubble-menu/index.ts --format esm,cjs --dts --external react --watch",
     "clean": "rm -rf dist",
     "test": "vitest run",
     "test:watch": "vitest"
@@ -48,6 +61,7 @@
   "dependencies": {
     "@tiptap/core": "^3.17.1",
     "@tiptap/extension-code-block": "^3.17.1",
+    "@tiptap/extension-link": "^3.17.1",
     "@tiptap/extension-heading": "^3.17.1",
     "@tiptap/extension-horizontal-rule": "^3.17.1",
     "@tiptap/extension-placeholder": "^3.17.1",
