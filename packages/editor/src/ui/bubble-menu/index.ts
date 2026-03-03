@@ -1,56 +1,48 @@
-import { BubbleMenuRoot } from './root';
-import { BubbleMenuGroup } from './group';
-import { BubbleMenuSeparator } from './separator';
-import { BubbleMenuItem } from './item';
-import { BubbleMenuBold } from './bold';
-import { BubbleMenuItalic } from './italic';
-import { BubbleMenuUnderline } from './underline';
-import { BubbleMenuStrike } from './strike';
-import { BubbleMenuCode } from './code';
-import { BubbleMenuUppercase } from './uppercase';
-import { BubbleMenuAlignLeft } from './align-left';
 import { BubbleMenuAlignCenter } from './align-center';
+import { BubbleMenuAlignLeft } from './align-left';
 import { BubbleMenuAlignRight } from './align-right';
-import { BubbleMenuNodeSelector } from './node-selector';
+import { BubbleMenuBold } from './bold';
+import { BubbleMenuCode } from './code';
+import { BubbleMenuGroup } from './group';
+import { BubbleMenuItalic } from './italic';
+import { BubbleMenuItem } from './item';
 import { BubbleMenuLinkSelector } from './link-selector';
+import { BubbleMenuNodeSelector } from './node-selector';
+import { BubbleMenuRoot } from './root';
+import { BubbleMenuSeparator } from './separator';
+import { BubbleMenuStrike } from './strike';
+import { BubbleMenuUnderline } from './underline';
+import { BubbleMenuUppercase } from './uppercase';
 
-export { BubbleMenuRoot } from './root';
-export type { BubbleMenuRootProps } from './root';
-
-export { BubbleMenuGroup } from './group';
-export type { BubbleMenuGroupProps } from './group';
-
-export { BubbleMenuSeparator } from './separator';
-export type { BubbleMenuSeparatorProps } from './separator';
-
-export { BubbleMenuItem } from './item';
-export type { BubbleMenuItemProps } from './item';
-
-export type { PreWiredItemProps } from './create-pre-wired-item';
-
-export { BubbleMenuBold } from './bold';
-export { BubbleMenuItalic } from './italic';
-export { BubbleMenuUnderline } from './underline';
-export { BubbleMenuStrike } from './strike';
-export { BubbleMenuCode } from './code';
-export { BubbleMenuUppercase } from './uppercase';
-export { BubbleMenuAlignLeft } from './align-left';
 export { BubbleMenuAlignCenter } from './align-center';
+export { BubbleMenuAlignLeft } from './align-left';
 export { BubbleMenuAlignRight } from './align-right';
-
-export { BubbleMenuNodeSelector } from './node-selector';
-export type { BubbleMenuNodeSelectorProps } from './node-selector';
-
-export { BubbleMenuLinkSelector } from './link-selector';
-export type { BubbleMenuLinkSelectorProps } from './link-selector';
-
+export { BubbleMenuBold } from './bold';
+export { BubbleMenuCode } from './code';
+export type { PreWiredItemProps } from './create-pre-wired-item';
 export { editorBubbleMenuEventBus } from './event-bus';
+export type { BubbleMenuGroupProps } from './group';
+export { BubbleMenuGroup } from './group';
+export { BubbleMenuItalic } from './italic';
+export type { BubbleMenuItemProps } from './item';
+export { BubbleMenuItem } from './item';
+export type { BubbleMenuLinkSelectorProps } from './link-selector';
+export { BubbleMenuLinkSelector } from './link-selector';
+export type { BubbleMenuNodeSelectorProps } from './node-selector';
+export { BubbleMenuNodeSelector } from './node-selector';
+export type { BubbleMenuRootProps } from './root';
+export { BubbleMenuRoot } from './root';
+export type { BubbleMenuSeparatorProps } from './separator';
+export { BubbleMenuSeparator } from './separator';
+export { BubbleMenuStrike } from './strike';
 export type {
+  BubbleMenuEventHandler,
   BubbleMenuEventMap,
   BubbleMenuEventName,
-  BubbleMenuEventHandler,
   BubbleMenuEventSubscription,
 } from './types';
+export { BubbleMenuUnderline } from './underline';
+export { BubbleMenuUppercase } from './uppercase';
 
 // Compound component namespace for convenient `BubbleMenu.Root` usage
 export const BubbleMenu = {

@@ -7,8 +7,8 @@ export interface BubbleMenuGroupProps {
 
 export function BubbleMenuGroup({ className, children }: BubbleMenuGroupProps) {
   return (
-    <div role="group" className={className} data-re-bubble-menu-group="">
+    <fieldset className={className} data-re-bubble-menu-group="">
       {children}
-    </div>
+    </fieldset>
   );
 }

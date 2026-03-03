@@ -12,8 +12,7 @@ export function BubbleMenuAlignRight({
 
   const isActive = useEditorState({
     editor,
-    selector: ({ editor }) =>
-      editor?.isActive({ alignment: 'right' }) ?? false,
+    selector: ({ editor }) => editor?.isActive({ alignment: 'right' }) ?? false,
   });
 
   return (

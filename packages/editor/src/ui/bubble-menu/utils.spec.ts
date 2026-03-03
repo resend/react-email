@@ -6,9 +6,7 @@ describe('getUrlFromString', () => {
   });
 
   it('returns valid URLs as-is', () => {
-    expect(getUrlFromString('https://example.com')).toBe(
-      'https://example.com',
-    );
+    expect(getUrlFromString('https://example.com')).toBe('https://example.com');
   });
 
   it('auto-prefixes URLs with dots', () => {

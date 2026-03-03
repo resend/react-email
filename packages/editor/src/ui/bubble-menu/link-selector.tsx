@@ -136,10 +136,7 @@ function LinkForm({
     };
 
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        formRef.current &&
-        !formRef.current.contains(event.target as Node)
-      ) {
+      if (formRef.current && !formRef.current.contains(event.target as Node)) {
         const form = formRef.current;
         const submitEvent = new Event('submit', {
           bubbles: true,
