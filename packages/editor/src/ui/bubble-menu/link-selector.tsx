@@ -1,8 +1,8 @@
 import { useEditorState } from '@tiptap/react';
 import { Check, LinkIcon, UnlinkIcon } from 'lucide-react';
 import * as React from 'react';
+import { editorEventBus } from '../../core/event-bus';
 import { useBubbleMenuContext } from './context';
-import { editorBubbleMenuEventBus } from './event-bus';
 import { getUrlFromString } from './utils';
 
 export interface BubbleMenuLinkSelectorProps {
@@ -40,7 +40,7 @@ export function BubbleMenuLinkSelector({
   });
 
   React.useEffect(() => {
-    const subscription = editorBubbleMenuEventBus.on('add-link', () => {
+    const subscription = editorEventBus.on('bubble-menu:add-link', () => {
       setIsOpen(true);
     });
 

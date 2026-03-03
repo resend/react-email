@@ -1,17 +1,12 @@
 /**
- * Event map for the bubble menu event bus.
- * Extensible via TypeScript module augmentation.
+ * Bubble menu events registered on the shared EditorEventMap
+ * via TypeScript module augmentation.
  */
-export interface BubbleMenuEventMap {
-  'add-link': undefined;
+declare module '../../core/event-bus' {
+  interface EditorEventMap {
+    'bubble-menu:add-link': undefined;
+  }
 }
 
-export type BubbleMenuEventName = keyof BubbleMenuEventMap;
-
-export type BubbleMenuEventHandler<T extends BubbleMenuEventName> = (
-  payload: BubbleMenuEventMap[T],
-) => void | Promise<void>;
-
-export interface BubbleMenuEventSubscription {
-  unsubscribe: () => void;
-}
+// Force this file to be a module so the augmentation takes effect
+export {};

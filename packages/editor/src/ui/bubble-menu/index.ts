@@ -20,7 +20,6 @@ export { BubbleMenuAlignRight } from './align-right';
 export { BubbleMenuBold } from './bold';
 export { BubbleMenuCode } from './code';
 export type { PreWiredItemProps } from './create-pre-wired-item';
-export { editorBubbleMenuEventBus } from './event-bus';
 export type { BubbleMenuGroupProps } from './group';
 export { BubbleMenuGroup } from './group';
 export { BubbleMenuItalic } from './italic';
@@ -35,12 +34,9 @@ export { BubbleMenuRoot } from './root';
 export type { BubbleMenuSeparatorProps } from './separator';
 export { BubbleMenuSeparator } from './separator';
 export { BubbleMenuStrike } from './strike';
-export type {
-  BubbleMenuEventHandler,
-  BubbleMenuEventMap,
-  BubbleMenuEventName,
-  BubbleMenuEventSubscription,
-} from './types';
+// Side-effect import: registers bubble-menu events on EditorEventMap
+import './types';
+
 export { BubbleMenuUnderline } from './underline';
 export { BubbleMenuUppercase } from './uppercase';
 

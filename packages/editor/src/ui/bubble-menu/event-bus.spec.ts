@@ -1,11 +1,13 @@
-import { editorBubbleMenuEventBus } from './event-bus';
+import { editorEventBus } from '../../core/event-bus';
+// Side-effect: registers bubble-menu events on EditorEventMap
+import './types';
 
-describe('editorBubbleMenuEventBus', () => {
-  it('dispatches and receives events', () => {
+describe('editorEventBus (bubble-menu events)', () => {
+  it('dispatches and receives bubble-menu:add-link', () => {
     const handler = vi.fn();
-    const sub = editorBubbleMenuEventBus.on('add-link', handler);
+    const sub = editorEventBus.on('bubble-menu:add-link', handler);
 
-    editorBubbleMenuEventBus.dispatch('add-link', undefined);
+    editorEventBus.dispatch('bubble-menu:add-link', undefined);
 
     expect(handler).toHaveBeenCalledOnce();
     sub.unsubscribe();
@@ -13,10 +15,10 @@ describe('editorBubbleMenuEventBus', () => {
 
   it('unsubscribes correctly', () => {
     const handler = vi.fn();
-    const sub = editorBubbleMenuEventBus.on('add-link', handler);
+    const sub = editorEventBus.on('bubble-menu:add-link', handler);
     sub.unsubscribe();
 
-    editorBubbleMenuEventBus.dispatch('add-link', undefined);
+    editorEventBus.dispatch('bubble-menu:add-link', undefined);
 
     expect(handler).not.toHaveBeenCalled();
   });
