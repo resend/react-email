@@ -1,0 +1,43 @@
+packages/editor/src/bubble-menu/node-selector.tsx
+  1ef9a3db523ffe3e 5
+packages/editor/package.json
+  1ef9a3db523ffe3e 25,27-28,31-122,129-130
+packages/editor/src/bubble-menu/presets.tsx
+  1ef9a3db523ffe3e 5-12,104,176,184,193,267,275,352,360
+packages/editor/src/bubble-menu/buttons.tsx
+  1ef9a3db523ffe3e 4-14,35,59,83,107,131,155,179,203,227
+packages/editor/src/bubble-menu/use-node-selector-items.ts
+  1ef9a3db523ffe3e 1-125
+packages/editor/src/bubble-menu/use-link-form.ts
+  1ef9a3db523ffe3e 1-103
+packages/editor/src/bubble-menu/use-bubble-menu.ts
+  1ef9a3db523ffe3e 1-68
+packages/editor/src/bubble-menu/use-alignment-items.ts
+  1ef9a3db523ffe3e 1-64
+packages/editor/src/bubble-menu/utils.ts
+  1ef9a3db523ffe3e 1-44
+packages/editor/src/bubble-menu/link-form.tsx
+  1ef9a3db523ffe3e 5,229
+packages/editor/src/bubble-menu/use-formatting-items.ts
+  1ef9a3db523ffe3e 1-102
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.7",
+  "base_commit_sha": "664b460bdca7de9fa62b4209e53140f90ac9278e",
+  "prompts": {
+    "1ef9a3db523ffe3e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_34bb9e3c5ffew9yq7WG6L383wp",
+        "model": "anthropic/claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 642,
+      "total_deletions": 444,
+      "accepted_lines": 642,
+      "overriden_lines": 0
+    }
+  }
+}
