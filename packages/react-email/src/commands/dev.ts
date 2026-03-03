@@ -7,16 +7,25 @@ interface Args {
   port?: string;
 }
 
+const DEFAULT_PORT = 3000;
+const MIN_PORT = 1;
+const MAX_PORT = 65_535;
+
+function parsePort(value: string | number | undefined): number {
+  if (value === undefined) return DEFAULT_PORT;
+  const n =
+    typeof value === 'number' ? value : Number.parseInt(String(value), 10);
+  if (!Number.isInteger(n) || n < MIN_PORT || n > MAX_PORT) return DEFAULT_PORT;
+  return n;
+}
+
 export const dev = async ({ dir: cliDir, port: cliPort }: Args) => {
   try {
     const projectRoot = process.cwd();
     const config = await loadReactEmailConfig(projectRoot);
     const hasConfig = typeof config !== 'undefined';
     const emailsDirRelativePath = cliDir ?? config?.emailsDir ?? './emails';
-    const port = Number.parseInt(
-      cliPort ?? String(config?.preview?.port ?? 3000),
-      10,
-    );
+    const port = parsePort(cliPort ?? config?.preview?.port ?? DEFAULT_PORT);
     if (
       !hasConfig &&
       typeof cliDir === 'undefined' &&

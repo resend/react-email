@@ -38,6 +38,15 @@ export const init = async ({
     return;
   }
 
+  if (force) {
+    for (const name of CONFIG_FILENAMES) {
+      const p = path.resolve(root, name);
+      if (fs.existsSync(p)) {
+        fs.unlinkSync(p);
+      }
+    }
+  }
+
   const configPath = path.resolve(root, 'react-email.config.json');
   fs.writeFileSync(
     configPath,

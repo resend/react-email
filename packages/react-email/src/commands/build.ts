@@ -18,6 +18,19 @@ interface Args {
   packageManager: PackageManagerName;
 }
 
+/** Ensures emailsDir is always relative to project root so downstream path.join behaves correctly. */
+function normalizeEmailsDirToRelative(
+  projectRoot: string,
+  raw: string,
+): string {
+  const n = path.normalize(raw);
+  if (!path.isAbsolute(n)) return n;
+  const resolved = path.resolve(n);
+  const rel = path.relative(projectRoot, resolved);
+  if (rel.startsWith('..')) return './emails';
+  return rel || '.';
+}
+
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 const isInReactEmailMonorepo = !dirname.includes('node_modules');
 
@@ -178,7 +191,10 @@ export const build = async ({ dir: cliDir, packageManager }: Args) => {
   try {
     const usersProjectLocation = process.cwd();
     const config = await loadReactEmailConfig(usersProjectLocation);
-    const emailsDirRelativePath = cliDir ?? config?.emailsDir ?? './emails';
+    const emailsDirRelativePath = normalizeEmailsDirToRelative(
+      usersProjectLocation,
+      cliDir ?? config?.emailsDir ?? './emails',
+    );
     const previewServerLocation = await getPreviewServerLocation();
 
     const spinner = ora({
@@ -188,14 +204,13 @@ export const build = async ({ dir: cliDir, packageManager }: Args) => {
     registerSpinnerAutostopping(spinner);
 
     spinner.text = `Checking if ${emailsDirRelativePath} folder exists`;
-    if (!fs.existsSync(emailsDirRelativePath)) {
-      process.exit(1);
-    }
-
     const emailsDirPath = path.join(
       usersProjectLocation,
       emailsDirRelativePath,
     );
+    if (!fs.existsSync(emailsDirPath)) {
+      process.exit(1);
+    }
     const staticPath = path.join(emailsDirPath, 'static');
 
     const builtPreviewAppPath = path.join(usersProjectLocation, '.react-email');

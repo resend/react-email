@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState } from 'react';
 import { getEmailsDirectoryMetadataAction } from '../actions/get-emails-directory-metadata-action';
-import { isBuilding, isPreviewDevelopment } from '../app/env';
+import { isBuilding, isPreviewDevelopment } from '../app/env.client';
 import { useHotreload } from '../hooks/use-hot-reload';
 import type { EmailsDirectory } from '../utils/get-emails-directory-metadata';
 

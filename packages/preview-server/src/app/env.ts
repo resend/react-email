@@ -1,3 +1,4 @@
+import path from 'node:path';
 import { resolvePreviewEmailsDir } from '../utils/load-preview-config';
 
 /** ONLY ACCESSIBLE ON THE SERVER */
@@ -12,16 +13,12 @@ const resolvedEmailsDirectoryAbsolutePath = await (async () => {
   if (process.env.REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH) {
     return process.env.REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH;
   }
-  return resolvePreviewEmailsDir(userProjectLocation);
-})();
 
-if (!resolvedEmailsDirectoryAbsolutePath) {
-  throw new Error(
-    '[react-email] Could not determine the emails directory.\n' +
-      'Either set REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH or add an ' +
-      '`emailsDir` field to your react-email.config.* file.',
-  );
-}
+  const fromConfig = await resolvePreviewEmailsDir(userProjectLocation);
+  if (fromConfig) return fromConfig;
+
+  return path.resolve(userProjectLocation, './emails');
+})();
 
 /** ONLY ACCESSIBLE ON THE SERVER */
 export const emailsDirectoryAbsolutePath = resolvedEmailsDirectoryAbsolutePath;

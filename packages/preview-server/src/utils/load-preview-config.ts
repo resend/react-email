@@ -13,6 +13,31 @@ export interface ReactEmailConfig {
   };
 }
 
+function validateReactEmailConfig(raw: unknown): ReactEmailConfig | undefined {
+  if (raw === null || typeof raw !== 'object') return undefined;
+  const o = raw as Record<string, unknown>;
+  const result: ReactEmailConfig = {};
+  if (typeof o.emailsDir === 'string' && o.emailsDir.length > 0) {
+    result.emailsDir = o.emailsDir;
+  }
+  if (o.preview !== null && typeof o.preview === 'object') {
+    const prev = o.preview as Record<string, unknown>;
+    result.preview = {};
+    if (
+      typeof prev.port === 'number' &&
+      Number.isInteger(prev.port) &&
+      prev.port >= 1 &&
+      prev.port <= 65_535
+    ) {
+      result.preview.port = prev.port;
+    }
+    if (typeof prev.emailsDir === 'string' && prev.emailsDir.length > 0) {
+      result.preview.emailsDir = prev.emailsDir;
+    }
+  }
+  return result;
+}
+
 const REACT_EMAIL_CONFIG_FILES = [
   'react-email.config.mjs',
   'react-email.config.cjs',
@@ -26,19 +51,27 @@ const loadConfigModule = async (
   filePath: string,
 ): Promise<ReactEmailConfig | undefined> => {
   if (filePath.endsWith('.json')) {
-    const contents = await fs.promises.readFile(filePath, 'utf8');
-    return JSON.parse(contents) as ReactEmailConfig;
+    let parsed: unknown;
+    try {
+      const contents = await fs.promises.readFile(filePath, 'utf8');
+      parsed = JSON.parse(contents);
+    } catch {
+      return undefined;
+    }
+    return validateReactEmailConfig(parsed);
   }
 
-  const mod = (await import(
-    /* @vite-ignore */ pathToFileURL(filePath).href
-  )) as { default?: ReactEmailConfig } & ReactEmailConfig;
+  const dynamicImport = new Function(
+    'modulePath',
+    'return import(modulePath)',
+  ) as (modulePath: string) => Promise<unknown>;
 
-  if ('default' in mod && mod.default) {
-    return mod.default;
-  }
+  const mod = (await dynamicImport(pathToFileURL(filePath).href)) as {
+    default?: unknown;
+  } & Record<string, unknown>;
 
-  return mod as ReactEmailConfig;
+  const raw = mod.default ?? mod;
+  return validateReactEmailConfig(raw);
 };
 
 export const loadReactEmailConfig = async (

@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 import { spawn } from 'node:child_process';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { program } from 'commander';
 import { build } from './commands/build.js';
 import { dev } from './commands/dev.js';
@@ -16,6 +18,13 @@ export type {
 } from './utils/load-config.js';
 export { defineConfig } from './utils/load-config.js';
 
+const isRunAsEntryPoint = (): boolean => {
+  const thisFile = fileURLToPath(import.meta.url);
+  const entry = process.argv[1];
+  if (!entry) return false;
+  return path.resolve(process.cwd(), entry) === thisFile;
+};
+
 const requiredFlags = [
   '--experimental-vm-modules',
   '--disable-warning=ExperimentalWarning',
@@ -25,7 +34,8 @@ const hasRequiredFlags = requiredFlags.every((flag) =>
   process.execArgv.includes(flag),
 );
 
-if (!hasRequiredFlags) {
+if (!isRunAsEntryPoint()) {
+} else if (!hasRequiredFlags) {
   const child = spawn(
     process.execPath,
     [
