@@ -176,6 +176,7 @@ function LinkForm({
       setLinkHref(editor, '');
       setIsOpen(false);
       focusEditor(editor);
+      onLinkRemove?.();
       return;
     }
 

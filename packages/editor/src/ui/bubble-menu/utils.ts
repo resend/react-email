@@ -1,5 +1,13 @@
+const SAFE_PROTOCOLS = new Set([
+  'http:',
+  'https:',
+  'mailto:',
+  'tel:',
+]);
+
 /**
  * Basic URL validation and auto-prefixing.
+ * Rejects dangerous schemes (javascript:, data:, vbscript:, etc.).
  * Returns the valid URL string or null.
  */
 export function getUrlFromString(str: string): string | null {
@@ -8,8 +16,11 @@ export function getUrlFromString(str: string): string | null {
   }
 
   try {
-    new URL(str);
-    return str;
+    const url = new URL(str);
+    if (SAFE_PROTOCOLS.has(url.protocol)) {
+      return str;
+    }
+    return null;
   } catch {
     // not a valid URL as-is
   }
