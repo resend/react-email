@@ -1,0 +1,6 @@
+{
+  "emailsDir": "./fallback-emails",
+  "preview": {
+    "port": 3000
+  }
+}

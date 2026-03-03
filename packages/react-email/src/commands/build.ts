@@ -10,10 +10,11 @@ import {
   getEmailsDirectoryMetadata,
 } from '../utils/get-emails-directory-metadata.js';
 import { getPreviewServerLocation } from '../utils/get-preview-server-location.js';
+import { loadReactEmailConfig } from '../utils/load-config.js';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping.js';
 
 interface Args {
-  dir: string;
+  dir?: string;
   packageManager: PackageManagerName;
 }
 
@@ -173,12 +174,11 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
   );
 };
 
-export const build = async ({
-  dir: emailsDirRelativePath,
-  packageManager,
-}: Args) => {
+export const build = async ({ dir: cliDir, packageManager }: Args) => {
   try {
     const usersProjectLocation = process.cwd();
+    const config = await loadReactEmailConfig(usersProjectLocation);
+    const emailsDirRelativePath = cliDir ?? config?.emailsDir ?? './emails';
     const previewServerLocation = await getPreviewServerLocation();
 
     const spinner = ora({
