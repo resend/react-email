@@ -11,7 +11,7 @@ import {
   UnlinkIcon,
 } from 'lucide-react';
 import * as React from 'react';
-import { editorEventBus } from '../event-bus';
+import { editorEventBus } from '../../event-bus';
 import {
   AlignCenterButton,
   AlignLeftButton,
