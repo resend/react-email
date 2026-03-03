@@ -10,6 +10,7 @@ export {
   UppercaseButton,
 } from './bubble-menu/buttons';
 export type {
+  LinkFormContextValue,
   LinkFormInputProps,
   LinkFormProps,
   LinkFormSubmitProps,
@@ -20,6 +21,7 @@ export {
   LinkFormInput,
   LinkFormSubmit,
   LinkFormUnlink,
+  useLinkFormContext,
 } from './bubble-menu/link-form';
 export type { NodeSelectorItemConfig } from './bubble-menu/node-selector';
 export {

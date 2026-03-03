@@ -255,7 +255,13 @@ function LinkFormUnlink({ className, children }: LinkFormUnlinkProps) {
   );
 }
 
-export { LinkForm, LinkFormInput, LinkFormSubmit, LinkFormUnlink };
+export {
+  LinkForm,
+  LinkFormInput,
+  LinkFormSubmit,
+  LinkFormUnlink,
+  useLinkFormContext,
+};
 export type {
   LinkFormProps,
   LinkFormInputProps,
