@@ -1,0 +1,33 @@
+packages/editor/src/ui/bubble-menu/types.ts
+  cb233ba9b4f952f6 2-14
+packages/editor/package.json
+  cb233ba9b4f952f6 3
+packages/editor/src/ui/bubble-menu/node-selector.tsx
+  cb233ba9b4f952f6 18-22,32,34,39-67,70-73,75,78,80-81,83-84,86-97,117-118,120,129,132,136,139,143,146,150,153,157,160,164,167,177,180,184,186-187,190-193,195-201,203-208,213-214,218,220-248,255-278,280,282-286,293,301,306-341
+packages/editor/src/ui/bubble-menu/index.ts
+  cb233ba9b4f952f6 11-14,36-41,44-47,75-79
+packages/editor/src/core/event-bus.ts
+  cb233ba9b4f952f6 16
+packages/editor/src/ui/bubble-menu/root.tsx
+  cb233ba9b4f952f6 13-14,24,52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.7",
+  "base_commit_sha": "451cb61f95f4dcc2bba23e680cfca5d4b5d0fc90",
+  "prompts": {
+    "cb233ba9b4f952f6": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_34b70ecb6ffeKc1E4XywTy1ra5",
+        "model": "anthropic/claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 349,
+      "total_deletions": 172,
+      "accepted_lines": 238,
+      "overriden_lines": 0
+    }
+  }
+}
