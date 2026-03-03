@@ -22,22 +22,112 @@
         "default": "./dist/index.js"
       }
     },
-    "./bubble-menu": {
+    "./bubble-menu/primitives": {
       "import": {
-        "types": "./dist/bubble-menu/index.d.mts",
-        "default": "./dist/bubble-menu/index.mjs"
+        "types": "./dist/bubble-menu/primitives.d.mts",
+        "default": "./dist/bubble-menu/primitives.mjs"
       },
       "require": {
-        "types": "./dist/bubble-menu/index.d.ts",
-        "default": "./dist/bubble-menu/index.js"
+        "types": "./dist/bubble-menu/primitives.d.ts",
+        "default": "./dist/bubble-menu/primitives.js"
+      }
+    },
+    "./bubble-menu/buttons": {
+      "import": {
+        "types": "./dist/bubble-menu/buttons.d.mts",
+        "default": "./dist/bubble-menu/buttons.mjs"
+      },
+      "require": {
+        "types": "./dist/bubble-menu/buttons.d.ts",
+        "default": "./dist/bubble-menu/buttons.js"
+      }
+    },
+    "./bubble-menu/node-selector": {
+      "import": {
+        "types": "./dist/bubble-menu/node-selector.d.mts",
+        "default": "./dist/bubble-menu/node-selector.mjs"
+      },
+      "require": {
+        "types": "./dist/bubble-menu/node-selector.d.ts",
+        "default": "./dist/bubble-menu/node-selector.js"
+      }
+    },
+    "./bubble-menu/link-form": {
+      "import": {
+        "types": "./dist/bubble-menu/link-form.d.mts",
+        "default": "./dist/bubble-menu/link-form.mjs"
+      },
+      "require": {
+        "types": "./dist/bubble-menu/link-form.d.ts",
+        "default": "./dist/bubble-menu/link-form.js"
+      }
+    },
+    "./bubble-menu/presets": {
+      "import": {
+        "types": "./dist/bubble-menu/presets.d.mts",
+        "default": "./dist/bubble-menu/presets.mjs"
+      },
+      "require": {
+        "types": "./dist/bubble-menu/presets.d.ts",
+        "default": "./dist/bubble-menu/presets.js"
+      }
+    },
+    "./bubble-menu/use-bubble-menu": {
+      "import": {
+        "types": "./dist/bubble-menu/use-bubble-menu.d.mts",
+        "default": "./dist/bubble-menu/use-bubble-menu.mjs"
+      },
+      "require": {
+        "types": "./dist/bubble-menu/use-bubble-menu.d.ts",
+        "default": "./dist/bubble-menu/use-bubble-menu.js"
+      }
+    },
+    "./bubble-menu/use-formatting-items": {
+      "import": {
+        "types": "./dist/bubble-menu/use-formatting-items.d.mts",
+        "default": "./dist/bubble-menu/use-formatting-items.mjs"
+      },
+      "require": {
+        "types": "./dist/bubble-menu/use-formatting-items.d.ts",
+        "default": "./dist/bubble-menu/use-formatting-items.js"
+      }
+    },
+    "./bubble-menu/use-alignment-items": {
+      "import": {
+        "types": "./dist/bubble-menu/use-alignment-items.d.mts",
+        "default": "./dist/bubble-menu/use-alignment-items.mjs"
+      },
+      "require": {
+        "types": "./dist/bubble-menu/use-alignment-items.d.ts",
+        "default": "./dist/bubble-menu/use-alignment-items.js"
+      }
+    },
+    "./bubble-menu/use-node-selector-items": {
+      "import": {
+        "types": "./dist/bubble-menu/use-node-selector-items.d.mts",
+        "default": "./dist/bubble-menu/use-node-selector-items.mjs"
+      },
+      "require": {
+        "types": "./dist/bubble-menu/use-node-selector-items.d.ts",
+        "default": "./dist/bubble-menu/use-node-selector-items.js"
+      }
+    },
+    "./bubble-menu/use-link-form": {
+      "import": {
+        "types": "./dist/bubble-menu/use-link-form.d.mts",
+        "default": "./dist/bubble-menu/use-link-form.mjs"
+      },
+      "require": {
+        "types": "./dist/bubble-menu/use-link-form.d.ts",
+        "default": "./dist/bubble-menu/use-link-form.js"
       }
     },
     "./bubble-menu.css": "./dist/bubble-menu/bubble-menu.css"
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsdown src/index.ts src/bubble-menu/index.ts --format esm,cjs --dts --external react && cp src/bubble-menu/bubble-menu.css dist/bubble-menu/bubble-menu.css",
-    "build:watch": "tsdown src/index.ts src/bubble-menu/index.ts --format esm,cjs --dts --external react --watch",
+    "build": "tsdown src/index.ts src/bubble-menu/primitives.tsx src/bubble-menu/buttons.tsx src/bubble-menu/node-selector.tsx src/bubble-menu/link-form.tsx src/bubble-menu/presets.tsx src/bubble-menu/use-bubble-menu.ts src/bubble-menu/use-formatting-items.ts src/bubble-menu/use-alignment-items.ts src/bubble-menu/use-node-selector-items.ts src/bubble-menu/use-link-form.ts --format esm,cjs --dts --external react && cp src/bubble-menu/bubble-menu.css dist/bubble-menu/bubble-menu.css",
+    "build:watch": "tsdown src/index.ts src/bubble-menu/primitives.tsx src/bubble-menu/buttons.tsx src/bubble-menu/node-selector.tsx src/bubble-menu/link-form.tsx src/bubble-menu/presets.tsx src/bubble-menu/use-bubble-menu.ts src/bubble-menu/use-formatting-items.ts src/bubble-menu/use-alignment-items.ts src/bubble-menu/use-node-selector-items.ts src/bubble-menu/use-link-form.ts --format esm,cjs --dts --external react --watch",
     "clean": "rm -rf dist",
     "test": "vitest run",
     "test:watch": "vitest"
@@ -61,15 +151,16 @@
   "dependencies": {
     "@tiptap/core": "^3.17.1",
     "@tiptap/extension-code-block": "^3.17.1",
-    "@tiptap/extension-link": "^3.17.1",
     "@tiptap/extension-heading": "^3.17.1",
     "@tiptap/extension-horizontal-rule": "^3.17.1",
+    "@tiptap/extension-link": "^3.17.1",
     "@tiptap/extension-placeholder": "^3.17.1",
     "@tiptap/html": "^3.17.1",
     "@tiptap/pm": "^3.17.1",
     "@tiptap/react": "^3.17.1",
     "@tiptap/starter-kit": "^3.17.1",
     "hast-util-from-html": "^2.0.3",
+    "lucide-react": "^0.544.0",
     "prismjs": "^1.30.0"
   },
   "devDependencies": {

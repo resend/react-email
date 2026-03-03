@@ -2,6 +2,14 @@
 
 import { useCurrentEditor, useEditorState } from '@tiptap/react';
 import { BubbleMenu } from '@tiptap/react/menus';
+import {
+  ExternalLinkIcon,
+  LinkIcon,
+  PaintBucketIcon,
+  PencilIcon,
+  RefreshCwIcon,
+  UnlinkIcon,
+} from 'lucide-react';
 import * as React from 'react';
 import { editorEventBus } from '../event-bus';
 import {
@@ -26,132 +34,6 @@ import {
   NodeSelectorContent,
   NodeSelectorTrigger,
 } from './node-selector';
-
-// --- Inline Icons ---
-
-function LinkSvg() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-    </svg>
-  );
-}
-
-function RefreshSvg() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M21 2v6h-6" />
-      <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
-      <path d="M3 22v-6h6" />
-      <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
-    </svg>
-  );
-}
-
-function PencilSvg() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
-    </svg>
-  );
-}
-
-function UnlinkSvg() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m18.84 12.25 1.72-1.71h-.02a5.004 5.004 0 0 0-.12-7.07 5.006 5.006 0 0 0-6.95 0l-1.72 1.71" />
-      <path d="m5.17 11.75-1.71 1.71a5.004 5.004 0 0 0 .12 7.07 5.006 5.006 0 0 0 6.95 0l1.71-1.71" />
-      <line x1="8" y1="2" x2="8" y2="5" />
-      <line x1="2" y1="8" x2="5" y2="8" />
-      <line x1="16" y1="19" x2="16" y2="22" />
-      <line x1="19" y1="16" x2="22" y2="16" />
-    </svg>
-  );
-}
-
-function ExternalLinkSvg() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M15 3h6v6" />
-      <path d="M10 14 21 3" />
-      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-    </svg>
-  );
-}
-
-function PaintBucketSvg() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11Z" />
-      <path d="m5 2 5 5" />
-      <path d="M2 13h15" />
-      <path d="M22 20a2 2 0 1 1-4 0c0-1.6 1.7-2.4 2-4 .3 1.6 2 2.4 2 4Z" />
-    </svg>
-  );
-}
-
-// --- TextBubbleMenu ---
 
 interface TextBubbleMenuProps {
   excludeNodes?: string[];
@@ -219,7 +101,7 @@ export function TextBubbleMenu({
             type="button"
             onClick={() => setIsLinkFormOpen(true)}
           >
-            <LinkSvg />
+            <LinkIcon />
           </button>
         ) : (
           <LinkForm
@@ -254,8 +136,6 @@ export function TextBubbleMenu({
     </BubbleMenu>
   );
 }
-
-// --- LinkBubbleMenu ---
 
 interface LinkBubbleMenuProps {
   className?: string;
@@ -293,7 +173,7 @@ export function LinkBubbleMenu({ className }: LinkBubbleMenuProps) {
               type="button"
               onClick={() => setIsEditing(true)}
             >
-              <PencilSvg />
+              <PencilIcon />
             </button>
             <button
               data-part="bubble-menu-button"
@@ -301,7 +181,7 @@ export function LinkBubbleMenu({ className }: LinkBubbleMenuProps) {
               type="button"
               onClick={() => editor.chain().focus().unsetLink().run()}
             >
-              <UnlinkSvg />
+              <UnlinkIcon />
             </button>
             <a
               data-part="bubble-menu-button"
@@ -310,7 +190,7 @@ export function LinkBubbleMenu({ className }: LinkBubbleMenuProps) {
               rel="noopener noreferrer"
               aria-label="Open link"
             >
-              <ExternalLinkSvg />
+              <ExternalLinkIcon />
             </a>
           </div>
         ) : (
@@ -324,8 +204,6 @@ export function LinkBubbleMenu({ className }: LinkBubbleMenuProps) {
     </BubbleMenu>
   );
 }
-
-// --- ImageBubbleMenu ---
 
 interface ImageBubbleMenuProps {
   onReplaceImage?: (
@@ -386,7 +264,7 @@ export function ImageBubbleMenu({
               type="button"
               onClick={handleReplace}
             >
-              <RefreshSvg />
+              <RefreshCwIcon />
             </button>
             <button
               data-part="bubble-menu-button"
@@ -394,7 +272,7 @@ export function ImageBubbleMenu({
               type="button"
               onClick={() => setIsLinkFormOpen(true)}
             >
-              <LinkSvg />
+              <LinkIcon />
             </button>
           </div>
         ) : (
@@ -408,8 +286,6 @@ export function ImageBubbleMenu({
     </BubbleMenu>
   );
 }
-
-// --- ButtonBubbleMenu ---
 
 interface ButtonBubbleMenuProps {
   className?: string;
@@ -473,7 +349,7 @@ export function ButtonBubbleMenu({ className }: ButtonBubbleMenuProps) {
               type="button"
               onClick={() => setIsLinkFormOpen(true)}
             >
-              <LinkSvg />
+              <LinkIcon />
             </button>
             <button
               data-part="bubble-menu-button"
@@ -481,7 +357,7 @@ export function ButtonBubbleMenu({ className }: ButtonBubbleMenuProps) {
               type="button"
               onClick={handleStyle}
             >
-              <PaintBucketSvg />
+              <PaintBucketIcon />
             </button>
           </div>
         ) : (
@@ -495,8 +371,6 @@ export function ButtonBubbleMenu({ className }: ButtonBubbleMenuProps) {
     </BubbleMenu>
   );
 }
-
-// --- Internal separator helper ---
 
 function BubbleMenuSeparatorInternal() {
   return <hr data-part="bubble-menu-separator" />;

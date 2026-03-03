@@ -6,8 +6,6 @@ import type { BubbleMenuProps } from '@tiptap/react/menus';
 import { BubbleMenu } from '@tiptap/react/menus';
 import type * as React from 'react';
 
-// --- BubbleMenuRoot ---
-
 type ShowWhen =
   | 'textSelection'
   | 'nodeSelection'
@@ -83,8 +81,6 @@ function BubbleMenuRoot({
   );
 }
 
-// --- BubbleMenuGroup ---
-
 interface BubbleMenuGroupProps {
   className?: string;
   children: React.ReactNode;
@@ -97,8 +93,6 @@ function BubbleMenuGroup({ className, children }: BubbleMenuGroupProps) {
     </div>
   );
 }
-
-// --- BubbleMenuButton ---
 
 interface BubbleMenuButtonProps {
   name: string;
@@ -139,8 +133,6 @@ function BubbleMenuButton({
     </button>
   );
 }
-
-// --- BubbleMenuSeparator ---
 
 interface BubbleMenuSeparatorProps {
   className?: string;

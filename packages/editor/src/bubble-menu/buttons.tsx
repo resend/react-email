@@ -1,189 +1,17 @@
 'use client';
 
 import { useCurrentEditor, useEditorState } from '@tiptap/react';
-
-function BoldSvg({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M4 2.5h4.5a3 3 0 0 1 2.1 5.15A3.25 3.25 0 0 1 9 13.5H4V2.5Zm1.5 1.5v3h3a1.5 1.5 0 1 0 0-3h-3Zm0 4.5v3h3.5a1.75 1.75 0 1 0 0-3.5H5.5Z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-}
-
-function ItalicSvg({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M6.5 2.5h6M3.5 13.5h6M9.5 2.5 6.5 13.5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function UnderlineSvg({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M4 2.5v5a4 4 0 0 0 8 0v-5M3 14h10"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function StrikethroughSvg({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M5.5 3.5A2.5 2.5 0 0 1 8 2c1.6 0 3 .9 3 2.5 0 .8-.4 1.4-1 1.8M3 8h10M10.5 12.5A2.5 2.5 0 0 1 8 14c-1.6 0-3-.9-3-2.5 0-.8.4-1.4 1-1.8"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function CodeSvg({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M5 4.5 1.5 8 5 11.5M11 4.5 14.5 8 11 11.5M9.5 2.5l-3 11"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function UppercaseSvg({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M1 13 4.5 3 8 13M2.25 10h4.5M10 13l2.5-7 2.5 7M10.75 11h3.5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function AlignLeftSvg({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M2 3.5h12M2 8h8M2 12.5h10"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function AlignCenterSvg({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M2 3.5h12M4 8h8M3 12.5h10"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function AlignRightSvg({ className }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M2 3.5h12M6 8h8M4 12.5h10"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
+import {
+  AlignCenterIcon,
+  AlignLeftIcon,
+  AlignRightIcon,
+  BoldIcon,
+  CaseUpperIcon,
+  CodeIcon,
+  ItalicIcon,
+  StrikethroughIcon,
+  UnderlineIcon,
+} from 'lucide-react';
 
 export function BoldButton({ className }: { className?: string }) {
   const { editor } = useCurrentEditor();
@@ -204,7 +32,7 @@ export function BoldButton({ className }: { className?: string }) {
       className={className}
       type="button"
     >
-      <BoldSvg />
+      <BoldIcon />
     </button>
   );
 }
@@ -228,7 +56,7 @@ export function ItalicButton({ className }: { className?: string }) {
       className={className}
       type="button"
     >
-      <ItalicSvg />
+      <ItalicIcon />
     </button>
   );
 }
@@ -252,7 +80,7 @@ export function UnderlineButton({ className }: { className?: string }) {
       className={className}
       type="button"
     >
-      <UnderlineSvg />
+      <UnderlineIcon />
     </button>
   );
 }
@@ -276,7 +104,7 @@ export function StrikeButton({ className }: { className?: string }) {
       className={className}
       type="button"
     >
-      <StrikethroughSvg />
+      <StrikethroughIcon />
     </button>
   );
 }
@@ -300,7 +128,7 @@ export function CodeButton({ className }: { className?: string }) {
       className={className}
       type="button"
     >
-      <CodeSvg />
+      <CodeIcon />
     </button>
   );
 }
@@ -324,7 +152,7 @@ export function UppercaseButton({ className }: { className?: string }) {
       className={className}
       type="button"
     >
-      <UppercaseSvg />
+      <CaseUpperIcon />
     </button>
   );
 }
@@ -348,7 +176,7 @@ export function AlignLeftButton({ className }: { className?: string }) {
       className={className}
       type="button"
     >
-      <AlignLeftSvg />
+      <AlignLeftIcon />
     </button>
   );
 }
@@ -372,7 +200,7 @@ export function AlignCenterButton({ className }: { className?: string }) {
       className={className}
       type="button"
     >
-      <AlignCenterSvg />
+      <AlignCenterIcon />
     </button>
   );
 }
@@ -396,7 +224,7 @@ export function AlignRightButton({ className }: { className?: string }) {
       className={className}
       type="button"
     >
-      <AlignRightSvg />
+      <AlignRightIcon />
     </button>
   );
 }

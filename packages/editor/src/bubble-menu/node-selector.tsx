@@ -2,17 +2,14 @@
 
 import type { Editor } from '@tiptap/core';
 import { useCurrentEditor, useEditorState } from '@tiptap/react';
+import { ChevronDown } from 'lucide-react';
 import * as React from 'react';
-
-// --- Types ---
 
 type NodeSelectorItemConfig = {
   name: string;
   command: (editor: Editor) => void;
   isActive: (editor: Editor) => boolean;
 };
-
-// --- Default Items ---
 
 const DEFAULT_ITEMS: NodeSelectorItemConfig[] = [
   {
@@ -76,8 +73,6 @@ const DEFAULT_ITEMS: NodeSelectorItemConfig[] = [
   },
 ];
 
-// --- Context ---
-
 interface NodeSelectorContextValue {
   open: boolean;
   setOpen: (state: boolean) => void;
@@ -98,29 +93,6 @@ function useNodeSelectorContext(): NodeSelectorContextValue {
   }
   return ctx;
 }
-
-// --- Chevron SVG ---
-
-function ChevronDown({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <path d="m6 9 6 6 6-6" />
-    </svg>
-  );
-}
-
-// --- NodeSelector (Root) ---
 
 interface NodeSelectorProps {
   children: React.ReactNode;
@@ -161,8 +133,6 @@ function NodeSelector({ children, className }: NodeSelectorProps) {
   );
 }
 
-// --- NodeSelectorTrigger ---
-
 interface NodeSelectorTriggerProps {
   className?: string;
   children?: React.ReactNode;
@@ -192,8 +162,6 @@ function NodeSelectorTrigger({
   );
 }
 
-// --- NodeSelectorContent ---
-
 interface NodeSelectorContentProps {
   className?: string;
   children?: React.ReactNode;
@@ -218,8 +186,6 @@ function NodeSelectorContent({
     </div>
   );
 }
-
-// --- NodeSelectorItem ---
 
 interface NodeSelectorItemProps {
   name: string;
