@@ -1,0 +1,43 @@
+packages/editor/src/ui/bubble-menu/item.tsx
+  9f8775396aa6fb19 1-35
+packages/editor/src/ui/bubble-menu/event-bus.ts
+  9f8775396aa6fb19 1-57
+packages/editor/src/ui/bubble-menu/group.spec.tsx
+  9f8775396aa6fb19 1-42
+packages/editor/src/ui/bubble-menu/context.tsx
+  9f8775396aa6fb19 1-19
+packages/editor/src/ui/bubble-menu/group.tsx
+  9f8775396aa6fb19 1-14
+packages/editor/src/ui/bubble-menu/event-bus.spec.ts
+  9f8775396aa6fb19 1-23
+packages/editor/package.json
+  9f8775396aa6fb19 22-23,46,48,65
+packages/editor/src/ui/bubble-menu/root.tsx
+  9f8775396aa6fb19 1-57
+packages/editor/src/ui/bubble-menu/separator.tsx
+  9f8775396aa6fb19 1-15
+packages/editor/src/ui/bubble-menu/root.spec.tsx
+  9f8775396aa6fb19 1-13
+packages/editor/src/ui/bubble-menu/item.spec.tsx
+  9f8775396aa6fb19 1-61
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.7",
+  "base_commit_sha": "6d4f7875f4ed83b9803d3636910dcad979cc5ad0",
+  "prompts": {
+    "9f8775396aa6fb19": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_34b4c2f05ffeujXpbW2S9SK27r",
+        "model": "anthropic/claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 347,
+      "total_deletions": 7,
+      "accepted_lines": 341,
+      "overriden_lines": 0
+    }
+  }
+}
