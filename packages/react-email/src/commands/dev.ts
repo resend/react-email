@@ -8,14 +8,13 @@ interface Args {
 }
 
 const DEFAULT_PORT = 3000;
-const MIN_PORT = 1;
 const MAX_PORT = 65_535;
 
 function parsePort(value: string | number | undefined): number {
   if (value === undefined) return DEFAULT_PORT;
   const n =
     typeof value === 'number' ? value : Number.parseInt(String(value), 10);
-  if (!Number.isInteger(n) || n < MIN_PORT || n > MAX_PORT) return DEFAULT_PORT;
+  if (!Number.isInteger(n) || n < 0 || n > MAX_PORT) return DEFAULT_PORT;
   return n;
 }
 

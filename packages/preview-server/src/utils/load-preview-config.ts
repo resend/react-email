@@ -51,13 +51,8 @@ const loadConfigModule = async (
   filePath: string,
 ): Promise<ReactEmailConfig | undefined> => {
   if (filePath.endsWith('.json')) {
-    let parsed: unknown;
-    try {
-      const contents = await fs.promises.readFile(filePath, 'utf8');
-      parsed = JSON.parse(contents);
-    } catch {
-      return undefined;
-    }
+    const contents = await fs.promises.readFile(filePath, 'utf8');
+    const parsed = JSON.parse(contents) as unknown;
     return validateReactEmailConfig(parsed);
   }
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { spawn } from 'node:child_process';
-import path from 'node:path';
+import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { program } from 'commander';
 import { build } from './commands/build.js';
@@ -19,10 +19,15 @@ export type {
 export { defineConfig } from './utils/load-config.js';
 
 const isRunAsEntryPoint = (): boolean => {
-  const thisFile = fileURLToPath(import.meta.url);
   const entry = process.argv[1];
   if (!entry) return false;
-  return path.resolve(process.cwd(), entry) === thisFile;
+  try {
+    const thisFile = fs.realpathSync(fileURLToPath(import.meta.url));
+    const entryFile = fs.realpathSync(entry);
+    return thisFile === entryFile;
+  } catch {
+    return false;
+  }
 };
 
 const requiredFlags = [
