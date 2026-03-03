@@ -51,9 +51,6 @@ export { BubbleMenuRoot } from './root';
 export type { BubbleMenuSeparatorProps } from './separator';
 export { BubbleMenuSeparator } from './separator';
 export { BubbleMenuStrike } from './strike';
-// Side-effect import: registers bubble-menu events on EditorEventMap
-import './types';
-
 export { BubbleMenuUnderline } from './underline';
 export { BubbleMenuUppercase } from './uppercase';
 
