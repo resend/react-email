@@ -27,6 +27,7 @@ export function BubbleMenuItem({
       data-re-bubble-menu-item=""
       data-item={name}
       {...(isActive ? { 'data-active': '' } : {})}
+      onMouseDown={(e) => e.preventDefault()}
       onClick={onCommand}
     >
       {children}

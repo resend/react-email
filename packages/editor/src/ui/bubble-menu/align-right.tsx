@@ -1,5 +1,6 @@
 import { useEditorState } from '@tiptap/react';
 import { AlignRightIcon } from 'lucide-react';
+import { setTextAlignment } from '../../utils/set-text-alignment';
 import { useBubbleMenuContext } from './context';
 import type { PreWiredItemProps } from './create-pre-wired-item';
 import { BubbleMenuItem } from './item';
@@ -19,7 +20,7 @@ export function BubbleMenuAlignRight({
     <BubbleMenuItem
       name="align-right"
       isActive={isActive}
-      onCommand={() => editor.chain().focus().setAlignment('right').run()}
+      onCommand={() => setTextAlignment(editor, 'right')}
       className={className}
     >
       {children ?? <AlignRightIcon />}

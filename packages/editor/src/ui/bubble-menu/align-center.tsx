@@ -1,5 +1,6 @@
 import { useEditorState } from '@tiptap/react';
 import { AlignCenterIcon } from 'lucide-react';
+import { setTextAlignment } from '../../utils/set-text-alignment';
 import { useBubbleMenuContext } from './context';
 import type { PreWiredItemProps } from './create-pre-wired-item';
 import { BubbleMenuItem } from './item';
@@ -20,7 +21,7 @@ export function BubbleMenuAlignCenter({
     <BubbleMenuItem
       name="align-center"
       isActive={isActive}
-      onCommand={() => editor.chain().focus().setAlignment('center').run()}
+      onCommand={() => setTextAlignment(editor, 'center')}
       className={className}
     >
       {children ?? <AlignCenterIcon />}
