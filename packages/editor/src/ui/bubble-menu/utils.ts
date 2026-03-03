@@ -1,9 +1,4 @@
-const SAFE_PROTOCOLS = new Set([
-  'http:',
-  'https:',
-  'mailto:',
-  'tel:',
-]);
+const SAFE_PROTOCOLS = new Set(['http:', 'https:', 'mailto:', 'tel:']);
 
 /**
  * Basic URL validation and auto-prefixing.

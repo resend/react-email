@@ -6,9 +6,7 @@ describe('getUrlFromString', () => {
   });
 
   it('returns valid https URLs as-is', () => {
-    expect(getUrlFromString('https://example.com')).toBe(
-      'https://example.com',
-    );
+    expect(getUrlFromString('https://example.com')).toBe('https://example.com');
   });
 
   it('returns valid http URLs as-is', () => {
@@ -30,7 +28,9 @@ describe('getUrlFromString', () => {
   });
 
   it('rejects data: URLs', () => {
-    expect(getUrlFromString('data:text/html,<script>alert(1)</script>')).toBeNull();
+    expect(
+      getUrlFromString('data:text/html,<script>alert(1)</script>'),
+    ).toBeNull();
   });
 
   it('rejects vbscript: URLs', () => {
