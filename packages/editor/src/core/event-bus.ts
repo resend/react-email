@@ -12,8 +12,9 @@ const EVENT_PREFIX = '@react-email/editor:';
  * }
  * ```
  */
-// biome-ignore lint/suspicious/noEmptyInterface: intentionally empty — extended via module augmentation
-export interface EditorEventMap {}
+export interface EditorEventMap {
+  'bubble-menu:add-link': undefined;
+}
 
 export type EditorEventName = keyof EditorEventMap;
 

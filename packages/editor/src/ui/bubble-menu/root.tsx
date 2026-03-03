@@ -10,6 +10,8 @@ export interface BubbleMenuRootProps {
   placement?: 'top' | 'bottom';
   /** Offset from selection in px */
   offset?: number;
+  /** Called when the bubble menu is hidden (e.g., click outside, selection cleared) */
+  onHide?: () => void;
   /** Additional className on the outer wrapper */
   className?: string;
   children: React.ReactNode;
@@ -19,6 +21,7 @@ export function BubbleMenuRoot({
   excludeNodes = [],
   placement = 'bottom',
   offset = 8,
+  onHide,
   className,
   children,
 }: BubbleMenuRootProps) {
@@ -46,6 +49,7 @@ export function BubbleMenuRoot({
       options={{
         placement,
         offset,
+        onHide,
       }}
       className={className}
     >

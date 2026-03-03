@@ -15,7 +15,11 @@ import {
 import * as React from 'react';
 import { useBubbleMenuContext } from './context';
 
-type NodeType =
+// ---------------------------------------------------------------------------
+// Types
+// ---------------------------------------------------------------------------
+
+export type NodeType =
   | 'Text'
   | 'Title'
   | 'Subtitle'
@@ -25,28 +29,73 @@ type NodeType =
   | 'Quote'
   | 'Code';
 
-interface NodeItem {
+export interface NodeSelectorItem {
   name: NodeType;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: React.ComponentType<React.SVGAttributes<SVGSVGElement>>;
   command: () => void;
-  isActive: () => boolean;
+  isActive: boolean;
 }
 
-export interface BubbleMenuNodeSelectorProps {
+// ---------------------------------------------------------------------------
+// Context (shared between Root → Trigger / Content)
+// ---------------------------------------------------------------------------
+
+interface NodeSelectorContextValue {
+  items: NodeSelectorItem[];
+  activeItem: NodeSelectorItem | { name: 'Multiple' };
+  isOpen: boolean;
+  setIsOpen: (value: boolean) => void;
+}
+
+const NodeSelectorContext =
+  React.createContext<NodeSelectorContextValue | null>(null);
+
+function useNodeSelectorContext(): NodeSelectorContextValue {
+  const context = React.useContext(NodeSelectorContext);
+  if (!context) {
+    throw new Error(
+      'NodeSelector compound components must be used within <NodeSelector.Root>',
+    );
+  }
+  return context;
+}
+
+// ---------------------------------------------------------------------------
+// Root
+// ---------------------------------------------------------------------------
+
+export interface NodeSelectorRootProps {
   /** Block types to exclude */
   omit?: string[];
+  /** Controlled open state */
+  open?: boolean;
+  /** Called when open state changes */
+  onOpenChange?: (open: boolean) => void;
   className?: string;
-  /** Override the trigger content (default: active item name + chevron icon) */
-  triggerContent?: React.ReactNode;
+  children: React.ReactNode;
 }
 
-export function BubbleMenuNodeSelector({
+export function NodeSelectorRoot({
   omit = [],
+  open: controlledOpen,
+  onOpenChange,
   className,
-  triggerContent,
-}: BubbleMenuNodeSelectorProps) {
+  children,
+}: NodeSelectorRootProps) {
   const { editor } = useBubbleMenuContext();
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(false);
+
+  const isControlled = controlledOpen !== undefined;
+  const isOpen = isControlled ? controlledOpen : uncontrolledOpen;
+  const setIsOpen = React.useCallback(
+    (value: boolean) => {
+      if (!isControlled) {
+        setUncontrolledOpen(value);
+      }
+      onOpenChange?.(value);
+    },
+    [isControlled, onOpenChange],
+  );
 
   const editorState = useEditorState({
     editor,
@@ -65,119 +114,183 @@ export function BubbleMenuNodeSelector({
     }),
   });
 
-  if (!editorState) {
+  const allItems: NodeSelectorItem[] = React.useMemo(
+    () => [
+      {
+        name: 'Text' as const,
+        icon: TextIcon,
+        command: () =>
+          editor
+            .chain()
+            .focus()
+            .clearNodes()
+            .toggleNode('paragraph', 'paragraph')
+            .run(),
+        isActive: editorState?.isParagraphActive ?? false,
+      },
+      {
+        name: 'Title' as const,
+        icon: Heading1,
+        command: () =>
+          editor.chain().focus().clearNodes().toggleHeading({ level: 1 }).run(),
+        isActive: editorState?.isHeading1Active ?? false,
+      },
+      {
+        name: 'Subtitle' as const,
+        icon: Heading2,
+        command: () =>
+          editor.chain().focus().clearNodes().toggleHeading({ level: 2 }).run(),
+        isActive: editorState?.isHeading2Active ?? false,
+      },
+      {
+        name: 'Heading' as const,
+        icon: Heading3,
+        command: () =>
+          editor.chain().focus().clearNodes().toggleHeading({ level: 3 }).run(),
+        isActive: editorState?.isHeading3Active ?? false,
+      },
+      {
+        name: 'Bullet List' as const,
+        icon: List,
+        command: () =>
+          editor.chain().focus().clearNodes().toggleBulletList().run(),
+        isActive: editorState?.isBulletListActive ?? false,
+      },
+      {
+        name: 'Numbered List' as const,
+        icon: ListOrdered,
+        command: () =>
+          editor.chain().focus().clearNodes().toggleOrderedList().run(),
+        isActive: editorState?.isOrderedListActive ?? false,
+      },
+      {
+        name: 'Quote' as const,
+        icon: TextQuote,
+        command: () =>
+          editor
+            .chain()
+            .focus()
+            .clearNodes()
+            .toggleNode('paragraph', 'paragraph')
+            .toggleBlockquote()
+            .run(),
+        isActive: editorState?.isBlockquoteActive ?? false,
+      },
+      {
+        name: 'Code' as const,
+        icon: Code,
+        command: () =>
+          editor.chain().focus().clearNodes().toggleCodeBlock().run(),
+        isActive: editorState?.isCodeBlockActive ?? false,
+      },
+    ],
+    [editor, editorState],
+  );
+
+  const items = React.useMemo(
+    () => allItems.filter((item) => !omit.includes(item.name)),
+    [allItems, omit],
+  );
+
+  const activeItem = React.useMemo(
+    () =>
+      items.find((item) => item.isActive) ?? {
+        name: 'Multiple' as const,
+      },
+    [items],
+  );
+
+  const contextValue = React.useMemo(
+    () => ({ items, activeItem, isOpen, setIsOpen }),
+    [items, activeItem, isOpen, setIsOpen],
+  );
+
+  if (!editorState || items.length === 0) {
     return null;
   }
-
-  const items: NodeItem[] = [
-    {
-      name: 'Text',
-      icon: TextIcon,
-      command: () =>
-        editor
-          .chain()
-          .focus()
-          .clearNodes()
-          .toggleNode('paragraph', 'paragraph')
-          .run(),
-      isActive: () => editorState.isParagraphActive,
-    },
-    {
-      name: 'Title',
-      icon: Heading1,
-      command: () =>
-        editor.chain().focus().clearNodes().toggleHeading({ level: 1 }).run(),
-      isActive: () => editorState.isHeading1Active,
-    },
-    {
-      name: 'Subtitle',
-      icon: Heading2,
-      command: () =>
-        editor.chain().focus().clearNodes().toggleHeading({ level: 2 }).run(),
-      isActive: () => editorState.isHeading2Active,
-    },
-    {
-      name: 'Heading',
-      icon: Heading3,
-      command: () =>
-        editor.chain().focus().clearNodes().toggleHeading({ level: 3 }).run(),
-      isActive: () => editorState.isHeading3Active,
-    },
-    {
-      name: 'Bullet List',
-      icon: List,
-      command: () =>
-        editor.chain().focus().clearNodes().toggleBulletList().run(),
-      isActive: () => editorState.isBulletListActive,
-    },
-    {
-      name: 'Numbered List',
-      icon: ListOrdered,
-      command: () =>
-        editor.chain().focus().clearNodes().toggleOrderedList().run(),
-      isActive: () => editorState.isOrderedListActive,
-    },
-    {
-      name: 'Quote',
-      icon: TextQuote,
-      command: () =>
-        editor
-          .chain()
-          .focus()
-          .clearNodes()
-          .toggleNode('paragraph', 'paragraph')
-          .toggleBlockquote()
-          .run(),
-      isActive: () => editorState.isBlockquoteActive,
-    },
-    {
-      name: 'Code',
-      icon: Code,
-      command: () =>
-        editor.chain().focus().clearNodes().toggleCodeBlock().run(),
-      isActive: () => editorState.isCodeBlockActive,
-    },
-  ];
-
-  const filteredItems = items.filter((item) => !omit.includes(item.name));
-
-  if (filteredItems.length === 0) {
-    return null;
-  }
-
-  const activeItem = filteredItems.find((item) => item.isActive()) ?? {
-    name: 'Multiple',
-  };
 
   return (
-    <Popover.Root open={isOpen} onOpenChange={setIsOpen}>
-      <div
-        data-re-node-selector=""
-        {...(isOpen ? { 'data-open': '' } : {})}
-        className={className}
-      >
-        <Popover.Trigger
-          data-re-node-selector-trigger=""
-          onClick={() => setIsOpen(!isOpen)}
+    <NodeSelectorContext.Provider value={contextValue}>
+      <Popover.Root open={isOpen} onOpenChange={setIsOpen}>
+        <div
+          data-re-node-selector=""
+          {...(isOpen ? { 'data-open': '' } : {})}
+          className={className}
         >
-          {triggerContent ?? (
-            <>
-              <span>{activeItem.name}</span>
-              <ChevronDown />
-            </>
-          )}
-        </Popover.Trigger>
+          {children}
+        </div>
+      </Popover.Root>
+    </NodeSelectorContext.Provider>
+  );
+}
 
-        <Popover.Content align="start" data-re-node-selector-content="">
-          {filteredItems.map((item) => {
+// ---------------------------------------------------------------------------
+// Trigger
+// ---------------------------------------------------------------------------
+
+export interface NodeSelectorTriggerProps {
+  className?: string;
+  children?: React.ReactNode;
+}
+
+export function NodeSelectorTrigger({
+  className,
+  children,
+}: NodeSelectorTriggerProps) {
+  const { activeItem, isOpen, setIsOpen } = useNodeSelectorContext();
+
+  return (
+    <Popover.Trigger
+      data-re-node-selector-trigger=""
+      className={className}
+      onClick={() => setIsOpen(!isOpen)}
+    >
+      {children ?? (
+        <>
+          <span>{activeItem.name}</span>
+          <ChevronDown />
+        </>
+      )}
+    </Popover.Trigger>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Content
+// ---------------------------------------------------------------------------
+
+export interface NodeSelectorContentProps {
+  className?: string;
+  /** Popover alignment (default: "start") */
+  align?: 'start' | 'center' | 'end';
+  /** Render-prop for full control over item rendering.
+   *  Receives the filtered items and a `close` function to dismiss the popover. */
+  children?: (items: NodeSelectorItem[], close: () => void) => React.ReactNode;
+}
+
+export function NodeSelectorContent({
+  className,
+  align = 'start',
+  children,
+}: NodeSelectorContentProps) {
+  const { items, setIsOpen } = useNodeSelectorContext();
+
+  return (
+    <Popover.Content
+      align={align}
+      data-re-node-selector-content=""
+      className={className}
+    >
+      {children
+        ? children(items, () => setIsOpen(false))
+        : items.map((item) => {
             const Icon = item.icon;
-            const active = item.isActive();
             return (
               <button
                 key={item.name}
                 type="button"
                 data-re-node-selector-item=""
-                {...(active ? { 'data-active': '' } : {})}
+                {...(item.isActive ? { 'data-active': '' } : {})}
                 onClick={() => {
                   item.command();
                   setIsOpen(false);
@@ -185,12 +298,46 @@ export function BubbleMenuNodeSelector({
               >
                 <Icon />
                 <span>{item.name}</span>
-                {active && <Check />}
+                {item.isActive && <Check />}
               </button>
             );
           })}
-        </Popover.Content>
-      </div>
-    </Popover.Root>
+    </Popover.Content>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Monolithic convenience component (backward-compatible)
+// ---------------------------------------------------------------------------
+
+export interface BubbleMenuNodeSelectorProps {
+  /** Block types to exclude */
+  omit?: string[];
+  className?: string;
+  /** Override the trigger content (default: active item name + chevron icon) */
+  triggerContent?: React.ReactNode;
+  /** Controlled open state */
+  open?: boolean;
+  /** Called when open state changes */
+  onOpenChange?: (open: boolean) => void;
+}
+
+export function BubbleMenuNodeSelector({
+  omit = [],
+  className,
+  triggerContent,
+  open,
+  onOpenChange,
+}: BubbleMenuNodeSelectorProps) {
+  return (
+    <NodeSelectorRoot
+      omit={omit}
+      open={open}
+      onOpenChange={onOpenChange}
+      className={className}
+    >
+      <NodeSelectorTrigger>{triggerContent}</NodeSelectorTrigger>
+      <NodeSelectorContent />
+    </NodeSelectorRoot>
   );
 }

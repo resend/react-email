@@ -7,7 +7,12 @@ import { BubbleMenuGroup } from './group';
 import { BubbleMenuItalic } from './italic';
 import { BubbleMenuItem } from './item';
 import { BubbleMenuLinkSelector } from './link-selector';
-import { BubbleMenuNodeSelector } from './node-selector';
+import {
+  BubbleMenuNodeSelector,
+  NodeSelectorContent,
+  NodeSelectorRoot,
+  NodeSelectorTrigger,
+} from './node-selector';
 import { BubbleMenuRoot } from './root';
 import { BubbleMenuSeparator } from './separator';
 import { BubbleMenuStrike } from './strike';
@@ -27,8 +32,20 @@ export type { BubbleMenuItemProps } from './item';
 export { BubbleMenuItem } from './item';
 export type { BubbleMenuLinkSelectorProps } from './link-selector';
 export { BubbleMenuLinkSelector } from './link-selector';
-export type { BubbleMenuNodeSelectorProps } from './node-selector';
-export { BubbleMenuNodeSelector } from './node-selector';
+export type {
+  BubbleMenuNodeSelectorProps,
+  NodeSelectorContentProps,
+  NodeSelectorItem,
+  NodeSelectorRootProps,
+  NodeSelectorTriggerProps,
+  NodeType,
+} from './node-selector';
+export {
+  BubbleMenuNodeSelector,
+  NodeSelectorContent,
+  NodeSelectorRoot,
+  NodeSelectorTrigger,
+} from './node-selector';
 export type { BubbleMenuRootProps } from './root';
 export { BubbleMenuRoot } from './root';
 export type { BubbleMenuSeparatorProps } from './separator';
@@ -55,6 +72,10 @@ export const BubbleMenu = {
   AlignLeft: BubbleMenuAlignLeft,
   AlignCenter: BubbleMenuAlignCenter,
   AlignRight: BubbleMenuAlignRight,
-  NodeSelector: BubbleMenuNodeSelector,
+  NodeSelector: Object.assign(BubbleMenuNodeSelector, {
+    Root: NodeSelectorRoot,
+    Trigger: NodeSelectorTrigger,
+    Content: NodeSelectorContent,
+  }),
   LinkSelector: BubbleMenuLinkSelector,
 } as const;
