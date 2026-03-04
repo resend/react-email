@@ -28,7 +28,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsdown src/index.ts --format esm,cjs --dts --external react && pnpm run build:css",
-    "build:css": "mkdir -p dist/ui/bubble-menu dist/ui/link-bubble-menu && cp src/ui/bubble-menu/bubble-menu.css dist/ui/bubble-menu/ && cp src/ui/link-bubble-menu/link-bubble-menu.css dist/ui/link-bubble-menu/",
+    "build:css": "node scripts/copy-css.mjs",
     "build:watch": "tsdown src/index.ts --format esm,cjs --dts --external react --watch",
     "clean": "rm -rf dist",
     "test": "vitest run",
