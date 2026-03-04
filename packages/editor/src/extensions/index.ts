@@ -13,8 +13,8 @@ import { PreviewText } from './preview-text';
 import { Section } from './section';
 import { StyleAttribute } from './style-attribute';
 import { Sup } from './sup';
-import { Uppercase } from './uppercase';
 import { Table, TableCell, TableHeader, TableRow } from './table';
+import { Uppercase } from './uppercase';
 
 export * from './alignment-attribute';
 export * from './body';
