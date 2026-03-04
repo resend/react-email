@@ -1,6 +1,6 @@
 import { render } from '@react-email/render';
 import { Body } from './index';
-import { marginProperties } from './margin-properties';
+import { marginProperties, paddingProperties } from './margin-properties';
 
 describe('<Body> component', () => {
   it('renders children correctly', async () => {
@@ -34,6 +34,41 @@ describe('<Body> component', () => {
           <Body style={{ [property]: 10 }}>Random text</Body>,
         );
         expect(actualOutput).toMatchSnapshot();
+      });
+    }
+  });
+
+  it('resets body padding to override client default', async () => {
+    const actualOutput = await render(
+      <Body style={{ padding: '20px', backgroundColor: 'pink' }}>
+        Random text
+      </Body>,
+    );
+
+    const bodyStyle = actualOutput.match(/<body[^>]*style="([^"]*)"/)?.[1] ?? '';
+    const tdStyle = actualOutput.match(/<td[^>]*style="([^"]*)"/)?.[1] ?? '';
+
+    expect(bodyStyle).toContain('padding:0');
+    expect(bodyStyle).toContain('background-color:pink');
+    expect(bodyStyle).not.toContain('padding:20px');
+    expect(tdStyle).toContain('padding:20px');
+  });
+
+  describe('padding resetting behavior', () => {
+    for (const property of paddingProperties) {
+      it(`should reset the ${property} property on body when it comes from props`, async () => {
+        const actualOutput = await render(
+          <Body style={{ [property]: '10px' }}>Random text</Body>,
+        );
+        const kebabProperty = property.replace(
+          /[A-Z]/g,
+          (match) => `-${match.toLowerCase()}`,
+        );
+        const bodyStyle = actualOutput.match(/<body[^>]*style="([^"]*)"/)?.[1] ?? '';
+        const tdStyle = actualOutput.match(/<td[^>]*style="([^"]*)"/)?.[1] ?? '';
+
+        expect(bodyStyle).toContain(`${kebabProperty}:0`);
+        expect(tdStyle).toContain(`${kebabProperty}:10px`);
       });
     }
   });
