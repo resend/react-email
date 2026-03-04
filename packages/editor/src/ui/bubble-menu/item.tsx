@@ -1,14 +1,12 @@
 import type * as React from 'react';
 
-export interface BubbleMenuItemProps {
+export interface BubbleMenuItemProps extends React.ComponentProps<'button'> {
   /** Used for aria-label and data-item attribute */
   name: string;
   /** Whether this item is currently active */
   isActive: boolean;
   /** Called when clicked */
   onCommand: () => void;
-  className?: string;
-  children: React.ReactNode;
 }
 
 export function BubbleMenuItem({
@@ -17,6 +15,7 @@ export function BubbleMenuItem({
   onCommand,
   className,
   children,
+  ...rest
 }: BubbleMenuItemProps) {
   return (
     <button
@@ -29,6 +28,7 @@ export function BubbleMenuItem({
       {...(isActive ? { 'data-active': '' } : {})}
       onMouseDown={(e) => e.preventDefault()}
       onClick={onCommand}
+      {...rest}
     >
       {children}
     </button>

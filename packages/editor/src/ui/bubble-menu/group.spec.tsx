@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react';
-import { BubbleMenuGroup } from './group';
+import { BubbleMenuItemGroup } from './group';
 import { BubbleMenuSeparator } from './separator';
 
-describe('BubbleMenuGroup', () => {
+describe('BubbleMenuItemGroup', () => {
   it('renders children with correct data attribute and role', () => {
     render(
-      <BubbleMenuGroup>
+      <BubbleMenuItemGroup>
         <button type="button">Bold</button>
-      </BubbleMenuGroup>,
+      </BubbleMenuItemGroup>,
     );
     const group = screen.getByRole('group');
     expect(group).toBeDefined();
@@ -17,9 +17,9 @@ describe('BubbleMenuGroup', () => {
 
   it('applies className', () => {
     render(
-      <BubbleMenuGroup className="custom-class">
+      <BubbleMenuItemGroup className="custom-class">
         <button type="button">Bold</button>
-      </BubbleMenuGroup>,
+      </BubbleMenuItemGroup>,
     );
     const group = screen.getByRole('group');
     expect(group.className).toBe('custom-class');

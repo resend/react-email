@@ -58,4 +58,22 @@ describe('BubbleMenuItem', () => {
       'custom',
     );
   });
+
+  it('spreads additional button props', () => {
+    render(
+      <BubbleMenuItem
+        name="bold"
+        isActive={false}
+        onCommand={() => {}}
+        data-testid="custom-button"
+        disabled
+      >
+        <span>B</span>
+      </BubbleMenuItem>,
+    );
+
+    const button = screen.getByTestId('custom-button');
+    expect(button).toBeDefined();
+    expect(button.getAttribute('disabled')).toBe('');
+  });
 });

@@ -1,11 +1,14 @@
 import type * as React from 'react';
 
-export interface BubbleMenuGroupProps {
+export interface BubbleMenuItemGroupProps {
   className?: string;
   children: React.ReactNode;
 }
 
-export function BubbleMenuGroup({ className, children }: BubbleMenuGroupProps) {
+export function BubbleMenuItemGroup({
+  className,
+  children,
+}: BubbleMenuItemGroupProps) {
   return (
     <fieldset className={className} data-re-bubble-menu-group="">
       {children}

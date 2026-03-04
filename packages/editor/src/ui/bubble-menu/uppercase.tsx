@@ -1,9 +1,9 @@
 import { CaseUpperIcon } from 'lucide-react';
-import { createPreWiredItem } from './create-pre-wired-item';
+import { createMarkBubbleItem } from './create-mark-bubble-item';
 
-export const BubbleMenuUppercase = createPreWiredItem({
+export const BubbleMenuUppercase = createMarkBubbleItem({
   name: 'uppercase',
   activeName: 'uppercase',
   command: 'toggleUppercase',
-  icon: CaseUpperIcon,
+  icon: <CaseUpperIcon />,
 });

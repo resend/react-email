@@ -3,7 +3,7 @@ import { BubbleMenuAlignLeft } from './align-left';
 import { BubbleMenuAlignRight } from './align-right';
 import { BubbleMenuBold } from './bold';
 import { BubbleMenuCode } from './code';
-import { BubbleMenuGroup } from './group';
+import { BubbleMenuItemGroup } from './group';
 import { BubbleMenuItalic } from './italic';
 import { BubbleMenuItem } from './item';
 import { BubbleMenuLinkSelector } from './link-selector';
@@ -24,9 +24,9 @@ export { BubbleMenuAlignLeft } from './align-left';
 export { BubbleMenuAlignRight } from './align-right';
 export { BubbleMenuBold } from './bold';
 export { BubbleMenuCode } from './code';
-export type { PreWiredItemProps } from './create-pre-wired-item';
-export type { BubbleMenuGroupProps } from './group';
-export { BubbleMenuGroup } from './group';
+export type { PreWiredItemProps } from './create-mark-bubble-item';
+export type { BubbleMenuItemGroupProps } from './group';
+export { BubbleMenuItemGroup } from './group';
 export { BubbleMenuItalic } from './italic';
 export type { BubbleMenuItemProps } from './item';
 export { BubbleMenuItem } from './item';
@@ -57,7 +57,7 @@ export { BubbleMenuUppercase } from './uppercase';
 // Compound component namespace for convenient `BubbleMenu.Root` usage
 export const BubbleMenu = {
   Root: BubbleMenuRoot,
-  Group: BubbleMenuGroup,
+  ItemGroup: BubbleMenuItemGroup,
   Separator: BubbleMenuSeparator,
   Item: BubbleMenuItem,
   Bold: BubbleMenuBold,

@@ -1,9 +1,9 @@
 import { CodeIcon } from 'lucide-react';
-import { createPreWiredItem } from './create-pre-wired-item';
+import { createMarkBubbleItem } from './create-mark-bubble-item';
 
-export const BubbleMenuCode = createPreWiredItem({
+export const BubbleMenuCode = createMarkBubbleItem({
   name: 'code',
   activeName: 'code',
   command: 'toggleCode',
-  icon: CodeIcon,
+  icon: <CodeIcon />,
 });

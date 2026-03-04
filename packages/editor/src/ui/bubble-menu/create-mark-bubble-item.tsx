@@ -1,5 +1,4 @@
 import { useEditorState } from '@tiptap/react';
-import type { LucideIcon } from 'lucide-react';
 import type * as React from 'react';
 import { useBubbleMenuContext } from './context';
 import { BubbleMenuItem } from './item';
@@ -10,18 +9,17 @@ export interface PreWiredItemProps {
   children?: React.ReactNode;
 }
 
-interface PreWiredItemConfig {
+interface MarkBubbleItemConfig {
   name: string;
   activeName: string;
   activeParams?: Record<string, unknown>;
   command: string;
-  icon: LucideIcon;
+  icon: React.ReactNode;
 }
 
-export function createPreWiredItem(config: PreWiredItemConfig) {
-  function PreWiredItem({ className, children }: PreWiredItemProps) {
+export function createMarkBubbleItem(config: MarkBubbleItemConfig) {
+  function MarkBubbleItem({ className, children }: PreWiredItemProps) {
     const { editor } = useBubbleMenuContext();
-    const Icon = config.icon;
 
     const isActive = useEditorState({
       editor,
@@ -52,12 +50,12 @@ export function createPreWiredItem(config: PreWiredItemConfig) {
         onCommand={handleCommand}
         className={className}
       >
-        {children ?? <Icon />}
+        {children ?? config.icon}
       </BubbleMenuItem>
     );
   }
 
-  PreWiredItem.displayName = `BubbleMenu${config.name.charAt(0).toUpperCase() + config.name.slice(1)}`;
+  MarkBubbleItem.displayName = `BubbleMenu${config.name.charAt(0).toUpperCase() + config.name.slice(1)}`;
 
-  return PreWiredItem;
+  return MarkBubbleItem;
 }

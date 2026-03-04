@@ -2,7 +2,7 @@ import { useEditorState } from '@tiptap/react';
 import { AlignCenterIcon } from 'lucide-react';
 import { setTextAlignment } from '../../utils/set-text-alignment';
 import { useBubbleMenuContext } from './context';
-import type { PreWiredItemProps } from './create-pre-wired-item';
+import type { PreWiredItemProps } from './create-mark-bubble-item';
 import { BubbleMenuItem } from './item';
 
 export function BubbleMenuAlignCenter({

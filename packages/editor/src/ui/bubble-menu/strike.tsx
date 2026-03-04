@@ -1,9 +1,9 @@
 import { StrikethroughIcon } from 'lucide-react';
-import { createPreWiredItem } from './create-pre-wired-item';
+import { createMarkBubbleItem } from './create-mark-bubble-item';
 
-export const BubbleMenuStrike = createPreWiredItem({
+export const BubbleMenuStrike = createMarkBubbleItem({
   name: 'strike',
   activeName: 'strike',
   command: 'toggleStrike',
-  icon: StrikethroughIcon,
+  icon: <StrikethroughIcon />,
 });

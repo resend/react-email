@@ -1,9 +1,9 @@
 import { UnderlineIcon } from 'lucide-react';
-import { createPreWiredItem } from './create-pre-wired-item';
+import { createMarkBubbleItem } from './create-mark-bubble-item';
 
-export const BubbleMenuUnderline = createPreWiredItem({
+export const BubbleMenuUnderline = createMarkBubbleItem({
   name: 'underline',
   activeName: 'underline',
   command: 'toggleUnderline',
-  icon: UnderlineIcon,
+  icon: <UnderlineIcon />,
 });
