@@ -2,14 +2,14 @@ import { PencilIcon } from 'lucide-react';
 import type * as React from 'react';
 import { useLinkBubbleMenuContext } from './context';
 
-export interface LinkBubbleMenuEditLinkProps {
-  className?: string;
-  children?: React.ReactNode;
-}
+export interface LinkBubbleMenuEditLinkProps
+  extends Omit<React.ComponentProps<'button'>, 'type'> {}
 
 export function LinkBubbleMenuEditLink({
   className,
   children,
+  onClick,
+  ...rest
 }: LinkBubbleMenuEditLinkProps) {
   const { setIsEditing } = useLinkBubbleMenuContext();
 
@@ -21,7 +21,11 @@ export function LinkBubbleMenuEditLink({
       data-item="edit-link"
       className={className}
       onMouseDown={(e) => e.preventDefault()}
-      onClick={() => setIsEditing(true)}
+      onClick={(e) => {
+        onClick?.(e);
+        setIsEditing(true);
+      }}
+      {...rest}
     >
       {children ?? <PencilIcon />}
     </button>

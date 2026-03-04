@@ -83,4 +83,9 @@ describe('LinkBubbleMenuOpenLink', () => {
     expect(link).toBeDefined();
     expect(link?.getAttribute('data-item')).toBe('open-link');
   });
+
+  it('spreads rest props onto anchor', () => {
+    renderWithContext(<LinkBubbleMenuOpenLink data-testid="custom" />);
+    expect(screen.getByTestId('custom')).toBeDefined();
+  });
 });

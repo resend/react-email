@@ -5,6 +5,7 @@ import { LinkBubbleMenuRoot } from './root';
 import { LinkBubbleMenuToolbar } from './toolbar';
 import { LinkBubbleMenuUnlink } from './unlink';
 
+export { useLinkBubbleMenuContext } from './context';
 export type { LinkBubbleMenuEditLinkProps } from './edit-link';
 export { LinkBubbleMenuEditLink } from './edit-link';
 export type { LinkBubbleMenuFormProps } from './form';
