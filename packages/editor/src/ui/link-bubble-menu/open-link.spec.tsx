@@ -38,9 +38,9 @@ describe('LinkBubbleMenuOpenLink', () => {
 
   it('updates href when context linkHref changes', () => {
     const { rerender } = renderWithContext(<LinkBubbleMenuOpenLink />);
-    expect(
-      (screen.getByLabelText('Open link') as HTMLAnchorElement).href,
-    ).toBe('https://example.com/');
+    expect((screen.getByLabelText('Open link') as HTMLAnchorElement).href).toBe(
+      'https://example.com/',
+    );
 
     rerender(
       <LinkBubbleMenuContext.Provider
@@ -54,9 +54,9 @@ describe('LinkBubbleMenuOpenLink', () => {
         <LinkBubbleMenuOpenLink />
       </LinkBubbleMenuContext.Provider>,
     );
-    expect(
-      (screen.getByLabelText('Open link') as HTMLAnchorElement).href,
-    ).toBe('https://other.com/');
+    expect((screen.getByLabelText('Open link') as HTMLAnchorElement).href).toBe(
+      'https://other.com/',
+    );
   });
 
   it('renders custom children instead of default icon', () => {
