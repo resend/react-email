@@ -14,7 +14,7 @@
     "version": "changeset version && pnpm install --no-frozen-lockfile && pnpm lint:fix"
   },
   "devDependencies": {
-    "@actions/core": "2.0.2",
+    "@actions/core": "2.0.3",
     "@actions/exec": "2.0.0",
     "@actions/github": "7.0.0",
     "@actions/http-client": "4.0.0",
