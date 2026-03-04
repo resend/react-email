@@ -60,7 +60,7 @@ const WelcomeEmail = ({
 
 export default WelcomeEmail;`;
 
-export const cssCode = `import { Body, Button, Container, Head, Heading, Html, Img, Preview, Section, Tailwind, Text } from '@react-email/components';
+export const cssCode = `import { Body, Button, Container, Head, Heading, Html, Img, Preview, Section, Text } from '@react-email/components';
 
 interface WelcomeEmailProps {
   username?: string;
@@ -77,45 +77,43 @@ const WelcomeEmail = ({
     <Html>
       <Head />
       <Preview>{previewText}</Preview>
-      <Tailwind>
-        <Body style={{ backgroundColor: 'black', margin: 'auto', fontFamily: 'var(--font-sans)' }}>
-          <Container style={{ marginBottom: '40px', marginLeft: 'auto', marginRight: 'auto', padding: '20px', width: '465px' }}>
-            <Section style={{ marginTop: '40px' }}>
-              <Img
-                src={\`https://example.com/brand/example-logo.png\`}
-                width="60"
-                height="60"
-                alt="Logo Example"
-                style={{ margin: '0', marginLeft: 'auto', marginRight: 'auto' }}
-              />
-            </Section>
-            <Heading style={{ fontSize: '24px', color: 'white', fontWeight: 'normal', textAlign: 'center', margin: '0', marginTop: '32px', marginLeft: '0', marginRight: '0' }}>
-              Welcome to <strong>{company}</strong>, {username}!
-            </Heading>
-            <Text style={{ textAlign: 'start', fontSize: '14px', color: 'white' }}>
-              Hello {username},
-            </Text>
-            <Text style={{ textAlign: 'start', fontSize: '14px', color: 'white', lineHeight: '1.625' }}>
-              We're excited to have you onboard at <strong>{company}</strong>.
-              We hope you enjoy your journey with us. If you have any questions
-              or need assistance, feel free to reach out.
-            </Text>
-            <Section style={{ textAlign: 'center', marginTop: '32px', marginBottom: '32px' }}>
-              <Button
-                style={{ padding: '10px 20px', backgroundColor: 'white', borderRadius: '6px', color: 'black', fontSize: '14px', fontWeight: 'semibold', textDecoration: 'none', textAlign: 'center' }}
-                href={\`https://example.com/get-started\`}
-              >
-                Get Started
-              </Button>
-            </Section>
-            <Text style={{ textAlign: 'start', fontSize: '14px', color: 'white' }}>
-              Cheers,
-              <br />
-              The {company} Team
-            </Text>
-          </Container>
-        </Body>
-      </Tailwind>
+      <Body style={{ backgroundColor: 'black', margin: 'auto', fontFamily: "ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'" }}>
+        <Container style={{ marginBottom: '40px', marginLeft: 'auto', marginRight: 'auto', padding: '20px', width: '465px' }}>
+          <Section style={{ marginTop: '40px' }}>
+            <Img
+              src={\`https://example.com/brand/example-logo.png\`}
+              width="60"
+              height="60"
+              alt="Logo Example"
+              style={{ margin: '0', marginLeft: 'auto', marginRight: 'auto' }}
+            />
+          </Section>
+          <Heading style={{ fontSize: '24px', color: 'white', fontWeight: 'normal', textAlign: 'center', margin: '0', marginTop: '32px', marginLeft: '0', marginRight: '0' }}>
+            Welcome to <strong>{company}</strong>, {username}!
+          </Heading>
+          <Text style={{ textAlign: 'start', fontSize: '14px', color: 'white' }}>
+            Hello {username},
+          </Text>
+          <Text style={{ textAlign: 'start', fontSize: '14px', color: 'white', lineHeight: '1.625' }}>
+            We're excited to have you onboard at <strong>{company}</strong>.
+            We hope you enjoy your journey with us. If you have any questions
+            or need assistance, feel free to reach out.
+          </Text>
+          <Section style={{ textAlign: 'center', marginTop: '32px', marginBottom: '32px' }}>
+            <Button
+              style={{ padding: '10px 20px', backgroundColor: 'white', borderRadius: '6px', color: 'black', fontSize: '14px', fontWeight: 'semibold', textDecoration: 'none', textAlign: 'center' }}
+              href={\`https://example.com/get-started\`}
+            >
+              Get Started
+            </Button>
+          </Section>
+          <Text style={{ textAlign: 'start', fontSize: '14px', color: 'white' }}>
+            Cheers,
+            <br />
+            The {company} Team
+          </Text>
+        </Container>
+      </Body>
     </Html>
   );
 };

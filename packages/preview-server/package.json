@@ -1,9 +1,9 @@
 {
   "name": "@react-email/preview-server",
-  "version": "5.2.5",
+  "version": "5.2.9",
   "description": "A live preview of your emails right in your browser.",
   "scripts": {
-    "build": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --disable-warning=ExperimentalWarning\" tsx ./scripts/build-preview-server.mts",
+    "build": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --disable-warning=ExperimentalWarning\" tsx ./scripts/build.mts",
     "caniemail:fetch": "tsx ./scripts/fill-caniemail-data.mts",
     "clean": "rimraf dist",
     "dev": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --disable-warning=ExperimentalWarning\" tsx ./scripts/dev.mts",
@@ -12,8 +12,22 @@
     "test:watch": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --disable-warning=ExperimentalWarning\" vitest"
   },
   "main": "./index.mjs",
+  "files": [
+    "jsx-runtime",
+    "scripts",
+    "src",
+    "index.mjs",
+    "license.md",
+    "next.config.mjs",
+    "package.json",
+    "postcss.config.js",
+    "readme.md",
+    "tsconfig.json",
+    ".next/**/*"
+  ],
   "dependencies": {
-    "next": "16.0.10"
+    "esbuild": "0.25.10",
+    "next": "16.1.6"
   },
   "devDependencies": {
     "@babel/core": "7.26.10",
@@ -40,7 +54,7 @@
     "@react-email/img": "workspace:*",
     "@react-email/link": "workspace:*",
     "@react-email/preview": "workspace:*",
-    "@react-email/tailwind": "workspace:2.0.3",
+    "@react-email/tailwind": "workspace:2.0.5",
     "@react-email/text": "workspace:*",
     "@tailwindcss/postcss": "4.1.17",
     "@types/babel__core": "7.20.5",
@@ -50,13 +64,12 @@
     "@types/mime-types": "2.1.4",
     "@types/node": "22.19.7",
     "@types/normalize-path": "3.0.2",
-    "@types/react": "19.0.10",
-    "@types/react-dom": "19.0.4",
+    "@types/react": "19.2.13",
+    "@types/react-dom": "19.2.3",
     "@types/webpack": "5.28.5",
     "clsx": "2.1.1",
     "colorjs.io": "0.5.2",
     "cross-env": "^10.1.0",
-    "esbuild": "0.25.10",
     "framer-motion": "12.23.22",
     "log-symbols": "4.1.0",
     "module-punycode": "npm:punycode@2.3.1",

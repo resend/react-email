@@ -390,7 +390,7 @@ describe('Tailwind component', () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>.text-body{color:green!important;@media (prefers-color-scheme:dark){color:orange!important}}</style></head><body class="text-body"><table border="0" width="100%" cellPadding="0" cellSpacing="0" role="presentation" align="center"><tbody><tr><td>this is the body</td></tr></tbody></table><!--/$--></body></html>"`,
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>.text-body{@media (prefers-color-scheme:dark){color:orange!important}}</style></head><body class="text-body"><table border="0" width="100%" cellPadding="0" cellSpacing="0" role="presentation" align="center"><tbody><tr><td style="color:green">this is the body</td></tr></tbody></table><!--/$--></body></html>"`,
     );
   });
 
@@ -560,11 +560,11 @@ describe('Tailwind component', () => {
           <head>
             <!--$-->
             <style>
-              .text-body{color:green!important;@media (width>=40rem){color:darkgreen!important}}
+              .text-body{@media (width>=40rem){color:darkgreen!important}}
             </style>
           </head>
           <body>
-            <div class="text-body"></div>
+            <div class="text-body" style="color:green"></div>
             <!--/$-->
           </body>
         </html>

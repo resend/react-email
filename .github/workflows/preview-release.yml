@@ -32,8 +32,7 @@ jobs:
           dir_names_max_depth: 2
       - name: Run Build
         if: steps.changed_packages.outputs.all_changed_and_modified_files != ''
-        run: |
-          pnpm build --filter=[HEAD^1]
+        run: pnpm build
         env:
           SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
           SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
@@ -41,4 +40,4 @@ jobs:
           TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
       - name: Publish changed packages to pkg.pr.new
         if: steps.changed_packages.outputs.all_changed_and_modified_files != ''
-        run: pnpm dlx pkg-pr-new publish ${{ steps.changed_packages.outputs.all_changed_and_modified_files }}
+        run: pnpm pkg-pr-new publish ${{ steps.changed_packages.outputs.all_changed_and_modified_files }} --pnpm

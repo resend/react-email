@@ -41,6 +41,9 @@ export const useEmailRenderingResult = (
         const pathForChangedEmail = await getEmailPathFromSlug(
           relativePathForChangedFile,
         );
+        if (!pathForChangedEmail) {
+          continue;
+        }
 
         const newRenderingResult = await renderEmailByPath(
           pathForChangedEmail,

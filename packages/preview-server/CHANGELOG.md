@@ -1,5 +1,37 @@
 # @react-email/preview-server
 
+## 5.2.9
+
+## 5.2.8
+
+### Patch Changes
+
+- bdf0f1b: update to latest Next.js
+
+## 5.2.7
+
+### Patch Changes
+
+- d47d37e: fix default imports of node modules breaking
+
+## 5.2.6
+
+### Patch Changes
+
+- b019159: improve error messages for when an email template is missing
+- 11f56c5: fix RESEND_API_KEY being overwritten in email preview
+
+## 5.3.0-canary.2
+
+## 5.3.0-canary.1
+
+## 5.3.0-canary.0
+
+### Patch Changes
+
+- Updated dependencies [a8764ee]
+  - @react-email/tailwind@2.0.4-canary.0
+
 ## 5.2.5
 
 ## 5.2.4

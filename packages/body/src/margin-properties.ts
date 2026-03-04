@@ -11,3 +11,17 @@ export const marginProperties: (keyof React.CSSProperties)[] = [
   'marginInlineStart',
   'marginInlineEnd',
 ];
+
+export const paddingProperties: (keyof React.CSSProperties)[] = [
+  'padding',
+  'paddingTop',
+  'paddingBottom',
+  'paddingRight',
+  'paddingLeft',
+  'paddingInline',
+  'paddingBlock',
+  'paddingBlockStart',
+  'paddingBlockEnd',
+  'paddingInlineStart',
+  'paddingInlineEnd',
+];

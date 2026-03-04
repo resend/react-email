@@ -22,10 +22,10 @@ const envPath = path.join(previewServerRoot, '.env.local');
 
 await fs.writeFile(
   envPath,
-  `EMAILS_DIR_RELATIVE_PATH=./emails
-EMAILS_DIR_ABSOLUTE_PATH=${emailsDirectoryPath}
-USER_PROJECT_LOCATION=${previewServerRoot}
-PREVIEW_SERVER_LOCATION=${previewServerRoot}
+  `REACT_EMAIL_INTERNAL_EMAILS_DIR_RELATIVE_PATH=./emails
+REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH=${emailsDirectoryPath}
+REACT_EMAIL_INTERNAL_USER_PROJECT_LOCATION=${previewServerRoot}
+REACT_EMAIL_INTERNAL_PREVIEW_SERVER_LOCATION=${previewServerRoot}
 NEXT_PUBLIC_IS_PREVIEW_DEVELOPMENT=true`,
   'utf8',
 );

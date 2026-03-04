@@ -3,26 +3,31 @@ on:
   push:
     branches:
       - main
+      - canary
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   release:
-    runs-on: blacksmith-2vcpu-ubuntu-2204
+    runs-on: ubuntu-latest
     permissions: 
+      id-token: write
       contents: write
-      pull-requests: write
     container:
       image: node:22
     steps:
       - name: Checkout Repo
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
         with:
-          fetch-depth: 2
+          fetch-depth: 1
       - run: git config --global --add safe.directory $GITHUB_WORKSPACE
+      # NPM 11 is required so that we can do trusted publishing.
+      # See https://docs.npmjs.com/trusted-publishers#supported-cicd-providers
+      - name: Install npm v11
+        run: npm install -g npm@11
       - name: pnpm setup
-        uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
+        uses: pnpm/action-setup@9b5745cdf0a2e8c2620f0746130f809adb911c19
       - name: Install packages
         run: pnpm install --frozen-lockfile --prefer-offline
       - name: Publish stable release
-        run: pnpm run release
+        run: pnpm tsx ./scripts/release.ts
         env: 
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

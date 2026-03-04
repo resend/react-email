@@ -1,10 +1,10 @@
 ---
 name: react-email
-description: Create beautiful, responsive HTML emails using React components with React Email. Build transactional emails with modern components, support internationalization, and integrate with email service providers like Resend. Use when creating welcome emails, password resets, notifications, order confirmations, or any HTML email templates.
+description: Use when creating HTML email templates with React components - welcome emails, password resets, notifications, order confirmations, newsletters, or transactional emails.
 license: MIT
 metadata:
   author: Resend
-  repository: https://github.com/resend/react-email
+  version: "1.1.0"
 ---
 
 # React Email
@@ -93,9 +93,7 @@ bun dev
 
 ## Verify Installation
 
-You must confirm the development server is running by checking that localhost:3000 is accessible. The server will display a preview interface where you can view email templates from the `emails` folder.
-
-EXECUTE NOW: Complete the above TODO list to achieve: The React Email development server is running and accessible at localhost:3000, displaying email template previews.
+Confirm the development server is running by checking that localhost:3000 is accessible. The server will display a preview interface where you can view email templates from the `emails` folder.
 
 ### Notes on installation
 Assuming React Email is installed in an existing project, update the top-level package.json file with a script to run the React Email preview server.
@@ -167,7 +165,7 @@ export default function WelcomeEmail({ name, verificationUrl }: WelcomeEmailProp
             </Text>
             <Button
               href={verificationUrl}
-              className="bg-brand text-white px-5 py-3 rounded block text-center no-underline"
+              className="bg-brand text-white px-5 py-3 rounded block text-center no-underline box-border"
             >
               Verify Email
             </Button>
@@ -206,7 +204,7 @@ See [references/COMPONENTS.md](references/COMPONENTS.md) for complete component 
 - `Text` - Paragraphs
 - `Button` - Styled link buttons
 - `Link` - Hyperlinks
-- `Img` - Images (use absolute URLs) (use the dev server for the BASE_URL of the image in dev mode; for production, ask the user for the BASE_URL of the site; dynamically generate the URL of the image based on environment.)
+- `Img` - Images (see Static Files section below)
 - `Hr` - Horizontal dividers
 
 **Specialized:**
@@ -215,9 +213,71 @@ See [references/COMPONENTS.md](references/COMPONENTS.md) for complete component 
 - `Markdown` - Render markdown
 - `Font` - Custom web fonts
 
+## Before Writing Code
+
+When a user requests an email template, ask clarifying questions FIRST if they haven't provided:
+
+1. **Brand colors** - Ask for primary brand color (hex code like #007bff)
+2. **Logo** - Ask if they have a logo file and its format (PNG/JPG only - warn if SVG/WEBP)
+3. **Style preference** - Professional, casual, or minimal tone
+4. **Production URL** - Where will static assets be hosted in production?
+
+Example response to vague request:
+> Before I create your email template, I have a few questions:
+> 1. What is your primary brand color? (hex code)
+> 2. Do you have a logo file? (PNG or JPG - note: SVG and WEBP don't work reliably in email clients)
+> 3. What tone do you prefer - professional, casual, or minimal?
+> 4. Where will you host static assets in production? (e.g., https://cdn.example.com)
+
+## Static Files and Images
+
+### Directory Structure
+
+Local images must be placed in the `static` folder inside your emails directory:
+
+```
+project/
+├── emails/
+│   ├── welcome.tsx
+│   └── static/           <-- Images go here
+│       └── logo.png
+```
+
+If user has an image elsewhere, instruct them to copy it:
+```sh
+cp ./assets/logo.png ./emails/static/logo.png
+```
+
+### Dev vs Production URLs
+
+Use this pattern for images that work in both dev preview and production:
+
+```tsx
+const baseURL = process.env.NODE_ENV === "production"
+  ? "https://cdn.example.com"  // User's production CDN
+  : "";
+
+export default function Email() {
+  return (
+    <Img
+      src={`${baseURL}/static/logo.png`}
+      alt="Logo"
+      width="150"
+      height="50"
+    />
+  );
+}
+```
+
+**How it works:**
+- **Development:** `baseURL` is empty, so URL is `/static/logo.png` - served by React Email's dev server
+- **Production:** `baseURL` is the CDN domain, so URL is `https://cdn.example.com/static/logo.png`
+
+**Important:** Always ask the user for their production hosting URL. Do not hardcode `localhost:3000`.
+
 ## Behavioral guidelines
 - When re-iterating over the code, make sure you are only updating what the user asked for and keeping the rest of the code intact;
-- If the user is asking to use media queries, inform them that email clients do not support them, and suggest a different approach;
+- If the user is asking to use media queries, inform them that not all email clients support them, and suggest a different approach;
 - Never use template variables (like {{name}}) directly in TypeScript code. Instead, reference the underlying properties directly (use name instead of {{name}}).
 - - For example, if the user explicitly asks for a variable following the pattern {{variableName}}, you should return something like this:
 
@@ -246,9 +306,9 @@ export default EmailTemplate;
 Use the Tailwind component for styling if the user is actively using Tailwind CSS in their project. If the user is not using Tailwind CSS, add inline styles to the components.
 
 - Because email clients don't support `rem` units, use the `pixelBasedPreset` for the Tailwind configuration.
-- Never user flexbox or grid for layout, use table-based layouts instead.
+- **Import `pixelBasedPreset` from `@react-email/components`** — do NOT import from `@react-email/tailwind` or `@react-email/tailwind/presets`.
+- Never use flexbox or grid for layout, use table-based layouts instead.
 - Each component must be styled with inline styles or utility classes.
-- For more information on styling, see [references/STYLING.md](references/STYLING.md)
 
 ### Email Client Limitations
 - Never use SVG or WEBP - warn users about rendering issues
@@ -257,6 +317,16 @@ Use the Tailwind component for styling if the user is actively using Tailwind CS
 - Never use theme selectors (dark:, light:) - not supported
 - Always specify border type (border-solid, border-dashed, etc.)
 - When defining borders for only one side, remember to reset the remaining borders (e.g., border-none border-l)
+
+### Required Classes
+
+These classes are **always required** on their respective components — omitting them causes rendering bugs across email clients:
+
+| Component | Required Class | Why |
+|-----------|---------------|-----|
+| `Button` | `box-border` | Prevents padding from overflowing the button width |
+| `Hr` / any border | `border-solid` (or `border-dashed`, etc.) | Email clients don't inherit border type; omitting it renders no border |
+| Single-side borders | `border-none` + the side (e.g., `border-none border-t border-solid`) | Resets default borders on other sides |
 
 ### Component Structure
 - Always define `<Head />` inside `<Tailwind>` when using Tailwind CSS
