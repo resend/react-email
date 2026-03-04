@@ -23,7 +23,7 @@
     "@changesets/pre": "2.0.2",
     "@manypkg/get-packages": "3.1.0",
     "@octokit/core": "7.0.6",
-    "@types/node": "22.19.7",
+    "@types/node": "22.19.13",
     "@types/react": "19.0.1",
     "@types/react-dom": "19.0.1",
     "happy-dom": "20.0.11",
