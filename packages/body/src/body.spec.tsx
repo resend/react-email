@@ -57,7 +57,7 @@ describe('<Body> component', () => {
 
   describe('padding resetting behavior', () => {
     for (const property of paddingProperties) {
-      it(`should reset the ${property} property on body when it comes from props`, async () => {
+      it(`resets the ${property} property on body when it comes from props`, async () => {
         const actualOutput = await render(
           <Body style={{ [property]: '10px' }}>Random text</Body>,
         );
