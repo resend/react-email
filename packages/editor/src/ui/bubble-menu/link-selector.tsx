@@ -57,16 +57,19 @@ export function BubbleMenuLinkSelector({
     }),
   });
 
+  const setIsOpenRef = React.useRef(setIsOpen);
+  setIsOpenRef.current = setIsOpen;
+
   React.useEffect(() => {
     const subscription = editorEventBus.on('bubble-menu:add-link', () => {
-      setIsOpen(true);
+      setIsOpenRef.current(true);
     });
 
     return () => {
-      setIsOpen(false);
+      setIsOpenRef.current(false);
       subscription.unsubscribe();
     };
-  }, [setIsOpen]);
+  }, []);
 
   if (!editorState) {
     return null;
