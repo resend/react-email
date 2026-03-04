@@ -104,8 +104,8 @@ describe('LinkBubbleMenuForm', () => {
     const { container } = renderWithContext(
       <LinkBubbleMenuForm className="custom-form" />,
     );
-    expect(
-      container.querySelector('[data-re-link-bm-form]')?.className,
-    ).toBe('custom-form');
+    expect(container.querySelector('[data-re-link-bm-form]')?.className).toBe(
+      'custom-form',
+    );
   });
 });

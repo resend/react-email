@@ -40,8 +40,7 @@ export function LinkBubbleMenuRoot({
       editor={editor}
       data-re-link-bm=""
       shouldShow={({ editor: e }) =>
-        e.isActive('link') &&
-        e.view.state.selection.content().size === 0
+        e.isActive('link') && e.view.state.selection.content().size === 0
       }
       options={{
         placement,

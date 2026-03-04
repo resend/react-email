@@ -1,0 +1,66 @@
+/* Minimal functional styles for LinkBubbleMenu compound components.
+ * Layout and positioning only - no visual design.
+ * Import optionally: import '@react-email/editor/styles/link-bubble-menu.css';
+ */
+
+[data-re-link-bm] {
+  display: flex;
+  align-items: center;
+}
+
+[data-re-link-bm-toolbar] {
+  display: flex;
+  align-items: center;
+}
+
+[data-re-link-bm-item] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0.5rem;
+}
+
+[data-re-link-bm-item] svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+a[data-re-link-bm-item] {
+  text-decoration: none;
+  color: inherit;
+}
+
+[data-re-link-bm-form] {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+[data-re-link-bm-input] {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 0.875rem;
+  padding: 0.25rem;
+  background: transparent;
+}
+
+[data-re-link-bm-apply],
+[data-re-link-bm-unlink] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0.25rem;
+}
+
+[data-re-link-bm-apply] svg,
+[data-re-link-bm-unlink] svg {
+  width: 1rem;
+  height: 1rem;
+}
