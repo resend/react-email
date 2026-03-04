@@ -23,7 +23,9 @@ jobs:
           fetch-depth: 1
       - name: pnpm setup
         uses: pnpm/action-setup@9b5745cdf0a2e8c2620f0746130f809adb911c19
+      - name: Install packages
+        run: pnpm install --frozen-lockfile --prefer-offline
       - name: Run Lint
-        run: pnpm dlx @biomejs/biome@2.3.11 check .
+        run: pnpm lint
         env:
           SKIP_ENV_VALIDATION: true
