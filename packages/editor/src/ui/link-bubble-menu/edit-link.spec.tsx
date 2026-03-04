@@ -69,4 +69,17 @@ describe('LinkBubbleMenuEditLink', () => {
     expect(button).toBeDefined();
     expect(button?.getAttribute('data-item')).toBe('edit-link');
   });
+
+  it('composes user onClick with setIsEditing', () => {
+    const userOnClick = vi.fn();
+    renderWithContext(<LinkBubbleMenuEditLink onClick={userOnClick} />);
+    fireEvent.click(screen.getByLabelText('Edit link'));
+    expect(userOnClick).toHaveBeenCalledTimes(1);
+    expect(mockSetIsEditing).toHaveBeenCalledWith(true);
+  });
+
+  it('spreads rest props onto button', () => {
+    renderWithContext(<LinkBubbleMenuEditLink data-testid="custom" />);
+    expect(screen.getByTestId('custom')).toBeDefined();
+  });
 });

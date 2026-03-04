@@ -70,4 +70,18 @@ describe('LinkBubbleMenuUnlink', () => {
     expect(button).toBeDefined();
     expect(button?.getAttribute('data-item')).toBe('unlink');
   });
+
+  it('composes user onClick with unsetLink', () => {
+    const userOnClick = vi.fn();
+    renderWithContext(<LinkBubbleMenuUnlink onClick={userOnClick} />);
+    fireEvent.click(screen.getByLabelText('Remove link'));
+    expect(userOnClick).toHaveBeenCalledTimes(1);
+    expect(mockChain).toHaveBeenCalled();
+    expect(mockRun).toHaveBeenCalled();
+  });
+
+  it('spreads rest props onto button', () => {
+    renderWithContext(<LinkBubbleMenuUnlink data-testid="custom" />);
+    expect(screen.getByTestId('custom')).toBeDefined();
+  });
 });

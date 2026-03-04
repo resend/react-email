@@ -2,14 +2,13 @@ import { ExternalLinkIcon } from 'lucide-react';
 import type * as React from 'react';
 import { useLinkBubbleMenuContext } from './context';
 
-export interface LinkBubbleMenuOpenLinkProps {
-  className?: string;
-  children?: React.ReactNode;
-}
+export interface LinkBubbleMenuOpenLinkProps
+  extends Omit<React.ComponentProps<'a'>, 'href' | 'target' | 'rel'> {}
 
 export function LinkBubbleMenuOpenLink({
   className,
   children,
+  ...rest
 }: LinkBubbleMenuOpenLinkProps) {
   const { linkHref } = useLinkBubbleMenuContext();
 
@@ -22,6 +21,7 @@ export function LinkBubbleMenuOpenLink({
       data-re-link-bm-item=""
       data-item="open-link"
       className={className}
+      {...rest}
     >
       {children ?? <ExternalLinkIcon />}
     </a>

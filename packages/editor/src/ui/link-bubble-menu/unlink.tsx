@@ -2,14 +2,14 @@ import { UnlinkIcon } from 'lucide-react';
 import type * as React from 'react';
 import { useLinkBubbleMenuContext } from './context';
 
-export interface LinkBubbleMenuUnlinkProps {
-  className?: string;
-  children?: React.ReactNode;
-}
+export interface LinkBubbleMenuUnlinkProps
+  extends Omit<React.ComponentProps<'button'>, 'type'> {}
 
 export function LinkBubbleMenuUnlink({
   className,
   children,
+  onClick,
+  ...rest
 }: LinkBubbleMenuUnlinkProps) {
   const { editor } = useLinkBubbleMenuContext();
 
@@ -21,7 +21,11 @@ export function LinkBubbleMenuUnlink({
       data-item="unlink"
       className={className}
       onMouseDown={(e) => e.preventDefault()}
-      onClick={() => editor.chain().focus().unsetLink().run()}
+      onClick={(e) => {
+        onClick?.(e);
+        editor.chain().focus().unsetLink().run();
+      }}
+      {...rest}
     >
       {children ?? <UnlinkIcon />}
     </button>
