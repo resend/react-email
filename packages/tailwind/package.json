@@ -26,8 +26,8 @@
     "build": "tsdown",
     "build:watch": "tsdown --watch",
     "clean": "rm -rf dist",
-    "test": "vitest run src",
-    "test:e2e": "vitest run integrations",
+    "test": "vitest run --exclude e2e",
+    "test:e2e": "vitest run e2e",
     "test:watch": "vitest"
   },
   "repository": {
