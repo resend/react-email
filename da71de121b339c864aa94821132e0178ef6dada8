@@ -1,0 +1,23 @@
+packages/editor/src/ui/link-bubble-menu/context.tsx
+  cb233ba9b4f952f6 1-22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.8",
+  "base_commit_sha": "da71de121b339c864aa94821132e0178ef6dada8",
+  "prompts": {
+    "cb233ba9b4f952f6": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_34b70ecb6ffeKc1E4XywTy1ra5",
+        "model": "anthropic/claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@Joaos-MacBook-Pro.local>",
+      "messages": [],
+      "total_additions": 22,
+      "total_deletions": 0,
+      "accepted_lines": 968,
+      "overriden_lines": 0
+    }
+  }
+}
