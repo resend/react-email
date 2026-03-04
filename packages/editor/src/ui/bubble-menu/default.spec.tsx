@@ -51,18 +51,24 @@ vi.mock('@tiptap/react', () => ({
 }));
 
 let capturedOnHide: (() => void) | undefined;
+let capturedShouldShow:
+  | ((ctx: { editor: typeof mockEditor; view: unknown }) => boolean)
+  | undefined;
 
 vi.mock('@tiptap/react/menus', () => ({
   BubbleMenu: ({
     children,
     className,
     options,
+    shouldShow,
   }: {
     children: React.ReactNode;
     className?: string;
     options?: { placement?: string; offset?: number; onHide?: () => void };
+    shouldShow?: (ctx: { editor: unknown; view: unknown }) => boolean;
   }) => {
     capturedOnHide = options?.onHide;
+    capturedShouldShow = shouldShow as typeof capturedShouldShow;
     return (
       <div
         data-testid="bubble-menu-root"
@@ -192,11 +198,22 @@ describe('BubbleMenuDefault', () => {
     expect(screen.getAllByRole('group')).toHaveLength(1);
   });
 
-  it('forwards excludeNodes to Root', () => {
+  it('forwards excludeNodes to Root so shouldShow rejects excluded nodes', () => {
     render(<BubbleMenuDefault excludeNodes={['image', 'button']} />);
 
-    const root = screen.getByTestId('bubble-menu-root');
-    expect(root).toBeDefined();
+    expect(capturedShouldShow).toBeDefined();
+
+    // When an excluded node is active, shouldShow returns false
+    mockEditor.isActive.mockReturnValueOnce(true);
+    expect(
+      capturedShouldShow!({ editor: mockEditor, view: mockEditor.view }),
+    ).toBe(false);
+
+    // When no excluded node is active, shouldShow returns true
+    mockEditor.isActive.mockReturnValue(false);
+    expect(
+      capturedShouldShow!({ editor: mockEditor, view: mockEditor.view }),
+    ).toBe(true);
   });
 
   it('forwards placement and offset to Root', () => {
