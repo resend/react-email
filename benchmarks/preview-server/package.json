@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "cold-email-previews": "tsx ./src/cold-email-preview.ts",
+    "cold-email-previews": "tsx ./src/cold-email-previews.ts",
     "email-previews": "tsx ./src/email-previews.ts"
   },
   "license": "MIT",
