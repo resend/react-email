@@ -48,7 +48,7 @@
     "@types/node": "^22.0.0",
     "@types/three": "0.170.0",
     "@vercel/firewall": "1.1.2",
-    "autoprefixer": "10.4.23",
+    "autoprefixer": "10.4.27",
     "classnames": "2.5.1",
     "html-to-ast": "0.0.6",
     "postcss": "8.5.6",
