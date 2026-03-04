@@ -3,6 +3,7 @@ import { BubbleMenuAlignLeft } from './align-left';
 import { BubbleMenuAlignRight } from './align-right';
 import { BubbleMenuBold } from './bold';
 import { BubbleMenuCode } from './code';
+import { BubbleMenuDefault } from './default';
 import { BubbleMenuItemGroup } from './group';
 import { BubbleMenuItalic } from './italic';
 import { BubbleMenuItem } from './item';
@@ -25,6 +26,8 @@ export { BubbleMenuAlignRight } from './align-right';
 export { BubbleMenuBold } from './bold';
 export { BubbleMenuCode } from './code';
 export type { PreWiredItemProps } from './create-mark-bubble-item';
+export type { BubbleMenuDefaultProps } from './default';
+export { BubbleMenuDefault } from './default';
 export type { BubbleMenuItemGroupProps } from './group';
 export { BubbleMenuItemGroup } from './group';
 export { BubbleMenuItalic } from './italic';
@@ -75,4 +78,5 @@ export const BubbleMenu = {
     Content: NodeSelectorContent,
   }),
   LinkSelector: BubbleMenuLinkSelector,
+  Default: BubbleMenuDefault,
 } as const;

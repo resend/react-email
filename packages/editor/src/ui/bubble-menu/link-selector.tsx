@@ -17,6 +17,10 @@ export interface BubbleMenuLinkSelectorProps {
   onLinkRemove?: () => void;
   /** Plugin slot: extra actions rendered inside the link input form */
   children?: React.ReactNode;
+  /** Controlled open state */
+  open?: boolean;
+  /** Called when open state changes */
+  onOpenChange?: (open: boolean) => void;
 }
 
 export function BubbleMenuLinkSelector({
@@ -26,9 +30,23 @@ export function BubbleMenuLinkSelector({
   onLinkApply,
   onLinkRemove,
   children,
+  open: controlledOpen,
+  onOpenChange,
 }: BubbleMenuLinkSelectorProps) {
   const { editor } = useBubbleMenuContext();
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(false);
+
+  const isControlled = controlledOpen !== undefined;
+  const isOpen = isControlled ? controlledOpen : uncontrolledOpen;
+  const setIsOpen = React.useCallback(
+    (value: boolean) => {
+      if (!isControlled) {
+        setUncontrolledOpen(value);
+      }
+      onOpenChange?.(value);
+    },
+    [isControlled, onOpenChange],
+  );
 
   const editorState = useEditorState({
     editor,
@@ -48,7 +66,7 @@ export function BubbleMenuLinkSelector({
       setIsOpen(false);
       subscription.unsubscribe();
     };
-  }, []);
+  }, [setIsOpen]);
 
   if (!editorState) {
     return null;
