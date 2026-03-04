@@ -15,7 +15,10 @@ interface HtmlNode {
   parent?: HtmlNode;
 }
 
-function getHtmlNode(path: { node?: HtmlNode; stack?: Array<Record<string, unknown>> }) {
+function getHtmlNode(path: {
+  node?: HtmlNode;
+  stack?: Array<Record<string, unknown>>;
+}) {
   const topNode = path.node;
   if (topNode) {
     return topNode;
@@ -73,10 +76,7 @@ function recursivelyMapDoc(
     const nextDoc = { ...doc } as Record<string, unknown>;
     for (const [key, value] of Object.entries(nextDoc)) {
       if (value && typeof value === 'object') {
-        nextDoc[key] = recursivelyMapDoc(
-          value as builders.Doc,
-          callback,
-        );
+        nextDoc[key] = recursivelyMapDoc(value as builders.Doc, callback);
       }
     }
 
@@ -90,11 +90,16 @@ const modifiedHtml = { ...html } as Plugin;
 if (modifiedHtml.printers) {
   const previousPrint = modifiedHtml.printers.html.print;
   modifiedHtml.printers.html.print = (path, options, print, args) => {
-    const node = getHtmlNode(path as Parameters<Plugin['printers']['html']['print']>[0]);
+    const node = getHtmlNode(
+      path as Parameters<Plugin['printers']['html']['print']>[0],
+    );
 
     const rawPrintingResult = previousPrint(path, options, print, args);
 
-    if (node?.type === 'ieConditionalComment' || node?.kind === 'ieConditionalComment') {
+    if (
+      node?.type === 'ieConditionalComment' ||
+      node?.kind === 'ieConditionalComment'
+    ) {
       const printingResult = recursivelyMapDoc(rawPrintingResult, (doc) => {
         if (typeof doc === 'object' && doc.type === 'line') {
           return doc.soft ? '' : ' ';
