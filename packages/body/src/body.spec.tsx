@@ -45,7 +45,8 @@ describe('<Body> component', () => {
       </Body>,
     );
 
-    const bodyStyle = actualOutput.match(/<body[^>]*style="([^"]*)"/)?.[1] ?? '';
+    const bodyStyle =
+      actualOutput.match(/<body[^>]*style="([^"]*)"/)?.[1] ?? '';
     const tdStyle = actualOutput.match(/<td[^>]*style="([^"]*)"/)?.[1] ?? '';
 
     expect(bodyStyle).toContain('padding:0');
@@ -64,8 +65,10 @@ describe('<Body> component', () => {
           /[A-Z]/g,
           (match) => `-${match.toLowerCase()}`,
         );
-        const bodyStyle = actualOutput.match(/<body[^>]*style="([^"]*)"/)?.[1] ?? '';
-        const tdStyle = actualOutput.match(/<td[^>]*style="([^"]*)"/)?.[1] ?? '';
+        const bodyStyle =
+          actualOutput.match(/<body[^>]*style="([^"]*)"/)?.[1] ?? '';
+        const tdStyle =
+          actualOutput.match(/<td[^>]*style="([^"]*)"/)?.[1] ?? '';
 
         expect(bodyStyle).toContain(`${kebabProperty}:0`);
         expect(tdStyle).toContain(`${kebabProperty}:10px`);
