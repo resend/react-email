@@ -1,7 +1,6 @@
 packages:
   - .github/actions/*
   - apps/*
-  - benchmarks/*
   - packages/*
   - packages/react-email/dev
   - playground
