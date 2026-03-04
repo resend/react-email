@@ -73,6 +73,7 @@ export const InteractiveDemo = () => {
 
             <div className="relative flex flex-col gap-1.5">
               <Heading
+                as="h3"
                 size="5"
                 weight="medium"
                 className="text-white/80 group-data-[active='true']:text-white group-hover:text-white transition-colors"
