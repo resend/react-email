@@ -4,7 +4,8 @@ import * as html from 'prettier/plugins/html';
 import { format } from 'prettier/standalone';
 
 interface HtmlNode {
-  type: 'element' | 'text' | 'ieConditionalComment';
+  type?: 'element' | 'text' | 'ieConditionalComment';
+  kind?: 'element' | 'text' | 'ieConditionalComment' | 'root';
   name?: string;
   sourceSpan: {
     start: { file: unknown[]; offset: number; line: number; col: number };
@@ -12,6 +13,15 @@ interface HtmlNode {
     details: null;
   };
   parent?: HtmlNode;
+}
+
+function getHtmlNode(path: { node?: HtmlNode; stack?: Array<Record<string, unknown>> }) {
+  const topNode = path.node;
+  if (topNode) {
+    return topNode;
+  }
+
+  return path.stack?.[path.stack.length - 1] as HtmlNode;
 }
 
 function recursivelyMapDoc(
@@ -23,6 +33,10 @@ function recursivelyMapDoc(
   }
 
   if (typeof doc === 'object') {
+    if (doc.type === 'line') {
+      return callback(doc.soft ? '' : ' ');
+    }
+
     if (doc.type === 'group') {
       return {
         ...doc,
@@ -55,6 +69,18 @@ function recursivelyMapDoc(
         flatContents: recursivelyMapDoc(doc.flatContents, callback),
       };
     }
+
+    const nextDoc = { ...doc } as Record<string, unknown>;
+    for (const [key, value] of Object.entries(nextDoc)) {
+      if (value && typeof value === 'object') {
+        nextDoc[key] = recursivelyMapDoc(
+          value as builders.Doc,
+          callback,
+        );
+      }
+    }
+
+    return nextDoc as builders.Doc;
   }
 
   return callback(doc);
@@ -64,11 +90,11 @@ const modifiedHtml = { ...html } as Plugin;
 if (modifiedHtml.printers) {
   const previousPrint = modifiedHtml.printers.html.print;
   modifiedHtml.printers.html.print = (path, options, print, args) => {
-    const node = path.getNode() as HtmlNode;
+    const node = getHtmlNode(path as Parameters<Plugin['printers']['html']['print']>[0]);
 
     const rawPrintingResult = previousPrint(path, options, print, args);
 
-    if (node.type === 'ieConditionalComment') {
+    if (node?.type === 'ieConditionalComment' || node?.kind === 'ieConditionalComment') {
       const printingResult = recursivelyMapDoc(rawPrintingResult, (doc) => {
         if (typeof doc === 'object' && doc.type === 'line') {
           return doc.soft ? '' : ' ';
