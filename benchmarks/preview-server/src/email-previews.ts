@@ -20,8 +20,8 @@ const pathToLocalCliScript = path.resolve(
   });
 
   await fetch(`${server.url}/preview/magic-links/notion-magic-link`);
+  await bench.run();
   server.subprocess.kill();
-
   await bench.run();
 
   await fs.writeFile(
