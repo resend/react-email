@@ -5,11 +5,10 @@ import {
   type NodeConfig,
   type NodeType,
 } from '@tiptap/core';
-import type { CssJs } from '../utils/types';
 
 export type RendererComponent = (props: {
   node: JSONContent;
-  styles: CssJs;
+  style: React.CSSProperties;
   children?: React.ReactNode;
 }) => React.ReactNode;
 
@@ -57,10 +56,13 @@ export class EmailNode<
     return customNode;
   }
 
+  // Subclass return types for configure/extend; safe at runtime. TipTap's Node typings cause TS2416 when returning EmailNode.
+  // @ts-expect-error - EmailNode is a valid Node subclass; base typings don't support subclass return types
   configure(options?: Partial<Options>) {
     return super.configure(options) as EmailNode<Options, Storage>;
   }
 
+  // @ts-expect-error - same as configure: extend returns EmailNode for chaining; base typings are incompatible
   extend<
     ExtendedOptions = Options,
     ExtendedStorage = Storage,

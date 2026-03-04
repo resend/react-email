@@ -1,11 +1,13 @@
 import { render } from '@react-email/components';
-import { RESET_THEMES } from '../plugins/theming/themes';
+import { DEFAULT_STYLES } from '../utils/default-styles';
 import {
   ColumnsColumn,
   FourColumns,
   ThreeColumns,
   TwoColumns,
 } from './columns';
+
+const columnsStyle = { ...DEFAULT_STYLES.reset };
 
 describe('Column Variants', () => {
   it('renders TwoColumns with 2 column children', async () => {
@@ -14,19 +16,16 @@ describe('Column Variants', () => {
 
     expect(
       await render(
-        <Parent
-          node={{ type: 'twoColumns', attrs: {} }}
-          styles={{ ...RESET_THEMES.basic }}
-        >
+        <Parent node={{ type: 'twoColumns', attrs: {} }} style={columnsStyle}>
           <Child
             node={{ type: 'columnsColumn', attrs: {} }}
-            styles={{ ...RESET_THEMES.basic }}
+            style={columnsStyle}
           >
             Column A
           </Child>
           <Child
             node={{ type: 'columnsColumn', attrs: {} }}
-            styles={{ ...RESET_THEMES.basic }}
+            style={columnsStyle}
           >
             Column B
           </Child>
@@ -42,25 +41,22 @@ describe('Column Variants', () => {
 
     expect(
       await render(
-        <Parent
-          node={{ type: 'threeColumns', attrs: {} }}
-          styles={{ ...RESET_THEMES.basic }}
-        >
+        <Parent node={{ type: 'threeColumns', attrs: {} }} style={columnsStyle}>
           <Child
             node={{ type: 'columnsColumn', attrs: {} }}
-            styles={{ ...RESET_THEMES.basic }}
+            style={columnsStyle}
           >
             Column A
           </Child>
           <Child
             node={{ type: 'columnsColumn', attrs: {} }}
-            styles={{ ...RESET_THEMES.basic }}
+            style={columnsStyle}
           >
             Column B
           </Child>
           <Child
             node={{ type: 'columnsColumn', attrs: {} }}
-            styles={{ ...RESET_THEMES.basic }}
+            style={columnsStyle}
           >
             Column C
           </Child>
@@ -76,31 +72,28 @@ describe('Column Variants', () => {
 
     expect(
       await render(
-        <Parent
-          node={{ type: 'fourColumns', attrs: {} }}
-          styles={{ ...RESET_THEMES.basic }}
-        >
+        <Parent node={{ type: 'fourColumns', attrs: {} }} style={columnsStyle}>
           <Child
             node={{ type: 'columnsColumn', attrs: {} }}
-            styles={{ ...RESET_THEMES.basic }}
+            style={columnsStyle}
           >
             A
           </Child>
           <Child
             node={{ type: 'columnsColumn', attrs: {} }}
-            styles={{ ...RESET_THEMES.basic }}
+            style={columnsStyle}
           >
             B
           </Child>
           <Child
             node={{ type: 'columnsColumn', attrs: {} }}
-            styles={{ ...RESET_THEMES.basic }}
+            style={columnsStyle}
           >
             C
           </Child>
           <Child
             node={{ type: 'columnsColumn', attrs: {} }}
-            styles={{ ...RESET_THEMES.basic }}
+            style={columnsStyle}
           >
             D
           </Child>
@@ -117,7 +110,7 @@ describe('Column Variants', () => {
       await render(
         <Component
           node={{ type: 'columnsColumn', attrs: { width: '200px' } }}
-          styles={{ ...RESET_THEMES.basic }}
+          style={columnsStyle}
         >
           Column content
         </Component>,
@@ -136,7 +129,7 @@ describe('Column Variants', () => {
             type: 'twoColumns',
             attrs: { style: 'padding: 10px;', class: 'custom-class' },
           }}
-          styles={{ ...RESET_THEMES.basic }}
+          style={columnsStyle}
         >
           Content
         </Component>,
@@ -155,7 +148,7 @@ describe('Column Variants', () => {
             type: 'columnsColumn',
             attrs: { style: 'background-color: red;' },
           }}
-          styles={{ ...RESET_THEMES.basic }}
+          style={columnsStyle}
         >
           Content
         </Component>,

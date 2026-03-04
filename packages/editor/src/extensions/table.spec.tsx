@@ -1,6 +1,10 @@
 import { render } from '@react-email/components';
-import { RESET_THEMES } from '../plugins/theming/themes';
+import { DEFAULT_STYLES } from '../utils/default-styles';
 import { Table, TableCell, TableRow } from './table';
+
+const tableStyle = { ...DEFAULT_STYLES.reset };
+const tableRowStyle = { ...DEFAULT_STYLES.reset };
+const tableCellStyle = { ...DEFAULT_STYLES.reset };
 
 describe('Table Nodes', () => {
   it('renders Table React Email properly', async () => {
@@ -16,7 +20,7 @@ describe('Table Nodes', () => {
               width: '600',
             },
           }}
-          styles={{ ...RESET_THEMES.basic }}
+          style={tableStyle}
         >
           Table content
         </Component>,
@@ -35,7 +39,7 @@ describe('Table Nodes', () => {
             type: 'tableRow',
             attrs: {},
           }}
-          styles={{ ...RESET_THEMES.basic }}
+          style={tableRowStyle}
         >
           Row content
         </Component>,
@@ -56,7 +60,7 @@ describe('Table Nodes', () => {
               alignment: 'left',
             },
           }}
-          styles={{ ...RESET_THEMES.basic }}
+          style={tableCellStyle}
         >
           Cell content
         </Component>,

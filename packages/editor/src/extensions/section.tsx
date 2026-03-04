@@ -58,7 +58,7 @@ export const Section = EmailNode.create<SectionOptions>({
     };
   },
 
-  renderToReactEmail({ children, node, styles }) {
+  renderToReactEmail({ children, node, style }) {
     const inlineStyles = inlineCssToJs(node.attrs?.style);
     const textAlign = node.attrs?.align || node.attrs?.alignment;
 
@@ -68,7 +68,7 @@ export const Section = EmailNode.create<SectionOptions>({
         align={textAlign}
         style={
           {
-            ...styles.section,
+            ...style,
             ...inlineStyles,
             ...getTextAlignment(textAlign),
           } as React.CSSProperties

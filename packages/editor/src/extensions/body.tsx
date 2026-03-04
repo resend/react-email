@@ -60,13 +60,13 @@ export const Body = EmailNode.create<BodyOptions>({
     ];
   },
 
-  renderToReactEmail({ children, node, styles }) {
+  renderToReactEmail({ children, node, style }) {
     const inlineStyles = inlineCssToJs(node.attrs?.style);
     return (
       <div
         className={node.attrs?.class || undefined}
         style={{
-          ...styles.reset,
+          ...style,
           ...inlineStyles,
         }}
       >

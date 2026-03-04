@@ -137,12 +137,12 @@ function createColumnsNode(
       },
     }),
 
-    renderToReactEmail({ children, node, styles }) {
+    renderToReactEmail({ children, node, style }) {
       const inlineStyles = inlineCssToJs(node.attrs?.style);
       return (
         <Row
           className={node.attrs?.class || undefined}
-          style={{ ...styles.reset, ...inlineStyles }}
+          style={{ ...style, ...inlineStyles }}
         >
           {children}
         </Row>
@@ -246,14 +246,14 @@ export const ColumnsColumn = EmailNode.create({
     };
   },
 
-  renderToReactEmail({ children, node, styles }) {
+  renderToReactEmail({ children, node, style }) {
     const inlineStyles = inlineCssToJs(node.attrs?.style);
     const width = node.attrs?.width;
     return (
       <Column
         className={node.attrs?.class || undefined}
         style={{
-          ...styles.reset,
+          ...style,
           ...inlineStyles,
           ...(width ? { width } : {}),
         }}

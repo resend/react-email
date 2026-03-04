@@ -1,6 +1,9 @@
 import { render } from '@react-email/components';
-import { RESET_THEMES } from '../plugins/theming/themes';
+import { DEFAULT_STYLES } from '../utils/default-styles';
 import { Section } from './section';
+
+// Resolved style matching snapshot: section only (text-align from getTextAlignment in component)
+const sectionStyle = { ...DEFAULT_STYLES.section };
 
 describe('Section Node', () => {
   it('renders React Email properly', async () => {
@@ -16,7 +19,7 @@ describe('Section Node', () => {
               alignment: 'center',
             },
           }}
-          styles={{ ...RESET_THEMES.basic }}
+          style={sectionStyle}
         >
           Section content
         </Component>,

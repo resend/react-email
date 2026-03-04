@@ -1,6 +1,6 @@
 import { Extension } from '@tiptap/core';
 
-interface AlignmentOptions {
+export interface AlignmentOptions {
   types: string[];
   alignments: string[];
 }

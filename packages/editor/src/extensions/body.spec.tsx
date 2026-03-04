@@ -1,6 +1,9 @@
 import { render } from '@react-email/components';
-import { RESET_THEMES } from '../plugins/theming/themes';
+import { DEFAULT_STYLES } from '../utils/default-styles';
 import { Body } from './body';
+
+// Resolved style matching snapshot: reset only (no body-specific styles in snapshot)
+const bodyStyle = { ...DEFAULT_STYLES.reset };
 
 describe('Body Node', () => {
   it('renders React Email properly', async () => {
@@ -15,7 +18,7 @@ describe('Body Node', () => {
               class: 'body-class',
             },
           }}
-          styles={{ ...RESET_THEMES.basic }}
+          style={bodyStyle}
         >
           Body content
         </Component>,

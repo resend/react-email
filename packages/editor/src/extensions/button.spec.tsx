@@ -1,6 +1,8 @@
 import { render } from '@react-email/components';
-import { RESET_THEMES } from '../plugins/theming/themes';
+import { DEFAULT_STYLES } from '../utils/default-styles';
 import { Button } from './button';
+
+const buttonStyle = { ...DEFAULT_STYLES.reset, ...DEFAULT_STYLES.button };
 
 describe('EditorButton Node', () => {
   it('renders React Email properly', async () => {
@@ -17,7 +19,7 @@ describe('EditorButton Node', () => {
               alignment: 'center',
             },
           }}
-          styles={{ ...RESET_THEMES.basic }}
+          style={buttonStyle}
         >
           Click me
         </Component>,

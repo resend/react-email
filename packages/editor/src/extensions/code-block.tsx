@@ -136,7 +136,7 @@ export const CodeBlockPrism = EmailNode.from(
       ];
     },
   }),
-  ({ node, styles }) => {
+  ({ node, style }) => {
     const language = node.attrs?.language
       ? `${node.attrs.language}`
       : 'javascript';
@@ -173,7 +173,7 @@ export const CodeBlockPrism = EmailNode.from(
         theme={theme}
         style={{
           width: 'auto',
-          ...styles.codeBlock,
+          ...style,
         }}
       />
     );
