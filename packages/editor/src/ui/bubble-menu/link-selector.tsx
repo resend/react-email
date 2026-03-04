@@ -1,9 +1,10 @@
+import type { Editor } from '@tiptap/core';
 import { useEditorState } from '@tiptap/react';
 import { Check, LinkIcon, UnlinkIcon } from 'lucide-react';
 import * as React from 'react';
 import { editorEventBus } from '../../core/event-bus';
 import { useBubbleMenuContext } from './context';
-import { getUrlFromString } from './utils';
+import { focusEditor, getUrlFromString, setLinkHref } from './utils';
 
 export interface BubbleMenuLinkSelectorProps {
   className?: string;
@@ -95,7 +96,7 @@ export function BubbleMenuLinkSelector({
 }
 
 interface LinkFormProps {
-  editor: ReturnType<typeof useBubbleMenuContext>['editor'];
+  editor: Editor;
   currentHref: string;
   validateUrl?: (value: string) => string | null;
   onLinkApply?: (href: string) => void;
@@ -236,30 +237,4 @@ function LinkForm({
       )}
     </form>
   );
-}
-
-function setLinkHref(editor: LinkFormProps['editor'], href: string) {
-  if (href.length === 0) {
-    editor.chain().unsetLink().run();
-    return;
-  }
-
-  const { from, to } = editor.state.selection;
-  if (from === to) {
-    editor
-      .chain()
-      .extendMarkRange('link')
-      .setLink({ href })
-      .setTextSelection({ from, to })
-      .run();
-    return;
-  }
-
-  editor.chain().setLink({ href }).run();
-}
-
-function focusEditor(editor: LinkFormProps['editor']) {
-  setTimeout(() => {
-    editor.commands.focus();
-  }, 0);
 }
