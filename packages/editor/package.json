@@ -1,6 +1,6 @@
 {
   "name": "@react-email/editor",
-  "version": "0.0.0-experimental.8",
+  "version": "0.0.0-experimental.9",
   "description": "",
   "sideEffects": [
     "**/*.css"
@@ -22,11 +22,13 @@
         "default": "./dist/index.js"
       }
     },
-    "./styles/bubble-menu.css": "./dist/ui/bubble-menu/bubble-menu.css"
+    "./styles/bubble-menu.css": "./dist/ui/bubble-menu/bubble-menu.css",
+    "./styles/link-bubble-menu.css": "./dist/ui/link-bubble-menu/link-bubble-menu.css"
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsdown src/index.ts --format esm,cjs --dts --external react",
+    "build": "tsdown src/index.ts --format esm,cjs --dts --external react && pnpm run build:css",
+    "build:css": "node scripts/copy-css.mjs",
     "build:watch": "tsdown src/index.ts --format esm,cjs --dts --external react --watch",
     "clean": "rm -rf dist",
     "test": "vitest run",

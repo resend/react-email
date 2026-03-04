@@ -1,3 +1,5 @@
+import type { Editor } from '@tiptap/core';
+
 const SAFE_PROTOCOLS = new Set(['http:', 'https:', 'mailto:', 'tel:']);
 
 /**
@@ -29,4 +31,30 @@ export function getUrlFromString(str: string): string | null {
   }
 
   return null;
+}
+
+export function setLinkHref(editor: Editor, href: string): void {
+  if (href.length === 0) {
+    editor.chain().unsetLink().run();
+    return;
+  }
+
+  const { from, to } = editor.state.selection;
+  if (from === to) {
+    editor
+      .chain()
+      .extendMarkRange('link')
+      .setLink({ href })
+      .setTextSelection({ from, to })
+      .run();
+    return;
+  }
+
+  editor.chain().setLink({ href }).run();
+}
+
+export function focusEditor(editor: Editor): void {
+  setTimeout(() => {
+    editor.commands.focus();
+  }, 0);
 }
