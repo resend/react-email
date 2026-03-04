@@ -1,0 +1,31 @@
+packages/editor/src/ui/link-bubble-menu/edit-link.tsx
+  cb233ba9b4f952f6 1-29
+packages/editor/src/ui/link-bubble-menu/unlink.tsx
+  cb233ba9b4f952f6 1-29
+packages/editor/src/ui/link-bubble-menu/toolbar.tsx
+  cb233ba9b4f952f6 1-24
+packages/editor/src/ui/link-bubble-menu/open-link.tsx
+  cb233ba9b4f952f6 1-29
+packages/editor/src/ui/link-bubble-menu/toolbar.spec.tsx
+  cb233ba9b4f952f6 1-57
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.8",
+  "base_commit_sha": "3c5d6e392b94cdf564480bad3e284b3ed7ca1de8",
+  "prompts": {
+    "cb233ba9b4f952f6": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_34b70ecb6ffeKc1E4XywTy1ra5",
+        "model": "anthropic/claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@Joaos-MacBook-Pro.local>",
+      "messages": [],
+      "total_additions": 170,
+      "total_deletions": 2,
+      "accepted_lines": 1114,
+      "overriden_lines": 0
+    }
+  }
+}
