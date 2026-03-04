@@ -1,8 +1,10 @@
 {
   "name": "@react-email/editor",
-  "version": "0.0.0-experimental.6",
+  "version": "0.0.0-experimental.7",
   "description": "",
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -19,7 +21,8 @@
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
       }
-    }
+    },
+    "./styles/bubble-menu.css": "./dist/ui/bubble-menu/bubble-menu.css"
   },
   "license": "MIT",
   "scripts": {
@@ -42,7 +45,9 @@
     "node": ">=20.0.0"
   },
   "peerDependencies": {
+    "@radix-ui/react-popover": "^1.0.0",
     "@react-email/components": "workspace:*",
+    "lucide-react": ">=0.300.0",
     "react": "^18.0 || ^19.0 || ^19.0.0-rc"
   },
   "dependencies": {
@@ -59,6 +64,7 @@
     "prismjs": "^1.30.0"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.0.0",
     "@types/prismjs": "1.26.5",
     "tsconfig": "workspace:*",
     "typescript": "5.8.3"

@@ -14,3 +14,4 @@ export * from './section';
 export * from './style-attribute';
 export * from './sup';
 export * from './table';
+export * from './uppercase';
