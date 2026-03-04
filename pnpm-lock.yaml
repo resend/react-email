@@ -784,8 +784,8 @@ importers:
         specifier: 2.1.1
         version: 2.1.1
       colorjs.io:
-        specifier: 0.5.2
-        version: 0.5.2
+        specifier: 0.6.0
+        version: 0.6.0
       cross-env:
         specifier: ^10.1.0
         version: 10.1.0
@@ -5387,8 +5387,8 @@ packages:
     resolution: {integrity: sha512-1rXeuUUiGGrykh+CeBdu5Ie7OJwinCgQY0bc7GCRxy5xVHy+moaqkpL/jqQq0MtQOeYcrqEz4abc5f0KtU7W4A==}
     engines: {node: '>=12.5.0'}
 
-  colorjs.io@0.5.2:
-    resolution: {integrity: sha512-twmVoizEW7ylZSN32OgKdXRmo1qg+wT5/6C3xu5b9QsWzSFAhHLn2xd8ro0diCsKfCj1RdaTP/nrcW+vAoQPIw==}
+  colorjs.io@0.6.0:
+    resolution: {integrity: sha512-NgaccdK0ajJ9DPfa5OrIFRfTm4XILboOuqKV6tu9UonREcve+RUilZR3cdo7BbG+xIHFbDv4CxTE4M2vsj7nqw==}
 
   combined-stream@1.0.8:
     resolution: {integrity: sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==}
@@ -13741,10 +13741,6 @@ snapshots:
     dependencies:
       acorn: 8.11.2
 
-  acorn-jsx@5.3.2(acorn@8.15.0):
-    dependencies:
-      acorn: 8.15.0
-
   acorn-jsx@5.3.2(acorn@8.16.0):
     dependencies:
       acorn: 8.16.0
@@ -14243,7 +14239,7 @@ snapshots:
       color-convert: 2.0.1
       color-string: 1.9.1
 
-  colorjs.io@0.5.2: {}
+  colorjs.io@0.6.0: {}
 
   combined-stream@1.0.8:
     dependencies:
@@ -14765,7 +14761,7 @@ snapshots:
   esast-util-from-js@2.0.1:
     dependencies:
       '@types/estree-jsx': 1.0.5
-      acorn: 8.15.0
+      acorn: 8.16.0
       esast-util-from-estree: 2.0.0
       vfile-message: 4.0.2
 
@@ -16676,8 +16672,8 @@ snapshots:
 
   micromark-extension-mdxjs@3.0.0:
     dependencies:
-      acorn: 8.15.0
-      acorn-jsx: 5.3.2(acorn@8.15.0)
+      acorn: 8.16.0
+      acorn-jsx: 5.3.2(acorn@8.16.0)
       micromark-extension-mdx-expression: 3.0.0
       micromark-extension-mdx-jsx: 3.0.1
       micromark-extension-mdx-md: 2.0.0
