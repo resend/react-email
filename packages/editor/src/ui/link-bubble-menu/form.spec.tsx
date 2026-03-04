@@ -255,7 +255,7 @@ describe('LinkBubbleMenuForm', () => {
 
       fireEvent.keyDown(window, { key: 'Enter' });
 
-      expect(mockSetIsEditing).not.toHaveBeenCalledWith(false);
+      expect(mockSetIsEditing).not.toHaveBeenCalled();
     });
   });
 
