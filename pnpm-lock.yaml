@@ -956,7 +956,7 @@ importers:
         version: 9.0.5
       prettier:
         specifier: ^3.5.3
-        version: 3.5.3
+        version: 3.8.1
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -17658,8 +17658,7 @@ snapshots:
 
   prettier@3.5.3: {}
 
-  prettier@3.8.1:
-    optional: true
+  prettier@3.8.1: {}
 
   pretty-bytes@6.1.1: {}
 
