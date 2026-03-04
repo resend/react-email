@@ -5,6 +5,8 @@ on:
       - main
       - canary
   pull_request:
+permissions:
+  contents: read
 jobs:
   audit:
     runs-on: blacksmith-2vcpu-ubuntu-2204
