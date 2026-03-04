@@ -27,7 +27,7 @@ test('email export', { retry: 3 }, async () => {
         <!--$-->
       </head>
       <body
-        style="background-color:rgb(255,255,255);margin-top:0;margin-bottom:0;margin-right:0;margin-left:0">
+        style="background-color:rgb(255,255,255);margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-right:0;padding-left:0">
         <table
           border="0"
           width="100%"
