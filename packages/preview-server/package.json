@@ -1,6 +1,6 @@
 {
   "name": "@react-email/preview-server",
-  "version": "5.2.8",
+  "version": "5.2.9",
   "description": "A live preview of your emails right in your browser.",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --disable-warning=ExperimentalWarning\" tsx ./scripts/build.mts",
@@ -68,7 +68,7 @@
     "@types/react-dom": "19.2.3",
     "@types/webpack": "5.28.5",
     "clsx": "2.1.1",
-    "colorjs.io": "0.5.2",
+    "colorjs.io": "0.6.0",
     "cross-env": "^10.1.0",
     "framer-motion": "12.23.22",
     "log-symbols": "4.1.0",
