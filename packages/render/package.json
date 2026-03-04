@@ -126,7 +126,7 @@
     "@types/html-to-text": "9.0.4",
     "jsdom": "26.1.0",
     "tsconfig": "workspace:*",
-    "typescript": "5.8.3"
+    "typescript": "catalog:"
   },
   "publishConfig": {
     "access": "public"

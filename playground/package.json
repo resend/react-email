@@ -9,8 +9,8 @@
   "dependencies": {
     "@react-email/render": "workspace:*",
     "@react-email/tailwind": "workspace:*",
-    "react": "^19",
-    "react-dom": "^19"
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
     "@react-email/preview-server": "workspace:*",

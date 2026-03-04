@@ -9,13 +9,13 @@
   },
   "dependencies": {
     "@react-email/components": "INSERT_COMPONENTS_VERSION",
-    "react-dom": "^19.0.0",
-    "react": "^19.0.0"
+    "react-dom": "catalog:",
+    "react": "catalog:"
   },
   "devDependencies": {
     "@react-email/preview-server": "INSERT_REACT_EMAIL_VERSION",
-    "@types/react": "^19.0.1",
-    "@types/react-dom": "^19.0.1",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "react-email": "INSERT_REACT_EMAIL_VERSION"
   }
 }
