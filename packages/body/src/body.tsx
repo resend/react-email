@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { marginProperties } from './margin-properties';
+import { marginProperties, paddingProperties } from './margin-properties';
 
 export type BodyProps = Readonly<React.HtmlHTMLAttributes<HTMLBodyElement>>;
 
@@ -10,7 +10,7 @@ export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
       backgroundColor: style?.backgroundColor,
     };
     if (style) {
-      for (const property of marginProperties) {
+      for (const property of [...marginProperties, ...paddingProperties]) {
         // We reset the margin if the user sets it, this mimics the
         // same behavior that would happen if this was only using the body.
         // This avoids the incoming margin summing up with the margin
