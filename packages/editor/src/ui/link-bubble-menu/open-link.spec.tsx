@@ -36,12 +36,27 @@ describe('LinkBubbleMenuOpenLink', () => {
     expect(link.rel).toBe('noopener noreferrer');
   });
 
-  it('updates href when linkHref changes', () => {
-    renderWithContext(<LinkBubbleMenuOpenLink />, {
-      linkHref: 'https://other.com',
-    });
-    const link = screen.getByLabelText('Open link') as HTMLAnchorElement;
-    expect(link.href).toBe('https://other.com/');
+  it('updates href when context linkHref changes', () => {
+    const { rerender } = renderWithContext(<LinkBubbleMenuOpenLink />);
+    expect(
+      (screen.getByLabelText('Open link') as HTMLAnchorElement).href,
+    ).toBe('https://example.com/');
+
+    rerender(
+      <LinkBubbleMenuContext.Provider
+        value={{
+          editor: {} as any,
+          linkHref: 'https://other.com',
+          isEditing: false,
+          setIsEditing: vi.fn(),
+        }}
+      >
+        <LinkBubbleMenuOpenLink />
+      </LinkBubbleMenuContext.Provider>,
+    );
+    expect(
+      (screen.getByLabelText('Open link') as HTMLAnchorElement).href,
+    ).toBe('https://other.com/');
   });
 
   it('renders custom children instead of default icon', () => {
