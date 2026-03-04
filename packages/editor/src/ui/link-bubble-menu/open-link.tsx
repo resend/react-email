@@ -14,6 +14,7 @@ export function LinkBubbleMenuOpenLink({
 
   return (
     <a
+      {...rest}
       href={linkHref}
       target="_blank"
       rel="noopener noreferrer"
@@ -21,7 +22,6 @@ export function LinkBubbleMenuOpenLink({
       data-re-link-bm-item=""
       data-item="open-link"
       className={className}
-      {...rest}
     >
       {children ?? <ExternalLinkIcon />}
     </a>
