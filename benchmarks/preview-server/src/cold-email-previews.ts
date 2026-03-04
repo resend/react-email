@@ -16,8 +16,11 @@ const pathToLocalCliScript = path.resolve(
 
   bench.add('coldemail previews', async () => {
     const server = await runServer(pathToLocalCliScript);
-    await fetch(`${server.url}/preview/magic-links/notion-magic-link`);
-    server.subprocess.kill();
+    try {
+      await fetch(`${server.url}/preview/magic-links/notion-magic-link`);
+    } finally {
+      server.subprocess.kill();
+    }
   });
 
   await bench.run();
