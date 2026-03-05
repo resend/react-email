@@ -6,7 +6,7 @@ import { LinkBubbleMenuContext } from './context';
 export interface LinkBubbleMenuRootProps {
   /** Called when the bubble menu hides */
   onHide?: () => void;
-  /** Placement relative to cursor (default: 'bottom') */
+  /** Placement relative to cursor (default: 'top') */
   placement?: 'top' | 'bottom';
   /** Offset from cursor in px (default: 8) */
   offset?: number;
@@ -17,7 +17,7 @@ export interface LinkBubbleMenuRootProps {
 
 export function LinkBubbleMenuRoot({
   onHide,
-  placement = 'bottom',
+  placement = 'top',
   offset = 8,
   className,
   children,
