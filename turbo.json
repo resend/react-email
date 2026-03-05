@@ -46,6 +46,9 @@
     "lint": {},
     "//#format": {},
     "//#format:check": {},
+    "test:e2e": {
+      "dependsOn": ["^build"]
+    },
     "test": {
       "dependsOn": ["^build"]
     },
