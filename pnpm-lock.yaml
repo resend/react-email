@@ -94,8 +94,8 @@ catalogs:
       specifier: 2.0.7
       version: 2.0.7
     tailwindcss:
-      specifier: ^4.2.1
-      version: 4.2.1
+      specifier: 4.1.18
+      version: 4.1.18
     tinybench:
       specifier: 3.1.0
       version: 3.1.0
@@ -964,7 +964,7 @@ importers:
         version: 3.4.0
       tailwindcss:
         specifier: 'catalog:'
-        version: 4.2.1
+        version: 4.1.18
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1135,7 +1135,7 @@ importers:
         version: 19.0.0
       tailwindcss:
         specifier: 'catalog:'
-        version: 4.2.1
+        version: 4.1.18
     devDependencies:
       '@react-email/body':
         specifier: workspace:*
@@ -7620,8 +7620,8 @@ packages:
   tailwindcss@4.1.17:
     resolution: {integrity: sha512-j9Ee2YjuQqYT9bbRTfTZht9W/ytp5H+jJpZKiYdP/bpnXARAuELt9ofP0lPnmHjbga7SNQIxdTAXCmtKVYjN+Q==}
 
-  tailwindcss@4.2.1:
-    resolution: {integrity: sha512-/tBrSQ36vCleJkAOsy9kbNTgaxvGbyOamC30PRePTQe/o1MFwEKHQk4Cn7BNGaPtjp+PuUrByJehM1hgxfq4sw==}
+  tailwindcss@4.1.18:
+    resolution: {integrity: sha512-4+Z+0yiYyEtUVCScyfHCxOYP06L5Ne+JiHhY2IjR2KWMIWhJOYZKLSGZaP5HkZ8+bY0cxfzwDE5uOmzFXyIwxw==}
 
   tapable@2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
@@ -16263,7 +16263,7 @@ snapshots:
 
   tailwindcss@4.1.17: {}
 
-  tailwindcss@4.2.1: {}
+  tailwindcss@4.1.18: {}
 
   tapable@2.2.1: {}
 
