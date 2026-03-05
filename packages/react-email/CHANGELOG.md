@@ -1,5 +1,11 @@
 # react-email
 
+## 5.2.9
+
+### Patch Changes
+
+- 79bb7cc: manually determine esbuild binary path to avoid forcing a host version
+
 ## 5.2.8
 
 ## 5.2.7

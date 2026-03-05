@@ -18,6 +18,6 @@ jobs:
         with:
           fetch-depth: 1
       - name: pnpm setup
-        uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
+        uses: pnpm/action-setup@9b5745cdf0a2e8c2620f0746130f809adb911c19
       - name: Check pull request title
         run: pnpm dlx tsx@4.21.0 ./scripts/pull-request-title-check.ts

@@ -1,9 +1,9 @@
 {
   "name": "react-email",
-  "version": "5.2.8",
+  "version": "5.2.9",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
-    "email": "./dist/index.js"
+    "email": "./dist/index.mjs"
   },
   "type": "module",
   "scripts": {

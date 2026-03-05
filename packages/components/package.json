@@ -1,11 +1,11 @@
 {
   "name": "@react-email/components",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A collection of all components React Email.",
   "sideEffects": false,
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.cts",
   "files": [
     "dist/**"
   ],
@@ -16,8 +16,8 @@
         "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
       }
     }
   },
@@ -58,7 +58,7 @@
     "@react-email/render": "workspace:2.0.4",
     "@react-email/row": "workspace:0.0.13",
     "@react-email/section": "workspace:0.0.17",
-    "@react-email/tailwind": "workspace:2.0.4",
+    "@react-email/tailwind": "workspace:2.0.5",
     "@react-email/text": "workspace:0.1.6"
   },
   "peerDependencies": {
