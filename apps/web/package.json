@@ -52,7 +52,7 @@
     "classnames": "2.5.1",
     "html-to-ast": "0.0.6",
     "postcss": "catalog:",
-    "tailwindcss": "catalog:",
+    "tailwindcss": "3.4.4",
     "tsconfig": "workspace:*",
     "typescript": "catalog:",
     "webpack": "5.105.4",
