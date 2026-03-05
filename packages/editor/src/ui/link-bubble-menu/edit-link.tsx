@@ -9,6 +9,7 @@ export function LinkBubbleMenuEditLink({
   className,
   children,
   onClick,
+  onMouseDown,
   ...rest
 }: LinkBubbleMenuEditLinkProps) {
   const { setIsEditing } = useLinkBubbleMenuContext();
@@ -20,7 +21,10 @@ export function LinkBubbleMenuEditLink({
       data-re-link-bm-item=""
       data-item="edit-link"
       className={className}
-      onMouseDown={(e) => e.preventDefault()}
+      onMouseDown={(e) => {
+        e.preventDefault();
+        onMouseDown?.(e);
+      }}
       onClick={(e) => {
         onClick?.(e);
         setIsEditing(true);

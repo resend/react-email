@@ -81,4 +81,17 @@ describe('ButtonBubbleMenuEditLink', () => {
     renderWithContext(<ButtonBubbleMenuEditLink data-testid="custom" />);
     expect(screen.getByTestId('custom')).toBeDefined();
   });
+
+  it('composes user onMouseDown while still preventing default', () => {
+    const userOnMouseDown = vi.fn();
+    renderWithContext(
+      <ButtonBubbleMenuEditLink onMouseDown={userOnMouseDown} />,
+    );
+    const button = screen.getByLabelText('Edit link');
+    const event = new MouseEvent('mousedown', { bubbles: true });
+    const preventSpy = vi.spyOn(event, 'preventDefault');
+    button.dispatchEvent(event);
+    expect(preventSpy).toHaveBeenCalled();
+    expect(userOnMouseDown).toHaveBeenCalledTimes(1);
+  });
 });
