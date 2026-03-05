@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@react-email/render": "workspace:*",
-    "@types/prismjs": "1.26.5",
+    "@types/prismjs": "1.26.6",
     "tsconfig": "workspace:*",
     "typescript": "5.8.3"
   },
