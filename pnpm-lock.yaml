@@ -784,8 +784,8 @@ importers:
         specifier: 2.1.1
         version: 2.1.1
       colorjs.io:
-        specifier: 0.6.0
-        version: 0.6.0
+        specifier: 0.6.1
+        version: 0.6.1
       cross-env:
         specifier: ^10.1.0
         version: 10.1.0
@@ -5464,8 +5464,8 @@ packages:
     resolution: {integrity: sha512-1rXeuUUiGGrykh+CeBdu5Ie7OJwinCgQY0bc7GCRxy5xVHy+moaqkpL/jqQq0MtQOeYcrqEz4abc5f0KtU7W4A==}
     engines: {node: '>=12.5.0'}
 
-  colorjs.io@0.6.0:
-    resolution: {integrity: sha512-NgaccdK0ajJ9DPfa5OrIFRfTm4XILboOuqKV6tu9UonREcve+RUilZR3cdo7BbG+xIHFbDv4CxTE4M2vsj7nqw==}
+  colorjs.io@0.6.1:
+    resolution: {integrity: sha512-8lyR2wHzuIykCpqHKgluGsqQi5iDm3/a2IgP2GBZrasn2sBRkE4NOGsglZxWLs/jZQoNkmA/KM/8NV16rLUdBg==}
 
   combined-stream@1.0.8:
     resolution: {integrity: sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==}
@@ -14431,7 +14431,7 @@ snapshots:
       color-convert: 2.0.1
       color-string: 1.9.1
 
-  colorjs.io@0.6.0: {}
+  colorjs.io@0.6.1: {}
 
   combined-stream@1.0.8:
     dependencies:
