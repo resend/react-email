@@ -49,8 +49,8 @@ describe('ButtonBubbleMenuToolbar', () => {
         <span>child</span>
       </ButtonBubbleMenuToolbar>,
     );
-    expect(
-      container.querySelector('[data-re-btn-bm-toolbar]')?.className,
-    ).toBe('custom');
+    expect(container.querySelector('[data-re-btn-bm-toolbar]')?.className).toBe(
+      'custom',
+    );
   });
 });
