@@ -116,19 +116,19 @@ catalogs:
       version: 1.0.0-pre.53
 
 overrides:
-  axios: 1.13.5
-  body-parser: 1.20.3
-  cookie: 0.7.0
-  express: 4.20.0
-  js-yaml: 4.1.1
-  lodash: 4.17.23
-  minimatch: 3.1.4
-  path-to-regexp: 0.1.12
-  qs: 6.14.2
-  send: 0.19.0
-  serve-static: 1.16.0
-  tar: 7.5.10
-  zod: 3.22.3
+  axios: '>=1.13.5'
+  body-parser: '>=1.20.3'
+  cookie: '>=0.7.0'
+  express: '>=4.20.0'
+  js-yaml: '>=4.1.1'
+  lodash: '>=4.17.23'
+  minimatch: '>=3.1.4'
+  path-to-regexp: '>=0.1.12'
+  qs: '>=6.14.2'
+  send: '>=0.19.0'
+  serve-static: '>=1.16.0'
+  tar: '>=7.5.10'
+  zod: '>=3.22.3'
 
 importers:
 
@@ -238,7 +238,7 @@ importers:
         specifier: 4.2.406
         version: 4.2.406(@radix-ui/react-popover@1.1.15(@types/react-dom@19.2.3(@types/react@19.2.13))(@types/react@19.2.13)(react-dom@19.0.0(react@19.2.3))(react@19.2.3))(@types/node@25.0.6)(@types/react@19.2.13)(acorn@8.11.2)(react-dom@19.0.0(react@19.2.3))(typescript@5.9.3)
       zod:
-        specifier: 3.22.3
+        specifier: '>=3.22.3'
         version: 3.22.3
 
   apps/web:
@@ -371,7 +371,7 @@ importers:
         specifier: 5.105.4
         version: 5.105.4
       zod:
-        specifier: 3.22.3
+        specifier: '>=3.22.3'
         version: 3.22.3
 
   benchmarks/preview-server:
@@ -964,7 +964,7 @@ importers:
         specifier: 10.0.6
         version: 10.0.6(react@19.0.0)
       zod:
-        specifier: 3.22.3
+        specifier: '>=3.22.3'
         version: 3.22.3
 
   packages/react-email:
@@ -8393,7 +8393,7 @@ packages:
   zod-to-json-schema@3.20.4:
     resolution: {integrity: sha512-Un9+kInJ2Zt63n6Z7mLqBifzzPcOyX+b+Exuzf7L1+xqck9Q2EPByyTRduV3kmSPaXaRer1JCsucubpgL1fipg==}
     peerDependencies:
-      zod: 3.22.3
+      zod: '>=3.22.3'
 
   zod@3.22.3:
     resolution: {integrity: sha512-EjIevzuJRiRPbVH4mGc8nApb/lVLKVpmUhAaR5R5doKGfAnGJ6Gr3CViAVjP+4FWSxCsybeWQdcgCtbX+7oZug==}
