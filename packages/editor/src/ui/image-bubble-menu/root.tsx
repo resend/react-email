@@ -1,0 +1,56 @@
+import { useCurrentEditor } from '@tiptap/react';
+import { BubbleMenu } from '@tiptap/react/menus';
+import * as React from 'react';
+import { ImageBubbleMenuContext } from './context';
+
+export interface ImageBubbleMenuRootProps {
+  /** Called when the bubble menu hides */
+  onHide?: () => void;
+  /** Placement relative to cursor (default: 'top') */
+  placement?: 'top' | 'bottom';
+  /** Offset from cursor in px (default: 8) */
+  offset?: number;
+  /** className on the outer wrapper */
+  className?: string;
+  children: React.ReactNode;
+}
+
+export function ImageBubbleMenuRoot({
+  onHide,
+  placement = 'top',
+  offset = 8,
+  className,
+  children,
+}: ImageBubbleMenuRootProps) {
+  const { editor } = useCurrentEditor();
+  const [isEditing, setIsEditing] = React.useState(false);
+
+  if (!editor) {
+    return null;
+  }
+
+  return (
+    <BubbleMenu
+      editor={editor}
+      data-re-img-bm=""
+      shouldShow={({ editor: e, view }) =>
+        e.isActive('image') && !view.dom.classList.contains('dragging')
+      }
+      options={{
+        placement,
+        offset,
+        onHide: () => {
+          setIsEditing(false);
+          onHide?.();
+        },
+      }}
+      className={className}
+    >
+      <ImageBubbleMenuContext.Provider
+        value={{ editor, isEditing, setIsEditing }}
+      >
+        {children}
+      </ImageBubbleMenuContext.Provider>
+    </BubbleMenu>
+  );
+}
