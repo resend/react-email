@@ -43,27 +43,7 @@
   "pnpm": {
     "ignoredBuiltDependencies": [
       "sharp"
-    ],
-    "overrides": {
-      "@babel/runtime": "7.26.10",
-      "@mintlify/link-rot>@mintlify/scraping": "4.0.639",
-      "@mintlify/previewing>express": "4.21.2",
-      "@mintlify/previewing>tar": "7.5.10",
-      "@stoplight/spectral-core>minimatch": "3.1.4",
-      "ajv": "8.18.0",
-      "axios": "1.13.5",
-      "basic-ftp": "5.2.0",
-      "cookie": "0.7.2",
-      "js-yaml": "4.1.1",
-      "lodash": "4.17.23",
-      "mdast-util-to-hast": "13.2.1",
-      "minimatch@3>brace-expansion": "1.1.12",
-      "qs": "6.14.2",
-      "read-yaml-file>js-yaml": "3.14.2",
-      "glob@7>minimatch": "3.1.4",
-      "sucrase": "3.35.1",
-      "tar-fs": "3.1.1"
-    }
+    ]
   },
   "packageManager": "pnpm@10.30.3+sha512.c961d1e0a2d8e354ecaa5166b822516668b7f44cb5bd95122d590dd81922f606f5473b6d23ec4a5be05e7fcd18e8488d47d978bbe981872f1145d06e9a740017"
 }
