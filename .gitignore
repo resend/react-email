@@ -38,3 +38,6 @@ yarn-error.log*
 
 # turbo
 .turbo
+
+# worktrees
+.worktrees
