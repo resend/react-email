@@ -26,6 +26,13 @@ jobs:
         uses: pnpm/action-setup@9b5745cdf0a2e8c2620f0746130f809adb911c19
       - name: Install packages
         run: pnpm install --frozen-lockfile --prefer-offline
+      - name: Run Build
+        run: pnpm build
+        env:
+          SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
+          SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
       - name: Run Tailwind integration tests
         run: pnpm turbo test:e2e
         env:
