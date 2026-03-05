@@ -1,0 +1,29 @@
+packages/editor/src/ui/link-bubble-menu/edit-link.tsx
+  cb233ba9b4f952f6 12,24-27
+packages/editor/src/ui/button-bubble-menu/edit-link.tsx
+  cb233ba9b4f952f6 12,25-28
+packages/editor/src/ui/link-bubble-menu/unlink.tsx
+  cb233ba9b4f952f6 12,24-27
+packages/editor/src/ui/button-bubble-menu/edit-link.spec.tsx
+  cb233ba9b4f952f6 84-96
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.8",
+  "base_commit_sha": "3e6baa93a74e3329e2dacad8193bd765f70f48cf",
+  "prompts": {
+    "cb233ba9b4f952f6": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_34b70ecb6ffeKc1E4XywTy1ra5",
+        "model": "anthropic/claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 28,
+      "total_deletions": 3,
+      "accepted_lines": 28,
+      "overriden_lines": 0
+    }
+  }
+}
