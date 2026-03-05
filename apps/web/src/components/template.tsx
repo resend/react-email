@@ -63,7 +63,7 @@ export function Template({
         width="450"
       />
       <div className="p-4">
-        <Heading size="2" weight="medium">
+        <Heading as="h2" size="2" weight="medium">
           {name}
         </Heading>
         <div className="mt-2 flex flex-row gap-2">
