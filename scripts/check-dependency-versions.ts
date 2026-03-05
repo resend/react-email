@@ -11,6 +11,9 @@ import fs from 'node:fs/promises';
     if (version.startsWith('workspace:')) {
       return true;
     }
+    if (version.startsWith('catalog:')) {
+      return true;
+    }
     if (version.startsWith('npm:')) {
       return true;
     }

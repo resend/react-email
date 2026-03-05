@@ -104,22 +104,22 @@
     "@react-email/preview": "workspace:*",
     "@react-email/render": "workspace:*",
     "@react-email/text": "workspace:*",
-    "@responsive-email/react-email": "0.0.4",
-    "@types/css-tree": "2.3.11",
+    "@responsive-email/react-email": "catalog:",
+    "@types/css-tree": "catalog:",
     "@types/shelljs": "0.10.0",
-    "@vitejs/plugin-react": "4.4.1",
+    "@vitejs/plugin-react": "catalog:",
     "css-tree": "3.1.0",
-    "react-dom": "^19",
+    "react-dom": "catalog:",
     "shelljs": "0.10.0",
     "tsconfig": "workspace:*",
-    "typescript": "5.8.3",
-    "vite": "6.4.1",
-    "yalc": "1.0.0-pre.53"
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "yalc": "catalog:"
   },
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "catalog:"
   }
 }

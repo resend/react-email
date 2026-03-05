@@ -38,7 +38,7 @@
   "devDependencies": {
     "@react-email/render": "workspace:*",
     "tsconfig": "workspace:*",
-    "typescript": "5.8.3"
+    "typescript": "catalog:"
   },
   "publishConfig": {
     "access": "public"

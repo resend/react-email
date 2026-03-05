@@ -11,11 +11,11 @@
   "dependencies": {
     "@react-email/components": "workspace:*",
     "email-dev": "workspace:*",
-    "react": "^19",
-    "react-dom": "^19"
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
     "@react-email/preview-server": "workspace:*",
-    "next": "16.1.5"
+    "next": "catalog:"
   }
 }

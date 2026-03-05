@@ -17,9 +17,9 @@
     "@react-email/components": "workspace:*",
     "@react-email/render": "workspace:*",
     "@react-email/tailwind": "workspace:*",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
-    "tinybench": "3.1.0"
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "tinybench": "catalog:"
   },
   "devDependencies": {
     "flamebearer": "1.1.3",

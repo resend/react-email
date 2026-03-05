@@ -14,10 +14,10 @@
   },
   "dependencies": {
     "react-email": "workspace:*",
-    "tinybench": "3.1.0"
+    "tinybench": "catalog:"
   },
   "devDependencies": {
     "tsconfig": "workspace:*",
-    "typescript": "5.8.3"
+    "typescript": "catalog:"
   }
 }

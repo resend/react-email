@@ -14,14 +14,14 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@react-email/components": "^0.0.36",
+    "@react-email/components": "catalog:",
     "nodemailer": "^7.0.0",
-    "react": "^19",
-    "react-dom": "^19"
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
     "@types/nodemailer": "^6",
-    "tsdown": "^0.19.0",
-    "typescript": "^5"
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
   }
 }
