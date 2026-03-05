@@ -1,0 +1,56 @@
+import { render, screen } from '@testing-library/react';
+import type { ReactNode } from 'react';
+import { ImageBubbleMenuContext } from './context';
+import { ImageBubbleMenuToolbar } from './toolbar';
+
+const mockEditor = {} as any;
+
+function renderWithContext(
+  ui: ReactNode,
+  { isEditing = false }: { isEditing?: boolean } = {},
+) {
+  return render(
+    <ImageBubbleMenuContext.Provider
+      value={{
+        editor: mockEditor,
+        isEditing,
+        setIsEditing: vi.fn(),
+      }}
+    >
+      {ui}
+    </ImageBubbleMenuContext.Provider>,
+  );
+}
+
+describe('ImageBubbleMenuToolbar', () => {
+  it('renders children when not editing', () => {
+    renderWithContext(
+      <ImageBubbleMenuToolbar>
+        <button type="button">Edit</button>
+      </ImageBubbleMenuToolbar>,
+      { isEditing: false },
+    );
+    expect(screen.getByRole('button', { name: 'Edit' })).toBeDefined();
+  });
+
+  it('renders null when editing', () => {
+    const { container } = renderWithContext(
+      <ImageBubbleMenuToolbar>
+        <button type="button">Edit</button>
+      </ImageBubbleMenuToolbar>,
+      { isEditing: true },
+    );
+    expect(container.querySelector('[data-re-img-bm-toolbar]')).toBeNull();
+  });
+
+  it('applies className', () => {
+    const { container } = renderWithContext(
+      <ImageBubbleMenuToolbar className="custom">
+        <span>child</span>
+      </ImageBubbleMenuToolbar>,
+    );
+    expect(container.querySelector('[data-re-img-bm-toolbar]')?.className).toBe(
+      'custom',
+    );
+  });
+});
