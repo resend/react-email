@@ -14,12 +14,12 @@
     "version": "changeset version && pnpm install --no-frozen-lockfile && pnpm lint:fix"
   },
   "devDependencies": {
-    "@actions/core": "2.0.2",
-    "@actions/exec": "2.0.0",
-    "@actions/github": "7.0.0",
+    "@actions/core": "3.0.0",
+    "@actions/exec": "3.0.0",
+    "@actions/github": "9.0.0",
     "@actions/http-client": "4.0.0",
     "@biomejs/biome": "2.3.11",
-    "@changesets/cli": "2.29.8",
+    "@changesets/cli": "2.30.0",
     "@changesets/pre": "2.0.2",
     "@manypkg/get-packages": "3.1.0",
     "@octokit/core": "7.0.6",
@@ -30,6 +30,7 @@
     "mdast-util-to-string": "4.0.0",
     "nypm": "catalog:",
     "pkg-pr-new": "0.0.65",
+    "rollup": "4.59.0",
     "remark": "15.0.1",
     "tsconfig": "workspace:*",
     "tsdown": "catalog:",
@@ -42,7 +43,23 @@
   "pnpm": {
     "ignoredBuiltDependencies": [
       "sharp"
-    ]
+    ],
+    "overrides": {
+      "axios": "^1.13.5",
+      "body-parser": "^1.20.3",
+      "cookie": "^0.7.0",
+      "express": "^4.20.0",
+      "js-yaml": "^4.1.1",
+      "lodash": "^4.17.23",
+      "minimatch": "^3.1.4",
+      "path-to-regexp": "^0.1.12",
+      "qs": "^6.14.2",
+      "send": "^0.19.0",
+      "serve-static": "^1.16.0",
+      "tar": "^7.5.10",
+      "@mintlify/validation>zod": "3.22.3",
+      "@mintlify/scraping>zod": "3.22.3"
+    }
   },
   "packageManager": "pnpm@10.30.3+sha512.c961d1e0a2d8e354ecaa5166b822516668b7f44cb5bd95122d590dd81922f606f5473b6d23ec4a5be05e7fcd18e8488d47d978bbe981872f1145d06e9a740017"
 }
