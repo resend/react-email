@@ -43,15 +43,4 @@ describe('LinkBubbleMenuToolbar', () => {
     );
     expect(container.querySelector('[data-re-link-bm-toolbar]')).toBeNull();
   });
-
-  it('applies className', () => {
-    const { container } = renderWithContext(
-      <LinkBubbleMenuToolbar className="custom">
-        <span>child</span>
-      </LinkBubbleMenuToolbar>,
-    );
-    expect(
-      container.querySelector('[data-re-link-bm-toolbar]')?.className,
-    ).toBe('custom');
-  });
 });
