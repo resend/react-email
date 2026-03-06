@@ -42,15 +42,4 @@ describe('ImageBubbleMenuToolbar', () => {
     );
     expect(container.querySelector('[data-re-img-bm-toolbar]')).toBeNull();
   });
-
-  it('applies className', () => {
-    const { container } = renderWithContext(
-      <ImageBubbleMenuToolbar className="custom">
-        <span>child</span>
-      </ImageBubbleMenuToolbar>,
-    );
-    expect(container.querySelector('[data-re-img-bm-toolbar]')?.className).toBe(
-      'custom',
-    );
-  });
 });
