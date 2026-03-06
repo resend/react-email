@@ -1,0 +1,73 @@
+packages/editor/src/ui/button-bubble-menu/index.ts
+  cb233ba9b4f952f6 1-17
+packages/editor/src/ui/button-bubble-menu/button-bubble-menu.css
+  cb233ba9b4f952f6 1-29
+packages/editor/src/ui/image-bubble-menu/root.spec.tsx
+  cb233ba9b4f952f6 1-24
+packages/editor/src/ui/image-bubble-menu/image-bubble-menu.css
+  cb233ba9b4f952f6 1-29
+packages/editor/src/ui/image-bubble-menu/toolbar.tsx
+  cb233ba9b4f952f6 1-24
+packages/editor/src/ui/index.ts
+  cb233ba9b4f952f6 2-3
+packages/editor/src/ui/link-bubble-menu/root.tsx
+  cb233ba9b4f952f6 9,20
+packages/editor/src/ui/button-bubble-menu/context.spec.tsx
+  cb233ba9b4f952f6 1-12
+packages/editor/src/ui/button-bubble-menu/context.tsx
+  cb233ba9b4f952f6 1-21
+packages/editor/src/ui/image-bubble-menu/root.tsx
+  cb233ba9b4f952f6 1-56
+packages/editor/src/ui/button-bubble-menu/root.tsx
+  cb233ba9b4f952f6 1-56
+packages/editor/package.json
+  cb233ba9b4f952f6 3
+packages/editor/src/ui/image-bubble-menu/index.ts
+  cb233ba9b4f952f6 1-17
+packages/editor/src/ui/image-bubble-menu/edit-link.tsx
+  cb233ba9b4f952f6 1-37
+.gitignore
+  cb233ba9b4f952f6 41-43
+packages/editor/src/ui/link-bubble-menu/edit-link.tsx
+  cb233ba9b4f952f6 12,24-27
+packages/editor/src/ui/button-bubble-menu/toolbar.tsx
+  cb233ba9b4f952f6 1-24
+packages/editor/src/ui/image-bubble-menu/toolbar.spec.tsx
+  cb233ba9b4f952f6 1-45
+packages/editor/src/ui/button-bubble-menu/root.spec.tsx
+  cb233ba9b4f952f6 1-24
+packages/editor/src/ui/image-bubble-menu/edit-link.spec.tsx
+  cb233ba9b4f952f6 1-97
+packages/editor/src/ui/link-bubble-menu/unlink.tsx
+  cb233ba9b4f952f6 12,24-27
+packages/editor/src/ui/button-bubble-menu/toolbar.spec.tsx
+  cb233ba9b4f952f6 1-56
+packages/editor/src/ui/button-bubble-menu/edit-link.tsx
+  cb233ba9b4f952f6 1-37
+packages/editor/src/ui/button-bubble-menu/edit-link.spec.tsx
+  cb233ba9b4f952f6 1-97
+packages/editor/src/ui/image-bubble-menu/context.spec.tsx
+  cb233ba9b4f952f6 1-12
+packages/editor/src/ui/image-bubble-menu/context.tsx
+  cb233ba9b4f952f6 1-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.8",
+  "base_commit_sha": "c1c15216d54aa3f833659254addd964dd3b86d2c",
+  "prompts": {
+    "cb233ba9b4f952f6": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_34b70ecb6ffeKc1E4XywTy1ra5",
+        "model": "anthropic/claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 33,
+      "accepted_lines": 753,
+      "overriden_lines": 0
+    }
+  }
+}
