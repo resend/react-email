@@ -1,14 +1,12 @@
 import type * as React from 'react';
 import { useImageBubbleMenuContext } from './context';
 
-export interface ImageBubbleMenuToolbarProps {
-  className?: string;
-  children: React.ReactNode;
-}
+export interface ImageBubbleMenuToolbarProps
+  extends React.ComponentProps<'div'> {}
 
 export function ImageBubbleMenuToolbar({
-  className,
   children,
+  ...rest
 }: ImageBubbleMenuToolbarProps) {
   const { isEditing } = useImageBubbleMenuContext();
 
@@ -17,7 +15,7 @@ export function ImageBubbleMenuToolbar({
   }
 
   return (
-    <div data-re-img-bm-toolbar="" className={className}>
+    <div data-re-img-bm-toolbar="" {...rest}>
       {children}
     </div>
   );

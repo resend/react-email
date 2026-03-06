@@ -42,4 +42,15 @@ describe('ImageBubbleMenuToolbar', () => {
     );
     expect(container.querySelector('[data-re-img-bm-toolbar]')).toBeNull();
   });
+
+  it('spreads rest props onto div', () => {
+    const { container } = renderWithContext(
+      <ImageBubbleMenuToolbar data-testid="custom" aria-label="toolbar">
+        <span>child</span>
+      </ImageBubbleMenuToolbar>,
+    );
+    const toolbar = container.querySelector('[data-re-img-bm-toolbar]');
+    expect(toolbar?.getAttribute('data-testid')).toBe('custom');
+    expect(toolbar?.getAttribute('aria-label')).toBe('toolbar');
+  });
 });

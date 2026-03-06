@@ -42,4 +42,15 @@ describe('ButtonBubbleMenuToolbar', () => {
     );
     expect(container.querySelector('[data-re-btn-bm-toolbar]')).toBeNull();
   });
+
+  it('spreads rest props onto div', () => {
+    const { container } = renderWithContext(
+      <ButtonBubbleMenuToolbar data-testid="custom" aria-label="toolbar">
+        <span>child</span>
+      </ButtonBubbleMenuToolbar>,
+    );
+    const toolbar = container.querySelector('[data-re-btn-bm-toolbar]');
+    expect(toolbar?.getAttribute('data-testid')).toBe('custom');
+    expect(toolbar?.getAttribute('aria-label')).toBe('toolbar');
+  });
 });
