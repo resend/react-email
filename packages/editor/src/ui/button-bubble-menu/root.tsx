@@ -1,9 +1,9 @@
-import { useCurrentEditor, useEditorState } from '@tiptap/react';
+import { useCurrentEditor } from '@tiptap/react';
 import { BubbleMenu } from '@tiptap/react/menus';
 import * as React from 'react';
-import { LinkBubbleMenuContext } from './context';
+import { ButtonBubbleMenuContext } from './context';
 
-export interface LinkBubbleMenuRootProps {
+export interface ButtonBubbleMenuRootProps {
   /** Called when the bubble menu hides */
   onHide?: () => void;
   /** Placement relative to cursor (default: 'top') */
@@ -15,21 +15,15 @@ export interface LinkBubbleMenuRootProps {
   children: React.ReactNode;
 }
 
-export function LinkBubbleMenuRoot({
+export function ButtonBubbleMenuRoot({
   onHide,
   placement = 'top',
   offset = 8,
   className,
   children,
-}: LinkBubbleMenuRootProps) {
+}: ButtonBubbleMenuRootProps) {
   const { editor } = useCurrentEditor();
   const [isEditing, setIsEditing] = React.useState(false);
-
-  const linkHref = useEditorState({
-    editor,
-    selector: ({ editor: e }) =>
-      (e?.getAttributes('link').href as string) ?? '',
-  });
 
   if (!editor) {
     return null;
@@ -38,9 +32,9 @@ export function LinkBubbleMenuRoot({
   return (
     <BubbleMenu
       editor={editor}
-      data-re-link-bm=""
-      shouldShow={({ editor: e }) =>
-        e.isActive('link') && e.view.state.selection.content().size === 0
+      data-re-btn-bm=""
+      shouldShow={({ editor: e, view }) =>
+        e.isActive('button') && !view.dom.classList.contains('dragging')
       }
       options={{
         placement,
@@ -52,11 +46,11 @@ export function LinkBubbleMenuRoot({
       }}
       className={className}
     >
-      <LinkBubbleMenuContext.Provider
-        value={{ editor, linkHref: linkHref ?? '', isEditing, setIsEditing }}
+      <ButtonBubbleMenuContext.Provider
+        value={{ editor, isEditing, setIsEditing }}
       >
         {children}
-      </LinkBubbleMenuContext.Provider>
+      </ButtonBubbleMenuContext.Provider>
     </BubbleMenu>
   );
 }

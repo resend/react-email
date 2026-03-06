@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import type { ReactNode } from 'react';
-import { LinkBubbleMenuContext } from './context';
-import { LinkBubbleMenuToolbar } from './toolbar';
+import { ButtonBubbleMenuContext } from './context';
+import { ButtonBubbleMenuToolbar } from './toolbar';
 
 const mockEditor = {} as any;
 
@@ -10,25 +10,24 @@ function renderWithContext(
   { isEditing = false }: { isEditing?: boolean } = {},
 ) {
   return render(
-    <LinkBubbleMenuContext.Provider
+    <ButtonBubbleMenuContext.Provider
       value={{
         editor: mockEditor,
-        linkHref: 'https://example.com',
         isEditing,
         setIsEditing: vi.fn(),
       }}
     >
       {ui}
-    </LinkBubbleMenuContext.Provider>,
+    </ButtonBubbleMenuContext.Provider>,
   );
 }
 
-describe('LinkBubbleMenuToolbar', () => {
+describe('ButtonBubbleMenuToolbar', () => {
   it('renders children when not editing', () => {
     renderWithContext(
-      <LinkBubbleMenuToolbar>
+      <ButtonBubbleMenuToolbar>
         <button type="button">Edit</button>
-      </LinkBubbleMenuToolbar>,
+      </ButtonBubbleMenuToolbar>,
       { isEditing: false },
     );
     expect(screen.getByRole('button', { name: 'Edit' })).toBeDefined();
@@ -36,11 +35,11 @@ describe('LinkBubbleMenuToolbar', () => {
 
   it('renders null when editing', () => {
     const { container } = renderWithContext(
-      <LinkBubbleMenuToolbar>
+      <ButtonBubbleMenuToolbar>
         <button type="button">Edit</button>
-      </LinkBubbleMenuToolbar>,
+      </ButtonBubbleMenuToolbar>,
       { isEditing: true },
     );
-    expect(container.querySelector('[data-re-link-bm-toolbar]')).toBeNull();
+    expect(container.querySelector('[data-re-btn-bm-toolbar]')).toBeNull();
   });
 });

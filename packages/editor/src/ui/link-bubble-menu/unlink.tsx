@@ -9,6 +9,7 @@ export function LinkBubbleMenuUnlink({
   className,
   children,
   onClick,
+  onMouseDown,
   ...rest
 }: LinkBubbleMenuUnlinkProps) {
   const { editor } = useLinkBubbleMenuContext();
@@ -20,7 +21,10 @@ export function LinkBubbleMenuUnlink({
       data-re-link-bm-item=""
       data-item="unlink"
       className={className}
-      onMouseDown={(e) => e.preventDefault()}
+      onMouseDown={(e) => {
+        e.preventDefault();
+        onMouseDown?.(e);
+      }}
       onClick={(e) => {
         onClick?.(e);
         editor.chain().focus().unsetLink().run();
