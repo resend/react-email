@@ -1,14 +1,12 @@
 import type * as React from 'react';
 import { useLinkBubbleMenuContext } from './context';
 
-export interface LinkBubbleMenuToolbarProps {
-  className?: string;
-  children: React.ReactNode;
-}
+export interface LinkBubbleMenuToolbarProps
+  extends React.ComponentProps<'div'> {}
 
 export function LinkBubbleMenuToolbar({
-  className,
   children,
+  ...rest
 }: LinkBubbleMenuToolbarProps) {
   const { isEditing } = useLinkBubbleMenuContext();
 
@@ -17,7 +15,7 @@ export function LinkBubbleMenuToolbar({
   }
 
   return (
-    <div data-re-link-bm-toolbar="" className={className}>
+    <div data-re-link-bm-toolbar="" {...rest}>
       {children}
     </div>
   );

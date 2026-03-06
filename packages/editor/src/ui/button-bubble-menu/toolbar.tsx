@@ -1,14 +1,12 @@
 import type * as React from 'react';
 import { useButtonBubbleMenuContext } from './context';
 
-export interface ButtonBubbleMenuToolbarProps {
-  className?: string;
-  children: React.ReactNode;
-}
+export interface ButtonBubbleMenuToolbarProps
+  extends React.ComponentProps<'div'> {}
 
 export function ButtonBubbleMenuToolbar({
-  className,
   children,
+  ...rest
 }: ButtonBubbleMenuToolbarProps) {
   const { isEditing } = useButtonBubbleMenuContext();
 
@@ -17,7 +15,7 @@ export function ButtonBubbleMenuToolbar({
   }
 
   return (
-    <div data-re-btn-bm-toolbar="" className={className}>
+    <div data-re-btn-bm-toolbar="" {...rest}>
       {children}
     </div>
   );

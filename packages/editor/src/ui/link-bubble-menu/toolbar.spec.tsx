@@ -43,4 +43,15 @@ describe('LinkBubbleMenuToolbar', () => {
     );
     expect(container.querySelector('[data-re-link-bm-toolbar]')).toBeNull();
   });
+
+  it('spreads rest props onto div', () => {
+    const { container } = renderWithContext(
+      <LinkBubbleMenuToolbar data-testid="custom" aria-label="toolbar">
+        <span>child</span>
+      </LinkBubbleMenuToolbar>,
+    );
+    const toolbar = container.querySelector('[data-re-link-bm-toolbar]');
+    expect(toolbar?.getAttribute('data-testid')).toBe('custom');
+    expect(toolbar?.getAttribute('aria-label')).toBe('toolbar');
+  });
 });

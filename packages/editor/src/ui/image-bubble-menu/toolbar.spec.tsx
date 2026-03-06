@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import type { ReactNode } from 'react';
-import { ButtonBubbleMenuContext } from './context';
-import { ButtonBubbleMenuToolbar } from './toolbar';
+import { ImageBubbleMenuContext } from './context';
+import { ImageBubbleMenuToolbar } from './toolbar';
 
 const mockEditor = {} as any;
 
@@ -10,7 +10,7 @@ function renderWithContext(
   { isEditing = false }: { isEditing?: boolean } = {},
 ) {
   return render(
-    <ButtonBubbleMenuContext.Provider
+    <ImageBubbleMenuContext.Provider
       value={{
         editor: mockEditor,
         isEditing,
@@ -18,16 +18,16 @@ function renderWithContext(
       }}
     >
       {ui}
-    </ButtonBubbleMenuContext.Provider>,
+    </ImageBubbleMenuContext.Provider>,
   );
 }
 
-describe('ButtonBubbleMenuToolbar', () => {
+describe('ImageBubbleMenuToolbar', () => {
   it('renders children when not editing', () => {
     renderWithContext(
-      <ButtonBubbleMenuToolbar>
+      <ImageBubbleMenuToolbar>
         <button type="button">Edit</button>
-      </ButtonBubbleMenuToolbar>,
+      </ImageBubbleMenuToolbar>,
       { isEditing: false },
     );
     expect(screen.getByRole('button', { name: 'Edit' })).toBeDefined();
@@ -35,21 +35,21 @@ describe('ButtonBubbleMenuToolbar', () => {
 
   it('renders null when editing', () => {
     const { container } = renderWithContext(
-      <ButtonBubbleMenuToolbar>
+      <ImageBubbleMenuToolbar>
         <button type="button">Edit</button>
-      </ButtonBubbleMenuToolbar>,
+      </ImageBubbleMenuToolbar>,
       { isEditing: true },
     );
-    expect(container.querySelector('[data-re-btn-bm-toolbar]')).toBeNull();
+    expect(container.querySelector('[data-re-img-bm-toolbar]')).toBeNull();
   });
 
   it('spreads rest props onto div', () => {
     const { container } = renderWithContext(
-      <ButtonBubbleMenuToolbar data-testid="custom" aria-label="toolbar">
+      <ImageBubbleMenuToolbar data-testid="custom" aria-label="toolbar">
         <span>child</span>
-      </ButtonBubbleMenuToolbar>,
+      </ImageBubbleMenuToolbar>,
     );
-    const toolbar = container.querySelector('[data-re-btn-bm-toolbar]');
+    const toolbar = container.querySelector('[data-re-img-bm-toolbar]');
     expect(toolbar?.getAttribute('data-testid')).toBe('custom');
     expect(toolbar?.getAttribute('aria-label')).toBe('toolbar');
   });
