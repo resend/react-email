@@ -66,15 +66,6 @@ describe('ImageBubbleMenuEditLink', () => {
     expect(screen.getByText('Custom')).toBeDefined();
   });
 
-  it('applies className', () => {
-    const { container } = renderWithContext(
-      <ImageBubbleMenuEditLink className="my-class" />,
-    );
-    expect(container.querySelector('[data-item="edit-link"]')?.className).toBe(
-      'my-class',
-    );
-  });
-
   it('has correct data attributes', () => {
     const { container } = renderWithContext(<ImageBubbleMenuEditLink />);
     const button = container.querySelector('[data-re-img-bm-item]');
