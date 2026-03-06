@@ -112,7 +112,7 @@ export default function Templates() {
     <PageWrapper>
       <Image
         alt=""
-        className="pointer-events-none absolute inset-0 z-[3] select-none mix-blend-lighten"
+        className="pointer-events-none absolute inset-0 z-3 select-none mix-blend-lighten"
         fill
         priority
         src="/static/bg.png"
@@ -122,7 +122,7 @@ export default function Templates() {
         key="about"
         tag="main"
       >
-        <div className="mb-12 text-pretty px-6 md:max-w-[46rem] md:px-0 md:text-center">
+        <div className="mb-12 text-pretty px-6 md:max-w-184 md:px-0 md:text-center">
           <Heading className="text-white" weight="medium" size="6">
             Templates
           </Heading>

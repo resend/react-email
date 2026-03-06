@@ -29,7 +29,7 @@ const PlaygroundSection = () => {
   return (
     <section className="relative min-h-screen my-24 text-center flex flex-col items-center justify-center">
       <div className="space-y-8 w-full">
-        <div className="max-w-full text-center md:max-w-[40rem] md:mx-auto space-y-4">
+        <div className="max-w-full text-center md:max-w-160 md:mx-auto space-y-4">
           <Heading
             as="h2"
             size="8"
@@ -55,7 +55,7 @@ const PlaygroundSection = () => {
                 <Tabs.Trigger
                   key={tab.value}
                   value={tab.value}
-                  className="group relative px-3 py-2 md:px-4 rounded-xl outline-none"
+                  className="group relative px-3 py-2 md:px-4 rounded-xl outline-hidden"
                 >
                   <span
                     className={classNames(
@@ -70,7 +70,7 @@ const PlaygroundSection = () => {
                   <AnimatePresence mode="wait" initial={false}>
                     {activeTab === tab.value && (
                       <motion.div
-                        className="absolute inset-0 size-full rounded-xl bg-gradient-to-b from-zinc-800 to-zinc-950 border border-zinc-800 group-focus-visible:ring-slate-8 group-focus-visible:ring-2 z-0"
+                        className="absolute inset-0 size-full rounded-xl bg-linear-to-b from-zinc-800 to-zinc-950 border border-zinc-800 group-focus-visible:ring-slate-8 group-focus-visible:ring-2 z-0"
                         layoutId="activeTab"
                         transition={{
                           type: 'spring',
@@ -93,7 +93,7 @@ const PlaygroundSection = () => {
 
       <Image
         alt=""
-        className="pointer-events-none absolute inset-0 -top-40 z-[3] select-none mix-blend-lighten"
+        className="pointer-events-none absolute inset-0 -top-40 z-3 select-none mix-blend-lighten"
         fill
         priority
         src="/static/bg.png"
