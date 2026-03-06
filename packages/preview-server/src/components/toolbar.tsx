@@ -116,7 +116,6 @@ const ToolbarInner = ({
   });
 
   if (!isBuilding) {
-    // biome-ignore lint/correctness/useHookAtTopLevel: This is fine since isBuilding does not change at runtime
     React.useEffect(() => {
       (async () => {
         const lintingRows = await loadLinting();
