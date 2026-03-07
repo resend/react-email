@@ -66,10 +66,6 @@ const TabContent: React.FC<{
 export function ComponentView({ component, className }: ComponentViewProps) {
   const [activeView, setActiveView] = React.useState<ActiveView>('desktop');
 
-  React.useEffect(() => {
-    setActiveView(activeView);
-  }, []);
-
   return (
     <Tabs.Root
       className="relative mb-8 flex w-full flex-col gap-2 md:mb-12"
