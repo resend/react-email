@@ -5,7 +5,7 @@ import type {
   EmailRenderingResult,
   RenderedEmailMetadata,
 } from '../actions/render-email-by-path';
-import { isBuilding, isPreviewDevelopment } from '../app/env';
+import { isBuilding, isPreviewDevelopment } from '../app/env.client';
 import { useEmailRenderingResult } from '../hooks/use-email-rendering-result';
 import { useHotreload } from '../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../hooks/use-rendering-metadata';

@@ -4,7 +4,7 @@ import {
   type EmailRenderingResult,
   renderEmailByPath,
 } from '../actions/render-email-by-path';
-import { isBuilding, isPreviewDevelopment } from '../app/env';
+import { isBuilding, isPreviewDevelopment } from '../app/env.client';
 import { useEmails } from '../contexts/emails';
 import { containsEmailTemplate } from '../utils/contains-email-template';
 import { useHotreload } from './use-hot-reload';

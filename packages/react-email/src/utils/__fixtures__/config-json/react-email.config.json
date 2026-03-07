@@ -1,0 +1,6 @@
+{
+  "emailsDir": "./src/emails",
+  "preview": {
+    "port": 4000
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "emailsDir": "./emails",
+  "preview": {
+    "emailsDir": "./preview-only-emails"
+  }
+}

@@ -38,6 +38,10 @@ Generates the plain HTML files of your emails into a `out` directory.
 npx react-email export
 ```
 
+### Optional config
+
+You can add a `react-email.config.json` (or `.mjs`/`.cjs`/`.js`) at the project root to set `emailsDir` and `preview.port`. Run `npx react-email init` to create one with defaults. CLI flags override the config.
+
 ## Setting Up the Environment
 
 When working in the CLI, a lot of friction can get introduced with installing it and rebuilding for every change. To avoid that, we have a script that can be linked globally to directly run the source code of the CLI. You can use it the same as you would the standard CLI.

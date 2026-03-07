@@ -3,6 +3,15 @@ import { tree } from './tree.js';
 test('tree(__dirname, 2)', async () => {
   expect(await tree(__dirname, 2)).toMatchInlineSnapshot(`
     "utils
+    ├── __fixtures__
+    │   ├── config-cjs
+    │   ├── config-js
+    │   ├── config-json
+    │   ├── config-mjs
+    │   ├── config-resolve-fallback
+    │   ├── config-resolve-preview
+    │   ├── config-resolve-top
+    │   └── no-config
     ├── esbuild
     │   ├── escape-string-for-regex.ts
     │   └── renderring-utilities-exporter.ts
@@ -20,6 +29,8 @@ test('tree(__dirname, 2)', async () => {
     ├── get-emails-directory-metadata.ts
     ├── get-preview-server-location.ts
     ├── index.ts
+    ├── load-config.spec.ts
+    ├── load-config.ts
     ├── packageJson.ts
     ├── register-spinner-autostopping.ts
     ├── style-text.ts
