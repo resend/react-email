@@ -1,0 +1,42 @@
+packages/editor/scripts/copy-css.mjs
+  284f98d4154aab06 3-4,9-21,29-32,35-36,39-43,47
+  cb233ba9b4f952f6 2,28
+packages/editor/package.json
+  284f98d4154aab06 3,26-29
+  cb233ba9b4f952f6 59-69,72,75
+packages/editor/src/ui/themes/default.css
+  284f98d4154aab06 1-9,14-29,32-49,52-69,72-136,138-178,182-205,207-284
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.8",
+  "base_commit_sha": "90d0c1b0bca604e6720d2af3ac56ca33037dcbbf",
+  "prompts": {
+    "284f98d4154aab06": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_32c0f4b0bffe06Ux9GgD3xxEsN",
+        "model": "anthropic/claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 3,
+      "total_deletions": 2,
+      "accepted_lines": 301,
+      "overriden_lines": 0
+    },
+    "cb233ba9b4f952f6": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_34b70ecb6ffeKc1E4XywTy1ra5",
+        "model": "anthropic/claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 9,
+      "total_deletions": 9,
+      "accepted_lines": 15,
+      "overriden_lines": 0
+    }
+  }
+}
