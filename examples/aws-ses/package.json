@@ -15,12 +15,12 @@
   },
   "dependencies": {
     "@aws-sdk/client-ses": "^3",
-    "@react-email/components": "^0.0.36",
-    "react": "^19",
-    "react-dom": "^19"
+    "@react-email/components": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
-    "tsdown": "^0.15.1",
-    "typescript": "^5"
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
   }
 }

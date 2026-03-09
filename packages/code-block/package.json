@@ -3,9 +3,9 @@
   "version": "0.2.1",
   "description": "Display code with a selected theme and regex highlighting using Prism.js",
   "sideEffects": false,
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.cts",
   "files": [
     "dist/**"
   ],
@@ -16,8 +16,8 @@
         "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
       }
     }
   },
@@ -46,7 +46,7 @@
     "@react-email/render": "workspace:*",
     "@types/prismjs": "1.26.5",
     "tsconfig": "workspace:*",
-    "typescript": "5.8.3"
+    "typescript": "catalog:"
   },
   "publishConfig": {
     "access": "public"

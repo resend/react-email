@@ -13,13 +13,13 @@
     "dev": "tsdown src/index.tsx --format esm --target node20 --watch"
   },
   "dependencies": {
-    "@scaleway/sdk": "^1",
-    "@react-email/components": "^0.0.36",
-    "react": "^19",
-    "react-dom": "^19"
+    "@scaleway/sdk": "catalog:",
+    "@react-email/components": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
-    "tsdown": "^0.15.1",
-    "typescript": "^5"
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
   }
 }
