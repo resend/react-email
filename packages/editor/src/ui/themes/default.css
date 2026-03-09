@@ -7,10 +7,10 @@
  */
 
 /* Layer 0: layout (inlined at build time via postcss-import) */
-@import '../bubble-menu/bubble-menu.css';
-@import '../link-bubble-menu/link-bubble-menu.css';
-@import '../button-bubble-menu/button-bubble-menu.css';
-@import '../image-bubble-menu/image-bubble-menu.css';
+@import "../bubble-menu/bubble-menu.css";
+@import "../link-bubble-menu/link-bubble-menu.css";
+@import "../button-bubble-menu/button-bubble-menu.css";
+@import "../image-bubble-menu/image-bubble-menu.css";
 
 /* ----------------------------------------------------------------
  * CSS custom properties — light defaults
@@ -27,7 +27,8 @@
   --re-separator: #e5e5e5;
   --re-radius: 0.75rem;
   --re-radius-sm: 0.5rem;
-  --re-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --re-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
   --re-danger: #dc2626;
   --re-danger-hover: rgba(220, 38, 38, 0.1);
 }
@@ -46,7 +47,8 @@
     --re-active: rgba(255, 255, 255, 0.09);
     --re-pressed: rgba(255, 255, 255, 0.09);
     --re-separator: #2e2e2e;
-    --re-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+    --re-shadow:
+      0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
     --re-danger: #f87171;
     --re-danger-hover: rgba(248, 113, 113, 0.15);
   }
@@ -65,7 +67,8 @@
   --re-active: rgba(255, 255, 255, 0.09);
   --re-pressed: rgba(255, 255, 255, 0.09);
   --re-separator: #2e2e2e;
-  --re-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  --re-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
   --re-danger: #f87171;
   --re-danger-hover: rgba(248, 113, 113, 0.15);
 }
@@ -131,7 +134,7 @@
 
 /* Active / pressed state */
 [data-re-bubble-menu-item][data-active],
-[data-re-bubble-menu-item][aria-pressed='true'] {
+[data-re-bubble-menu-item][aria-pressed="true"] {
   background: var(--re-pressed);
   color: var(--re-text);
 }
@@ -173,7 +176,9 @@
 [data-re-node-selector-item] {
   color: var(--re-text-muted);
   border-radius: var(--re-radius-sm);
-  transition: background-color 0.15s, color 0.15s;
+  transition:
+    background-color 0.15s,
+    color 0.15s;
 }
 
 [data-re-node-selector-item]:hover {
@@ -198,7 +203,7 @@
   background: var(--re-hover);
 }
 
-[data-re-link-selector-trigger][aria-pressed='true'] {
+[data-re-link-selector-trigger][aria-pressed="true"] {
   background: var(--re-pressed);
 }
 
