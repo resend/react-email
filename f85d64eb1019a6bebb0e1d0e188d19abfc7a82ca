@@ -1,0 +1,23 @@
+packages/editor/package.json
+  284f98d4154aab06 26-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.8",
+  "base_commit_sha": "f85d64eb1019a6bebb0e1d0e188d19abfc7a82ca",
+  "prompts": {
+    "284f98d4154aab06": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_32c0f4b0bffe06Ux9GgD3xxEsN",
+        "model": "anthropic/claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 3,
+      "total_deletions": 1,
+      "accepted_lines": 3,
+      "overriden_lines": 0
+    }
+  }
+}
