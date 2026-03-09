@@ -1,5 +1,5 @@
 import { cpSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
-import { dirname, join, relative } from 'node:path';
+import { dirname, join, relative, sep } from 'node:path';
 import postcss from 'postcss';
 import postcssImport from 'postcss-import';
 
@@ -25,7 +25,7 @@ async function main() {
       if (statSync(full).isDirectory()) {
         walk(full);
       } else if (entry.endsWith('.css')) {
-        const rel = relative(src, full);
+        const rel = relative(src, full).split(sep).join('/');
         const dest = join(dist, rel);
         if (rel.startsWith('ui/themes/')) {
           themeFiles.push({ full, dest });
