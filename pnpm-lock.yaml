@@ -634,31 +634,31 @@ importers:
         specifier: workspace:*
         version: link:../components
       '@tiptap/core':
-        specifier: 3.20.0
+        specifier: ^3.17.1
         version: 3.20.0(@tiptap/pm@3.20.0)
       '@tiptap/extension-code-block':
-        specifier: 3.20.0
+        specifier: ^3.17.1
         version: 3.20.0(@tiptap/core@3.20.0(@tiptap/pm@3.20.0))(@tiptap/pm@3.20.0)
       '@tiptap/extension-heading':
-        specifier: 3.20.0
+        specifier: ^3.17.1
         version: 3.20.0(@tiptap/core@3.20.0(@tiptap/pm@3.20.0))
       '@tiptap/extension-horizontal-rule':
-        specifier: 3.20.0
+        specifier: ^3.17.1
         version: 3.20.0(@tiptap/core@3.20.0(@tiptap/pm@3.20.0))(@tiptap/pm@3.20.0)
       '@tiptap/extension-placeholder':
-        specifier: 3.20.0
+        specifier: ^3.17.1
         version: 3.20.0(@tiptap/extensions@3.20.0(@tiptap/core@3.20.0(@tiptap/pm@3.20.0))(@tiptap/pm@3.20.0))
       '@tiptap/html':
-        specifier: 3.20.0
+        specifier: ^3.17.1
         version: 3.20.0(@tiptap/core@3.20.0(@tiptap/pm@3.20.0))(@tiptap/pm@3.20.0)(happy-dom@20.8.3)
       '@tiptap/pm':
-        specifier: 3.20.0
+        specifier: ^3.17.1
         version: 3.20.0
       '@tiptap/react':
-        specifier: 3.20.0
+        specifier: ^3.17.1
         version: 3.20.0(@floating-ui/dom@1.6.12)(@tiptap/core@3.20.0(@tiptap/pm@3.20.0))(@tiptap/pm@3.20.0)(@types/react-dom@19.2.3(@types/react@19.2.13))(@types/react@19.2.13)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@tiptap/starter-kit':
-        specifier: 3.20.0
+        specifier: ^3.17.1
         version: 3.20.0
       hast-util-from-html:
         specifier: 2.0.3
