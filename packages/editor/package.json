@@ -1,6 +1,6 @@
 {
   "name": "@react-email/editor",
-  "version": "0.0.0-experimental.12",
+  "version": "0.0.0-experimental.13",
   "description": "",
   "sideEffects": [
     "**/*.css"
@@ -23,12 +23,15 @@
       }
     },
     "./styles/bubble-menu.css": "./dist/ui/bubble-menu/bubble-menu.css",
-    "./styles/link-bubble-menu.css": "./dist/ui/link-bubble-menu/link-bubble-menu.css"
+    "./styles/link-bubble-menu.css": "./dist/ui/link-bubble-menu/link-bubble-menu.css",
+    "./styles/button-bubble-menu.css": "./dist/ui/button-bubble-menu/button-bubble-menu.css",
+    "./styles/image-bubble-menu.css": "./dist/ui/image-bubble-menu/image-bubble-menu.css",
+    "./themes/default.css": "./dist/ui/themes/default.css"
   },
   "license": "MIT",
   "scripts": {
     "build": "tsdown src/index.ts --format esm,cjs --dts --external react && pnpm run build:css",
-    "build:css": "node scripts/copy-css.mjs",
+    "build:css": "tsx scripts/copy-css.ts",
     "build:watch": "tsdown src/index.ts --format esm,cjs --dts --external react --watch",
     "clean": "rm -rf dist",
     "test": "vitest run",
@@ -68,7 +71,10 @@
   "devDependencies": {
     "@testing-library/react": "^16.0.0",
     "@types/prismjs": "1.26.5",
+    "postcss": "8.5.6",
+    "postcss-import": "16.1.1",
     "tsconfig": "workspace:*",
+    "tsx": "catalog:",
     "typescript": "5.8.3"
   },
   "publishConfig": {
