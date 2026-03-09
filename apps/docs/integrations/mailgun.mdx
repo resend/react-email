@@ -1,0 +1,87 @@
+---
+title: 'Send email using Mailgun'
+sidebarTitle: 'Mailgun'
+description: 'Learn how to send an email using React Email and the Mailgun JavaScript SDK.'
+'og:image': 'https://react.email/static/covers/react-email.png'
+---
+
+## 1. Install dependencies
+
+Get the [@react-email/components](https://www.npmjs.com/package/@react-email/components) package, [mailgun.js](https://www.npmjs.com/package/mailgun.js), and [form-data](https://www.npmjs.com/package/form-data).
+
+<CodeGroup>
+
+```sh npm
+npm install mailgun.js form-data @react-email/components
+```
+
+```sh yarn
+yarn add mailgun.js form-data @react-email/components
+```
+
+```sh pnpm
+pnpm add mailgun.js form-data @react-email/components
+```
+
+</CodeGroup>
+
+## 2. Create an email using React
+
+Start by building your email template in a `.jsx` or `.tsx` file.
+
+```tsx email.tsx
+import * as React from 'react';
+import { Html, Button } from '@react-email/components';
+
+export function Email(props) {
+  const { url } = props;
+
+  return (
+    <Html lang="en">
+      <Button href={url}>Click me</Button>
+    </Html>
+  );
+}
+```
+
+## 3. Convert to HTML and send email
+
+Import the email template you just built, convert it into an HTML string, and use the Mailgun SDK to send it.
+
+```tsx
+import FormData from 'form-data';
+import { render } from '@react-email/components';
+import Mailgun from 'mailgun.js';
+import { Email } from './email';
+
+const mailgun = new Mailgun(FormData);
+const client = mailgun.client({
+  username: 'api',
+  key: process.env.MAILGUN_API_KEY,
+});
+
+const emailHtml = await render(<Email url="https://example.com" />);
+
+await client.messages.create(process.env.MAILGUN_DOMAIN, {
+  from: 'you@example.com',
+  to: ['user@gmail.com'],
+  subject: 'hello world',
+  html: emailHtml,
+});
+```
+
+<Info>
+  Current support is example-and-docs based, like `SendGrid` and `Postmark`.
+  A future first-class integration would likely require provider-aware CLI and preview-server abstractions instead of extending the current Resend-specific wiring.
+</Info>
+
+## Try it yourself
+
+<Card
+  title="Mailgun example"
+  icon="arrow-up-right-from-square"
+  iconType="duotone"
+  href="https://github.com/resend/react-email/tree/main/examples/mailgun"
+>
+  See the full source code.
+</Card>

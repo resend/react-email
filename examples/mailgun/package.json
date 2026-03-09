@@ -1,0 +1,27 @@
+{
+  "name": "react-email-with-mailgun",
+  "license": "MIT",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "main": "./dist/index.js",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsdown src/index.tsx --format esm --target node20",
+    "dev": "tsdown src/index.tsx --format esm --target node20 --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "mailgun.js": "^12.7.1",
+    "form-data": "^4.0.5",
+    "@react-email/components": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
+  }
+}

@@ -85,6 +85,7 @@ Emails built with React Email can be converted into HTML and sent using any emai
 - [Resend](https://github.com/resend/react-email/tree/main/examples/resend)
 - [Nodemailer](https://github.com/resend/react-email/tree/main/examples/nodemailer)
 - [SendGrid](https://github.com/resend/react-email/tree/main/examples/sendgrid)
+- [Mailgun](https://github.com/resend/react-email/tree/main/examples/mailgun)
 - [Postmark](https://github.com/resend/react-email/tree/main/examples/postmark)
 - [AWS SES](https://github.com/resend/react-email/tree/main/examples/aws-ses)
 - [Plunk](https://github.com/resend/react-email/tree/main/examples/plunk)
