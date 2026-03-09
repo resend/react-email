@@ -32,27 +32,27 @@ export default function PasswordReset({ resetUrl, email, expiryHours = 1 }: Pass
         <Head />
         <Preview>Reset your password - Action required</Preview>
         <Body className="bg-gray-100 font-sans">
-          <Container className="mx-auto py-10 px-5 max-w-xl bg-white">
-            <Heading className="text-2xl font-bold text-gray-800 mb-5">
+          <Container className="mx-auto py-40 px-20 max-w-600 bg-white">
+            <Heading className="text-24 font-bold text-gray-800 mb-20">
               Reset Your Password
             </Heading>
-            <Text className="text-base leading-7 text-gray-800 my-4">
+            <Text className="text-16 leading-28 text-gray-800 my-16">
               A password reset was requested for your account: <strong>{email}</strong>
             </Text>
-            <Text className="text-base leading-7 text-gray-800 my-4">
+            <Text className="text-16 leading-28 text-gray-800 my-16">
               Click the button below to reset your password. This link expires in {expiryHours} hour{expiryHours > 1 ? 's' : ''}.
             </Text>
             <Button
               href={resetUrl}
-              className="bg-red-600 text-white px-7 py-3.5 rounded block text-center font-bold my-6 no-underline"
+              className="bg-red-600 text-white px-28 py-14 rounded block text-center font-bold my-24 no-underline box-border"
             >
               Reset Password
             </Button>
-            <Hr className="border-gray-200 my-6" />
-            <Text className="text-sm text-gray-500 leading-5 my-2">
+            <Hr className="border-gray-200 my-24" />
+            <Text className="text-14 text-gray-500 leading-20 my-8">
               If you didn't request this, please ignore this email. Your password will remain unchanged.
             </Text>
-            <Text className="text-sm text-gray-500 leading-5 my-2">
+            <Text className="text-14 text-gray-500 leading-20 my-8">
               For security, this link will only work once.
             </Text>
           </Container>
@@ -62,7 +62,7 @@ export default function PasswordReset({ resetUrl, email, expiryHours = 1 }: Pass
   );
 }
 
-PasswordReset.PreviewProps = {
+ PasswordReset.PreviewProps = {
   resetUrl: 'https://example.com/reset/abc123',
   email: 'user@example.com',
   expiryHours: 1
@@ -131,35 +131,35 @@ export default function OrderConfirmation({
         <Head />
         <Preview>Order #{orderNumber} confirmed - Thank you for your purchase!</Preview>
         <Body className="bg-gray-100 font-sans">
-          <Container className="mx-auto py-10 px-5 max-w-xl">
-            <Heading className="text-3xl font-bold text-gray-800 mb-2">
+          <Container className="mx-auto py-40 px-20 max-w-600">
+            <Heading className="text-30 font-bold text-gray-800 mb-8">
               Order Confirmed
             </Heading>
-            <Text className="text-base text-gray-500 mb-6">Thank you for your order!</Text>
+            <Text className="text-16 text-gray-500 mb-24">Thank you for your order!</Text>
 
-            <Section className="bg-gray-50 p-4 rounded mb-6">
+            <Section className="bg-gray-50 p-16 rounded mb-24">
               <Row>
                 <Column>
-                  <Text className="text-xs text-gray-500 uppercase mb-1">Order Number</Text>
-                  <Text className="text-base font-bold text-gray-800 m-0">#{orderNumber}</Text>
+                  <Text className="text-12 text-gray-500 uppercase mb-4">Order Number</Text>
+                  <Text className="text-16 font-bold text-gray-800 m-0">#{orderNumber}</Text>
                 </Column>
                 <Column>
-                  <Text className="text-xs text-gray-500 uppercase mb-1">Order Date</Text>
-                  <Text className="text-base font-bold text-gray-800 m-0">{orderDate.toLocaleDateString()}</Text>
+                  <Text className="text-12 text-gray-500 uppercase mb-4">Order Date</Text>
+                  <Text className="text-16 font-bold text-gray-800 m-0">{orderDate.toLocaleDateString()}</Text>
                 </Column>
               </Row>
             </Section>
 
-            <Hr className="border-gray-200 my-6" />
+            <Hr className="border-gray-200 my-24" />
 
-            <Heading as="h2" className="text-xl font-bold text-gray-800 my-4">
+            <Heading as="h2" className="text-20 font-bold text-gray-800 my-16">
               Order Items
             </Heading>
 
             {items.map((item, index) => (
-              <Section key={index} className="mb-4">
+              <Section key={index} className="mb-16">
                 <Row>
-                  <Column className="w-20 align-top">
+                  <Column className="w-80 align-top">
                     <Img
                       src={item.image}
                       alt={item.name}
@@ -168,15 +168,15 @@ export default function OrderConfirmation({
                       className="rounded border border-gray-200"
                     />
                   </Column>
-                  <Column className="align-top pl-4">
-                    <Text className="text-base font-bold text-gray-800 m-0 mb-1">{item.name}</Text>
-                    {item.sku && <Text className="text-sm text-gray-400 m-0 mb-2">SKU: {item.sku}</Text>}
-                    <Text className="text-sm text-gray-500 m-0">
+                  <Column className="align-top pl-16">
+                    <Text className="text-16 font-bold text-gray-800 m-0 mb-4">{item.name}</Text>
+                    {item.sku && <Text className="text-14 text-gray-400 m-0 mb-8">SKU: {item.sku}</Text>}
+                    <Text className="text-14 text-gray-500 m-0">
                       Quantity: {item.quantity} × ${item.price.toFixed(2)}
                     </Text>
                   </Column>
-                  <Column className="w-24 text-right align-top">
-                    <Text className="text-base font-bold text-gray-800 m-0">
+                  <Column className="w-96 text-right align-top">
+                    <Text className="text-16 font-bold text-gray-800 m-0">
                       ${(item.quantity * item.price).toFixed(2)}
                     </Text>
                   </Column>
@@ -184,51 +184,51 @@ export default function OrderConfirmation({
               </Section>
             ))}
 
-            <Hr className="border-gray-200 my-6" />
+            <Hr className="border-gray-200 my-24" />
 
-            <Section className="mt-6">
+            <Section className="mt-24">
               <Row>
-                <Column><Text className="text-sm text-gray-500 my-2">Subtotal</Text></Column>
+                <Column><Text className="text-14 text-gray-500 my-8">Subtotal</Text></Column>
                 <Column className="text-right">
-                  <Text className="text-sm text-gray-800 my-2">${subtotal.toFixed(2)}</Text>
+                  <Text className="text-14 text-gray-800 my-8">${subtotal.toFixed(2)}</Text>
                 </Column>
               </Row>
               <Row>
-                <Column><Text className="text-sm text-gray-500 my-2">Shipping</Text></Column>
+                <Column><Text className="text-14 text-gray-500 my-8">Shipping</Text></Column>
                 <Column className="text-right">
-                  <Text className="text-sm text-gray-800 my-2">${shipping.toFixed(2)}</Text>
+                  <Text className="text-14 text-gray-800 my-8">${shipping.toFixed(2)}</Text>
                 </Column>
               </Row>
               <Row>
-                <Column><Text className="text-sm text-gray-500 my-2">Tax</Text></Column>
+                <Column><Text className="text-14 text-gray-500 my-8">Tax</Text></Column>
                 <Column className="text-right">
-                  <Text className="text-sm text-gray-800 my-2">${tax.toFixed(2)}</Text>
+                  <Text className="text-14 text-gray-800 my-8">${tax.toFixed(2)}</Text>
                 </Column>
               </Row>
-              <Hr className="border-gray-200 my-3" />
+              <Hr className="border-gray-200 my-12" />
               <Row>
-                <Column><Text className="text-lg font-bold text-gray-800 my-2">Total</Text></Column>
+                <Column><Text className="text-18 font-bold text-gray-800 my-8">Total</Text></Column>
                 <Column className="text-right">
-                  <Text className="text-lg font-bold text-gray-800 my-2">${total.toFixed(2)}</Text>
+                  <Text className="text-18 font-bold text-gray-800 my-8">${total.toFixed(2)}</Text>
                 </Column>
               </Row>
             </Section>
 
-            <Hr className="border-gray-200 my-6" />
+            <Hr className="border-gray-200 my-24" />
 
-            <Heading as="h2" className="text-xl font-bold text-gray-800 my-4">
+            <Heading as="h2" className="text-20 font-bold text-gray-800 my-16">
               Shipping Address
             </Heading>
-            <Section className="bg-gray-50 p-4 rounded">
-              <Text className="text-sm text-gray-800 my-1">{shippingAddress.name}</Text>
-              <Text className="text-sm text-gray-800 my-1">{shippingAddress.street}</Text>
-              <Text className="text-sm text-gray-800 my-1">
+            <Section className="bg-gray-50 p-16 rounded">
+              <Text className="text-14 text-gray-800 my-4">{shippingAddress.name}</Text>
+              <Text className="text-14 text-gray-800 my-4">{shippingAddress.street}</Text>
+              <Text className="text-14 text-gray-800 my-4">
                 {shippingAddress.city}, {shippingAddress.state} {shippingAddress.zip}
               </Text>
-              <Text className="text-sm text-gray-800 my-1">{shippingAddress.country}</Text>
+              <Text className="text-14 text-gray-800 my-4">{shippingAddress.country}</Text>
             </Section>
 
-            <Text className="text-sm text-gray-500 mt-8">
+            <Text className="text-14 text-gray-500 mt-32">
               Questions about your order? Reply to this email and we'll help you out.
             </Text>
           </Container>
@@ -331,22 +331,22 @@ export default function Notification({
         <Head />
         <Preview>{title} - {severity}</Preview>
         <Body className="bg-gray-100 font-mono">
-          <Container className="mx-auto max-w-xl bg-white border border-gray-200 rounded overflow-hidden">
-            <Section className={`h-1 w-full ${severityColors[severity]}`} />
+          <Container className="mx-auto max-w-600 bg-white border border-gray-200 rounded overflow-hidden">
+            <Section className={`h-4 w-full ${severityColors[severity]}`} />
 
-            <Heading className="text-2xl font-bold text-gray-800 mx-6 mt-6 mb-4">
+            <Heading className="text-24 font-bold text-gray-800 mx-24 mt-24 mb-16">
               {title}
             </Heading>
 
-            <Text className={`inline-block px-3 py-1 text-xs font-bold text-white rounded-full mx-6 mb-4 ${severityBtnColors[severity]}`}>
+            <Text className={`inline-block px-12 py-4 text-12 font-bold text-white rounded-full mx-24 mb-16 ${severityBtnColors[severity]}`}>
               {severity.toUpperCase()}
             </Text>
 
-            <Text className="text-base leading-6 text-gray-800 mx-6 mb-4">
+            <Text className="text-16 leading-24 text-gray-800 mx-24 mb-16">
               {message}
             </Text>
 
-            <Text className="text-sm text-gray-500 mx-6 mb-6">
+            <Text className="text-14 text-gray-500 mx-24 mb-24">
               {new Date(timestamp).toLocaleString('en-US', {
                 dateStyle: 'long',
                 timeStyle: 'short'
@@ -355,35 +355,37 @@ export default function Notification({
 
             {logData && (
               <>
-                <Hr className="border-gray-200 my-6" />
-                <Heading as="h2" className="text-lg font-bold text-gray-800 mx-6 my-4">
+                <Hr className="border-gray-200 my-24" />
+                <Heading as="h2" className="text-18 font-bold text-gray-800 mx-24 my-16">
                   Log Details
                 </Heading>
-                <Section className="mx-6">
-                  <CodeBlock
-                    code={logData}
-                    language="json"
-                    theme={dracula}
-                    lineNumbers
-                  />
+                <Section className="mx-24">
+                  <div className="overflow-auto">
+                    <CodeBlock
+                      code={logData}
+                      language="json"
+                      theme={dracula}
+                      lineNumbers
+                    />
+                  </div>
                 </Section>
               </>
             )}
 
             {actionUrl && (
               <>
-                <Hr className="border-gray-200 my-6" />
+                <Hr className="border-gray-200 my-24" />
                 <Link
                   href={actionUrl}
-                  className={`inline-block px-6 py-3 text-base font-bold text-white rounded no-underline mx-6 mb-6 ${severityBtnColors[severity]}`}
+                  className={`inline-block px-24 py-12 text-16 font-bold text-white rounded no-underline mx-24 mb-24 ${severityBtnColors[severity]}`}
                 >
                   {actionLabel}
                 </Link>
               </>
             )}
 
-            <Hr className="border-gray-200 my-6" />
-            <Text className="text-xs text-gray-500 mx-6 mb-6">
+            <Hr className="border-gray-200 my-24" />
+            <Text className="text-12 text-gray-500 mx-24 mb-24">
               This is an automated notification. Please do not reply to this email.
             </Text>
           </Container>
@@ -452,9 +454,9 @@ export default function Newsletter({ articles, unsubscribeUrl }: NewsletterProps
         <Head />
         <Preview>Your weekly roundup of the latest articles</Preview>
         <Body className="bg-white font-sans">
-          <Container className="mx-auto max-w-xl">
+          <Container className="mx-auto max-w-600">
             {/* Header */}
-            <Section className="pt-10 px-5 pb-5 text-center">
+            <Section className="pt-40 px-20 pb-20 text-center">
               <Img
                 src="https://via.placeholder.com/150x50?text=Logo"
                 alt="Company Logo"
@@ -463,48 +465,48 @@ export default function Newsletter({ articles, unsubscribeUrl }: NewsletterProps
               />
             </Section>
 
-            <Heading className="text-3xl font-bold text-gray-900 mx-5 mb-4 text-center">
+            <Heading className="text-30 font-bold text-gray-900 mx-20 mb-16 text-center">
               This Week's Highlights
             </Heading>
-            <Text className="text-base leading-6 text-gray-500 mx-5 mb-6 text-center">
+            <Text className="text-16 leading-24 text-gray-500 mx-20 mb-24 text-center">
               Here are the top articles from this week. Enjoy your reading!
             </Text>
 
-            <Hr className="border-gray-200 mx-5 my-8" />
+            <Hr className="border-gray-200 mx-20 my-32" />
 
             {/* Featured Article */}
             {articles[0] && (
-              <Section className="px-5">
+              <Section className="px-20">
                 <Img
                   src={articles[0].image}
                   alt={articles[0].title}
                   width="600"
-                  className="w-full rounded-lg mb-4"
+                  className="w-full rounded-lg mb-16"
                 />
-                <Heading as="h2" className="text-2xl font-bold text-gray-900 my-4">
+                <Heading as="h2" className="text-24 font-bold text-gray-900 my-16">
                   {articles[0].title}
                 </Heading>
-                <Text className="text-base leading-6 text-gray-500 my-4">
+                <Text className="text-16 leading-24 text-gray-500 my-16">
                   {articles[0].excerpt}
                 </Text>
-                <Text className="text-sm text-gray-400 my-2">
+                <Text className="text-14 text-gray-400 my-8">
                   By {articles[0].author} • {articles[0].date}
                 </Text>
                 <Button
                   href={articles[0].url}
-                  className="bg-blue-600 text-white px-6 py-3 rounded font-bold inline-block no-underline"
+                  className="bg-blue-600 text-white px-24 py-12 rounded font-bold inline-block no-underline box-border"
                 >
                   Read More
                 </Button>
               </Section>
             )}
 
-            <Hr className="border-gray-200 mx-5 my-8" />
+            <Hr className="border-gray-200 mx-20 my-32" />
 
             {/* Two-Column Articles */}
             {articles.slice(1, 5).length > 0 && (
               <>
-                <Heading as="h2" className="text-2xl font-bold text-gray-900 mx-5 my-4">
+                <Heading as="h2" className="text-24 font-bold text-gray-900 mx-20 my-16">
                   More From This Week
                 </Heading>
                 {Array.from({ length: Math.ceil(articles.slice(1, 5).length / 2) }).map((_, rowIndex) => {
@@ -512,43 +514,43 @@ export default function Newsletter({ articles, unsubscribeUrl }: NewsletterProps
                   const rightArticle = articles[2 + rowIndex * 2];
 
                   return (
-                    <Section key={rowIndex} className="px-5 mb-6">
+                    <Section key={rowIndex} className="px-20 mb-24">
                       <Row>
                         {leftArticle && (
-                          <Column className="w-1/2 align-top px-1">
+                          <Column className="w-1/2 align-top px-4">
                             <Img
                               src={leftArticle.image}
                               alt={leftArticle.title}
                               width="280"
-                              className="w-full rounded mb-3"
+                              className="w-full rounded mb-12"
                             />
-                            <Heading as="h3" className="text-lg font-bold text-gray-900 my-3">
+                            <Heading as="h3" className="text-18 font-bold text-gray-900 my-12">
                               {leftArticle.title}
                             </Heading>
-                            <Text className="text-sm leading-5 text-gray-500 my-2">
+                            <Text className="text-14 leading-20 text-gray-500 my-8">
                               {leftArticle.excerpt}
                             </Text>
-                            <Link href={leftArticle.url} className="text-sm text-blue-600 no-underline font-semibold">
+                            <Link href={leftArticle.url} className="text-14 text-blue-600 no-underline font-semibold">
                               Read article →
                             </Link>
                           </Column>
                         )}
 
                         {rightArticle && (
-                          <Column className="w-1/2 align-top px-1">
+                          <Column className="w-1/2 align-top px-4">
                             <Img
                               src={rightArticle.image}
                               alt={rightArticle.title}
                               width="280"
-                              className="w-full rounded mb-3"
+                              className="w-full rounded mb-12"
                             />
-                            <Heading as="h3" className="text-lg font-bold text-gray-900 my-3">
+                            <Heading as="h3" className="text-18 font-bold text-gray-900 my-12">
                               {rightArticle.title}
                             </Heading>
-                            <Text className="text-sm leading-5 text-gray-500 my-2">
+                            <Text className="text-14 leading-20 text-gray-500 my-8">
                               {rightArticle.excerpt}
                             </Text>
-                            <Link href={rightArticle.url} className="text-sm text-blue-600 no-underline font-semibold">
+                            <Link href={rightArticle.url} className="text-14 text-blue-600 no-underline font-semibold">
                               Read article →
                             </Link>
                           </Column>
@@ -560,17 +562,17 @@ export default function Newsletter({ articles, unsubscribeUrl }: NewsletterProps
               </>
             )}
 
-            <Hr className="border-gray-200 mx-5 my-8" />
+            <Hr className="border-gray-200 mx-20 my-32" />
 
             {/* Footer */}
-            <Section className="bg-gray-50 p-8 mt-8 text-center">
-              <Text className="text-sm text-gray-500 my-2">
+            <Section className="bg-gray-50 p-32 mt-32 text-center">
+              <Text className="text-14 text-gray-500 my-8">
                 You're receiving this because you subscribed to our newsletter.
               </Text>
-              <Link href={unsubscribeUrl} className="text-sm text-blue-600 underline block my-2">
+              <Link href={unsubscribeUrl} className="text-14 text-blue-600 underline block my-8">
                 Unsubscribe from this list
               </Link>
-              <Text className="text-sm text-gray-500 my-2">
+              <Text className="text-14 text-gray-500 my-8">
                 © 2026 Company Name. All rights reserved.
               </Text>
             </Section>
@@ -653,38 +655,38 @@ export default function TeamInvitation({
         <Head />
         <Preview>You've been invited to join {teamName}</Preview>
         <Body className="bg-gray-100 font-sans">
-          <Container className="mx-auto py-10 px-5 max-w-xl bg-white">
-            <Heading className="text-3xl font-bold text-gray-800 text-center mb-6">
+          <Container className="mx-auto py-40 px-20 max-w-600 bg-white">
+            <Heading className="text-30 font-bold text-gray-800 text-center mb-24">
               You're Invited!
             </Heading>
 
-            <Text className="text-base leading-7 text-gray-800 my-4">
+            <Text className="text-16 leading-28 text-gray-800 my-16">
               <strong>{inviterName}</strong> ({inviterEmail}) has invited you to join the{' '}
               <strong>{teamName}</strong> team.
             </Text>
 
-            <Section className="bg-gray-50 p-5 rounded border border-gray-200 my-6">
-              <Text className="text-xs text-gray-500 uppercase font-bold mb-2">Role</Text>
-              <Text className="text-lg font-bold text-gray-800 m-0">{role}</Text>
+            <Section className="bg-gray-50 p-20 rounded border border-gray-200 my-24">
+              <Text className="text-12 text-gray-500 uppercase font-bold mb-8">Role</Text>
+              <Text className="text-18 font-bold text-gray-800 m-0">{role}</Text>
             </Section>
 
-            <Text className="text-base leading-7 text-gray-800 my-4">
+            <Text className="text-16 leading-28 text-gray-800 my-16">
               Click the button below to accept the invitation and get started.
             </Text>
 
             <Button
               href={inviteUrl}
-              className="bg-green-600 text-white px-7 py-3.5 rounded block text-center font-bold text-base my-6 no-underline"
+              className="bg-green-600 text-white px-28 py-14 rounded block text-center font-bold text-16 my-24 no-underline box-border"
             >
               Accept Invitation
             </Button>
 
-            <Hr className="border-gray-200 my-6" />
+            <Hr className="border-gray-200 my-24" />
 
-            <Text className="text-sm text-gray-500 leading-5 my-2">
+            <Text className="text-14 text-gray-500 leading-20 my-8">
               This invitation will expire in {expiryDays} day{expiryDays > 1 ? 's' : ''}.
             </Text>
-            <Text className="text-sm text-gray-500 leading-5 my-2">
+            <Text className="text-14 text-gray-500 leading-20 my-8">
               If you weren't expecting this invitation, you can safely ignore this email.
             </Text>
           </Container>
@@ -705,9 +707,9 @@ TeamInvitation.PreviewProps = {
 ```
 
 These patterns demonstrate:
-- Tailwind CSS utility classes for styling
-- Proper component usage with `pixelBasedPreset`
+- Tailwind CSS pixel-based utility classes with `pixelBasedPreset`
+- Proper component usage (`pixelBasedPreset`, `box-border` on Button)
 - TypeScript typing
 - Preview props for testing
-- Responsive layouts
+- Responsive layouts using Row/Column
 - Common email scenarios
