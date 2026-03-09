@@ -106,7 +106,7 @@ export default function MyEmail({ name = 'Jane' }: MyEmailProps) {
 
 ## Styling Rules
 
-- **Never** use flexbox or CSS grid — use `Row`/`Column` for multi-column layouts
+- **Never** use flexbox or CSS grid (neither Tailwind classes nor inline `style` props) — use `Row`/`Column` for multi-column layouts
 - **Never** use SVG or WEBP images — use PNG/JPEG only
 - **Never** use responsive prefixes (`sm:`, `md:`) or `dark:` — email clients don't support them
 - Always specify border style explicitly: `border-solid`, `border-dashed`, etc.
