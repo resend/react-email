@@ -1,6 +1,6 @@
 {
   "name": "@react-email/editor",
-  "version": "0.0.0-experimental.12",
+  "version": "0.0.0-experimental.13",
   "description": "",
   "sideEffects": [
     "**/*.css"
@@ -25,7 +25,8 @@
     "./styles/bubble-menu.css": "./dist/ui/bubble-menu/bubble-menu.css",
     "./styles/link-bubble-menu.css": "./dist/ui/link-bubble-menu/link-bubble-menu.css",
     "./styles/button-bubble-menu.css": "./dist/ui/button-bubble-menu/button-bubble-menu.css",
-    "./styles/image-bubble-menu.css": "./dist/ui/image-bubble-menu/image-bubble-menu.css"
+    "./styles/image-bubble-menu.css": "./dist/ui/image-bubble-menu/image-bubble-menu.css",
+    "./themes/default.css": "./dist/ui/themes/default.css"
   },
   "license": "MIT",
   "scripts": {
