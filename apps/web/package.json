@@ -55,7 +55,7 @@
     "tailwindcss": "catalog:",
     "tsconfig": "workspace:*",
     "typescript": "catalog:",
-    "webpack": "5.104.1",
+    "webpack": "5.105.4",
     "zod": "catalog:"
   }
 }
