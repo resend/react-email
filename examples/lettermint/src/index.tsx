@@ -2,7 +2,9 @@ import { render } from '@react-email/components';
 import { Lettermint } from 'lettermint';
 import { Email } from './email';
 
-const lettermint = new Lettermint({ apiToken: process.env.LETTERMINT_API_TOKEN || '' });
+const lettermint = new Lettermint({
+  apiToken: process.env.LETTERMINT_API_TOKEN || '',
+});
 
 const emailHtml = await render(<Email url="https://example.com" />);
 
