@@ -145,7 +145,7 @@ const ReactVariantSelect = ({
     >
       <Select.Trigger
         aria-label="Choose the styling solution"
-        className="flex h-8 items-center justify-center gap-1 rounded-sm bg-slate-3 px-3 leading-none outline-hidden focus-within:ring-2 focus-within:ring-slate-6 focus-within:ring-opacity-50 data-placeholder:text-slate-11"
+        className="flex h-8 items-center justify-center gap-1 rounded-sm bg-slate-3 px-3 leading-none outline-hidden focus-within:ring-2 focus-within:ring-slate-6/50 data-placeholder:text-slate-11"
       >
         <Select.Value>
           {(() => {
