@@ -1,5 +1,11 @@
 # playground
 
+## 0.0.17
+
+### Patch Changes
+
+- @react-email/tailwind@3.0.0
+
 ## 0.0.16
 
 ### Patch Changes
