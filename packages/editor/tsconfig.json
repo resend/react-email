@@ -1,5 +1,11 @@
 {
   "extends": "tsconfig/react-library.json",
+  "compilerOptions": {
+    "moduleResolution": "nodenext",
+    "module": "nodenext",
+    "target": "es2018",
+    "types": ["node", "vitest/globals"]
+  },
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"]
 }
