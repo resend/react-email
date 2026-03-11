@@ -90,7 +90,7 @@ describe('ImageBubbleMenuDefault', () => {
     expect(onHide).toHaveBeenCalledOnce();
   });
 
-  it('shouldShow returns true when image node is active', () => {
+  it('returns true when image node is active', () => {
     render(<ImageBubbleMenuDefault />);
 
     expect(capturedShouldShow).toBeDefined();
