@@ -1,9 +1,9 @@
-import OrderedListExtension from '@tiptap/extension-ordered-list';
+import OrderedListBase from '@tiptap/extension-ordered-list';
 import { EmailNode } from '../core/serializer/email-node';
 import { inlineCssToJs } from '../utils/styles';
 
 export const OrderedList = EmailNode.from(
-  OrderedListExtension,
+  OrderedListBase,
   ({ children, node, style }) => (
     <ol
       className={node.attrs?.class || undefined}

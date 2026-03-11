@@ -1,10 +1,10 @@
-import Paragraph from '@tiptap/extension-paragraph';
+import ParagraphBase from '@tiptap/extension-paragraph';
 import { EmailNode } from '../core/serializer/email-node';
 import { getTextAlignment } from '../utils/get-text-alignment';
 import { inlineCssToJs } from '../utils/styles';
 
 export const Paragraph = EmailNode.from(
-  Paragraph,
+  ParagraphBase,
   ({ children, node, style }) => {
     const isEmpty = !node.content || node.content.length === 0;
 

@@ -1,10 +1,10 @@
-import ListItemExtension from '@tiptap/extension-list-item';
+import ListItemBase from '@tiptap/extension-list-item';
 import { EmailNode } from '../core/serializer/email-node';
 import { getTextAlignment } from '../utils/get-text-alignment';
 import { inlineCssToJs } from '../utils/styles';
 
 export const ListItem = EmailNode.from(
-  ListItemExtension,
+  ListItemBase,
   ({ children, node, style }) => (
     <li
       className={node.attrs?.class || undefined}
