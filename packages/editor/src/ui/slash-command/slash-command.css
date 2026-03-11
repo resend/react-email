@@ -1,15 +1,13 @@
+/* Minimal functional styles for SlashCommand components.
+ * Layout and positioning only - no visual design.
+ * Import optionally: import '@react-email/editor/styles/slash-command.css';
+ */
+
 [data-re-slash-command] {
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.5rem;
-  box-shadow:
-    0 4px 6px -1px rgb(0 0 0 / 0.1),
-    0 2px 4px -2px rgb(0 0 0 / 0.1);
   max-height: 330px;
   overflow-y: auto;
   width: 256px;
   padding: 0.25rem;
-  z-index: 50;
 }
 
 [data-re-slash-command-item] {
@@ -24,22 +22,11 @@
   cursor: pointer;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  color: #1a202c;
   text-align: left;
-  transition: background-color 0.15s;
-}
-
-[data-re-slash-command-item]:hover {
-  background-color: #f1f5f9;
-}
-
-[data-re-slash-command-item][data-selected] {
-  background-color: #f1f5f9;
 }
 
 [data-re-slash-command-item] svg {
   flex-shrink: 0;
-  color: #64748b;
 }
 
 [data-re-slash-command-category] {
@@ -47,41 +34,11 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #94a3b8;
   padding: 0.5rem 0.5rem 0.25rem;
 }
 
 [data-re-slash-command-empty] {
   padding: 0.75rem 0.5rem;
   font-size: 0.875rem;
-  color: #94a3b8;
   text-align: center;
-}
-
-@media (prefers-color-scheme: dark) {
-  [data-re-slash-command] {
-    background: #1e293b;
-    border-color: #334155;
-  }
-
-  [data-re-slash-command-item] {
-    color: #e2e8f0;
-  }
-
-  [data-re-slash-command-item]:hover,
-  [data-re-slash-command-item][data-selected] {
-    background-color: #334155;
-  }
-
-  [data-re-slash-command-item] svg {
-    color: #94a3b8;
-  }
-
-  [data-re-slash-command-category] {
-    color: #64748b;
-  }
-
-  [data-re-slash-command-empty] {
-    color: #64748b;
-  }
 }
