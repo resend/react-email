@@ -70,6 +70,8 @@ vi.mock('../bubble-menu/utils', () => ({
 afterEach(() => {
   cleanup();
   mockEditor.isActive.mockReturnValue(false);
+  capturedOnHide = undefined;
+  capturedShouldShow = undefined;
 });
 
 describe('LinkBubbleMenuDefault', () => {

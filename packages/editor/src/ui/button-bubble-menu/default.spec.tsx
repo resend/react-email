@@ -49,6 +49,8 @@ vi.mock('@tiptap/react/menus', () => ({
 afterEach(() => {
   cleanup();
   mockEditor.isActive.mockReturnValue(false);
+  capturedOnHide = undefined;
+  capturedShouldShow = undefined;
 });
 
 describe('ButtonBubbleMenuDefault', () => {
