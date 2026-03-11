@@ -3,14 +3,23 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import * as core from '@actions/core';
-import { exec, getExecOutput } from '@actions/exec';
+import { exec } from '@actions/exec';
 import * as github from '@actions/github';
 import { readPreState } from '@changesets/pre';
 import { getPackages, type Package } from '@manypkg/get-packages';
 import { toString as mdastToString } from 'mdast-util-to-string';
 import { remark } from 'remark';
+import {
+  checkPublished,
+  createPublisher,
+  toWorkspacePackage,
+  topologicalPublish,
+  topologicalPublishDryRun,
+} from './release-utils.mts';
 
-const octokit = github.getOctokit(process.env.GITHUB_TOKEN || '');
+const isDryRun = process.argv.includes('--dry-run');
+
+const octokit = github.getOctokit(process.env.GITHUB_TOKEN || 'placeholder');
 
 const processor = remark();
 const LATEST_GITHUB_RELEASE_PACKAGE_NAME = 'react-email';
@@ -150,33 +159,21 @@ const isTruthyEnv = (value: string | undefined) =>
   value !== undefined && /^(1|true|yes)$/i.test(value);
 
 (async () => {
-  if (!github.context.repo.owner || !github.context.repo.repo) {
-    throw new Error(
-      'GitHub context is missing. This script must be run in a GitHub Actions workflow.',
-    );
-  }
-
+  const preState = await readPreState(process.cwd());
   const skipNpmPublish =
     isTruthyEnv(process.env.SKIP_NPM_PUBLISH) ||
     process.argv.includes('--skip-npm-publish') ||
     process.argv.includes('--only-github-releases');
 
-  const { packages } = await getPackages(process.cwd());
-  const publishablePackages = packages.filter(
-    (pkg) => pkg.packageJson.private !== true,
-  );
+  if (!isDryRun) {
+    if (!github.context.repo.owner || !github.context.repo.repo) {
+      throw new Error(
+        'GitHub context is missing. This script must be run in a GitHub Actions workflow.',
+      );
+    }
+  }
 
-  let releasedPackages: Package[];
-
-  if (skipNpmPublish) {
-    console.log(
-      'SKIP_NPM_PUBLISH is set, skipping npm publish and only ensuring GitHub releases exist',
-    );
-    releasedPackages = publishablePackages;
-  } else {
-    // https://docs.npmjs.com/generating-provenance-statements#publishing-packages-with-provenance-via-github-actions
-    const npmIdToken = await core.getIDToken('npm:registry.npmjs.org');
-
+  if (!isDryRun && !skipNpmPublish) {
     const isCanaryBranch = github.context.ref === 'refs/heads/canary';
     const isMainBranch = github.context.ref === 'refs/heads/main';
 
@@ -184,7 +181,6 @@ const isTruthyEnv = (value: string | undefined) =>
       console.log(
         'Detected running in canary branch, checking prerelease state',
       );
-      const preState = await readPreState(process.cwd());
       if (preState?.mode !== 'pre') {
         console.log(
           'Was not in prerelease, skipping automated release. To release this you should rebase onto main',
@@ -201,37 +197,64 @@ const isTruthyEnv = (value: string | undefined) =>
         `Unexpected branch/ref: ${github.context.ref}. Expected refs/heads/main or refs/heads/canary`,
       );
     }
+  }
 
-    const changesetPublishOutput = await getExecOutput('pnpm', ['release'], {
-      env: {
-        ...process.env,
-        NPM_ID_TOKEN: npmIdToken,
-        // https://docs.npmjs.com/generating-provenance-statements#using-third-party-package-publishing-tools
-        NPM_CONFIG_PROVENANCE: 'true',
-      },
+  const npmIdToken =
+    !isDryRun && !skipNpmPublish
+      ? await core.getIDToken('npm:registry.npmjs.org')
+      : '';
+
+  let buildFailed = false;
+  if (!skipNpmPublish || isDryRun) {
+    try {
+      await exec('pnpm', ['turbo', 'run', 'build', '--filter=./packages/*']);
+    } catch (error) {
+      if (!isDryRun) throw error;
+      buildFailed = true;
+      console.error(`Build failed: ${error}`);
+    }
+  }
+
+  const distTag = preState?.mode === 'pre' ? preState.tag : 'latest';
+
+  const { packages } = await getPackages(process.cwd());
+  const publishablePackages = packages.filter(
+    (pkg) => pkg.packageJson.private !== true,
+  );
+  const packagesByName = new Map(packages.map((x) => [x.packageJson.name, x]));
+
+  let releasedPackages: Package[];
+  let failedNames: string[] = [];
+
+  if (skipNpmPublish) {
+    console.log(
+      'SKIP_NPM_PUBLISH is set, skipping npm publish and only ensuring GitHub releases exist',
+    );
+    releasedPackages = publishablePackages;
+  } else if (isDryRun) {
+    await topologicalPublishDryRun({
+      packages: packages.map(toWorkspacePackage),
+      distTag,
+      buildFailed,
+      checkPublished,
+    });
+    return;
+  } else {
+    const result = await topologicalPublish({
+      packages: packages.map(toWorkspacePackage),
+      checkPublished,
+      publish: createPublisher({ distTag, npmIdToken }),
     });
 
-    const newTagRegex = /New tag:\s+(@[^/]+\/[^@]+|[^/]+)@([^\s]+)/;
-    const packagesByName = new Map(
-      packages.map((x) => [x.packageJson.name, x]),
-    );
+    failedNames = result.failed;
 
-    releasedPackages = [];
-    for (const line of changesetPublishOutput.stdout.split('\n')) {
-      const match = line.match(newTagRegex);
-      if (match === null) {
-        continue;
-      }
-      const pkgName = match[1];
-      const pkg = packagesByName.get(pkgName);
-      if (pkg === undefined) {
-        throw new Error(
-          `Package "${pkgName}" not found.` +
-            'This is probably a bug in the action, please open an issue',
-        );
-      }
-      releasedPackages.push(pkg);
+    if (failedNames.length > 0) {
+      core.error(
+        `Failed to publish ${failedNames.length} package(s): ${failedNames.join(', ')}`,
+      );
     }
+
+    releasedPackages = result.published.map((n) => packagesByName.get(n)!);
   }
 
   await exec('git', ['config', 'user.name', `"github-actions[bot]"`]);
@@ -242,5 +265,9 @@ const isTruthyEnv = (value: string | undefined) =>
   ]);
   for (const pkg of releasedPackages) {
     await ensureReleaseForPackage(pkg);
+  }
+
+  if (failedNames.length > 0) {
+    process.exitCode = 1;
   }
 })();
