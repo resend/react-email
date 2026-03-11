@@ -18,7 +18,7 @@ const HeroSection = () => {
   return (
     <>
       {/* Right Column - Tower */}
-      <div className="w-[100dvw] h-[100dvh] max-lg:hidden z-[0] absolute right-0 top-0">
+      <div className="w-dvw h-dvh max-lg:hidden z-0 absolute right-0 top-0">
         <div className="w-full h-full">
           <Tower />
           <div
@@ -34,14 +34,14 @@ const HeroSection = () => {
       <section className="flex flex-col h-[calc(100dvh-11.5rem)] lg:max-w-7xl mx-auto max-lg:items-center justify-center relative w-full pt-12 lg:pt-0 pointer-events-none">
         <Image
           alt=""
-          className="pointer-events-none absolute inset-0 -top-40 z-[3] scale-150 select-none mix-blend-lighten lg:opacity-30"
+          className="pointer-events-none absolute inset-0 -top-40 z-3 scale-150 select-none mix-blend-lighten lg:opacity-30"
           fill
           priority
           src="/static/bg.png"
         />
 
         {/* Left Column - Content */}
-        <div className="w-full lg:w-[44rem] z-10 px-4 lg:px-12 pointer-events-auto">
+        <div className="w-full lg:w-176 z-10 px-4 lg:px-12 pointer-events-auto">
           <div className="mb-8 flex justify-center lg:justify-start">
             <Image
               alt="React Email Logo"
@@ -51,7 +51,7 @@ const HeroSection = () => {
             />
           </div>
           <Heading
-            className="text-white/80 relative mb-8 text-center lg:text-left before:absolute before:top-0 before:left-0 before:w-full before:animate-[shine_1.5s_ease-in-out] before:bg-[length:225%] before:bg-shine before:bg-clip-text before:text-transparent before:content-['The_next_generation_of_writing_emails'] before:select-none before:pointer-events-none text-balance"
+            className="text-white/80 relative mb-8 text-center lg:text-left before:absolute before:top-0 before:left-0 before:w-full before:animate-[shine_1.5s_ease-in-out] before:bg-size-[225%] before:bg-shine before:bg-clip-text before:text-transparent before:content-['The_next_generation_of_writing_emails'] before:select-none before:pointer-events-none text-balance"
             weight="medium"
             size="10"
           >
@@ -71,7 +71,7 @@ const HeroSection = () => {
                 <ArrowRightIcon size={16} />
               </Link>
             </Button>
-            <Code className="lg:!inline-flex hidden max-w-max">
+            <Code className="lg:inline-flex! hidden max-w-max">
               npx create-email@latest
             </Code>
           </div>

@@ -36,7 +36,7 @@ const Line = () => {
   return (
     <div
       aria-hidden
-      className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-96 bg-gradient-to-l from-transparent via-cyan-12/50 via-50% to-transparent"
+      className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-96 bg-linear-to-l from-transparent via-cyan-12/50 via-50% to-transparent"
     />
   );
 };
