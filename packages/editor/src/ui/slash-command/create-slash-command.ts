@@ -1,9 +1,9 @@
 import type { Editor } from '@tiptap/core';
 import { defaultSlashCommands } from './commands';
 import { SlashCommandExtension } from './extension';
-import { renderItems } from './render';
+import { createRenderItems } from './render';
 import { filterAndRankItems } from './search';
-import type { SlashCommandItem } from './types';
+import type { CommandListComponent, SlashCommandItem } from './types';
 import { isAtMaxColumnsDepth } from './utils';
 
 function defaultFilterItems(
@@ -27,6 +27,7 @@ export function createSlashCommand(options?: {
     query: string,
     editor: Editor,
   ) => SlashCommandItem[];
+  component?: CommandListComponent;
 }) {
   const items = options?.items ?? defaultSlashCommands;
   const filterFn = options?.filterItems ?? defaultFilterItems;
@@ -35,7 +36,7 @@ export function createSlashCommand(options?: {
     suggestion: {
       items: ({ query, editor }: { query: string; editor: Editor }) =>
         filterFn(items, query, editor),
-      render: renderItems,
+      render: createRenderItems(options?.component),
     },
   });
 }

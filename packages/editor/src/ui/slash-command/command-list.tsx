@@ -1,5 +1,4 @@
 import {
-  type Ref,
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -7,7 +6,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import type { SlashCommandItem, SlashCommandProps } from './types';
+import type { CommandListProps, SlashCommandItem } from './types';
 import { updateScrollView } from './utils';
 
 const CATEGORY_ORDER = ['Text', 'Media', 'Layout', 'Utility'];
@@ -60,19 +59,6 @@ function CommandItem({ item, selected, onSelect }: CommandItemProps) {
       <span>{item.title}</span>
     </button>
   );
-}
-
-export interface CommandListRef {
-  onKeyDown: (props: { event: KeyboardEvent }) => boolean;
-}
-
-interface CommandListProps {
-  items: SlashCommandItem[];
-  command: (item: SlashCommandItem) => void;
-  editor: SlashCommandProps['editor'];
-  range: SlashCommandProps['range'];
-  query: string;
-  ref: Ref<CommandListRef>;
 }
 
 export function CommandList({ items, command, query, ref }: CommandListProps) {

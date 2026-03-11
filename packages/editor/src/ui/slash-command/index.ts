@@ -1,3 +1,4 @@
+export { CommandList } from './command-list';
 export {
   BULLET_LIST,
   BUTTON,
@@ -18,6 +19,9 @@ export {
 export { createSlashCommand } from './create-slash-command';
 export { filterAndRankItems, scoreItem } from './search';
 export type {
+  CommandListComponent,
+  CommandListProps,
+  CommandListRef,
   SearchableItem,
   SlashCommandItem,
   SlashCommandProps,
