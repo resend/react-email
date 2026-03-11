@@ -37,13 +37,13 @@ export const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(
 
     // TODO: Support all options
     renderer.code = ({ text }) => {
-      text = `${text.replace(/\n$/, '')}\n`;
+      const normalizedText = `${text.replace(/\n$/, '')}\n`;
 
       return `<pre${
         parseCssInJsToInlineCss(finalStyles.codeBlock) !== ''
           ? ` style="${parseCssInJsToInlineCss(finalStyles.codeBlock)}"`
           : ''
-      }><code>${text}</code></pre>\n`;
+      }><code>${normalizedText}</code></pre>\n`;
     };
 
     renderer.codespan = ({ text }) => {
