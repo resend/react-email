@@ -12,30 +12,30 @@ export type NodeClickedEvent = {
 };
 
 /**
- * A single variable item with all metadata needed for rendering.
- * Used by the event bus and variable plugin.
+ * A single placeholder item with all metadata needed for rendering.
+ * Used by the event bus and placeholder plugin.
  */
-export interface VariableItem {
-  /** Full variable string, e.g., '{{{contact.email}}}' */
+export interface PlaceholderItem {
+  /** Full placeholder string, e.g., '{{{contact.email}}}' */
   id: string;
   /** Display text shown in the dropdown, e.g., 'contact.email' */
   displayKey: string;
-  /** Base key used for updates, e.g., 'contact' or the variable name */
-  variableKey: string;
+  /** Base key used for updates, e.g., 'contact' or the placeholder name */
+  placeholderKey: string;
   /** Fallback value for the variable */
   fallbackValue: string | null;
   /** Category ID this variable belongs to */
   category: string;
-  /** Variable type (string, number, boolean, object, list) - needed for loop item computation */
+  /** Placeholder type (string, number, boolean, object, list) - needed for loop item computation */
   type?: string;
-  /** Override fallback warning for this specific variable */
+  /** Override fallback warning for this specific item */
   skipFallbackWarning?: boolean;
 }
 
 /**
- * Custom variable definition used in the variables plugin.
+ * Custom placeholder definition used in the placeholders plugin.
  */
-export type CustomVariable = {
+export type CustomPlaceholder = {
   id: string;
   key: string;
   type: string;
