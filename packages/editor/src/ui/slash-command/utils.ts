@@ -18,14 +18,12 @@ export function updateScrollView(
   container: HTMLElement,
   item: HTMLElement,
 ): void {
-  const containerTop = container.scrollTop;
-  const containerBottom = containerTop + container.clientHeight;
-  const itemTop = item.offsetTop;
-  const itemBottom = itemTop + item.clientHeight;
+  const containerRect = container.getBoundingClientRect();
+  const itemRect = item.getBoundingClientRect();
 
-  if (itemTop < containerTop) {
-    container.scrollTop = itemTop;
-  } else if (itemBottom > containerBottom) {
-    container.scrollTop = itemBottom - container.clientHeight;
+  if (itemRect.top < containerRect.top) {
+    container.scrollTop -= containerRect.top - itemRect.top;
+  } else if (itemRect.bottom > containerRect.bottom) {
+    container.scrollTop += itemRect.bottom - containerRect.bottom;
   }
 }
