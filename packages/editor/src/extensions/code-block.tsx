@@ -7,8 +7,8 @@ import { mergeAttributes } from '@tiptap/core';
 import type { CodeBlockOptions } from '@tiptap/extension-code-block';
 import CodeBlock from '@tiptap/extension-code-block';
 import { TextSelection } from '@tiptap/pm/state';
-import { EmailNode } from '../core/serializer/email-node.js';
-import { PrismPlugin } from './prism-plugin.js';
+import { EmailNode } from '../core/serializer/email-node';
+import { PrismPlugin } from './prism-plugin';
 
 export interface CodeBlockPrismOptions extends CodeBlockOptions {
   defaultLanguage: string;

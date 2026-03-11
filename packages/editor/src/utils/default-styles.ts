@@ -1,4 +1,4 @@
-import type { CssJs } from './types.js';
+import type { CssJs } from './types';
 
 export const DEFAULT_STYLES: CssJs = {
   reset: {

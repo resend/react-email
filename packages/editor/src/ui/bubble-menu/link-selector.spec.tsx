@@ -1,5 +1,5 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { BubbleMenuLinkSelector } from './link-selector.js';
+import { BubbleMenuLinkSelector } from './link-selector';
 
 const mockEditor = {
   isActive: vi.fn().mockReturnValue(false),

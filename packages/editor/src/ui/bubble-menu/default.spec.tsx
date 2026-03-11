@@ -5,7 +5,7 @@ import {
   render,
   screen,
 } from '@testing-library/react';
-import { BubbleMenuDefault } from './default.js';
+import { BubbleMenuDefault } from './default';
 
 const mockEditor = {
   isActive: vi.fn().mockReturnValue(false),

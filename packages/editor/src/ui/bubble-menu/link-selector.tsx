@@ -2,9 +2,9 @@ import type { Editor } from '@tiptap/core';
 import { useEditorState } from '@tiptap/react';
 import { Check, LinkIcon, UnlinkIcon } from 'lucide-react';
 import * as React from 'react';
-import { editorEventBus } from '../../core/event-bus.js';
-import { useBubbleMenuContext } from './context.js';
-import { focusEditor, getUrlFromString, setLinkHref } from './utils.js';
+import { editorEventBus } from '../../core/event-bus';
+import { useBubbleMenuContext } from './context';
+import { focusEditor, getUrlFromString, setLinkHref } from './utils';
 
 export interface BubbleMenuLinkSelectorProps {
   className?: string;

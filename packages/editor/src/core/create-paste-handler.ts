@@ -2,7 +2,7 @@ import type { Extensions } from '@tiptap/core';
 import { generateJSON } from '@tiptap/html';
 import type { Slice } from '@tiptap/pm/model';
 import type { EditorView } from '@tiptap/pm/view';
-import { sanitizePastedHtml } from '../utils/paste-sanitizer.js';
+import { sanitizePastedHtml } from '../utils/paste-sanitizer';
 
 export type PasteHandler = (
   payload: string | File,

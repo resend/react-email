@@ -4,8 +4,8 @@ import {
   Row,
 } from '@react-email/components';
 import { mergeAttributes } from '@tiptap/core';
-import { EmailNode } from '../core/serializer/email-node.js';
-import { inlineCssToJs } from '../utils/styles.js';
+import { EmailNode } from '../core/serializer/email-node';
+import { inlineCssToJs } from '../utils/styles';
 
 export interface EditorButtonOptions {
   HTMLAttributes: Record<string, unknown>;

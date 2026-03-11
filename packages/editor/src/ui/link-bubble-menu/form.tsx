@@ -4,8 +4,8 @@ import {
   focusEditor,
   getUrlFromString,
   setLinkHref,
-} from '../bubble-menu/utils.js';
-import { useLinkBubbleMenuContext } from './context.js';
+} from '../bubble-menu/utils';
+import { useLinkBubbleMenuContext } from './context';
 
 export interface LinkBubbleMenuFormProps {
   className?: string;

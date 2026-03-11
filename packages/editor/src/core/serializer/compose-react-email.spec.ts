@@ -1,50 +1,49 @@
-import type { Editor, JSONContent } from '@tiptap/core';
-import { describe, expect, it } from 'vitest';
-import { composeReactEmail } from './compose-react-email.js';
-import { DefaultBaseTemplate } from './default-base-template.js';
-import type { SerializerPlugin } from './serializer-plugin.js';
+import type { JSONContent } from '@tiptap/core';
+import { Editor } from '@tiptap/core';
+import { afterEach, describe, expect, it } from 'vitest';
+import { coreExtensions } from '../../extensions';
+import { EmailTheming } from '../../plugins/email-theming/extension';
+import { EDITOR_THEMES } from '../../plugins/email-theming/themes';
+import { Variable } from '../../plugins/variables/extension';
+import { composeReactEmail } from './compose-react-email';
 
-const testSerializerPlugin: SerializerPlugin = {
-  BaseTemplate({ previewText, children }) {
-    return DefaultBaseTemplate({ previewText, children });
-  },
-  getNodeStyles(node) {
-    switch (node.type) {
-      case 'link':
-        return {
-          textDecoration: 'underline',
-        };
-      default:
-        return {};
-    }
-  },
-};
+vi.mock('@/actions/ai', () => ({
+  uploadImageViaAI: vi.fn(),
+}));
 
-function createEditorWithContent(content: JSONContent): Editor {
-  return {
-    getJSON: () => content,
-    extensionManager: {
-      extensions: [
-        {
-          options: {
-            serializerPlugin: testSerializerPlugin,
-          },
-        },
-      ],
-    },
-  } as unknown as Editor;
+const extensions = [...coreExtensions, EmailTheming, Variable];
+let editor: Editor | null = null;
+
+afterEach(() => {
+  editor?.destroy();
+});
+
+function createEditorWithContent(content: JSONContent) {
+  editor = new Editor({ content, extensions });
+  return editor;
 }
 
-function createDoc(content: JSONContent['content']): JSONContent {
+function docWithGlobalContent(
+  content: JSONContent['content'],
+  styles = EDITOR_THEMES.basic,
+): JSONContent {
   return {
     type: 'doc',
-    content: content ?? [],
+    content: [
+      {
+        type: 'globalContent',
+        attrs: {
+          data: { styles, theme: 'basic', css: '' },
+        },
+      },
+      ...(content ?? []),
+    ],
   };
 }
 
 describe('Text marks', () => {
   it('should preserve bold wrapping order when combined with italic', async () => {
-    const content = createDoc([
+    const content = docWithGlobalContent([
       {
         type: 'paragraph',
         content: [
@@ -79,7 +78,7 @@ describe('Text marks', () => {
   });
 
   it('should keep bold outer when combined with link on text', async () => {
-    const content = createDoc([
+    const content = docWithGlobalContent([
       {
         type: 'paragraph',
         content: [
@@ -118,7 +117,7 @@ describe('Text marks', () => {
   });
 
   it('should apply inline styles to code marks only', async () => {
-    const content = createDoc([
+    const content = docWithGlobalContent([
       {
         type: 'paragraph',
         content: [
@@ -145,7 +144,7 @@ describe('Text marks', () => {
   });
 
   it('should not apply inline text styles to link-only marks', async () => {
-    const content = createDoc([
+    const content = docWithGlobalContent([
       {
         type: 'paragraph',
         content: [
@@ -182,7 +181,7 @@ describe('Text marks', () => {
 
 describe('Variable with link mark', () => {
   it('should wrap variable in Link with href', async () => {
-    const content = createDoc([
+    const content = docWithGlobalContent([
       {
         type: 'paragraph',
         content: [
@@ -217,7 +216,7 @@ describe('Variable with link mark', () => {
   });
 
   it('should merge inline styles with global link styles', async () => {
-    const content = createDoc([
+    const content = docWithGlobalContent([
       {
         type: 'paragraph',
         content: [
@@ -253,7 +252,7 @@ describe('Variable with link mark', () => {
   });
 
   it('should preserve all link attributes', async () => {
-    const content = createDoc([
+    const content = docWithGlobalContent([
       {
         type: 'paragraph',
         content: [
@@ -291,7 +290,7 @@ describe('Variable with link mark', () => {
   });
 
   it('should handle bold + link mark combination', async () => {
-    const content = createDoc([
+    const content = docWithGlobalContent([
       {
         type: 'paragraph',
         content: [
@@ -333,7 +332,7 @@ describe('Variable with link mark', () => {
   });
 
   it('should handle link + code mark combination', async () => {
-    const content = createDoc([
+    const content = docWithGlobalContent([
       {
         type: 'paragraph',
         content: [
@@ -368,7 +367,7 @@ describe('Variable with link mark', () => {
   });
 
   it('should render correct variable text for broadcast source', async () => {
-    const content = createDoc([
+    const content = docWithGlobalContent([
       {
         type: 'paragraph',
         content: [

@@ -1,6 +1,6 @@
 import { ExternalLinkIcon } from 'lucide-react';
 import type * as React from 'react';
-import { useLinkBubbleMenuContext } from './context.js';
+import { useLinkBubbleMenuContext } from './context';
 
 export interface LinkBubbleMenuOpenLinkProps
   extends Omit<React.ComponentProps<'a'>, 'href' | 'target' | 'rel'> {}

@@ -1,6 +1,6 @@
 import { render } from '@react-email/components';
-import { DEFAULT_STYLES } from '../utils/default-styles.js';
-import { Section } from './section.js';
+import { DEFAULT_STYLES } from '../utils/default-styles';
+import { Section } from './section';
 
 // Resolved style matching snapshot: section only (text-align from getTextAlignment in component)
 const sectionStyle = { ...DEFAULT_STYLES.section };

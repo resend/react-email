@@ -1,4 +1,4 @@
-import type { CssJs } from './types.js';
+import type { CssJs } from './types';
 
 const WHITE_SPACE_REGEX = /\s+/;
 

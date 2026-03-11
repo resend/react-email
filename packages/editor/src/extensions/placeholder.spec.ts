@@ -1,7 +1,7 @@
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { Placeholder } from './placeholder.js';
+import { Placeholder } from './placeholder';
 
 describe('Placeholder Extension', () => {
   let editor: Editor;

@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react';
-import { useButtonBubbleMenuContext } from './context.js';
+import { useButtonBubbleMenuContext } from './context';
 
 describe('useButtonBubbleMenuContext', () => {
   it('throws when used outside a Provider', () => {

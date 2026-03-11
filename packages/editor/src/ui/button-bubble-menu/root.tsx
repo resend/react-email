@@ -1,7 +1,7 @@
 import { useCurrentEditor } from '@tiptap/react';
 import { BubbleMenu } from '@tiptap/react/menus';
 import * as React from 'react';
-import { ButtonBubbleMenuContext } from './context.js';
+import { ButtonBubbleMenuContext } from './context';
 
 export interface ButtonBubbleMenuRootProps {
   /** Called when the bubble menu hides */

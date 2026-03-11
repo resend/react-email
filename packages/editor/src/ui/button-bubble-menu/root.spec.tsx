@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { ButtonBubbleMenuRoot } from './root.js';
+import { ButtonBubbleMenuRoot } from './root';
 
 vi.mock('@tiptap/react', () => ({
   useCurrentEditor: () => ({ editor: null }),

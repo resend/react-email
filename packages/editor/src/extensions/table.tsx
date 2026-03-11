@@ -1,7 +1,7 @@
 import { Column, Section } from '@react-email/components';
 import type { ParentConfig } from '@tiptap/core';
 import { mergeAttributes, Node } from '@tiptap/core';
-import { EmailNode } from '../core/serializer/email-node.js';
+import { EmailNode } from '../core/serializer/email-node';
 import {
   COMMON_HTML_ATTRIBUTES,
   createStandardAttributes,
@@ -9,8 +9,8 @@ import {
   TABLE_ATTRIBUTES,
   TABLE_CELL_ATTRIBUTES,
   TABLE_HEADER_ATTRIBUTES,
-} from '../utils/attribute-helpers.js';
-import { inlineCssToJs, resolveConflictingStyles } from '../utils/styles.js';
+} from '../utils/attribute-helpers';
+import { inlineCssToJs, resolveConflictingStyles } from '../utils/styles';
 
 declare module '@tiptap/core' {
   interface NodeConfig<Options, Storage> {

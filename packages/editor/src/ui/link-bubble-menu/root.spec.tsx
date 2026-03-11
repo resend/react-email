@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { LinkBubbleMenuRoot } from './root.js';
+import { LinkBubbleMenuRoot } from './root';
 
 describe('LinkBubbleMenuRoot', () => {
   it('renders null when no editor context is available', () => {

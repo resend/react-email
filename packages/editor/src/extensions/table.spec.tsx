@@ -1,6 +1,6 @@
 import { render } from '@react-email/components';
-import { DEFAULT_STYLES } from '../utils/default-styles.js';
-import { Table, TableCell, TableRow } from './table.js';
+import { DEFAULT_STYLES } from '../utils/default-styles';
+import { Table, TableCell, TableRow } from './table';
 
 const tableStyle = { ...DEFAULT_STYLES.reset };
 const tableRowStyle = { ...DEFAULT_STYLES.reset };

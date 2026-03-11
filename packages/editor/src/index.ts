@@ -1,4 +1,4 @@
-export * from './core/index.js';
-export * from './extensions/index.js';
-export * from './ui/index.js';
-export { setTextAlignment } from './utils/set-text-alignment.js';
+export * from './core';
+export * from './extensions';
+export * from './ui';
+export { setTextAlignment } from './utils/set-text-alignment';

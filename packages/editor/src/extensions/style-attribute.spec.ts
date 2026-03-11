@@ -2,10 +2,10 @@
 
 import { generateJSON } from '@tiptap/html';
 import StarterKit from '@tiptap/starter-kit';
-import { Div } from './div.js';
+import { Div } from './div';
 // import { Heading } from './heaidng';
-import { StyleAttribute } from './style-attribute.js';
-import { Table, TableCell, TableHeader, TableRow } from './table.js';
+import { StyleAttribute } from './style-attribute';
+import { Table, TableCell, TableHeader, TableRow } from './table';
 
 const extensions: Parameters<typeof generateJSON>[1] = [
   StarterKit.configure({

@@ -1,6 +1,6 @@
 import { render } from '@react-email/components';
-import { DEFAULT_STYLES } from '../utils/default-styles.js';
-import { Body } from './body.js';
+import { DEFAULT_STYLES } from '../utils/default-styles';
+import { Body } from './body';
 
 // Resolved style matching snapshot: reset only (no body-specific styles in snapshot)
 const bodyStyle = { ...DEFAULT_STYLES.reset };

@@ -9,7 +9,7 @@ import {
   hasPrismThemeLoaded,
   loadPrismTheme,
   removePrismTheme,
-} from '../utils/prism-utils.js';
+} from '../utils/prism-utils';
 
 const PRISM_LANGUAGE_LOADED_META = 'prismLanguageLoaded';
 

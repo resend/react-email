@@ -1,11 +1,11 @@
 import { render } from '@react-email/components';
-import { DEFAULT_STYLES } from '../utils/default-styles.js';
+import { DEFAULT_STYLES } from '../utils/default-styles';
 import {
   ColumnsColumn,
   FourColumns,
   ThreeColumns,
   TwoColumns,
-} from './columns.js';
+} from './columns';
 
 const columnsStyle = { ...DEFAULT_STYLES.reset };
 

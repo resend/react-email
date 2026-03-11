@@ -1,4 +1,4 @@
-import { focusEditor, getUrlFromString, setLinkHref } from './utils.js';
+import { focusEditor, getUrlFromString, setLinkHref } from './utils';
 
 describe('getUrlFromString', () => {
   it('returns hash as-is', () => {
