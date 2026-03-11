@@ -1,0 +1,27 @@
+{
+  "name": "editor-examples",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@radix-ui/react-popover": "catalog:",
+    "@react-email/components": "catalog:",
+    "@react-email/editor": "workspace:*",
+    "@tiptap/react": "^3.17.1",
+    "@tiptap/starter-kit": "^3.17.1",
+    "lucide-react": "^0.470.0",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "typescript": "5.8.3",
+    "vite": "catalog:"
+  }
+}
