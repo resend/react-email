@@ -106,6 +106,8 @@ export const CommandList = forwardRef<CommandListRef, CommandListProps>(
       ref,
       () => ({
         onKeyDown: ({ event }: { event: KeyboardEvent }) => {
+          if (items.length === 0) return false;
+
           if (event.key === 'ArrowUp') {
             setSelectedIndex((i) => (i + items.length - 1) % items.length);
             return true;

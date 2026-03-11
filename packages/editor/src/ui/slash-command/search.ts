@@ -28,10 +28,11 @@ export function filterAndRankItems<T extends SearchableItem>(
   items: T[],
   query: string,
 ): T[] {
-  if (!query.trim()) return items;
+  const trimmed = query.trim();
+  if (!trimmed) return items;
 
   const scored = items
-    .map((item) => ({ item, score: scoreItem(item, query) }))
+    .map((item) => ({ item, score: scoreItem(item, trimmed) }))
     .filter(({ score }) => score > 0);
 
   scored.sort((a, b) => b.score - a.score);
