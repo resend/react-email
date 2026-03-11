@@ -12,6 +12,7 @@
     "@react-email/components": "catalog:",
     "@react-email/editor": "workspace:*",
     "@tiptap/extension-heading": "^3.17.1",
+    "@tiptap/extension-link": "^3.17.1",
     "@tiptap/extension-underline": "^3.17.1",
     "@tiptap/react": "^3.17.1",
     "@tiptap/starter-kit": "^3.17.1",
