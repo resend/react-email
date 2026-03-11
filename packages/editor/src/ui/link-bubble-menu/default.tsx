@@ -1,9 +1,9 @@
-import { LinkBubbleMenuEditLink } from './edit-link.js';
-import { LinkBubbleMenuForm } from './form.js';
-import { LinkBubbleMenuOpenLink } from './open-link.js';
-import { LinkBubbleMenuRoot } from './root.js';
-import { LinkBubbleMenuToolbar } from './toolbar.js';
-import { LinkBubbleMenuUnlink } from './unlink.js';
+import { LinkBubbleMenuEditLink } from './edit-link';
+import { LinkBubbleMenuForm } from './form';
+import { LinkBubbleMenuOpenLink } from './open-link';
+import { LinkBubbleMenuRoot } from './root';
+import { LinkBubbleMenuToolbar } from './toolbar';
+import { LinkBubbleMenuUnlink } from './unlink';
 
 type ExcludableItem = 'edit-link' | 'open-link' | 'unlink';
 

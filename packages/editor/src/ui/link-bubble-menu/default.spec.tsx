@@ -1,5 +1,5 @@
 import { cleanup, render, screen } from '@testing-library/react';
-import { LinkBubbleMenuDefault } from './default.js';
+import { LinkBubbleMenuDefault } from './default';
 
 const mockEditor = {
   isActive: vi.fn().mockReturnValue(false),

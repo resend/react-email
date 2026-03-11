@@ -1,6 +1,6 @@
-import { ButtonBubbleMenuEditLink } from './edit-link.js';
-import { ButtonBubbleMenuRoot } from './root.js';
-import { ButtonBubbleMenuToolbar } from './toolbar.js';
+import { ButtonBubbleMenuEditLink } from './edit-link';
+import { ButtonBubbleMenuRoot } from './root';
+import { ButtonBubbleMenuToolbar } from './toolbar';
 
 type ExcludableItem = 'edit-link';
 

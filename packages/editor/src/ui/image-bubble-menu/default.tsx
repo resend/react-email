@@ -1,6 +1,6 @@
-import { ImageBubbleMenuEditLink } from './edit-link.js';
-import { ImageBubbleMenuRoot } from './root.js';
-import { ImageBubbleMenuToolbar } from './toolbar.js';
+import { ImageBubbleMenuEditLink } from './edit-link';
+import { ImageBubbleMenuRoot } from './root';
+import { ImageBubbleMenuToolbar } from './toolbar';
 
 type ExcludableItem = 'edit-link';
 
