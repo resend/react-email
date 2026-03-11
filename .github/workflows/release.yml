@@ -28,6 +28,6 @@ jobs:
       - name: Install packages
         run: pnpm install --frozen-lockfile --prefer-offline
       - name: Publish stable release
-        run: node --import tsx/esm ./scripts/release.ts
+        run: node --import tsx/esm ./scripts/release.mts
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
