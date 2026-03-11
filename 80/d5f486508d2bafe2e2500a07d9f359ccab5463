@@ -1,0 +1,23 @@
+packages/editor/src/ui/themes/default.css
+  b4590bbcf479af55 90-94,123-124,126,135,166,168,184,186,308
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.10",
+  "base_commit_sha": "80d5f486508d2bafe2e2500a07d9f359ccab5463",
+  "prompts": {
+    "b4590bbcf479af55": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5cee3067-0580-4b40-8404-1cd425d8684d",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 16,
+      "total_deletions": 3,
+      "accepted_lines": 14,
+      "overriden_lines": 0
+    }
+  }
+}
