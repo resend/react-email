@@ -1,3 +1,4 @@
+import { LinkBubbleMenuDefault } from './default';
 import { LinkBubbleMenuEditLink } from './edit-link';
 import { LinkBubbleMenuForm } from './form';
 import { LinkBubbleMenuOpenLink } from './open-link';
@@ -6,6 +7,8 @@ import { LinkBubbleMenuToolbar } from './toolbar';
 import { LinkBubbleMenuUnlink } from './unlink';
 
 export { useLinkBubbleMenuContext } from './context';
+export type { LinkBubbleMenuDefaultProps } from './default';
+export { LinkBubbleMenuDefault } from './default';
 export type { LinkBubbleMenuEditLinkProps } from './edit-link';
 export { LinkBubbleMenuEditLink } from './edit-link';
 export type { LinkBubbleMenuFormProps } from './form';
@@ -26,4 +29,5 @@ export const LinkBubbleMenu = {
   EditLink: LinkBubbleMenuEditLink,
   Unlink: LinkBubbleMenuUnlink,
   OpenLink: LinkBubbleMenuOpenLink,
+  Default: LinkBubbleMenuDefault,
 } as const;
