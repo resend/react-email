@@ -11,6 +11,7 @@
 @import "../link-bubble-menu/link-bubble-menu.css";
 @import "../button-bubble-menu/button-bubble-menu.css";
 @import "../image-bubble-menu/image-bubble-menu.css";
+@import "../slash-command/slash-command.css";
 
 /* ----------------------------------------------------------------
  * CSS custom properties — light defaults
@@ -281,4 +282,45 @@
 
 [data-re-link-bm-unlink]:hover {
   background: var(--re-danger-hover);
+}
+
+/* ----------------------------------------------------------------
+ * Slash Command
+ * ---------------------------------------------------------------- */
+
+[data-re-slash-command] {
+  background: var(--re-bg);
+  border: 1px solid var(--re-border);
+  border-radius: var(--re-radius);
+  box-shadow: var(--re-shadow);
+}
+
+[data-re-slash-command-item] {
+  color: var(--re-text);
+  border-radius: var(--re-radius-sm);
+  transition: background-color 0.15s;
+}
+
+[data-re-slash-command-item]:hover {
+  background: var(--re-hover);
+}
+
+[data-re-slash-command-item][data-selected] {
+  background: var(--re-hover);
+}
+
+[data-re-slash-command-item]:active {
+  background: var(--re-active);
+}
+
+[data-re-slash-command-item] svg {
+  color: var(--re-text-muted);
+}
+
+[data-re-slash-command-category] {
+  color: var(--re-text-muted);
+}
+
+[data-re-slash-command-empty] {
+  color: var(--re-text-muted);
 }
