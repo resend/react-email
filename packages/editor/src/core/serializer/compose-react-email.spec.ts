@@ -1,17 +1,95 @@
 import type { JSONContent } from '@tiptap/core';
-import { Editor } from '@tiptap/core';
+import { Editor, Mark, Node } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
 import { coreExtensions } from '../../extensions';
-import { EmailTheming } from '../../plugins/email-theming/extension';
-import { EDITOR_THEMES } from '../../plugins/email-theming/themes';
-import { Variable } from '../../plugins/variables/extension';
 import { composeReactEmail } from './compose-react-email';
 
 vi.mock('@/actions/ai', () => ({
   uploadImageViaAI: vi.fn(),
 }));
 
-const extensions = [...coreExtensions, EmailTheming, Variable];
+/**
+ * Minimal Link mark extension for testing.
+ * This defines the 'link' mark type that composeReactEmail uses.
+ */
+const Link = Mark.create({
+  name: 'link',
+  inclusive: false,
+  keepOnSplit: false,
+  addAttributes() {
+    return {
+      href: { default: null },
+      target: { default: null },
+      rel: { default: null },
+      style: { default: null },
+      'ses:no-track': { default: null },
+    };
+  },
+  parseHTML() {
+    return [{ tag: 'a[href]' }];
+  },
+  renderHTML({ HTMLAttributes }) {
+    return ['a', HTMLAttributes, 0];
+  },
+});
+
+/**
+ * Minimal Variable node extension for testing.
+ * This defines the 'variable' node type that composeReactEmail uses.
+ */
+const Variable = Node.create({
+  name: 'variable',
+  group: 'inline',
+  inline: true,
+  selectable: true,
+  atom: true,
+  addAttributes() {
+    return {
+      id: { default: null },
+      fallback: { default: null },
+    };
+  },
+  parseHTML() {
+    return [{ tag: 'span[data-type="variable"]' }];
+  },
+  renderHTML({ HTMLAttributes }) {
+    return ['span', { 'data-type': 'variable', ...HTMLAttributes }, 0];
+  },
+});
+
+/**
+ * Minimal GlobalContent node extension for testing.
+ * This defines the 'globalContent' node type used in document structure.
+ */
+const GlobalContent = Node.create({
+  name: 'globalContent',
+  group: 'block',
+  parseHTML() {
+    return [{ tag: 'div[data-type="globalContent"]' }];
+  },
+  renderHTML({ HTMLAttributes }) {
+    return ['div', { 'data-type': 'globalContent', ...HTMLAttributes }, 0];
+  },
+});
+
+/**
+ * Minimal theme data structure for testing global content.
+ */
+const basicTheme = {
+  colors: {
+    background: '#ffffff',
+    foreground: '#000000',
+    primary: '#000000',
+    secondary: '#ffffff',
+  },
+  fontSize: {
+    small: '14px',
+    base: '16px',
+    large: '18px',
+  },
+};
+
+const extensions = [...coreExtensions, Link, Variable, GlobalContent];
 let editor: Editor | null = null;
 
 afterEach(() => {
@@ -25,7 +103,7 @@ function createEditorWithContent(content: JSONContent) {
 
 function docWithGlobalContent(
   content: JSONContent['content'],
-  styles = EDITOR_THEMES.basic,
+  styles = basicTheme,
 ): JSONContent {
   return {
     type: 'doc',
