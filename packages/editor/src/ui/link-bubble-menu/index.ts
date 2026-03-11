@@ -1,3 +1,4 @@
+import { LinkBubbleMenuDefault } from './default.js';
 import { LinkBubbleMenuEditLink } from './edit-link.js';
 import { LinkBubbleMenuForm } from './form.js';
 import { LinkBubbleMenuOpenLink } from './open-link.js';
@@ -6,6 +7,8 @@ import { LinkBubbleMenuToolbar } from './toolbar.js';
 import { LinkBubbleMenuUnlink } from './unlink.js';
 
 export { useLinkBubbleMenuContext } from './context.js';
+export type { LinkBubbleMenuDefaultProps } from './default.js';
+export { LinkBubbleMenuDefault } from './default.js';
 export type { LinkBubbleMenuEditLinkProps } from './edit-link.js';
 export { LinkBubbleMenuEditLink } from './edit-link.js';
 export type { LinkBubbleMenuFormProps } from './form.js';
@@ -26,4 +29,5 @@ export const LinkBubbleMenu = {
   EditLink: LinkBubbleMenuEditLink,
   Unlink: LinkBubbleMenuUnlink,
   OpenLink: LinkBubbleMenuOpenLink,
+  Default: LinkBubbleMenuDefault,
 } as const;
