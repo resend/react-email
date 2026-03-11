@@ -50,7 +50,7 @@ function CommandItem({ item, selected, onSelect }: CommandItemProps) {
   const Icon = item.icon;
   return (
     <button
-      className="re-slash-command-item"
+      data-re-slash-command-item=""
       data-selected={selected || undefined}
       onClick={onSelect}
       type="button"
@@ -73,7 +73,7 @@ export function CommandList({ items, command, query, ref }: CommandListProps) {
     const container = containerRef.current;
     if (!container) return;
     const selected = container.querySelector<HTMLElement>(
-      '[data-selected="true"]',
+      '[data-selected]',
     );
     if (selected) {
       updateScrollView(container, selected);
@@ -114,8 +114,8 @@ export function CommandList({ items, command, query, ref }: CommandListProps) {
 
   if (items.length === 0) {
     return (
-      <div className="re-slash-command-container">
-        <div className="re-slash-command-empty">No results</div>
+      <div data-re-slash-command="">
+        <div data-re-slash-command-empty="">No results</div>
       </div>
     );
   }
@@ -124,7 +124,7 @@ export function CommandList({ items, command, query, ref }: CommandListProps) {
 
   if (isFiltering) {
     return (
-      <div className="re-slash-command-container" ref={containerRef}>
+      <div data-re-slash-command="" ref={containerRef}>
         {items.map((item, index) => (
           <CommandItem
             item={item}
@@ -141,10 +141,10 @@ export function CommandList({ items, command, query, ref }: CommandListProps) {
   let flatIndex = 0;
 
   return (
-    <div className="re-slash-command-container" ref={containerRef}>
+    <div data-re-slash-command="" ref={containerRef}>
       {groups.map((group) => (
         <div key={group.category}>
-          <div className="re-slash-command-category">{group.category}</div>
+          <div data-re-slash-command-category="">{group.category}</div>
           {group.items.map((item) => {
             const currentIndex = flatIndex++;
             return (
