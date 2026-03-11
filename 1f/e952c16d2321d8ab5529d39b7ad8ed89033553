@@ -1,0 +1,47 @@
+packages/editor/src/ui/index.ts
+  b4590bbcf479af55 5
+packages/editor/src/ui/slash-command/types.ts
+  b4590bbcf479af55 1-21
+packages/editor/src/ui/slash-command/command-list.tsx
+  b4590bbcf479af55 1-178
+packages/editor/src/ui/slash-command/create-slash-command.ts
+  b4590bbcf479af55 1-15,17-41
+packages/editor/src/ui/slash-command/slash-command.css
+  b4590bbcf479af55 1-35,37-71,73-87
+packages/editor/src/ui/slash-command/index.ts
+  b4590bbcf479af55 1,6,8-13,15,17,19-20,22-24,26-29
+packages/editor/src/ui/slash-command/commands.ts
+  b4590bbcf479af55 1-245
+packages/editor/src/ui/slash-command/extension.ts
+  b4590bbcf479af55 1-40
+packages/editor/src/ui/slash-command/search.spec.ts
+  b4590bbcf479af55 1-56,58-111
+packages/editor/package.json
+  b4590bbcf479af55 29,69-70
+packages/editor/src/ui/slash-command/utils.ts
+  b4590bbcf479af55 1,3-31
+packages/editor/src/ui/slash-command/render.tsx
+  b4590bbcf479af55 1-60
+packages/editor/src/ui/slash-command/search.ts
+  b4590bbcf479af55 1-40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.10",
+  "base_commit_sha": "1fe952c16d2321d8ab5529d39b7ad8ed89033553",
+  "prompts": {
+    "b4590bbcf479af55": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5cee3067-0580-4b40-8404-1cd425d8684d",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 923,
+      "total_deletions": 38,
+      "accepted_lines": 872,
+      "overriden_lines": 8
+    }
+  }
+}
