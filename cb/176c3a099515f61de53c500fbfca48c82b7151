@@ -1,0 +1,39 @@
+packages/editor/src/ui/image-bubble-menu/default.tsx
+  5888e2501bcb609c 1-38
+packages/editor/src/ui/button-bubble-menu/default.tsx
+  5888e2501bcb609c 1-38
+packages/editor/src/ui/button-bubble-menu/default.spec.tsx
+  5888e2501bcb609c 1-58,60-65,67-108
+packages/editor/src/ui/link-bubble-menu/default.tsx
+  5888e2501bcb609c 1-56
+packages/editor/src/ui/link-bubble-menu/default.spec.tsx
+  5888e2501bcb609c 1-81,83-107,109-160
+packages/editor/src/ui/link-bubble-menu/index.ts
+  5888e2501bcb609c 1,10-11,32
+packages/editor/src/ui/image-bubble-menu/default.spec.tsx
+  5888e2501bcb609c 1-58,60-65,67-108
+packages/editor/src/ui/image-bubble-menu/index.ts
+  5888e2501bcb609c 1,7-8,20
+packages/editor/src/ui/button-bubble-menu/index.ts
+  5888e2501bcb609c 1,7-8,20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.10",
+  "base_commit_sha": "cb176c3a099515f61de53c500fbfca48c82b7151",
+  "prompts": {
+    "5888e2501bcb609c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "11ef199b-38d6-4d08-ac38-a7549176c76e",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 536,
+      "total_deletions": 3,
+      "accepted_lines": 514,
+      "overriden_lines": 6
+    }
+  }
+}
