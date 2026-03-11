@@ -32,6 +32,11 @@
     "test": "vitest run",
     "test:watch": "vitest"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resend/react-email.git",
+    "directory": "packages/body"
+  },
   "peerDependencies": {
     "react": "^18.0 || ^19.0 || ^19.0.0-rc"
   },
