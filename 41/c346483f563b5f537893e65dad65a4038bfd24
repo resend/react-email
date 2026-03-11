@@ -1,0 +1,43 @@
+packages/editor/examples/src/examples/basic-editor.tsx
+  b4590bbcf479af55 1-3,5-20,22-47,49-59
+packages/editor/examples/src/main.tsx
+  b4590bbcf479af55 1-9
+packages/editor/examples/src/examples/slash-commands.tsx
+  b4590bbcf479af55 1,4-7,10-57,60-72,74-77,79-81,83-90,92-98
+packages/editor/examples/index.html
+  b4590bbcf479af55 1-12
+packages/editor/examples/src/examples/custom-bubble-menus.tsx
+  b4590bbcf479af55 1-37,39-57
+packages/editor/examples/src/examples/column-layouts.tsx
+  b4590bbcf479af55 1-3,7-29,32-76,78-115
+packages/editor/examples/src/app.tsx
+  b4590bbcf479af55 1-12,14-28,30-39,41-69
+packages/editor/examples/package.json
+  b4590bbcf479af55 1-27
+pnpm-workspace.yaml
+  b4590bbcf479af55 6
+packages/editor/examples/tsconfig.json
+  b4590bbcf479af55 1-13
+packages/editor/examples/vite.config.ts
+  b4590bbcf479af55 1-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.10",
+  "base_commit_sha": "41c346483f563b5f537893e65dad65a4038bfd24",
+  "prompts": {
+    "b4590bbcf479af55": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5cee3067-0580-4b40-8404-1cd425d8684d",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 384,
+      "total_deletions": 0,
+      "accepted_lines": 443,
+      "overriden_lines": 15
+    }
+  }
+}
