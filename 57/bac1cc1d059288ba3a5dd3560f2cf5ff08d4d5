@@ -1,0 +1,23 @@
+packages/editor/src/ui/slash-command/command-list.tsx
+  b4590bbcf479af55 2,75,78,92-93,95-96,105-113,115-117,119-121,123-127,129-130,135,137,139,142,146-148,152,154-158,161,165-168,173-177
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.10",
+  "base_commit_sha": "57bac1cc1d059288ba3a5dd3560f2cf5ff08d4d5",
+  "prompts": {
+    "b4590bbcf479af55": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5cee3067-0580-4b40-8404-1cd425d8684d",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 91,
+      "total_deletions": 94,
+      "accepted_lines": 55,
+      "overriden_lines": 0
+    }
+  }
+}
