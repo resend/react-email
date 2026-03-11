@@ -1,6 +1,8 @@
-import { Mark, mergeAttributes } from '@tiptap/core';
+import { mergeAttributes } from '@tiptap/core';
+import { EmailMark } from '../core/serializer/email-mark';
+import { inlineCssToJs } from '../utils/styles';
 
-export const PreservedStyle = Mark.create({
+export const PreservedStyle = EmailMark.create({
   name: 'preservedStyle',
 
   addAttributes() {
@@ -38,6 +40,14 @@ export const PreservedStyle = Mark.create({
 
   renderHTML({ HTMLAttributes }) {
     return ['span', mergeAttributes(HTMLAttributes), 0];
+  },
+
+  renderToReactEmail({ children, mark }) {
+    const preservedStyles = mark.attrs?.style
+      ? inlineCssToJs(mark.attrs.style)
+      : undefined;
+
+    return <span style={preservedStyles}>{children}</span>;
   },
 });
 

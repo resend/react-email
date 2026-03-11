@@ -1,4 +1,5 @@
-import { Mark, mergeAttributes } from '@tiptap/core';
+import { mergeAttributes } from '@tiptap/core';
+import { EmailMark } from '../core/serializer/email-mark';
 
 export interface UppercaseOptions {
   HTMLAttributes: Record<string, unknown>;
@@ -14,7 +15,7 @@ declare module '@tiptap/core' {
   }
 }
 
-export const Uppercase = Mark.create<UppercaseOptions>({
+export const Uppercase = EmailMark.create<UppercaseOptions>({
   name: 'uppercase',
 
   addOptions() {
@@ -46,6 +47,19 @@ export const Uppercase = Mark.create<UppercaseOptions>({
       }),
       0,
     ];
+  },
+
+  renderToReactEmail({ children, style }) {
+    return (
+      <span
+        style={{
+          ...style,
+          textTransform: 'uppercase',
+        }}
+      >
+        {children}
+      </span>
+    );
   },
 
   addCommands() {

@@ -1,4 +1,5 @@
-import { Mark, mergeAttributes } from '@tiptap/core';
+import { mergeAttributes } from '@tiptap/core';
+import { EmailMark } from '../core/serializer/email-mark';
 
 export interface SupOptions {
   /**
@@ -32,7 +33,7 @@ declare module '@tiptap/core' {
  * This extension allows you to mark text as superscript.
  * @see https://tiptap.dev/api/marks/superscript
  */
-export const Sup = Mark.create<SupOptions>({
+export const Sup = EmailMark.create<SupOptions>({
   name: 'sup',
 
   addOptions() {
@@ -55,6 +56,10 @@ export const Sup = Mark.create<SupOptions>({
       mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
       0,
     ];
+  },
+
+  renderToReactEmail({ children, style }) {
+    return <sup style={style}>{children}</sup>;
   },
 
   addCommands() {
