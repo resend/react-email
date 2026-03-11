@@ -8,6 +8,8 @@ export interface PackageInfo {
   version: string;
   dependencies?: Record<string, string>;
   optionalDependencies?: Record<string, string>;
+  peerDependencies?: Record<string, string>;
+  peerDependenciesMeta?: Record<string, { optional?: boolean }>;
   devDependencies?: Record<string, string>;
 }
 
@@ -38,6 +40,12 @@ export function toWorkspacePackage(pkg: Package): WorkspacePackage {
       | undefined,
     optionalDependencies: pkg.packageJson.optionalDependencies as
       | Record<string, string>
+      | undefined,
+    peerDependencies: pkg.packageJson.peerDependencies as
+      | Record<string, string>
+      | undefined,
+    peerDependenciesMeta: pkg.packageJson.peerDependenciesMeta as
+      | Record<string, { optional?: boolean }>
       | undefined,
     devDependencies: pkg.packageJson.devDependencies as
       | Record<string, string>
@@ -178,10 +186,22 @@ export function createPublisher(options: {
   };
 }
 
+function getRequiredPeerDependencies(
+  pkg: Pick<PackageInfo, 'peerDependencies' | 'peerDependenciesMeta'>,
+): Record<string, string> {
+  const peerDependencies = pkg.peerDependencies ?? {};
+  const peerDependenciesMeta = pkg.peerDependenciesMeta ?? {};
+  return Object.fromEntries(
+    Object.entries(peerDependencies).filter(
+      ([name]) => peerDependenciesMeta[name]?.optional !== true,
+    ),
+  );
+}
+
 /**
  * Build a dependency graph scoped to the given publish set.
- * Returns a map from each package name to the set of its dependencies
- * that are also in the publish set.
+ * Returns a map from each package name to the set of its runtime deps and
+ * required peer deps that are also in the publish set.
  */
 export function buildPublishDeps(
   packages: PackageInfo[],
@@ -193,6 +213,7 @@ export function buildPublishDeps(
     const runtimeDeps = {
       ...pkg.dependencies,
       ...pkg.optionalDependencies,
+      ...getRequiredPeerDependencies(pkg),
     };
     const inSetDeps = new Set<string>();
     for (const depName of Object.keys(runtimeDeps)) {
@@ -365,12 +386,26 @@ export async function topologicalPublish(options: {
 }
 
 async function defaultCheckBuildStatus(dir: string): Promise<boolean> {
-  try {
-    await fs.access(path.join(dir, 'dist'));
+  const packageJson = JSON.parse(
+    await fs.readFile(path.join(dir, 'package.json'), 'utf8'),
+  ) as {
+    scripts?: Record<string, string>;
+  };
+
+  if (packageJson.scripts?.build === undefined) {
     return true;
-  } catch {
-    return false;
   }
+
+  for (const buildOutputDir of ['dist', '.next']) {
+    try {
+      await fs.access(path.join(dir, buildOutputDir));
+      return true;
+    } catch {
+      continue;
+    }
+  }
+
+  return false;
 }
 
 /**
