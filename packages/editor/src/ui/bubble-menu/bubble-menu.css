@@ -110,6 +110,13 @@
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.25rem;
+  width: max-content;
+  min-width: 16rem;
+  padding: 0.25rem;
 }
 
 [data-re-link-selector-input] {

@@ -199,12 +199,16 @@
  * ---------------------------------------------------------------- */
 
 [data-re-link-selector-trigger] {
-  color: var(--re-text);
-  transition: background-color 0.15s;
+  color: var(--re-text-muted);
+  border-radius: var(--re-radius-sm);
+  transition:
+    background-color 0.15s,
+    color 0.15s;
 }
 
 [data-re-link-selector-trigger]:hover {
   background: var(--re-hover);
+  color: var(--re-text);
 }
 
 [data-re-link-selector-trigger][aria-pressed="true"] {
