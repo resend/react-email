@@ -1,0 +1,25 @@
+packages/editor/src/ui/bubble-menu/bubble-menu.css
+  b4590bbcf479af55 9,15-16,22,32,36-37,52-53,57-59,75-76,82-83,98,102-103,116,134-135
+packages/editor/src/ui/themes/default.css
+  b4590bbcf479af55 92
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.10",
+  "base_commit_sha": "119ba87b59d8dcf77523260a45d766aa2ff8edf2",
+  "prompts": {
+    "b4590bbcf479af55": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5cee3067-0580-4b40-8404-1cd425d8684d",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 25,
+      "total_deletions": 29,
+      "accepted_lines": 23,
+      "overriden_lines": 0
+    }
+  }
+}
