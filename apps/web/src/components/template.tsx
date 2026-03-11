@@ -43,7 +43,7 @@ export function Template({
   return (
     <Link
       className={classNames(
-        'flex w-full flex-col rounded-md border border-slate-6 bg-gradient backdrop-blur-[20px] focus:outline-none focus:ring-2',
+        'flex w-full flex-col rounded-md border border-slate-6 bg-gradient backdrop-blur-[20px] focus:outline-hidden focus:ring-2',
         'hover:bg-gradientHover',
         'focus:bg-gradientHover focus:ring-white/20',
         className,

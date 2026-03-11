@@ -60,7 +60,7 @@ export const CodeBlock: React.FC<Readonly<CodeBlockProps>> = ({
         <>
           {isGradientLine && (
             <div
-              className="absolute top-0 right-0 h-px w-[12.5rem]"
+              className="absolute top-0 right-0 h-px w-50"
               style={{
                 background:
                   'linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)',
@@ -106,7 +106,7 @@ export const CodeBlock: React.FC<Readonly<CodeBlockProps>> = ({
           </pre>
           {isGradientLine && (
             <div
-              className="absolute bottom-0 left-0 h-px w-[12.5rem]"
+              className="absolute bottom-0 left-0 h-px w-50"
               style={{
                 background:
                   'linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)',
