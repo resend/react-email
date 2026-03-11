@@ -1,9 +1,9 @@
+import BulletListExtension from '@tiptap/extension-bullet-list';
 import { EmailNode } from '../core/serializer/email-node';
 import { inlineCssToJs } from '../utils/styles';
-import { getStarterKitNode } from './starter-kit-extension';
 
 export const BulletList = EmailNode.from(
-  getStarterKitNode('bulletList'),
+  BulletListExtension,
   ({ children, node, style }) => (
     <ul
       className={node.attrs?.class || undefined}

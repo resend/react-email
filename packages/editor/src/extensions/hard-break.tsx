@@ -1,7 +1,4 @@
+import HardBreakExtension from '@tiptap/extension-hard-break';
 import { EmailNode } from '../core/serializer/email-node';
-import { getStarterKitNode } from './starter-kit-extension';
 
-export const HardBreak = EmailNode.from(
-  getStarterKitNode('hardBreak'),
-  () => <br />,
-);
+export const HardBreak = EmailNode.from(HardBreakExtension, () => <br />);

@@ -1,10 +1,10 @@
+import Paragraph from '@tiptap/extension-paragraph';
 import { EmailNode } from '../core/serializer/email-node';
 import { getTextAlignment } from '../utils/get-text-alignment';
 import { inlineCssToJs } from '../utils/styles';
-import { getStarterKitNode } from './starter-kit-extension';
 
 export const Paragraph = EmailNode.from(
-  getStarterKitNode('paragraph'),
+  Paragraph,
   ({ children, node, style }) => {
     const isEmpty = !node.content || node.content.length === 0;
 

@@ -1,8 +1,4 @@
-import {
-  markInputRule,
-  markPasteRule,
-  mergeAttributes,
-} from '@tiptap/core';
+import { markInputRule, markPasteRule, mergeAttributes } from '@tiptap/core';
 import { EmailMark } from '../core/serializer/email-mark';
 
 export interface BoldOptions {

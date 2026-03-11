@@ -20,7 +20,10 @@ const MARK_ORDER: Record<string, number> = {
   code: 6,
 };
 
-const NODES_WITH_INCREMENTED_CHILD_DEPTH = new Set(['bulletList', 'orderedList']);
+const NODES_WITH_INCREMENTED_CHILD_DEPTH = new Set([
+  'bulletList',
+  'orderedList',
+]);
 
 function getOrderedMarks(marks: SerializedMark[] | undefined) {
   if (!marks) {
@@ -127,9 +130,9 @@ export const composeReactEmail = async ({
             node={
               node.type === 'table' && inlineStyles.width && !node.attrs?.width
                 ? {
-                  ...node,
-                  attrs: { ...node.attrs, width: inlineStyles.width },
-                }
+                    ...node,
+                    attrs: { ...node.attrs, width: inlineStyles.width },
+                  }
                 : node
             }
             style={style}
