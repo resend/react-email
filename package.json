@@ -63,8 +63,9 @@
       "@mintlify/scraping>js-yaml": "^4.1.1",
       "@mintlify/prebuild>js-yaml": "^4.1.1",
       "@mintlify/previewing>js-yaml": "^4.1.1",
-      "@mintlify/validation>zod": "3.22.3",
-      "@mintlify/scraping>zod": "3.22.3",
+      "@mintlify/validation>zod": "^3.22.3",
+      "@mintlify/scraping>zod": "^3.22.3",
+      "@mintlify/previewing>tar": "^7.5.11",
       "react": "19.0.0",
       "react-dom": "19.0.0"
     }
