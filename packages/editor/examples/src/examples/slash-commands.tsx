@@ -9,7 +9,7 @@ import {
   TwoColumns,
 } from '@react-email/editor';
 import '@react-email/editor/styles/slash-command.css';
-import { EditorContent, useEditor } from '@tiptap/react';
+import { EditorProvider } from '@tiptap/react';
 import { Star } from 'lucide-react';
 
 const CUSTOM_COMMAND: SlashCommandItem = {
@@ -44,27 +44,22 @@ const extensions = [
   MySlashCommand,
 ];
 
-export function SlashCommands() {
-  const editor = useEditor({
-    extensions,
-    content: {
-      type: 'doc',
+const content = {
+  type: 'doc',
+  content: [
+    {
+      type: 'paragraph',
       content: [
         {
-          type: 'paragraph',
-          content: [
-            {
-              type: 'text',
-              text: 'Type / to open the slash command menu. Try searching for "greeting" to find the custom command.',
-            },
-          ],
+          type: 'text',
+          text: 'Type / to open the slash command menu. Try searching for "greeting" to find the custom command.',
         },
       ],
     },
-  });
+  ],
+};
 
-  if (!editor) return null;
-
+export function SlashCommands() {
   return (
     <div>
       <p
@@ -91,7 +86,7 @@ export function SlashCommands() {
           minHeight: 300,
         }}
       >
-        <EditorContent editor={editor} />
+        <EditorProvider extensions={extensions} content={content} />
       </div>
     </div>
   );
