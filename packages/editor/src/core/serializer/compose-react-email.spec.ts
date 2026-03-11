@@ -1,8 +1,6 @@
 import type { Editor, JSONContent } from '@tiptap/core';
 import { describe, expect, it } from 'vitest';
-import {
-  composeReactEmail,
-} from './compose-react-email.js';
+import { composeReactEmail } from './compose-react-email.js';
 import { DefaultBaseTemplate } from './default-base-template.js';
 import type { SerializerPlugin } from './serializer-plugin.js';
 
