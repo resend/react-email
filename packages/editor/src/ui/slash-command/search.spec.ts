@@ -6,7 +6,7 @@ describe('scoreItem', () => {
   const text = defaultSlashCommands.find((c) => c.title === 'Text')!;
   const title = defaultSlashCommands.find((c) => c.title === 'Title')!;
   const bulletList = defaultSlashCommands.find(
-    (c) => c.title === 'Bullet List',
+    (c) => c.title === 'Bullet list',
   )!;
 
   it('returns 100 for empty query', () => {
@@ -104,8 +104,8 @@ describe('filterAndRankItems', () => {
   it('returns items sorted by score descending', () => {
     const result = filterAndRankItems(defaultSlashCommands, 'col');
     const titles = result.map((i) => i.title);
-    expect(titles).toContain('2 Columns');
-    expect(titles).toContain('3 Columns');
-    expect(titles).toContain('4 Columns');
+    expect(titles).toContain('2 columns');
+    expect(titles).toContain('3 columns');
+    expect(titles).toContain('4 columns');
   });
 });

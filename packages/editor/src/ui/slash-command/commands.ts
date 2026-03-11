@@ -81,7 +81,7 @@ export const H3: SlashCommandItem = {
 };
 
 export const BULLET_LIST: SlashCommandItem = {
-  title: 'Bullet List',
+  title: 'Bullet list',
   description: 'Unordered list',
   icon: List,
   category: 'Text',
@@ -92,7 +92,7 @@ export const BULLET_LIST: SlashCommandItem = {
 };
 
 export const NUMBERED_LIST: SlashCommandItem = {
-  title: 'Numbered List',
+  title: 'Numbered list',
   description: 'Ordered list',
   icon: ListOrdered,
   category: 'Text',
@@ -120,7 +120,7 @@ export const QUOTE: SlashCommandItem = {
 };
 
 export const CODE: SlashCommandItem = {
-  title: 'Code Block',
+  title: 'Code block',
   description: 'Code snippet',
   icon: SquareCode,
   category: 'Text',
@@ -164,7 +164,7 @@ export const SECTION: SlashCommandItem = {
 };
 
 export const TWO_COLUMNS: SlashCommandItem = {
-  title: '2 Columns',
+  title: '2 columns',
   description: 'Two column layout',
   icon: Columns2,
   category: 'Layout',
@@ -186,7 +186,7 @@ export const TWO_COLUMNS: SlashCommandItem = {
 };
 
 export const THREE_COLUMNS: SlashCommandItem = {
-  title: '3 Columns',
+  title: '3 columns',
   description: 'Three column layout',
   icon: Columns3,
   category: 'Layout',
@@ -207,7 +207,7 @@ export const THREE_COLUMNS: SlashCommandItem = {
 };
 
 export const FOUR_COLUMNS: SlashCommandItem = {
-  title: '4 Columns',
+  title: '4 columns',
   description: 'Four column layout',
   icon: Columns4,
   category: 'Layout',

@@ -13,7 +13,7 @@ function defaultFilterItems(
 ): SlashCommandItem[] {
   const filtered = isAtMaxColumnsDepth(editor)
     ? items.filter(
-        (item) => item.category !== 'Layout' || !item.title.includes('Column'),
+        (item) => item.category !== 'Layout' || !item.title.includes('column'),
       )
     : items;
 
