@@ -1,3 +1,6 @@
+import fs from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
 import { describe, expect, it, vi } from 'vitest';
 import {
   buildPublishDeps,
@@ -138,6 +141,29 @@ describe('buildPublishDeps', () => {
     ];
     const deps = buildPublishDeps(packages);
     expect(deps.get('b')).toEqual(new Set(['a', 'c']));
+  });
+
+  it('includes required peerDependencies in publish ordering', () => {
+    const packages: PackageInfo[] = [
+      { name: '@react-email/text', version: '1.0.0' },
+      { name: '@react-email/body', version: '1.0.0' },
+      {
+        name: '@react-email/tailwind',
+        version: '1.0.0',
+        peerDependencies: {
+          '@react-email/body': '1.0.0',
+          '@react-email/text': '1.0.0',
+        },
+        peerDependenciesMeta: {
+          '@react-email/body': { optional: true },
+        },
+      },
+    ];
+
+    const deps = buildPublishDeps(packages);
+    expect(deps.get('@react-email/tailwind')).toEqual(
+      new Set(['@react-email/text']),
+    );
   });
 
   it('models the @react-email/components pattern', () => {
@@ -380,12 +406,14 @@ const mkPkg = (
   version = '1.0.0',
   deps?: Record<string, string>,
   devDeps?: Record<string, string>,
+  extra: Partial<WorkspacePackage> = {},
 ): WorkspacePackage => ({
   name,
   version,
   dir: `/fake/${name}`,
   dependencies: deps,
   devDependencies: devDeps,
+  ...extra,
 });
 
 describe('topologicalPublish', () => {
@@ -426,6 +454,36 @@ describe('topologicalPublish', () => {
 
     expect(result.published).toEqual(['a', 'b']);
     expect(publishCalls).toEqual(['a:latest', 'b:latest']);
+  });
+
+  it('publishes required peer dependencies before their dependents', async () => {
+    const packages = [
+      mkPkg('@react-email/tailwind', '1.0.0', undefined, undefined, {
+        peerDependencies: { '@react-email/text': '1.0.0' },
+      }),
+      mkPkg('@react-email/text'),
+    ];
+    const publishCalls: string[] = [];
+
+    const result = await topologicalPublish({
+      packages,
+      getPackagePublicationInfo: async () => ({
+        publishedVersions: [],
+      }),
+      publish: async (pkg, distTag) => {
+        publishCalls.push(`${pkg.name}:${distTag}`);
+        return true;
+      },
+    });
+
+    expect(result.published).toEqual([
+      '@react-email/text',
+      '@react-email/tailwind',
+    ]);
+    expect(publishCalls).toEqual([
+      '@react-email/text:latest',
+      '@react-email/tailwind:latest',
+    ]);
   });
 
   it('skips private packages', async () => {
@@ -593,5 +651,74 @@ describe('topologicalPublishDryRun', () => {
     expect(output).toContain('[built] pkg@1.0.0-canary.1 -> latest');
 
     logSpy.mockRestore();
+  });
+
+  it('treats packages without a build script as built when build failed', async () => {
+    const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'release-utils-'));
+    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+
+    try {
+      await fs.writeFile(
+        path.join(dir, 'package.json'),
+        JSON.stringify({
+          name: 'create-email',
+          version: '1.0.0',
+          main: 'src/index.js',
+        }),
+      );
+
+      await topologicalPublishDryRun({
+        packages: [
+          mkPkg('create-email', '1.0.0', undefined, undefined, { dir }),
+        ],
+        buildFailed: true,
+        getPackagePublicationInfo: async () => ({
+          publishedVersions: [],
+        }),
+      });
+
+      const output = logSpy.mock.calls.map((c) => c[0]).join('\n');
+      expect(output).toContain('[built] create-email@1.0.0');
+    } finally {
+      logSpy.mockRestore();
+      await fs.rm(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('treats .next output as a successful build when build failed', async () => {
+    const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'release-utils-'));
+    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+
+    try {
+      await fs.writeFile(
+        path.join(dir, 'package.json'),
+        JSON.stringify({
+          name: '@react-email/preview-server',
+          version: '1.0.0',
+          scripts: {
+            build: 'tsx ./scripts/build.mts',
+          },
+        }),
+      );
+      await fs.mkdir(path.join(dir, '.next'));
+
+      await topologicalPublishDryRun({
+        packages: [
+          mkPkg('@react-email/preview-server', '1.0.0', undefined, undefined, {
+            dir,
+          }),
+        ],
+        buildFailed: true,
+        getPackagePublicationInfo: async () => ({
+          publishedVersions: [],
+        }),
+      });
+
+      const output = logSpy.mock.calls.map((c) => c[0]).join('\n');
+      expect(output).toContain('[built] @react-email/preview-server@1.0.0');
+    } finally {
+      logSpy.mockRestore();
+      await fs.rm(dir, { recursive: true, force: true });
+    }
   });
 });
