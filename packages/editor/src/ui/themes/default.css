@@ -86,11 +86,10 @@
   border: 1px solid var(--re-border);
   border-radius: var(--re-radius);
   box-shadow: var(--re-shadow);
-  overflow: hidden;
   z-index: 50;
   padding: 0.125rem;
   font-family: system-ui, -apple-system, sans-serif;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   line-height: 1;
 }
 
@@ -101,14 +100,6 @@
 [data-re-link-bm-toolbar] > * + *,
 [data-re-btn-bm-toolbar] > * + *,
 [data-re-img-bm-toolbar] > * + * {
-  border-left: 1px solid var(--re-border);
-}
-
-/* ----------------------------------------------------------------
- * Item groups (text bubble menu)
- * ---------------------------------------------------------------- */
-
-[data-re-bubble-menu-group] + [data-re-bubble-menu-group] {
   border-left: 1px solid var(--re-border);
 }
 

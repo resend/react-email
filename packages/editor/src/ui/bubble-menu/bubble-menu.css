@@ -6,16 +6,20 @@
 [data-re-bubble-menu] {
   display: flex;
   align-items: center;
+  gap: 0.125rem;
 }
 
 [data-re-bubble-menu-group] {
   display: flex;
   align-items: center;
+  gap: 0.125rem;
+  padding: 0 0.125rem;
 }
 
 [data-re-bubble-menu-separator] {
   align-self: stretch;
   width: 1px;
+  margin: 0.25rem 0;
 }
 
 [data-re-bubble-menu-item] {
@@ -25,12 +29,12 @@
   cursor: pointer;
   border: none;
   background: none;
-  padding: 0.5rem;
+  padding: 0.375rem;
 }
 
 [data-re-bubble-menu-item] svg {
-  width: 1rem;
-  height: 1rem;
+  width: 0.875rem;
+  height: 0.875rem;
 }
 
 [data-re-node-selector] {
@@ -45,13 +49,14 @@
   border: none;
   background: none;
   white-space: nowrap;
-  font-size: 0.875rem;
-  padding: 0.5rem;
+  font-size: 0.8125rem;
+  padding: 0.375rem 0.5rem;
 }
 
 [data-re-node-selector-trigger] svg {
-  width: 1rem;
-  height: 1rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  opacity: 0.5;
 }
 
 [data-re-node-selector-content] {
@@ -67,15 +72,15 @@
   cursor: pointer;
   border: none;
   background: none;
-  padding: 0.375rem 0.75rem;
-  font-size: 0.875rem;
+  padding: 0.375rem 0.5rem;
+  font-size: 0.8125rem;
   width: 100%;
   text-align: left;
 }
 
 [data-re-node-selector-item] svg {
-  width: 0.75rem;
-  height: 0.75rem;
+  width: 0.875rem;
+  height: 0.875rem;
 }
 
 [data-re-link-selector] {
@@ -90,12 +95,12 @@
   cursor: pointer;
   border: none;
   background: none;
-  padding: 0.5rem;
+  padding: 0.375rem;
 }
 
 [data-re-link-selector-trigger] svg {
-  width: 1rem;
-  height: 1rem;
+  width: 0.875rem;
+  height: 0.875rem;
 }
 
 [data-re-link-selector-form] {
@@ -108,7 +113,7 @@
   flex: 1;
   border: none;
   outline: none;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   padding: 0.25rem;
   background: transparent;
 }
@@ -126,6 +131,6 @@
 
 [data-re-link-selector-apply] svg,
 [data-re-link-selector-unlink] svg {
-  width: 1rem;
-  height: 1rem;
+  width: 0.875rem;
+  height: 0.875rem;
 }
