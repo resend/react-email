@@ -1,0 +1,35 @@
+packages/editor/examples/src/examples/custom-bubble-menus.tsx
+  b4590bbcf479af55 2,5-6,28,37-38,43
+packages/editor/examples/src/examples/basic-editor.tsx
+  b4590bbcf479af55 8-9,12-17,26,43,52-53,58
+packages/editor/examples/src/examples/slash-commands.tsx
+  b4590bbcf479af55 67,74,86-87
+packages/editor/examples/package.json
+  b4590bbcf479af55 14-15
+packages/editor/src/ui/themes/default.css
+  b4590bbcf479af55 327-427
+packages/editor/examples/src/app.tsx
+  b4590bbcf479af55 30,41,54,62-63
+packages/editor/examples/src/examples/column-layouts.tsx
+  b4590bbcf479af55 73,85-86,114-117
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.10",
+  "base_commit_sha": "abcb79dadf8d9a1b9d72da58532377e670d4ff49",
+  "prompts": {
+    "b4590bbcf479af55": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5cee3067-0580-4b40-8404-1cd425d8684d",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 143,
+      "total_deletions": 55,
+      "accepted_lines": 139,
+      "overriden_lines": 0
+    }
+  }
+}
