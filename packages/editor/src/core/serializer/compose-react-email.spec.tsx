@@ -163,7 +163,6 @@ describe('Text marks', () => {
     const result = await composeReactEmail({
       editor,
       preview: '',
-      source: 'template',
     });
 
     const strongOpen = result.html.indexOf('<strong');
@@ -204,7 +203,6 @@ describe('Text marks', () => {
     const result = await composeReactEmail({
       editor,
       preview: '',
-      source: 'template',
     });
 
     const strongOpen = result.html.indexOf('<strong');
@@ -286,7 +284,6 @@ describe('Text marks', () => {
     const result = await composeReactEmail({
       editor,
       preview: '',
-      source: 'template',
     });
 
     expect(result.html).toContain('<code');
@@ -320,7 +317,6 @@ describe('Text marks', () => {
     const result = await composeReactEmail({
       editor,
       preview: '',
-      source: 'template',
     });
 
     expect(result.html).toContain('<a');
@@ -426,7 +422,6 @@ describe('Variable with link mark', () => {
     const result = await composeReactEmail({
       editor,
       preview: '',
-      source: 'template',
     });
 
     expect(result.html).toContain('href="https://example.com"');
@@ -462,7 +457,6 @@ describe('Variable with link mark', () => {
     const result = await composeReactEmail({
       editor,
       preview: '',
-      source: 'template',
     });
 
     expect(result.html).toContain('color:red');
@@ -499,7 +493,6 @@ describe('Variable with link mark', () => {
     const result = await composeReactEmail({
       editor,
       preview: '',
-      source: 'template',
     });
 
     expect(result.html).toContain('rel="noopener"');
@@ -534,7 +527,6 @@ describe('Variable with link mark', () => {
     const result = await composeReactEmail({
       editor,
       preview: '',
-      source: 'template',
     });
 
     const strongOpen = result.html.indexOf('<strong');
@@ -576,7 +568,6 @@ describe('Variable with link mark', () => {
     const result = await composeReactEmail({
       editor,
       preview: '',
-      source: 'template',
     });
 
     expect(result.html).toContain('<code');
@@ -610,7 +601,6 @@ describe('Variable with link mark', () => {
     const result = await composeReactEmail({
       editor,
       preview: '',
-      source: 'broadcast',
     });
 
     // Broadcast format includes fallback: {{{variable|fallback}}}

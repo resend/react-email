@@ -1,10 +1,10 @@
-import BlockquoteExtension from '@tiptap/extension-blockquote';
+import BlockquoteBase from '@tiptap/extension-blockquote';
 import { EmailNode } from '../core/serializer/email-node';
 import { getTextAlignment } from '../utils/get-text-alignment';
 import { inlineCssToJs } from '../utils/styles';
 
 export const Blockquote = EmailNode.from(
-  BlockquoteExtension,
+  BlockquoteBase,
   ({ children, node, style }) => (
     <blockquote
       className={node.attrs?.class || undefined}
