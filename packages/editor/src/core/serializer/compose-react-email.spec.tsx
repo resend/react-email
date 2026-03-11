@@ -1,8 +1,11 @@
+import { Link as ReactEmailLink } from '@react-email/components';
 import type { JSONContent } from '@tiptap/core';
-import { Editor, Mark, Node } from '@tiptap/core';
+import { Editor, Node } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
 import { coreExtensions } from '../../extensions';
+import { inlineCssToJs } from '../../utils/styles';
 import { composeReactEmail } from './compose-react-email';
+import { EmailMark } from './email-mark';
 
 vi.mock('@/actions/ai', () => ({
   uploadImageViaAI: vi.fn(),
@@ -12,7 +15,7 @@ vi.mock('@/actions/ai', () => ({
  * Minimal Link mark extension for testing.
  * This defines the 'link' mark type that composeReactEmail uses.
  */
-const Link = Mark.create({
+const Link = EmailMark.create({
   name: 'link',
   inclusive: false,
   keepOnSplit: false,
@@ -30,6 +33,28 @@ const Link = Mark.create({
   },
   renderHTML({ HTMLAttributes }) {
     return ['a', HTMLAttributes, 0];
+  },
+  renderToReactEmail({ children, mark, style }) {
+    const linkMarkStyle = mark.attrs?.style
+      ? inlineCssToJs(mark.attrs.style)
+      : {};
+
+    return (
+      <ReactEmailLink
+        href={mark.attrs?.href ?? ''}
+        rel={mark.attrs?.rel ?? undefined}
+        style={{
+          ...style,
+          ...linkMarkStyle,
+        }}
+        target={mark.attrs?.target ?? undefined}
+        {...(mark.attrs?.['ses:no-track'] && {
+          'ses:no-track': mark.attrs['ses:no-track'],
+        })}
+      >
+        {children}
+      </ReactEmailLink>
+    );
   },
 });
 
@@ -194,6 +219,54 @@ describe('Text marks', () => {
     expect(strongClose).toBeGreaterThan(linkClose);
   });
 
+  it('should render uppercase marks using the extension renderer', async () => {
+    const content = docWithGlobalContent([
+      {
+        type: 'paragraph',
+        content: [
+          {
+            type: 'text',
+            text: 'Hello world',
+            marks: [{ type: 'uppercase' }],
+          },
+        ],
+      },
+    ]);
+
+    const editor = createEditorWithContent(content);
+    const result = await composeReactEmail({
+      editor,
+      preview: '',
+    });
+
+    expect(result.html).toMatch(/text-transform:\s*uppercase/i);
+    expect(result.html).toContain('Hello world');
+  });
+
+  it('should render sup marks using the extension renderer', async () => {
+    const content = docWithGlobalContent([
+      {
+        type: 'paragraph',
+        content: [
+          {
+            type: 'text',
+            text: '2',
+            marks: [{ type: 'sup' }],
+          },
+        ],
+      },
+    ]);
+
+    const editor = createEditorWithContent(content);
+    const result = await composeReactEmail({
+      editor,
+      preview: '',
+    });
+
+    expect(result.html).toContain('<sup');
+    expect(result.html).toContain('>2</sup>');
+  });
+
   it('should apply inline styles to code marks only', async () => {
     const content = docWithGlobalContent([
       {
@@ -254,6 +327,73 @@ describe('Text marks', () => {
     expect(result.html).toContain('href="https://example.com"');
     expect(result.html).not.toMatch(/color:\s*red/);
     expect(result.html).not.toMatch(/font-size:\s*16px/);
+  });
+});
+
+describe('StarterKit node wrappers', () => {
+  it('should render bullet lists using the extension renderer', async () => {
+    const content = docWithGlobalContent([
+      {
+        type: 'bulletList',
+        content: [
+          {
+            type: 'listItem',
+            content: [
+              {
+                type: 'paragraph',
+                content: [
+                  {
+                    type: 'text',
+                    text: 'List item',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+
+    const editor = createEditorWithContent(content);
+    const result = await composeReactEmail({
+      editor,
+      preview: '',
+    });
+
+    expect(result.html).toContain('<ul');
+    expect(result.html).toContain('<li');
+    expect(result.html).toContain('List item');
+  });
+
+  it('should render hard breaks using the extension renderer', async () => {
+    const content = docWithGlobalContent([
+      {
+        type: 'paragraph',
+        content: [
+          {
+            type: 'text',
+            text: 'Hello',
+          },
+          {
+            type: 'hardBreak',
+          },
+          {
+            type: 'text',
+            text: 'World',
+          },
+        ],
+      },
+    ]);
+
+    const editor = createEditorWithContent(content);
+    const result = await composeReactEmail({
+      editor,
+      preview: '',
+    });
+
+    expect(result.html).toContain('<br');
+    expect(result.html).toContain('Hello');
+    expect(result.html).toContain('World');
   });
 });
 
