@@ -1,18 +1,30 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { exec, getExecOutput } from '@actions/exec';
+import { type ExecOutput, exec, getExecOutput } from '@actions/exec';
 import type { Package } from '@manypkg/get-packages';
 
 export interface PackageInfo {
   name: string;
   version: string;
   dependencies?: Record<string, string>;
+  optionalDependencies?: Record<string, string>;
   devDependencies?: Record<string, string>;
 }
 
 export interface WorkspacePackage extends PackageInfo {
   dir: string;
   private?: boolean;
+}
+
+export interface PackagePublicationInfo {
+  publishedVersions: string[];
+}
+
+export type PublishedState = 'never' | 'published' | 'only-pre';
+
+interface PublishTarget {
+  distTag: string;
+  pkg: WorkspacePackage;
 }
 
 export function toWorkspacePackage(pkg: Package): WorkspacePackage {
@@ -24,49 +36,137 @@ export function toWorkspacePackage(pkg: Package): WorkspacePackage {
     dependencies: pkg.packageJson.dependencies as
       | Record<string, string>
       | undefined,
+    optionalDependencies: pkg.packageJson.optionalDependencies as
+      | Record<string, string>
+      | undefined,
     devDependencies: pkg.packageJson.devDependencies as
       | Record<string, string>
       | undefined,
   };
 }
 
-export async function checkPublished(
+function isNpmNotFoundOutput(output: string): boolean {
+  return (
+    /\bE404\b/i.test(output) ||
+    /404 Not Found/i.test(output) ||
+    /is not in (?:this|the npm) registry/i.test(output)
+  );
+}
+
+function getPrereleaseTag(version: string): string | undefined {
+  const [, prerelease] = version.split('-', 2);
+  return prerelease?.split('.')[0];
+}
+
+export function parseNpmViewVersionsOutput(
+  packageName: string,
+  result: Pick<ExecOutput, 'exitCode' | 'stdout' | 'stderr'>,
+): string[] {
+  const stdout = result.stdout.trim();
+  const stderr = result.stderr.trim();
+
+  if (result.exitCode === 0) {
+    if (stdout.length === 0) {
+      return [];
+    }
+
+    const parsed = JSON.parse(stdout) as string[] | string;
+    if (typeof parsed === 'string') {
+      return [parsed];
+    }
+    if (
+      Array.isArray(parsed) &&
+      parsed.every((value) => typeof value === 'string')
+    ) {
+      return parsed;
+    }
+    throw new Error(
+      `Unexpected npm registry response for ${packageName}: ${stdout}`,
+    );
+  }
+
+  const combinedOutput = [stderr, stdout].filter(Boolean).join('\n');
+  if (isNpmNotFoundOutput(combinedOutput)) {
+    return [];
+  }
+
+  throw new Error(
+    `Failed to check npm registry for ${packageName}: ${
+      combinedOutput || `exit code ${result.exitCode}`
+    }`,
+  );
+}
+
+export async function getPackagePublicationInfo(
   name: string,
-  version: string,
-): Promise<boolean> {
+): Promise<PackagePublicationInfo> {
   const result = await getExecOutput(
     'npm',
-    ['view', `${name}@${version}`, 'version'],
+    ['view', name, 'versions', '--json'],
     { ignoreReturnCode: true, silent: true },
   );
-  return result.exitCode === 0 && result.stdout.trim() === version;
+  return {
+    publishedVersions: parseNpmViewVersionsOutput(name, result),
+  };
+}
+
+export function isVersionPublished(
+  publicationInfo: PackagePublicationInfo,
+  version: string,
+): boolean {
+  return publicationInfo.publishedVersions.includes(version);
+}
+
+export function getPublishedState(
+  publicationInfo: PackagePublicationInfo,
+  preTag?: string,
+): PublishedState {
+  if (publicationInfo.publishedVersions.length === 0) {
+    return 'never';
+  }
+
+  if (
+    preTag !== undefined &&
+    publicationInfo.publishedVersions.every(
+      (version) => getPrereleaseTag(version) === preTag,
+    )
+  ) {
+    return 'only-pre';
+  }
+
+  return 'published';
+}
+
+export function getReleaseTag(
+  publicationInfo: PackagePublicationInfo,
+  preTag?: string,
+): string {
+  if (
+    preTag !== undefined &&
+    getPublishedState(publicationInfo, preTag) !== 'only-pre'
+  ) {
+    return preTag;
+  }
+  return 'latest';
 }
 
 /**
  * Returns a publish callback that calls `pnpm publish` for a single package.
  */
 export function createPublisher(options: {
-  distTag: string;
   npmIdToken: string;
-}): (pkg: WorkspacePackage) => Promise<boolean> {
+}): (pkg: WorkspacePackage, distTag: string) => Promise<boolean> {
   const env = {
     ...process.env,
     NPM_ID_TOKEN: options.npmIdToken,
     NPM_CONFIG_PROVENANCE: 'true',
   };
 
-  return async (pkg) => {
+  return async (pkg, distTag) => {
     try {
       await exec(
         'pnpm',
-        [
-          'publish',
-          '--no-git-checks',
-          '--access',
-          'public',
-          '--tag',
-          options.distTag,
-        ],
+        ['publish', '--no-git-checks', '--access', 'public', '--tag', distTag],
         { cwd: pkg.dir, env },
       );
       console.log(`Successfully published ${pkg.name}@${pkg.version}`);
@@ -90,12 +190,12 @@ export function buildPublishDeps(
   const publishDeps = new Map<string, Set<string>>();
 
   for (const pkg of packages) {
-    const allDeps = {
+    const runtimeDeps = {
       ...pkg.dependencies,
-      ...pkg.devDependencies,
+      ...pkg.optionalDependencies,
     };
     const inSetDeps = new Set<string>();
-    for (const depName of Object.keys(allDeps)) {
+    for (const depName of Object.keys(runtimeDeps)) {
       if (publishSet.has(depName)) {
         inSetDeps.add(depName);
       }
@@ -188,6 +288,36 @@ export async function publishInOrder(
   return { published, failed: [...failedSet] };
 }
 
+async function collectPublishTargets(options: {
+  packages: WorkspacePackage[];
+  preTag?: string;
+  getPackagePublicationInfo: (name: string) => Promise<PackagePublicationInfo>;
+}): Promise<PublishTarget[]> {
+  const { packages, preTag, getPackagePublicationInfo: getInfo } = options;
+  const toPublish: PublishTarget[] = [];
+
+  for (const pkg of packages) {
+    if (pkg.private) continue;
+
+    const publicationInfo = await getInfo(pkg.name);
+    if (isVersionPublished(publicationInfo, pkg.version)) {
+      console.log(`${pkg.name}@${pkg.version} already published, skipping`);
+      continue;
+    }
+
+    console.log(`${pkg.name}@${pkg.version} needs publishing`);
+    const distTag = getReleaseTag(publicationInfo, preTag);
+    if (preTag !== undefined && distTag !== preTag) {
+      console.log(
+        `${pkg.name} will be published to ${distTag} rather than ${preTag} because it has only ${preTag} prereleases on npm`,
+      );
+    }
+    toPublish.push({ distTag, pkg });
+  }
+
+  return toPublish;
+}
+
 /**
  * High-level publish pipeline: determine which packages need publishing,
  * build a dependency graph, topologically sort, and publish with failure tracking.
@@ -197,30 +327,28 @@ export async function publishInOrder(
  */
 export async function topologicalPublish(options: {
   packages: WorkspacePackage[];
-  checkPublished: (name: string, version: string) => Promise<boolean>;
-  publish: (pkg: WorkspacePackage) => Promise<boolean>;
+  preTag?: string;
+  getPackagePublicationInfo: (name: string) => Promise<PackagePublicationInfo>;
+  publish: (pkg: WorkspacePackage, distTag: string) => Promise<boolean>;
 }): Promise<{ published: string[]; failed: string[] }> {
-  const { packages, checkPublished: isPublished, publish } = options;
-
-  // Determine which packages need publishing
-  const toPublish: WorkspacePackage[] = [];
-  for (const pkg of packages) {
-    if (pkg.private) continue;
-    const alreadyPublished = await isPublished(pkg.name, pkg.version);
-    if (alreadyPublished) {
-      console.log(`${pkg.name}@${pkg.version} already published, skipping`);
-    } else {
-      console.log(`${pkg.name}@${pkg.version} needs publishing`);
-      toPublish.push(pkg);
-    }
-  }
+  const {
+    packages,
+    preTag,
+    getPackagePublicationInfo: getInfo,
+    publish,
+  } = options;
+  const toPublish = await collectPublishTargets({
+    packages,
+    preTag,
+    getPackagePublicationInfo: getInfo,
+  });
 
   if (toPublish.length === 0) {
     console.log('No packages need publishing');
     return { published: [], failed: [] };
   }
 
-  const publishDeps = buildPublishDeps(toPublish);
+  const publishDeps = buildPublishDeps(toPublish.map(({ pkg }) => pkg));
   const sorted = topologicalSort(publishDeps);
 
   console.log(`Publishing ${sorted.length} packages in topological order:`);
@@ -228,10 +356,11 @@ export async function topologicalPublish(options: {
     console.log(`  ${name}`);
   }
 
-  const byName = new Map(toPublish.map((p) => [p.name, p]));
+  const byName = new Map(toPublish.map((target) => [target.pkg.name, target]));
 
   return publishInOrder(sorted, publishDeps, async (name) => {
-    return publish(byName.get(name)!);
+    const target = byName.get(name)!;
+    return publish(target.pkg, target.distTag);
   });
 }
 
@@ -250,46 +379,40 @@ async function defaultCheckBuildStatus(dir: string): Promise<boolean> {
  */
 export async function topologicalPublishDryRun(options: {
   packages: WorkspacePackage[];
-  distTag: string;
+  preTag?: string;
   buildFailed: boolean;
-  checkPublished: (name: string, version: string) => Promise<boolean>;
+  getPackagePublicationInfo: (name: string) => Promise<PackagePublicationInfo>;
   checkBuildStatus?: (dir: string) => Promise<boolean>;
 }): Promise<void> {
   const {
     packages,
-    distTag,
+    preTag,
     buildFailed,
-    checkPublished: isPublished,
+    getPackagePublicationInfo: getInfo,
     checkBuildStatus = defaultCheckBuildStatus,
   } = options;
-
-  const toPublish: WorkspacePackage[] = [];
-  for (const pkg of packages) {
-    if (pkg.private) continue;
-    const alreadyPublished = await isPublished(pkg.name, pkg.version);
-    if (alreadyPublished) {
-      console.log(`${pkg.name}@${pkg.version} already published, skipping`);
-    } else {
-      console.log(`${pkg.name}@${pkg.version} needs publishing`);
-      toPublish.push(pkg);
-    }
-  }
+  const toPublish = await collectPublishTargets({
+    packages,
+    preTag,
+    getPackagePublicationInfo: getInfo,
+  });
 
   if (toPublish.length === 0) {
     console.log('No packages need publishing');
     return;
   }
 
-  const publishDeps = buildPublishDeps(toPublish);
+  const publishDeps = buildPublishDeps(toPublish.map(({ pkg }) => pkg));
   const sorted = topologicalSort(publishDeps);
 
   console.log(
     `\nWould publish ${sorted.length} packages in topological order:`,
   );
-  const byName = new Map(toPublish.map((p) => [p.name, p]));
+  const byName = new Map(toPublish.map((target) => [target.pkg.name, target]));
 
   for (const name of sorted) {
-    const pkg = byName.get(name)!;
+    const target = byName.get(name)!;
+    const { pkg, distTag } = target;
     let buildStatus: string;
     if (buildFailed) {
       buildStatus = (await checkBuildStatus(pkg.dir))
