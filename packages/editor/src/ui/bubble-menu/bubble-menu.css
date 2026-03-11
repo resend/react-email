@@ -14,6 +14,9 @@
   align-items: center;
   gap: 0.125rem;
   padding: 0 0.125rem;
+  border: none;
+  margin: 0;
+  min-width: 0;
 }
 
 [data-re-bubble-menu-separator] {
