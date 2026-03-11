@@ -67,9 +67,12 @@ function Toolbar() {
 export function ColumnLayouts() {
   return (
     <div>
-      <style>{columnStyles}</style>
       <p
-        style={{ fontSize: '0.875rem', color: '#6b6b6b', marginBottom: '1rem' }}
+        style={{
+          fontSize: '0.875rem',
+          color: 'var(--re-text-muted)',
+          marginBottom: '1rem',
+        }}
       >
         Insert multi-column layouts using the toolbar buttons.
       </p>
@@ -79,8 +82,8 @@ export function ColumnLayouts() {
         slotBefore={<Toolbar />}
         editorContainerProps={{
           style: {
-            border: '1px solid #e5e5e5',
-            borderRadius: '0.5rem',
+            border: '1px solid var(--re-border)',
+            borderRadius: 'var(--re-radius)',
             padding: '1rem',
             minHeight: 300,
           },
@@ -108,9 +111,10 @@ function ToolbarButton({
         alignItems: 'center',
         gap: '0.375rem',
         padding: '0.375rem 0.75rem',
-        border: '1px solid #e5e5e5',
-        borderRadius: '0.375rem',
-        background: '#fff',
+        border: '1px solid var(--re-border)',
+        borderRadius: 'var(--re-radius-sm)',
+        background: 'var(--re-bg)',
+        color: 'var(--re-text)',
         cursor: 'pointer',
         fontSize: '0.8125rem',
       }}
@@ -120,18 +124,3 @@ function ToolbarButton({
     </button>
   );
 }
-
-const columnStyles = `
-  .node-columns {
-    display: flex;
-    gap: 0.5rem;
-    width: 100%;
-  }
-  .node-column {
-    flex: 1;
-    min-width: 0;
-    border: 1px dashed #d4d4d4;
-    border-radius: 0.25rem;
-    padding: 0.5rem;
-  }
-`;

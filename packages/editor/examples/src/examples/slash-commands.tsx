@@ -8,7 +8,6 @@ import {
   ThreeColumns,
   TwoColumns,
 } from '@react-email/editor';
-import '@react-email/editor/styles/slash-command.css';
 import { EditorProvider } from '@tiptap/react';
 import { Star } from 'lucide-react';
 
@@ -63,12 +62,16 @@ export function SlashCommands() {
   return (
     <div>
       <p
-        style={{ fontSize: '0.875rem', color: '#6b6b6b', marginBottom: '1rem' }}
+        style={{
+          fontSize: '0.875rem',
+          color: 'var(--re-text-muted)',
+          marginBottom: '1rem',
+        }}
       >
         Type{' '}
         <code
           style={{
-            background: '#f1f5f9',
+            background: 'var(--re-hover)',
             padding: '0.125rem 0.375rem',
             borderRadius: '0.25rem',
           }}
@@ -80,8 +83,8 @@ export function SlashCommands() {
       </p>
       <div
         style={{
-          border: '1px solid #e5e5e5',
-          borderRadius: '0.5rem',
+          border: '1px solid var(--re-border)',
+          borderRadius: 'var(--re-radius)',
           padding: '1rem',
           minHeight: 300,
         }}
