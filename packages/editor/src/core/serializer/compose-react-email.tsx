@@ -1,11 +1,11 @@
 import { Link, pretty, render, toPlainText } from '@react-email/components';
 import type { Editor, JSONContent } from '@tiptap/core';
 import * as React from 'react';
-import type { SerializerPlugin } from '../../plugins/email-theming/extension';
 import { getTextAlignment } from '../../utils/get-text-alignment';
-import { expandShorthandProperties, inlineCssToJs } from '../../utils/styles';
+import { inlineCssToJs } from '../../utils/styles';
 import { DefaultBaseTemplate } from './default-base-template';
 import { EmailNode } from './email-node';
+import type { SerializerPlugin } from './serializer-plugin';
 
 type Mark = {
   type: string;
@@ -381,7 +381,7 @@ export const composeReactEmail = async ({
             <React.Fragment key={index}>
               {`{{{#each ${list}}}}`}
               {parseContent(node.content)}
-              {`{{{/each}}}`}
+              {'{{{/each}}}'}
             </React.Fragment>
           );
         }
@@ -393,7 +393,7 @@ export const composeReactEmail = async ({
 
           const negate = Boolean(node.attrs?.negate);
           const open = negate ? `{{{#unless ${test}}}}` : `{{{#if ${test}}}}`;
-          const close = negate ? `{{{/unless}}}` : `{{{/if}}}`;
+          const close = negate ? '{{{/unless}}}' : '{{{/if}}}';
           return (
             <React.Fragment key={index}>
               {open}
