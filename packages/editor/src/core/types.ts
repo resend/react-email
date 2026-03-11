@@ -3,11 +3,8 @@
  * These types are used across the core module and can be imported by plugins and UI.
  */
 
-import type { Content, Editor as EditorClass } from '@tiptap/core';
 import type { Attrs } from '@tiptap/pm/model';
 
-// Re-export external types for convenience
-export type { Content, EditorClass };
 export type NodeClickedEvent = {
   nodeType: string;
   nodeAttrs: Attrs;
