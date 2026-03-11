@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import type { ReactNode } from 'react';
-import { LinkBubbleMenuContext } from './context';
-import { LinkBubbleMenuToolbar } from './toolbar';
+import { LinkBubbleMenuContext } from './context.js';
+import { LinkBubbleMenuToolbar } from './toolbar.js';
 
 const mockEditor = {} as any;
 

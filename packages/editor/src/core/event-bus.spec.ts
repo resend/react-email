@@ -1,4 +1,4 @@
-import { editorEventBus } from './event-bus';
+import { editorEventBus } from './event-bus.js';
 
 // Augment EditorEventMap with test-only events
 declare module './event-bus' {

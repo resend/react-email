@@ -1,7 +1,7 @@
 import { useCurrentEditor } from '@tiptap/react';
 import { BubbleMenu } from '@tiptap/react/menus';
 import type * as React from 'react';
-import { BubbleMenuContext } from './context';
+import { BubbleMenuContext } from './context.js';
 
 export interface BubbleMenuRootProps {
   /** Node types that should NOT trigger the bubble menu */

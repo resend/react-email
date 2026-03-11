@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import type { ReactNode } from 'react';
-import { LinkBubbleMenuContext } from './context';
-import { LinkBubbleMenuUnlink } from './unlink';
+import { LinkBubbleMenuContext } from './context.js';
+import { LinkBubbleMenuUnlink } from './unlink.js';
 
 const mockRun = vi.fn();
 const mockUnsetLink = vi.fn(() => ({ run: mockRun }));

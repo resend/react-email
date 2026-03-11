@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import type { ReactNode } from 'react';
-import { LinkBubbleMenuContext } from './context';
-import { LinkBubbleMenuForm } from './form';
+import { LinkBubbleMenuContext } from './context.js';
+import { LinkBubbleMenuForm } from './form.js';
 
 const mockRun = vi.fn();
 

@@ -1,23 +1,23 @@
-import { LinkBubbleMenuEditLink } from './edit-link';
-import { LinkBubbleMenuForm } from './form';
-import { LinkBubbleMenuOpenLink } from './open-link';
-import { LinkBubbleMenuRoot } from './root';
-import { LinkBubbleMenuToolbar } from './toolbar';
-import { LinkBubbleMenuUnlink } from './unlink';
+import { LinkBubbleMenuEditLink } from './edit-link.js';
+import { LinkBubbleMenuForm } from './form.js';
+import { LinkBubbleMenuOpenLink } from './open-link.js';
+import { LinkBubbleMenuRoot } from './root.js';
+import { LinkBubbleMenuToolbar } from './toolbar.js';
+import { LinkBubbleMenuUnlink } from './unlink.js';
 
-export { useLinkBubbleMenuContext } from './context';
-export type { LinkBubbleMenuEditLinkProps } from './edit-link';
-export { LinkBubbleMenuEditLink } from './edit-link';
-export type { LinkBubbleMenuFormProps } from './form';
-export { LinkBubbleMenuForm } from './form';
-export type { LinkBubbleMenuOpenLinkProps } from './open-link';
-export { LinkBubbleMenuOpenLink } from './open-link';
-export type { LinkBubbleMenuRootProps } from './root';
-export { LinkBubbleMenuRoot } from './root';
-export type { LinkBubbleMenuToolbarProps } from './toolbar';
-export { LinkBubbleMenuToolbar } from './toolbar';
-export type { LinkBubbleMenuUnlinkProps } from './unlink';
-export { LinkBubbleMenuUnlink } from './unlink';
+export { useLinkBubbleMenuContext } from './context.js';
+export type { LinkBubbleMenuEditLinkProps } from './edit-link.js';
+export { LinkBubbleMenuEditLink } from './edit-link.js';
+export type { LinkBubbleMenuFormProps } from './form.js';
+export { LinkBubbleMenuForm } from './form.js';
+export type { LinkBubbleMenuOpenLinkProps } from './open-link.js';
+export { LinkBubbleMenuOpenLink } from './open-link.js';
+export type { LinkBubbleMenuRootProps } from './root.js';
+export { LinkBubbleMenuRoot } from './root.js';
+export type { LinkBubbleMenuToolbarProps } from './toolbar.js';
+export { LinkBubbleMenuToolbar } from './toolbar.js';
+export type { LinkBubbleMenuUnlinkProps } from './unlink.js';
+export { LinkBubbleMenuUnlink } from './unlink.js';
 
 export const LinkBubbleMenu = {
   Root: LinkBubbleMenuRoot,

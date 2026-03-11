@@ -1,5 +1,5 @@
 import { BoldIcon } from 'lucide-react';
-import { createMarkBubbleItem } from './create-mark-bubble-item';
+import { createMarkBubbleItem } from './create-mark-bubble-item.js';
 
 export const BubbleMenuBold = createMarkBubbleItem({
   name: 'bold',

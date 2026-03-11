@@ -1,6 +1,6 @@
 import type { Node } from '@tiptap/pm/model';
 import { describe, expect, it } from 'vitest';
-import { isDocumentVisuallyEmpty } from './is-document-visually-empty';
+import { isDocumentVisuallyEmpty } from './is-document-visually-empty.js';
 
 type MockDoc = {
   childCount: number;

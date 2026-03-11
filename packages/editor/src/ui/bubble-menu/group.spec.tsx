@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { BubbleMenuItemGroup } from './group';
-import { BubbleMenuSeparator } from './separator';
+import { BubbleMenuItemGroup } from './group.js';
+import { BubbleMenuSeparator } from './separator.js';
 
 describe('BubbleMenuItemGroup', () => {
   it('renders children with correct data attribute and role', () => {

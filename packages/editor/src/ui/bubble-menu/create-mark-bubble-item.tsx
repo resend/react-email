@@ -1,7 +1,7 @@
 import { useEditorState } from '@tiptap/react';
 import type * as React from 'react';
-import { useBubbleMenuContext } from './context';
-import { BubbleMenuItem } from './item';
+import { useBubbleMenuContext } from './context.js';
+import { BubbleMenuItem } from './item.js';
 
 export interface PreWiredItemProps {
   className?: string;

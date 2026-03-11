@@ -13,7 +13,7 @@ import {
   TextQuote,
 } from 'lucide-react';
 import * as React from 'react';
-import { useBubbleMenuContext } from './context';
+import { useBubbleMenuContext } from './context.js';
 
 export type NodeType =
   | 'Text'

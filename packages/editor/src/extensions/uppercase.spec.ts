@@ -1,6 +1,6 @@
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
-import { Uppercase } from './uppercase';
+import { Uppercase } from './uppercase.js';
 
 function createEditor(content?: string) {
   return new Editor({

@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react';
-import { useImageBubbleMenuContext } from './context';
+import { useImageBubbleMenuContext } from './context.js';
 
 describe('useImageBubbleMenuContext', () => {
   it('throws when used outside a Provider', () => {

@@ -1,5 +1,5 @@
 import type * as React from 'react';
-import { useLinkBubbleMenuContext } from './context';
+import { useLinkBubbleMenuContext } from './context.js';
 
 export interface LinkBubbleMenuToolbarProps
   extends React.ComponentProps<'div'> {}

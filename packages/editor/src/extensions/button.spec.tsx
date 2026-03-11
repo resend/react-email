@@ -1,6 +1,6 @@
 import { render } from '@react-email/components';
-import { DEFAULT_STYLES } from '../utils/default-styles';
-import { Button } from './button';
+import { DEFAULT_STYLES } from '../utils/default-styles.js';
+import { Button } from './button.js';
 
 const buttonStyle = { ...DEFAULT_STYLES.reset, ...DEFAULT_STYLES.button };
 

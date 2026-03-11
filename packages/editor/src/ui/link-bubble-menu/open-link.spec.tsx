@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import type { ReactNode } from 'react';
-import { LinkBubbleMenuContext } from './context';
-import { LinkBubbleMenuOpenLink } from './open-link';
+import { LinkBubbleMenuContext } from './context.js';
+import { LinkBubbleMenuOpenLink } from './open-link.js';
 
 function renderWithContext(
   ui: ReactNode,

@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import type { ReactNode } from 'react';
-import { ImageBubbleMenuContext } from './context';
-import { ImageBubbleMenuEditLink } from './edit-link';
+import { ImageBubbleMenuContext } from './context.js';
+import { ImageBubbleMenuEditLink } from './edit-link.js';
 
 const mockSetIsEditing = vi.fn();
 

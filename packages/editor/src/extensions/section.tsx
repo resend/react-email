@@ -1,9 +1,9 @@
 import { Section as ReactEmailSection } from '@react-email/components';
 import { mergeAttributes } from '@tiptap/core';
 import type * as React from 'react';
-import { EmailNode } from '../core/serializer/email-node';
-import { getTextAlignment } from '../utils/get-text-alignment';
-import { inlineCssToJs } from '../utils/styles';
+import { EmailNode } from '../core/serializer/email-node.js';
+import { getTextAlignment } from '../utils/get-text-alignment.js';
+import { inlineCssToJs } from '../utils/styles.js';
 
 interface SectionOptions {
   HTMLAttributes: Record<string, unknown>;

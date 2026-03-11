@@ -1,17 +1,17 @@
 import * as React from 'react';
-import { BubbleMenuAlignCenter } from './align-center';
-import { BubbleMenuAlignLeft } from './align-left';
-import { BubbleMenuAlignRight } from './align-right';
-import { BubbleMenuBold } from './bold';
-import { BubbleMenuCode } from './code';
-import { BubbleMenuItemGroup } from './group';
-import { BubbleMenuItalic } from './italic';
-import { BubbleMenuLinkSelector } from './link-selector';
-import { BubbleMenuNodeSelector } from './node-selector';
-import { BubbleMenuRoot } from './root';
-import { BubbleMenuStrike } from './strike';
-import { BubbleMenuUnderline } from './underline';
-import { BubbleMenuUppercase } from './uppercase';
+import { BubbleMenuAlignCenter } from './align-center.js';
+import { BubbleMenuAlignLeft } from './align-left.js';
+import { BubbleMenuAlignRight } from './align-right.js';
+import { BubbleMenuBold } from './bold.js';
+import { BubbleMenuCode } from './code.js';
+import { BubbleMenuItemGroup } from './group.js';
+import { BubbleMenuItalic } from './italic.js';
+import { BubbleMenuLinkSelector } from './link-selector.js';
+import { BubbleMenuNodeSelector } from './node-selector.js';
+import { BubbleMenuRoot } from './root.js';
+import { BubbleMenuStrike } from './strike.js';
+import { BubbleMenuUnderline } from './underline.js';
+import { BubbleMenuUppercase } from './uppercase.js';
 
 type ExcludableItem =
   | 'bold'

@@ -1,7 +1,7 @@
 import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
-import { AlignmentAttribute } from '../extensions/alignment-attribute';
-import { setTextAlignment } from './set-text-alignment';
+import { AlignmentAttribute } from '../extensions/alignment-attribute.js';
+import { setTextAlignment } from './set-text-alignment.js';
 
 function createEditor(content?: Record<string, unknown>) {
   return new Editor({

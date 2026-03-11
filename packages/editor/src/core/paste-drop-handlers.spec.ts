@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { createDropHandler } from './create-drop-handler';
-import { createPasteHandler } from './create-paste-handler';
+import { createDropHandler } from './create-drop-handler.js';
+import { createPasteHandler } from './create-paste-handler.js';
 
 describe('createDropHandler', () => {
   it('uploads dropped images when auto-import declines synchronously', () => {

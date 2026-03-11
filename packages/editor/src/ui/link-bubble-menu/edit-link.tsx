@@ -1,6 +1,6 @@
 import { PencilIcon } from 'lucide-react';
 import type * as React from 'react';
-import { useLinkBubbleMenuContext } from './context';
+import { useLinkBubbleMenuContext } from './context.js';
 
 export interface LinkBubbleMenuEditLinkProps
   extends Omit<React.ComponentProps<'button'>, 'type'> {}

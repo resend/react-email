@@ -3,7 +3,7 @@ import {
   inlineCssToJs,
   jsToInlineCss,
   resolveConflictingStyles,
-} from './styles';
+} from './styles.js';
 
 vi.mock('@/actions/ai', () => ({
   uploadImageViaAI: vi.fn(),

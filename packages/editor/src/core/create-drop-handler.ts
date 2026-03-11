@@ -1,5 +1,5 @@
 import type { EditorView } from '@tiptap/pm/view';
-import type { PasteHandler, UploadImageHandler } from './create-paste-handler';
+import type { PasteHandler, UploadImageHandler } from './create-paste-handler.js';
 
 export function createDropHandler({
   onPaste,

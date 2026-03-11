@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { BubbleMenuItem } from './item';
+import { BubbleMenuItem } from './item.js';
 
 describe('BubbleMenuItem', () => {
   it('renders a button with correct aria attributes when inactive', () => {

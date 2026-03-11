@@ -1,7 +1,7 @@
 import { dracula, render } from '@react-email/components';
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_STYLES } from '../utils/default-styles';
-import { CodeBlockPrism } from './code-block';
+import { DEFAULT_STYLES } from '../utils/default-styles.js';
+import { CodeBlockPrism } from './code-block.js';
 
 // Resolved style matching snapshot: codeBlock only, no reset (theme provides padding/margin)
 const codeBlockStyle = { ...DEFAULT_STYLES.codeBlock };

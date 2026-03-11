@@ -1,6 +1,6 @@
 import { render } from '@react-email/components';
-import { DEFAULT_STYLES } from '../utils/default-styles';
-import { Div } from './div';
+import { DEFAULT_STYLES } from '../utils/default-styles.js';
+import { Div } from './div.js';
 
 const divStyle = { ...DEFAULT_STYLES.reset };
 

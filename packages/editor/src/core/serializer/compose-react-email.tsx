@@ -1,11 +1,11 @@
 import { Link, pretty, render, toPlainText } from '@react-email/components';
 import type { Editor, JSONContent } from '@tiptap/core';
 import * as React from 'react';
-import { getTextAlignment } from '../../utils/get-text-alignment';
-import { inlineCssToJs } from '../../utils/styles';
-import { DefaultBaseTemplate } from './default-base-template';
-import { EmailNode } from './email-node';
-import type { SerializerPlugin } from './serializer-plugin';
+import { getTextAlignment } from '../../utils/get-text-alignment.js';
+import { inlineCssToJs } from '../../utils/styles.js';
+import { DefaultBaseTemplate } from './default-base-template.js';
+import { EmailNode } from './email-node.js';
+import type { SerializerPlugin } from './serializer-plugin.js';
 
 type Mark = {
   type: string;

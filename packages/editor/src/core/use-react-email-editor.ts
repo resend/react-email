@@ -3,14 +3,14 @@ import { UndoRedo } from '@tiptap/extensions';
 
 import { useEditor, useEditorState } from '@tiptap/react';
 import * as React from 'react';
-import { coreExtensions } from '../extensions';
-import { createDropHandler } from './create-drop-handler';
+import { coreExtensions } from '../extensions/index.js';
+import { createDropHandler } from './create-drop-handler.js';
 import {
   createPasteHandler,
   type PasteHandler,
   type UploadImageHandler,
-} from './create-paste-handler';
-import { isDocumentVisuallyEmpty } from './is-document-visually-empty';
+} from './create-paste-handler.js';
+import { isDocumentVisuallyEmpty } from './is-document-visually-empty.js';
 
 const COLLABORATION_EXTENSION_NAMES = new Set([
   'liveblocksExtension',
