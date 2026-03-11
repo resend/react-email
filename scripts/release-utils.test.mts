@@ -1,13 +1,87 @@
 import { describe, expect, it, vi } from 'vitest';
 import {
   buildPublishDeps,
+  getPublishedState,
+  getReleaseTag,
   type PackageInfo,
+  parseNpmViewVersionsOutput,
   publishInOrder,
   topologicalPublish,
   topologicalPublishDryRun,
   topologicalSort,
   type WorkspacePackage,
 } from './release-utils.mts';
+
+describe('parseNpmViewVersionsOutput', () => {
+  it('parses a single published version', () => {
+    expect(
+      parseNpmViewVersionsOutput('pkg', {
+        exitCode: 0,
+        stdout: '"1.0.0"\n',
+        stderr: '',
+      }),
+    ).toEqual(['1.0.0']);
+  });
+
+  it('returns all published versions', () => {
+    expect(
+      parseNpmViewVersionsOutput('pkg', {
+        exitCode: 0,
+        stdout: '["1.0.0","1.0.1"]\n',
+        stderr: '',
+      }),
+    ).toEqual(['1.0.0', '1.0.1']);
+  });
+
+  it('treats npm 404s as unpublished packages', () => {
+    expect(
+      parseNpmViewVersionsOutput('pkg', {
+        exitCode: 1,
+        stdout: '',
+        stderr:
+          'npm error code E404\nnpm error 404 Not Found - GET https://registry.npmjs.org/pkg',
+      }),
+    ).toEqual([]);
+  });
+
+  it('throws for non-404 registry errors', () => {
+    expect(() =>
+      parseNpmViewVersionsOutput('pkg', {
+        exitCode: 1,
+        stdout: '',
+        stderr: 'npm error code E429\nToo Many Requests',
+      }),
+    ).toThrow('Failed to check npm registry for pkg');
+  });
+});
+
+describe('getReleaseTag', () => {
+  it('uses latest outside prerelease mode', () => {
+    expect(getReleaseTag({ publishedVersions: ['1.0.0'] })).toBe('latest');
+  });
+
+  it('uses the prerelease tag when the package has stable history', () => {
+    const publicationInfo = {
+      publishedVersions: ['1.0.0', '1.0.1-canary.0'],
+    };
+    expect(getPublishedState(publicationInfo, 'canary')).toBe('published');
+    expect(getReleaseTag(publicationInfo, 'canary')).toBe('canary');
+  });
+
+  it('falls back to latest when the package only has prereleases for the current tag', () => {
+    const publicationInfo = {
+      publishedVersions: ['1.0.0-canary.0', '1.0.0-canary.1'],
+    };
+    expect(getPublishedState(publicationInfo, 'canary')).toBe('only-pre');
+    expect(getReleaseTag(publicationInfo, 'canary')).toBe('latest');
+  });
+
+  it('uses the prerelease tag for brand-new packages', () => {
+    const publicationInfo = { publishedVersions: [] };
+    expect(getPublishedState(publicationInfo, 'canary')).toBe('never');
+    expect(getReleaseTag(publicationInfo, 'canary')).toBe('canary');
+  });
+});
 
 describe('buildPublishDeps', () => {
   it('returns empty deps for packages with no workspace dependencies', () => {
@@ -42,16 +116,16 @@ describe('buildPublishDeps', () => {
     expect(deps.get('b')).toEqual(new Set());
   });
 
-  it('includes devDependencies that are in the publish set', () => {
+  it('excludes devDependencies from publish ordering', () => {
     const packages: PackageInfo[] = [
       { name: 'a', version: '1.0.0' },
       { name: 'b', version: '1.0.0', devDependencies: { a: '1.0.0' } },
     ];
     const deps = buildPublishDeps(packages);
-    expect(deps.get('b')).toEqual(new Set(['a']));
+    expect(deps.get('b')).toEqual(new Set());
   });
 
-  it('merges dependencies and devDependencies', () => {
+  it('merges dependencies and optionalDependencies', () => {
     const packages: PackageInfo[] = [
       { name: 'a', version: '1.0.0' },
       { name: 'c', version: '1.0.0' },
@@ -59,7 +133,7 @@ describe('buildPublishDeps', () => {
         name: 'b',
         version: '1.0.0',
         dependencies: { a: '1.0.0' },
-        devDependencies: { c: '1.0.0' },
+        optionalDependencies: { c: '1.0.0' },
       },
     ];
     const deps = buildPublishDeps(packages);
@@ -321,9 +395,11 @@ describe('topologicalPublish', () => {
 
     const result = await topologicalPublish({
       packages,
-      checkPublished: async () => true, // all already published
-      publish: async (pkg) => {
-        publishCalls.push(pkg.name);
+      getPackagePublicationInfo: async () => ({
+        publishedVersions: ['1.0.0'],
+      }),
+      publish: async (pkg, distTag) => {
+        publishCalls.push(`${pkg.name}:${distTag}`);
         return true;
       },
     });
@@ -339,15 +415,17 @@ describe('topologicalPublish', () => {
 
     const result = await topologicalPublish({
       packages,
-      checkPublished: async () => false,
-      publish: async (pkg) => {
-        publishCalls.push(pkg.name);
+      getPackagePublicationInfo: async () => ({
+        publishedVersions: [],
+      }),
+      publish: async (pkg, distTag) => {
+        publishCalls.push(`${pkg.name}:${distTag}`);
         return true;
       },
     });
 
     expect(result.published).toEqual(['a', 'b']);
-    expect(publishCalls).toEqual(['a', 'b']);
+    expect(publishCalls).toEqual(['a:latest', 'b:latest']);
   });
 
   it('skips private packages', async () => {
@@ -356,14 +434,16 @@ describe('topologicalPublish', () => {
 
     const result = await topologicalPublish({
       packages,
-      checkPublished: async () => false,
-      publish: async (pkg) => {
-        publishCalls.push(pkg.name);
+      getPackagePublicationInfo: async () => ({
+        publishedVersions: [],
+      }),
+      publish: async (pkg, distTag) => {
+        publishCalls.push(`${pkg.name}:${distTag}`);
         return true;
       },
     });
 
-    expect(publishCalls).toEqual(['b']);
+    expect(publishCalls).toEqual(['b:latest']);
     expect(result.published).toEqual(['b']);
   });
 
@@ -376,7 +456,9 @@ describe('topologicalPublish', () => {
 
     const result = await topologicalPublish({
       packages,
-      checkPublished: async () => false,
+      getPackagePublicationInfo: async () => ({
+        publishedVersions: [],
+      }),
       publish: async (pkg) => pkg.name !== 'a',
     });
 
@@ -390,16 +472,41 @@ describe('topologicalPublish', () => {
 
     const result = await topologicalPublish({
       packages,
-      checkPublished: async (name) => name === 'a', // a already published
-      publish: async (pkg) => {
-        publishCalls.push(pkg.name);
+      getPackagePublicationInfo: async (name) => ({
+        publishedVersions: name === 'a' ? ['1.0.0'] : [],
+      }),
+      publish: async (pkg, distTag) => {
+        publishCalls.push(`${pkg.name}:${distTag}`);
         return true;
       },
     });
 
     // Only b needs publishing; its dep on a is already published so no failure
-    expect(publishCalls).toEqual(['b']);
+    expect(publishCalls).toEqual(['b:latest']);
     expect(result.published).toEqual(['b']);
+  });
+
+  it('uses latest for packages with only prerelease history during canary releases', async () => {
+    const packages = [
+      mkPkg('existing', '1.0.0-canary.1'),
+      mkPkg('new', '1.0.0-canary.1'),
+    ];
+    const publishCalls: string[] = [];
+
+    const result = await topologicalPublish({
+      packages,
+      preTag: 'canary',
+      getPackagePublicationInfo: async (name) => ({
+        publishedVersions: name === 'existing' ? ['1.0.0-canary.0'] : [],
+      }),
+      publish: async (pkg, distTag) => {
+        publishCalls.push(`${pkg.name}:${distTag}`);
+        return true;
+      },
+    });
+
+    expect(result.published).toEqual(['existing', 'new']);
+    expect(publishCalls).toEqual(['existing:latest', 'new:canary']);
   });
 });
 
@@ -410,9 +517,10 @@ describe('topologicalPublishDryRun', () => {
 
     await topologicalPublishDryRun({
       packages,
-      distTag: 'latest',
       buildFailed: false,
-      checkPublished: async () => false,
+      getPackagePublicationInfo: async () => ({
+        publishedVersions: [],
+      }),
       checkBuildStatus: async () => true,
     });
 
@@ -432,9 +540,11 @@ describe('topologicalPublishDryRun', () => {
 
     await topologicalPublishDryRun({
       packages,
-      distTag: 'canary',
+      preTag: 'canary',
       buildFailed: true,
-      checkPublished: async () => false,
+      getPackagePublicationInfo: async () => ({
+        publishedVersions: [],
+      }),
       checkBuildStatus: async () => false, // dist dir missing
     });
 
@@ -451,14 +561,36 @@ describe('topologicalPublishDryRun', () => {
 
     await topologicalPublishDryRun({
       packages,
-      distTag: 'latest',
       buildFailed: false,
-      checkPublished: async () => false,
+      getPackagePublicationInfo: async () => ({
+        publishedVersions: [],
+      }),
       checkBuildStatus: async () => true,
     });
 
     const output = logSpy.mock.calls.map((c) => c[0]).join('\n');
     expect(output).toContain('depends on: a');
+
+    logSpy.mockRestore();
+  });
+
+  it('shows the latest fallback for packages with only prerelease history', async () => {
+    const packages = [mkPkg('pkg', '1.0.0-canary.1')];
+    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+
+    await topologicalPublishDryRun({
+      packages,
+      preTag: 'canary',
+      buildFailed: false,
+      getPackagePublicationInfo: async () => ({
+        publishedVersions: ['1.0.0-canary.0'],
+      }),
+      checkBuildStatus: async () => true,
+    });
+
+    const output = logSpy.mock.calls.map((c) => c[0]).join('\n');
+    expect(output).toContain('published to latest rather than canary');
+    expect(output).toContain('[built] pkg@1.0.0-canary.1 -> latest');
 
     logSpy.mockRestore();
   });

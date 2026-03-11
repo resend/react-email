@@ -10,8 +10,8 @@ import { getPackages, type Package } from '@manypkg/get-packages';
 import { toString as mdastToString } from 'mdast-util-to-string';
 import { remark } from 'remark';
 import {
-  checkPublished,
   createPublisher,
+  getPackagePublicationInfo,
   topologicalPublish,
   topologicalPublishDryRun,
   toWorkspacePackage,
@@ -156,7 +156,7 @@ const createRelease = async ({
     console.error(`Build failed: ${error}`);
   }
 
-  const distTag = preState?.mode === 'pre' ? preState.tag : 'latest';
+  const preTag = preState?.mode === 'pre' ? preState.tag : undefined;
 
   const { packages } = await getPackages(process.cwd());
   const packagesByName = new Map(packages.map((x) => [x.packageJson.name, x]));
@@ -164,9 +164,9 @@ const createRelease = async ({
   if (isDryRun) {
     await topologicalPublishDryRun({
       packages: packages.map(toWorkspacePackage),
-      distTag,
+      preTag,
       buildFailed,
-      checkPublished,
+      getPackagePublicationInfo,
     });
     return;
   }
@@ -174,8 +174,9 @@ const createRelease = async ({
   const { published: publishedNames, failed: failedNames } =
     await topologicalPublish({
       packages: packages.map(toWorkspacePackage),
-      checkPublished,
-      publish: createPublisher({ distTag, npmIdToken }),
+      preTag,
+      getPackagePublicationInfo,
+      publish: createPublisher({ npmIdToken }),
     });
 
   if (failedNames.length > 0) {
