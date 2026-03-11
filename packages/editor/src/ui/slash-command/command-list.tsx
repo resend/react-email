@@ -72,9 +72,7 @@ export function CommandList({ items, command, query, ref }: CommandListProps) {
   useLayoutEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-    const selected = container.querySelector<HTMLElement>(
-      '[data-selected]',
-    );
+    const selected = container.querySelector<HTMLElement>('[data-selected]');
     if (selected) {
       updateScrollView(container, selected);
     }
