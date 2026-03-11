@@ -1,11 +1,11 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import {
   buildPublishDeps,
-  topologicalSort,
+  type PackageInfo,
   publishInOrder,
   topologicalPublish,
   topologicalPublishDryRun,
-  type PackageInfo,
+  topologicalSort,
   type WorkspacePackage,
 } from './release-utils.mts';
 
@@ -135,7 +135,10 @@ describe('topologicalSort', () => {
     for (const leaf of leaves) {
       deps.set(`@react-email/${leaf}`, new Set());
     }
-    deps.set('@react-email/components', new Set(leaves.map((l) => `@react-email/${l}`)));
+    deps.set(
+      '@react-email/components',
+      new Set(leaves.map((l) => `@react-email/${l}`)),
+    );
 
     const sorted = topologicalSort(deps);
     const componentsIdx = sorted.indexOf('@react-email/components');
@@ -282,7 +285,11 @@ describe('publishInOrder', () => {
         new Set(['@react-email/text', '@react-email/button']),
       ],
     ]);
-    const sorted = ['@react-email/text', '@react-email/button', '@react-email/components'];
+    const sorted = [
+      '@react-email/text',
+      '@react-email/button',
+      '@react-email/components',
+    ];
 
     const result = await publishInOrder(sorted, deps, async (name) => {
       return name !== '@react-email/button';
@@ -327,10 +334,7 @@ describe('topologicalPublish', () => {
   });
 
   it('publishes unpublished packages in dependency order', async () => {
-    const packages = [
-      mkPkg('a'),
-      mkPkg('b', '1.0.0', { a: '1.0.0' }),
-    ];
+    const packages = [mkPkg('a'), mkPkg('b', '1.0.0', { a: '1.0.0' })];
     const publishCalls: string[] = [];
 
     const result = await topologicalPublish({
@@ -347,10 +351,7 @@ describe('topologicalPublish', () => {
   });
 
   it('skips private packages', async () => {
-    const packages = [
-      { ...mkPkg('a'), private: true },
-      mkPkg('b'),
-    ];
+    const packages = [{ ...mkPkg('a'), private: true }, mkPkg('b')];
     const publishCalls: string[] = [];
 
     const result = await topologicalPublish({
@@ -384,10 +385,7 @@ describe('topologicalPublish', () => {
   });
 
   it('only publishes packages not yet on the registry', async () => {
-    const packages = [
-      mkPkg('a'),
-      mkPkg('b', '1.0.0', { a: '1.0.0' }),
-    ];
+    const packages = [mkPkg('a'), mkPkg('b', '1.0.0', { a: '1.0.0' })];
     const publishCalls: string[] = [];
 
     const result = await topologicalPublish({
@@ -407,10 +405,7 @@ describe('topologicalPublish', () => {
 
 describe('topologicalPublishDryRun', () => {
   it('does not call publish, logs plan', async () => {
-    const packages = [
-      mkPkg('a'),
-      mkPkg('b', '1.0.0', { a: '1.0.0' }),
-    ];
+    const packages = [mkPkg('a'), mkPkg('b', '1.0.0', { a: '1.0.0' })];
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
 
     await topologicalPublishDryRun({
@@ -451,10 +446,7 @@ describe('topologicalPublishDryRun', () => {
   });
 
   it('shows dependency info in output', async () => {
-    const packages = [
-      mkPkg('a'),
-      mkPkg('b', '1.0.0', { a: '1.0.0' }),
-    ];
+    const packages = [mkPkg('a'), mkPkg('b', '1.0.0', { a: '1.0.0' })];
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
 
     await topologicalPublishDryRun({
