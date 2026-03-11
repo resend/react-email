@@ -1,5 +1,5 @@
 import {
-  forwardRef,
+  type Ref,
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -72,109 +72,106 @@ interface CommandListProps {
   editor: SlashCommandProps['editor'];
   range: SlashCommandProps['range'];
   query: string;
+  ref: Ref<CommandListRef>;
 }
 
-export const CommandList = forwardRef<CommandListRef, CommandListProps>(
-  ({ items, command, query }, ref) => {
-    const [selectedIndex, setSelectedIndex] = useState(0);
-    const containerRef = useRef<HTMLDivElement>(null);
+export function CommandList({ items, command, query, ref }: CommandListProps) {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-      setSelectedIndex(0);
-    }, [items]);
+  useEffect(() => {
+    setSelectedIndex(0);
+  }, [items]);
 
-    useLayoutEffect(() => {
-      const container = containerRef.current;
-      if (!container) return;
-      const selected = container.querySelector<HTMLElement>(
-        '[data-selected="true"]',
-      );
-      if (selected) {
-        updateScrollView(container, selected);
-      }
-    }, [selectedIndex]);
+  useLayoutEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const selected = container.querySelector<HTMLElement>(
+      '[data-selected="true"]',
+    );
+    if (selected) {
+      updateScrollView(container, selected);
+    }
+  }, [selectedIndex]);
 
-    const selectItem = useCallback(
-      (index: number) => {
-        const item = items[index];
-        if (item) command(item);
+  const selectItem = useCallback(
+    (index: number) => {
+      const item = items[index];
+      if (item) command(item);
+    },
+    [items, command],
+  );
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      onKeyDown: ({ event }: { event: KeyboardEvent }) => {
+        if (items.length === 0) return false;
+
+        if (event.key === 'ArrowUp') {
+          setSelectedIndex((i) => (i + items.length - 1) % items.length);
+          return true;
+        }
+        if (event.key === 'ArrowDown') {
+          setSelectedIndex((i) => (i + 1) % items.length);
+          return true;
+        }
+        if (event.key === 'Enter') {
+          selectItem(selectedIndex);
+          return true;
+        }
+        return false;
       },
-      [items, command],
+    }),
+    [items.length, selectItem, selectedIndex],
+  );
+
+  if (items.length === 0) {
+    return (
+      <div className="re-slash-command-container">
+        <div className="re-slash-command-empty">No results</div>
+      </div>
     );
+  }
 
-    useImperativeHandle(
-      ref,
-      () => ({
-        onKeyDown: ({ event }: { event: KeyboardEvent }) => {
-          if (items.length === 0) return false;
+  const isFiltering = query.trim().length > 0;
 
-          if (event.key === 'ArrowUp') {
-            setSelectedIndex((i) => (i + items.length - 1) % items.length);
-            return true;
-          }
-          if (event.key === 'ArrowDown') {
-            setSelectedIndex((i) => (i + 1) % items.length);
-            return true;
-          }
-          if (event.key === 'Enter') {
-            selectItem(selectedIndex);
-            return true;
-          }
-          return false;
-        },
-      }),
-      [items.length, selectItem, selectedIndex],
-    );
-
-    if (items.length === 0) {
-      return (
-        <div className="re-slash-command-container">
-          <div className="re-slash-command-empty">No results</div>
-        </div>
-      );
-    }
-
-    const isFiltering = query.trim().length > 0;
-
-    if (isFiltering) {
-      return (
-        <div className="re-slash-command-container" ref={containerRef}>
-          {items.map((item, index) => (
-            <CommandItem
-              item={item}
-              key={item.title}
-              onSelect={() => selectItem(index)}
-              selected={index === selectedIndex}
-            />
-          ))}
-        </div>
-      );
-    }
-
-    const groups = groupByCategory(items);
-    let flatIndex = 0;
-
+  if (isFiltering) {
     return (
       <div className="re-slash-command-container" ref={containerRef}>
-        {groups.map((group) => (
-          <div key={group.category}>
-            <div className="re-slash-command-category">{group.category}</div>
-            {group.items.map((item) => {
-              const currentIndex = flatIndex++;
-              return (
-                <CommandItem
-                  item={item}
-                  key={item.title}
-                  onSelect={() => selectItem(currentIndex)}
-                  selected={currentIndex === selectedIndex}
-                />
-              );
-            })}
-          </div>
+        {items.map((item, index) => (
+          <CommandItem
+            item={item}
+            key={item.title}
+            onSelect={() => selectItem(index)}
+            selected={index === selectedIndex}
+          />
         ))}
       </div>
     );
-  },
-);
+  }
 
-CommandList.displayName = 'CommandList';
+  const groups = groupByCategory(items);
+  let flatIndex = 0;
+
+  return (
+    <div className="re-slash-command-container" ref={containerRef}>
+      {groups.map((group) => (
+        <div key={group.category}>
+          <div className="re-slash-command-category">{group.category}</div>
+          {group.items.map((item) => {
+            const currentIndex = flatIndex++;
+            return (
+              <CommandItem
+                item={item}
+                key={item.title}
+                onSelect={() => selectItem(currentIndex)}
+                selected={currentIndex === selectedIndex}
+              />
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+}
