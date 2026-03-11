@@ -1,0 +1,27 @@
+packages/editor/src/ui/slash-command/search.spec.ts
+  b4590bbcf479af55 9,107-109
+packages/editor/src/ui/slash-command/commands.ts
+  b4590bbcf479af55 84,95,123,167,189,210
+packages/editor/src/ui/slash-command/create-slash-command.ts
+  b4590bbcf479af55 16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.10",
+  "base_commit_sha": "9aa4a7bc45c9980944f1a62cf4bc2d01e6823bec",
+  "prompts": {
+    "b4590bbcf479af55": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5cee3067-0580-4b40-8404-1cd425d8684d",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 11,
+      "total_deletions": 11,
+      "accepted_lines": 11,
+      "overriden_lines": 0
+    }
+  }
+}
