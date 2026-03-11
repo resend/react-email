@@ -4,7 +4,7 @@ import {
   Row,
 } from '@react-email/components';
 import { mergeAttributes } from '@tiptap/core';
-import { EmailNode } from '../core/email-node';
+import { EmailNode } from '../core/serializer/email-node';
 import { inlineCssToJs } from '../utils/styles';
 
 export interface EditorButtonOptions {

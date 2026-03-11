@@ -1,5 +1,5 @@
 import { Heading } from '@tiptap/extension-heading';
-import { EmailNode } from './email-node';
+import { EmailNode } from '../email-node/email-node';
 
 describe('EmailNode', () => {
   it('maintains all user-defined properties from Heading', () => {
