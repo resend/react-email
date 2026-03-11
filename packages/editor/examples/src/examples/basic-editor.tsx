@@ -1,10 +1,4 @@
-import {
-  BubbleMenu,
-  ButtonBubbleMenu,
-  coreExtensions,
-  ImageBubbleMenu,
-  LinkBubbleMenu,
-} from '@react-email/editor';
+import { BubbleMenu, coreExtensions } from '@react-email/editor';
 import Heading from '@tiptap/extension-heading';
 import Underline from '@tiptap/extension-underline';
 import { EditorProvider } from '@tiptap/react';
@@ -57,9 +51,6 @@ export function BasicEditor() {
       >
         <EditorProvider extensions={extensions} content={content}>
           <BubbleMenu.Default />
-          <LinkBubbleMenu.Default />
-          <ButtonBubbleMenu.Default />
-          <ImageBubbleMenu.Default />
         </EditorProvider>
       </div>
     </div>
