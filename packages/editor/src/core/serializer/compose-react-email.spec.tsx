@@ -368,4 +368,3 @@ describe('StarterKit node wrappers', () => {
     expect(result.html).toContain('World');
   });
 });
-
