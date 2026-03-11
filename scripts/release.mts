@@ -12,9 +12,9 @@ import { remark } from 'remark';
 import {
   checkPublished,
   createPublisher,
-  toWorkspacePackage,
   topologicalPublish,
   topologicalPublishDryRun,
+  toWorkspacePackage,
 } from './release-utils.mts';
 
 const isDryRun = process.argv.includes('--dry-run');

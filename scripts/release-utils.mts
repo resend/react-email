@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { exec, getExecOutput } from '@actions/exec';
-import { type Package } from '@manypkg/get-packages';
+import type { Package } from '@manypkg/get-packages';
 
 export interface PackageInfo {
   name: string;
@@ -72,9 +72,7 @@ export function createPublisher(options: {
       console.log(`Successfully published ${pkg.name}@${pkg.version}`);
       return true;
     } catch (error) {
-      console.error(
-        `Failed to publish ${pkg.name}@${pkg.version}: ${error}`,
-      );
+      console.error(`Failed to publish ${pkg.name}@${pkg.version}: ${error}`);
       return false;
     }
   };
