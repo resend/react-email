@@ -87,6 +87,11 @@
   border-radius: var(--re-radius);
   box-shadow: var(--re-shadow);
   overflow: hidden;
+  z-index: 50;
+  padding: 0.125rem;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1;
 }
 
 /* ----------------------------------------------------------------
@@ -115,8 +120,11 @@
 [data-re-link-bm-item],
 [data-re-btn-bm-item],
 [data-re-img-bm-item] {
-  color: var(--re-text);
-  transition: background-color 0.15s;
+  color: var(--re-text-muted);
+  border-radius: var(--re-radius-sm);
+  transition:
+    background-color 0.15s,
+    color 0.15s;
 }
 
 [data-re-bubble-menu-item]:hover,
@@ -124,6 +132,7 @@
 [data-re-btn-bm-item]:hover,
 [data-re-img-bm-item]:hover {
   background: var(--re-hover);
+  color: var(--re-text);
 }
 
 [data-re-bubble-menu-item]:active,
@@ -154,7 +163,9 @@
 
 [data-re-node-selector-trigger] {
   color: var(--re-text);
+  border-radius: var(--re-radius-sm);
   transition: background-color 0.15s;
+  font-weight: 500;
 }
 
 [data-re-node-selector-trigger]:hover {
@@ -170,8 +181,9 @@
   border: 1px solid var(--re-border);
   border-radius: var(--re-radius);
   box-shadow: var(--re-shadow);
-  padding: 0.25rem 0;
+  padding: 0.25rem;
   margin-top: 0.25rem;
+  z-index: 50;
 }
 
 [data-re-node-selector-item] {
@@ -293,6 +305,7 @@
   border: 1px solid var(--re-border);
   border-radius: var(--re-radius);
   box-shadow: var(--re-shadow);
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
 [data-re-slash-command-item] {
