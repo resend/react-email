@@ -25,6 +25,11 @@
     }
   },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resend/react-email.git",
+    "directory": "packages/font"
+  },
   "scripts": {
     "build": "tsdown src/index.ts --format esm,cjs --dts --external react",
     "build:watch": "tsdown src/index.ts --format esm,cjs --dts --external react --watch",
