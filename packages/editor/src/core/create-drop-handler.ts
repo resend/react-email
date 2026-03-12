@@ -23,18 +23,18 @@ export function createDropHandler({
       event.preventDefault();
       const file = event.dataTransfer.files[0];
 
-      if (onPaste?.(file, view) !== false) {
+      if (onPaste?.(file, view)) {
         return true;
       }
 
-      if (file.type.includes('image/')) {
+      if (file.type.includes('image/') && onUploadImage) {
         const coordinates = view.posAtCoords({
           left: event.clientX,
           top: event.clientY,
         });
 
         // here we deduct 1 from the pos or else the image will create an extra node
-        void onUploadImage?.(file, view, (coordinates?.pos || 0) - 1);
+        void onUploadImage(file, view, (coordinates?.pos || 0) - 1);
 
         return true;
       }
