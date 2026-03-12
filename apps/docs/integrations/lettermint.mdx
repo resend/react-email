@@ -1,0 +1,81 @@
+---
+title: "Send email using Lettermint"
+sidebarTitle: "Lettermint"
+description: "Learn how to send an email using React Email and the Lettermint Node.js SDK."
+"og:image": "https://react.email/static/covers/react-email.png"
+---
+
+## 1. Install dependencies
+
+Get the [@react-email/components](https://www.npmjs.com/package/@react-email/components) package and the [Lettermint Node.js SDK](https://www.npmjs.com/package/lettermint).
+
+<CodeGroup>
+
+```sh npm
+npm install lettermint @react-email/components
+```
+
+```sh yarn
+yarn add lettermint @react-email/components
+```
+
+```sh pnpm
+pnpm add lettermint @react-email/components
+```
+
+```sh bun
+bun add lettermint @react-email/components
+```
+
+</CodeGroup>
+
+## 2. Create an email using React
+
+Start by building your email template in a `.jsx` or `.tsx` file.
+
+```tsx email.tsx
+import * as React from "react";
+import { Html, Button } from "@react-email/components";
+
+export function Email(props) {
+  const { url } = props;
+
+  return (
+    <Html lang="en">
+      <Button href={url}>Click me</Button>
+    </Html>
+  );
+}
+```
+
+## 3. Convert to HTML and send email
+
+Import the email template you just built, convert into an HTML string, and use the Lettermint SDK to send it.
+
+```tsx
+import { render } from "@react-email/components";
+import { Lettermint } from "lettermint";
+import { Email } from "./email";
+
+const lettermint = new Lettermint({ apiToken: process.env.LETTERMINT_API_TOKEN });
+
+const emailHtml = await render(<Email url="https://example.com" />);
+
+await lettermint.email
+  .from("you@example.com")
+  .to("user@gmail.com")
+  .subject("hello world")
+  .html(emailHtml)
+  .send();
+```
+
+## Try it yourself
+
+<Card
+  title="Lettermint example"
+  icon="arrow-up-right-from-square"
+  iconType="duotone"
+  href="https://github.com/resend/react-email/tree/main/examples/lettermint"
+>
+  See the full source code.
+</Card>
