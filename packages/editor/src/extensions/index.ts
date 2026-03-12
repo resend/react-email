@@ -11,6 +11,7 @@ import { Code } from './code';
 import { CodeBlockPrism } from './code-block';
 import { Div } from './div';
 import { Divider } from './divider';
+import { GlobalContent } from './global-content';
 import { HardBreak } from './hard-break';
 import { Heading } from './heading';
 import { Italic } from './italic';
@@ -40,6 +41,7 @@ export * from './code';
 export * from './code-block';
 export * from './columns';
 export * from './div';
+export * from './global-content';
 export * from './hard-break';
 export * from './italic';
 export * from './list-item';
@@ -190,6 +192,7 @@ export interface StarterKitOptions {
   div: StarterKitExtensionOption<typeof Div>;
   button: StarterKitExtensionOption<typeof Button>;
   section: StarterKitExtensionOption<typeof Section>;
+  globalContent: StarterKitExtensionOption<typeof GlobalContent>;
   alignmentAttribute: StarterKitExtensionOption<typeof AlignmentAttribute>;
   styleAttribute: StarterKitExtensionOption<typeof StyleAttribute>;
   classAttribute: StarterKitExtensionOption<typeof ClassAttribute>;
@@ -206,6 +209,11 @@ function pushConfiguredExtension<T extends AnyExtension>(
   }
   extensions.push(extension.configure(options as ExtensionOptions<T>));
 }
+
+type ConfiguredExtension = readonly [
+  AnyExtension,
+  StarterKitExtensionOption<AnyExtension>,
+];
 
 export const StarterKit = Extension.create<StarterKitOptions>({
   name: 'reactEmailStarterKit',
@@ -266,6 +274,7 @@ export const StarterKit = Extension.create<StarterKitOptions>({
       div: {},
       button: {},
       section: {},
+      globalContent: {},
       alignmentAttribute: {
         types: [...alignmentTypes],
       },
@@ -294,53 +303,44 @@ export const StarterKit = Extension.create<StarterKitOptions>({
       );
     }
 
-    pushConfiguredExtension(extensions, CodeBlockPrism, this.options.codeBlock);
-    pushConfiguredExtension(extensions, Code, this.options.code);
-    pushConfiguredExtension(extensions, Paragraph, this.options.paragraph);
-    pushConfiguredExtension(extensions, BulletList, this.options.bulletList);
-    pushConfiguredExtension(extensions, OrderedList, this.options.orderedList);
-    pushConfiguredExtension(extensions, Blockquote, this.options.blockquote);
-    pushConfiguredExtension(extensions, ListItem, this.options.listItem);
-    pushConfiguredExtension(extensions, HardBreak, this.options.hardBreak);
-    pushConfiguredExtension(extensions, Italic, this.options.italic);
-    pushConfiguredExtension(extensions, Placeholder, this.options.placeholder);
-    pushConfiguredExtension(extensions, PreviewText, this.options.previewText);
-    pushConfiguredExtension(extensions, Bold, this.options.bold);
-    pushConfiguredExtension(extensions, Strike, this.options.strike);
-    pushConfiguredExtension(extensions, Heading, this.options.heading);
-    pushConfiguredExtension(extensions, Divider, this.options.divider);
-    pushConfiguredExtension(extensions, Link, this.options.link);
-    pushConfiguredExtension(extensions, Sup, this.options.sup);
-    pushConfiguredExtension(extensions, Uppercase, this.options.uppercase);
-    pushConfiguredExtension(
-      extensions,
-      PreservedStyle,
-      this.options.preservedStyle,
-    );
-    pushConfiguredExtension(extensions, Table, this.options.table);
-    pushConfiguredExtension(extensions, TableRow, this.options.tableRow);
-    pushConfiguredExtension(extensions, TableCell, this.options.tableCell);
-    pushConfiguredExtension(extensions, TableHeader, this.options.tableHeader);
-    pushConfiguredExtension(extensions, Body, this.options.body);
-    pushConfiguredExtension(extensions, Div, this.options.div);
-    pushConfiguredExtension(extensions, Button, this.options.button);
-    pushConfiguredExtension(extensions, Section, this.options.section);
-    pushConfiguredExtension(
-      extensions,
-      AlignmentAttribute,
-      this.options.alignmentAttribute,
-    );
-    pushConfiguredExtension(
-      extensions,
-      StyleAttribute,
-      this.options.styleAttribute,
-    );
-    pushConfiguredExtension(
-      extensions,
-      ClassAttribute,
-      this.options.classAttribute,
-    );
-    pushConfiguredExtension(extensions, MaxNesting, this.options.maxNesting);
+    const configuredExtensions: ConfiguredExtension[] = [
+      [CodeBlockPrism, this.options.codeBlock],
+      [Code, this.options.code],
+      [Paragraph, this.options.paragraph],
+      [BulletList, this.options.bulletList],
+      [OrderedList, this.options.orderedList],
+      [Blockquote, this.options.blockquote],
+      [ListItem, this.options.listItem],
+      [HardBreak, this.options.hardBreak],
+      [Italic, this.options.italic],
+      [Placeholder, this.options.placeholder],
+      [PreviewText, this.options.previewText],
+      [Bold, this.options.bold],
+      [Strike, this.options.strike],
+      [Heading, this.options.heading],
+      [Divider, this.options.divider],
+      [Link, this.options.link],
+      [Sup, this.options.sup],
+      [Uppercase, this.options.uppercase],
+      [PreservedStyle, this.options.preservedStyle],
+      [Table, this.options.table],
+      [TableRow, this.options.tableRow],
+      [TableCell, this.options.tableCell],
+      [TableHeader, this.options.tableHeader],
+      [Body, this.options.body],
+      [Div, this.options.div],
+      [Button, this.options.button],
+      [Section, this.options.section],
+      [GlobalContent, this.options.globalContent],
+      [AlignmentAttribute, this.options.alignmentAttribute],
+      [StyleAttribute, this.options.styleAttribute],
+      [ClassAttribute, this.options.classAttribute],
+      [MaxNesting, this.options.maxNesting],
+    ];
+
+    configuredExtensions.forEach(([extension, options]) => {
+      pushConfiguredExtension(extensions, extension, options);
+    });
 
     return extensions;
   },
