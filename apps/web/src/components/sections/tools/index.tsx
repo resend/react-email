@@ -23,7 +23,7 @@ const ToolsSection = () => {
       <InteractiveDemo />
       <Image
         alt=""
-        className="pointer-events-none absolute inset-0 -top-40 z-[3] select-none mix-blend-lighten"
+        className="pointer-events-none absolute inset-0 -top-40 z-3 select-none mix-blend-lighten"
         fill
         priority
         src="/static/bg.png"

@@ -1,5 +1,11 @@
 # @react-email/body
 
+## 0.3.0
+
+### Minor Changes
+
+- 493f367: Reset padding properties in `<body>` tag when there's any user defined padding properties
+
 ## 0.2.1
 
 ### Patch Changes

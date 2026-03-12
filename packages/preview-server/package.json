@@ -56,7 +56,7 @@
     "@react-email/preview": "workspace:*",
     "@react-email/tailwind": "workspace:2.0.5",
     "@react-email/text": "workspace:*",
-    "@tailwindcss/postcss": "4.1.17",
+    "@tailwindcss/postcss": "catalog:",
     "@types/babel__core": "catalog:",
     "@types/babel__traverse": "catalog:",
     "@types/css-tree": "catalog:",

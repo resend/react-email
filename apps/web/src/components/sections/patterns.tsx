@@ -19,7 +19,7 @@ const PatternsSection = () => {
         <div className="relative grid grid-cols-1 gap-y-4 gap-x-4 lg:gap-x-1 pb-5 md:grid-cols-2 lg:grid-cols-3 lg:-ml-5">
           <div
             aria-hidden
-            className="-translate-x-1/2 absolute bottom-0 left-1/2 h-px w-[100dvw] border-slate-4 border-dashed border-b [mask-image:linear-gradient(to_right,transparent_0%,black_90%)] max-lg:hidden"
+            className="-translate-x-1/2 absolute bottom-0 left-1/2 h-px w-dvw border-slate-4 border-dashed border-b mask-[linear-gradient(to_right,transparent_0%,black_90%)] max-lg:hidden"
           />
           {componentsStructure.slice(0, 6).map((category, index) => {
             const slug = slugify(category.name);
@@ -35,7 +35,7 @@ const PatternsSection = () => {
             return (
               <Link
                 className={classNames(
-                  'group relative isolate cursor-pointer scroll-m-6 rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-slate-2 md:before:absolute md:before:inset-0 md:before:rounded-lg md:before:border md:before:border-slate-4 md:before:border-dashed md:before:transition-colors md:before:duration-[720ms] md:before:ease-[cubic-bezier(.24,.9,.32,1.4)] md:focus-visible:before:border-slate-6 md:hover:before:border-slate-6',
+                  'group relative isolate cursor-pointer scroll-m-6 rounded-lg focus:outline-hidden focus-visible:ring-3 focus-visible:ring-slate-2 md:before:absolute md:before:inset-0 md:before:rounded-lg md:before:border md:before:border-slate-4 md:before:border-dashed md:before:transition-colors md:before:duration-720 md:before:ease-[cubic-bezier(.24,.9,.32,1.4)] md:focus-visible:before:border-slate-6 md:hover:before:border-slate-6',
                   {
                     'lg:ml-6': index % 3 === 0,
                     'lg:mx-3': index % 3 === 1,
@@ -48,7 +48,7 @@ const PatternsSection = () => {
               >
                 <Spotlight
                   className={classNames(
-                    'relative isolate flex cursor-pointer flex-col justify-end rounded-lg bg-black p-4 group-focus-visible:ring group-focus-visible:ring-slate-2 md:transition-transform md:duration-[240ms] md:ease-[cubic-bezier(.36,.66,.6,1)]',
+                    'relative isolate flex cursor-pointer flex-col justify-end rounded-lg bg-black p-4 group-focus-visible:ring-3 group-focus-visible:ring-slate-2 md:transition-transform md:duration-240 md:ease-[cubic-bezier(.36,.66,.6,1)]',
                     {
                       'md:group-hover:-translate-x-2 md:group-hover:-translate-y-2 md:group-focus:-translate-x-2 md:group-focus:-translate-y-2':
                         index % 3 === 0,
@@ -60,14 +60,14 @@ const PatternsSection = () => {
                   )}
                 >
                   <div className="pointer-events-none absolute inset-0 rounded-lg border border-slate-4 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] md:group-hover:border-slate-6 md:group-focus:border-slate-6" />
-                  <div className="relative flex aspect-[2/1] items-center justify-center overflow-hidden rounded-sm text-slate-300">
-                    <div className="absolute inset-0 bg-[radial-gradient(#27272A_.0313rem,transparent_.0313rem),_radial-gradient(#27272A_.0313rem,transparent_.0313rem)] bg-transparent opacity-80 [background-position:0_0,.625rem_.625rem] [background-size:1.25rem_1.25rem]" />
+                  <div className="relative flex aspect-2/1 items-center justify-center overflow-hidden rounded-xs text-slate-300">
+                    <div className="absolute inset-0 bg-[radial-gradient(#27272A_.0313rem,transparent_.0313rem),radial-gradient(#27272A_.0313rem,transparent_.0313rem)] bg-transparent opacity-80 bg-position-[0_0,.625rem_.625rem] bg-size-[1.25rem_1.25rem]" />
                     <Illustration />
                   </div>
-                  <h3 className="relative z-[2] mt-4 font-medium text-slate-12 capitalize leading-7 -tracking-wide">
+                  <h3 className="relative z-2 mt-4 font-medium text-slate-12 capitalize leading-7 -tracking-wide">
                     {category.name}
                   </h3>
-                  <span className="relative z-[2] text-slate-11 text-xs">
+                  <span className="relative z-2 text-slate-11 text-xs">
                     {category.components.length} component
                     {category.components.length > 1 && 's'}
                   </span>
@@ -81,7 +81,7 @@ const PatternsSection = () => {
       <BgGradient direction="right" />
       <Image
         alt=""
-        className="pointer-events-none absolute md:-translate-x-96 -top-40 z-[3] select-none mix-blend-lighten"
+        className="pointer-events-none absolute md:-translate-x-96 -top-40 z-3 select-none mix-blend-lighten"
         fill
         priority
         src="/static/bg.png"
@@ -96,7 +96,7 @@ const Content = ({ component }: { component: string }) => {
       <ContentComponent component={component} />
       <div
         aria-hidden
-        className="absolute pointer-events-none inset-0 border-y border-slate-4 border-dashed w-[200dvw] -left-[100dvw] [mask-image:linear-gradient(-45deg,transparent_0%,black_40%,black_90%,transparent_100%)]"
+        className="absolute pointer-events-none inset-0 border-y border-slate-4 border-dashed w-[200dvw] -left-[100dvw] mask-[linear-gradient(-45deg,transparent_0%,black_40%,black_90%,transparent_100%)]"
       />
     </div>
   );
@@ -132,7 +132,7 @@ const BgGradient = ({ direction }: { direction: 'left' | 'right' }) => {
     return (
       <div
         aria-hidden
-        className="absolute pointer-events-none [mask-image:linear-gradient(45deg,transparent_0%,black_40%,black_90%,transparent_100%)] -left-12 -top-10 w-8 h-1/2 border-x border-dashed border-x-slate-3 bg-[size:10px_10px] bg-fixed max-lg:hidden"
+        className="absolute pointer-events-none mask-[linear-gradient(45deg,transparent_0%,black_40%,black_90%,transparent_100%)] -left-12 -top-10 w-8 h-1/2 border-x border-dashed border-x-slate-3 bg-size-[10px_10px] bg-fixed max-lg:hidden"
       />
     );
   }
@@ -140,7 +140,7 @@ const BgGradient = ({ direction }: { direction: 'left' | 'right' }) => {
   return (
     <div
       aria-hidden
-      className="absolute pointer-events-none [mask-image:linear-gradient(-45deg,transparent_0%,black_40%,black_90%,transparent_100%)] -right-12 -bottom-40 w-8 h-2/3 border-x border-x-slate-3 border-dashed bg-[size:10px_10px] bg-fixed max-lg:hidden"
+      className="absolute pointer-events-none mask-[linear-gradient(-45deg,transparent_0%,black_40%,black_90%,transparent_100%)] -right-12 -bottom-40 w-8 h-2/3 border-x border-x-slate-3 border-dashed bg-size-[10px_10px] bg-fixed max-lg:hidden"
     />
   );
 };
