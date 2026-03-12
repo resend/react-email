@@ -23,6 +23,10 @@ type FontFormat =
 type FontWeight = React.CSSProperties['fontWeight'];
 type FontStyle = React.CSSProperties['fontStyle'];
 
+function sanitizeCssValue(value: string): string {
+  return value.replace(/[';}{\\<>]/g, '');
+}
+
 export interface FontProps {
   /** The font you want to use. NOTE: Do not insert multiple fonts here, use fallbackFontFamily for that */
   fontFamily: string;
@@ -47,29 +51,28 @@ export const Font: React.FC<Readonly<FontProps>> = ({
   fontStyle = 'normal',
   fontWeight = 400,
 }) => {
+  const safeFontFamily = sanitizeCssValue(fontFamily);
+  const safeFontStyle = sanitizeCssValue(String(fontStyle));
+  const safeFontWeight = sanitizeCssValue(String(fontWeight));
+  const safeFallbacks = Array.isArray(fallbackFontFamily)
+    ? fallbackFontFamily.map(sanitizeCssValue)
+    : [sanitizeCssValue(fallbackFontFamily)];
+
   const src = webFont
-    ? `src: url(${webFont.url}) format('${webFont.format}');`
+    ? `src: url(${sanitizeCssValue(webFont.url)}) format('${sanitizeCssValue(webFont.format)}');`
     : '';
 
   const style = `
     @font-face {
-      font-family: '${fontFamily}';
-      font-style: ${fontStyle};
-      font-weight: ${fontWeight};
-      mso-font-alt: '${
-        Array.isArray(fallbackFontFamily)
-          ? fallbackFontFamily[0]
-          : fallbackFontFamily
-      }';
+      font-family: '${safeFontFamily}';
+      font-style: ${safeFontStyle};
+      font-weight: ${safeFontWeight};
+      mso-font-alt: '${safeFallbacks[0]}';
       ${src}
     }
 
     * {
-      font-family: '${fontFamily}', ${
-        Array.isArray(fallbackFontFamily)
-          ? fallbackFontFamily.join(', ')
-          : fallbackFontFamily
-      };
+      font-family: '${safeFontFamily}', ${safeFallbacks.join(', ')};
     }
   `;
   return <style dangerouslySetInnerHTML={{ __html: style }} />;
