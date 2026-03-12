@@ -3,15 +3,8 @@
   "compilerOptions": {
     "moduleResolution": "bundler",
     "module": "nodenext",
-    "target": "es2020",
+    "target": "es2020"
   },
-  "include": [
-    "."
-  ],
-  "exclude": [
-    "dist",
-    "build",
-    "node_modules",
-    "examples"
-  ]
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules", "examples"]
 }
