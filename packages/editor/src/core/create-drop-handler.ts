@@ -5,8 +5,8 @@ export function createDropHandler({
   onPaste,
   onUploadImage,
 }: {
-  onPaste: PasteHandler;
-  onUploadImage: UploadImageHandler;
+  onPaste?: PasteHandler;
+  onUploadImage?: UploadImageHandler;
 }) {
   return (
     view: EditorView,
@@ -23,7 +23,7 @@ export function createDropHandler({
       event.preventDefault();
       const file = event.dataTransfer.files[0];
 
-      if (onPaste(file, view) !== false) {
+      if (onPaste?.(file, view) !== false) {
         return true;
       }
 
@@ -34,7 +34,7 @@ export function createDropHandler({
         });
 
         // here we deduct 1 from the pos or else the image will create an extra node
-        void onUploadImage(file, view, (coordinates?.pos || 0) - 1);
+        void onUploadImage?.(file, view, (coordinates?.pos || 0) - 1);
 
         return true;
       }

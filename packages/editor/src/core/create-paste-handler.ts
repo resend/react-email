@@ -26,14 +26,14 @@ export function createPasteHandler({
   onUploadImage,
   extensions,
 }: {
-  onPaste: PasteHandler;
-  onUploadImage: UploadImageHandler;
+  onPaste?: PasteHandler;
+  onUploadImage?: UploadImageHandler;
   extensions: Extensions;
 }) {
   return (view: EditorView, event: ClipboardEvent, slice: Slice): boolean => {
     const text = event.clipboardData?.getData('text/plain');
 
-    if (text && onPaste(text, view) !== false) {
+    if (text && onPaste?.(text, view) !== false) {
       event.preventDefault();
 
       return true;
@@ -41,7 +41,7 @@ export function createPasteHandler({
 
     if (event.clipboardData?.files?.[0]) {
       const file = event.clipboardData.files[0];
-      if (onPaste(file, view) !== false) {
+      if (onPaste?.(file, view) !== false) {
         event.preventDefault();
 
         return true;
@@ -49,7 +49,7 @@ export function createPasteHandler({
 
       if (file.type.includes('image/')) {
         const pos = view.state.selection.from;
-        void onUploadImage(file, view, pos);
+        void onUploadImage?.(file, view, pos);
 
         return true;
       }

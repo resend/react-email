@@ -1,7 +1,7 @@
 import type { Content, Editor as EditorClass, Extensions } from '@tiptap/core';
 import { UndoRedo } from '@tiptap/extensions';
 
-import { useEditor, useEditorState } from '@tiptap/react';
+import { type UseEditorOptions, useEditorState, useEditor as useTipTapEditor } from '@tiptap/react';
 import * as React from 'react';
 import { coreExtensions } from '../extensions';
 import { createDropHandler } from './create-drop-handler';
@@ -21,7 +21,7 @@ function hasCollaborationExtension(exts: Extensions): boolean {
   return exts.some((ext) => COLLABORATION_EXTENSION_NAMES.has(ext.name));
 }
 
-export function useReactEmailEditor({
+export function useEditor({
   content,
   extensions = [],
   onUpdate,
@@ -29,6 +29,7 @@ export function useReactEmailEditor({
   onUploadImage,
   onReady,
   editable = true,
+  ...rest
 }: {
   content: Content;
   extensions?: Extensions;
@@ -36,11 +37,11 @@ export function useReactEmailEditor({
     editor: EditorClass,
     transaction: { getMeta: (key: string) => unknown },
   ) => void;
-  onPaste: PasteHandler;
-  onUploadImage: UploadImageHandler;
+  onPaste?: PasteHandler;
+  onUploadImage?: UploadImageHandler;
   onReady?: (editor: EditorClass | null) => void;
   editable?: boolean;
-}) {
+} & UseEditorOptions) {
   const [contentError, setContentError] = React.useState<Error | null>(null);
 
   const isCollaborative = hasCollaborationExtension(extensions);
@@ -56,7 +57,7 @@ export function useReactEmailEditor({
     [extensions, isCollaborative],
   );
 
-  const editor = useEditor({
+  const editor = useTipTapEditor({
     content: isCollaborative ? undefined : content,
     extensions: effectiveExtension,
     immediatelyRender: false,
@@ -67,7 +68,6 @@ export function useReactEmailEditor({
       console.error(error);
       editor.setEditable(false);
     },
-    editable,
     onCreate({ editor }) {
       onReady?.(editor);
     },
@@ -99,6 +99,7 @@ export function useReactEmailEditor({
         onUploadImage,
       }),
     },
+    ...rest,
   });
 
   const isEditorEmpty = useEditorState({
