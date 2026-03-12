@@ -70,7 +70,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    images: 'https://react.email/static/cover.png',
+    images: 'https://react.email/static/covers/react-email.png',
   },
   alternates: {
     canonical: '/',
