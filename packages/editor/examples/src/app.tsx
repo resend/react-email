@@ -29,7 +29,7 @@ export function App() {
             key={example.id}
             onClick={() => setActive(example.id)}
             type="button"
-            className={`px-4 py-2 border-none bg-transparent cursor-pointer text-sm ${
+            className={`px-4 py-2 border-0 bg-transparent cursor-pointer text-sm ${
               active === example.id
                 ? 'font-semibold text-[var(--re-text)] border-b-2 border-b-[var(--re-text)]'
                 : 'font-normal text-[var(--re-text-muted)] border-b-2 border-b-transparent'
