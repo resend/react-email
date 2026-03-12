@@ -346,4 +346,3 @@ export const StarterKit = Extension.create<StarterKitOptions>({
   },
 });
 
-export const coreExtensions = [StarterKit];

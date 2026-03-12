@@ -2,7 +2,7 @@ import { Link as ReactEmailLink } from '@react-email/components';
 import type { JSONContent } from '@tiptap/core';
 import { Editor, Node } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
-import { coreExtensions } from '../../extensions';
+import { StarterKit } from '../../extensions';
 import { inlineCssToJs } from '../../utils/styles';
 import { composeReactEmail } from './compose-react-email';
 import { EmailMark } from './email-mark';
@@ -10,53 +10,6 @@ import { EmailMark } from './email-mark';
 vi.mock('@/actions/ai', () => ({
   uploadImageViaAI: vi.fn(),
 }));
-
-/**
- * Minimal Link mark extension for testing.
- * This defines the 'link' mark type that composeReactEmail uses.
- */
-const Link = EmailMark.create({
-  name: 'link',
-  inclusive: false,
-  keepOnSplit: false,
-  addAttributes() {
-    return {
-      href: { default: null },
-      target: { default: null },
-      rel: { default: null },
-      style: { default: null },
-      'ses:no-track': { default: null },
-    };
-  },
-  parseHTML() {
-    return [{ tag: 'a[href]' }];
-  },
-  renderHTML({ HTMLAttributes }) {
-    return ['a', HTMLAttributes, 0];
-  },
-  renderToReactEmail({ children, mark, style }) {
-    const linkMarkStyle = mark.attrs?.style
-      ? inlineCssToJs(mark.attrs.style)
-      : {};
-
-    return (
-      <ReactEmailLink
-        href={mark.attrs?.href ?? ''}
-        rel={mark.attrs?.rel ?? undefined}
-        style={{
-          ...style,
-          ...linkMarkStyle,
-        }}
-        target={mark.attrs?.target ?? undefined}
-        {...(mark.attrs?.['ses:no-track'] && {
-          'ses:no-track': mark.attrs['ses:no-track'],
-        })}
-      >
-        {children}
-      </ReactEmailLink>
-    );
-  },
-});
 
 /**
  * Minimal GlobalContent node extension for testing.
@@ -90,7 +43,7 @@ const basicTheme = {
   },
 };
 
-const extensions = [...coreExtensions, Link, GlobalContent];
+const extensions = [StarterKit, GlobalContent];
 let editor: Editor | null = null;
 
 afterEach(() => {
