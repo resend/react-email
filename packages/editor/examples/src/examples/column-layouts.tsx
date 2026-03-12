@@ -36,7 +36,7 @@ function Toolbar() {
   if (!editor) return null;
 
   return (
-    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
+    <div className="flex gap-2 mb-4">
       <ToolbarButton
         label="2 columns"
         icon={<Columns2 size={16} />}
@@ -67,13 +67,7 @@ function Toolbar() {
 export function ColumnLayouts() {
   return (
     <div>
-      <p
-        style={{
-          fontSize: '0.875rem',
-          color: 'var(--re-text-muted)',
-          marginBottom: '1rem',
-        }}
-      >
+      <p className="text-sm text-[var(--re-text-muted)] mb-4">
         Insert multi-column layouts using the toolbar buttons.
       </p>
       <EditorProvider
@@ -81,12 +75,8 @@ export function ColumnLayouts() {
         content={content}
         slotBefore={<Toolbar />}
         editorContainerProps={{
-          style: {
-            border: '1px solid var(--re-border)',
-            borderRadius: 'var(--re-radius)',
-            padding: '1rem',
-            minHeight: 300,
-          },
+          className:
+            'border border-[var(--re-border)] rounded-xl p-4 min-h-[300px]',
         }}
       />
     </div>
@@ -106,18 +96,7 @@ function ToolbarButton({
     <button
       type="button"
       onClick={onClick}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.375rem',
-        padding: '0.375rem 0.75rem',
-        border: '1px solid var(--re-border)',
-        borderRadius: 'var(--re-radius-sm)',
-        background: 'var(--re-bg)',
-        color: 'var(--re-text)',
-        cursor: 'pointer',
-        fontSize: '0.8125rem',
-      }}
+      className="flex items-center gap-1.5 px-3 py-1.5 border border-[var(--re-border)] rounded-lg bg-[var(--re-bg)] text-[var(--re-text)] cursor-pointer text-[0.8125rem] hover:bg-[var(--re-hover)]"
     >
       {icon}
       {label}

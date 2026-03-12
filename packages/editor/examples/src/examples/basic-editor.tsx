@@ -33,24 +33,11 @@ const content = {
 export function BasicEditor() {
   return (
     <div>
-      <p
-        style={{
-          fontSize: '0.875rem',
-          color: 'var(--re-text-muted)',
-          marginBottom: '1rem',
-        }}
-      >
+      <p className="text-sm text-[var(--re-text-muted)] mb-4">
         Minimal setup with coreExtensions and all default bubble menus. Select
         text to see the bubble menu.
       </p>
-      <div
-        style={{
-          border: '1px solid var(--re-border)',
-          borderRadius: 'var(--re-radius)',
-          padding: '1rem',
-          minHeight: 300,
-        }}
-      >
+      <div className="border border-[var(--re-border)] rounded-xl p-4 min-h-[300px]">
         <EditorProvider extensions={extensions} content={content}>
           <BubbleMenu.Default />
         </EditorProvider>

@@ -21,47 +21,19 @@ export function App() {
   const ActiveExample = examples.find((e) => e.id === active)!.component;
 
   return (
-    <div
-      style={{
-        fontFamily: 'system-ui, sans-serif',
-        maxWidth: 900,
-        margin: '0 auto',
-        padding: '2rem',
-        color: 'var(--re-text)',
-      }}
-    >
-      <h1 style={{ fontSize: '1.5rem', marginBottom: '1.5rem' }}>
-        @react-email/editor examples
-      </h1>
-      <nav
-        style={{
-          display: 'flex',
-          gap: '0.25rem',
-          marginBottom: '2rem',
-          borderBottom: '1px solid var(--re-border)',
-        }}
-      >
+    <div className="max-w-[900px] mx-auto p-8 font-sans text-[var(--re-text)]">
+      <h1 className="text-2xl mb-6">@react-email/editor examples</h1>
+      <nav className="flex gap-1 mb-8 border-b border-[var(--re-border)]">
         {examples.map((example) => (
           <button
             key={example.id}
             onClick={() => setActive(example.id)}
             type="button"
-            style={{
-              padding: '0.5rem 1rem',
-              border: 'none',
-              borderBottom:
-                active === example.id
-                  ? '2px solid var(--re-text)'
-                  : '2px solid transparent',
-              background: 'none',
-              cursor: 'pointer',
-              fontSize: '0.875rem',
-              fontWeight: active === example.id ? 600 : 400,
-              color:
-                active === example.id
-                  ? 'var(--re-text)'
-                  : 'var(--re-text-muted)',
-            }}
+            className={`px-4 py-2 border-none bg-transparent cursor-pointer text-sm ${
+              active === example.id
+                ? 'font-semibold text-[var(--re-text)] border-b-2 border-b-[var(--re-text)]'
+                : 'font-normal text-[var(--re-text-muted)] border-b-2 border-b-transparent'
+            }`}
           >
             {example.label}
           </button>

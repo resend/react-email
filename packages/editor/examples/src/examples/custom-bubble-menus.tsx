@@ -22,24 +22,11 @@ const content = {
 export function CustomBubbleMenus() {
   return (
     <div>
-      <p
-        style={{
-          fontSize: '0.875rem',
-          color: 'var(--re-text-muted)',
-          marginBottom: '1rem',
-        }}
-      >
+      <p className="text-sm text-[var(--re-text-muted)] mb-4">
         Building menus from primitives instead of using .Default. Only bold,
         italic, underline, and alignment controls are shown.
       </p>
-      <div
-        style={{
-          border: '1px solid var(--re-border)',
-          borderRadius: 'var(--re-radius)',
-          padding: '1rem',
-          minHeight: 300,
-        }}
-      >
+      <div className="border border-[var(--re-border)] rounded-xl p-4 min-h-[300px]">
         <EditorProvider extensions={extensions} content={content}>
           <BubbleMenu.Root>
             <BubbleMenu.ItemGroup>

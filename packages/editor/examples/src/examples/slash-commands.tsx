@@ -61,34 +61,13 @@ const content = {
 export function SlashCommands() {
   return (
     <div>
-      <p
-        style={{
-          fontSize: '0.875rem',
-          color: 'var(--re-text-muted)',
-          marginBottom: '1rem',
-        }}
-      >
+      <p className="text-sm text-[var(--re-text-muted)] mb-4">
         Type{' '}
-        <code
-          style={{
-            background: 'var(--re-hover)',
-            padding: '0.125rem 0.375rem',
-            borderRadius: '0.25rem',
-          }}
-        >
-          /
-        </code>{' '}
-        to open the command menu. This example extends the default commands with
-        a custom "Greeting" command.
+        <code className="bg-[var(--re-hover)] px-1.5 py-0.5 rounded">/</code> to
+        open the command menu. This example extends the default commands with a
+        custom "Greeting" command.
       </p>
-      <div
-        style={{
-          border: '1px solid var(--re-border)',
-          borderRadius: 'var(--re-radius)',
-          padding: '1rem',
-          minHeight: 300,
-        }}
-      >
+      <div className="border border-[var(--re-border)] rounded-xl p-4 min-h-[300px]">
         <EditorProvider extensions={extensions} content={content} />
       </div>
     </div>
