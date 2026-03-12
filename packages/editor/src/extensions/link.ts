@@ -59,35 +59,35 @@ export const Link = TiptapLink.extend({
 
       unsetLink:
         () =>
-          ({ state, chain }) => {
-            const { from } = state.selection;
-            const linkMark = state.doc
-              .resolve(from)
-              .marks()
-              .find((m) => m.type.name === 'link');
-            const linkStyle = linkMark?.attrs?.style ?? null;
+        ({ state, chain }) => {
+          const { from } = state.selection;
+          const linkMark = state.doc
+            .resolve(from)
+            .marks()
+            .find((m) => m.type.name === 'link');
+          const linkStyle = linkMark?.attrs?.style ?? null;
 
-            const preservedStyle = processStylesForUnlink(linkStyle);
+          const preservedStyle = processStylesForUnlink(linkStyle);
 
-            const shouldRemoveUnderline = preservedStyle !== linkStyle;
+          const shouldRemoveUnderline = preservedStyle !== linkStyle;
 
-            if (preservedStyle) {
-              const cmd = chain()
-                .extendMarkRange('link')
-                .unsetMark('link')
-                .setMark('preservedStyle', { style: preservedStyle });
-
-              return shouldRemoveUnderline
-                ? cmd.unsetMark('underline').run()
-                : cmd.run();
-            }
-
-            return chain()
+          if (preservedStyle) {
+            const cmd = chain()
               .extendMarkRange('link')
               .unsetMark('link')
-              .unsetMark('underline')
-              .run();
-          },
+              .setMark('preservedStyle', { style: preservedStyle });
+
+            return shouldRemoveUnderline
+              ? cmd.unsetMark('underline').run()
+              : cmd.run();
+          }
+
+          return chain()
+            .extendMarkRange('link')
+            .unsetMark('link')
+            .unsetMark('underline')
+            .run();
+        },
     };
   },
 

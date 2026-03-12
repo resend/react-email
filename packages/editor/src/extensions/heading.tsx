@@ -1,6 +1,10 @@
 import { Heading as EmailHeading } from '@react-email/components';
 import { Heading as TipTapHeading } from '@tiptap/extension-heading';
-import { NodeViewContent, NodeViewWrapper, ReactNodeViewRenderer } from '@tiptap/react';
+import {
+  NodeViewContent,
+  NodeViewWrapper,
+  ReactNodeViewRenderer,
+} from '@tiptap/react';
 import { EmailNode } from '../core';
 import { getTextAlignment } from '../utils/get-text-alignment';
 import { inlineCssToJs } from '../utils/styles';
@@ -37,7 +41,8 @@ export const Heading = EmailNode.from(
         style={{
           ...style,
           ...inlineCssToJs(node.attrs?.style),
-          ...getTextAlignment(node.attrs?.align ?? node.attrs?.alignment), }}
+          ...getTextAlignment(node.attrs?.align ?? node.attrs?.alignment),
+        }}
       >
         {children}
       </EmailHeading>
