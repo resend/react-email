@@ -1,7 +1,7 @@
 import type { JSONContent } from '@tiptap/core';
 import { Editor, Node } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
-import { coreExtensions } from '../../extensions';
+import { StarterKit } from '../../extensions';
 import { composeReactEmail } from './compose-react-email';
 
 vi.mock('@/actions/ai', () => ({
@@ -40,7 +40,7 @@ const basicTheme = {
   },
 };
 
-const extensions = [...coreExtensions, GlobalContent];
+const extensions = [StarterKit, GlobalContent];
 let editor: Editor | null = null;
 
 afterEach(() => {
