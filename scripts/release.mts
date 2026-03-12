@@ -3,14 +3,23 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import * as core from '@actions/core';
-import { exec, getExecOutput } from '@actions/exec';
+import { exec } from '@actions/exec';
 import * as github from '@actions/github';
 import { readPreState } from '@changesets/pre';
 import { getPackages, type Package } from '@manypkg/get-packages';
 import { toString as mdastToString } from 'mdast-util-to-string';
 import { remark } from 'remark';
+import {
+  createPublisher,
+  getPackagePublicationInfo,
+  topologicalPublish,
+  topologicalPublishDryRun,
+  toWorkspacePackage,
+} from './release-utils.mts';
 
-const octokit = github.getOctokit(process.env.GITHUB_TOKEN || '');
+const isDryRun = process.argv.includes('--dry-run');
+
+const octokit = github.getOctokit(process.env.GITHUB_TOKEN || 'placeholder');
 
 const processor = remark();
 
@@ -100,68 +109,83 @@ const createRelease = async ({
 };
 
 (async () => {
-  if (!github.context.repo.owner || !github.context.repo.repo) {
-    throw new Error(
-      'GitHub context is missing. This script must be run in a GitHub Actions workflow.',
-    );
-  }
+  const preState = await readPreState(process.cwd());
+  const npmIdToken = isDryRun
+    ? ''
+    : await core.getIDToken('npm:registry.npmjs.org');
 
-  // https://docs.npmjs.com/generating-provenance-statements#publishing-packages-with-provenance-via-github-actions
-  const npmIdToken = await core.getIDToken('npm:registry.npmjs.org');
-
-  const isCanaryBranch = github.context.ref === 'refs/heads/canary';
-  const isMainBranch = github.context.ref === 'refs/heads/main';
-
-  if (isCanaryBranch) {
-    console.log('Detected running in canary branch, checking prerelease state');
-    const preState = await readPreState(process.cwd());
-    if (preState?.mode !== 'pre') {
-      console.log(
-        'Was not in prerelease, skipping automated release. To release this you should rebase onto main',
+  if (!isDryRun) {
+    if (!github.context.repo.owner || !github.context.repo.repo) {
+      throw new Error(
+        'GitHub context is missing. This script must be run in a GitHub Actions workflow.',
       );
-      return;
     }
-    console.log('Is in prerelease mode, proceeding with automated release');
-  } else if (isMainBranch) {
-    console.log(
-      'Detected running in main branch, proceeding with stable release',
-    );
-  } else {
-    throw new Error(
-      `Unexpected branch/ref: ${github.context.ref}. Expected refs/heads/main or refs/heads/canary`,
-    );
+
+    const isCanaryBranch = github.context.ref === 'refs/heads/canary';
+    const isMainBranch = github.context.ref === 'refs/heads/main';
+
+    if (isCanaryBranch) {
+      console.log(
+        'Detected running in canary branch, checking prerelease state',
+      );
+      if (preState?.mode !== 'pre') {
+        console.log(
+          'Was not in prerelease, skipping automated release. To release this you should rebase onto main',
+        );
+        return;
+      }
+      console.log('Is in prerelease mode, proceeding with automated release');
+    } else if (isMainBranch) {
+      console.log(
+        'Detected running in main branch, proceeding with stable release',
+      );
+    } else {
+      throw new Error(
+        `Unexpected branch/ref: ${github.context.ref}. Expected refs/heads/main or refs/heads/canary`,
+      );
+    }
   }
 
-  const changesetPublishOutput = await getExecOutput('pnpm', ['release'], {
-    env: {
-      ...process.env,
-      NPM_ID_TOKEN: npmIdToken,
-      // https://docs.npmjs.com/generating-provenance-statements#using-third-party-package-publishing-tools
-      NPM_CONFIG_PROVENANCE: 'true',
-    },
-  });
+  // Build all packages first
+  let buildFailed = false;
+  try {
+    await exec('pnpm', ['turbo', 'run', 'build', '--filter=./packages/*']);
+  } catch (error) {
+    if (!isDryRun) throw error;
+    buildFailed = true;
+    console.error(`Build failed: ${error}`);
+  }
+
+  const preTag = preState?.mode === 'pre' ? preState.tag : undefined;
 
   const { packages } = await getPackages(process.cwd());
-
-  const newTagRegex = /New tag:\s+(@[^/]+\/[^@]+|[^/]+)@([^\s]+)/;
   const packagesByName = new Map(packages.map((x) => [x.packageJson.name, x]));
 
-  const releasedPackages: Package[] = [];
-  for (const line of changesetPublishOutput.stdout.split('\n')) {
-    const match = line.match(newTagRegex);
-    if (match === null) {
-      continue;
-    }
-    const pkgName = match[1];
-    const pkg = packagesByName.get(pkgName);
-    if (pkg === undefined) {
-      throw new Error(
-        `Package "${pkgName}" not found.` +
-          'This is probably a bug in the action, please open an issue',
-      );
-    }
-    releasedPackages.push(pkg);
+  if (isDryRun) {
+    await topologicalPublishDryRun({
+      packages: packages.map(toWorkspacePackage),
+      preTag,
+      buildFailed,
+      getPackagePublicationInfo,
+    });
+    return;
   }
+
+  const { published: publishedNames, failed: failedNames } =
+    await topologicalPublish({
+      packages: packages.map(toWorkspacePackage),
+      preTag,
+      getPackagePublicationInfo,
+      publish: createPublisher({ npmIdToken }),
+    });
+
+  if (failedNames.length > 0) {
+    core.error(
+      `Failed to publish ${failedNames.length} package(s): ${failedNames.join(', ')}`,
+    );
+  }
+
+  const releasedPackages = publishedNames.map((n) => packagesByName.get(n)!);
 
   await exec('git', ['config', 'user.name', `"github-actions[bot]"`]);
   await exec('git', [
@@ -183,5 +207,9 @@ const createRelease = async ({
 
     console.log(`Creating release for ${tagName}`);
     await createRelease({ pkg, tagName });
+  }
+
+  if (failedNames.length > 0) {
+    process.exitCode = 1;
   }
 })();
