@@ -21,11 +21,12 @@
     "react-dom": "catalog:"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "4.1.18",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "catalog:",
-    "@tailwindcss/vite": "4.1.18",
     "tailwindcss": "catalog:",
+    "tsconfig": "workspace:*",
     "typescript": "5.8.3",
     "vite": "catalog:"
   }
