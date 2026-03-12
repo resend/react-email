@@ -50,7 +50,7 @@ export function useEditor({
 
   const isCollaborative = hasCollaborationExtension(extensions);
 
-  const effectiveExtension = React.useMemo(
+  const effectiveExtensions = React.useMemo(
     () => [
       ...coreExtensions,
       // Collaboration extensions handle their own undo/redo history,
@@ -63,7 +63,7 @@ export function useEditor({
 
   const editor = useTipTapEditor({
     content: isCollaborative ? undefined : content,
-    extensions: effectiveExtension,
+    extensions: effectiveExtensions,
     immediatelyRender: false,
     enableContentCheck: true,
     onContentError({ editor, error, disableCollaboration }) {
@@ -96,7 +96,7 @@ export function useEditor({
       handlePaste: createPasteHandler({
         onPaste,
         onUploadImage,
-        extensions,
+        extensions: effectiveExtensions,
       }),
       handleDrop: createDropHandler({
         onPaste,
@@ -120,7 +120,7 @@ export function useEditor({
   return {
     editor,
     isEditorEmpty: isEditorEmpty ?? true,
-    extensions: effectiveExtension,
+    extensions: effectiveExtensions,
     contentError,
     isCollaborative,
   };
