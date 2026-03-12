@@ -1,5 +1,5 @@
 import type { Editor, Range } from '@tiptap/core';
-import type { ComponentType, Ref } from 'react';
+import type { ComponentType, ReactNode, Ref } from 'react';
 
 export type SlashCommandCategory = string;
 
@@ -10,7 +10,7 @@ export interface SearchableItem {
 }
 
 export interface SlashCommandItem extends SearchableItem {
-  icon: ComponentType<{ size?: number }>;
+  icon: ReactNode;
   category: SlashCommandCategory;
   command: (props: SlashCommandProps) => void;
 }

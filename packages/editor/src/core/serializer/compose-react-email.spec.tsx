@@ -1,10 +1,8 @@
 import type { JSONContent } from '@tiptap/core';
 import { Editor, Node } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
-import { StarterKit } from '../../extensions';
-import { inlineCssToJs } from '../../utils/styles';
+import { coreExtensions } from '../../extensions';
 import { composeReactEmail } from './compose-react-email';
-import { EmailMark } from './email-mark';
 
 vi.mock('@/actions/ai', () => ({
   uploadImageViaAI: vi.fn(),
@@ -42,7 +40,7 @@ const basicTheme = {
   },
 };
 
-const extensions = [StarterKit, GlobalContent];
+const extensions = [...coreExtensions, GlobalContent];
 let editor: Editor | null = null;
 
 afterEach(() => {

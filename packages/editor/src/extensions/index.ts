@@ -345,3 +345,5 @@ export const StarterKit = Extension.create<StarterKitOptions>({
     return extensions;
   },
 });
+
+export const coreExtensions: AnyExtension[] = [StarterKit];

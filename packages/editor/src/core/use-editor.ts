@@ -1,13 +1,12 @@
 import type { Content, Editor as EditorClass, Extensions } from '@tiptap/core';
 import { UndoRedo } from '@tiptap/extensions';
-
 import {
   type UseEditorOptions,
   useEditorState,
   useEditor as useTipTapEditor,
 } from '@tiptap/react';
 import * as React from 'react';
-import { StarterKit } from '../extensions';
+import { coreExtensions } from '../extensions';
 import { createDropHandler } from './create-drop-handler';
 import {
   createPasteHandler,
@@ -50,9 +49,9 @@ export function useEditor({
 
   const isCollaborative = hasCollaborationExtension(extensions);
 
-  const effectiveExtension = React.useMemo(
+  const effectiveExtensions = React.useMemo(
     () => [
-      StarterKit,
+      ...coreExtensions,
       // Collaboration extensions handle their own undo/redo history,
       // so we only add TipTap's History extension for non-collaborative editors.
       ...(isCollaborative ? [] : [UndoRedo]),
@@ -63,7 +62,8 @@ export function useEditor({
 
   const editor = useTipTapEditor({
     content: isCollaborative ? undefined : content,
-    extensions: effectiveExtension,
+    extensions: effectiveExtensions,
+    editable,
     immediatelyRender: false,
     enableContentCheck: true,
     onContentError({ editor, error, disableCollaboration }) {
@@ -96,7 +96,7 @@ export function useEditor({
       handlePaste: createPasteHandler({
         onPaste,
         onUploadImage,
-        extensions,
+        extensions: effectiveExtensions,
       }),
       handleDrop: createDropHandler({
         onPaste,
@@ -120,7 +120,7 @@ export function useEditor({
   return {
     editor,
     isEditorEmpty: isEditorEmpty ?? true,
-    extensions: effectiveExtension,
+    extensions: effectiveExtensions,
     contentError,
     isCollaborative,
   };
