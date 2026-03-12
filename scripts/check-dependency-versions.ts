@@ -29,7 +29,12 @@ function isPinned(version: string) {
 }
 
 async function checkPackageJson(pkgJsonPath: string, onlyDevDeps: boolean) {
-  const content = await fs.readFile(pkgJsonPath, 'utf8').catch(() => null);
+  const content = await fs
+    .readFile(pkgJsonPath, 'utf8')
+    .catch((error: NodeJS.ErrnoException) => {
+      if (error.code === 'ENOENT') return null;
+      throw error;
+    });
   if (content === null) return;
 
   const pkg: PackageJson = JSON.parse(content);
@@ -57,7 +62,10 @@ async function checkPackageJson(pkgJsonPath: string, onlyDevDeps: boolean) {
 async function checkWorkspaceDir(dirPath: string, onlyDevDeps: boolean) {
   const entries = await fs
     .readdir(dirPath, { withFileTypes: true })
-    .catch(() => []);
+    .catch((error: NodeJS.ErrnoException) => {
+      if (error.code === 'ENOENT') return [];
+      throw error;
+    });
   for (const entry of entries) {
     if (entry.isDirectory()) {
       await checkPackageJson(
