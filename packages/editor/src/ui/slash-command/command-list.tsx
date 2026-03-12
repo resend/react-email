@@ -47,7 +47,6 @@ interface CommandItemProps {
 }
 
 function CommandItem({ item, selected, onSelect }: CommandItemProps) {
-  const Icon = item.icon;
   return (
     <button
       data-re-slash-command-item=""
@@ -55,7 +54,7 @@ function CommandItem({ item, selected, onSelect }: CommandItemProps) {
       onClick={onSelect}
       type="button"
     >
-      <Icon size={20} />
+      {item.icon}
       <span>{item.title}</span>
     </button>
   );
