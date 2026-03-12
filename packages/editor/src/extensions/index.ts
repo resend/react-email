@@ -345,4 +345,3 @@ export const StarterKit = Extension.create<StarterKitOptions>({
     return extensions;
   },
 });
-
