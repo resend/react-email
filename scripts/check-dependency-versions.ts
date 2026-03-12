@@ -55,7 +55,9 @@ async function checkPackageJson(pkgJsonPath: string, onlyDevDeps: boolean) {
 }
 
 async function checkWorkspaceDir(dirPath: string, onlyDevDeps: boolean) {
-  const entries = await fs.readdir(dirPath, { withFileTypes: true }).catch(() => []);
+  const entries = await fs
+    .readdir(dirPath, { withFileTypes: true })
+    .catch(() => []);
   for (const entry of entries) {
     if (entry.isDirectory()) {
       await checkPackageJson(
