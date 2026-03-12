@@ -1,6 +1,6 @@
 {
   "name": "@react-email/editor",
-  "version": "0.0.0-experimental.14",
+  "version": "0.0.0-experimental.15",
   "description": "",
   "sideEffects": [
     "**/*.css"
@@ -26,6 +26,7 @@
     "./styles/link-bubble-menu.css": "./dist/ui/link-bubble-menu/link-bubble-menu.css",
     "./styles/button-bubble-menu.css": "./dist/ui/button-bubble-menu/button-bubble-menu.css",
     "./styles/image-bubble-menu.css": "./dist/ui/image-bubble-menu/image-bubble-menu.css",
+    "./styles/slash-command.css": "./dist/ui/slash-command/slash-command.css",
     "./themes/default.css": "./dist/ui/themes/default.css"
   },
   "license": "MIT",
@@ -79,6 +80,7 @@
     "@tiptap/react": "^3.17.1",
     "@tiptap/starter-kit": "^3.17.1",
     "@tiptap/suggestion": "^3.17.1",
+    "tippy.js": "^6.3.7",
     "hast-util-from-html": "^2.0.3",
     "prismjs": "^1.30.0",
     "tippy.js": "^6.3.7"

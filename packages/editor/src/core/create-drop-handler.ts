@@ -5,8 +5,8 @@ export function createDropHandler({
   onPaste,
   onUploadImage,
 }: {
-  onPaste: PasteHandler;
-  onUploadImage: UploadImageHandler;
+  onPaste?: PasteHandler;
+  onUploadImage?: UploadImageHandler;
 }) {
   return (
     view: EditorView,
@@ -23,11 +23,11 @@ export function createDropHandler({
       event.preventDefault();
       const file = event.dataTransfer.files[0];
 
-      if (onPaste(file, view) !== false) {
+      if (onPaste?.(file, view)) {
         return true;
       }
 
-      if (file.type.includes('image/')) {
+      if (file.type.includes('image/') && onUploadImage) {
         const coordinates = view.posAtCoords({
           left: event.clientX,
           top: event.clientY,
