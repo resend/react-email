@@ -1,9 +1,5 @@
-import {
-  Mark,
-  markInputRule,
-  markPasteRule,
-  mergeAttributes,
-} from '@tiptap/core';
+import { markInputRule, markPasteRule, mergeAttributes } from '@tiptap/core';
+import { EmailMark } from '../core/serializer/email-mark';
 
 export interface BoldOptions {
   /**
@@ -57,7 +53,7 @@ const underscorePasteRegex = /(?:^|\s)(__(?!\s+__)((?:[^_]+))__(?!\s+__))/g;
  * This extension allows you to mark text as bold.
  * @see https://tiptap.dev/api/marks/bold
  */
-export const Bold = Mark.create<BoldOptions>({
+export const Bold = EmailMark.create<BoldOptions>({
   name: 'bold',
 
   addOptions() {
@@ -90,6 +86,10 @@ export const Bold = Mark.create<BoldOptions>({
       mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
       0,
     ];
+  },
+
+  renderToReactEmail({ children, style }) {
+    return <strong style={style}>{children}</strong>;
   },
 
   addCommands() {

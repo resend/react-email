@@ -1,5 +1,5 @@
 import { mergeAttributes } from '@tiptap/core';
-import { EmailNode } from '../core/email-node';
+import { EmailNode } from '../core/serializer/email-node';
 import {
   COMMON_HTML_ATTRIBUTES,
   createStandardAttributes,

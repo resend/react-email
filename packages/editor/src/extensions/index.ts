@@ -1,34 +1,52 @@
 import { StarterKit } from '@tiptap/starter-kit';
 import { AlignmentAttribute } from './alignment-attribute';
+import { Blockquote } from './blockquote';
 import { Body } from './body';
 import { Bold } from './bold';
+import { BulletList } from './bullet-list';
 import { Button } from './button';
 import { ClassAttribute } from './class-attribute';
+import { Code } from './code';
 import { CodeBlockPrism } from './code-block';
 import { Div } from './div';
+import { HardBreak } from './hard-break';
+import { Italic } from './italic';
+import { ListItem } from './list-item';
 import { MaxNesting } from './max-nesting';
+import { OrderedList } from './ordered-list';
+import { Paragraph } from './paragraph';
 import { Placeholder } from './placeholder';
 import { PreservedStyle } from './preserved-style';
 import { PreviewText } from './preview-text';
 import { Section } from './section';
+import { Strike } from './strike';
 import { StyleAttribute } from './style-attribute';
 import { Sup } from './sup';
 import { Table, TableCell, TableHeader, TableRow } from './table';
 import { Uppercase } from './uppercase';
 
 export * from './alignment-attribute';
+export * from './blockquote';
 export * from './body';
 export * from './bold';
+export * from './bullet-list';
 export * from './button';
 export * from './class-attribute';
+export * from './code';
 export * from './code-block';
 export * from './columns';
 export * from './div';
+export * from './hard-break';
+export * from './italic';
+export * from './list-item';
 export * from './max-nesting';
+export * from './ordered-list';
+export * from './paragraph';
 export * from './placeholder';
 export * from './preserved-style';
 export * from './preview-text';
 export * from './section';
+export * from './strike';
 export * from './style-attribute';
 export * from './sup';
 export * from './table';
@@ -43,35 +61,17 @@ export const coreExtensions = [
     underline: false,
     trailingNode: false,
     bold: false, // Disable to use our CustomBold that ignores font-weight
+    italic: false,
+    strike: false,
+    code: false,
+    paragraph: false,
+    bulletList: false,
+    orderedList: false,
+    listItem: false,
+    blockquote: false,
+    hardBreak: false,
     gapcursor: false,
-    listItem: {},
-    bulletList: {
-      HTMLAttributes: {
-        class: 'node-bulletList',
-      },
-    },
-    paragraph: {
-      HTMLAttributes: {
-        class: 'node-paragraph',
-      },
-    },
-    orderedList: {
-      HTMLAttributes: {
-        class: 'node-orderedList',
-      },
-    },
-    blockquote: {
-      HTMLAttributes: {
-        class: 'node-blockquote',
-      },
-    },
     codeBlock: false,
-    code: {
-      HTMLAttributes: {
-        class: 'node-inlineCode',
-        spellcheck: 'false',
-      },
-    },
     horizontalRule: false,
     dropcursor: {
       color: '#61a8f8',
@@ -85,9 +85,39 @@ export const coreExtensions = [
       class: 'prism node-codeBlock',
     },
   }),
+  Code.configure({
+    HTMLAttributes: {
+      class: 'node-inlineCode',
+      spellcheck: 'false',
+    },
+  }),
+  Paragraph.configure({
+    HTMLAttributes: {
+      class: 'node-paragraph',
+    },
+  }),
+  BulletList.configure({
+    HTMLAttributes: {
+      class: 'node-bulletList',
+    },
+  }),
+  OrderedList.configure({
+    HTMLAttributes: {
+      class: 'node-orderedList',
+    },
+  }),
+  Blockquote.configure({
+    HTMLAttributes: {
+      class: 'node-blockquote',
+    },
+  }),
+  ListItem,
+  HardBreak,
+  Italic,
   Placeholder,
   PreviewText,
   Bold, // Replaces StarterKit bold, ignores font-weight
+  Strike,
   Sup,
   Uppercase,
   PreservedStyle,

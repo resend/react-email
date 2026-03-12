@@ -1,7 +1,7 @@
 import { Column, Section } from '@react-email/components';
 import type { ParentConfig } from '@tiptap/core';
 import { mergeAttributes, Node } from '@tiptap/core';
-import { EmailNode } from '../core/email-node';
+import { EmailNode } from '../core/serializer/email-node';
 import {
   COMMON_HTML_ATTRIBUTES,
   createStandardAttributes,
