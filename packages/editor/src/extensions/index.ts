@@ -24,6 +24,9 @@ import { StyleAttribute } from './style-attribute';
 import { Sup } from './sup';
 import { Table, TableCell, TableHeader, TableRow } from './table';
 import { Uppercase } from './uppercase';
+import { Heading } from './heading';
+import { Divider } from './divider';
+import { Link } from './link';
 
 export * from './alignment-attribute';
 export * from './blockquote';
@@ -118,6 +121,9 @@ export const coreExtensions = [
   PreviewText,
   Bold, // Replaces StarterKit bold, ignores font-weight
   Strike,
+  Heading,
+  Divider,
+  Link,
   Sup,
   Uppercase,
   PreservedStyle,
