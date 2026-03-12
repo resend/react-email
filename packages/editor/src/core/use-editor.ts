@@ -1,7 +1,11 @@
 import type { Content, Editor as EditorClass, Extensions } from '@tiptap/core';
 import { UndoRedo } from '@tiptap/extensions';
 
-import { type UseEditorOptions, useEditorState, useEditor as useTipTapEditor } from '@tiptap/react';
+import {
+  type UseEditorOptions,
+  useEditorState,
+  useEditor as useTipTapEditor,
+} from '@tiptap/react';
 import * as React from 'react';
 import { coreExtensions } from '../extensions';
 import { createDropHandler } from './create-drop-handler';
