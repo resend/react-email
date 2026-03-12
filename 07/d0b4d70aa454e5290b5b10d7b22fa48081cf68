@@ -1,0 +1,49 @@
+packages/editor/package.json
+  b4590bbcf479af55 3,29,70-71
+packages/editor/examples/index.html
+  b4590bbcf479af55 1-12
+packages/editor/examples/src/main.tsx
+  b4590bbcf479af55 1-9
+packages/editor/examples/tsconfig.json
+  b4590bbcf479af55 1-13
+packages/editor/examples/vite.config.ts
+  b4590bbcf479af55 1-6
+pnpm-workspace.yaml
+  b4590bbcf479af55 6
+packages/editor/examples/src/app.tsx
+  b4590bbcf479af55 1-12,14-28,30-59,62-73
+packages/editor/examples/src/examples/column-layouts.tsx
+  b4590bbcf479af55 1-3,7-21,23-25,28-31,33-38,48-57,62-65,67-70,73,76,78-86,88-90,92-126
+packages/editor/examples/src/examples/basic-editor.tsx
+  b4590bbcf479af55 1-2,4,7-20,22-23,26,32-34,36-40,43,46-54,56-60,62-67
+packages/editor/examples/src/examples/slash-commands.tsx
+  b4590bbcf479af55 1,4-7,10-48,50-52,55-58,60-64,67,70,72-75,77-79,81-88,90-96
+packages/editor/examples/package.json
+  b4590bbcf479af55 1-29
+packages/editor/examples/src/examples/custom-bubble-menus.tsx
+  b4590bbcf479af55 1-9,11-13,15-19,21-25,28,31-39,41-44,56-60
+packages/editor/src/ui/themes/default.css
+  b4590bbcf479af55 14,89-93,103-106,114-115,117,126,157,159,175,177,202-203,289-431
+packages/editor/src/ui/bubble-menu/bubble-menu.css
+  b4590bbcf479af55 9,15-19,25,35,39-40,55-56,60-62,78-79,85-86,101,105-106,119,137-138
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.10",
+  "base_commit_sha": "07d0b4d70aa454e5290b5b10d7b22fa48081cf68",
+  "prompts": {
+    "b4590bbcf479af55": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5cee3067-0580-4b40-8404-1cd425d8684d",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 3,
+      "total_deletions": 0,
+      "accepted_lines": 599,
+      "overriden_lines": 0
+    }
+  }
+}
