@@ -1,8 +1,32 @@
+import { Link as ReactEmailLink } from '@react-email/components';
 import TiptapLink from '@tiptap/extension-link';
 import { editorEventBus } from '../core';
+import { EmailMark } from '../core/serializer/email-mark';
+import { inlineCssToJs } from '../utils/styles';
 import { processStylesForUnlink } from './preserved-style';
 
-export const Link = TiptapLink.extend({
+export const Link = EmailMark.from(TiptapLink, ({ children, mark, style }) => {
+  const linkMarkStyle = mark.attrs?.style
+    ? inlineCssToJs(mark.attrs.style)
+    : {};
+
+  return (
+    <ReactEmailLink
+      href={mark.attrs?.href ?? ''}
+      rel={mark.attrs?.rel ?? undefined}
+      style={{
+        ...style,
+        ...linkMarkStyle,
+      }}
+      target={mark.attrs?.target ?? undefined}
+      {...(mark.attrs?.['ses:no-track']
+        ? { 'ses:no-track': mark.attrs['ses:no-track'] }
+        : {})}
+    >
+      {children}
+    </ReactEmailLink>
+  );
+}).extend({
   parseHTML() {
     return [
       {
@@ -59,35 +83,35 @@ export const Link = TiptapLink.extend({
 
       unsetLink:
         () =>
-        ({ state, chain }) => {
-          const { from } = state.selection;
-          const linkMark = state.doc
-            .resolve(from)
-            .marks()
-            .find((m) => m.type.name === 'link');
-          const linkStyle = linkMark?.attrs?.style ?? null;
+          ({ state, chain }) => {
+            const { from } = state.selection;
+            const linkMark = state.doc
+              .resolve(from)
+              .marks()
+              .find((m) => m.type.name === 'link');
+            const linkStyle = linkMark?.attrs?.style ?? null;
 
-          const preservedStyle = processStylesForUnlink(linkStyle);
+            const preservedStyle = processStylesForUnlink(linkStyle);
 
-          const shouldRemoveUnderline = preservedStyle !== linkStyle;
+            const shouldRemoveUnderline = preservedStyle !== linkStyle;
 
-          if (preservedStyle) {
-            const cmd = chain()
+            if (preservedStyle) {
+              const cmd = chain()
+                .extendMarkRange('link')
+                .unsetMark('link')
+                .setMark('preservedStyle', { style: preservedStyle });
+
+              return shouldRemoveUnderline
+                ? cmd.unsetMark('underline').run()
+                : cmd.run();
+            }
+
+            return chain()
               .extendMarkRange('link')
               .unsetMark('link')
-              .setMark('preservedStyle', { style: preservedStyle });
-
-            return shouldRemoveUnderline
-              ? cmd.unsetMark('underline').run()
-              : cmd.run();
-          }
-
-          return chain()
-            .extendMarkRange('link')
-            .unsetMark('link')
-            .unsetMark('underline')
-            .run();
-        },
+              .unsetMark('underline')
+              .run();
+          },
     };
   },
 

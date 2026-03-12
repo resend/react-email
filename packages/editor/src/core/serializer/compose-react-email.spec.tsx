@@ -1,4 +1,3 @@
-import { Link as ReactEmailLink } from '@react-email/components';
 import type { JSONContent } from '@tiptap/core';
 import { Editor, Node } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
