@@ -12,7 +12,7 @@ export const Link = EmailMark.from(TiptapLink, ({ children, mark, style }) => {
 
   return (
     <ReactEmailLink
-      href={mark.attrs?.href ?? ''}
+      href={mark.attrs?.href ?? undefined}
       rel={mark.attrs?.rel ?? undefined}
       style={{
         ...style,
