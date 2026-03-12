@@ -877,6 +877,321 @@ describe('Tailwind component', () => {
     });
   });
 
+  describe('with theme', () => {
+    it('handles empty theme string', async () => {
+      const actualOutput = await render(
+        <Tailwind theme="">
+          <div className="bg-red-500 text-white">Default utilities</div>
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div style="background-color:rgb(251,44,54);color:rgb(255,255,255)">
+          Default utilities
+        </div>
+        <!--/$-->
+        "
+      `);
+    });
+
+    it('supports custom colors', async () => {
+      const theme = `
+      @theme {
+        --color-custom: #1fb6ff;
+      }
+      `;
+
+      const actualOutput = await render(
+        <Tailwind theme={theme}>
+          <div className="bg-custom text-custom" />
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div style="background-color:rgb(31,182,255);color:rgb(31,182,255)"></div>
+        <!--/$-->
+        "
+      `);
+    });
+
+    it('supports custom fonts', async () => {
+      const theme = `
+      @theme {
+        --font-sans: "Graphik", sans-serif;
+        --font-serif: "Merriweather", serif;
+      }
+      `;
+
+      const actualOutput = await render(
+        <Tailwind theme={theme}>
+          <div className="font-sans" />
+          <div className="font-serif" />
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div style='font-family:"Graphik",sans-serif'></div>
+        <div style='font-family:"Merriweather",serif'></div>
+        <!--/$-->
+        "
+      `);
+    });
+
+    it('supports custom spacing', async () => {
+      const theme = `
+        @theme {
+          --spacing-8xl: 96rem;
+        }
+      `;
+
+      const actualOutput = await render(
+        <Tailwind theme={theme}>
+          <div className="m-8xl" />
+        </Tailwind>,
+      ).then(pretty);
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div style="margin:96rem"></div>
+        <!--/$-->
+        "
+      `);
+    });
+
+    it('supports custom border radius', async () => {
+      const theme = `
+        @theme {
+          --border-radius-4xl: 2rem;
+        }
+      `;
+
+      const actualOutput = await render(
+        <Tailwind theme={theme}>
+          <div className="rounded-4xl" />
+        </Tailwind>,
+      ).then(pretty);
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div style="border-radius:2rem"></div>
+        <!--/$-->
+        "
+      `);
+    });
+
+    it('supports custom text alignment', async () => {
+      const theme = `
+        @theme {
+          --text-align-justify: justify;
+        }
+      `;
+
+      const actualOutput = await render(
+        <Tailwind theme={theme}>
+          <div className="text-justify" />
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div style="text-align:justify"></div>
+        <!--/$-->
+        "
+      `);
+    });
+
+    it('supports both config and theme props together', async () => {
+      const customConfig = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#ff0000',
+            },
+          },
+        },
+      } satisfies TailwindConfig;
+
+      const customTheme = `
+        @theme {
+          --color-secondary: #00ff00;
+        }
+      `;
+
+      const actualOutput = await render(
+        <Tailwind config={customConfig} theme={customTheme}>
+          <div className="bg-primary text-secondary">Both config and theme</div>
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div style="background-color:rgb(255,0,0);color:rgb(0,255,0)">
+          Both config and theme
+        </div>
+        <!--/$-->
+        "
+      `);
+    });
+  });
+
+  describe('with utilities', () => {
+    it('handles empty utilities string', async () => {
+      const actualOutput = await render(
+        <Tailwind utility="">
+          <div className="bg-red-500 text-white">Default utilities</div>
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div style="background-color:rgb(251,44,54);color:rgb(255,255,255)">
+          Default utilities
+        </div>
+        <!--/$-->
+        "
+      `);
+    });
+
+    it('supports custom utilities', async () => {
+      const utilities = `
+      .custom-shadow {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 16px;
+      }
+      `;
+
+      const actualOutput = await render(
+        <Tailwind utility={utilities}>
+          <div className="custom-shadow" />
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div
+          style="box-shadow:0 4px 6px rgba(0,0,0,0.1);border-radius:8px;padding:16px"></div>
+        <!--/$-->
+        "
+      `);
+    });
+
+    it('supports animations', async () => {
+      const utilities = `
+        .pulse-animation {
+          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+      `;
+
+      const actualOutput = await render(
+        <Tailwind utility={utilities}>
+          <div className="pulse-animation" />
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div style="animation:pulse 2s cubic-bezier(0.4,0,0.6,1) infinite"></div>
+        <!--/$-->
+        "
+      `);
+    });
+
+    it('supports both config and utilities props together', async () => {
+      const customConfig = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#ff0000',
+            },
+          },
+        },
+      } satisfies TailwindConfig;
+
+      const customUtilities = `
+        .card-base {
+          border: 1px solid #e5e7eb;
+          padding: 20px;
+        }
+      `;
+
+      const actualOutput = await render(
+        <Tailwind config={customConfig} utility={customUtilities}>
+          <div className="bg-primary card-base">Config and utilities</div>
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div
+          style="background-color:rgb(255,0,0);border:1px solid rgb(229,231,235);padding:20px">
+          Config and utilities
+        </div>
+        <!--/$-->
+        "
+      `);
+    });
+
+    it('supports config, theme, and utilities together', async () => {
+      const customConfig = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#ff0000',
+            },
+          },
+        },
+      } satisfies TailwindConfig;
+
+      const customTheme = `
+        @theme {
+          --color-secondary: #00ff00;
+        }
+      `;
+
+      const customUtilities = `
+        .special-border {
+          border: 2px dashed #0000ff;
+        }
+      `;
+
+      const actualOutput = await render(
+        <Tailwind
+          config={customConfig}
+          theme={customTheme}
+          utility={customUtilities}
+        >
+          <div className="bg-primary text-secondary special-border">
+            All three props
+          </div>
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div
+          style="background-color:rgb(255,0,0);color:rgb(0,255,0);border:2px dashed rgb(0,0,255)">
+          All three props
+        </div>
+        <!--/$-->
+        "
+      `);
+    });
+  });
+
   describe('with custom plugins config', () => {
     const config = {
       plugins: [
