@@ -14,7 +14,7 @@ import { Star } from 'lucide-react';
 const CUSTOM_COMMAND: SlashCommandItem = {
   title: 'Greeting',
   description: 'Insert a greeting block',
-  icon: Star,
+  icon: <Star size={20} />,
   category: 'Custom',
   searchTerms: ['hello', 'greeting', 'welcome'],
   command: ({ editor, range }) => {
