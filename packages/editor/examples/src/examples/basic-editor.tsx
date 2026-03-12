@@ -1,9 +1,7 @@
 import { BubbleMenu, StarterKit } from '@react-email/editor';
 import { EditorProvider } from '@tiptap/react';
 
-const extensions = [
-  StarterKit,
-];
+const extensions = [StarterKit];
 
 const content = {
   type: 'doc',

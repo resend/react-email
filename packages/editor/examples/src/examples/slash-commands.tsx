@@ -1,10 +1,10 @@
 import {
   ColumnsColumn,
-  StarterKit,
   createSlashCommand,
   defaultSlashCommands,
   FourColumns,
   type SlashCommandItem,
+  StarterKit,
   ThreeColumns,
   TwoColumns,
 } from '@react-email/editor';
