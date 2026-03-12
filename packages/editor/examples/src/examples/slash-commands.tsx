@@ -1,6 +1,6 @@
 import {
   ColumnsColumn,
-  coreExtensions,
+  StarterKit,
   createSlashCommand,
   defaultSlashCommands,
   FourColumns,
@@ -35,7 +35,7 @@ const MySlashCommand = createSlashCommand({
 });
 
 const extensions = [
-  ...coreExtensions,
+  StarterKit,
   TwoColumns,
   ThreeColumns,
   FourColumns,

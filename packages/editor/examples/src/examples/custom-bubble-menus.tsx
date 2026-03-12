@@ -1,8 +1,8 @@
-import { BubbleMenu, coreExtensions } from '@react-email/editor';
+import { BubbleMenu, StarterKit } from '@react-email/editor';
 import Underline from '@tiptap/extension-underline';
 import { EditorProvider } from '@tiptap/react';
 
-const extensions = [...coreExtensions, Underline];
+const extensions = [StarterKit, Underline];
 
 const content = {
   type: 'doc',
