@@ -1,0 +1,51 @@
+packages/editor/src/extensions/index.ts
+  d444e65c33bf057e 1-10,14,17,19,22,24,27,29,31,33,36,39,42,46,49,51,54,56,58,60,74,77,79,94,130-161,339
+packages/editor/src/extensions/list-item.tsx
+  d444e65c33bf057e 1,7
+packages/editor/src/extensions/italic.tsx
+  d444e65c33bf057e 1,5
+packages/editor/src/extensions/paragraph.tsx
+  d444e65c33bf057e 1,7
+packages/editor/src/extensions/ordered-list.tsx
+  d444e65c33bf057e 1,6
+packages/editor/src/extensions/code.tsx
+  d444e65c33bf057e 1,6
+packages/editor/src/extensions/link.tsx
+  d444e65c33bf057e 2,4-5,12
+packages/editor/src/extensions/strike.tsx
+  d444e65c33bf057e 1,5
+packages/editor/src/extensions/heading.tsx
+  d444e65c33bf057e 2,4-5,16
+packages/editor/src/extensions/blockquote.tsx
+  d444e65c33bf057e 1,7
+packages/editor/src/extensions/bullet-list.tsx
+  d444e65c33bf057e 1,6
+packages/editor/src/extensions/placeholder.ts
+  d444e65c33bf057e 1-2,11
+packages/editor/src/extensions/hard-break.tsx
+  d444e65c33bf057e 1,5
+packages/editor/src/extensions/divider.tsx
+  d444e65c33bf057e 3,5-6,12
+packages/editor/src/core/use-editor.ts
+  d444e65c33bf057e 52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.11",
+  "base_commit_sha": "01fc68a731e49d49c58258344a835c40716a5735",
+  "prompts": {
+    "d444e65c33bf057e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5b1b8995-7214-4575-ac37-a260f55a659b",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 119,
+      "total_deletions": 44,
+      "accepted_lines": 100,
+      "overriden_lines": 0
+    }
+  }
+}
