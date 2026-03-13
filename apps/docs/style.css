@@ -1,0 +1,9 @@
+.sidebar-group-header {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-group-icon {
+  display: inline-flex;
+  align-items: center;
+}
