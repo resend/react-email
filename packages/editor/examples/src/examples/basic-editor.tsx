@@ -1,15 +1,7 @@
-import { BubbleMenu, coreExtensions } from '@react-email/editor';
-import Heading from '@tiptap/extension-heading';
-import Link from '@tiptap/extension-link';
-import Underline from '@tiptap/extension-underline';
+import { BubbleMenu, StarterKit } from '@react-email/editor';
 import { EditorProvider } from '@tiptap/react';
 
-const extensions = [
-  ...coreExtensions,
-  Heading.configure({ levels: [1, 2, 3] }),
-  Underline,
-  Link.configure({ openOnClick: false }),
-];
+const extensions = [StarterKit];
 
 const content = {
   type: 'doc',

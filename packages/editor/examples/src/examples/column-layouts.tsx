@@ -1,7 +1,7 @@
 import {
   ColumnsColumn,
-  coreExtensions,
   FourColumns,
+  StarterKit,
   ThreeColumns,
   TwoColumns,
 } from '@react-email/editor';
@@ -9,7 +9,7 @@ import { EditorProvider, useCurrentEditor } from '@tiptap/react';
 import { Columns2, Columns3, Columns4 } from 'lucide-react';
 
 const columnExtensions = [
-  ...coreExtensions,
+  StarterKit,
   TwoColumns,
   ThreeColumns,
   FourColumns,

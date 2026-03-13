@@ -5,7 +5,7 @@ import { EmailNode } from '../core/serializer/email-node';
 import { getTextAlignment } from '../utils/get-text-alignment';
 import { inlineCssToJs } from '../utils/styles';
 
-interface SectionOptions {
+export interface SectionOptions {
   HTMLAttributes: Record<string, unknown>;
   [key: string]: unknown;
 }

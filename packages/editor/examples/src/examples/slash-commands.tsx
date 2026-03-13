@@ -1,10 +1,10 @@
 import {
   ColumnsColumn,
-  coreExtensions,
   createSlashCommand,
   defaultSlashCommands,
   FourColumns,
   type SlashCommandItem,
+  StarterKit,
   ThreeColumns,
   TwoColumns,
 } from '@react-email/editor';
@@ -35,7 +35,7 @@ const MySlashCommand = createSlashCommand({
 });
 
 const extensions = [
-  ...coreExtensions,
+  StarterKit,
   TwoColumns,
   ThreeColumns,
   FourColumns,
