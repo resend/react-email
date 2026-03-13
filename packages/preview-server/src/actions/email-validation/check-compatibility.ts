@@ -23,7 +23,10 @@ import { getCssUnit } from '../../utils/caniemail/get-css-unit';
 import { getElementAttributes } from '../../utils/caniemail/get-element-attributes';
 import { getElementNames } from '../../utils/caniemail/get-element-names';
 import { snakeToCamel } from '../../utils/snake-to-camel';
-import { supportEntries } from './caniemail-data';
+import { supportEntries as caniemailEntries } from './caniemail-data';
+import { supplementalSupportEntries } from './caniemail-supplemental-data';
+
+const supportEntries = [...caniemailEntries, ...supplementalSupportEntries];
 
 export interface CompatibilityCheckingResult {
   location: SourceLocation;
