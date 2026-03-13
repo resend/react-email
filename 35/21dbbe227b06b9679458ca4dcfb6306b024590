@@ -1,0 +1,27 @@
+packages/editor/src/core/serializer/email-mark.ts
+  d444e65c33bf057e 26-34
+packages/editor/src/core/serializer/email-node.ts
+  d444e65c33bf057e 23-31
+packages/editor/package.json
+  d444e65c33bf057e 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.11",
+  "base_commit_sha": "3521dbbe227b06b9679458ca4dcfb6306b024590",
+  "prompts": {
+    "d444e65c33bf057e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5b1b8995-7214-4575-ac37-a260f55a659b",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 19,
+      "total_deletions": 3,
+      "accepted_lines": 19,
+      "overriden_lines": 0
+    }
+  }
+}
