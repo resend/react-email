@@ -1,3 +1,5 @@
+import type { Extension } from '@tiptap/core';
+import type { PlaceholderOptions as TipTapPlaceholderOptions } from '@tiptap/extension-placeholder';
 import TipTapPlaceholder from '@tiptap/extension-placeholder';
 import type { Node } from '@tiptap/pm/model';
 
@@ -6,12 +8,13 @@ export interface PlaceholderOptions {
   includeChildren?: boolean;
 }
 
-export const Placeholder = TipTapPlaceholder.configure({
-  placeholder: ({ node }) => {
-    if (node.type.name === 'heading') {
-      return `Heading ${node.attrs.level}`;
-    }
-    return "Press '/' for commands";
-  },
-  includeChildren: true,
-});
+export const Placeholder: Extension<TipTapPlaceholderOptions, any> =
+  TipTapPlaceholder.configure({
+    placeholder: ({ node }) => {
+      if (node.type.name === 'heading') {
+        return `Heading ${node.attrs.level}`;
+      }
+      return "Press '/' for commands";
+    },
+    includeChildren: true,
+  });

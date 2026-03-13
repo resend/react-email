@@ -20,7 +20,15 @@ export interface EmailNodeConfig<Options, Storage>
 type ConfigParameter<Options, Storage> = Partial<
   Omit<EmailNodeConfig<Options, Storage>, 'renderToReactEmail'>
 > &
-  Pick<EmailNodeConfig<Options, Storage>, 'renderToReactEmail'>;
+  Pick<EmailNodeConfig<Options, Storage>, 'renderToReactEmail'> &
+  ThisType<{
+    name: string;
+    options: Options;
+    storage: Storage;
+    editor: Editor;
+    type: NodeType;
+    parent: (...args: any[]) => any;
+  }>;
 
 export class EmailNode<
   Options = Record<string, never>,

@@ -1,11 +1,15 @@
 import { Hr } from '@react-email/components';
 import { InputRule } from '@tiptap/core';
+import type { HorizontalRuleOptions } from '@tiptap/extension-horizontal-rule';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
+
+export type DividerOptions = HorizontalRuleOptions;
+
 import { NodeViewWrapper, ReactNodeViewRenderer } from '@tiptap/react';
 import { EmailNode } from '../core';
 import { inlineCssToJs } from '../utils/styles';
 
-export const Divider = EmailNode.from(
+export const Divider: EmailNode<HorizontalRuleOptions, any> = EmailNode.from(
   HorizontalRule.extend({
     addAttributes() {
       return {

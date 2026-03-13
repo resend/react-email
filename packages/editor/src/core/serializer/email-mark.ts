@@ -23,7 +23,15 @@ export interface EmailMarkConfig<Options, Storage>
 type ConfigParameter<Options, Storage> = Partial<
   Omit<EmailMarkConfig<Options, Storage>, 'renderToReactEmail'>
 > &
-  Pick<EmailMarkConfig<Options, Storage>, 'renderToReactEmail'>;
+  Pick<EmailMarkConfig<Options, Storage>, 'renderToReactEmail'> &
+  ThisType<{
+    name: string;
+    options: Options;
+    storage: Storage;
+    editor: Editor;
+    type: MarkType;
+    parent: (...args: any[]) => any;
+  }>;
 
 export class EmailMark<
   Options = Record<string, never>,

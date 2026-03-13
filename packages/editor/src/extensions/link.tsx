@@ -1,32 +1,39 @@
 import { Link as ReactEmailLink } from '@react-email/components';
+import type { LinkOptions as TipTapLinkOptions } from '@tiptap/extension-link';
 import TiptapLink from '@tiptap/extension-link';
+
+export type LinkOptions = TipTapLinkOptions;
+
 import { editorEventBus } from '../core';
 import { EmailMark } from '../core/serializer/email-mark';
 import { inlineCssToJs } from '../utils/styles';
 import { processStylesForUnlink } from './preserved-style';
 
-export const Link = EmailMark.from(TiptapLink, ({ children, mark, style }) => {
-  const linkMarkStyle = mark.attrs?.style
-    ? inlineCssToJs(mark.attrs.style)
-    : {};
+export const Link: EmailMark<TipTapLinkOptions, any> = EmailMark.from(
+  TiptapLink,
+  ({ children, mark, style }) => {
+    const linkMarkStyle = mark.attrs?.style
+      ? inlineCssToJs(mark.attrs.style)
+      : {};
 
-  return (
-    <ReactEmailLink
-      href={mark.attrs?.href ?? undefined}
-      rel={mark.attrs?.rel ?? undefined}
-      style={{
-        ...style,
-        ...linkMarkStyle,
-      }}
-      target={mark.attrs?.target ?? undefined}
-      {...(mark.attrs?.['ses:no-track']
-        ? { 'ses:no-track': mark.attrs['ses:no-track'] }
-        : {})}
-    >
-      {children}
-    </ReactEmailLink>
-  );
-}).extend({
+    return (
+      <ReactEmailLink
+        href={mark.attrs?.href ?? undefined}
+        rel={mark.attrs?.rel ?? undefined}
+        style={{
+          ...style,
+          ...linkMarkStyle,
+        }}
+        target={mark.attrs?.target ?? undefined}
+        {...(mark.attrs?.['ses:no-track']
+          ? { 'ses:no-track': mark.attrs['ses:no-track'] }
+          : {})}
+      >
+        {children}
+      </ReactEmailLink>
+    );
+  },
+).extend({
   parseHTML() {
     return [
       {
