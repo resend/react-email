@@ -1,5 +1,9 @@
 import { Heading as EmailHeading } from '@react-email/components';
+import type { HeadingOptions as TipTapHeadingOptions } from '@tiptap/extension-heading';
 import { Heading as TipTapHeading } from '@tiptap/extension-heading';
+
+export type HeadingOptions = TipTapHeadingOptions;
+
 import {
   NodeViewContent,
   NodeViewWrapper,
@@ -9,7 +13,7 @@ import { EmailNode } from '../core';
 import { getTextAlignment } from '../utils/get-text-alignment';
 import { inlineCssToJs } from '../utils/styles';
 
-export const Heading = EmailNode.from(
+export const Heading: EmailNode<TipTapHeadingOptions, any> = EmailNode.from(
   TipTapHeading.extend({
     addNodeView() {
       return ReactNodeViewRenderer(({ node }) => {

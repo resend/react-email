@@ -49,7 +49,7 @@ export function useEditor({
 
   const isCollaborative = hasCollaborationExtension(extensions);
 
-  const effectiveExtensions = React.useMemo(
+  const effectiveExtensions: Extensions = React.useMemo(
     () => [
       StarterKit,
       // Collaboration extensions handle their own undo/redo history,
