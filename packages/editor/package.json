@@ -1,6 +1,6 @@
 {
   "name": "@react-email/editor",
-  "version": "0.0.0-experimental.20",
+  "version": "0.0.0-experimental.21",
   "description": "",
   "sideEffects": [
     "**/*.css"
@@ -60,6 +60,7 @@
   "dependencies": {
     "@tiptap/core": "^3.17.1",
     "@tiptap/extension-blockquote": "^3.17.1",
+    "@tiptap/extension-bold": "^3.20.1",
     "@tiptap/extension-bullet-list": "^3.17.1",
     "@tiptap/extension-code": "^3.17.1",
     "@tiptap/extension-code-block": "^3.17.1",
@@ -74,6 +75,8 @@
     "@tiptap/extension-paragraph": "^3.17.1",
     "@tiptap/extension-placeholder": "^3.17.1",
     "@tiptap/extension-strike": "^3.17.1",
+    "@tiptap/extension-superscript": "^3.17.1",
+    "@tiptap/extension-underline": "^3.17.1",
     "@tiptap/extensions": "^3.17.1",
     "@tiptap/html": "^3.17.1",
     "@tiptap/pm": "^3.17.1",

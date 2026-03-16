@@ -57,6 +57,8 @@ import type { SupOptions } from './sup';
 import { Sup } from './sup';
 import type { TableCellOptions, TableOptions, TableRowOptions } from './table';
 import { Table, TableCell, TableHeader, TableRow } from './table';
+import type { UnderlineOptions } from './underline';
+import { Underline } from './underline';
 import type { UppercaseOptions } from './uppercase';
 import { Uppercase } from './uppercase';
 
@@ -89,6 +91,7 @@ export * from './strike';
 export * from './style-attribute';
 export * from './sup';
 export * from './table';
+export * from './underline';
 export * from './uppercase';
 
 const starterKitExtensions: Record<string, AnyExtension> = {
@@ -109,6 +112,7 @@ const starterKitExtensions: Record<string, AnyExtension> = {
   Divider,
   Link,
   Sup,
+  Underline,
   Uppercase,
   PreservedStyle,
   Table,
@@ -144,6 +148,7 @@ export type StarterKitOptions = {
   Divider: Partial<DividerOptions> | false;
   Link: Partial<LinkOptions> | false;
   Sup: Partial<SupOptions> | false;
+  Underline: Partial<UnderlineOptions> | false;
   Uppercase: Partial<UppercaseOptions> | false;
   PreservedStyle: Partial<Record<string, never>> | false;
   Table: Partial<TableOptions> | false;
@@ -211,6 +216,7 @@ export const StarterKit = Extension.create<StarterKitOptions>({
       Divider: {},
       Link: {},
       Sup: {},
+      Underline: {},
       Uppercase: {},
       PreservedStyle: {},
       Table: {},

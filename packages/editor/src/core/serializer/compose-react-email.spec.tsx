@@ -1,5 +1,5 @@
 import type { JSONContent } from '@tiptap/core';
-import { Editor, Node } from '@tiptap/core';
+import { Editor } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
 import { StarterKit } from '../../extensions';
 import { composeReactEmail } from './compose-react-email';
@@ -7,21 +7,6 @@ import { composeReactEmail } from './compose-react-email';
 vi.mock('@/actions/ai', () => ({
   uploadImageViaAI: vi.fn(),
 }));
-
-/**
- * Minimal GlobalContent node extension for testing.
- * This defines the 'globalContent' node type used in document structure.
- */
-const GlobalContent = Node.create({
-  name: 'globalContent',
-  group: 'block',
-  parseHTML() {
-    return [{ tag: 'div[data-type="globalContent"]' }];
-  },
-  renderHTML({ HTMLAttributes }) {
-    return ['div', { 'data-type': 'globalContent', ...HTMLAttributes }, 0];
-  },
-});
 
 /**
  * Minimal theme data structure for testing global content.
@@ -40,7 +25,7 @@ const basicTheme = {
   },
 };
 
-const extensions = [StarterKit, GlobalContent];
+const extensions = [StarterKit];
 let editor: Editor | null = null;
 
 afterEach(() => {
