@@ -3,7 +3,6 @@ import path from 'node:path';
 import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
 import { pretty, render } from '@react-email/components';
-import { renderToStaticMarkup } from 'react-dom/server';
 import { z } from 'zod';
 import { Layout } from '../../../components/_components/layout';
 import type { Category, Component } from '../../../components/structure';
@@ -71,14 +70,23 @@ const getComponentCodeFrom = (fileContent: string): string => {
 };
 
 /**
- * Renders a React element to a clean HTML snippet using renderToStaticMarkup,
- * which produces pure HTML with no DOCTYPE declaration and no React hydration
- * markers — nothing to strip, no regex sanitization needed.
+ * Renders a React element to a clean HTML snippet.
+ *
+ * Uses a dynamic import of renderToStaticMarkup (same pattern as
+ * @react-email/render) to avoid Next.js App Router's restriction on
+ * static react-dom/server imports in Server Components.
+ *
+ * If the element renders a full document (containing a <body> tag, e.g.
+ * when a component wraps itself in <Html>/<Body>), only the body content
+ * is returned so the snippet stays usable as an embeddable fragment.
  */
 const renderSnippetHtml = async (
   element: React.ReactElement,
 ): Promise<string> => {
-  return pretty(renderToStaticMarkup(element));
+  const { renderToStaticMarkup } = await import('react-dom/server');
+  const html = renderToStaticMarkup(element);
+  const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+  return pretty((bodyMatch?.[1] ?? html).trim());
 };
 
 export const getComponentElement = async (
