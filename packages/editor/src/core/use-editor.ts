@@ -24,6 +24,8 @@ function hasCollaborationExtension(exts: Extensions): boolean {
   return exts.some((ext) => COLLABORATION_EXTENSION_NAMES.has(ext.name));
 }
 
+type Merge<A, B> = A & Omit<B, keyof A>;
+
 export function useEditor({
   content,
   extensions = [],
@@ -33,18 +35,21 @@ export function useEditor({
   onReady,
   editable = true,
   ...rest
-}: {
-  content: Content;
-  extensions?: Extensions;
-  onUpdate?: (
-    editor: EditorClass,
-    transaction: { getMeta: (key: string) => unknown },
-  ) => void;
-  onPaste?: PasteHandler;
-  onUploadImage?: UploadImageHandler;
-  onReady?: (editor: EditorClass | null) => void;
-  editable?: boolean;
-} & UseEditorOptions) {
+}: Merge<
+  {
+    content: Content;
+    extensions?: Extensions;
+    onUpdate?: (
+      editor: EditorClass,
+      transaction: { getMeta: (key: string) => unknown },
+    ) => void;
+    onPaste?: PasteHandler;
+    onUploadImage?: UploadImageHandler;
+    onReady?: (editor: EditorClass | null) => void;
+    editable?: boolean;
+  },
+  UseEditorOptions
+>) {
   const [contentError, setContentError] = React.useState<Error | null>(null);
 
   const isCollaborative = hasCollaborationExtension(extensions);
