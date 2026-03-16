@@ -385,6 +385,19 @@
 .tiptap h2,
 .tiptap h3 {
   margin: 0.5em 0 0.25em;
+  font-weight: 700;
+}
+
+.tiptap h1 {
+  font-size: 2em;
+}
+
+.tiptap h2 {
+  font-size: 1.5em;
+}
+
+.tiptap h3 {
+  font-size: 1.17em;
 }
 
 .tiptap blockquote {

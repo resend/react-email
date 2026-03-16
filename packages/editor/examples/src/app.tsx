@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import '@react-email/editor/themes/default.css';
 import { BasicEditor } from './examples/basic-editor';
 import { ColumnLayouts } from './examples/column-layouts';
 import { CustomBubbleMenus } from './examples/custom-bubble-menus';

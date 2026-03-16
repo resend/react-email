@@ -1,1 +1,6 @@
 @import "tailwindcss";
+@import "@react-email/editor/themes/default.css";
+
+html, body {
+  background-color: var(--re-bg);
+}
