@@ -29,7 +29,6 @@ interface SuggestionState {
   active: boolean;
   query: string;
   items: SlashCommandItem[];
-  command: ((item: SlashCommandItem) => void) | null;
   clientRect: (() => DOMRect | null) | null;
 }
 
@@ -37,7 +36,6 @@ const INITIAL_STATE: SuggestionState = {
   active: false,
   query: '',
   items: [],
-  command: null,
   clientRect: null,
 };
 
@@ -79,9 +77,12 @@ export function SlashCommandRoot({
     allowProp ??
     (({ editor: e }: { editor: Editor }) => !e.isActive('codeBlock'));
 
-  const keyDownHandlerRef = useRef<(event: KeyboardEvent) => boolean>(
-    () => false,
-  );
+  const commandRef = useRef<((item: SlashCommandItem) => void) | null>(null);
+  const suggestionItemsRef = useRef<SlashCommandItem[]>([]);
+  const selectedIndexRef = useRef(0);
+
+  suggestionItemsRef.current = state.items;
+  selectedIndexRef.current = selectedIndex;
 
   const { refs, floatingStyles } = useFloating({
     open: state.active,
@@ -101,43 +102,12 @@ export function SlashCommandRoot({
     setSelectedIndex(0);
   }, [state.items]);
 
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent): boolean => {
-      if (state.items.length === 0) return false;
-
-      if (event.key === 'ArrowUp') {
-        setSelectedIndex(
-          (i) => (i + state.items.length - 1) % state.items.length,
-        );
-        return true;
-      }
-      if (event.key === 'ArrowDown') {
-        setSelectedIndex((i) => (i + 1) % state.items.length);
-        return true;
-      }
-      if (event.key === 'Enter') {
-        const item = state.items[selectedIndex];
-        if (item && state.command) {
-          state.command(item);
-        }
-        return true;
-      }
-      return false;
-    },
-    [state.items, state.command, selectedIndex],
-  );
-
-  keyDownHandlerRef.current = handleKeyDown;
-
-  const onSelect = useCallback(
-    (index: number) => {
-      const item = state.items[index];
-      if (item && state.command) {
-        state.command(item);
-      }
-    },
-    [state.items, state.command],
-  );
+  const onSelect = useCallback((index: number) => {
+    const item = suggestionItemsRef.current[index];
+    if (item && commandRef.current) {
+      commandRef.current(item);
+    }
+  }, []);
 
   useEffect(() => {
     if (!editor) return;
@@ -154,20 +124,20 @@ export function SlashCommandRoot({
         filterRef.current(itemsRef.current, query, e),
       render: () => ({
         onStart: (props) => {
+          commandRef.current = props.command;
           setState({
             active: true,
             query: props.query,
             items: props.items,
-            command: props.command,
             clientRect: props.clientRect ?? null,
           });
         },
         onUpdate: (props) => {
+          commandRef.current = props.command;
           setState({
             active: true,
             query: props.query,
             items: props.items,
-            command: props.command,
             clientRect: props.clientRect ?? null,
           });
         },
@@ -176,15 +146,40 @@ export function SlashCommandRoot({
             setState(INITIAL_STATE);
             return true;
           }
-          return keyDownHandlerRef.current(event);
+
+          const items = suggestionItemsRef.current;
+          if (items.length === 0) return false;
+
+          if (event.key === 'ArrowUp') {
+            setSelectedIndex((i) => (i + items.length - 1) % items.length);
+            return true;
+          }
+          if (event.key === 'ArrowDown') {
+            setSelectedIndex((i) => (i + 1) % items.length);
+            return true;
+          }
+          if (event.key === 'Enter') {
+            const item = items[selectedIndexRef.current];
+            if (item && commandRef.current) {
+              commandRef.current(item);
+            }
+            return true;
+          }
+          return false;
         },
         onExit: () => {
           setState(INITIAL_STATE);
+          requestAnimationFrame(() => {
+            commandRef.current = null;
+          });
         },
       }),
     });
 
-    editor.registerPlugin(plugin);
+    editor.registerPlugin(plugin, (newPlugin, plugins) => [
+      newPlugin,
+      ...plugins,
+    ]);
     return () => {
       editor.unregisterPlugin(pluginKey);
     };
