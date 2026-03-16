@@ -19,7 +19,16 @@ import {
 export type CodeVariant = 'tailwind' | 'inline-styles' | 'react' | 'html';
 
 export interface ImportedComponent extends Component {
-  code: Partial<Record<CodeVariant, string>> & { html: string };
+  code: Partial<Record<CodeVariant, string>> & {
+    html: string;
+    /**
+     * Present for snippet components (type !== 'document').
+     * Contains only the inner HTML fragment without the full document wrapper,
+     * suitable for copy-pasting into an existing email template.
+     * Document components use `html` which contains the full HTML email document.
+     */
+    htmlSnippet?: string;
+  };
 }
 
 const ComponentModule = z.object({
@@ -60,6 +69,17 @@ const getComponentCodeFrom = (fileContent: string): string => {
     .join('\n');
 };
 
+/**
+ * Extracts the inner HTML fragment from a full rendered HTML document,
+ * stripping the DOCTYPE declaration and React hydration markers.
+ */
+const extractHtmlSnippet = (fullHtml: string): string => {
+  return fullHtml
+    .replace(/<!DOCTYPE[^>]*>\s*/i, '')
+    .replace(/<!--\$\?-->|<!--\$!-->|<!--\$-->|<!--\/\$-->/g, '')
+    .trim();
+};
+
 export const getComponentElement = async (
   filepath: string,
 ): Promise<React.ReactElement> => {
@@ -80,20 +100,28 @@ export const getImportedComponent = async (
 ): Promise<ImportedComponent> => {
   const dirpath = getComponentPathFromSlug(component.slug);
   const variantFilenames = await fs.readdir(dirpath);
+  const isDocument = component.type === 'document';
 
   if (variantFilenames.length === 1 && variantFilenames[0] === 'index.tsx') {
     const filePath = path.join(dirpath, 'index.tsx');
-    const element = <Layout>{await getComponentElement(filePath)}</Layout>;
-    const html = await pretty(await render(element));
+    const componentElement = await getComponentElement(filePath);
+    const layoutElement = <Layout>{componentElement}</Layout>;
+    const html = await pretty(await render(layoutElement));
     const fileContent = await fs.readFile(filePath, 'utf8');
     const code = getComponentCodeFrom(fileContent);
-    return {
+
+    const result: ImportedComponent = {
       ...component,
-      code: {
-        react: code,
-        html,
-      },
+      code: { react: code, html },
     };
+
+    if (!isDocument) {
+      result.code.htmlSnippet = extractHtmlSnippet(
+        await pretty(await render(componentElement)),
+      );
+    }
+
+    return result;
   }
 
   const codePerVariant: ImportedComponent['code'] = { html: '' };
@@ -117,9 +145,14 @@ export const getImportedComponent = async (
     codePerVariant[variantKey] = getComponentCodeFrom(fileContents[index]);
   });
 
-  const element = <Layout>{elements[0]}</Layout>;
+  const layoutElement = <Layout>{elements[0]}</Layout>;
+  codePerVariant.html = await pretty(await render(layoutElement));
 
-  codePerVariant.html = await pretty(await render(element));
+  if (!isDocument) {
+    codePerVariant.htmlSnippet = extractHtmlSnippet(
+      await pretty(await render(elements[0])),
+    );
+  }
 
   return {
     ...component,
