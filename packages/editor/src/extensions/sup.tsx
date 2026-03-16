@@ -1,14 +1,8 @@
-import { mergeAttributes } from '@tiptap/core';
+import type { SuperscriptExtensionOptions as TipTapSuperscriptOptions } from '@tiptap/extension-superscript';
+import SuperscriptBase from '@tiptap/extension-superscript';
 import { EmailMark } from '../core/serializer/email-mark';
 
-export interface SupOptions {
-  /**
-   * HTML attributes to add to the sup element.
-   * @default {}
-   * @example { class: 'foo' }
-   */
-  HTMLAttributes: Record<string, unknown>;
-}
+export type SupOptions = TipTapSuperscriptOptions;
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -29,41 +23,12 @@ declare module '@tiptap/core' {
   }
 }
 
-/**
- * This extension allows you to mark text as superscript.
- * @see https://tiptap.dev/api/marks/superscript
- */
-export const Sup = EmailMark.create<SupOptions>({
+const SupBase = SuperscriptBase.extend({
   name: 'sup',
-
-  addOptions() {
-    return {
-      HTMLAttributes: {},
-    };
-  },
-
-  parseHTML() {
-    return [
-      {
-        tag: 'sup',
-      },
-    ];
-  },
-
-  renderHTML({ HTMLAttributes }) {
-    return [
-      'sup',
-      mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
-      0,
-    ];
-  },
-
-  renderToReactEmail({ children, style }) {
-    return <sup style={style}>{children}</sup>;
-  },
 
   addCommands() {
     return {
+      ...this.parent?.(),
       setSup:
         () =>
         ({ commands }) => {
@@ -82,3 +47,8 @@ export const Sup = EmailMark.create<SupOptions>({
     };
   },
 });
+
+export const Sup: EmailMark<TipTapSuperscriptOptions, any> = EmailMark.from(
+  SupBase,
+  ({ children, style }) => <sup style={style}>{children}</sup>,
+);
