@@ -71,12 +71,13 @@ const getComponentCodeFrom = (fileContent: string): string => {
 
 /**
  * Extracts the inner HTML fragment from a full rendered HTML document,
- * stripping the DOCTYPE declaration and React hydration markers.
+ * stripping the DOCTYPE declaration and all HTML comments (including
+ * React hydration markers such as <!--$--> and <!--/$-->).
  */
 const extractHtmlSnippet = (fullHtml: string): string => {
   return fullHtml
     .replace(/<!DOCTYPE[^>]*>\s*/i, '')
-    .replace(/<!--\$\?-->|<!--\$!-->|<!--\$-->|<!--\/\$-->/g, '')
+    .replace(/<!--[\s\S]*?-->/g, '')
     .trim();
 };
 
