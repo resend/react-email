@@ -1,11 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import type { CommandListProps, SlashCommandItem } from './types';
 import { updateScrollView } from './utils';
 
@@ -60,13 +53,13 @@ function CommandItem({ item, selected, onSelect }: CommandItemProps) {
   );
 }
 
-export function CommandList({ items, command, query, ref }: CommandListProps) {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+export function CommandList({
+  items,
+  query,
+  selectedIndex,
+  onSelect,
+}: CommandListProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setSelectedIndex(0);
-  }, [items]);
 
   useLayoutEffect(() => {
     const container = containerRef.current;
@@ -76,38 +69,6 @@ export function CommandList({ items, command, query, ref }: CommandListProps) {
       updateScrollView(container, selected);
     }
   }, [selectedIndex]);
-
-  const selectItem = useCallback(
-    (index: number) => {
-      const item = items[index];
-      if (item) command(item);
-    },
-    [items, command],
-  );
-
-  useImperativeHandle(
-    ref,
-    () => ({
-      onKeyDown: ({ event }: { event: KeyboardEvent }) => {
-        if (items.length === 0) return false;
-
-        if (event.key === 'ArrowUp') {
-          setSelectedIndex((i) => (i + items.length - 1) % items.length);
-          return true;
-        }
-        if (event.key === 'ArrowDown') {
-          setSelectedIndex((i) => (i + 1) % items.length);
-          return true;
-        }
-        if (event.key === 'Enter') {
-          selectItem(selectedIndex);
-          return true;
-        }
-        return false;
-      },
-    }),
-    [items.length, selectItem, selectedIndex],
-  );
 
   if (items.length === 0) {
     return (
@@ -126,7 +87,7 @@ export function CommandList({ items, command, query, ref }: CommandListProps) {
           <CommandItem
             item={item}
             key={item.title}
-            onSelect={() => selectItem(index)}
+            onSelect={() => onSelect(index)}
             selected={index === selectedIndex}
           />
         ))}
@@ -148,7 +109,7 @@ export function CommandList({ items, command, query, ref }: CommandListProps) {
               <CommandItem
                 item={item}
                 key={item.title}
-                onSelect={() => selectItem(currentIndex)}
+                onSelect={() => onSelect(currentIndex)}
                 selected={currentIndex === selectedIndex}
               />
             );

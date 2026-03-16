@@ -1,8 +1,8 @@
 import {
   ColumnsColumn,
-  createSlashCommand,
   defaultSlashCommands,
   FourColumns,
+  SlashCommand,
   type SlashCommandItem,
   StarterKit,
   ThreeColumns,
@@ -30,17 +30,12 @@ const CUSTOM_COMMAND: SlashCommandItem = {
   },
 };
 
-const MySlashCommand = createSlashCommand({
-  items: [...defaultSlashCommands, CUSTOM_COMMAND],
-});
-
 const extensions = [
   StarterKit,
   TwoColumns,
   ThreeColumns,
   FourColumns,
   ColumnsColumn,
-  MySlashCommand,
 ];
 
 const content = {
@@ -68,7 +63,11 @@ export function SlashCommands() {
         custom "Greeting" command.
       </p>
       <div className="border border-[var(--re-border)] rounded-xl p-4 min-h-[300px]">
-        <EditorProvider extensions={extensions} content={content} />
+        <EditorProvider extensions={extensions} content={content}>
+          <SlashCommand.Root
+            items={[...defaultSlashCommands, CUSTOM_COMMAND]}
+          />
+        </EditorProvider>
       </div>
     </div>
   );
