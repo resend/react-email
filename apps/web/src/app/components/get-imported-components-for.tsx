@@ -3,6 +3,7 @@ import path from 'node:path';
 import { parse } from '@babel/parser';
 import traverse from '@babel/traverse';
 import { pretty, render } from '@react-email/components';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { z } from 'zod';
 import { Layout } from '../../../components/_components/layout';
 import type { Category, Component } from '../../../components/structure';
@@ -70,15 +71,14 @@ const getComponentCodeFrom = (fileContent: string): string => {
 };
 
 /**
- * Extracts the inner HTML fragment from a full rendered HTML document,
- * stripping the DOCTYPE declaration and all HTML comments (including
- * React hydration markers such as <!--$--> and <!--/$-->).
+ * Renders a React element to a clean HTML snippet using renderToStaticMarkup,
+ * which produces pure HTML with no DOCTYPE declaration and no React hydration
+ * markers — nothing to strip, no regex sanitization needed.
  */
-const extractHtmlSnippet = (fullHtml: string): string => {
-  return fullHtml
-    .replace(/<!DOCTYPE[^>]*>\s*/i, '')
-    .replace(/<!--[\s\S]*?-->/g, '')
-    .trim();
+const renderSnippetHtml = async (
+  element: React.ReactElement,
+): Promise<string> => {
+  return pretty(renderToStaticMarkup(element));
 };
 
 export const getComponentElement = async (
@@ -117,9 +117,7 @@ export const getImportedComponent = async (
     };
 
     if (!isDocument) {
-      result.code.htmlSnippet = extractHtmlSnippet(
-        await pretty(await render(componentElement)),
-      );
+      result.code.htmlSnippet = await renderSnippetHtml(componentElement);
     }
 
     return result;
@@ -150,9 +148,7 @@ export const getImportedComponent = async (
   codePerVariant.html = await pretty(await render(layoutElement));
 
   if (!isDocument) {
-    codePerVariant.htmlSnippet = extractHtmlSnippet(
-      await pretty(await render(elements[0])),
-    );
+    codePerVariant.htmlSnippet = await renderSnippetHtml(elements[0]);
   }
 
   return {
