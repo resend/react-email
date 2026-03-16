@@ -691,10 +691,10 @@ importers:
         specifier: ^3.17.1
         version: 3.20.1(@tiptap/core@3.20.1(@tiptap/pm@3.20.1))
       '@tiptap/extension-superscript':
-        specifier: ^3.20.1
+        specifier: ^3.17.1
         version: 3.20.1(@tiptap/core@3.20.1(@tiptap/pm@3.20.1))(@tiptap/pm@3.20.1)
       '@tiptap/extension-underline':
-        specifier: ^3.20.1
+        specifier: ^3.17.1
         version: 3.20.1(@tiptap/core@3.20.1(@tiptap/pm@3.20.1))
       '@tiptap/extensions':
         specifier: ^3.17.1
