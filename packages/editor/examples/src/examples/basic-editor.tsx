@@ -1,4 +1,5 @@
-import { BubbleMenu, StarterKit } from '@react-email/editor';
+import { StarterKit } from '@react-email/editor/extensions';
+import { BubbleMenu } from '@react-email/editor/ui';
 import { EditorProvider } from '@tiptap/react';
 
 const extensions = [StarterKit];

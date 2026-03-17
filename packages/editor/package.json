@@ -58,9 +58,9 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsdown src/core/index.ts src/extensions/index.ts src/ui/index.ts src/utils/index.ts --format esm,cjs --dts --external react --external react-dom && pnpm run build:css",
+    "build": "tsdown && pnpm run build:css",
     "build:css": "tsx scripts/copy-css.ts",
-    "build:watch": "tsdown src/core/index.ts src/extensions/index.ts src/ui/index.ts src/utils/index.ts --format esm,cjs --dts --external react --external react-dom --watch",
+    "build:watch": "tsdown --watch",
     "clean": "rm -rf dist",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",

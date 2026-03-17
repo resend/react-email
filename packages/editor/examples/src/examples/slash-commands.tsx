@@ -1,13 +1,15 @@
 import {
   ColumnsColumn,
-  defaultSlashCommands,
   FourColumns,
-  SlashCommand,
-  type SlashCommandItem,
   StarterKit,
   ThreeColumns,
   TwoColumns,
-} from '@react-email/editor';
+} from '@react-email/editor/extensions';
+import {
+  defaultSlashCommands,
+  SlashCommand,
+  type SlashCommandItem,
+} from '@react-email/editor/ui';
 import { EditorProvider } from '@tiptap/react';
 import { Star } from 'lucide-react';
 
