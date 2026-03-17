@@ -20,6 +20,7 @@ describe('Section Node', () => {
             },
           }}
           style={sectionStyle}
+          extension={Section}
         >
           Section content
         </Component>,

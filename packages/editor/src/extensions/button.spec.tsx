@@ -20,6 +20,7 @@ describe('EditorButton Node', () => {
             },
           }}
           style={buttonStyle}
+          extension={Button}
         >
           Click me
         </Component>,

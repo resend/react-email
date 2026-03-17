@@ -18,6 +18,7 @@ describe('Body Node', () => {
               class: 'body-class',
             },
           }}
+          extension={Body}
           style={bodyStyle}
         >
           Body content

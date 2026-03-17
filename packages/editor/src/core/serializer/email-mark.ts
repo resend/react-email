@@ -8,16 +8,18 @@ import {
 
 export type SerializedMark = NonNullable<JSONContent['marks']>[number];
 
-export type RendererComponent = (props: {
+export type MarkRendererComponent = (props: {
   mark: SerializedMark;
   node: JSONContent;
   style: React.CSSProperties;
   children?: React.ReactNode;
+
+  extension: EmailMark<any, any>;
 }) => React.ReactNode;
 
 export interface EmailMarkConfig<Options, Storage>
   extends MarkConfig<Options, Storage> {
-  renderToReactEmail: RendererComponent;
+  renderToReactEmail: MarkRendererComponent;
 }
 
 type ConfigParameter<Options, Storage> = Partial<
@@ -57,7 +59,7 @@ export class EmailMark<
 
   static from<O, S>(
     mark: Mark<O, S>,
-    renderToReactEmail: RendererComponent,
+    renderToReactEmail: MarkRendererComponent,
   ): EmailMark<O, S> {
     const customMark = EmailMark.create({} as ConfigParameter<O, S>);
     // This only makes a shallow copy, so if there's nested objects here mutating things will be dangerous

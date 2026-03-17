@@ -2,11 +2,7 @@ import { pretty, render, toPlainText } from '@react-email/components';
 import type { Editor, JSONContent } from '@tiptap/core';
 import { inlineCssToJs } from '../../utils/styles';
 import { DefaultBaseTemplate } from './default-base-template';
-import {
-  EmailMark,
-  type RendererComponent as EmailMarkRenderer,
-  type SerializedMark,
-} from './email-mark';
+import { EmailMark } from './email-mark';
 import { EmailNode } from './email-node';
 import type { SerializerPlugin } from './serializer-plugin';
 
@@ -39,52 +35,9 @@ export const composeReactEmail = async ({
     .filter((p) => Boolean(p))
     .at(-1);
 
-  const emailNodeComponentRegistry = Object.fromEntries(
-    extensions
-      .filter((ext): ext is EmailNode => ext instanceof EmailNode)
-      .map((extension) => [
-        extension.name,
-        extension.config.renderToReactEmail,
-      ]),
+  const typeToExtensionMap = Object.fromEntries(
+    extensions.map((extension) => [extension.name, extension]),
   );
-
-  const emailMarkComponentRegistry = Object.fromEntries(
-    extensions
-      .filter((ext): ext is EmailMark => ext instanceof EmailMark)
-      .map((extension) => [
-        extension.name,
-        extension.config.renderToReactEmail,
-      ]),
-  ) as Record<string, EmailMarkRenderer>;
-
-  function renderMark(
-    mark: SerializedMark,
-    node: JSONContent,
-    children: React.ReactNode,
-    depth: number,
-  ) {
-    const markStyle =
-      serializerPlugin?.getNodeStyles(
-        {
-          type: mark.type,
-          attrs: mark.attrs ?? {},
-        },
-        depth,
-        editor,
-      ) ?? {};
-
-    const markRenderer = emailMarkComponentRegistry[mark.type];
-    if (markRenderer) {
-      return markRenderer({
-        mark,
-        node,
-        style: markStyle,
-        children,
-      });
-    }
-
-    return children;
-  }
 
   function parseContent(content: JSONContent[] | undefined, depth = 0) {
     if (!content) {
@@ -96,40 +49,68 @@ export const composeReactEmail = async ({
 
       const inlineStyles = inlineCssToJs(node.attrs?.style);
 
-      if (node.type && emailNodeComponentRegistry[node.type]) {
-        const Component = emailNodeComponentRegistry[node.type];
-        const childDepth = NODES_WITH_INCREMENTED_CHILD_DEPTH.has(node.type)
-          ? depth + 1
-          : depth;
-
-        let children: React.ReactNode = node.text
-          ? node.text
-          : parseContent(node.content, childDepth);
-        if (node.marks) {
-          for (const mark of node.marks) {
-            children = renderMark(mark, node, children, depth);
-          }
-        }
-
-        return (
-          <Component
-            key={index}
-            node={
-              node.type === 'table' && inlineStyles.width && !node.attrs?.width
-                ? {
-                    ...node,
-                    attrs: { ...node.attrs, width: inlineStyles.width },
-                  }
-                : node
-            }
-            style={style}
-          >
-            {children}
-          </Component>
-        );
+      if (!node.type) {
+        return null;
       }
 
-      return null;
+      const emailNode = typeToExtensionMap[node.type];
+      if (!emailNode || !(emailNode instanceof EmailNode)) {
+        return null;
+      }
+
+      const NodeComponent = emailNode.config.renderToReactEmail;
+      const childDepth = NODES_WITH_INCREMENTED_CHILD_DEPTH.has(node.type)
+        ? depth + 1
+        : depth;
+
+      let children: React.ReactNode = node.text
+        ? node.text
+        : parseContent(node.content, childDepth);
+      if (node.marks) {
+        for (const mark of node.marks) {
+          const emailMark = typeToExtensionMap[mark.type];
+          if (emailMark instanceof EmailMark) {
+            const MarkComponent = emailMark.config.renderToReactEmail;
+            const markStyle =
+              serializerPlugin?.getNodeStyles(
+                {
+                  type: mark.type,
+                  attrs: mark.attrs ?? {},
+                },
+                depth,
+                editor,
+              ) ?? {};
+            children = (
+              <MarkComponent
+                mark={mark}
+                node={node}
+                style={markStyle}
+                extension={emailMark}
+              >
+                {children}
+              </MarkComponent>
+            );
+          }
+        }
+      }
+
+      return (
+        <NodeComponent
+          key={index}
+          node={
+            node.type === 'table' && inlineStyles.width && !node.attrs?.width
+              ? {
+                  ...node,
+                  attrs: { ...node.attrs, width: inlineStyles.width },
+                }
+              : node
+          }
+          style={style}
+          extension={emailNode}
+        >
+          {children}
+        </NodeComponent>
+      );
     });
   }
 

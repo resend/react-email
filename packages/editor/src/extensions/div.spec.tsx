@@ -18,6 +18,7 @@ describe('Div Node', () => {
             },
           }}
           style={divStyle}
+          extension={Div}
         >
           Div content
         </Component>,

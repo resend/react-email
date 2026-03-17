@@ -19,6 +19,7 @@ describe('CodeBlockPrism Node', () => {
             content: [{ type: 'text', text: 'const x = 1;' }],
           }}
           style={codeBlockStyle}
+          extension={CodeBlockPrism}
         />,
         { pretty: true },
       ),
@@ -46,6 +47,7 @@ describe('CodeBlockPrism Node', () => {
           ],
         }}
         style={codeBlockStyle}
+        extension={CodeBlockPrism}
       />,
       { pretty: true },
     );
