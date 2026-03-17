@@ -67,7 +67,7 @@ function Toolbar() {
 export function ColumnLayouts() {
   return (
     <div>
-      <p className="text-sm text-[var(--re-text-muted)] mb-4">
+      <p className="text-sm text-(--re-text-muted) mb-4">
         Insert multi-column layouts using the toolbar buttons.
       </p>
       <EditorProvider
@@ -96,7 +96,7 @@ function ToolbarButton({
     <button
       type="button"
       onClick={onClick}
-      className="flex items-center gap-1.5 px-3 py-1.5 border border-[var(--re-border)] rounded-lg bg-[var(--re-bg)] text-[var(--re-text)] cursor-pointer text-[0.8125rem] hover:bg-[var(--re-hover)]"
+      className="flex items-center gap-1.5 px-3 py-1.5 border border-(--re-border) rounded-lg bg-(--re-bg) text-(--re-text) cursor-pointer text-[0.8125rem] hover:bg-(--re-hover)"
     >
       {icon}
       {label}
