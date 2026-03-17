@@ -102,7 +102,9 @@ export const composeReactEmail = async ({
           ? depth + 1
           : depth;
 
-        let children: React.ReactNode = parseContent(node.content, childDepth);
+        let children: React.ReactNode = node.text
+          ? node.text
+          : parseContent(node.content, childDepth);
         if (node.marks) {
           for (const mark of node.marks) {
             children = renderMark(mark, node, children, depth);
