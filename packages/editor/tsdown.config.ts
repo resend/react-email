@@ -1,12 +1,12 @@
 import { defineConfig } from 'tsdown';
 
 export default defineConfig({
-  entry: [
-    'src/core/index.ts',
-    'src/extensions/index.ts',
-    'src/ui/index.ts',
-    'src/utils/index.ts',
-  ],
+  entry: {
+    'core/index': 'src/core/index.ts',
+    'extensions/index': 'src/extensions/index.ts',
+    'ui/index': 'src/ui/index.ts',
+    'utils/index': 'src/utils/index.ts',
+  },
   format: ['esm', 'cjs'],
   dts: true,
   external: ['react', 'react-dom'],
