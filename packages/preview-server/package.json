@@ -1,6 +1,6 @@
 {
   "name": "@react-email/preview-server",
-  "version": "5.2.9",
+  "version": "5.2.10",
   "description": "A live preview of your emails right in your browser.",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --disable-warning=ExperimentalWarning\" tsx ./scripts/build.mts",
@@ -54,7 +54,7 @@
     "@react-email/img": "workspace:*",
     "@react-email/link": "workspace:*",
     "@react-email/preview": "workspace:*",
-    "@react-email/tailwind": "workspace:2.0.5",
+    "@react-email/tailwind": "workspace:2.0.6",
     "@react-email/text": "workspace:*",
     "@tailwindcss/postcss": "catalog:",
     "@types/babel__core": "catalog:",

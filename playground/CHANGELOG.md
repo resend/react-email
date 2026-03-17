@@ -1,5 +1,12 @@
 # playground
 
+## 0.0.18
+
+### Patch Changes
+
+- Updated dependencies [444d9df]
+  - @react-email/tailwind@2.0.6
+
 ## 0.0.17
 
 ### Patch Changes
