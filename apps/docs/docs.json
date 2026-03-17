@@ -124,27 +124,23 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Components",
+        "href": "https://react.email/components",
+        "icon": "grid-2-plus"
+      },
+      {
+        "tab": "Templates",
+        "href": "https://demo.react.email/preview/notifications/vercel-invite-user",
+        "icon": "arrow-pointer"
+      },
+      {
+        "tab": "Editor",
+        "href": "#",
+        "icon": "pencil"
       }
-    ],
-    "global": {
-      "tabs": [
-        {
-          "tab": "Components",
-          "href": "https://react.email/components",
-          "icon": "grid-2-plus"
-        },
-        {
-          "tab": "Templates",
-          "href": "https://demo.react.email/preview/notifications/vercel-invite-user",
-          "icon": "arrow-pointer"
-        },
-        {
-          "tab": "GitHub",
-          "href": "https://github.com/resend/react-email",
-          "icon": "github"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
