@@ -26,6 +26,12 @@ import { ClassAttribute } from './class-attribute';
 import { Code } from './code';
 import type { CodeBlockPrismOptions } from './code-block';
 import { CodeBlockPrism } from './code-block';
+import {
+  ColumnsColumn,
+  FourColumns,
+  ThreeColumns,
+  TwoColumns,
+} from './columns';
 import type { DivOptions } from './div';
 import { Div } from './div';
 import type { DividerOptions } from './divider';
@@ -97,6 +103,10 @@ export * from './uppercase';
 const starterKitExtensions: Record<string, AnyExtension> = {
   CodeBlockPrism,
   Code,
+  TwoColumns,
+  ThreeColumns,
+  FourColumns,
+  ColumnsColumn,
   Paragraph,
   BulletList,
   OrderedList,
@@ -133,6 +143,10 @@ const starterKitExtensions: Record<string, AnyExtension> = {
 export type StarterKitOptions = {
   CodeBlockPrism: Partial<CodeBlockPrismOptions> | false;
   Code: Partial<CodeOptions> | false;
+  TwoColumns: Partial<Record<string, never>> | false;
+  ThreeColumns: Partial<Record<string, never>> | false;
+  FourColumns: Partial<Record<string, never>> | false;
+  ColumnsColumn: Partial<Record<string, never>> | false;
   Paragraph: Partial<ParagraphOptions> | false;
   BulletList: Partial<BulletListOptions> | false;
   OrderedList: Partial<OrderedListOptions> | false;
@@ -185,6 +199,10 @@ export const StarterKit = Extension.create<StarterKitOptions>({
           spellcheck: 'false',
         },
       },
+      TwoColumns: {},
+      ThreeColumns: {},
+      FourColumns: {},
+      ColumnsColumn: {},
       Paragraph: {
         HTMLAttributes: {
           class: 'node-paragraph',
