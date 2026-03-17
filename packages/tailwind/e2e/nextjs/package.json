@@ -11,7 +11,7 @@
   "dependencies": {
     "@react-email/components": "0.0.36",
     "@react-email/tailwind": "file:.yalc/@react-email/tailwind",
-    "next": "^15",
+    "next": "^16.0.0",
     "react": "^19",
     "react-dom": "^19"
   },
