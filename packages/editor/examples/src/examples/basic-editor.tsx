@@ -26,11 +26,11 @@ const content = {
 export function BasicEditor() {
   return (
     <div>
-      <p className="text-sm text-[var(--re-text-muted)] mb-4">
+      <p className="text-sm text-(--re-text-muted) mb-4">
         Minimal setup with coreExtensions and all default bubble menus. Select
         text to see the bubble menu.
       </p>
-      <div className="border border-[var(--re-border)] rounded-xl p-4 min-h-[300px]">
+      <div className="border border-(--re-border) rounded-xl p-4 min-h-75">
         <EditorProvider extensions={extensions} content={content}>
           <BubbleMenu.Default />
         </EditorProvider>

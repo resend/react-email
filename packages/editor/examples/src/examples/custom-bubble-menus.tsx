@@ -23,11 +23,11 @@ const content = {
 export function CustomBubbleMenus() {
   return (
     <div>
-      <p className="text-sm text-[var(--re-text-muted)] mb-4">
+      <p className="text-sm text-(--re-text-muted) mb-4">
         Building menus from primitives instead of using .Default. Only bold,
         italic, underline, and alignment controls are shown.
       </p>
-      <div className="border border-[var(--re-border)] rounded-xl p-4 min-h-[300px]">
+      <div className="border border-(--re-border) rounded-xl p-4 min-h-75">
         <EditorProvider extensions={extensions} content={content}>
           <BubbleMenu.Root>
             <BubbleMenu.ItemGroup>

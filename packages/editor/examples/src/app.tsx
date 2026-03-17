@@ -20,9 +20,9 @@ export function App() {
   const ActiveExample = examples.find((e) => e.id === active)!.component;
 
   return (
-    <div className="max-w-[900px] mx-auto p-8 font-sans text-[var(--re-text)]">
+    <div className="max-w-225 mx-auto p-8 font-sans text-(--re-text)">
       <h1 className="text-2xl mb-6">@react-email/editor examples</h1>
-      <nav className="flex gap-1 mb-8 border-b border-[var(--re-border)]">
+      <nav className="flex gap-1 mb-8 border-b border-(--re-border)">
         {examples.map((example) => (
           <button
             key={example.id}
@@ -30,8 +30,8 @@ export function App() {
             type="button"
             className={`px-4 py-2 border-0 bg-transparent cursor-pointer text-sm ${
               active === example.id
-                ? 'font-semibold text-[var(--re-text)] border-b-2 border-b-[var(--re-text)]'
-                : 'font-normal text-[var(--re-text-muted)] border-b-2 border-b-transparent'
+                ? 'font-semibold text-(--re-text) border-b-2 border-b-(--re-text)'
+                : 'font-normal text-(--re-text-muted) border-b-2 border-b-transparent'
             }`}
           >
             {example.label}
