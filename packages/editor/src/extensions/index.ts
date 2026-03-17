@@ -63,6 +63,7 @@ import type { SupOptions } from './sup';
 import { Sup } from './sup';
 import type { TableCellOptions, TableOptions, TableRowOptions } from './table';
 import { Table, TableCell, TableHeader, TableRow } from './table';
+import { Text } from './text';
 import type { UnderlineOptions } from './underline';
 import { Underline } from './underline';
 import type { UppercaseOptions } from './uppercase';
@@ -97,6 +98,7 @@ export * from './strike';
 export * from './style-attribute';
 export * from './sup';
 export * from './table';
+export * from './text';
 export * from './underline';
 export * from './uppercase';
 
@@ -134,6 +136,7 @@ const starterKitExtensions: Record<string, AnyExtension> = {
   Button,
   Section,
   GlobalContent,
+  Text,
   AlignmentAttribute,
   StyleAttribute,
   ClassAttribute,
@@ -171,6 +174,7 @@ export type StarterKitOptions = {
   TableHeader: Partial<Record<string, any>> | false;
   Body: Partial<BodyOptions> | false;
   Div: Partial<DivOptions> | false;
+  Text: Record<string, never> | false;
   Button: Partial<EditorButtonOptions> | false;
   Section: Partial<SectionOptions> | false;
   GlobalContent: Partial<GlobalContentOptions> | false;
@@ -292,6 +296,7 @@ export const StarterKit = Extension.create<StarterKitOptions>({
           'link',
         ],
       },
+      Text: {},
       ClassAttribute: {
         types: [
           'heading',
@@ -348,6 +353,7 @@ export const StarterKit = Extension.create<StarterKitOptions>({
           hardBreak: false,
           gapcursor: false,
           codeBlock: false,
+          text: false,
           horizontalRule: false,
           dropcursor: {
             color: '#61a8f8',

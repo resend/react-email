@@ -10,32 +10,10 @@ import {
 import { EmailNode } from './email-node';
 import type { SerializerPlugin } from './serializer-plugin';
 
-const MARK_ORDER: Record<string, number> = {
-  preservedStyle: 0,
-  italic: 1,
-  strike: 2,
-  underline: 3,
-  link: 4,
-  bold: 5,
-  code: 6,
-};
-
 const NODES_WITH_INCREMENTED_CHILD_DEPTH = new Set([
   'bulletList',
   'orderedList',
 ]);
-
-function getOrderedMarks(marks: SerializedMark[] | undefined) {
-  if (!marks) {
-    return [];
-  }
-
-  return [...marks].sort(
-    (a, b) =>
-      (MARK_ORDER[a.type] ?? Number.MAX_SAFE_INTEGER) -
-      (MARK_ORDER[b.type] ?? Number.MAX_SAFE_INTEGER),
-  );
-}
 
 interface ComposeReactEmailResult {
   html: string;
@@ -124,6 +102,15 @@ export const composeReactEmail = async ({
           ? depth + 1
           : depth;
 
+        let children: React.ReactNode = node.text
+          ? node.text
+          : parseContent(node.content, childDepth);
+        if (node.marks) {
+          for (const mark of node.marks) {
+            children = renderMark(mark, node, children, depth);
+          }
+        }
+
         return (
           <Component
             key={index}
@@ -137,34 +124,12 @@ export const composeReactEmail = async ({
             }
             style={style}
           >
-            {parseContent(node.content, childDepth)}
+            {children}
           </Component>
         );
       }
 
-      switch (node.type) {
-        case 'text': {
-          let wrappedText: React.ReactNode = node.text;
-
-          const textMarks = getOrderedMarks(node.marks);
-          textMarks.forEach((mark: SerializedMark) => {
-            wrappedText = renderMark(mark, node, wrappedText, depth);
-          });
-
-          const textAttributes = node.marks?.find(
-            (mark: SerializedMark) => mark.type === 'textStyle',
-          )?.attrs;
-
-          return (
-            <span key={index} style={{ ...textAttributes, ...style }}>
-              {wrappedText}
-            </span>
-          );
-        }
-
-        default:
-          return null;
-      }
+      return null;
     });
   }
 

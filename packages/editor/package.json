@@ -98,6 +98,7 @@
     "@tiptap/extension-horizontal-rule": "^3.17.1",
     "@tiptap/extension-italic": "^3.17.1",
     "@tiptap/extension-link": "^3.17.1",
+    "@tiptap/extension-text": "^3.17.1",
     "@tiptap/extension-list-item": "^3.17.1",
     "@tiptap/extension-mention": "^3.17.1",
     "@tiptap/extension-ordered-list": "^3.17.1",
