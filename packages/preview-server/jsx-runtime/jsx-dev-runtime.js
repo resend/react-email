@@ -6,7 +6,7 @@ import ReactJSXDevRuntime from 'react/jsx-dev-runtime';
 export function jsxDEV(type, props, key, isStaticChildren, source, self) {
   const newProps = { ...props };
 
-  if (source && shouldIncludeSourceReference) {
+  if (source && shouldIncludeSourceReference && type !== Fragment) {
     newProps['data-source-file'] = source.fileName;
     newProps['data-source-line'] = source.lineNumber;
   }
