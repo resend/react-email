@@ -21,6 +21,7 @@ describe('Table Nodes', () => {
             },
           }}
           style={tableStyle}
+          extension={Table}
         >
           Table content
         </Component>,
@@ -40,6 +41,7 @@ describe('Table Nodes', () => {
             attrs: {},
           }}
           style={tableRowStyle}
+          extension={TableRow}
         >
           Row content
         </Component>,
@@ -61,6 +63,7 @@ describe('Table Nodes', () => {
             },
           }}
           style={tableCellStyle}
+          extension={TableCell}
         >
           Cell content
         </Component>,

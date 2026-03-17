@@ -14,9 +14,14 @@ describe('Divider Node', () => {
       },
     };
     expect(
-      await render(<Component node={node} style={{ ...DEFAULT_STYLES.hr }} />, {
-        pretty: true,
-      }),
+      await render(
+        <Component
+          node={node}
+          style={{ ...DEFAULT_STYLES.hr }}
+          extension={Divider}
+        />,
+        { pretty: true },
+      ),
     ).toMatchSnapshot();
   });
 });

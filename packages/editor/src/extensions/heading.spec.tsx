@@ -21,6 +21,7 @@ describe('Heading Node', () => {
         <Component
           node={node}
           style={{ ...DEFAULT_STYLES.reset, ...DEFAULT_STYLES.h1 }}
+          extension={Heading}
         />,
         { pretty: true },
       ),

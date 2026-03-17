@@ -16,16 +16,22 @@ describe('Column Variants', () => {
 
     expect(
       await render(
-        <Parent node={{ type: 'twoColumns', attrs: {} }} style={columnsStyle}>
+        <Parent
+          node={{ type: 'twoColumns', attrs: {} }}
+          style={columnsStyle}
+          extension={TwoColumns}
+        >
           <Child
             node={{ type: 'columnsColumn', attrs: {} }}
             style={columnsStyle}
+            extension={ColumnsColumn}
           >
             Column A
           </Child>
           <Child
             node={{ type: 'columnsColumn', attrs: {} }}
             style={columnsStyle}
+            extension={ColumnsColumn}
           >
             Column B
           </Child>
@@ -41,22 +47,29 @@ describe('Column Variants', () => {
 
     expect(
       await render(
-        <Parent node={{ type: 'threeColumns', attrs: {} }} style={columnsStyle}>
+        <Parent
+          node={{ type: 'threeColumns', attrs: {} }}
+          style={columnsStyle}
+          extension={ThreeColumns}
+        >
           <Child
             node={{ type: 'columnsColumn', attrs: {} }}
             style={columnsStyle}
+            extension={ColumnsColumn}
           >
             Column A
           </Child>
           <Child
             node={{ type: 'columnsColumn', attrs: {} }}
             style={columnsStyle}
+            extension={ColumnsColumn}
           >
             Column B
           </Child>
           <Child
             node={{ type: 'columnsColumn', attrs: {} }}
             style={columnsStyle}
+            extension={ColumnsColumn}
           >
             Column C
           </Child>
@@ -72,28 +85,36 @@ describe('Column Variants', () => {
 
     expect(
       await render(
-        <Parent node={{ type: 'fourColumns', attrs: {} }} style={columnsStyle}>
+        <Parent
+          node={{ type: 'fourColumns', attrs: {} }}
+          style={columnsStyle}
+          extension={FourColumns}
+        >
           <Child
             node={{ type: 'columnsColumn', attrs: {} }}
             style={columnsStyle}
+            extension={ColumnsColumn}
           >
             A
           </Child>
           <Child
             node={{ type: 'columnsColumn', attrs: {} }}
             style={columnsStyle}
+            extension={ColumnsColumn}
           >
             B
           </Child>
           <Child
             node={{ type: 'columnsColumn', attrs: {} }}
             style={columnsStyle}
+            extension={ColumnsColumn}
           >
             C
           </Child>
           <Child
             node={{ type: 'columnsColumn', attrs: {} }}
             style={columnsStyle}
+            extension={ColumnsColumn}
           >
             D
           </Child>
@@ -111,6 +132,7 @@ describe('Column Variants', () => {
         <Component
           node={{ type: 'columnsColumn', attrs: { width: '200px' } }}
           style={columnsStyle}
+          extension={ColumnsColumn}
         >
           Column content
         </Component>,
@@ -130,6 +152,7 @@ describe('Column Variants', () => {
             attrs: { style: 'padding: 10px;', class: 'custom-class' },
           }}
           style={columnsStyle}
+          extension={TwoColumns}
         >
           Content
         </Component>,
@@ -149,6 +172,7 @@ describe('Column Variants', () => {
             attrs: { style: 'background-color: red;' },
           }}
           style={columnsStyle}
+          extension={ColumnsColumn}
         >
           Content
         </Component>,
