@@ -117,9 +117,9 @@ export const composeReactEmail = async ({
             node={
               node.type === 'table' && inlineStyles.width && !node.attrs?.width
                 ? {
-                  ...node,
-                  attrs: { ...node.attrs, width: inlineStyles.width },
-                }
+                    ...node,
+                    attrs: { ...node.attrs, width: inlineStyles.width },
+                  }
                 : node
             }
             style={style}
