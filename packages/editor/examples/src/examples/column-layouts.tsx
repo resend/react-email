@@ -4,7 +4,7 @@ import {
   StarterKit,
   ThreeColumns,
   TwoColumns,
-} from '@react-email/editor';
+} from '@react-email/editor/extensions';
 import { EditorProvider, useCurrentEditor } from '@tiptap/react';
 import { Columns2, Columns3, Columns4 } from 'lucide-react';
 

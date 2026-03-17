@@ -1,4 +1,5 @@
-import { BubbleMenu, StarterKit } from '@react-email/editor';
+import { StarterKit } from '@react-email/editor/extensions';
+import { BubbleMenu } from '@react-email/editor/ui';
 import Underline from '@tiptap/extension-underline';
 import { EditorProvider } from '@tiptap/react';
 

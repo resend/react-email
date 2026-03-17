@@ -1,25 +1,52 @@
 {
   "name": "@react-email/editor",
-  "version": "0.0.0-experimental.23",
+  "version": "0.0.0-experimental.24",
   "description": "",
   "sideEffects": [
     "**/*.css"
   ],
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
   "files": [
     "dist/**"
   ],
   "exports": {
-    ".": {
+    "./core": {
       "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
+        "types": "./dist/core/index.d.mts",
+        "default": "./dist/core/index.mjs"
       },
       "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
+        "types": "./dist/core/index.d.cts",
+        "default": "./dist/core/index.cjs"
+      }
+    },
+    "./extensions": {
+      "import": {
+        "types": "./dist/extensions/index.d.mts",
+        "default": "./dist/extensions/index.mjs"
+      },
+      "require": {
+        "types": "./dist/extensions/index.d.cts",
+        "default": "./dist/extensions/index.cjs"
+      }
+    },
+    "./ui": {
+      "import": {
+        "types": "./dist/ui/index.d.mts",
+        "default": "./dist/ui/index.mjs"
+      },
+      "require": {
+        "types": "./dist/ui/index.d.cts",
+        "default": "./dist/ui/index.cjs"
+      }
+    },
+    "./utils": {
+      "import": {
+        "types": "./dist/utils/index.d.mts",
+        "default": "./dist/utils/index.mjs"
+      },
+      "require": {
+        "types": "./dist/utils/index.d.cts",
+        "default": "./dist/utils/index.cjs"
       }
     },
     "./styles/bubble-menu.css": "./dist/ui/bubble-menu/bubble-menu.css",
@@ -31,9 +58,9 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsdown src/index.ts --format esm,cjs --dts --external react --external react-dom && pnpm run build:css",
+    "build": "tsdown && pnpm run build:css",
     "build:css": "tsx scripts/copy-css.ts",
-    "build:watch": "tsdown src/index.ts --format esm,cjs --dts --external react --external react-dom --watch",
+    "build:watch": "tsdown --watch",
     "clean": "rm -rf dist",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
