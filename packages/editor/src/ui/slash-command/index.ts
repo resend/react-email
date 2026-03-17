@@ -1,3 +1,11 @@
+import { CommandList } from './command-list';
+import { SlashCommandRoot } from './root';
+
+export const SlashCommand = {
+  Root: SlashCommandRoot,
+  CommandList,
+} as const;
+
 export { CommandList } from './command-list';
 export {
   BULLET_LIST,
@@ -16,18 +24,13 @@ export {
   THREE_COLUMNS,
   TWO_COLUMNS,
 } from './commands';
-export { createSlashCommand } from './create-slash-command';
 export { filterAndRankItems, scoreItem } from './search';
 export type {
-  CommandListComponent,
   CommandListProps,
-  CommandListRef,
   SearchableItem,
   SlashCommandItem,
   SlashCommandProps,
+  SlashCommandRenderProps,
+  SlashCommandRootProps,
 } from './types';
 export { isAtMaxColumnsDepth, isInsideNode } from './utils';
-
-import { createSlashCommand } from './create-slash-command';
-
-export const SlashCommand = createSlashCommand();

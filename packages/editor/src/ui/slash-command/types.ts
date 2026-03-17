@@ -1,5 +1,5 @@
 import type { Editor, Range } from '@tiptap/core';
-import type { ComponentType, ReactNode, Ref } from 'react';
+import type { ReactNode } from 'react';
 
 export type SlashCommandCategory = string;
 
@@ -20,17 +20,28 @@ export interface SlashCommandProps {
   range: Range;
 }
 
-export interface CommandListRef {
-  onKeyDown: (props: { event: KeyboardEvent }) => boolean;
+export interface SlashCommandRenderProps {
+  items: SlashCommandItem[];
+  query: string;
+  selectedIndex: number;
+  onSelect: (index: number) => void;
+}
+
+export interface SlashCommandRootProps {
+  items?: SlashCommandItem[];
+  filterItems?: (
+    items: SlashCommandItem[],
+    query: string,
+    editor: Editor,
+  ) => SlashCommandItem[];
+  char?: string;
+  allow?: (props: { editor: Editor }) => boolean;
+  children?: (props: SlashCommandRenderProps) => ReactNode;
 }
 
 export interface CommandListProps {
   items: SlashCommandItem[];
-  command: (item: SlashCommandItem) => void;
-  editor: SlashCommandProps['editor'];
-  range: SlashCommandProps['range'];
   query: string;
-  ref: Ref<CommandListRef>;
+  selectedIndex: number;
+  onSelect: (index: number) => void;
 }
-
-export type CommandListComponent = ComponentType<CommandListProps>;

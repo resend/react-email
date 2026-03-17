@@ -1,6 +1,6 @@
 {
   "name": "@react-email/editor",
-  "version": "0.0.0-experimental.21",
+  "version": "0.0.0-experimental.22",
   "description": "",
   "sideEffects": [
     "**/*.css"
@@ -31,9 +31,9 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsdown src/index.ts --format esm,cjs --dts --external react && pnpm run build:css",
+    "build": "tsdown src/index.ts --format esm,cjs --dts --external react --external react-dom && pnpm run build:css",
     "build:css": "tsx scripts/copy-css.ts",
-    "build:watch": "tsdown src/index.ts --format esm,cjs --dts --external react --watch",
+    "build:watch": "tsdown src/index.ts --format esm,cjs --dts --external react --external react-dom --watch",
     "clean": "rm -rf dist",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
@@ -55,9 +55,11 @@
     "@radix-ui/react-popover": "^1.0.0",
     "@react-email/components": "workspace:*",
     "lucide-react": ">=0.300.0",
-    "react": "^18.0 || ^19.0 || ^19.0.0-rc"
+    "react": "^18.0 || ^19.0 || ^19.0.0-rc",
+    "react-dom": "^18.0 || ^19.0 || ^19.0.0-rc"
   },
   "dependencies": {
+    "@floating-ui/react-dom": "^2.1.8",
     "@tiptap/core": "^3.17.1",
     "@tiptap/extension-blockquote": "^3.17.1",
     "@tiptap/extension-bold": "^3.20.1",
@@ -84,8 +86,7 @@
     "@tiptap/starter-kit": "^3.17.1",
     "@tiptap/suggestion": "^3.17.1",
     "hast-util-from-html": "^2.0.3",
-    "prismjs": "^1.30.0",
-    "tippy.js": "^6.3.7"
+    "prismjs": "^1.30.0"
   },
   "devDependencies": {
     "@testing-library/react": "^16.0.0",
