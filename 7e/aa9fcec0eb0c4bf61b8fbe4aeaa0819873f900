@@ -1,0 +1,23 @@
+packages/editor/tsdown.config.ts
+  5fda6b47e2f33668 4-9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.15",
+  "base_commit_sha": "7eaa9fcec0eb0c4bf61b8fbe4aeaa0819873f900",
+  "prompts": {
+    "5fda6b47e2f33668": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "01ff819f-5719-4557-ab27-caa872cb2b76",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 6,
+      "total_deletions": 6,
+      "accepted_lines": 6,
+      "overriden_lines": 0
+    }
+  }
+}
