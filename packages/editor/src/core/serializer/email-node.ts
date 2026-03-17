@@ -6,15 +6,17 @@ import {
   type NodeType,
 } from '@tiptap/core';
 
-export type RendererComponent = (props: {
+export type NodeRendererComponent = (props: {
   node: JSONContent;
   style: React.CSSProperties;
   children?: React.ReactNode;
+
+  extension: EmailNode<any, any>;
 }) => React.ReactNode;
 
 export interface EmailNodeConfig<Options, Storage>
   extends NodeConfig<Options, Storage> {
-  renderToReactEmail: RendererComponent;
+  renderToReactEmail: NodeRendererComponent;
 }
 
 type ConfigParameter<Options, Storage> = Partial<
@@ -55,7 +57,7 @@ export class EmailNode<
 
   static from<O, S>(
     node: Node<O, S>,
-    renderToReactEmail: RendererComponent,
+    renderToReactEmail: NodeRendererComponent,
   ): EmailNode<O, S> {
     const customNode = EmailNode.create({} as ConfigParameter<O, S>);
     // This only makes a shallow copy, so if there's nested objects here mutating things will be dangerous
