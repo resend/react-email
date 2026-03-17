@@ -48,7 +48,7 @@
     "@react-email/button": "workspace:>=0",
     "@react-email/code-block": "workspace:>=0",
     "@react-email/code-inline": "workspace:>=0",
-    "@react-email/container": "workspace:>+0",
+    "@react-email/container": "workspace:>=0",
     "@react-email/heading": "workspace:>=0",
     "@react-email/hr": "workspace:>=0",
     "@react-email/img": "workspace:>=0",
