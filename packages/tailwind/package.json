@@ -44,17 +44,17 @@
     "node": ">=20.0.0"
   },
   "peerDependencies": {
-    "@react-email/body": "workspace:^",
-    "@react-email/button": "workspace:^",
-    "@react-email/code-block": "workspace:^",
-    "@react-email/code-inline": "workspace:^",
-    "@react-email/container": "workspace:^",
-    "@react-email/heading": "workspace:^",
-    "@react-email/hr": "workspace:^",
-    "@react-email/img": "workspace:^",
-    "@react-email/link": "workspace:^",
-    "@react-email/preview": "workspace:^",
-    "@react-email/text": "workspace:^",
+    "@react-email/body": "workspace:>=0",
+    "@react-email/button": "workspace:>=0",
+    "@react-email/code-block": "workspace:>=0",
+    "@react-email/code-inline": "workspace:>=0",
+    "@react-email/container": "workspace:>+0",
+    "@react-email/heading": "workspace:>=0",
+    "@react-email/hr": "workspace:>=0",
+    "@react-email/img": "workspace:>=0",
+    "@react-email/link": "workspace:>=0",
+    "@react-email/preview": "workspace:>=0",
+    "@react-email/text": "workspace:>=0",
     "react": "^18.0 || ^19.0 || ^19.0.0-rc"
   },
   "peerDependenciesMeta": {
