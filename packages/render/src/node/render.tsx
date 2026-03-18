@@ -29,7 +29,7 @@ export const render = async (node: React.ReactNode, options?: Options) => {
             progressiveChunkSize: Number.POSITIVE_INFINITY,
             onError(error) {
               // Throw immediately when an error occurs to prevent CSR fallback
-              throw error;
+              reject(error);
             },
           },
         )
