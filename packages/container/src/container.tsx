@@ -4,23 +4,33 @@ export type ContainerProps = Readonly<React.ComponentPropsWithoutRef<'table'>>;
 
 export const Container = React.forwardRef<HTMLTableElement, ContainerProps>(
   ({ children, style = {}, ...props }, ref) => {
-    // Destructure padding to improve compatibility with Klavyio and Outlook.
-    const {
-      padding,
-      paddingTop,
-      paddingRight,
-      paddingBottom,
-      paddingLeft,
-      ...tableStyle
-    } = style;
+    // Split padding styles to improve compatibility with Klavyio and Outlook,
+    // while preserving user-provided style property order without allocating
+    // entry arrays on each render.
+    const tdStyle: React.CSSProperties = {};
+    const tableStyle: React.CSSProperties = {};
 
-    const tdStyle = {
-      padding,
-      paddingTop,
-      paddingRight,
-      paddingBottom,
-      paddingLeft,
-    };
+    const styleRecord = style as Record<string, unknown>;
+
+    for (const key in styleRecord) {
+      if (!Object.prototype.hasOwnProperty.call(styleRecord, key)) {
+        continue;
+      }
+
+      const value = styleRecord[key];
+
+      if (
+        key === 'padding' ||
+        key === 'paddingTop' ||
+        key === 'paddingRight' ||
+        key === 'paddingBottom' ||
+        key === 'paddingLeft'
+      ) {
+        (tdStyle as Record<string, unknown>)[key] = value;
+      } else {
+        (tableStyle as Record<string, unknown>)[key] = value;
+      }
+    }
 
     return (
       <table
