@@ -63,9 +63,25 @@ export const composeReactEmail = async ({
         ? depth + 1
         : depth;
 
-      let children: React.ReactNode = node.text
-        ? node.text
-        : parseContent(node.content, childDepth);
+      let renderedNode: React.ReactNode = node.text ? (
+        node.text
+      ) : (
+        <NodeComponent
+          key={index}
+          node={
+            node.type === 'table' && inlineStyles.width && !node.attrs?.width
+              ? {
+                  ...node,
+                  attrs: { ...node.attrs, width: inlineStyles.width },
+                }
+              : node
+          }
+          style={style}
+          extension={emailNode}
+        >
+          {parseContent(node.content, childDepth)}
+        </NodeComponent>
+      );
       if (node.marks) {
         for (const mark of node.marks) {
           const emailMark = typeToExtensionMap[mark.type];
@@ -80,37 +96,21 @@ export const composeReactEmail = async ({
                 depth,
                 editor,
               ) ?? {};
-            children = (
+            renderedNode = (
               <MarkComponent
                 mark={mark}
                 node={node}
                 style={markStyle}
                 extension={emailMark}
               >
-                {children}
+                {renderedNode}
               </MarkComponent>
             );
           }
         }
       }
 
-      return (
-        <NodeComponent
-          key={index}
-          node={
-            node.type === 'table' && inlineStyles.width && !node.attrs?.width
-              ? {
-                  ...node,
-                  attrs: { ...node.attrs, width: inlineStyles.width },
-                }
-              : node
-          }
-          style={style}
-          extension={emailNode}
-        >
-          {children}
-        </NodeComponent>
-      );
+      return renderedNode;
     });
   }
 
