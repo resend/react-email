@@ -1,10 +1,16 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { getPackages } from '@manypkg/get-packages';
 
 type PackageJson = {
   name?: string;
   dependencies?: Record<string, string>;
   devDependencies?: Record<string, string>;
+};
+
+type PackageCheck = {
+  packageJsonPath: string;
+  onlyDevDeps: boolean;
 };
 
 const allErrors: string[] = [];
@@ -28,9 +34,9 @@ function isPinned(version: string) {
   return false;
 }
 
-async function checkPackageJson(pkgJsonPath: string, onlyDevDeps: boolean) {
+async function checkPackageJson(packageJsonPath: string, onlyDevDeps: boolean) {
   const content = await fs
-    .readFile(pkgJsonPath, 'utf8')
+    .readFile(packageJsonPath, 'utf8')
     .catch((error: NodeJS.ErrnoException) => {
       if (error.code === 'ENOENT') return null;
       throw error;
@@ -38,7 +44,10 @@ async function checkPackageJson(pkgJsonPath: string, onlyDevDeps: boolean) {
   if (content === null) return;
 
   const pkg: PackageJson = JSON.parse(content);
-  const label = pkg.name ?? pkgJsonPath;
+  const label = pkg.name ?? packageJsonPath;
+  const checkScope = onlyDevDeps ? 'dev dependencies only' : 'dependencies + dev dependencies';
+
+  console.log(`Checking ${label} (${checkScope})`);
 
   if (!onlyDevDeps) {
     for (const [dep, version] of Object.entries(pkg.dependencies ?? {})) {
@@ -59,38 +68,58 @@ async function checkPackageJson(pkgJsonPath: string, onlyDevDeps: boolean) {
   }
 }
 
-async function checkWorkspaceDir(dirPath: string, onlyDevDeps: boolean) {
-  const entries = await fs
-    .readdir(dirPath, { withFileTypes: true })
-    .catch((error: NodeJS.ErrnoException) => {
-      if (error.code === 'ENOENT') return [];
-      throw error;
-    });
-  for (const entry of entries) {
-    if (entry.isDirectory()) {
-      await checkPackageJson(
-        path.join(dirPath, entry.name, 'package.json'),
-        onlyDevDeps,
-      );
+function isDirectWorkspaceChild(relativeDir: string, parentDir: string) {
+  const segments = relativeDir.split('/');
+  return segments.length === 2 && segments[0] === parentDir;
+}
+
+function getPackageChecks(rootDir: string, packageDirs: string[]) {
+  const checks: PackageCheck[] = [
+    {
+      packageJsonPath: path.join(rootDir, 'package.json'),
+      onlyDevDeps: false,
+    },
+  ];
+
+  const sortedPackageDirs = [...packageDirs].sort();
+  for (const packageDir of sortedPackageDirs) {
+    const relativeDir = path
+      .relative(rootDir, packageDir)
+      .split(path.sep)
+      .join('/');
+
+    if (
+      relativeDir === 'playground' ||
+      isDirectWorkspaceChild(relativeDir, 'apps') ||
+      isDirectWorkspaceChild(relativeDir, 'benchmarks')
+    ) {
+      checks.push({
+        packageJsonPath: path.join(packageDir, 'package.json'),
+        onlyDevDeps: false,
+      });
+      continue;
+    }
+
+    if (isDirectWorkspaceChild(relativeDir, 'packages')) {
+      checks.push({
+        packageJsonPath: path.join(packageDir, 'package.json'),
+        onlyDevDeps: true,
+      });
     }
   }
+
+  return checks;
 }
 
 (async () => {
-  // Workspace root: check everything
-  await checkPackageJson('package.json', false);
+  const { packages, rootDir } = await getPackages(process.cwd());
 
-  // apps/*: check everything
-  await checkWorkspaceDir('apps', false);
-
-  // benchmarks/*: check everything
-  await checkWorkspaceDir('benchmarks', false);
-
-  // playground: check everything
-  await checkPackageJson('playground/package.json', false);
-
-  // packages/*: only check dev dependencies
-  await checkWorkspaceDir('packages', true);
+  for (const check of getPackageChecks(
+    rootDir,
+    packages.map((pkg) => pkg.dir),
+  )) {
+    await checkPackageJson(check.packageJsonPath, check.onlyDevDeps);
+  }
 
   if (allErrors.length > 0) {
     console.error(`\n${allErrors.join('\n')}\n`);
