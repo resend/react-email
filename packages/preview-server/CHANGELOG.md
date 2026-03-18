@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 5.2.10
+
+### Patch Changes
+
+- e3269cb: fix fragment prop usage warnings
+
 ## 5.2.9
 
 ## 5.2.8

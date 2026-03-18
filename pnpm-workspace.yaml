@@ -30,7 +30,7 @@ catalog:
   esbuild: 0.27.3
   framer-motion: 12.23.22
   log-symbols: ^7.0.0
-  next: 16.1.6
+  next: 16.1.7
   nypm: 0.6.2
   ora: ^8.0.0
   postcss: 8.5.6
