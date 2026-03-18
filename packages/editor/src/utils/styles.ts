@@ -251,6 +251,10 @@ export function ensureBorderStyleFallback(
       continue;
     }
     if (!styles[styleKey]) {
+      // Keep shorthand borderStyle authoritative for each side when present.
+      if (styleKey !== 'borderStyle' && styles.borderStyle) {
+        continue;
+      }
       styles[styleKey] = 'solid';
     }
   }

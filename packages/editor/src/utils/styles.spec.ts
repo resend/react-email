@@ -1,4 +1,5 @@
 import {
+  ensureBorderStyleFallback,
   expandShorthandProperties,
   inlineCssToJs,
   jsToInlineCss,
@@ -829,6 +830,43 @@ describe('expandShorthandProperties', () => {
         fontSize: '16px',
         lineHeight: '1.5',
       });
+    });
+  });
+});
+
+describe('ensureBorderStyleFallback', () => {
+  it('adds solid when border width is set without any style', () => {
+    const result = ensureBorderStyleFallback({
+      borderTopWidth: '1px',
+    });
+
+    expect(result).toEqual({
+      borderTopWidth: '1px',
+      borderTopStyle: 'solid',
+    });
+  });
+
+  it('does not override shorthand borderStyle for side-specific widths', () => {
+    const result = ensureBorderStyleFallback({
+      borderStyle: 'dashed',
+      borderTopWidth: '1px',
+    });
+
+    expect(result).toEqual({
+      borderStyle: 'dashed',
+      borderTopWidth: '1px',
+    });
+  });
+
+  it('keeps explicit side style unchanged', () => {
+    const result = ensureBorderStyleFallback({
+      borderTopWidth: '1px',
+      borderTopStyle: 'dotted',
+    });
+
+    expect(result).toEqual({
+      borderTopWidth: '1px',
+      borderTopStyle: 'dotted',
     });
   });
 });
