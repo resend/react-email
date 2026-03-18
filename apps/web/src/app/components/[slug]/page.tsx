@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { Toaster } from 'sonner';
 import { Heading } from '@/components/heading';
 import { PageWrapper } from '@/components/page-wrapper';
+import { patternsOgImage } from '@/utils/og-images';
 import { componentsStructure } from '../../../../components/structure';
 import { ComponentsView } from '../../../components/components-view';
 import { IconArrowLeft } from '../../../components/icons/icon-arrow-left';
@@ -45,11 +46,11 @@ export const generateMetadata = async ({
     openGraph: {
       title: `${foundCategory.name} Components - React Email`,
       description: foundCategory.description,
-      images: [
-        {
-          url: 'https://react.email/static/covers/patterns.png',
-        },
-      ],
+      images: [patternsOgImage],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      images: [patternsOgImage.url],
     },
     alternates: {
       canonical: `/components/${rawSlug}`,

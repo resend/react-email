@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import localFont from 'next/font/local';
 import { Topbar } from '@/components/topbar';
+import { homepageOgImage } from '@/utils/og-images';
 
 const inter = localFont({
   display: 'swap',
@@ -57,11 +58,7 @@ export const metadata: Metadata = {
   openGraph: {
     description:
       'A collection of high-quality, unstyled components for creating beautiful emails using React and TypeScript.',
-    images: [
-      {
-        url: '/static/covers/react-email.png',
-      },
-    ],
+    images: [homepageOgImage],
     locale: 'en_US',
     siteName: 'React Email',
     title: 'React Email',
@@ -70,7 +67,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    images: 'https://react.email/static/covers/react-email.png',
+    images: [homepageOgImage.url],
   },
   alternates: {
     canonical: '/',

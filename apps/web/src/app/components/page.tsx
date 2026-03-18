@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { Heading } from '@/components/heading';
 import { PageWrapper } from '@/components/page-wrapper';
+import { patternsOgImage } from '@/utils/og-images';
 import { componentsStructure } from '../../../components/structure';
 import { PageTransition } from '../../components/page-transition';
 import { Spotlight } from '../../components/spotlight';
@@ -14,7 +15,11 @@ export const metadata: Metadata = {
   description:
     'Build beautiful emails with pre-built components that you can copy-and-paste into your app.',
   openGraph: {
-    images: [{ url: 'https://react.email/static/covers/patterns.png' }],
+    images: [patternsOgImage],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: [patternsOgImage.url],
   },
   alternates: {
     canonical: '/components',
