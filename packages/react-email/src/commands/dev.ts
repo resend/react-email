@@ -4,9 +4,16 @@ import { setupHotreloading, startDevServer } from '../utils/index.js';
 interface Args {
   dir: string;
   port: string;
+  resendApiKey?: string;
+  from?: string;
 }
 
-export const dev = async ({ dir: emailsDirRelativePath, port }: Args) => {
+export const dev = async ({
+  dir: emailsDirRelativePath,
+  port,
+  resendApiKey,
+  from,
+}: Args) => {
   try {
     if (!fs.existsSync(emailsDirRelativePath)) {
       console.error(`Missing ${emailsDirRelativePath} folder`);
@@ -17,6 +24,8 @@ export const dev = async ({ dir: emailsDirRelativePath, port }: Args) => {
       emailsDirRelativePath,
       emailsDirRelativePath, // defaults to ./emails/static for the static files that are served to the preview
       Number.parseInt(port, 10),
+      resendApiKey,
+      from,
     );
 
     await setupHotreloading(devServer, emailsDirRelativePath);

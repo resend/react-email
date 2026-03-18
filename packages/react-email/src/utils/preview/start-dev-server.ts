@@ -33,6 +33,8 @@ export const startDevServer = async (
   emailsDirRelativePath: string,
   staticBaseDirRelativePath: string,
   port: number,
+  resendApiKey?: string,
+  from?: string,
 ): Promise<http.Server> => {
   const [majorNodeVersion] = process.versions.node.split('.');
   if (majorNodeVersion && Number.parseInt(majorNodeVersion, 10) < 20) {
@@ -98,6 +100,8 @@ export const startDevServer = async (
       emailsDirRelativePath,
       staticBaseDirRelativePath,
       nextPortToTry,
+      resendApiKey,
+      from,
     );
   }
 
@@ -133,7 +137,8 @@ export const startDevServer = async (
       path.normalize(emailsDirRelativePath),
       previewServerLocation,
       process.cwd(),
-      conf.get('resendApiKey'),
+      resendApiKey ?? conf.get('resendApiKey'),
+      from,
     ),
   };
   if (!process.env.ESBUILD_BINARY_PATH) {

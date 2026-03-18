@@ -18,6 +18,7 @@ import { getLintingSources, loadLintingRowsFrom } from '../../../utils/linting';
 import { loadStream } from '../../../utils/load-stream';
 import {
   emailsDirectoryAbsolutePath,
+  fromAddress,
   isBuilding,
   resendApiKey,
 } from '../../env';
@@ -129,7 +130,13 @@ This is most likely not an issue with the preview server. Maybe there was a typo
         {/* on the build of the preview server de-opting into         */}
         {/* client-side rendering on build                            */}
         <Suspense>
-          <Preview emailTitle={path.basename(emailPath)} />
+          <Preview
+            emailTitle={path.basename(emailPath)}
+            canSendLocally={
+              (resendApiKey ?? '').trim().length > 0 &&
+              (fromAddress ?? '').trim().length > 0
+            }
+          />
 
           <ToolbarProvider hasApiKey={(resendApiKey ?? '').trim().length > 0}>
             <Toolbar

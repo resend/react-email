@@ -1,36 +1,60 @@
 import * as Popover from '@radix-ui/react-popover';
+import { useAction } from 'next-safe-action/hooks';
 import { useId, useState } from 'react';
 import { toast } from 'sonner';
+import { sendEmail } from '../actions/send-email';
 import { Button } from './button';
 import { Text } from './text';
 
-export const Send = ({ markup }: { markup: string }) => {
+export const Send = ({
+  markup,
+  canSendLocally,
+}: {
+  markup: string;
+  canSendLocally: boolean;
+}) => {
   const [to, setTo] = useState('');
   const [subject, setSubject] = useState('Testing React Email');
   const [isSending, setIsSending] = useState(false);
   const [isPopOverOpen, setIsPopOverOpen] = useState(false);
+
+  const { executeAsync: executeSendEmail } = useAction(sendEmail);
 
   const onFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSending(true);
 
     try {
-      const response = await fetch('https://react.email/api/send/test', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          to,
-          subject,
-          html: markup,
-        }),
-      });
+      if (canSendLocally) {
+        const result = await executeSendEmail({ to, subject, html: markup });
 
-      if (response.ok) {
-        toast.success('Email sent! Check your inbox.');
-      } else if (response.status === 429) {
-        toast.error('Too many requests. Try again in around 1 minute');
+        if (result?.data?.status === 'succeeded') {
+          toast.success('Email sent! Check your inbox.');
+        } else {
+          const errorMessage =
+            result?.data?.status === 'failed'
+              ? result.data.error
+              : 'Something went wrong. Please try again.';
+          toast.error(errorMessage);
+        }
       } else {
-        toast.error('Something went wrong. Please try again.');
+        const response = await fetch('https://react.email/api/send/test', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            to,
+            subject,
+            html: markup,
+          }),
+        });
+
+        if (response.ok) {
+          toast.success('Email sent! Check your inbox.');
+        } else if (response.status === 429) {
+          toast.error('Too many requests. Try again in around 1 minute');
+        } else {
+          toast.error('Something went wrong. Please try again.');
+        }
       }
     } catch {
       toast.error('Something went wrong. Please try again.');
