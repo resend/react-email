@@ -1,6 +1,7 @@
-import type { JSONContent } from '@tiptap/core';
+import type { AnyExtension, JSONContent } from '@tiptap/core';
 import { Editor } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
+import { EmailNode } from './email-node';
 import { StarterKit } from '../../extensions';
 import { composeReactEmail } from './compose-react-email';
 
@@ -32,8 +33,11 @@ afterEach(() => {
   editor?.destroy();
 });
 
-function createEditorWithContent(content: JSONContent) {
-  editor = new Editor({ content, extensions });
+function createEditorWithContent(
+  content: JSONContent,
+  extraExtensions: AnyExtension[] = [],
+) {
+  editor = new Editor({ content, extensions: [...extensions, ...extraExtensions] });
   return editor;
 }
 
@@ -126,6 +130,113 @@ describe('Text marks', () => {
     expect(linkOpen).toBeGreaterThan(strongOpen);
     expect(linkClose).toBeGreaterThan(linkOpen);
     expect(strongClose).toBeGreaterThan(linkClose);
+  });
+
+  it('should wrap custom email nodes with marks around the rendered node', async () => {
+    const CustomInlineNode = EmailNode.create({
+      name: 'customInlineNode',
+      group: 'inline',
+      inline: true,
+      content: 'text*',
+      marks: '_',
+      renderHTML({ HTMLAttributes }) {
+        return ['span', HTMLAttributes, 0];
+      },
+      renderToReactEmail({ children }) {
+        return <span>{children}</span>;
+      },
+    });
+
+    const content = docWithGlobalContent([
+      {
+        type: 'paragraph',
+        content: [
+          {
+            type: 'customInlineNode',
+            marks: [{ type: 'bold' }],
+            content: [
+              {
+                type: 'text',
+                text: 'Hello',
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+
+    const editor = createEditorWithContent(content, [CustomInlineNode]);
+    const result = await composeReactEmail({
+      editor,
+      preview: '',
+    });
+
+    expect(result.html).toMatchInlineSnapshot(`
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html dir="ltr" lang="en">
+        <head>
+          <meta content="width=device-width" name="viewport" />
+          <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+          <meta name="x-apple-disable-message-reformatting" />
+          <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+          <meta name="x-apple-disable-message-reformatting" />
+          <meta
+            content="telephone=no,address=no,email=no,date=no,url=no"
+            name="format-detection" />
+          <!--$-->
+        </head>
+        <body>
+          <table
+            border="0"
+            width="100%"
+            cellpadding="0"
+            cellspacing="0"
+            role="presentation"
+            align="center">
+            <tbody>
+              <tr>
+                <td>
+                  <table
+                    align="center"
+                    width="100%"
+                    border="0"
+                    cellpadding="0"
+                    cellspacing="0"
+                    role="presentation">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <table
+                            align="center"
+                            width="100%"
+                            border="0"
+                            cellpadding="0"
+                            cellspacing="0"
+                            role="presentation"
+                            style="width:100%">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <p>
+                                    <strong><span>Hello</span></strong>
+                                  </p>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!--/$-->
+        </body>
+      </html>
+      "
+    `);
   });
 
   it('should render uppercase marks using the extension renderer', async () => {
