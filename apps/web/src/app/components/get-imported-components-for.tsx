@@ -75,7 +75,7 @@ export const getComponentElement = async (
   return patternModule.component as React.ReactElement;
 };
 
-export const getImportedComponent = async (
+const getImportedComponent = async (
   component: Component,
 ): Promise<ImportedComponent> => {
   const dirpath = getComponentPathFromSlug(component.slug);

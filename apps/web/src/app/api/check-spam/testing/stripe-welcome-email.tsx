@@ -93,8 +93,6 @@ export const StripeWelcomeEmail = () => (
   </Html>
 );
 
-export default StripeWelcomeEmail;
-
 const main = {
   backgroundColor: '#f6f9fc',
   fontFamily:

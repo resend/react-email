@@ -3,6 +3,6 @@ export interface EmailTemplate {
   PreviewProps?: Record<string, unknown>;
 }
 
-export const isEmailTemplate = (val: unknown): val is EmailTemplate => {
+const isEmailTemplate = (val: unknown): val is EmailTemplate => {
   return typeof val === 'function';
 };

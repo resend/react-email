@@ -17,7 +17,6 @@
     "tinybench": "catalog:"
   },
   "devDependencies": {
-    "tsconfig": "workspace:*",
     "typescript": "catalog:"
   }
 }

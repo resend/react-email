@@ -31,7 +31,6 @@
   },
   "devDependencies": {
     "nypm": "catalog:",
-    "react": "catalog:",
     "tsconfig": "workspace:*",
     "typescript": "catalog:"
   }

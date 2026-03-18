@@ -12,7 +12,7 @@ import { IconCloudCheck } from '../icons/icon-cloud-check';
 import { IconLoader } from '../icons/icon-loader';
 import { Results } from './results';
 
-export interface ResendStatus {
+interface ResendStatus {
   hasApiKey: boolean;
   error: string | null;
 }

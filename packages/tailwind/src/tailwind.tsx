@@ -23,6 +23,7 @@ export interface EmailElementProps {
   style?: React.CSSProperties;
 }
 
+/** @lintignore */
 export const pixelBasedPreset: TailwindConfig = {
   theme: {
     extend: {

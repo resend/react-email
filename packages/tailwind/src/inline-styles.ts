@@ -3,6 +3,7 @@ import { extractRulesPerClass } from './utils/css/extract-rules-per-class';
 import { getCustomProperties } from './utils/css/get-custom-properties';
 import { makeInlineStylesFor } from './utils/css/make-inline-styles-for';
 
+/** @lintignore */
 export function inlineStyles(
   styleSheet: StyleSheet,
   classes: string[],

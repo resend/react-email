@@ -1,0 +1,56 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "ignoreExportsUsedInFile": {
+    "interface": true,
+    "type": true
+  },
+  "tags": ["-lintignore"],
+  "ignore": ["examples/**", "apps/web/public/**"],
+  "workspaces": {
+    ".": {
+      "entry": ["scripts/*.ts", "scripts/*.mts"]
+    },
+    "apps/demo": {
+      "entry": ["emails/**/*.tsx", "emails/**/*.ts"]
+    },
+    "apps/web": {
+      "entry": ["components/**/*.tsx", "src/illustrations/**/*.tsx"]
+    },
+    "benchmarks/preview-server": {
+      "entry": ["src/*.ts"]
+    },
+    "benchmarks/tailwind": {
+      "entry": ["src/*.tsx", "tailwind.config.js"]
+    },
+    "packages/create-email": {
+      "entry": ["template/**/*.tsx"],
+      "ignoreDependencies": ["@react-email/components"]
+    },
+    "packages/preview-server": {
+      "entry": [
+        "jsx-runtime/**",
+        "scripts/utils/default-seed/**/*.tsx",
+        "src/utils/caniemail/tailwind/tests/**",
+        "src/utils/testing/**"
+      ]
+    },
+    "packages/react-email": {
+      "entry": [
+        "src/commands/testing/**",
+        "src/utils/preview/hot-reloading/test/**"
+      ]
+    },
+    "packages/tailwind": {
+      "entry": ["e2e/**"],
+      "ignoreDependencies": ["@react-email/components", "next", "yalc"]
+    },
+    "packages/tsconfig": {
+      "ignoreDependencies": ["next"]
+    },
+    "playground": {
+      "entry": ["*.ts", "emails/**/*.tsx"]
+    }
+  },
+  "ignoreDependencies": ["@react-email/preview-server", "react-email"],
+  "exclude": ["duplicates", "optionalPeerDependencies"]
+}

@@ -47,7 +47,6 @@
   },
   "devDependencies": {
     "@react-email/components": "workspace:*",
-    "@types/babel__core": "catalog:",
     "@types/babel__traverse": "catalog:",
     "@types/mime-types": "catalog:",
     "@types/prompts": "2.4.9",
@@ -55,7 +54,6 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "shlex": "3.0.0",
-    "tsx": "catalog:",
     "typescript": "catalog:"
   }
 }

@@ -6,7 +6,7 @@ type RootProps = React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root>;
 
 export type TooltipProps = RootProps;
 
-export const TooltipRoot: React.FC<Readonly<TooltipProps>> = ({
+const TooltipRoot: React.FC<Readonly<TooltipProps>> = ({
   children,
   ...props
 }) => <TooltipPrimitive.Root {...props}>{children}</TooltipPrimitive.Root>;

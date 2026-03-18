@@ -50,7 +50,7 @@ export interface SourceLocation {
 
 type ObjectProperty = Node & { type: 'ObjectProperty' };
 
-export function writtenMemberExpressionTo(
+function writtenMemberExpressionTo(
   nodePath: NodePath | null | undefined,
   accumulated = '',
 ): string {

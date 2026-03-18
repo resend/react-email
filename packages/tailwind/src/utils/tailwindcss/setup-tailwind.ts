@@ -6,6 +6,7 @@ import preflightCss from './tailwind-stylesheets/preflight';
 import themeCss from './tailwind-stylesheets/theme';
 import utilitiesCss from './tailwind-stylesheets/utilities';
 
+/** @lintignore */
 export type TailwindSetup = Awaited<ReturnType<typeof setupTailwind>>;
 
 export async function setupTailwind(config: TailwindConfig) {
