@@ -1,6 +1,6 @@
 {
   "name": "@react-email/editor",
-  "version": "0.0.0-experimental.26",
+  "version": "0.0.0-experimental.27",
   "description": "",
   "sideEffects": [
     "**/*.css"
@@ -37,6 +37,16 @@
       "require": {
         "types": "./dist/ui/index.d.cts",
         "default": "./dist/ui/index.cjs"
+      }
+    },
+    "./plugins": {
+      "import": {
+        "types": "./dist/plugins/index.d.mts",
+        "default": "./dist/plugins/index.mjs"
+      },
+      "require": {
+        "types": "./dist/plugins/index.d.cts",
+        "default": "./dist/plugins/index.cjs"
       }
     },
     "./utils": {
@@ -117,7 +127,7 @@
     "prismjs": "^1.30.0"
   },
   "devDependencies": {
-    "@testing-library/react": "^16.0.0",
+    "@testing-library/react": "16.0.0",
     "@types/node": "catalog:",
     "@types/prismjs": "1.26.5",
     "postcss": "8.5.6",
