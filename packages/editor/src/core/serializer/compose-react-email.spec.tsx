@@ -1,9 +1,9 @@
 import type { AnyExtension, JSONContent } from '@tiptap/core';
 import { Editor } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
-import { EmailNode } from './email-node';
 import { StarterKit } from '../../extensions';
 import { composeReactEmail } from './compose-react-email';
+import { EmailNode } from './email-node';
 
 vi.mock('@/actions/ai', () => ({
   uploadImageViaAI: vi.fn(),
@@ -37,7 +37,10 @@ function createEditorWithContent(
   content: JSONContent,
   extraExtensions: AnyExtension[] = [],
 ) {
-  editor = new Editor({ content, extensions: [...extensions, ...extraExtensions] });
+  editor = new Editor({
+    content,
+    extensions: [...extensions, ...extraExtensions],
+  });
   return editor;
 }
 

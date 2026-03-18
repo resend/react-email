@@ -63,23 +63,25 @@ export const composeReactEmail = async ({
         ? depth + 1
         : depth;
 
-      let renderedNode: React.ReactNode = node.text
-        ? node.text
-        : <NodeComponent
+      let renderedNode: React.ReactNode = node.text ? (
+        node.text
+      ) : (
+        <NodeComponent
           key={index}
           node={
             node.type === 'table' && inlineStyles.width && !node.attrs?.width
               ? {
-                ...node,
-                attrs: { ...node.attrs, width: inlineStyles.width },
-              }
+                  ...node,
+                  attrs: { ...node.attrs, width: inlineStyles.width },
+                }
               : node
           }
           style={style}
           extension={emailNode}
         >
           {parseContent(node.content, childDepth)}
-        </NodeComponent>;
+        </NodeComponent>
+      );
       if (node.marks) {
         for (const mark of node.marks) {
           const emailMark = typeToExtensionMap[mark.type];
