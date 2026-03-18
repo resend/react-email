@@ -135,7 +135,7 @@ describe('Text marks', () => {
     expect(strongClose).toBeGreaterThan(linkClose);
   });
 
-  it('should wrap custom email nodes with marks around the rendered node', async () => {
+  it('wraps custom email nodes with marks around the rendered node', async () => {
     const CustomInlineNode = EmailNode.create({
       name: 'customInlineNode',
       group: 'inline',
