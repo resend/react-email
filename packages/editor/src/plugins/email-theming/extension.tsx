@@ -4,6 +4,7 @@ import { Extension } from '@tiptap/core';
 import { Plugin, PluginKey } from '@tiptap/pm/state';
 import { useEditorState } from '@tiptap/react';
 import type * as React from 'react';
+import type { SerializerPlugin } from '../../core/serializer/serializer-plugin';
 import { getGlobalContent } from '../../extensions/global-content';
 import {
   injectGlobalPlainCss,
@@ -22,7 +23,6 @@ import type {
   KnownThemeComponents,
   PanelGroup,
 } from './types';
-import type { SerializerPlugin } from '../../core/serializer/serializer-plugin';
 
 /**
  * Maps a document node (type + attrs) to the theme component key used for style lookup.
