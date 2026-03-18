@@ -127,7 +127,7 @@
     "prismjs": "^1.30.0"
   },
   "devDependencies": {
-    "@testing-library/react": "^16.0.0",
+    "@testing-library/react": "16.0.0",
     "@types/node": "catalog:",
     "@types/prismjs": "1.26.5",
     "postcss": "8.5.6",
