@@ -29,3 +29,18 @@ jobs:
         run: pnpm lint
         env:
           SKIP_ENV_VALIDATION: true
+  knip:
+    runs-on: blacksmith-2vcpu-ubuntu-2204
+    container:
+      image: node:22-slim
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
+        with:
+          fetch-depth: 1
+      - name: pnpm setup
+        uses: pnpm/action-setup@9b5745cdf0a2e8c2620f0746130f809adb911c19
+      - name: Install packages
+        run: pnpm install --frozen-lockfile --prefer-offline
+      - name: Run Knip
+        run: pnpm knip
