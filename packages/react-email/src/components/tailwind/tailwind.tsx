@@ -3,6 +3,7 @@ import * as React from 'react';
 import type { Config } from 'tailwindcss';
 import { useSuspensedPromise } from './hooks/use-suspended-promise.js';
 import { sanitizeStyleSheet } from './sanitize-stylesheet.js';
+import { downlevelForEmailClients } from './utils/css/downlevel-for-email-clients.js';
 import { extractRulesPerClass } from './utils/css/extract-rules-per-class.js';
 import { getCustomProperties } from './utils/css/get-custom-properties.js';
 import { sanitizeNonInlinableRules } from './utils/css/sanitize-non-inlinable-rules.js';
@@ -136,7 +137,9 @@ export function Tailwind({ children, config }: TailwindProps) {
 
         const styleElement = (
           <style
-            dangerouslySetInnerHTML={{ __html: generate(nonInlineStyles) }}
+            dangerouslySetInnerHTML={{
+              __html: downlevelForEmailClients(generate(nonInlineStyles)),
+            }}
           />
         );
 
