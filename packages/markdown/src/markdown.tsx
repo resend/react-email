@@ -3,6 +3,15 @@ import * as React from 'react';
 import { type StylesType, styles } from './styles';
 import { parseCssInJsToInlineCss } from './utils/parse-css-in-js-to-inline-css';
 
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 export type MarkdownProps = Readonly<{
   children: string;
   markdownCustomStyles?: StylesType;
@@ -37,7 +46,7 @@ export const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(
 
     // TODO: Support all options
     renderer.code = ({ text }) => {
-      text = `${text.replace(/\n$/, '')}\n`;
+      text = `${escapeHtml(text).replace(/\n$/, '')}\n`;
 
       return `<pre${
         parseCssInJsToInlineCss(finalStyles.codeBlock) !== ''
@@ -97,8 +106,8 @@ export const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(
     };
 
     renderer.image = ({ href, text, title }) => {
-      return `<img src="${href.replaceAll('"', '&quot;')}" alt="${text.replaceAll('"', '&quot;')}"${
-        title ? ` title="${title}"` : ''
+      return `<img src="${escapeHtml(href)}" alt="${escapeHtml(text)}"${
+        title ? ` title="${escapeHtml(title)}"` : ''
       }${
         parseCssInJsToInlineCss(finalStyles.image) !== ''
           ? ` style="${parseCssInJsToInlineCss(finalStyles.image)}"`
@@ -109,8 +118,8 @@ export const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(
     renderer.link = ({ href, title, tokens }) => {
       const text = renderer.parser.parseInline(tokens);
 
-      return `<a href="${href}" target="_blank"${
-        title ? ` title="${title}"` : ''
+      return `<a href="${escapeHtml(href)}" target="_blank"${
+        title ? ` title="${escapeHtml(title)}"` : ''
       }${
         parseCssInJsToInlineCss(finalStyles.link) !== ''
           ? ` style="${parseCssInJsToInlineCss(finalStyles.link)}"`

@@ -116,7 +116,7 @@ console.log(\`Hello, $\{name}!\`);
       </Markdown>,
     );
     expect(actualOutput).toMatchInlineSnapshot(`
-      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div data-id="react-email-markdown"><p><strong style="font:700 23px / 32px &#x27;Roobert PRO&#x27;, system-ui, sans-serif;background:url(&#x27;path/to/image&#x27;)">This is sample bold text in markdown</strong> and <em style="font-style:italic">this is italic text</em></p>
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div data-id="react-email-markdown"><p><strong style="font:700 23px / 32px &quot;Roobert PRO&quot;, system-ui, sans-serif;background:url(&quot;path/to/image&quot;)">This is sample bold text in markdown</strong> and <em style="font-style:italic">this is italic text</em></p>
       </div><!--/$-->"
     `);
   });
