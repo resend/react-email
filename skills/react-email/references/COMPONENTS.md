@@ -52,16 +52,16 @@ export default function Email() {
         }}
       >
         <Body className="bg-gray-100 font-sans">
-          <Container className="max-w-xl mx-auto p-5">
-            <Heading className="text-2xl font-bold text-brand mb-4">
+          <Container className="max-w-600 mx-auto p-20">
+            <Heading className="text-24 font-bold text-brand mb-16">
               Welcome!
             </Heading>
-            <Text className="text-base text-gray-700 mb-4">
+            <Text className="text-16 text-gray-700 mb-16">
               Your content here.
             </Text>
             <Button
               href="https://example.com"
-              className="bg-brand text-white px-6 py-3 rounded-lg block text-center"
+              className="bg-brand text-white px-24 py-12 rounded-lg block text-center box-border"
             >
               Get Started
             </Button>
@@ -138,7 +138,7 @@ A layout component that centers your content horizontally on a breaking point. H
 ```tsx
 import { Container } from '@react-email/components';
 
-<Container className="max-w-xl mx-auto p-5">
+<Container className="max-w-600 mx-auto p-20">
   {/* centered content */}
 </Container>
 ```
@@ -203,11 +203,11 @@ A block of heading text (h1-h6).
 ```tsx
 import { Heading } from '@react-email/components';
 
-<Heading as="h1" className="text-2xl font-bold text-gray-800 mb-4">
+<Heading as="h1" className="text-24 font-bold text-gray-800 mb-16">
   Welcome to Acme
 </Heading>
 
-<Heading as="h2" className="text-xl font-semibold text-gray-600 mb-3">
+<Heading as="h2" className="text-20 font-semibold text-gray-600 mb-12">
   Getting Started
 </Heading>
 ```
@@ -222,7 +222,7 @@ A block of text separated by blank spaces.
 ```tsx
 import { Text } from '@react-email/components';
 
-<Text className="text-base leading-6 text-gray-800 my-4">
+<Text className="text-16 leading-24 text-gray-800 my-16">
   Your paragraph content here.
 </Text>
 ```
@@ -237,7 +237,7 @@ import { Button } from '@react-email/components';
 <Button
   href="https://example.com/verify"
   target="_blank"
-  className="bg-blue-600 text-white px-5 py-3 rounded block text-center no-underline font-medium"
+  className="bg-blue-600 text-white px-20 py-12 rounded block text-center no-underline font-medium box-border"
 >
   Verify Email Address
 </Button>
