@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@babel/parser": "catalog:",
-    "@babel/preset-typescript": "7.27.0",
     "@babel/traverse": "catalog:",
     "@radix-ui/react-popover": "catalog:",
     "@react-email/components": "workspace:*",
@@ -44,18 +43,17 @@
     "@radix-ui/react-tooltip": "catalog:",
     "@react-email/preview-server": "workspace:*",
     "@tailwindcss/postcss": "catalog:",
-    "@types/babel__core": "catalog:",
     "@types/babel__traverse": "catalog:",
     "@types/node": "catalog:",
     "@types/three": "0.170.0",
     "@vercel/firewall": "1.1.2",
     "classnames": "2.5.1",
     "html-to-ast": "0.0.6",
+    "jsdom": "29.0.0",
     "postcss": "catalog:",
     "tailwindcss": "catalog:",
     "tsconfig": "workspace:*",
     "typescript": "catalog:",
-    "webpack": "5.105.4",
     "zod": "catalog:"
   }
 }

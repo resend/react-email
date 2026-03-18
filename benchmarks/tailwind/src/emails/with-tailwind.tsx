@@ -18,7 +18,7 @@ const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-export const GooglePlayPolicyUpdateEmailWithTailwind = ({
+const GooglePlayPolicyUpdateEmailWithTailwind = ({
   Tailwind,
 }: {
   Tailwind: React.FC<TailwindProps>;

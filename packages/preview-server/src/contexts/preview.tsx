@@ -10,7 +10,7 @@ import { useEmailRenderingResult } from '../hooks/use-email-rendering-result';
 import { useHotreload } from '../hooks/use-hot-reload';
 import { useRenderingMetadata } from '../hooks/use-rendering-metadata';
 
-export const PreviewContext = createContext<
+const PreviewContext = createContext<
   | {
       renderedEmailMetadata: RenderedEmailMetadata | undefined;
       renderingResult: EmailRenderingResult;

@@ -19,7 +19,7 @@ export function isOk<T, E>(result: Result<T, E>): result is Ok<T, E> {
   return 'value' in result && !('error' in result);
 }
 
-export function mapResult<T, E, B>(
+function mapResult<T, E, B>(
   result: Result<T, E>,
   callback: (value: T) => B,
 ): Result<B, E> {

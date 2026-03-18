@@ -23,7 +23,8 @@
       "entry": ["src/*.tsx", "tailwind.config.js"]
     },
     "packages/create-email": {
-      "entry": ["template/**/*.tsx"]
+      "entry": ["template/**/*.tsx"],
+      "ignoreDependencies": ["@react-email/components"]
     },
     "packages/preview-server": {
       "entry": [
@@ -40,12 +41,16 @@
       ]
     },
     "packages/tailwind": {
-      "entry": ["e2e/**"]
+      "entry": ["e2e/**"],
+      "ignoreDependencies": ["@react-email/components", "next", "yalc"]
+    },
+    "packages/tsconfig": {
+      "ignoreDependencies": ["next"]
     },
     "playground": {
       "entry": ["*.ts", "emails/**/*.tsx"]
     }
   },
   "ignoreDependencies": ["@react-email/preview-server", "react-email"],
-  "exclude": ["duplicates"]
+  "exclude": ["duplicates", "optionalPeerDependencies"]
 }

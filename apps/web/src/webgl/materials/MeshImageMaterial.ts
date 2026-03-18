@@ -2,7 +2,7 @@ import { extend } from '@react-three/fiber';
 import * as THREE from 'three';
 import type { WebGLProgramParametersWithUniforms } from 'three/src/renderers/webgl/WebGLPrograms.js';
 
-export class MeshImageMaterial extends THREE.MeshBasicMaterial {
+class MeshImageMaterial extends THREE.MeshBasicMaterial {
   constructor(parameters: THREE.MeshBasicMaterialParameters = {}) {
     super(parameters);
   }
