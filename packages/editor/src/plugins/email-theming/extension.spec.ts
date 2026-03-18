@@ -34,6 +34,8 @@ const BUTTON_DOC = {
   ],
 };
 
+const GLOBAL_CSS = '.foo { color: red; }';
+
 const LEGACY_MINIMAL_DOC = {
   type: 'doc',
   content: [
@@ -113,5 +115,28 @@ describe('EmailTheming', () => {
       'background-color:#000000;',
     );
     expect(themeStyleTag?.textContent).not.toContain('padding-top:7px;');
+  });
+
+  it('does not duplicate injected CSS when updating with same global css repeatedly', () => {
+    editor = createEditor();
+
+    editor.commands.setGlobalContent('css', GLOBAL_CSS);
+    editor.commands.setGlobalContent('css', GLOBAL_CSS);
+    editor.commands.setGlobalContent('css', GLOBAL_CSS);
+
+    const globalStyleTags = Array.from(
+      document.head.querySelectorAll<HTMLStyleElement>(
+        'style[id^="tiptap-theme-"][id$="-global"]',
+      ),
+    );
+
+    expect(globalStyleTags).toHaveLength(1);
+
+    const globalStyleTag = globalStyleTags[0];
+    expect(globalStyleTag?.textContent).toContain(GLOBAL_CSS);
+
+    const occurrences =
+      globalStyleTag?.textContent?.split(GLOBAL_CSS).length ?? 0;
+    expect(occurrences - 1).toBe(1);
   });
 });

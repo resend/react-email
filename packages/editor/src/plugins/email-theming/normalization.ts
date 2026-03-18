@@ -108,9 +108,22 @@ export function inferThemeFromPanelStyles(
     return null;
   }
 
-  return panelStyles.every((group) => group.inputs.length === 0)
-    ? 'minimal'
-    : 'basic';
+  let finalTheme: EditorTheme | null = null;
+  for (const group of panelStyles) {
+    if (!Array.isArray(group?.inputs)) {
+      finalTheme = null;
+      break;
+    }
+
+    if (group.inputs.length !== 0) {
+      finalTheme = 'basic';
+      break;
+    }
+
+    finalTheme = 'minimal';
+  }
+
+  return finalTheme;
 }
 
 export function normalizeThemePanelStyles(
