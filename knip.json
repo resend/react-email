@@ -5,20 +5,7 @@
     "type": true
   },
   "tags": ["-lintignore"],
-  "ignore": [
-    "examples/**",
-    "apps/web/public/**",
-    "apps/web/components/**",
-    "apps/web/src/illustrations/**",
-    "packages/create-email/template/**",
-    "packages/preview-server/scripts/utils/default-seed/**",
-    "packages/preview-server/jsx-runtime/**",
-    "packages/react-email/src/commands/testing/**",
-    "packages/react-email/src/utils/preview/hot-reloading/test/**",
-    "packages/preview-server/src/utils/caniemail/tailwind/tests/**",
-    "packages/preview-server/src/utils/testing/**",
-    "packages/tailwind/e2e/**"
-  ],
+  "ignore": ["examples/**", "apps/web/public/**"],
   "workspaces": {
     ".": {
       "entry": ["scripts/*.ts", "scripts/*.mts"]
@@ -26,19 +13,39 @@
     "apps/demo": {
       "entry": ["emails/**/*.tsx", "emails/**/*.ts"]
     },
+    "apps/web": {
+      "entry": ["components/**/*.tsx", "src/illustrations/**/*.tsx"]
+    },
     "benchmarks/preview-server": {
       "entry": ["src/*.ts"]
     },
     "benchmarks/tailwind": {
       "entry": ["src/*.tsx", "tailwind.config.js"]
     },
+    "packages/create-email": {
+      "entry": ["template/**/*.tsx"]
+    },
+    "packages/preview-server": {
+      "entry": [
+        "jsx-runtime/**",
+        "scripts/utils/default-seed/**/*.tsx",
+        "src/utils/caniemail/tailwind/tests/**",
+        "src/utils/testing/**"
+      ]
+    },
+    "packages/react-email": {
+      "entry": [
+        "src/commands/testing/**",
+        "src/utils/preview/hot-reloading/test/**"
+      ]
+    },
+    "packages/tailwind": {
+      "entry": ["e2e/**"]
+    },
     "playground": {
       "entry": ["*.ts", "emails/**/*.tsx"]
     }
   },
-  "ignoreDependencies": [
-    "@react-email/preview-server",
-    "react-email"
-  ],
+  "ignoreDependencies": ["@react-email/preview-server", "react-email"],
   "exclude": ["duplicates"]
 }
