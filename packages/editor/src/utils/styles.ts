@@ -2,6 +2,14 @@ import type { CssJs } from './types';
 
 const WHITE_SPACE_REGEX = /\s+/;
 
+const BORDER_WIDTH_TO_STYLE: Record<string, string> = {
+  borderWidth: 'borderStyle',
+  borderTopWidth: 'borderTopStyle',
+  borderRightWidth: 'borderRightStyle',
+  borderBottomWidth: 'borderBottomStyle',
+  borderLeftWidth: 'borderLeftStyle',
+};
+
 export const jsToInlineCss = (styleObject: { [key: string]: any }) => {
   const parts: string[] = [];
 
@@ -227,6 +235,26 @@ function convertBorderValue(value: string | number): {
         color: 'black',
       };
   }
+}
+
+/**
+ * When a border-width is present but border-style is missing, browsers default
+ * to `none` and the border is invisible. This adds `solid` as a sensible
+ * fallback so borders show up immediately after setting a width.
+ */
+export function ensureBorderStyleFallback(
+  styles: Record<string, string | number>,
+): Record<string, string | number> {
+  for (const [widthKey, styleKey] of Object.entries(BORDER_WIDTH_TO_STYLE)) {
+    const widthValue = styles[widthKey];
+    if (!widthValue || widthValue === '0' || widthValue === '0px') {
+      continue;
+    }
+    if (!styles[styleKey]) {
+      styles[styleKey] = 'solid';
+    }
+  }
+  return styles;
 }
 
 /**
