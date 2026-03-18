@@ -45,7 +45,9 @@ async function checkPackageJson(packageJsonPath: string, onlyDevDeps: boolean) {
 
   const pkg: PackageJson = JSON.parse(content);
   const label = pkg.name ?? packageJsonPath;
-  const checkScope = onlyDevDeps ? 'dev dependencies only' : 'dependencies + dev dependencies';
+  const checkScope = onlyDevDeps
+    ? 'dev dependencies only'
+    : 'dependencies + dev dependencies';
 
   console.log(`Checking ${label} (${checkScope})`);
 
