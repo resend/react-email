@@ -1,5 +1,11 @@
 # @react-email/tailwind
 
+## 2.0.6
+
+### Patch Changes
+
+- 444d9df: allow for any peer version on body, button, code-block, code-inline, container, heading, hr, img, link, preview, text
+
 ## 2.0.5
 
 ### Patch Changes
@@ -56,7 +62,6 @@
 - 2452b7d: update to using tailwindcss@v4, don't inline styles on component props anymore
 
   ## Migration
-
   - Check https://tailwindcss.com/docs/upgrade-guide#changes-from-v3 to see if you need to change utilities
   - If you were merging utilities with the `style` prop, consider using [tailwind-merge](https://github.com/dcastil/tailwind-merge) instead.
   - Configuration should remain in `config` prop
