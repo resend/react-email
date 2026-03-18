@@ -22,6 +22,7 @@ import type {
   KnownThemeComponents,
   PanelGroup,
 } from './types';
+import type { SerializerPlugin } from '../../core/serializer/serializer-plugin';
 
 /**
  * Maps a document node (type + attrs) to the theme component key used for style lookup.
@@ -203,19 +204,6 @@ function getEmailTheme(editor: Editor) {
 
 function getEmailCss(editor: Editor) {
   return getGlobalContent('css', editor) as string | null;
-}
-
-export interface SerializerPlugin {
-  getNodeStyles(
-    node: JSONContent,
-    depth: number,
-    editor: Editor,
-  ): React.CSSProperties;
-  BaseTemplate(props: {
-    previewText: string | null;
-    children: React.ReactNode;
-    editor: Editor;
-  }): React.ReactNode;
 }
 
 export const EmailTheming = Extension.create<{
