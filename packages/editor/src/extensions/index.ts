@@ -236,7 +236,7 @@ export const StarterKit = Extension.create<StarterKitOptions>({
       Strike: {},
       Heading: {},
       Divider: {},
-      Link: { openOnClick: false },
+      Link: { openOnClick: false, HTMLAttributes: { class: 'node-link' } },
       Sup: {},
       Underline: {},
       Uppercase: {},
