@@ -1,0 +1,85 @@
+packages/editor/examples/src/examples/index.ts
+  e38fe10969da59d7 1-83
+packages/editor/src/ui/button-bubble-menu/edit-link.tsx
+  e38fe10969da59d7 1,34
+packages/editor/src/ui/link-bubble-menu/link-bubble-menu.css
+  e38fe10969da59d7 23,27-28,40-41,48,66-67
+packages/editor/examples/src/examples/bubble-menu.tsx
+  e38fe10969da59d7 1-38
+packages/editor/examples/src/examples/basic-editor.tsx
+  e38fe10969da59d7 3,15,19-24,33-35,37-38
+packages/editor/src/ui/bubble-menu/root.tsx
+  e38fe10969da59d7 9-10,24,40,42,47-55
+packages/editor/src/ui/button-bubble-menu/unlink.tsx
+  e38fe10969da59d7 1-43
+packages/editor/examples/src/examples/email-export.tsx
+  e38fe10969da59d7 1-85
+packages/editor/examples/src/examples/custom-extensions.tsx
+  e38fe10969da59d7 1-116
+packages/editor/examples/src/example-shell.tsx
+  e38fe10969da59d7 1-21
+packages/editor/src/ui/button-bubble-menu/root.tsx
+  e38fe10969da59d7 1,28-33,41,59
+packages/editor/src/ui/link-bubble-menu/root.tsx
+  e38fe10969da59d7 41
+packages/editor/examples/src/examples/email-theming.tsx
+  e38fe10969da59d7 1-77
+packages/editor/src/ui/button-bubble-menu/default.tsx
+  e38fe10969da59d7 3,6,13-41,49-51,60-64
+packages/editor/src/ui/image-bubble-menu/root.tsx
+  e38fe10969da59d7 35
+packages/editor/src/ui/bubble-menu/default.tsx
+  e38fe10969da59d7 34-35,49,94
+packages/editor/src/ui/themes/default.css
+  e38fe10969da59d7 290-325,435-454
+packages/editor/examples/src/examples/slash-commands.tsx
+  e38fe10969da59d7 15,61-63,68
+packages/editor/examples/src/examples/custom-bubble-menu.tsx
+  e38fe10969da59d7 1-45
+packages/editor/examples/src/examples/column-layouts.tsx
+  e38fe10969da59d7 1,4,6,41-43,71-73,76,80
+packages/editor/src/ui/link-bubble-menu/form.tsx
+  e38fe10969da59d7 40,45
+packages/editor/examples/src/app.tsx
+  e38fe10969da59d7 1-3,5,8,10-11,14-18
+packages/editor/src/ui/button-bubble-menu/button-bubble-menu.css
+  e38fe10969da59d7 23,27-28,30-62
+packages/editor/src/ui/button-bubble-menu/context.tsx
+  e38fe10969da59d7 6
+packages/editor/examples/src/examples/images-and-buttons.tsx
+  e38fe10969da59d7 1,3-26
+packages/editor/examples/src/use-hash-route.ts
+  e38fe10969da59d7 1-23
+packages/editor/src/ui/button-bubble-menu/form.tsx
+  e38fe10969da59d7 1-2,4-152
+packages/editor/src/ui/button-bubble-menu/index.ts
+  e38fe10969da59d7 3,6,13-14,19-20,26-27
+packages/editor/examples/src/examples/full-email-builder.tsx
+  e38fe10969da59d7 1-101
+packages/editor/package.json
+  e38fe10969da59d7 3
+packages/editor/examples/src/sidebar.tsx
+  e38fe10969da59d7 1-45
+packages/editor/examples/src/examples/link-editing.tsx
+  e38fe10969da59d7 1-24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.15",
+  "base_commit_sha": "0b1c82785f8825ac14982532cad3dce18947c4b2",
+  "prompts": {
+    "e38fe10969da59d7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "827c5c99-6e2c-4ed4-bef3-2a03e04c94a5",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 1756,
+      "total_deletions": 389,
+      "accepted_lines": 1480,
+      "overriden_lines": 2
+    }
+  }
+}
