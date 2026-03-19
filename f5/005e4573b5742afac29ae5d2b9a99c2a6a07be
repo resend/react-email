@@ -1,0 +1,23 @@
+packages/editor/src/extensions/index.ts
+  0ecb9c7b45e6e921 239
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.15",
+  "base_commit_sha": "f5005e4573b5742afac29ae5d2b9a99c2a6a07be",
+  "prompts": {
+    "0ecb9c7b45e6e921": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4222bf45-0a38-4af2-aee3-f8a7a1728324",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}
