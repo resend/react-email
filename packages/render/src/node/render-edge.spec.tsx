@@ -152,7 +152,7 @@ describe('render on the edge', () => {
     const htmlPromise = new Promise<string>((resolve) =>
       setTimeout(
         () => resolve('<p>content rendered after suspension</p>'),
-        500,
+        50,
       ),
     );
     const EmailTemplate = () => {

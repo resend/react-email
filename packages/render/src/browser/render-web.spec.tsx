@@ -141,7 +141,7 @@ describe('render on the browser environment', () => {
           resolve(
             '<p>example content with some multibyte characters: 情報Ⅰ</p>',
           ),
-        500,
+        50,
       ),
     );
     const EmailTemplate = () => {
