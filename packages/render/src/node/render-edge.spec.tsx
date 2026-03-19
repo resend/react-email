@@ -150,10 +150,7 @@ describe('render on the edge', () => {
   // https://github.com/resend/react-email/issues/3090
   it('waits for Suspense boundaries to resolve before resolving', async () => {
     const htmlPromise = new Promise<string>((resolve) =>
-      setTimeout(
-        () => resolve('<p>content rendered after suspension</p>'),
-        50,
-      ),
+      setTimeout(() => resolve('<p>content rendered after suspension</p>'), 50),
     );
     const EmailTemplate = () => {
       const html = use(htmlPromise);
