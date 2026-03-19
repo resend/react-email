@@ -1,6 +1,6 @@
 import { StarterKit } from '@react-email/editor/extensions';
-import { BubbleMenu } from '@react-email/editor/ui';
 import { EditorProvider } from '@tiptap/react';
+import { ExampleShell } from '../example-shell';
 
 const extensions = [StarterKit];
 
@@ -12,12 +12,17 @@ const content = {
       content: [
         {
           type: 'text',
-          text: 'Select this text to see the bubble menu. Try ',
+          text: 'This is the simplest editor setup — just StarterKit with no UI overlays. Start typing or edit this text.',
         },
-        { type: 'text', marks: [{ type: 'bold' }], text: 'bold' },
-        { type: 'text', text: ', ' },
-        { type: 'text', marks: [{ type: 'italic' }], text: 'italic' },
-        { type: 'text', text: ', and other formatting options.' },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'The StarterKit includes all core extensions: paragraphs, headings, lists, tables, code blocks, and more.',
+        },
       ],
     },
   ],
@@ -25,16 +30,11 @@ const content = {
 
 export function BasicEditor() {
   return (
-    <div>
-      <p className="text-sm text-(--re-text-muted) mb-4">
-        Minimal setup with coreExtensions and all default bubble menus. Select
-        text to see the bubble menu.
-      </p>
-      <div className="border border-(--re-border) rounded-xl p-4 min-h-75">
-        <EditorProvider extensions={extensions} content={content}>
-          <BubbleMenu.Default />
-        </EditorProvider>
-      </div>
-    </div>
+    <ExampleShell
+      title="Basic Editor"
+      description="Minimal setup with StarterKit and no UI overlays."
+    >
+      <EditorProvider extensions={extensions} content={content} />
+    </ExampleShell>
   );
 }
