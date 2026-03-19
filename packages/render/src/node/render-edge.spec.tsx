@@ -168,22 +168,29 @@ describe('render on the edge', () => {
       vi.resetModules();
       const { render } = await import('./render');
 
-      const htmlPromise = new Promise<string>((resolve) =>
-        setTimeout(
-          () => resolve('<p>content rendered after suspension</p>'),
-          50,
-        ),
-      );
+      let resolveHtml!: (value: string) => void;
+      const htmlPromise = new Promise<string>((resolve) => {
+        resolveHtml = resolve;
+      });
       const EmailTemplate = () => {
         const html = use(htmlPromise);
         return <div dangerouslySetInnerHTML={{ __html: html }} />;
       };
 
-      const renderedTemplate = await render(
+      const renderPromise = render(
         <Suspense>
           <EmailTemplate />
         </Suspense>,
       );
+
+      // Wait for the render to start and suspend on htmlPromise before resolving it.
+      // render() internally awaits a module import (microtask) before calling
+      // renderToReadableStream, so a setTimeout(0) here guarantees those microtasks
+      // have settled and React has already suspended on the pending promise.
+      await new Promise((r) => setTimeout(r, 0));
+      resolveHtml('<p>content rendered after suspension</p>');
+
+      const renderedTemplate = await renderPromise;
 
       expect(renderedTemplate).not.toContain('$RC');
       expect(renderedTemplate).not.toContain('<!--$?-->');
