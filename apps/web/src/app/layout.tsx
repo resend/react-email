@@ -59,7 +59,7 @@ export const metadata: Metadata = {
       'A collection of high-quality, unstyled components for creating beautiful emails using React and TypeScript.',
     images: [
       {
-        url: '/meta/cover.png',
+        url: '/static/covers/react-email.png',
       },
     ],
     locale: 'en_US',
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    images: 'https://react.email/static/cover.png',
+    images: 'https://react.email/static/covers/react-email.png',
   },
   alternates: {
     canonical: '/',

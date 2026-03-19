@@ -1,5 +1,7 @@
 # react-email
 
+## 5.2.10
+
 ## 5.2.9
 
 ### Patch Changes
@@ -571,7 +573,6 @@
   ## Why
 
   Three reasons:
-
   1. Better support of NextJS's latest versions
   2. Being ready for future React API deprecations
   3. Support for Suspense which allows for using async inside components
@@ -604,7 +605,6 @@
   ## Why
 
   Three reasons:
-
   1. Better support of NextJS's latest versions
   2. Being ready for future React API deprecations
   3. Support for Suspense which allows for using async inside components

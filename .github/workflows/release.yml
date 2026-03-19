@@ -24,10 +24,10 @@ jobs:
       - name: Install npm v11
         run: npm install -g npm@11
       - name: pnpm setup
-        uses: pnpm/action-setup@9b5745cdf0a2e8c2620f0746130f809adb911c19
+        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320
       - name: Install packages
         run: pnpm install --frozen-lockfile --prefer-offline
       - name: Publish stable release
-        run: pnpm tsx ./scripts/release.ts
+        run: node --import tsx/esm ./scripts/release.mts
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -145,7 +145,7 @@ const ReactVariantSelect = ({
     >
       <Select.Trigger
         aria-label="Choose the styling solution"
-        className="flex h-8 items-center justify-center gap-1 rounded bg-slate-3 px-3 leading-none outline-none focus-within:ring-2 focus-within:ring-slate-6 focus-within:ring-opacity-50 data-[placeholder]:text-slate-11"
+        className="flex h-8 items-center justify-center gap-1 rounded-sm bg-slate-3 px-3 leading-none outline-hidden focus-within:ring-2 focus-within:ring-slate-6/50 data-placeholder:text-slate-11"
       >
         <Select.Value>
           {(() => {
@@ -161,14 +161,14 @@ const ReactVariantSelect = ({
         </Select.Icon>
       </Select.Trigger>
       <Select.Portal>
-        <Select.Content className="z-[2] overflow-hidden rounded-md bg-[#1F2122]">
+        <Select.Content className="z-2 overflow-hidden rounded-md bg-[#1F2122]">
           <Select.ScrollUpButton className="flex h-6 cursor-default items-center justify-center">
             <ChevronUpIcon size={12} />
           </Select.ScrollUpButton>
           <Select.Viewport className="p-1">
             {['tailwind', 'inline-styles'].map((variant) => (
               <Select.Item
-                className="relative flex h-8 cursor-pointer select-none items-center rounded-[.25rem] px-6 py-2 text-slate-11 text-xs leading-none transition-colors ease-[cubic-bezier(.36,.66,.6,1)] data-[disabled]:pointer-events-none data-[highlighted]:bg-slate-3 data-[highlighted]:text-slate-12 data-[highlighted]:outline-none"
+                className="relative flex h-8 cursor-pointer select-none items-center rounded-[.25rem] px-6 py-2 text-slate-11 text-xs leading-none transition-colors ease-[cubic-bezier(.36,.66,.6,1)] data-disabled:pointer-events-none data-highlighted:bg-slate-3 data-highlighted:text-slate-12 data-highlighted:outline-hidden"
                 key={variant}
                 value={variant}
               >
