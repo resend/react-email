@@ -156,8 +156,9 @@ describe('render on the edge', () => {
       };
 
       vi.doMock('react-dom/server', async () => {
-        const ReactDOMServerBrowser =
-          await vi.importActual<BrowserImport>('react-dom/server.browser');
+        const ReactDOMServerBrowser = await vi.importActual<BrowserImport>(
+          'react-dom/server.browser',
+        );
         return {
           ...ReactDOMServerBrowser,
           default: ReactDOMServerBrowser,
@@ -168,7 +169,10 @@ describe('render on the edge', () => {
       const { render } = await import('./render');
 
       const htmlPromise = new Promise<string>((resolve) =>
-        setTimeout(() => resolve('<p>content rendered after suspension</p>'), 50),
+        setTimeout(
+          () => resolve('<p>content rendered after suspension</p>'),
+          50,
+        ),
       );
       const EmailTemplate = () => {
         const html = use(htmlPromise);

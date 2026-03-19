@@ -2,7 +2,7 @@
  * @vitest-environment jsdom
  */
 
-import { Suspense, createElement, use } from 'react';
+import { createElement, Suspense, use } from 'react';
 import { Preview } from '../shared/utils/testing/preview';
 import { Template } from '../shared/utils/testing/template';
 import { render } from './render';
@@ -152,7 +152,9 @@ describe('render on the browser environment', () => {
 
     const renderedTemplate = await render(<EmailTemplate />);
 
-    expect(renderedTemplate).toContain('example content with some multibyte characters: 情報Ⅰ');
+    expect(renderedTemplate).toContain(
+      'example content with some multibyte characters: 情報Ⅰ',
+    );
   });
 
   // https://github.com/resend/react-email/issues/3090
