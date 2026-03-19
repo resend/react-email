@@ -101,7 +101,7 @@ describe('render on node environments', () => {
           resolve(
             '<p>example content with some multibyte characters: 情報Ⅰ</p>',
           ),
-        50,
+        500,
       ),
     );
     const EmailTemplate = () => {
