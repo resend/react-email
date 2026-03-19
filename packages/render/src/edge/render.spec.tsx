@@ -2,6 +2,7 @@
  * @vitest-environment jsdom
  */
 
+import { Suspense, use } from 'react';
 import { Preview } from '../shared/utils/testing/preview';
 import { Template } from '../shared/utils/testing/template';
 import { render } from './render';
@@ -132,5 +133,29 @@ describe('render on the edge', () => {
     expect(actualOutput).toMatchInlineSnapshot(
       `"THIS SHOULD BE RENDERED IN PLAIN TEXT"`,
     );
+  });
+
+  // https://github.com/resend/react-email/issues/3090
+  it('waits for Suspense boundaries to resolve before resolving', async () => {
+    const htmlPromise = new Promise<string>((resolve) =>
+      setTimeout(
+        () => resolve('<p>content rendered after suspension</p>'),
+        500,
+      ),
+    );
+    const EmailTemplate = () => {
+      const html = use(htmlPromise);
+      return <div dangerouslySetInnerHTML={{ __html: html }} />;
+    };
+
+    const renderedTemplate = await render(
+      <Suspense>
+        <EmailTemplate />
+      </Suspense>,
+    );
+
+    expect(renderedTemplate).not.toContain('$RC');
+    expect(renderedTemplate).not.toContain('<!--$?-->');
+    expect(renderedTemplate).toContain('content rendered after suspension');
   });
 });

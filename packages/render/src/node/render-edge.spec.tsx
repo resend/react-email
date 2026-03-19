@@ -1,3 +1,4 @@
+import { Suspense, use } from 'react';
 import { Preview } from '../shared/utils/testing/preview';
 import { Template } from '../shared/utils/testing/template';
 import { render } from './render';
@@ -144,6 +145,30 @@ describe('render on the edge', () => {
         `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><link rel="preload" as="image" href="img/test.png"/><!--$--><h1>Welcome, <!-- -->Jim<!-- -->!</h1><img alt="test" src="img/test.png"/><p>Thanks for trying our product. We&#x27;re thrilled to have you on board!</p><!--/$-->"`,
       );
     });
+  });
+
+  // https://github.com/resend/react-email/issues/3090
+  it('waits for Suspense boundaries to resolve before resolving', async () => {
+    const htmlPromise = new Promise<string>((resolve) =>
+      setTimeout(
+        () => resolve('<p>content rendered after suspension</p>'),
+        500,
+      ),
+    );
+    const EmailTemplate = () => {
+      const html = use(htmlPromise);
+      return <div dangerouslySetInnerHTML={{ __html: html }} />;
+    };
+
+    const renderedTemplate = await render(
+      <Suspense>
+        <EmailTemplate />
+      </Suspense>,
+    );
+
+    expect(renderedTemplate).not.toContain('$RC');
+    expect(renderedTemplate).not.toContain('<!--$?-->');
+    expect(renderedTemplate).toContain('content rendered after suspension');
   });
 
   /**
