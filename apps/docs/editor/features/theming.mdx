@@ -1,0 +1,120 @@
+---
+title: "Email Theming"
+sidebarTitle: "Theming"
+description: "Apply and customize visual themes for email output."
+icon: "palette"
+---
+
+## Quick start
+
+Import the `EmailTheming` plugin and add it to your extensions:
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+import { EmailTheming } from '@react-email/editor/plugins';
+import { BubbleMenu } from '@react-email/editor/ui';
+import { EditorProvider } from '@tiptap/react';
+import '@react-email/editor/themes/default.css';
+
+const extensions = [StarterKit, EmailTheming];
+
+export function MyEditor() {
+  return (
+    <EditorProvider extensions={extensions} content={content}>
+      <BubbleMenu.Default />
+    </EditorProvider>
+  );
+}
+```
+
+## Built-in themes
+
+The editor ships with two themes:
+
+| Theme | Description |
+|-------|-------------|
+| `'basic'` | Full styling with generous spacing, borders, and typography (default) |
+| `'minimal'` | Lightweight styling with reduced visual elements |
+
+Select a theme with `.configure()`:
+
+```tsx
+const extensions = [StarterKit, EmailTheming.configure({ theme: 'basic' })];
+```
+
+## Switching themes dynamically
+
+Use React state to toggle themes at runtime. Re-key the `EditorProvider` to apply the new theme:
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+import { EmailTheming } from '@react-email/editor/plugins';
+import { BubbleMenu } from '@react-email/editor/ui';
+import { EditorProvider } from '@tiptap/react';
+import { useState } from 'react';
+
+type EditorTheme = 'basic' | 'minimal';
+
+export function MyEditor() {
+  const [theme, setTheme] = useState<EditorTheme>('basic');
+  const extensions = [StarterKit, EmailTheming.configure({ theme })];
+
+  return (
+    <div>
+      <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
+        <button onClick={() => setTheme('basic')}>Basic</button>
+        <button onClick={() => setTheme('minimal')}>Minimal</button>
+      </div>
+      <EditorProvider key={theme} extensions={extensions} content={content}>
+        <BubbleMenu.Default />
+      </EditorProvider>
+    </div>
+  );
+}
+```
+
+<Info>
+  The `key={theme}` on `EditorProvider` forces React to remount the editor when the theme changes,
+  ensuring the new theme is applied cleanly.
+</Info>
+
+## Theme components
+
+Themes define styles for the following email components:
+
+| Component | Description |
+|-----------|-------------|
+| `reset` | CSS reset styles |
+| `body` | Email body wrapper |
+| `container` | Content container |
+| `h1` | Level 1 heading |
+| `h2` | Level 2 heading |
+| `h3` | Level 3 heading |
+| `paragraph` | Text paragraphs |
+| `list` | Ordered and unordered lists |
+| `listItem` | Individual list items |
+| `listParagraph` | Paragraphs inside list items |
+| `nestedList` | Nested list styles |
+| `blockquote` | Block quotes |
+| `codeBlock` | Code blocks |
+| `inlineCode` | Inline code |
+| `link` | Hyperlinks |
+| `button` | Email buttons |
+| `section` | Content sections |
+| `footer` | Footer area |
+| `hr` | Horizontal rules |
+| `image` | Images |
+
+## Theme-aware serialization
+
+When `EmailTheming` is in your extensions array, the `composeReactEmail` function automatically
+applies theme styles to the exported HTML. No extra configuration needed:
+
+```tsx
+import { composeReactEmail } from '@react-email/editor/core';
+
+// Theme styles are automatically injected into the HTML output
+const { html, text } = await composeReactEmail({ editor, preview: null });
+```
+
+See [Email Export](/editor/features/email-export) for more details on the serialization pipeline.

@@ -1,0 +1,157 @@
+---
+title: "Getting Started"
+sidebarTitle: "Getting Started"
+description: "Set up the email editor in your React project in under 5 minutes."
+icon: "rocket"
+---
+
+import EditorInstall from '/snippets/editor-install.mdx'
+import EditorNextSteps from '/snippets/editor-next-steps.mdx'
+
+## Prerequisites
+
+<Note>
+  The editor requires **React 18+** and a bundler that supports [package exports](https://nodejs.org/api/packages.html#exports) (Vite, Next.js, webpack 5, etc.).
+</Note>
+
+## Install
+
+Install the editor and its peer dependencies:
+
+<EditorInstall />
+
+## Import CSS
+
+The editor ships CSS for its UI components and a default theme. Import the styles you need:
+
+```tsx
+// Required for bubble menu styling
+import '@react-email/editor/styles/bubble-menu.css';
+
+// Required for link bubble menu
+import '@react-email/editor/styles/link-bubble-menu.css';
+
+// Required for button bubble menu
+import '@react-email/editor/styles/button-bubble-menu.css';
+
+// Required for image bubble menu
+import '@react-email/editor/styles/image-bubble-menu.css';
+
+// Required for slash command menu
+import '@react-email/editor/styles/slash-command.css';
+
+// Default color theme
+import '@react-email/editor/themes/default.css';
+```
+
+<Info>
+  You only need to import the CSS for the components you use. At a minimum, most setups need
+  `bubble-menu.css` and `default.css`.
+</Info>
+
+## Minimal editor
+
+The simplest setup uses `StarterKit` with `EditorProvider` — no UI overlays, just a content-editable area
+with all core extensions (paragraphs, headings, lists, tables, code blocks, and more):
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+import { EditorProvider } from '@tiptap/react';
+
+const extensions = [StarterKit];
+
+const content = {
+  type: 'doc',
+  content: [
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'Start typing or edit this text.',
+        },
+      ],
+    },
+  ],
+};
+
+export function MyEditor() {
+  return <EditorProvider extensions={extensions} content={content} />;
+}
+```
+
+## Adding a bubble menu
+
+To add a floating formatting toolbar that appears when you select text, add `BubbleMenu.Default`
+as a child of `EditorProvider`:
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+import { BubbleMenu } from '@react-email/editor/ui';
+import { EditorProvider } from '@tiptap/react';
+import '@react-email/editor/styles/bubble-menu.css';
+import '@react-email/editor/themes/default.css';
+
+const extensions = [StarterKit];
+
+const content = {
+  type: 'doc',
+  content: [
+    {
+      type: 'paragraph',
+      content: [
+        { type: 'text', text: 'Select this text to see the bubble menu. Try ' },
+        { type: 'text', marks: [{ type: 'bold' }], text: 'bold' },
+        { type: 'text', text: ', ' },
+        { type: 'text', marks: [{ type: 'italic' }], text: 'italic' },
+        { type: 'text', text: ', and other formatting options.' },
+      ],
+    },
+  ],
+};
+
+export function MyEditor() {
+  return (
+    <EditorProvider extensions={extensions} content={content}>
+      <BubbleMenu.Default />
+    </EditorProvider>
+  );
+}
+```
+
+Select text in the editor to see the formatting toolbar with bold, italic, underline, alignment, and more.
+
+## Content format
+
+The editor accepts content in two formats:
+
+**TipTap JSON** — A structured document tree:
+
+```json
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "text": "Hello world" }
+      ]
+    }
+  ]
+}
+```
+
+**HTML string** — Parsed automatically into the editor's document model:
+
+```tsx
+const content = `
+  <h1>Welcome</h1>
+  <p>This is a <a href="https://react.email">link</a>.</p>
+`;
+
+<EditorProvider extensions={extensions} content={content} />
+```
+
+## Next steps
+
+<EditorNextSteps />

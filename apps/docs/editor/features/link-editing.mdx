@@ -1,0 +1,74 @@
+---
+title: "Link Editing"
+sidebarTitle: "Link Editing"
+description: "Add inline link editing with the link bubble menu."
+icon: "link"
+---
+
+## Quick start
+
+Add `LinkBubbleMenu.Default` to enable an inline link editing toolbar:
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+import { LinkBubbleMenu } from '@react-email/editor/ui';
+import { EditorProvider } from '@tiptap/react';
+import '@react-email/editor/styles/link-bubble-menu.css';
+import '@react-email/editor/themes/default.css';
+
+const extensions = [StarterKit];
+
+const content = `
+  <p>Click on <a href="https://react.email" target="_blank">this link</a> to see the link bubble menu.</p>
+  <p>Try adding more links by selecting text and pressing Cmd+K.</p>
+`;
+
+export function MyEditor() {
+  return (
+    <EditorProvider extensions={extensions} content={content}>
+      <LinkBubbleMenu.Default />
+    </EditorProvider>
+  );
+}
+```
+
+## How it works
+
+When you click on a link in the editor, the link bubble menu appears with:
+
+- **URL display** — Shows the current link URL
+- **Edit button** — Opens an inline form to change the URL
+- **Open button** — Opens the link in a new tab
+- **Unlink button** — Removes the link, keeping the text
+
+To **add a new link**, select text and press `Cmd+K` (or `Ctrl+K` on Windows/Linux).
+
+## Using with the text bubble menu
+
+When combining the link bubble menu with `BubbleMenu.Default`, use `excludeMarks` to prevent
+the text bubble menu from appearing when a link is focused:
+
+```tsx
+import { BubbleMenu, LinkBubbleMenu } from '@react-email/editor/ui';
+
+<EditorProvider extensions={extensions} content={content}>
+  <BubbleMenu.Default excludeMarks={['link']} />
+  <LinkBubbleMenu.Default />
+</EditorProvider>
+```
+
+Without `excludeMarks`, both menus would try to show at the same time when a link is selected.
+
+## HTML content with links
+
+When using HTML strings as content, `<a>` tags are automatically parsed into the editor's
+link model:
+
+```tsx
+const content = `
+  <p>Visit <a href="https://react.email" target="_blank">React Email</a> for more info.</p>
+`;
+```
+
+The link extension is included in `StarterKit` with `openOnClick` disabled by default,
+so clicking a link in edit mode focuses it rather than navigating away.

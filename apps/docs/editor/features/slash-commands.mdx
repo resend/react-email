@@ -1,0 +1,156 @@
+---
+title: "Slash Commands"
+sidebarTitle: "Slash Commands"
+description: "Add a command menu for inserting content blocks."
+icon: "forward-slash"
+---
+
+## Quick start
+
+Add `SlashCommand.Root` with the default command set:
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+import { defaultSlashCommands, SlashCommand } from '@react-email/editor/ui';
+import { EditorProvider } from '@tiptap/react';
+import '@react-email/editor/styles/slash-command.css';
+
+const extensions = [StarterKit];
+
+export function MyEditor() {
+  return (
+    <EditorProvider extensions={extensions} content={content}>
+      <SlashCommand.Root items={defaultSlashCommands} />
+    </EditorProvider>
+  );
+}
+```
+
+Type `/` in the editor to open the command menu. Use arrow keys to navigate and Enter to select.
+
+## Default commands
+
+The `defaultSlashCommands` array includes these built-in commands:
+
+| Command | Category | Description |
+|---------|----------|-------------|
+| `TEXT` | Text | Plain text block |
+| `H1` | Text | Large heading |
+| `H2` | Text | Medium heading |
+| `H3` | Text | Small heading |
+| `BULLET_LIST` | Text | Unordered list |
+| `NUMBERED_LIST` | Text | Ordered list |
+| `QUOTE` | Text | Block quote |
+| `CODE` | Text | Code snippet |
+| `BUTTON` | Layout | Clickable button |
+| `DIVIDER` | Layout | Horizontal separator |
+| `SECTION` | Layout | Content section |
+| `TWO_COLUMNS` | Layout | Two column layout |
+| `THREE_COLUMNS` | Layout | Three column layout |
+| `FOUR_COLUMNS` | Layout | Four column layout |
+
+Each command is also exported individually, so you can cherry-pick:
+
+```tsx
+import { BUTTON, H1, H2, TEXT } from '@react-email/editor/ui';
+
+<SlashCommand.Root items={[TEXT, H1, H2, BUTTON]} />
+```
+
+## Adding custom commands
+
+Create a `SlashCommandItem` and include it in the items array:
+
+```tsx
+import {
+  defaultSlashCommands,
+  SlashCommand,
+  type SlashCommandItem,
+} from '@react-email/editor/ui';
+import { Star } from 'lucide-react';
+
+const GREETING: SlashCommandItem = {
+  title: 'Greeting',
+  description: 'Insert a greeting block',
+  icon: <Star size={20} />,
+  category: 'Custom',
+  searchTerms: ['hello', 'greeting', 'welcome'],
+  command: ({ editor, range }) => {
+    editor
+      .chain()
+      .focus()
+      .deleteRange(range)
+      .insertContent({
+        type: 'paragraph',
+        content: [{ type: 'text', text: 'Hello! Welcome to our newsletter.' }],
+      })
+      .run();
+  },
+};
+
+export function MyEditor() {
+  return (
+    <EditorProvider extensions={extensions} content={content}>
+      <SlashCommand.Root
+        items={[...defaultSlashCommands, GREETING]}
+      />
+    </EditorProvider>
+  );
+}
+```
+
+The `SlashCommandItem` interface:
+
+<ResponseField name="title" type="string" required>
+  Display name shown in the command list.
+</ResponseField>
+
+<ResponseField name="description" type="string" required>
+  Help text shown below the title.
+</ResponseField>
+
+<ResponseField name="icon" type="ReactNode" required>
+  Icon displayed next to the command.
+</ResponseField>
+
+<ResponseField name="category" type="string" required>
+  Category for grouping commands in the list.
+</ResponseField>
+
+<ResponseField name="searchTerms" type="string[]">
+  Additional terms for fuzzy search matching.
+</ResponseField>
+
+<ResponseField name="command" type="(props: { editor, range }) => void" required>
+  Function called when the command is selected. Receives the editor instance and the range to replace.
+</ResponseField>
+
+## Using individual commands
+
+You can cherry-pick from the default commands to show only specific options:
+
+```tsx
+import { BUTTON, SlashCommand } from '@react-email/editor/ui';
+
+<SlashCommand.Root items={[BUTTON]} />
+```
+
+This is useful when you want a minimal command palette — for example, only allowing button insertion.
+
+## Controlling visibility
+
+<ResponseField name="char" type="string" default="/">
+  Character that triggers the command menu.
+</ResponseField>
+
+<ResponseField name="allow" type="(props: { editor }) => boolean">
+  Function to control when the command menu can appear. Return `false` to prevent it.
+</ResponseField>
+
+```tsx
+<SlashCommand.Root
+  items={defaultSlashCommands}
+  char="/"
+  allow={({ editor }) => !editor.isActive('codeBlock')}
+/>
+```
