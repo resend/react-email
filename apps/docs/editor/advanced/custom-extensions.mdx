@@ -171,6 +171,27 @@ const Callout = EmailNode.create({
 
 const extensions = [StarterKit, Callout];
 
+const content = {
+  type: 'doc',
+  content: [
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'This editor includes a custom Callout node. Use the toolbar to insert one.',
+        },
+      ],
+    },
+    {
+      type: 'callout',
+      content: [
+        { type: 'text', text: 'This is a callout block — a custom extension!' },
+      ],
+    },
+  ],
+};
+
 function Toolbar() {
   const { editor } = useCurrentEditor();
   if (!editor) return null;
@@ -250,7 +271,7 @@ const Highlight = EmailMark.create({
 });
 ```
 
-## configure and extend
+## Configure and extend
 
 Both `EmailNode` and `EmailMark` support TipTap's standard customization methods:
 
