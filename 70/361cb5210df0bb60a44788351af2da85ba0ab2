@@ -1,0 +1,31 @@
+apps/docs/editor/api-reference/ui-components.mdx
+  4c846701e8544a26 194-195,252-260
+apps/docs/editor/advanced/custom-extensions.mdx
+  4c846701e8544a26 174-194,274
+apps/docs/editor/api-reference/extensions-list.mdx
+  4c846701e8544a26 338
+apps/docs/editor/api-reference/theming-api.mdx
+  4c846701e8544a26 176-177
+apps/docs/editor/features/email-export.mdx
+  4c846701e8544a26 22-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.15",
+  "base_commit_sha": "70361cb5210df0bb60a44788351af2da85ba0ab2",
+  "prompts": {
+    "4c846701e8544a26": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019d0cc9-ddf1-7042-92bb-ee96fb3ac45a",
+        "model": "unknown"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 42,
+      "total_deletions": 10,
+      "accepted_lines": 42,
+      "overriden_lines": 0
+    }
+  }
+}
