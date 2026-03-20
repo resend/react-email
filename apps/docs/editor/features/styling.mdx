@@ -1,0 +1,406 @@
+---
+title: "Styling"
+sidebarTitle: "Styling"
+description: "Customize the editor's appearance with CSS variables, data attributes, and content classes."
+icon: "paintbrush"
+---
+
+The editor's UI is fully customizable through CSS. Every component uses `data-re-*` attributes
+as stable styling hooks, and a set of CSS custom properties (`--re-*`) control the entire color scheme.
+
+## CSS variables
+
+The default theme defines these CSS custom properties on `:root`. Override them on any parent
+element to restyle the editor:
+
+```css
+.my-editor {
+  --re-bg: #1a1a2e;
+  --re-text: #eaeaea;
+  --re-border: #2a2a3e;
+}
+```
+
+### Color variables
+
+| Variable | Description | Light default | Dark default |
+|----------|-------------|--------------|--------------|
+| `--re-bg` | Background color | `#fff` | `#1c1c1c` |
+| `--re-border` | Border color | `#e5e5e5` | `#2e2e2e` |
+| `--re-text` | Primary text color | `#1c1c1c` | `#ececec` |
+| `--re-text-muted` | Secondary/muted text | `#6b6b6b` | `#a0a0a0` |
+| `--re-hover` | Hover background | `rgba(0,0,0,0.04)` | `rgba(255,255,255,0.06)` |
+| `--re-active` | Active/click background | `rgba(0,0,0,0.06)` | `rgba(255,255,255,0.09)` |
+| `--re-pressed` | Pressed/toggled background | `rgba(0,0,0,0.06)` | `rgba(255,255,255,0.09)` |
+| `--re-separator` | Separator line color | `#e5e5e5` | `#2e2e2e` |
+| `--re-danger` | Destructive action color | `#dc2626` | `#f87171` |
+| `--re-danger-hover` | Destructive hover background | `rgba(220,38,38,0.1)` | `rgba(248,113,113,0.15)` |
+
+### Dimension variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `--re-radius` | Border radius for containers (menus, dropdowns) | `0.75rem` |
+| `--re-radius-sm` | Border radius for buttons and items | `0.5rem` |
+| `--re-shadow` | Box shadow for floating elements | `0 10px 15px -3px rgba(0,0,0,0.1), ...` |
+
+### Dark mode
+
+The default theme supports dark mode in two ways:
+
+**Automatic** — via `prefers-color-scheme`:
+
+```css
+@media (prefers-color-scheme: dark) {
+  :root {
+    --re-bg: #1c1c1c;
+    --re-text: #ececec;
+    /* ... dark values applied automatically */
+  }
+}
+```
+
+**Class-based** — via a `.dark` class on any ancestor:
+
+```css
+.dark {
+  --re-bg: #1c1c1c;
+  --re-text: #ececec;
+  /* ... */
+}
+```
+
+This works out of the box with class-based dark mode libraries (e.g., `next-themes`).
+
+## Data attribute selectors
+
+Every UI component uses `data-re-*` attributes as stable CSS hooks. These are the recommended
+way to target specific parts of the editor UI.
+
+### Bubble menu
+
+```css
+/* Menu container */
+[data-re-bubble-menu] { }
+
+/* Item groups (formatting, alignment) */
+[data-re-bubble-menu-group] { }
+
+/* Individual toggle buttons */
+[data-re-bubble-menu-item] { }
+
+/* Active/pressed state */
+[data-re-bubble-menu-item][data-active] { }
+
+/* Target a specific item by name */
+[data-re-bubble-menu-item][data-item="bold"] { }
+[data-re-bubble-menu-item][data-item="italic"] { }
+
+/* Separator between groups */
+[data-re-bubble-menu-separator] { }
+```
+
+Available `data-item` values: `bold`, `italic`, `underline`, `strike`, `code`, `uppercase`,
+`align-left`, `align-center`, `align-right`.
+
+### Node selector
+
+The block type dropdown inside the bubble menu:
+
+```css
+/* Dropdown wrapper */
+[data-re-node-selector] { }
+
+/* Trigger button (shows current block type) */
+[data-re-node-selector-trigger] { }
+
+/* Dropdown content panel */
+[data-re-node-selector-content] { }
+
+/* Individual block type option */
+[data-re-node-selector-item] { }
+
+/* Currently active block type */
+[data-re-node-selector-item][data-active] { }
+```
+
+### Link selector
+
+The link popover inside the bubble menu:
+
+```css
+/* Wrapper */
+[data-re-link-selector] { }
+
+/* Trigger button */
+[data-re-link-selector-trigger] { }
+
+/* Edit form container */
+[data-re-link-selector-form] { }
+
+/* URL input field */
+[data-re-link-selector-input] { }
+
+/* Apply button */
+[data-re-link-selector-apply] { }
+
+/* Unlink/remove button */
+[data-re-link-selector-unlink] { }
+```
+
+### Link bubble menu
+
+The standalone menu that appears when clicking a link:
+
+```css
+/* Container */
+[data-re-link-bm] { }
+
+/* Toolbar with action buttons */
+[data-re-link-bm-toolbar] { }
+
+/* Action buttons */
+[data-re-link-bm-item] { }
+[data-re-link-bm-item][data-item="edit-link"] { }
+[data-re-link-bm-item][data-item="open-link"] { }
+[data-re-link-bm-item][data-item="unlink"] { }
+
+/* Edit form */
+[data-re-link-bm-form] { }
+[data-re-link-bm-input] { }
+[data-re-link-bm-apply] { }
+[data-re-link-bm-unlink] { }
+```
+
+### Button bubble menu
+
+The menu that appears when clicking an email button:
+
+```css
+/* Container */
+[data-re-btn-bm] { }
+
+/* Toolbar */
+[data-re-btn-bm-toolbar] { }
+
+/* Action buttons */
+[data-re-btn-bm-item] { }
+[data-re-btn-bm-item][data-item="edit-link"] { }
+```
+
+### Image bubble menu
+
+The menu that appears when clicking an image:
+
+```css
+/* Container */
+[data-re-img-bm] { }
+
+/* Toolbar */
+[data-re-img-bm-toolbar] { }
+
+/* Action buttons */
+[data-re-img-bm-item] { }
+[data-re-img-bm-item][data-item="edit-link"] { }
+```
+
+### Slash command
+
+```css
+/* Command palette container */
+[data-re-slash-command] { }
+
+/* Individual command item */
+[data-re-slash-command-item] { }
+
+/* Currently highlighted item */
+[data-re-slash-command-item][data-selected] { }
+
+/* Category header (e.g., "Text", "Layout") */
+[data-re-slash-command-category] { }
+
+/* Empty state ("No results") */
+[data-re-slash-command-empty] { }
+```
+
+## Editor content classes
+
+The editor content area uses the `.tiptap` root class. Target content elements with
+`.tiptap` as a prefix:
+
+### Typography
+
+```css
+/* All editor content */
+.tiptap { }
+
+/* Headings */
+.tiptap h1 { }
+.tiptap h2 { }
+.tiptap h3 { }
+
+/* Paragraphs */
+.tiptap p { }
+
+/* Block quotes */
+.tiptap blockquote { }
+
+/* Horizontal rules */
+.tiptap hr { }
+
+/* Code */
+.tiptap code { }       /* inline code */
+.tiptap pre { }        /* code block */
+.tiptap pre code { }   /* code inside block */
+
+/* Lists */
+.tiptap ul { }
+.tiptap ol { }
+```
+
+### Layout and structure
+
+```css
+/* Column layouts */
+.tiptap .node-columns { }
+.tiptap .node-column { }
+
+/* Sections */
+.tiptap .node-section { }
+
+/* Email buttons */
+.tiptap .node-button { }
+
+/* Links */
+.tiptap .node-link { }
+
+/* Placeholder text */
+.tiptap .node-placeholder::before { }
+```
+
+### Text alignment
+
+The alignment attribute renders as an HTML attribute on block nodes:
+
+```css
+.tiptap [alignment="left"] { text-align: left; }
+.tiptap [alignment="center"] { text-align: center; }
+.tiptap [alignment="right"] { text-align: right; }
+```
+
+### Column data types
+
+Column layouts also use `data-type` attributes:
+
+```css
+.tiptap [data-type="two-columns"] { }
+.tiptap [data-type="three-columns"] { }
+.tiptap [data-type="four-columns"] { }
+.tiptap [data-type="column"] { }
+.tiptap [data-type="section"] { }
+```
+
+## Examples
+
+### Custom brand colors
+
+Override the CSS variables to match your brand:
+
+```css
+.my-editor {
+  --re-bg: #fafaf9;
+  --re-border: #d6d3d1;
+  --re-text: #1c1917;
+  --re-text-muted: #78716c;
+  --re-hover: rgba(28, 25, 23, 0.04);
+  --re-active: rgba(28, 25, 23, 0.08);
+  --re-pressed: rgba(28, 25, 23, 0.08);
+  --re-radius: 0.5rem;
+  --re-radius-sm: 0.25rem;
+}
+```
+
+```tsx
+<div className="my-editor">
+  <EditorProvider extensions={extensions} content={content}>
+    <BubbleMenu.Default />
+  </EditorProvider>
+</div>
+```
+
+### Custom bubble menu item styles
+
+Increase icon size and change the active state color:
+
+```css
+[data-re-bubble-menu-item] svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+[data-re-bubble-menu-item][data-active] {
+  background: #3b82f6;
+  color: #fff;
+}
+```
+
+### Custom slash command appearance
+
+Make the command palette wider with a custom background:
+
+```css
+[data-re-slash-command] {
+  width: 320px;
+  max-height: 400px;
+  background: #f8fafc;
+}
+
+[data-re-slash-command-item][data-selected] {
+  background: #e0f2fe;
+}
+
+[data-re-slash-command-category] {
+  color: #64748b;
+  font-size: 0.625rem;
+}
+```
+
+### Styling editor content
+
+Customize how content looks inside the editor:
+
+```css
+/* Custom heading styles */
+.tiptap h1 {
+  font-size: 1.75rem;
+  letter-spacing: -0.025em;
+  color: #0f172a;
+}
+
+/* Custom blockquote */
+.tiptap blockquote {
+  border-left: 4px solid #3b82f6;
+  background: #eff6ff;
+  padding: 0.75rem 1rem;
+  border-radius: 0.25rem;
+}
+
+/* Custom column gap */
+.tiptap .node-columns {
+  gap: 1rem;
+}
+
+/* Custom button appearance in the editor */
+.tiptap .node-button {
+  background: #2563eb;
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.375rem;
+  text-decoration: none;
+}
+```
+
+<Tip>
+  Content styling in the editor (via `.tiptap` selectors) only affects how content looks while
+  editing. The exported email HTML is styled separately via the [Theming](/editor/features/theming) system.
+</Tip>
