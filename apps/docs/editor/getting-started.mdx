@@ -44,9 +44,18 @@ import '@react-email/editor/styles/slash-command.css';
 import '@react-email/editor/themes/default.css';
 ```
 
+<Tip>
+  **Shortcut:** `@react-email/editor/themes/default.css` bundles all of the above CSS files
+  into a single import. If you don't need to cherry-pick styles, just import this one file:
+
+  ```tsx
+  import '@react-email/editor/themes/default.css';
+  ```
+</Tip>
+
 <Info>
-  You only need to import the CSS for the components you use. At a minimum, most setups need
-  `bubble-menu.css` and `default.css`.
+  If you prefer to keep your bundle lean, you can import only the CSS for the components you
+  use instead of the bundled theme file.
 </Info>
 
 ## Minimal editor
@@ -89,7 +98,6 @@ as a child of `EditorProvider`:
 import { StarterKit } from '@react-email/editor/extensions';
 import { BubbleMenu } from '@react-email/editor/ui';
 import { EditorProvider } from '@tiptap/react';
-import '@react-email/editor/styles/bubble-menu.css';
 import '@react-email/editor/themes/default.css';
 
 const extensions = [StarterKit];
