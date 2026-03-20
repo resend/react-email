@@ -1,0 +1,381 @@
+---
+title: "Extensions Reference"
+sidebarTitle: "Extensions List"
+description: "Complete reference of all built-in editor extensions."
+icon: "list"
+---
+
+All extensions are available from `@react-email/editor/extensions` and are included
+in `StarterKit` by default. Each can be configured via `StarterKit.configure()` or
+imported individually.
+
+<AccordionGroup>
+
+<Accordion title="Block Nodes">
+
+### Body
+
+Email body wrapper element.
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the body element.
+</ResponseField>
+
+---
+
+### Section
+
+Content section container.
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the section element.
+</ResponseField>
+
+---
+
+### Div
+
+Generic div container.
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the div element.
+</ResponseField>
+
+---
+
+### Paragraph
+
+Text paragraph.
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the paragraph element.
+</ResponseField>
+
+---
+
+### Heading
+
+Heading levels 1–6.
+
+<ResponseField name="levels" type="number[]" default="[1, 2, 3, 4, 5, 6]">
+  Which heading levels to enable.
+</ResponseField>
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the heading element.
+</ResponseField>
+
+---
+
+### Blockquote
+
+Block quote element.
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the blockquote element.
+</ResponseField>
+
+---
+
+### CodeBlockPrism
+
+Code block with Prism.js syntax highlighting.
+
+<ResponseField name="defaultLanguage" type="string | null">
+  Default language for syntax highlighting.
+</ResponseField>
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the code block element.
+</ResponseField>
+
+---
+
+### Divider
+
+Horizontal rule / separator.
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the hr element.
+</ResponseField>
+
+---
+
+### Button
+
+Email button (styled anchor element).
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the button element.
+</ResponseField>
+
+---
+
+### PreviewText
+
+Email preview text (shown in inbox list views).
+
+</Accordion>
+
+<Accordion title="Lists">
+
+### BulletList
+
+Unordered list.
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the ul element.
+</ResponseField>
+
+---
+
+### OrderedList
+
+Ordered (numbered) list.
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the ol element.
+</ResponseField>
+
+---
+
+### ListItem
+
+Individual list item.
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the li element.
+</ResponseField>
+
+</Accordion>
+
+<Accordion title="Layout">
+
+### TwoColumns
+
+Two column layout container. Inserts two `ColumnsColumn` children.
+
+---
+
+### ThreeColumns
+
+Three column layout container. Inserts three `ColumnsColumn` children.
+
+---
+
+### FourColumns
+
+Four column layout container. Inserts four `ColumnsColumn` children.
+
+---
+
+### ColumnsColumn
+
+Individual column within a column layout. Automatically created by column insertion commands.
+
+</Accordion>
+
+<Accordion title="Tables">
+
+### Table
+
+Table container.
+
+<ResponseField name="resizable" type="boolean" default="false">
+  Whether columns can be resized.
+</ResponseField>
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the table element.
+</ResponseField>
+
+---
+
+### TableRow
+
+Table row.
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the tr element.
+</ResponseField>
+
+---
+
+### TableCell
+
+Table cell.
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the td element.
+</ResponseField>
+
+---
+
+### TableHeader
+
+Table header cell.
+
+</Accordion>
+
+<Accordion title="Inline Marks">
+
+### Bold
+
+Bold text formatting.
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the strong element.
+</ResponseField>
+
+---
+
+### Italic
+
+Italic text formatting.
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the em element.
+</ResponseField>
+
+---
+
+### Strike
+
+Strikethrough text formatting.
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the s element.
+</ResponseField>
+
+---
+
+### Underline
+
+Underline text formatting.
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the u element.
+</ResponseField>
+
+---
+
+### Code
+
+Inline code formatting.
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the code element.
+</ResponseField>
+
+---
+
+### Sup
+
+Superscript text.
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the sup element.
+</ResponseField>
+
+---
+
+### Uppercase
+
+Uppercase text transform.
+
+---
+
+### Link
+
+Hyperlink with extended email attributes.
+
+<ResponseField name="openOnClick" type="boolean" default="false">
+  Whether clicking a link navigates to the URL. Disabled by default in the editor.
+</ResponseField>
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the a element.
+</ResponseField>
+
+---
+
+### Text
+
+Base text node. Required for any text content.
+
+</Accordion>
+
+<Accordion title="Attributes">
+
+### AlignmentAttribute
+
+Adds text alignment support (left, center, right) to block nodes.
+
+<ResponseField name="types" type="string[]">
+  Node types that support alignment.
+</ResponseField>
+
+---
+
+### StyleAttribute
+
+Adds inline CSS style support to nodes.
+
+---
+
+### ClassAttribute
+
+Adds CSS class name support to nodes.
+
+</Accordion>
+
+<Accordion title="Utility">
+
+### Placeholder
+
+Shows placeholder text when the editor is empty.
+
+<ResponseField name="placeholder" type="string | ((node) => string)">
+  Placeholder text or function returning placeholder text.
+</ResponseField>
+
+<ResponseField name="includeChildren" type="boolean" default="false">
+  Whether to show placeholders in child nodes.
+</ResponseField>
+
+---
+
+### PreservedStyle
+
+Preserves inline formatting when unlinking text.
+
+---
+
+### GlobalContent
+
+Stores metadata (like custom CSS) that persists in the document but isn't visible.
+Used by the serializer to inject global styles.
+
+---
+
+### MaxNesting
+
+Enforces a maximum nesting depth for the document.
+
+<ResponseField name="maxDepth" type="number">
+  Maximum allowed nesting depth.
+</ResponseField>
+
+<ResponseField name="nodeTypes" type="string[]">
+  Node types to enforce the nesting limit on.
+</ResponseField>
+
+---
+
+### HardBreak
+
+Line break within a block (Shift+Enter).
+
+</Accordion>
+
+</AccordionGroup>

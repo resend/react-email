@@ -1,0 +1,84 @@
+---
+title: "Buttons"
+sidebarTitle: "Buttons"
+description: "Add and edit email buttons with the button bubble menu."
+icon: "rectangle-wide"
+---
+
+## Quick start
+
+Add `ButtonBubbleMenu.Default` and a slash command for inserting buttons:
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+import { BUTTON, ButtonBubbleMenu, SlashCommand } from '@react-email/editor/ui';
+import { EditorProvider } from '@tiptap/react';
+import '@react-email/editor/styles/button-bubble-menu.css';
+import '@react-email/editor/themes/default.css';
+
+const extensions = [StarterKit];
+
+const content = `
+  <p>Click the button below to see its bubble menu.</p>
+  <div class="align-left"><a class="node-button button" data-id="react-email-button" href="https://react.email">Click me</a></div>
+  <p>Use the slash command menu (type /) to insert more buttons.</p>
+`;
+
+export function MyEditor() {
+  return (
+    <EditorProvider extensions={extensions} content={content}>
+      <ButtonBubbleMenu.Default />
+      <SlashCommand.Root items={[BUTTON]} />
+    </EditorProvider>
+  );
+}
+```
+
+## Button content format
+
+Buttons in the editor are represented as styled anchor elements:
+
+```html
+<div class="align-left">
+  <a class="node-button button" data-id="react-email-button" href="https://react.email">
+    Click me
+  </a>
+</div>
+```
+
+The wrapping `div` controls alignment (left, center, or right), while the `<a>` tag renders
+as a styled button in the editor and serializes to a React Email `<Button>` component on export.
+
+## Editing buttons
+
+When you click a button in the editor, the button bubble menu appears with:
+
+- **Edit link** (pencil icon) — Opens an inline form to change the button's URL
+- **Unlink** — Removes the button link
+
+The form validates URLs and lets you apply or cancel changes inline.
+
+## Inserting buttons programmatically
+
+Use the `setButton` command to insert a button via the editor API:
+
+```tsx
+editor.chain().focus().setButton().run();
+```
+
+This can be triggered from a custom toolbar:
+
+```tsx
+import { useCurrentEditor } from '@tiptap/react';
+
+function Toolbar() {
+  const { editor } = useCurrentEditor();
+  if (!editor) return null;
+
+  return (
+    <button onClick={() => editor.chain().focus().setButton().run()}>
+      Insert Button
+    </button>
+  );
+}
+```
