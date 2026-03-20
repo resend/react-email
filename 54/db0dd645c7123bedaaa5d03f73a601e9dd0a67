@@ -1,0 +1,25 @@
+apps/docs/editor/getting-started.mdx
+  af3a64c5b01b981a 47-55,57-58
+apps/docs/editor/features/slash-commands.mdx
+  af3a64c5b01b981a 16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.15",
+  "base_commit_sha": "54db0dd645c7123bedaaa5d03f73a601e9dd0a67",
+  "prompts": {
+    "af3a64c5b01b981a": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019d0bf3-eb93-7882-8290-1e9a546f0877",
+        "model": "unknown"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 12,
+      "total_deletions": 7,
+      "accepted_lines": 12,
+      "overriden_lines": 0
+    }
+  }
+}

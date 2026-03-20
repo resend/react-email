@@ -1,0 +1,57 @@
+apps/docs/editor/features/column-layouts.mdx
+  f8bb5901b6012e7e 1-116
+apps/docs/editor/features/bubble-menu.mdx
+  f8bb5901b6012e7e 1-141
+apps/docs/editor/features/email-export.mdx
+  f8bb5901b6012e7e 1-181
+apps/docs/editor/overview.mdx
+  f8bb5901b6012e7e 1-58
+apps/docs/snippets/editor-install.mdx
+  f8bb5901b6012e7e 1-19
+apps/docs/editor/api-reference/extensions-list.mdx
+  f8bb5901b6012e7e 1-381
+apps/docs/editor/api-reference/use-editor.mdx
+  f8bb5901b6012e7e 1-122
+apps/docs/editor/advanced/event-bus.mdx
+  f8bb5901b6012e7e 1-102
+apps/docs/editor/getting-started.mdx
+  f8bb5901b6012e7e 1-157
+apps/docs/snippets/editor-next-steps.mdx
+  f8bb5901b6012e7e 1-14
+apps/docs/editor/api-reference/theming-api.mdx
+  f8bb5901b6012e7e 1-205
+apps/docs/editor/features/buttons.mdx
+  f8bb5901b6012e7e 1-84
+apps/docs/editor/features/slash-commands.mdx
+  f8bb5901b6012e7e 1-156
+apps/docs/editor/features/theming.mdx
+  f8bb5901b6012e7e 1-120
+apps/docs/editor/advanced/extensions.mdx
+  f8bb5901b6012e7e 1-159
+apps/docs/editor/api-reference/ui-components.mdx
+  f8bb5901b6012e7e 1-251
+apps/docs/editor/features/link-editing.mdx
+  f8bb5901b6012e7e 1-74
+apps/docs/editor/advanced/custom-extensions.mdx
+  f8bb5901b6012e7e 1-269
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.15",
+  "base_commit_sha": "b78ead9426a23d0fe4155e988cbd064ef930e08d",
+  "prompts": {
+    "f8bb5901b6012e7e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019d0be3-1020-7782-a99a-aa4574b71af9",
+        "model": "unknown"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 2609,
+      "total_deletions": 0,
+      "accepted_lines": 2609,
+      "overriden_lines": 0
+    }
+  }
+}
