@@ -32,6 +32,7 @@ export function ImageBubbleMenuRoot({
   return (
     <BubbleMenu
       editor={editor}
+      pluginKey="imageBubbleMenu"
       data-re-img-bm=""
       shouldShow={({ editor: e, view }) =>
         e.isActive('image') && !view.dom.classList.contains('dragging')

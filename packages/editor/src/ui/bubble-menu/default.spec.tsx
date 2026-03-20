@@ -32,7 +32,12 @@ const mockEditor = {
     run: vi.fn(),
   }),
   view: {
-    state: { selection: { content: () => ({ size: 1 }) } },
+    state: {
+      selection: {
+        content: () => ({ size: 1 }),
+        $from: { depth: 0, node: () => ({ type: { name: 'doc' } }) },
+      },
+    },
     dom: { classList: { contains: vi.fn().mockReturnValue(false) } },
   },
   state: { selection: { from: 0, to: 5 } },
@@ -52,7 +57,11 @@ vi.mock('@tiptap/react', () => ({
 
 let capturedOnHide: (() => void) | undefined;
 let capturedShouldShow:
-  | ((ctx: { editor: typeof mockEditor; view: unknown }) => boolean)
+  | ((ctx: {
+      editor: typeof mockEditor;
+      view: unknown;
+      state: unknown;
+    }) => boolean)
   | undefined;
 
 vi.mock('@tiptap/react/menus', () => ({
@@ -65,7 +74,11 @@ vi.mock('@tiptap/react/menus', () => ({
     children: React.ReactNode;
     className?: string;
     options?: { placement?: string; offset?: number; onHide?: () => void };
-    shouldShow?: (ctx: { editor: unknown; view: unknown }) => boolean;
+    shouldShow?: (ctx: {
+      editor: unknown;
+      view: unknown;
+      state: unknown;
+    }) => boolean;
   }) => {
     capturedOnHide = options?.onHide;
     capturedShouldShow = shouldShow as typeof capturedShouldShow;
@@ -206,13 +219,21 @@ describe('BubbleMenuDefault', () => {
     // When an excluded node is active, shouldShow returns false
     mockEditor.isActive.mockReturnValueOnce(true);
     expect(
-      capturedShouldShow!({ editor: mockEditor, view: mockEditor.view }),
+      capturedShouldShow!({
+        editor: mockEditor,
+        view: mockEditor.view,
+        state: mockEditor.view.state,
+      }),
     ).toBe(false);
 
     // When no excluded node is active, shouldShow returns true
     mockEditor.isActive.mockReturnValue(false);
     expect(
-      capturedShouldShow!({ editor: mockEditor, view: mockEditor.view }),
+      capturedShouldShow!({
+        editor: mockEditor,
+        view: mockEditor.view,
+        state: mockEditor.view.state,
+      }),
     ).toBe(true);
   });
 

@@ -97,8 +97,6 @@
  * Toolbars (link, button, image bubble menus)
  * ---------------------------------------------------------------- */
 
-[data-re-link-bm-toolbar] > * + *,
-[data-re-btn-bm-toolbar] > * + *,
 [data-re-img-bm-toolbar] > * + * {
   border-left: 1px solid var(--re-border);
 }
@@ -257,9 +255,6 @@
 
 [data-re-link-bm-form] {
   background: var(--re-bg);
-  border: 1px solid var(--re-border);
-  border-radius: var(--re-radius);
-  box-shadow: var(--re-shadow);
   padding: 0.25rem;
 }
 
@@ -288,6 +283,43 @@
 }
 
 [data-re-link-bm-unlink]:hover {
+  background: var(--re-danger-hover);
+}
+
+/* ----------------------------------------------------------------
+ * Button Bubble Menu Form
+ * ---------------------------------------------------------------- */
+
+[data-re-btn-bm-form] {
+  background: var(--re-bg);
+  padding: 0.25rem;
+}
+
+[data-re-btn-bm-input] {
+  color: var(--re-text);
+}
+
+[data-re-btn-bm-input]::placeholder {
+  color: var(--re-text-muted);
+}
+
+[data-re-btn-bm-apply] {
+  color: var(--re-text);
+  border-radius: var(--re-radius-sm);
+  transition: background-color 0.15s;
+}
+
+[data-re-btn-bm-apply]:hover {
+  background: var(--re-hover);
+}
+
+[data-re-btn-bm-unlink] {
+  color: var(--re-danger);
+  border-radius: var(--re-radius-sm);
+  transition: background-color 0.15s;
+}
+
+[data-re-btn-bm-unlink]:hover {
   background: var(--re-danger-hover);
 }
 
@@ -398,6 +430,26 @@
 
 .tiptap h3 {
   font-size: 1.17em;
+}
+
+.tiptap a:not(.node-button) {
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: text;
+}
+
+.tiptap .node-button {
+  display: inline-block;
+  padding: 0.625em 1.25em;
+  background-color: #000;
+  color: #fff;
+  border-radius: 0.375em;
+  font-weight: 500;
+  font-size: 0.875em;
+  text-decoration: none;
+  text-align: center;
+  cursor: text;
 }
 
 .tiptap blockquote {

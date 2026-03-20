@@ -31,6 +31,8 @@ export interface BubbleMenuDefaultProps {
   excludeItems?: ExcludableItem[];
   /** Node types that should NOT trigger the bubble menu (forwarded to Root) */
   excludeNodes?: string[];
+  /** Mark types that should NOT trigger the bubble menu (forwarded to Root) */
+  excludeMarks?: string[];
   /** Placement relative to selection (forwarded to Root, default: 'bottom') */
   placement?: 'top' | 'bottom';
   /** Offset from selection in px (forwarded to Root, default: 8) */
@@ -44,6 +46,7 @@ export interface BubbleMenuDefaultProps {
 export function BubbleMenuDefault({
   excludeItems = [],
   excludeNodes,
+  excludeMarks,
   placement,
   offset,
   onHide,
@@ -88,6 +91,7 @@ export function BubbleMenuDefault({
   return (
     <BubbleMenuRoot
       excludeNodes={excludeNodes}
+      excludeMarks={excludeMarks}
       placement={placement}
       offset={offset}
       onHide={handleHide}

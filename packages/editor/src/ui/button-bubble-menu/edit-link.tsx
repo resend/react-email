@@ -1,4 +1,4 @@
-import { LinkIcon } from 'lucide-react';
+import { PencilIcon } from 'lucide-react';
 import type * as React from 'react';
 import { useButtonBubbleMenuContext } from './context';
 
@@ -31,7 +31,7 @@ export function ButtonBubbleMenuEditLink({
         setIsEditing(true);
       }}
     >
-      {children ?? <LinkIcon />}
+      {children ?? <PencilIcon />}
     </button>
   );
 }

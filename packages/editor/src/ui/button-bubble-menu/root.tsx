@@ -1,4 +1,4 @@
-import { useCurrentEditor } from '@tiptap/react';
+import { useCurrentEditor, useEditorState } from '@tiptap/react';
 import { BubbleMenu } from '@tiptap/react/menus';
 import * as React from 'react';
 import { ButtonBubbleMenuContext } from './context';
@@ -25,6 +25,12 @@ export function ButtonBubbleMenuRoot({
   const { editor } = useCurrentEditor();
   const [isEditing, setIsEditing] = React.useState(false);
 
+  const buttonHref = useEditorState({
+    editor,
+    selector: ({ editor: e }) =>
+      (e?.getAttributes('button').href as string) ?? '',
+  });
+
   if (!editor) {
     return null;
   }
@@ -32,6 +38,7 @@ export function ButtonBubbleMenuRoot({
   return (
     <BubbleMenu
       editor={editor}
+      pluginKey="buttonBubbleMenu"
       data-re-btn-bm=""
       shouldShow={({ editor: e, view }) =>
         e.isActive('button') && !view.dom.classList.contains('dragging')
@@ -47,7 +54,12 @@ export function ButtonBubbleMenuRoot({
       className={className}
     >
       <ButtonBubbleMenuContext.Provider
-        value={{ editor, isEditing, setIsEditing }}
+        value={{
+          editor,
+          buttonHref: buttonHref ?? '',
+          isEditing,
+          setIsEditing,
+        }}
       >
         {children}
       </ButtonBubbleMenuContext.Provider>
