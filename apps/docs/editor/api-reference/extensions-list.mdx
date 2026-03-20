@@ -181,10 +181,6 @@ Individual column within a column layout. Automatically created by column insert
 
 Table container.
 
-<ResponseField name="resizable" type="boolean" default="false">
-  Whether columns can be resized.
-</ResponseField>
-
 <ResponseField name="HTMLAttributes" type="Record<string, any>">
   Extra HTML attributes applied to the table element.
 </ResponseField>
@@ -339,7 +335,7 @@ Shows placeholder text when the editor is empty.
   Placeholder text or function returning placeholder text.
 </ResponseField>
 
-<ResponseField name="includeChildren" type="boolean" default="false">
+<ResponseField name="includeChildren" type="boolean" default="true">
   Whether to show placeholders in child nodes.
 </ResponseField>
 

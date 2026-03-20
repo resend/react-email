@@ -191,8 +191,8 @@ import { defaultSlashCommands, SlashCommand } from '@react-email/editor/ui';
 <SlashCommand.Root items={defaultSlashCommands} />
 ```
 
-<ResponseField name="items" type="SlashCommandItem[]" default="[]">
-  Array of commands to display.
+<ResponseField name="items" type="SlashCommandItem[]" default="defaultSlashCommands">
+  Array of commands to display. Falls back to `defaultSlashCommands` when not provided.
 </ResponseField>
 
 <ResponseField name="filterItems" type="(items, query, editor) => SlashCommandItem[]">
@@ -249,3 +249,12 @@ Each UI component has a corresponding CSS file:
 | ImageBubbleMenu | `@react-email/editor/styles/image-bubble-menu.css` |
 | SlashCommand | `@react-email/editor/styles/slash-command.css` |
 | Theme (colors) | `@react-email/editor/themes/default.css` |
+
+<Tip>
+  `@react-email/editor/themes/default.css` bundles all of the above CSS files into a single
+  import. Unless you need to cherry-pick specific styles, this is all you need:
+
+  ```tsx
+  import '@react-email/editor/themes/default.css';
+  ```
+</Tip>

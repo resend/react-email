@@ -19,6 +19,12 @@ import { useState } from 'react';
 
 const extensions = [StarterKit, EmailTheming];
 
+const content = `
+  <h1>My Email Newsletter</h1>
+  <p>Edit this content, then click <strong>Export HTML</strong> to see the generated email markup.</p>
+  <p>The exported HTML uses React Email components and is ready to send.</p>
+`;
+
 function ExportPanel() {
   const { editor } = useCurrentEditor();
   const [html, setHtml] = useState('');
