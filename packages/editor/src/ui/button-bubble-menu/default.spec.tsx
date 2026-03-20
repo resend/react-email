@@ -3,6 +3,7 @@ import { ButtonBubbleMenuDefault } from './default';
 
 const mockEditor = {
   isActive: vi.fn().mockReturnValue(false),
+  getAttributes: vi.fn().mockReturnValue({ href: '#' }),
   view: {
     dom: { classList: { contains: vi.fn().mockReturnValue(false) } },
   },
@@ -12,6 +13,11 @@ const mockEditor = {
 
 vi.mock('@tiptap/react', () => ({
   useCurrentEditor: () => ({ editor: mockEditor }),
+  useEditorState: ({
+    selector,
+  }: {
+    selector: (ctx: { editor: unknown }) => unknown;
+  }) => selector({ editor: mockEditor }),
 }));
 
 let capturedOnHide: (() => void) | undefined;
@@ -61,11 +67,12 @@ describe('ButtonBubbleMenuDefault', () => {
     expect(document.querySelector('[data-re-btn-bm-toolbar]')).toBeDefined();
   });
 
-  it('excludeItems: ["edit-link"] removes toolbar entirely', () => {
-    render(<ButtonBubbleMenuDefault excludeItems={['edit-link']} />);
+  it('shows unlink button when button has a link', () => {
+    mockEditor.getAttributes.mockReturnValue({ href: 'https://react.email' });
+    render(<ButtonBubbleMenuDefault />);
 
-    expect(screen.queryByLabelText('Edit link')).toBeNull();
-    expect(document.querySelector('[data-re-btn-bm-toolbar]')).toBeNull();
+    expect(screen.getByLabelText('Remove link')).toBeDefined();
+    mockEditor.getAttributes.mockReturnValue({ href: '#' });
   });
 
   it('forwards placement and offset to Root', () => {
