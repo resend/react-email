@@ -1,0 +1,25 @@
+packages/editor/src/ui/button-bubble-menu/default.spec.tsx
+  e38fe10969da59d7 6,16-20,70-72,74-75
+packages/editor/src/ui/bubble-menu/default.spec.tsx
+  e38fe10969da59d7 37-39,62-63,79-80,224-225,234-235
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.15",
+  "base_commit_sha": "26657e26365ece2c44dfc78a7f87b3c8d2479035",
+  "prompts": {
+    "e38fe10969da59d7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "827c5c99-6e2c-4ed4-bef3-2a03e04c94a5",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 37,
+      "total_deletions": 9,
+      "accepted_lines": 230,
+      "overriden_lines": 0
+    }
+  }
+}
