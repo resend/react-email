@@ -32,6 +32,7 @@ const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
 type ExportTemplatesOptions = Options & {
   silent?: boolean;
   pretty?: boolean;
+  file?: string;
 };
 
 const filename = url.fileURLToPath(import.meta.url);
@@ -48,8 +49,8 @@ export const exportTemplates = async (
   emailsDirectoryPath: string,
   options: ExportTemplatesOptions,
 ) => {
-  /* Delete the out directory if it already exists */
-  if (fs.existsSync(pathToWhereEmailMarkupShouldBeDumped)) {
+  /* Delete the out directory if it already exists (only for full directory export) */
+  if (!options.file && fs.existsSync(pathToWhereEmailMarkupShouldBeDumped)) {
     fs.rmSync(pathToWhereEmailMarkupShouldBeDumped, { recursive: true });
   }
 
@@ -59,22 +60,39 @@ export const exportTemplates = async (
     registerSpinnerAutostopping(spinner);
   }
 
-  const emailsDirectoryMetadata = await getEmailsDirectoryMetadata(
-    path.resolve(process.cwd(), emailsDirectoryPath),
-    true,
-  );
+  let allTemplates: string[];
+  let resolvedFile: string | undefined;
 
-  if (typeof emailsDirectoryMetadata === 'undefined') {
-    if (spinner) {
-      spinner.stopAndPersist({
-        symbol: logSymbols.error,
-        text: `Could not find the directory at ${emailsDirectoryPath}`,
-      });
+  if (options.file) {
+    resolvedFile = path.resolve(process.cwd(), options.file);
+    if (!fs.existsSync(resolvedFile)) {
+      if (spinner) {
+        spinner.stopAndPersist({
+          symbol: logSymbols.error,
+          text: `Could not find the file at ${options.file}`,
+        });
+      }
+      process.exit(1);
     }
-    return;
-  }
+    allTemplates = [resolvedFile];
+  } else {
+    const emailsDirectoryMetadata = await getEmailsDirectoryMetadata(
+      path.resolve(process.cwd(), emailsDirectoryPath),
+      true,
+    );
 
-  const allTemplates = getEmailTemplatesFromDirectory(emailsDirectoryMetadata);
+    if (typeof emailsDirectoryMetadata === 'undefined') {
+      if (spinner) {
+        spinner.stopAndPersist({
+          symbol: logSymbols.error,
+          text: `Could not find the directory at ${emailsDirectoryPath}`,
+        });
+      }
+      return;
+    }
+
+    allTemplates = getEmailTemplatesFromDirectory(emailsDirectoryMetadata);
+  }
 
   try {
     await build({
@@ -94,7 +112,7 @@ export const exportTemplates = async (
     if (spinner) {
       spinner.stopAndPersist({
         symbol: logSymbols.error,
-        text: 'Failed to build emails',
+        text: options.file ? 'Failed to build email' : 'Failed to build emails',
       });
     }
 
@@ -108,12 +126,15 @@ export const exportTemplates = async (
     spinner.succeed();
   }
 
-  const allBuiltTemplates = glob.sync(
-    normalize(`${pathToWhereEmailMarkupShouldBeDumped}/**/*.cjs`),
-    {
-      absolute: true,
-    },
-  );
+  const cjsGlobPattern = resolvedFile
+    ? normalize(
+        `${pathToWhereEmailMarkupShouldBeDumped}/${path.basename(resolvedFile, path.extname(resolvedFile))}.cjs`,
+      )
+    : normalize(`${pathToWhereEmailMarkupShouldBeDumped}/**/*.cjs`);
+
+  const allBuiltTemplates = glob.sync(cjsGlobPattern, {
+    absolute: true,
+  });
 
   for await (const template of allBuiltTemplates) {
     try {
@@ -152,40 +173,44 @@ export const exportTemplates = async (
     }
   }
   if (spinner) {
-    spinner.succeed('Rendered all files');
-    spinner.text = 'Copying static files';
-    spinner.render();
+    spinner.succeed(options.file ? 'Rendered file' : 'Rendered all files');
   }
 
-  // ex: emails/static
-  const staticDirectoryPath = path.join(emailsDirectoryPath, 'static');
+  if (!options.file) {
+    if (spinner) {
+      spinner.text = 'Copying static files';
+      spinner.render();
+    }
+    // ex: emails/static
+    const staticDirectoryPath = path.join(emailsDirectoryPath, 'static');
 
-  if (fs.existsSync(staticDirectoryPath)) {
-    const pathToDumpStaticFilesInto = path.join(
-      pathToWhereEmailMarkupShouldBeDumped,
-      'static',
-    );
-    // cp('-r', ...) will copy *inside* of the static directory if it exists
-    // causing a duplication of static files, so we need to delete ir first
-    if (fs.existsSync(pathToDumpStaticFilesInto))
-      await fs.promises.rm(pathToDumpStaticFilesInto, { recursive: true });
-
-    try {
-      await fs.promises.cp(staticDirectoryPath, pathToDumpStaticFilesInto, {
-        recursive: true,
-      });
-    } catch (exception) {
-      console.error(exception);
-      if (spinner) {
-        spinner.stopAndPersist({
-          symbol: logSymbols.error,
-          text: 'Failed to copy static files',
-        });
-      }
-      console.error(
-        `Something went wrong while copying the file to ${pathToWhereEmailMarkupShouldBeDumped}/static, ${exception}`,
+    if (fs.existsSync(staticDirectoryPath)) {
+      const pathToDumpStaticFilesInto = path.join(
+        pathToWhereEmailMarkupShouldBeDumped,
+        'static',
       );
-      process.exit(1);
+      // cp('-r', ...) will copy *inside* of the static directory if it exists
+      // causing a duplication of static files, so we need to delete ir first
+      if (fs.existsSync(pathToDumpStaticFilesInto))
+        await fs.promises.rm(pathToDumpStaticFilesInto, { recursive: true });
+
+      try {
+        await fs.promises.cp(staticDirectoryPath, pathToDumpStaticFilesInto, {
+          recursive: true,
+        });
+      } catch (exception) {
+        console.error(exception);
+        if (spinner) {
+          spinner.stopAndPersist({
+            symbol: logSymbols.error,
+            text: 'Failed to copy static files',
+          });
+        }
+        console.error(
+          `Something went wrong while copying the file to ${pathToWhereEmailMarkupShouldBeDumped}/static, ${exception}`,
+        );
+        process.exit(1);
+      }
     }
   }
 
@@ -198,7 +223,9 @@ export const exportTemplates = async (
 
     spinner.stopAndPersist({
       symbol: logSymbols.success,
-      text: 'Successfully exported emails',
+      text: options.file
+        ? 'Successfully exported email'
+        : 'Successfully exported emails',
     });
   }
 };

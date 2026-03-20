@@ -74,7 +74,7 @@ if (!hasRequiredFlags) {
 
   program
     .command('export')
-    .description('Build the templates to the `out` directory')
+    .description('Build email templates to the `out` directory')
     .option('--outDir <path>', 'Output directory', 'out')
     .option('-p, --pretty', 'Pretty print the output', false)
     .option('-t, --plainText', 'Set output format as plain text', false)
@@ -88,8 +88,9 @@ if (!hasRequiredFlags) {
       'To, or not to show a spinner with process information',
       false,
     )
-    .action(({ outDir, pretty, plainText, silent, dir: srcDir }) =>
-      exportTemplates(outDir, srcDir, { silent, plainText, pretty }),
+    .option('--file <path>', 'Export a single email template by file path')
+    .action(({ outDir, pretty, plainText, silent, dir: srcDir, file }) =>
+      exportTemplates(outDir, srcDir, { silent, plainText, pretty, file }),
     );
 
   const resend = program.command('resend');
