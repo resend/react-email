@@ -1,0 +1,42 @@
+name: E2E Tests
+on:
+  push:
+    branches:
+      - main
+      - canary
+  pull_request:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+  pull-requests: read
+jobs:
+  e2e:
+    runs-on: blacksmith-4vcpu-ubuntu-2204
+    container:
+      image: node:22
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
+        with:
+          fetch-depth: 1
+      - run: git config --global --add safe.directory $GITHUB_WORKSPACE
+      - name: pnpm setup
+        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320
+      - name: Install packages
+        run: pnpm install --frozen-lockfile --prefer-offline
+      - name: Run Build
+        run: pnpm build
+        env:
+          SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
+          SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+      - name: Run Tailwind integration tests
+        run: pnpm turbo test:e2e
+        env:
+          SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
+          SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}

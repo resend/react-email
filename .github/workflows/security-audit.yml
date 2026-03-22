@@ -1,0 +1,25 @@
+name: Security Audit
+on:
+  push:
+    branches:
+      - main
+      - canary
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: blacksmith-2vcpu-ubuntu-2204
+    container:
+      image: node:22
+    steps:
+      - name: Checkout
+        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
+        with:
+          fetch-depth: 1
+      - name: pnpm setup
+        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320
+      - name: Install packages
+        run: pnpm install
+      - name: Run security audit (production dependencies)
+        run: pnpm audit --prod

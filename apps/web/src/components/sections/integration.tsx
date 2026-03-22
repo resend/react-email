@@ -15,6 +15,7 @@ const IntegrationSection = () => {
       <div className="space-y-12 md:space-y-16">
         <div className="max-w-full text-center space-y-4">
           <Heading
+            as="h2"
             size="8"
             weight="medium"
             className="text-white/80 text-balance"
@@ -38,7 +39,7 @@ const IntegrationSection = () => {
                 mouseX.set(e.clientX - left);
                 mouseY.set(e.clientY - top);
               }}
-              className="group relative min-w-full max-w-full sm:min-w-[250px] sm:max-w-[250px] md:min-w-[280px] md:max-w-[280px] rounded-3xl bg-slate-4 p-px outline-none focus-visible:ring-slate-7 focus-visible:ring-1"
+              className="group relative min-w-full max-w-full sm:min-w-[250px] sm:max-w-[250px] md:min-w-[280px] md:max-w-[280px] rounded-3xl bg-slate-4 p-px outline-hidden focus-visible:ring-slate-7 focus-visible:ring-1"
               href={item.href}
             >
               <motion.div
@@ -47,7 +48,7 @@ const IntegrationSection = () => {
                   background: useMotionTemplate`radial-gradient(130px circle at ${mouseX}px ${mouseY}px, var(--color), transparent 80%)`,
                 }}
               />
-              <div className="relative z-[5] h-28 sm:h-32 flex items-center justify-center py-4 rounded-3xl bg-black overflow-hidden">
+              <div className="relative z-5 h-28 sm:h-32 flex items-center justify-center py-4 rounded-3xl bg-black overflow-hidden">
                 <div className="relative mx-auto block w-fit max-sm:scale-90">
                   {item.logo}
                 </div>
@@ -61,7 +62,7 @@ const IntegrationSection = () => {
       </div>
       <Image
         alt=""
-        className="pointer-events-none absolute inset-0 -top-40 z-[3] select-none mix-blend-lighten opacity-60"
+        className="pointer-events-none absolute inset-0 -top-40 z-3 select-none mix-blend-lighten opacity-60"
         fill
         priority
         src="/static/bg.png"
@@ -74,7 +75,7 @@ const Blur = () => {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute z-[1] -top-1 left-1/2 h-[200px] w-full max-w-[200px] -translate-x-1/2 -translate-y-1/2 md:max-w-[500px]"
+      className="pointer-events-none absolute z-1 -top-1 left-1/2 h-[200px] w-full max-w-[200px] -translate-x-1/2 -translate-y-1/2 md:max-w-[500px]"
       style={{
         background:
           'conic-gradient(from 90deg at 50% 50%, #00000000 50%, #0a0a0a 50%),radial-gradient(rgba(37, 99, 235, 0.1) 0%, transparent 80%)',
@@ -87,7 +88,7 @@ const Line = () => {
   return (
     <div
       aria-hidden
-      className="absolute top-0 right-4 h-px w-32 bg-gradient-to-l from-transparent via-cyan-12/30 via-50% to-transparent"
+      className="absolute top-0 right-4 h-px w-32 bg-linear-to-l from-transparent via-cyan-12/30 via-50% to-transparent"
     />
   );
 };

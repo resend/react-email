@@ -77,7 +77,7 @@ export const Send = ({
           type="submit"
           {...rest}
           className={classNames(
-            'flex items-center justify-center self-center rounded-lg bg-slate-6 border border-solid border-transparent px-3 py-1 h-full text-center font-sans text-sm text-slate-11 outline-none transition duration-300 ease-in-out hover:text-slate-12',
+            'flex items-center justify-center self-center rounded-lg bg-slate-6 border border-solid border-transparent px-3 py-1 h-full text-center font-sans text-sm text-slate-11 outline-hidden transition duration-300 ease-in-out hover:text-slate-12',
             className,
           )}
         >
@@ -88,7 +88,7 @@ export const Send = ({
       <Popover.Portal>
         <Popover.Content
           align="end"
-          className="-mt-10 w-80 rounded-lg border border-slate-6 bg-black/70 p-3 text-slate-11 shadow-md backdrop-blur-lg font-sans z-[3]"
+          className="-mt-10 w-80 rounded-lg border border-slate-6 bg-black/70 p-3 text-slate-11 shadow-md backdrop-blur-lg font-sans z-3"
           sideOffset={48}
         >
           <form className="mt-1" onSubmit={(e) => void onFormSubmit(e)}>
@@ -100,7 +100,7 @@ export const Send = ({
             </label>
             <input
               autoFocus
-              className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-sm text-slate-12 placeholder-slate-10 outline-none transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
+              className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-sm text-slate-12 placeholder-slate-10 outline-hidden transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
               defaultValue={to}
               id={toId}
               onChange={(e) => {
@@ -117,7 +117,7 @@ export const Send = ({
               Subject
             </label>
             <input
-              className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-sm text-slate-12 placeholder-slate-10 outline-none transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
+              className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-sm text-slate-12 placeholder-slate-10 outline-hidden transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
               defaultValue={subject}
               id={subjectId}
               onChange={(e) => {

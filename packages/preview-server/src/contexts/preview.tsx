@@ -50,7 +50,6 @@ export const PreviewProvider = ({
   );
 
   if (!isBuilding && !isPreviewDevelopment) {
-    // biome-ignore lint/correctness/useHookAtTopLevel: this will not change on runtime so it doesn't violate the rules of hooks
     useHotreload((changes) => {
       const changeForThisEmail = changes.find((change) =>
         change.filename.includes(emailSlug),

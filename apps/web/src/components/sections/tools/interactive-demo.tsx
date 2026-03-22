@@ -48,7 +48,7 @@ export const InteractiveDemo = () => {
           <button
             type="button"
             key={tool.title}
-            className="group relative px-4 py-3 md:p-6 max-w-md cursor-pointer text-start outline-none rounded-[20px] focus-visible:ring-slate-8 focus-visible:ring-1"
+            className="group relative px-4 py-3 md:p-6 max-w-md cursor-pointer text-start outline-hidden rounded-[20px] focus-visible:ring-slate-8 focus-visible:ring-1"
             onClick={() => {
               setActiveTool(tool.value);
             }}
@@ -73,6 +73,7 @@ export const InteractiveDemo = () => {
 
             <div className="relative flex flex-col gap-1.5">
               <Heading
+                as="h3"
                 size="5"
                 weight="medium"
                 className="text-white/80 group-data-[active='true']:text-white group-hover:text-white transition-colors"
@@ -92,9 +93,9 @@ export const InteractiveDemo = () => {
 
       <div
         data-tool-scroll-target
-        className="w-full relative border border-slate-4 grow rounded-2xl sm:rounded-3xl overflow-hidden [overflow-anchor:none] -order-1 md:order-none"
+        className="w-full relative border border-slate-4 grow rounded-2xl sm:rounded-3xl overflow-hidden [overflow-anchor:none] -order-1 md:order-0"
       >
-        <div className="relative z-[2] flex items-center justify-between bg-black border-b border-slate-6 h-14 px-4">
+        <div className="relative z-2 flex items-center justify-between bg-black border-b border-slate-6 h-14 px-4">
           <div className="flex items-center gap-1.5 sm:gap-2 h-full">
             {Array.from({ length: 3 }).map((_, index) => (
               <div
@@ -107,7 +108,7 @@ export const InteractiveDemo = () => {
         </div>
 
         <div>
-          <div className="md:absolute bottom-0 z-[1] min-w-full left-6 md:border-l border-slate-6 overflow-hidden [overflow-anchor:none]">
+          <div className="md:absolute bottom-0 z-1 min-w-full left-6 md:border-l border-slate-6 overflow-hidden [overflow-anchor:none]">
             <div className="flex p-4 bg-gray-200 h-[260px] overflow-hidden [overflow-anchor:none]">
               <div className="relative mx-auto my-auto -translate-y-[76%] sm:translate-x-[10%] [overflow-anchor:none]">
                 <div className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-2 cursor-w-resize p-2">
@@ -132,13 +133,13 @@ export const InteractiveDemo = () => {
               </div>
             </div>
             <Tabs.Root value={activeTool} onValueChange={setActiveTool}>
-              <Tabs.List className="relative z-[1] bg-black px-4 flex gap-4 border-b border-slate-6 h-10 w-full flex-shrink-0">
+              <Tabs.List className="relative z-1 bg-black px-4 flex gap-4 border-b border-slate-6 h-10 w-full shrink-0">
                 {tools.map((tool) => (
                   <Tabs.Trigger
                     key={tool.title}
                     value={tool.value}
                     className={classNames(
-                      'relative capitalize px-1 text-sm font-normal transition-colors outline-none focus-visible:ring-2 focus-visible:ring-slate-7',
+                      'relative capitalize px-1 text-sm font-normal transition-colors outline-hidden focus-visible:ring-2 focus-visible:ring-slate-7',
                       tool.value === activeTool
                         ? 'text-cyan-11'
                         : 'text-slate-10 hover:text-slate-12',
@@ -149,7 +150,7 @@ export const InteractiveDemo = () => {
                       {tool.value === activeTool && (
                         <motion.div
                           layoutId="active-tab-tool"
-                          className="-bottom-px absolute rounded-sm left-0 w-full bg-cyan-11 h-px"
+                          className="-bottom-px absolute rounded-xs left-0 w-full bg-cyan-11 h-px"
                           transition={{
                             type: 'spring',
                             duration: 0.3,
@@ -165,7 +166,7 @@ export const InteractiveDemo = () => {
                 <Tabs.Content
                   key={tool.title}
                   value={tool.value}
-                  className="relative z-10 bg-black pl-4 pr-9 pt-3 h-32 max-md:overflow-x-auto outline-none"
+                  className="relative z-10 bg-black pl-4 pr-9 pt-3 h-32 max-md:overflow-x-auto outline-hidden"
                 >
                   {tool.value === 'spam' ? (
                     <div className="flex flex-col items-center justify-center pt-6">
@@ -196,20 +197,20 @@ export const InteractiveDemo = () => {
                         <div className="py-1.5 font-normal grow min-w-0">
                           {tool.value === 'linter' ? (
                             <div className="flex items-center gap-2">
-                              <span className="flex-shrink-0">
+                              <span className="shrink-0">
                                 There was a redirect, the content may have been
                                 moved
                               </span>
-                              <span className="text-ellipsis overflow-hidden whitespace-nowrap min-w-0 flex-shrink">
+                              <span className="text-ellipsis overflow-hidden whitespace-nowrap min-w-0 shrink">
                                 https://amazon.com
                               </span>
                             </div>
                           ) : (
                             <div className="flex items-center gap-2">
-                              <span className="flex-shrink-0">
+                              <span className="shrink-0">
                                 Not supported in Outlook
                               </span>
-                              <span className="text-ellipsis overflow-hidden whitespace-nowrap underline underline-offset-2 decoration-slate-9 min-w-0 flex-shrink">
+                              <span className="text-ellipsis overflow-hidden whitespace-nowrap underline underline-offset-2 decoration-slate-9 min-w-0 shrink">
                                 More ↗
                               </span>
                             </div>
@@ -236,20 +237,20 @@ export const InteractiveDemo = () => {
                         <div className="py-1.5 font-normal grow min-w-0">
                           {tool.value === 'linter' ? (
                             <div className="flex items-center gap-2">
-                              <span className="flex-shrink-0">
+                              <span className="shrink-0">
                                 There was a redirect, the content may have been
                                 moved
                               </span>
-                              <span className="text-ellipsis overflow-hidden whitespace-nowrap min-w-0 flex-shrink">
+                              <span className="text-ellipsis overflow-hidden whitespace-nowrap min-w-0 shrink">
                                 https://amazon.com
                               </span>
                             </div>
                           ) : (
                             <div className="flex items-center gap-2">
-                              <span className="flex-shrink-0">
+                              <span className="shrink-0">
                                 Not supported in Gmail, Outlook, Yahoo! Mail
                               </span>
-                              <span className="text-ellipsis overflow-hidden whitespace-nowrap underline underline-offset-2 decoration-slate-9 min-w-0 flex-shrink">
+                              <span className="text-ellipsis overflow-hidden whitespace-nowrap underline underline-offset-2 decoration-slate-9 min-w-0 shrink">
                                 More ↗
                               </span>
                             </div>
@@ -270,7 +271,7 @@ export const InteractiveDemo = () => {
           <Image
             src="/static/resend-wallpaper.jpg"
             alt="Linter"
-            className="absolute inset-0 -z-[1] w-full h-full object-cover object-left-bottom"
+            className="absolute inset-0 -z-1 w-full h-full object-cover object-bottom-left"
             width={1000}
             height={1000}
           />
@@ -284,14 +285,14 @@ const Line = () => {
   return (
     <div
       aria-hidden
-      className="absolute top-0 right-0 h-px w-96 bg-gradient-to-l from-transparent via-cyan-12/30 via-50% to-transparent"
+      className="absolute top-0 right-0 h-px w-96 bg-linear-to-l from-transparent via-cyan-12/30 via-50% to-transparent"
     />
   );
 };
 
 const Icons = {
   warning: () => (
-    <div className="flex-shrink-0">
+    <div className="shrink-0">
       <svg
         width="13"
         height="12"
@@ -322,16 +323,16 @@ const Icons = {
   ),
   success: () => (
     <>
-      <div className="h-16 w-16 rounded-full bg-gradient-to-br from-green-300/20 opacity-80 to-emerald-500/30 blur-md absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
-      <div className="h-12 w-12 rounded-full bg-gradient-to-br from-green-400/80 opacity-10 to-emerald-600/80 absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 shadow-lg" />
-      <div className="h-10 w-10 rounded-full bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]">
+      <div className="h-16 w-16 rounded-full bg-linear-to-br from-green-300/20 opacity-80 to-emerald-500/30 blur-md absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
+      <div className="h-12 w-12 rounded-full bg-linear-to-br from-green-400/80 opacity-10 to-emerald-600/80 absolute m-auto left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 shadow-lg" />
+      <div className="h-10 w-10 rounded-full bg-linear-to-br from-green-400 to-emerald-600 flex items-center justify-center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]">
         <svg
           fill="none"
           height="24"
           viewBox="0 0 24 24"
           width="24"
           xmlns="http://www.w3.org/2000/svg"
-          className="text-white drop-shadow-sm"
+          className="text-white drop-shadow-xs"
         >
           <path
             d="M16.25 8.75L10.406 15.25L7.75 12.75"

@@ -23,7 +23,7 @@ jobs:
           fetch-depth: 1
       - run: git config --global --add safe.directory $GITHUB_WORKSPACE
       - name: pnpm setup
-        uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
+        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320
       - name: Install packages
         run: pnpm install --frozen-lockfile --prefer-offline
       - name: Run Build

@@ -22,6 +22,8 @@ jobs:
         with:
           fetch-depth: 1
       - name: pnpm setup
-        uses: pnpm/action-setup@1e1c8eafbd745f64b1ef30a7d7ed7965034c486c
+        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320
+      - name: Install root dependencies only
+        run: pnpm install --frozen-lockfile --filter . --ignore-scripts
       - name: Check for pinned dependencies
-        run: pnpm dlx tsx@4.21.0 ./scripts/check-dependency-versions.ts
+        run: pnpm exec tsx ./scripts/check-dependency-versions.ts

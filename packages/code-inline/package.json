@@ -3,9 +3,9 @@
   "version": "0.0.6",
   "description": "Display a predictable inline code HTML element that works on all email clients",
   "sideEffects": false,
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.cts",
   "files": [
     "dist/**"
   ],
@@ -16,12 +16,17 @@
         "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
       }
     }
   },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resend/react-email.git",
+    "directory": "packages/code-inline"
+  },
   "scripts": {
     "build": "tsdown src/index.ts --format esm,cjs --dts --external react",
     "build:watch": "tsdown src/index.ts --format esm,cjs --dts --external react --watch",
@@ -39,6 +44,6 @@
   "devDependencies": {
     "@react-email/render": "workspace:*",
     "tsconfig": "workspace:*",
-    "typescript": "5.8.3"
+    "typescript": "catalog:"
   }
 }
