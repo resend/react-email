@@ -4,7 +4,7 @@ import { Email } from "./email";
 
 const client = new EmailClient(process.env.AZURE_EMAIL_CONNECTION_STRING);
 
-const from = process.env.AZURE_EMAIL_FROM;
+const from = "you@example.com";
 const emailHtml = await render(<Email url="https://example.com" />);
 
 const message = {
