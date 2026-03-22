@@ -56,6 +56,5 @@ export const readStream = async (
 
   // Strip NULL bytes (U+0000) that can appear when React's streaming renderer
   // produces chunks that split multi-byte UTF-8 characters at chunk boundaries.
-  // The pretty() function already does this, but the default non-pretty path did not.
   return result.replaceAll('\0', '');
 };

@@ -151,12 +151,6 @@ describe('render on node environments', () => {
     );
   });
 
-  /**
-   * Create a large email that would trigger React's streaming optimization
-   * if progressiveChunkSize wasn't set to Infinity
-   *
-   * @see https://github.com/resend/react-email/issues/2353
-   */
   // Regression test for https://github.com/resend/react-email/issues/1667
   // and https://github.com/resend/react-email/issues/1932
   //
@@ -194,6 +188,12 @@ describe('render on node environments', () => {
     expect(html).toContain('Тестовая');
   });
 
+  /**
+   * Create a large email that would trigger React's streaming optimization
+   * if progressiveChunkSize wasn't set to Infinity
+   *
+   * @see https://github.com/resend/react-email/issues/2353
+   */
   it('renders large emails without hydration markers', async () => {
     const LargeEmailTemplate = () => {
       const largeContent = Array(100)

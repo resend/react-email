@@ -93,7 +93,7 @@ const defaults: Options = {
 };
 
 export const pretty = (str: string, options: Options = {}) => {
-  return format(str.replaceAll('\0', ''), {
+  return format(str, {
     ...defaults,
     ...options,
   });
