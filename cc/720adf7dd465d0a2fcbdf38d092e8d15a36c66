@@ -1,0 +1,23 @@
+apps/docs/snippets/editor-install.mdx
+  f0b3e68a6cd4a07f 4,8,12,16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.17",
+  "base_commit_sha": "cc720adf7dd465d0a2fcbdf38d092e8d15a36c66",
+  "prompts": {
+    "f0b3e68a6cd4a07f": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019d1ceb-a40f-7b41-8e7c-10dab7d3dc06",
+        "model": "unknown"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 4,
+      "total_deletions": 4,
+      "accepted_lines": 4,
+      "overriden_lines": 0
+    }
+  }
+}
