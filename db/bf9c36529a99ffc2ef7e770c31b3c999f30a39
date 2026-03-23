@@ -1,0 +1,123 @@
+packages/editor/src/icons/italic.tsx
+  d86d4c14dfbac9e5 1-22
+packages/editor/src/icons/external-link.tsx
+  d86d4c14dfbac9e5 1-22
+packages/editor/src/ui/button-bubble-menu/unlink.tsx
+  d86d4c14dfbac9e5 1
+packages/editor/src/ui/image-bubble-menu/edit-link.tsx
+  d86d4c14dfbac9e5 1
+packages/editor/src/ui/slash-command/commands.tsx
+  d86d4c14dfbac9e5 16
+packages/editor/src/icons/underline.tsx
+  d86d4c14dfbac9e5 1-21
+packages/editor/src/icons/align-center.tsx
+  d86d4c14dfbac9e5 1-22
+packages/editor/src/icons/heading-2.tsx
+  d86d4c14dfbac9e5 1-23
+packages/editor/src/ui/bubble-menu/link-selector.tsx
+  d86d4c14dfbac9e5 3
+packages/editor/src/icons/rows-2.tsx
+  d86d4c14dfbac9e5 1-21
+packages/editor/src/icons/icon-props.ts
+  d86d4c14dfbac9e5 1-5
+packages/editor/src/icons/mouse-pointer.tsx
+  d86d4c14dfbac9e5 1-21
+packages/editor/src/icons/columns-3.tsx
+  d86d4c14dfbac9e5 1-22
+packages/editor/src/icons/align-left.tsx
+  d86d4c14dfbac9e5 1-22
+packages/editor/src/icons/square-code.tsx
+  d86d4c14dfbac9e5 1-22
+packages/editor/src/ui/bubble-menu/underline.tsx
+  d86d4c14dfbac9e5 1
+packages/editor/src/ui/button-bubble-menu/edit-link.tsx
+  d86d4c14dfbac9e5 1
+packages/editor/src/icons/heading-3.tsx
+  d86d4c14dfbac9e5 1-24
+packages/editor/src/icons/strikethrough.tsx
+  d86d4c14dfbac9e5 1-22
+packages/editor/src/ui/button-bubble-menu/form.tsx
+  d86d4c14dfbac9e5 1
+packages/editor/src/ui/link-bubble-menu/edit-link.tsx
+  d86d4c14dfbac9e5 1
+packages/editor/src/icons/heading-1.tsx
+  d86d4c14dfbac9e5 1-23
+packages/editor/src/icons/pencil.tsx
+  d86d4c14dfbac9e5 1-21
+packages/editor/src/ui/link-bubble-menu/form.tsx
+  d86d4c14dfbac9e5 1
+packages/editor/src/icons/chevron-down.tsx
+  d86d4c14dfbac9e5 1-20
+packages/editor/src/icons/link.tsx
+  d86d4c14dfbac9e5 1-21
+packages/editor/src/icons/case-upper.tsx
+  d86d4c14dfbac9e5 1-23
+packages/editor/src/icons/code.tsx
+  d86d4c14dfbac9e5 1-21
+packages/editor/src/icons/list.tsx
+  d86d4c14dfbac9e5 1-25
+packages/editor/src/ui/link-bubble-menu/unlink.tsx
+  d86d4c14dfbac9e5 1
+packages/editor/src/icons/check.tsx
+  d86d4c14dfbac9e5 1-20
+packages/editor/src/ui/bubble-menu/bold.tsx
+  d86d4c14dfbac9e5 1
+packages/editor/src/icons/unlink.tsx
+  d86d4c14dfbac9e5 1-25
+packages/editor/src/ui/bubble-menu/strike.tsx
+  d86d4c14dfbac9e5 1
+packages/editor/src/icons/columns-2.tsx
+  d86d4c14dfbac9e5 1-21
+packages/editor/src/icons/index.ts
+  d86d4c14dfbac9e5 1-34
+packages/editor/src/ui/bubble-menu/italic.tsx
+  d86d4c14dfbac9e5 1
+packages/editor/src/icons/columns-4.tsx
+  d86d4c14dfbac9e5 1-23
+packages/editor/src/ui/bubble-menu/align-left.tsx
+  d86d4c14dfbac9e5 2
+packages/editor/src/icons/align-right.tsx
+  d86d4c14dfbac9e5 1-22
+packages/editor/src/icons/bold.tsx
+  d86d4c14dfbac9e5 1-20
+packages/editor/src/ui/bubble-menu/align-center.tsx
+  d86d4c14dfbac9e5 2
+packages/editor/src/ui/bubble-menu/align-right.tsx
+  d86d4c14dfbac9e5 2
+packages/editor/src/ui/bubble-menu/node-selector.tsx
+  d86d4c14dfbac9e5 14
+packages/editor/src/icons/text.tsx
+  d86d4c14dfbac9e5 1-22
+packages/editor/src/ui/bubble-menu/uppercase.tsx
+  d86d4c14dfbac9e5 1
+packages/editor/src/icons/split-square-vertical.tsx
+  d86d4c14dfbac9e5 1-22
+packages/editor/src/icons/text-quote.tsx
+  d86d4c14dfbac9e5 1-23
+packages/editor/src/icons/list-ordered.tsx
+  d86d4c14dfbac9e5 1-25
+packages/editor/src/ui/link-bubble-menu/open-link.tsx
+  d86d4c14dfbac9e5 1
+packages/editor/src/ui/bubble-menu/code.tsx
+  d86d4c14dfbac9e5 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.17",
+  "base_commit_sha": "dbbf9c36529a99ffc2ef7e770c31b3c999f30a39",
+  "prompts": {
+    "d86d4c14dfbac9e5": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019d1ccd-dc3e-79d0-8229-9accdb62f5a9",
+        "model": "unknown"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 700,
+      "total_deletions": 21,
+      "accepted_lines": 700,
+      "overriden_lines": 0
+    }
+  }
+}
