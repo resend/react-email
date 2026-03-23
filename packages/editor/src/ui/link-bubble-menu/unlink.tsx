@@ -1,5 +1,5 @@
-import { UnlinkIcon } from 'lucide-react';
 import type * as React from 'react';
+import { UnlinkIcon } from '../icons';
 import { useLinkBubbleMenuContext } from './context';
 
 export interface LinkBubbleMenuUnlinkProps
