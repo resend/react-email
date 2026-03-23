@@ -5,8 +5,10 @@ description: "Convert editor content to email-ready HTML and plain text."
 icon: "file-export"
 ---
 
-The `composeReactEmail` function serializes the editor's document tree into email-ready HTML
-and a plain text fallback.
+The `composeReactEmail` function is the core of the editor's email export system. It takes
+the editor's document tree, walks every node and mark, calls each extension's
+`renderToReactEmail()` method, applies theme styles, wraps everything in an email-ready
+template, and produces both HTML and plain text output.
 
 ## Import
 
@@ -43,16 +45,118 @@ Returns a `Promise` that resolves to an object with:
 | `html` | `string` | Full HTML email string, ready to send |
 | `text` | `string` | Plain text version for email clients that don't support HTML |
 
-## How it works
+Both are generated in parallel for performance.
 
-The serialization pipeline:
+---
 
-1. **Read** the editor's JSON document
-2. **Traverse** each node and mark in the document tree
-3. **Call** `renderToReactEmail()` on each [`EmailNode`](/editor/api-reference/email-node) and [`EmailMark`](/editor/api-reference/email-mark) extension
-4. **Apply** theme styles via the `SerializerPlugin` (if [`EmailTheming`](/editor/features/theming) is configured)
-5. **Wrap** the content in a `BaseTemplate` component
-6. **Render** to an HTML string and plain text version
+## The serialization pipeline
+
+Understanding how `composeReactEmail` works helps you write better custom extensions and
+debug rendering issues.
+
+### 1. Extract document and extensions
+
+The function reads the editor's JSON document (via `editor.getJSON()`) and collects all
+registered extensions into a name-to-extension map for fast lookup.
+
+### 2. Find the SerializerPlugin
+
+It searches extensions for one that provides a `SerializerPlugin` — an interface with two
+methods:
+
+- **`getNodeStyles(node, depth, editor)`** — returns `React.CSSProperties` for a given node
+- **`BaseTemplate({ previewText, children, editor })`** — wraps the serialized content in an email structure
+
+The [`EmailTheming`](/editor/features/theming) extension implements this interface. If no
+plugin is found, styles default to `{}` and the built-in `DefaultBaseTemplate` is used.
+
+### 3. Traverse the document tree
+
+The core `parseContent()` function recursively walks the document. For each node it:
+
+1. **Resolves styles** — calls `serializerPlugin.getNodeStyles(node, depth, editor)` to get
+   theme styles, then merges any inline styles from the node's attributes
+2. **Skips unknown nodes** — if the node type isn't registered or isn't an
+   [`EmailNode`](/editor/api-reference/email-node), it's skipped
+3. **Renders the node** — calls the extension's `renderToReactEmail()` component, passing
+   `children` (from recursing into child nodes), `style`, `node`, and `extension`
+4. **Wraps with marks** — iterates through the node's marks (bold, italic, link, etc.) and
+   wraps the rendered output with each mark's `renderToReactEmail()`
+
+<Info>
+  Text nodes are rendered as raw strings. Block nodes like headings, paragraphs, and sections
+  go through `renderToReactEmail()`. Marks like bold or links wrap the text they apply to.
+</Info>
+
+### 4. Depth tracking
+
+Depth starts at `0` and only increments inside list nodes (`bulletList`, `orderedList`).
+This enables different styling for nested vs. top-level elements — for example, paragraphs
+inside list items use the `listParagraph` theme key instead of `paragraph`.
+
+### 5. Style resolution order
+
+Styles are resolved in this priority (highest wins):
+
+1. **Inline styles** — styles set directly on a node via the editor (e.g., text alignment)
+2. **Theme styles** — styles from the active theme via `getNodeStyles()`
+3. **Extension defaults** — hardcoded styles in each extension's `renderToReactEmail()`
+
+Inside each extension's renderer, these are typically merged:
+
+```tsx
+renderToReactEmail({ children, style, node }) {
+  return (
+    <p style={{
+      ...style,                            // theme styles
+      ...inlineCssToJs(node.attrs?.style), // inline overrides
+    }}>
+      {children}
+    </p>
+  );
+}
+```
+
+### 6. Wrap in BaseTemplate
+
+The serialized content is wrapped in a `BaseTemplate` that provides the email's
+outer structure.
+
+The **default template** renders:
+
+```tsx
+<Html>
+  <Head>
+    <meta content="width=device-width" name="viewport" />
+    <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta
+      content="telephone=no,address=no,email=no,date=no,url=no"
+      name="format-detection"
+    />
+  </Head>
+  {previewText && <Preview>{previewText}</Preview>}
+  <Body>
+    <Section width="100%" align="center">
+      <Section style={{ width: '100%' }}>
+        {children}
+      </Section>
+    </Section>
+  </Body>
+</Html>
+```
+
+When [`EmailTheming`](/editor/features/theming) is active, its `BaseTemplate` replaces the
+default — it adds theme-specific body/container styles and can inject global CSS via a
+`<style>` tag in the `<Head>`.
+
+### 7. Render to HTML and plain text
+
+The React tree is rendered to an HTML string using `@react-email/components`' `render()`
+function. Both the formatted HTML and a plain text version (tags stripped, text preserved)
+are generated in parallel.
+
+---
 
 ## Usage
 
@@ -66,6 +170,9 @@ const { html, text } = await composeReactEmail({ editor, preview: null });
 
 ### With preview text
 
+The `preview` parameter sets the inbox preview snippet — the text shown before the email
+is opened:
+
 ```tsx
 const { html, text } = await composeReactEmail({
   editor,
@@ -73,10 +180,12 @@ const { html, text } = await composeReactEmail({
 });
 ```
 
+Pass `null` to omit preview text entirely.
+
 ### With theming
 
 When the [`EmailTheming`](/editor/features/theming) extension is in your extensions array,
-theme styles are automatically injected into the exported HTML. No extra configuration needed:
+theme styles are automatically inlined into every node during export:
 
 ```tsx
 import { StarterKit } from '@react-email/editor/extensions';
@@ -84,9 +193,8 @@ import { EmailTheming } from '@react-email/editor/plugins';
 
 const extensions = [StarterKit, EmailTheming.configure({ theme: 'basic' })];
 
-// Later, when exporting:
+// Theme styles are injected automatically — no extra config needed
 const { html } = await composeReactEmail({ editor, preview: null });
-// html includes all theme styles inline
 ```
 
 ### Full example with export panel
@@ -126,3 +234,41 @@ function ExportPanel() {
   );
 }
 ```
+
+---
+
+## SerializerPlugin
+
+The `SerializerPlugin` interface is what makes `composeReactEmail` extensible.
+[`EmailTheming`](/editor/features/theming) implements it, but you could build your own
+plugin for custom style resolution or template wrapping.
+
+```tsx
+interface SerializerPlugin {
+  getNodeStyles(
+    node: JSONContent,
+    depth: number,
+    editor: Editor,
+  ): React.CSSProperties;
+
+  BaseTemplate(props: {
+    previewText: string | null;
+    children: React.ReactNode;
+    editor: Editor;
+  }): React.ReactNode;
+}
+```
+
+| Method | Description |
+|--------|-------------|
+| `getNodeStyles` | Called for every node and mark during traversal. Returns inline styles to pass to `renderToReactEmail()` via the `style` prop. |
+| `BaseTemplate` | Wraps the serialized content in the email's outer structure (`Html`, `Head`, `Body`, etc.). Replaces the default template entirely. |
+
+---
+
+## See also
+
+- [`EmailNode`](/editor/api-reference/email-node) — defines how nodes serialize via `renderToReactEmail()`
+- [`EmailMark`](/editor/api-reference/email-mark) — defines how marks serialize via `renderToReactEmail()`
+- [Email Export](/editor/features/email-export) — guide with full editor + export examples
+- [Theming](/editor/features/theming) — how `EmailTheming` provides styles and templates to the serializer
