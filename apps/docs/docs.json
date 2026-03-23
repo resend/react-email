@@ -19,10 +19,7 @@
         "groups": [
           {
             "group": "Overview",
-            "pages": [
-              "editor/overview",
-              "editor/getting-started"
-            ]
+            "pages": ["editor/overview", "editor/getting-started"]
           },
           {
             "group": "Features",
