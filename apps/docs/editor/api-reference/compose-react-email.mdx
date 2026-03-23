@@ -1,0 +1,128 @@
+---
+title: "composeReactEmail"
+sidebarTitle: "composeReactEmail"
+description: "Convert editor content to email-ready HTML and plain text."
+icon: "file-export"
+---
+
+The `composeReactEmail` function serializes the editor's document tree into email-ready HTML
+and a plain text fallback.
+
+## Import
+
+```tsx
+import { composeReactEmail } from '@react-email/editor/core';
+```
+
+## Signature
+
+```tsx
+async function composeReactEmail(params: {
+  editor: Editor;
+  preview: string | null;
+}): Promise<{ html: string; text: string }>;
+```
+
+## Parameters
+
+<ResponseField name="editor" type="Editor" required>
+  The TipTap editor instance. The function reads the editor's JSON document and walks through
+  each registered extension to serialize nodes and marks.
+</ResponseField>
+
+<ResponseField name="preview" type="string | null" required>
+  Preview text shown in inbox list views before the email is opened. Pass `null` to omit.
+</ResponseField>
+
+## Return value
+
+Returns a `Promise` that resolves to an object with:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `html` | `string` | Full HTML email string, ready to send |
+| `text` | `string` | Plain text version for email clients that don't support HTML |
+
+## How it works
+
+The serialization pipeline:
+
+1. **Read** the editor's JSON document
+2. **Traverse** each node and mark in the document tree
+3. **Call** `renderToReactEmail()` on each [`EmailNode`](/editor/api-reference/email-node) and [`EmailMark`](/editor/api-reference/email-mark) extension
+4. **Apply** theme styles via the `SerializerPlugin` (if [`EmailTheming`](/editor/features/theming) is configured)
+5. **Wrap** the content in a `BaseTemplate` component
+6. **Render** to an HTML string and plain text version
+
+## Usage
+
+### Basic export
+
+```tsx
+import { composeReactEmail } from '@react-email/editor/core';
+
+const { html, text } = await composeReactEmail({ editor, preview: null });
+```
+
+### With preview text
+
+```tsx
+const { html, text } = await composeReactEmail({
+  editor,
+  preview: 'Check out our latest updates!',
+});
+```
+
+### With theming
+
+When the [`EmailTheming`](/editor/features/theming) extension is in your extensions array,
+theme styles are automatically injected into the exported HTML. No extra configuration needed:
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+import { EmailTheming } from '@react-email/editor/plugins';
+
+const extensions = [StarterKit, EmailTheming.configure({ theme: 'basic' })];
+
+// Later, when exporting:
+const { html } = await composeReactEmail({ editor, preview: null });
+// html includes all theme styles inline
+```
+
+### Full example with export panel
+
+```tsx
+import { composeReactEmail } from '@react-email/editor/core';
+import { useCurrentEditor } from '@tiptap/react';
+import { useState } from 'react';
+
+function ExportPanel() {
+  const { editor } = useCurrentEditor();
+  const [html, setHtml] = useState('');
+  const [exporting, setExporting] = useState(false);
+
+  const handleExport = async () => {
+    if (!editor) return;
+    setExporting(true);
+    const result = await composeReactEmail({ editor, preview: null });
+    setHtml(result.html);
+    setExporting(false);
+  };
+
+  return (
+    <div>
+      <button onClick={handleExport} disabled={exporting}>
+        {exporting ? 'Exporting...' : 'Export HTML'}
+      </button>
+      {html && (
+        <textarea
+          readOnly
+          value={html}
+          rows={16}
+          style={{ width: '100%', fontFamily: 'monospace' }}
+        />
+      )}
+    </div>
+  );
+}
+```

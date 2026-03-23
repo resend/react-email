@@ -1,0 +1,67 @@
+---
+title: "LinkBubbleMenu"
+sidebarTitle: "LinkBubbleMenu"
+description: "Contextual menu for editing links."
+icon: "link"
+---
+
+Contextual menu that appears when clicking a link.
+
+## LinkBubbleMenu.Default
+
+Pre-configured link bubble menu with edit, open, and unlink actions.
+
+```tsx
+import { LinkBubbleMenu } from '@react-email/editor/ui';
+
+<LinkBubbleMenu.Default />
+```
+
+<ResponseField name="placement" type="'top' | 'bottom'" default="'bottom'">
+  Position relative to the link.
+</ResponseField>
+
+<ResponseField name="offset" type="number" default="8">
+  Distance from the link in pixels.
+</ResponseField>
+
+<ResponseField name="onHide" type="() => void">
+  Called when the bubble menu is hidden.
+</ResponseField>
+
+<ResponseField name="className" type="string">
+  Additional CSS class on the wrapper element.
+</ResponseField>
+
+---
+
+## Compound components
+
+For custom link bubble menus, compose with these sub-components:
+
+| Component | Description |
+|-----------|-------------|
+| `LinkBubbleMenu.Root` | Base container with positioning logic |
+| `LinkBubbleMenu.Toolbar` | Default toolbar with link actions |
+| `LinkBubbleMenu.Form` | Inline form for editing link URLs |
+| `LinkBubbleMenu.EditLink` | Button to enter edit mode |
+| `LinkBubbleMenu.Unlink` | Button to remove the link |
+| `LinkBubbleMenu.OpenLink` | Button to open the link in a new tab |
+
+---
+
+## Context
+
+Use `useLinkBubbleMenuContext()` inside custom link bubble menu children:
+
+```tsx
+const { editor, linkHref, isEditing, setIsEditing } = useLinkBubbleMenuContext();
+```
+
+---
+
+## CSS import
+
+```tsx
+import '@react-email/editor/styles/link-bubble-menu.css';
+```

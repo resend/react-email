@@ -1,0 +1,135 @@
+---
+title: "BubbleMenu"
+sidebarTitle: "BubbleMenu"
+description: "Floating formatting toolbar that appears on text selection."
+icon: "message-lines"
+---
+
+## BubbleMenu.Default
+
+Pre-configured bubble menu with all formatting options.
+
+```tsx
+import { BubbleMenu } from '@react-email/editor/ui';
+
+<BubbleMenu.Default />
+```
+
+<ResponseField name="excludeItems" type="ExcludableItem[]" default="[]">
+  Items to hide from the menu. Options: `'bold'`, `'italic'`, `'underline'`,
+  `'strike'`, `'code'`, `'uppercase'`, `'align-left'`, `'align-center'`,
+  `'align-right'`, `'node-selector'`, `'link-selector'`.
+</ResponseField>
+
+<ResponseField name="excludeNodes" type="string[]" default="[]">
+  Node types that should NOT trigger the bubble menu (e.g., `'codeBlock'`, `'button'`).
+</ResponseField>
+
+<ResponseField name="excludeMarks" type="string[]" default="[]">
+  Mark types that should NOT trigger the bubble menu (e.g., `'link'`).
+</ResponseField>
+
+<ResponseField name="placement" type="'top' | 'bottom'" default="'bottom'">
+  Position relative to the selection.
+</ResponseField>
+
+<ResponseField name="offset" type="number" default="8">
+  Distance from the selection in pixels.
+</ResponseField>
+
+<ResponseField name="onHide" type="() => void">
+  Called when the bubble menu is hidden.
+</ResponseField>
+
+<ResponseField name="className" type="string">
+  Additional CSS class on the wrapper element.
+</ResponseField>
+
+---
+
+## BubbleMenu.Root
+
+Base container for building custom bubble menus.
+
+```tsx
+<BubbleMenu.Root excludeNodes={['codeBlock']} placement="bottom" offset={8}>
+  {children}
+</BubbleMenu.Root>
+```
+
+Accepts the same props as `Default` except `excludeItems`.
+
+---
+
+## BubbleMenu.ItemGroup
+
+Visual grouping of bubble menu items.
+
+```tsx
+<BubbleMenu.ItemGroup>
+  <BubbleMenu.Bold />
+  <BubbleMenu.Italic />
+</BubbleMenu.ItemGroup>
+```
+
+---
+
+## Individual items
+
+| Component | Description |
+|-----------|-------------|
+| `BubbleMenu.Bold` | Bold toggle |
+| `BubbleMenu.Italic` | Italic toggle |
+| `BubbleMenu.Underline` | Underline toggle |
+| `BubbleMenu.Strike` | Strikethrough toggle |
+| `BubbleMenu.Code` | Inline code toggle |
+| `BubbleMenu.Uppercase` | Uppercase toggle |
+| `BubbleMenu.AlignLeft` | Left alignment |
+| `BubbleMenu.AlignCenter` | Center alignment |
+| `BubbleMenu.AlignRight` | Right alignment |
+| `BubbleMenu.Separator` | Visual separator |
+
+---
+
+## BubbleMenu.NodeSelector
+
+Dropdown to change the block type (paragraph, heading, etc.).
+
+<ResponseField name="open" type="boolean">
+  Controlled open state.
+</ResponseField>
+
+<ResponseField name="onOpenChange" type="(open: boolean) => void">
+  Called when the dropdown opens or closes.
+</ResponseField>
+
+---
+
+## BubbleMenu.LinkSelector
+
+Popover for adding and editing links.
+
+<ResponseField name="open" type="boolean">
+  Controlled open state.
+</ResponseField>
+
+<ResponseField name="onOpenChange" type="(open: boolean) => void">
+  Called when the popover opens or closes.
+</ResponseField>
+
+---
+
+## CSS import
+
+```tsx
+import '@react-email/editor/styles/bubble-menu.css';
+```
+
+<Tip>
+  `@react-email/editor/themes/default.css` bundles all UI component styles into a single
+  import. Unless you need to cherry-pick specific styles, this is all you need:
+
+  ```tsx
+  import '@react-email/editor/themes/default.css';
+  ```
+</Tip>

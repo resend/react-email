@@ -1,0 +1,95 @@
+---
+title: "SlashCommand"
+sidebarTitle: "SlashCommand"
+description: "Command menu triggered by typing a character."
+icon: "terminal"
+---
+
+Command menu triggered by typing a character (default: `/`).
+
+## SlashCommand.Root
+
+```tsx
+import { defaultSlashCommands, SlashCommand } from '@react-email/editor/ui';
+
+<SlashCommand.Root items={defaultSlashCommands} />
+```
+
+<ResponseField name="items" type="SlashCommandItem[]" default="defaultSlashCommands">
+  Array of commands to display. Falls back to `defaultSlashCommands` when not provided.
+</ResponseField>
+
+<ResponseField name="filterItems" type="(items, query, editor) => SlashCommandItem[]">
+  Custom filter function. By default, uses fuzzy matching on title, description, and search terms.
+</ResponseField>
+
+<ResponseField name="char" type="string" default="/">
+  Character that triggers the command menu.
+</ResponseField>
+
+<ResponseField name="allow" type="(props: { editor }) => boolean">
+  Controls when the menu can appear. Return `false` to prevent it.
+</ResponseField>
+
+<ResponseField name="children" type="(props: SlashCommandRenderProps) => ReactNode">
+  Custom render function for the command list. Receives `items`, `query`, `selectedIndex`, and `onSelect`.
+</ResponseField>
+
+---
+
+## SlashCommandItem
+
+```tsx
+interface SlashCommandItem {
+  title: string;
+  description: string;
+  searchTerms?: string[];
+  icon: ReactNode;
+  category: string;
+  command: (props: { editor: Editor; range: Range }) => void;
+}
+```
+
+---
+
+## SlashCommandRenderProps
+
+```tsx
+interface SlashCommandRenderProps {
+  items: SlashCommandItem[];
+  query: string;
+  selectedIndex: number;
+  onSelect: (index: number) => void;
+}
+```
+
+---
+
+## Default commands
+
+The `defaultSlashCommands` export includes these built-in commands:
+
+| Command | Category | Description |
+|---------|----------|-------------|
+| Text | Basic | Plain text paragraph |
+| Heading 1 | Headings | Level 1 heading |
+| Heading 2 | Headings | Level 2 heading |
+| Heading 3 | Headings | Level 3 heading |
+| Numbered List | Lists | Ordered list |
+| Bullet List | Lists | Unordered list |
+| Quote | Basic | Block quote |
+| Section | Layout | Content section |
+| 2 Columns | Layout | Two-column layout |
+| 3 Columns | Layout | Three-column layout |
+| 4 Columns | Layout | Four-column layout |
+| Divider | Basic | Horizontal rule |
+| Code | Basic | Code block |
+| Button | Basic | Email button |
+
+---
+
+## CSS import
+
+```tsx
+import '@react-email/editor/styles/slash-command.css';
+```

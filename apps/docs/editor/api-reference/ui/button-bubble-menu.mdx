@@ -1,0 +1,65 @@
+---
+title: "ButtonBubbleMenu"
+sidebarTitle: "ButtonBubbleMenu"
+description: "Contextual menu for editing email buttons."
+icon: "rectangle-wide"
+---
+
+Contextual menu that appears when clicking an email button.
+
+## ButtonBubbleMenu.Default
+
+Pre-configured button bubble menu with edit link and unlink actions.
+
+```tsx
+import { ButtonBubbleMenu } from '@react-email/editor/ui';
+
+<ButtonBubbleMenu.Default />
+```
+
+<ResponseField name="placement" type="'top' | 'bottom'" default="'bottom'">
+  Position relative to the button.
+</ResponseField>
+
+<ResponseField name="offset" type="number" default="8">
+  Distance from the button in pixels.
+</ResponseField>
+
+<ResponseField name="onHide" type="() => void">
+  Called when the bubble menu is hidden.
+</ResponseField>
+
+<ResponseField name="className" type="string">
+  Additional CSS class on the wrapper element.
+</ResponseField>
+
+---
+
+## Compound components
+
+For custom button bubble menus, compose with these sub-components:
+
+| Component | Description |
+|-----------|-------------|
+| `ButtonBubbleMenu.Root` | Base container with positioning logic |
+| `ButtonBubbleMenu.Toolbar` | Default toolbar with button actions |
+| `ButtonBubbleMenu.EditLink` | Inline form for editing the button's link URL |
+| `ButtonBubbleMenu.Unlink` | Button to remove the link from an email button |
+
+---
+
+## Context
+
+Use `useButtonBubbleMenuContext()` inside custom button bubble menu children:
+
+```tsx
+const { editor, isEditing, setIsEditing } = useButtonBubbleMenuContext();
+```
+
+---
+
+## CSS import
+
+```tsx
+import '@react-email/editor/styles/button-bubble-menu.css';
+```

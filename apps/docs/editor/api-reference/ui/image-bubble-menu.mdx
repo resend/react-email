@@ -1,0 +1,64 @@
+---
+title: "ImageBubbleMenu"
+sidebarTitle: "ImageBubbleMenu"
+description: "Contextual menu for editing images."
+icon: "image"
+---
+
+Contextual menu that appears when clicking an image.
+
+## ImageBubbleMenu.Default
+
+Pre-configured image bubble menu.
+
+```tsx
+import { ImageBubbleMenu } from '@react-email/editor/ui';
+
+<ImageBubbleMenu.Default />
+```
+
+<ResponseField name="placement" type="'top' | 'bottom'" default="'bottom'">
+  Position relative to the image.
+</ResponseField>
+
+<ResponseField name="offset" type="number" default="8">
+  Distance from the image in pixels.
+</ResponseField>
+
+<ResponseField name="onHide" type="() => void">
+  Called when the bubble menu is hidden.
+</ResponseField>
+
+<ResponseField name="className" type="string">
+  Additional CSS class on the wrapper element.
+</ResponseField>
+
+---
+
+## Compound components
+
+For custom image bubble menus, compose with these sub-components:
+
+| Component | Description |
+|-----------|-------------|
+| `ImageBubbleMenu.Root` | Base container with positioning logic |
+| `ImageBubbleMenu.Toolbar` | Default toolbar with image actions |
+| `ImageBubbleMenu.EditLink` | Inline form for editing the image's link/src |
+
+---
+
+## Context
+
+Use `useImageBubbleMenuContext()` inside custom image bubble menu children:
+
+```tsx
+const { editor, isEditing, setIsEditing } = useImageBubbleMenuContext();
+```
+
+---
+
+## CSS import
+
+```tsx
+import '@react-email/editor/styles/image-bubble-menu.css';
+```
