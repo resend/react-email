@@ -14,59 +14,6 @@
   "navigation": {
     "anchors": [
       {
-        "anchor": "Editor",
-        "icon": "pen-to-square",
-        "groups": [
-          {
-            "group": "Overview",
-            "pages": ["editor/overview", "editor/getting-started"]
-          },
-          {
-            "group": "Features",
-            "pages": [
-              "editor/features/bubble-menu",
-              "editor/features/slash-commands",
-              "editor/features/link-editing",
-              "editor/features/buttons",
-              "editor/features/column-layouts",
-              "editor/features/email-export",
-              "editor/features/theming",
-              "editor/features/styling"
-            ]
-          },
-          {
-            "group": "API Reference",
-            "pages": [
-              "editor/api-reference/compose-react-email",
-              "editor/api-reference/email-node",
-              "editor/api-reference/email-mark",
-              "editor/api-reference/use-editor",
-              {
-                "group": "UI",
-                "icon": "window",
-                "pages": [
-                  "editor/api-reference/ui/bubble-menu",
-                  "editor/api-reference/ui/link-bubble-menu",
-                  "editor/api-reference/ui/button-bubble-menu",
-                  "editor/api-reference/ui/image-bubble-menu",
-                  "editor/api-reference/ui/slash-command"
-                ]
-              },
-              "editor/api-reference/extensions-list",
-              "editor/api-reference/theming-api"
-            ]
-          },
-          {
-            "group": "Advanced",
-            "pages": [
-              "editor/advanced/custom-extensions",
-              "editor/advanced/extensions",
-              "editor/advanced/event-bus"
-            ]
-          }
-        ]
-      },
-      {
         "anchor": "Documentation",
         "icon": "book-open",
         "groups": [
