@@ -1,4 +1,4 @@
-import { LinkIcon } from 'lucide-react';
+import { LinkIcon } from '../icons';
 import type * as React from 'react';
 import { useImageBubbleMenuContext } from './context';
 

@@ -1,6 +1,6 @@
 import type { Editor } from '@tiptap/core';
 import { useEditorState } from '@tiptap/react';
-import { Check, LinkIcon, UnlinkIcon } from 'lucide-react';
+import { Check, LinkIcon, UnlinkIcon } from '../icons';
 import * as React from 'react';
 import { editorEventBus } from '../../core/event-bus';
 import { useBubbleMenuContext } from './context';

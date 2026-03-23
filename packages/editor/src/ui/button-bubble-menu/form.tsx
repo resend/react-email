@@ -1,4 +1,4 @@
-import { Check, UnlinkIcon } from 'lucide-react';
+import { Check, UnlinkIcon } from '../icons';
 import * as React from 'react';
 import { focusEditor, getUrlFromString } from '../bubble-menu/utils';
 import { useButtonBubbleMenuContext } from './context';
