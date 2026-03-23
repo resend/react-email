@@ -116,7 +116,7 @@ export interface RootProps {
 
 export interface InspectorContextValue {
   inspectorTarget: InspectorTarget;
-  pathToRoot: FocusedNode[];
+  pathFromRoot: FocusedNode[];
 }
 
 export const InspectorContext =
@@ -206,7 +206,7 @@ export function InspectorRoot({ children }: RootProps) {
   );
 
   return (
-    <InspectorContext.Provider value={{ inspectorTarget, pathToRoot }}>
+    <InspectorContext.Provider value={{ inspectorTarget, pathFromRoot }}>
       {children}
     </InspectorContext.Provider>
   );
