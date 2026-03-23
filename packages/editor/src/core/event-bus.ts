@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 const EVENT_PREFIX = '@react-email/editor:';
 
 /**
@@ -44,6 +46,18 @@ class EditorEventBus {
       cancelable: false,
     });
     target.dispatchEvent(event);
+  }
+
+  useEvent<T extends EditorEventName>(
+    eventName: T,
+    handler: EditorEventHandler<T>,
+    options?: AddEventListenerOptions & { target?: EventTarget },
+  ) {
+    useEffect(() => {
+      const subscription = this.on(eventName, handler, options);
+
+      return () => subscription.unsubscribe();
+    }, [eventName, handler, options]);
   }
 
   on<T extends EditorEventName>(

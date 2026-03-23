@@ -637,6 +637,9 @@ importers:
       '@radix-ui/react-popover':
         specifier: ^1.0.0
         version: 1.1.15(@types/react-dom@19.2.3(@types/react@19.2.13))(@types/react@19.2.13)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@radix-ui/react-slot':
+        specifier: 'catalog:'
+        version: 1.2.4(@types/react@19.2.13)(react@19.0.0)
       '@react-email/components':
         specifier: workspace:*
         version: link:../components
@@ -647,8 +650,8 @@ importers:
         specifier: ^3.17.1
         version: 3.20.1(@tiptap/core@3.20.1(@tiptap/pm@3.20.1))
       '@tiptap/extension-bold':
-        specifier: ^3.20.1
-        version: 3.20.1(@tiptap/core@3.20.1(@tiptap/pm@3.20.1))
+        specifier: ^3.17.1
+        version: 3.20.2(@tiptap/core@3.20.1(@tiptap/pm@3.20.1))
       '@tiptap/extension-bullet-list':
         specifier: ^3.17.1
         version: 3.20.1(@tiptap/extension-list@3.20.1(@tiptap/core@3.20.1(@tiptap/pm@3.20.1))(@tiptap/pm@3.20.1))
@@ -4020,11 +4023,6 @@ packages:
 
   '@tiptap/extension-blockquote@3.20.1':
     resolution: {integrity: sha512-WzNXk/63PQI2fav4Ta6P0GmYRyu8Gap1pV3VUqaVK829iJ6Zt1T21xayATHEHWMK27VT1GLPJkx9Ycr2jfDyQw==}
-    peerDependencies:
-      '@tiptap/core': ^3.20.1
-
-  '@tiptap/extension-bold@3.20.1':
-    resolution: {integrity: sha512-fz++Qv6Rk/Hov0IYG/r7TJ1Y4zWkuGONe0UN5g0KY32NIMg3HeOHicbi4xsNWTm9uAOl3eawWDkezEMrleObMw==}
     peerDependencies:
       '@tiptap/core': ^3.20.1
 
@@ -12045,10 +12043,6 @@ snapshots:
       '@tiptap/pm': 3.20.1
 
   '@tiptap/extension-blockquote@3.20.1(@tiptap/core@3.20.1(@tiptap/pm@3.20.1))':
-    dependencies:
-      '@tiptap/core': 3.20.1(@tiptap/pm@3.20.1)
-
-  '@tiptap/extension-bold@3.20.1(@tiptap/core@3.20.1(@tiptap/pm@3.20.1))':
     dependencies:
       '@tiptap/core': 3.20.1(@tiptap/pm@3.20.1)
 

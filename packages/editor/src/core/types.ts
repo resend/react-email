@@ -4,6 +4,7 @@
  */
 
 import type { Attrs } from '@tiptap/pm/model';
+import type { EditorEventMap, EditorEventName } from './event-bus';
 
 export type NodeClickedEvent = {
   nodeType: string;
@@ -42,17 +43,11 @@ export type CustomPlaceholder = {
   fallback_value?: string | null;
 };
 
-/**
- * Event map for the editor event bus.
- */
+declare module './event-bus' {
 export interface EditorEventMap {
   'node-clicked': NodeClickedEvent;
 }
-
-/**
- * Available event names in the editor event bus.
- */
-export type EditorEventName = keyof EditorEventMap;
+}
 
 /**
  * Event handler function type.
@@ -61,12 +56,12 @@ export type EventHandler<T extends EditorEventName> = (
   payload: EditorEventMap[T],
 ) => void | Promise<void>;
 
-/**
- * Subscription handle returned when subscribing to events.
- */
-export interface EventSubscription {
-  unsubscribe: () => void;
-}
+  /**
+   * Subscription handle returned when subscribing to events.
+   */
+  export interface EventSubscription {
+    unsubscribe: () => void;
+  }
 
 /**
  * Options for dispatching events.
