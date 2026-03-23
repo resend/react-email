@@ -1,6 +1,6 @@
-import { UnlinkIcon } from 'lucide-react';
 import type * as React from 'react';
 import { focusEditor } from '../bubble-menu/utils';
+import { UnlinkIcon } from '../icons';
 import { useButtonBubbleMenuContext } from './context';
 
 export interface ButtonBubbleMenuUnlinkProps
