@@ -721,9 +721,6 @@ importers:
       hast-util-from-html:
         specifier: ^2.0.3
         version: 2.0.3
-      lucide-react:
-        specifier: '>=0.300.0'
-        version: 0.544.0(react@19.0.0)
       prismjs:
         specifier: ^1.30.0
         version: 1.30.0

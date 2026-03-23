@@ -1,4 +1,4 @@
-import { UnlinkIcon } from 'lucide-react';
+import { UnlinkIcon } from '../../icons';
 import type * as React from 'react';
 import { useLinkBubbleMenuContext } from './context';
 

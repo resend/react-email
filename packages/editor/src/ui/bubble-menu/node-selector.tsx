@@ -11,7 +11,7 @@ import {
   ListOrdered,
   TextIcon,
   TextQuote,
-} from 'lucide-react';
+} from '../../icons';
 import * as React from 'react';
 import { useBubbleMenuContext } from './context';
 

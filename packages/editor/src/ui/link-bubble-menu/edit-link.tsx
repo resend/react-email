@@ -1,4 +1,4 @@
-import { PencilIcon } from 'lucide-react';
+import { PencilIcon } from '../../icons';
 import type * as React from 'react';
 import { useLinkBubbleMenuContext } from './context';
 

@@ -1,4 +1,4 @@
-import { CodeIcon } from 'lucide-react';
+import { CodeIcon } from '../../icons';
 import { createMarkBubbleItem } from './create-mark-bubble-item';
 
 export const BubbleMenuCode = createMarkBubbleItem({

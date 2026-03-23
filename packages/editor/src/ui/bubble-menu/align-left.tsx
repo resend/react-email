@@ -1,5 +1,5 @@
 import { useEditorState } from '@tiptap/react';
-import { AlignLeftIcon } from 'lucide-react';
+import { AlignLeftIcon } from '../../icons';
 import { setTextAlignment } from '../../utils/set-text-alignment';
 import { useBubbleMenuContext } from './context';
 import type { PreWiredItemProps } from './create-mark-bubble-item';

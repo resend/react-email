@@ -1,4 +1,4 @@
-import { StrikethroughIcon } from 'lucide-react';
+import { StrikethroughIcon } from '../../icons';
 import { createMarkBubbleItem } from './create-mark-bubble-item';
 
 export const BubbleMenuStrike = createMarkBubbleItem({

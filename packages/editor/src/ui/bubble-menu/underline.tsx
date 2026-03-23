@@ -1,4 +1,4 @@
-import { UnderlineIcon } from 'lucide-react';
+import { UnderlineIcon } from '../../icons';
 import { createMarkBubbleItem } from './create-mark-bubble-item';
 
 export const BubbleMenuUnderline = createMarkBubbleItem({

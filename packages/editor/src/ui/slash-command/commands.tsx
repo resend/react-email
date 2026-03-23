@@ -13,7 +13,7 @@ import {
   SquareCode,
   Text,
   TextQuote,
-} from 'lucide-react';
+} from '../../icons';
 import type { SlashCommandItem } from './types';
 
 export const TEXT: SlashCommandItem = {
