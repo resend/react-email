@@ -69,7 +69,7 @@ The `composeReactEmail` function follows this pipeline:
 3. **Call** `renderToReactEmail()` on each `EmailNode` and `EmailMark` extension
 4. **Apply** theme styles via the `SerializerPlugin` (if `EmailTheming` is configured)
 5. **Wrap** the content in a `BaseTemplate` component
-6. **Render** to an HTML string and plain text version
+6. **Renders** to an HTML string and plain text version using [render](/utilities/render)
 
 The return value is:
 
