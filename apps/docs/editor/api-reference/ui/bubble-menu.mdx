@@ -47,34 +47,67 @@ import { BubbleMenu } from '@react-email/editor/ui';
 
 ---
 
-## BubbleMenu.Root
+## Compound components
 
-Base container for building custom bubble menus.
+Build a fully custom bubble menu using the compound API. Here's how `BubbleMenu.Default`
+is composed internally — use this as a starting point:
 
 ```tsx
-<BubbleMenu.Root excludeNodes={['codeBlock']} placement="bottom" offset={8}>
-  {children}
+import { BubbleMenu } from '@react-email/editor/ui';
+
+<BubbleMenu.Root excludeNodes={['codeBlock', 'button']} excludeMarks={['link']}>
+  <BubbleMenu.ItemGroup>
+    <BubbleMenu.Bold />
+    <BubbleMenu.Italic />
+    <BubbleMenu.Underline />
+    <BubbleMenu.Strike />
+    <BubbleMenu.Code />
+    <BubbleMenu.Uppercase />
+  </BubbleMenu.ItemGroup>
+
+  <BubbleMenu.Separator />
+
+  <BubbleMenu.ItemGroup>
+    <BubbleMenu.AlignLeft />
+    <BubbleMenu.AlignCenter />
+    <BubbleMenu.AlignRight />
+  </BubbleMenu.ItemGroup>
+
+  <BubbleMenu.Separator />
+
+  <BubbleMenu.NodeSelector />
+  <BubbleMenu.LinkSelector />
 </BubbleMenu.Root>
 ```
+
+You can pick only the items you need. For example, a minimal bold/italic-only menu:
+
+```tsx
+<BubbleMenu.Root>
+  <BubbleMenu.ItemGroup>
+    <BubbleMenu.Bold />
+    <BubbleMenu.Italic />
+  </BubbleMenu.ItemGroup>
+</BubbleMenu.Root>
+```
+
+---
+
+### BubbleMenu.Root
+
+Base container for building custom bubble menus.
 
 Accepts the same props as `Default` except `excludeItems`.
 
 ---
 
-## BubbleMenu.ItemGroup
+### BubbleMenu.ItemGroup
 
 Visual grouping of bubble menu items.
 
-```tsx
-<BubbleMenu.ItemGroup>
-  <BubbleMenu.Bold />
-  <BubbleMenu.Italic />
-</BubbleMenu.ItemGroup>
-```
-
 ---
 
-## Individual items
+### Individual items
 
 | Component | Description |
 |-----------|-------------|
@@ -87,11 +120,11 @@ Visual grouping of bubble menu items.
 | `BubbleMenu.AlignLeft` | Left alignment |
 | `BubbleMenu.AlignCenter` | Center alignment |
 | `BubbleMenu.AlignRight` | Right alignment |
-| `BubbleMenu.Separator` | Visual separator |
+| `BubbleMenu.Separator` | Visual separator between groups |
 
 ---
 
-## BubbleMenu.NodeSelector
+### BubbleMenu.NodeSelector
 
 Dropdown to change the block type (paragraph, heading, etc.).
 
@@ -105,7 +138,7 @@ Dropdown to change the block type (paragraph, heading, etc.).
 
 ---
 
-## BubbleMenu.LinkSelector
+### BubbleMenu.LinkSelector
 
 Popover for adding and editing links.
 

@@ -41,20 +41,54 @@ For custom button bubble menus, compose with these sub-components:
 
 | Component | Description |
 |-----------|-------------|
-| `ButtonBubbleMenu.Root` | Base container with positioning logic |
-| `ButtonBubbleMenu.Toolbar` | Default toolbar with button actions |
-| `ButtonBubbleMenu.EditLink` | Inline form for editing the button's link URL |
-| `ButtonBubbleMenu.Unlink` | Button to remove the link from an email button |
+| `ButtonBubbleMenu.Root` | Base container — sets up context and positioning |
+| `ButtonBubbleMenu.Toolbar` | Wrapper that hides when editing mode is active |
+| `ButtonBubbleMenu.EditLink` | Button that enters editing mode to change the link URL |
+
+### Example
+
+Here's how `ButtonBubbleMenu.Default` is composed internally — use this as a
+starting point for your own custom button bubble menu:
+
+```tsx
+import { ButtonBubbleMenu } from '@react-email/editor/ui';
+
+<ButtonBubbleMenu.Root placement="top" offset={8}>
+  <ButtonBubbleMenu.Toolbar>
+    <ButtonBubbleMenu.EditLink />
+  </ButtonBubbleMenu.Toolbar>
+</ButtonBubbleMenu.Root>
+```
+
+The `Toolbar` component automatically hides when the user clicks `EditLink` and
+enters editing mode. When editing is finished, the toolbar reappears.
 
 ---
 
 ## Context
 
-Use `useButtonBubbleMenuContext()` inside custom button bubble menu children:
+Use `useButtonBubbleMenuContext()` inside custom children of `ButtonBubbleMenu.Root`
+to access the editor and editing state:
 
 ```tsx
-const { editor, isEditing, setIsEditing } = useButtonBubbleMenuContext();
+import { useButtonBubbleMenuContext } from '@react-email/editor/ui';
+
+function CustomToolbarItem() {
+  const { editor, isEditing, setIsEditing } = useButtonBubbleMenuContext();
+
+  return (
+    <button onClick={() => setIsEditing(true)}>
+      Edit URL
+    </button>
+  );
+}
 ```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `editor` | `Editor` | The TipTap editor instance |
+| `isEditing` | `boolean` | Whether the menu is in editing mode |
+| `setIsEditing` | `(value: boolean) => void` | Toggle editing mode |
 
 ---
 
