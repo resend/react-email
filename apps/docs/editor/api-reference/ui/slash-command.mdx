@@ -35,6 +35,67 @@ import { defaultSlashCommands, SlashCommand } from '@react-email/editor/ui';
   Custom render function for the command list. Receives `items`, `query`, `selectedIndex`, and `onSelect`.
 </ResponseField>
 
+### Custom rendering
+
+Use the `children` render function to fully customize how the command list looks.
+The render function receives the filtered items, current query, selected index,
+and a callback to select an item:
+
+```tsx
+import { defaultSlashCommands, SlashCommand } from '@react-email/editor/ui';
+
+<SlashCommand.Root items={defaultSlashCommands}>
+  {({ items, query, selectedIndex, onSelect }) => (
+    <div className="my-command-list">
+      {items.map((item, index) => (
+        <button
+          key={item.title}
+          onClick={() => onSelect(index)}
+          data-selected={index === selectedIndex}
+          className="my-command-item"
+        >
+          {item.icon}
+          <div>
+            <span>{item.title}</span>
+            <span>{item.description}</span>
+          </div>
+        </button>
+      ))}
+      {items.length === 0 && (
+        <div className="my-command-empty">
+          No results for "{query}"
+        </div>
+      )}
+    </div>
+  )}
+</SlashCommand.Root>
+```
+
+### Custom commands
+
+Pass your own items to add domain-specific commands alongside (or instead of) the defaults:
+
+```tsx
+import { defaultSlashCommands, SlashCommand } from '@react-email/editor/ui';
+import { ImageIcon } from 'lucide-react';
+
+const customCommands = [
+  ...defaultSlashCommands,
+  {
+    title: 'Image',
+    description: 'Insert an image',
+    searchTerms: ['photo', 'picture', 'img'],
+    icon: <ImageIcon size={18} />,
+    category: 'Media',
+    command: ({ editor, range }) => {
+      editor.chain().focus().deleteRange(range).setImage({ src: '' }).run();
+    },
+  },
+];
+
+<SlashCommand.Root items={customCommands} />
+```
+
 ---
 
 ## SlashCommandItem
