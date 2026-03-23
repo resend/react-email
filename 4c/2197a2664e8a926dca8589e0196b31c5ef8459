@@ -1,0 +1,25 @@
+apps/docs/editor/api-reference/ui/button-bubble-menu.mdx
+  dbd58beb41b66db7 44-46,48-64,70-71,74-84,87-91
+apps/docs/editor/api-reference/ui/bubble-menu.mdx
+  dbd58beb41b66db7 50,52-81,83,86-90,94-98,104,110,123,127,141
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.17",
+  "base_commit_sha": "4c2197a2664e8a926dca8589e0196b31c5ef8459",
+  "prompts": {
+    "dbd58beb41b66db7": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019d1cd8-dc42-7a30-9fae-f1273089f70c",
+        "model": "unknown"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 89,
+      "total_deletions": 22,
+      "accepted_lines": 89,
+      "overriden_lines": 0
+    }
+  }
+}
