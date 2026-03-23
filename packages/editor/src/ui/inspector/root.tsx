@@ -101,6 +101,7 @@ function getNodeHierarchy(
 
   return hierarchy;
 }
+
 interface FocusedNode {
   nodeType: string;
   nodeAttrs: Attrs;
@@ -110,13 +111,29 @@ interface FocusedNode {
 type InspectorTarget = 'doc' | 'text' | FocusedNode | null;
 
 export interface RootProps {
-  children: (property: PanelInputProperty) => React.ReactNode;
+  children: React.ReactNode;
 }
 
-export function Root({ children }: RootProps) {
-  const { editor } = useCurrentEditor();
+export interface InspectorContextValue {
+  inspectorTarget: InspectorTarget;
+  pathToRoot: FocusedNode[];
+}
 
-  const sidebarRef = React.useRef<HTMLDivElement>(null);
+export const InspectorContext =
+  React.createContext<InspectorContextValue | null>(null);
+
+export function useInspector() {
+  const context = React.useContext(InspectorContext);
+  if (!context) {
+    throw new Error(
+      'useInspector can only be called from inside the InspectorContext. This probably means you forgot the <Inspector.Root>',
+    );
+  }
+  return context;
+}
+
+export function InspectorRoot({ children }: RootProps) {
+  const { editor } = useCurrentEditor();
 
   const inspectorTarget = useEditorState({
     editor,
@@ -188,62 +205,68 @@ export function Root({ children }: RootProps) {
     [editor],
   );
 
-  if (inspectorTarget === 'text') {
-    return (
-      <div className="h-full flex flex-col min-h-0" ref={sidebarRef}>
-        <div className="p-4 pb-0 shrink-0">
-          <InspectorBreadcrumb
-            pathFromRoot={pathFromRoot}
-            onSelectNode={handleSelectNode}
-            onSelectLayout={() => {
-              editor?.commands.setTextSelection(0);
-            }}
-          />
-        </div>
-        <div className="flex-1 min-h-0 overflow-y-auto p-4">
-          <InspectorText />
-        </div>
-      </div>
-    );
-  }
-
-  if (inspectorTarget === 'doc') {
-    const { icon: Icon, label } = getNodeMeta('global');
-
-    return (
-      <div ref={sidebarRef} className="h-full flex flex-col min-h-0">
-        <div className="p-4 pb-0 shrink-0 flex items-center gap-2">
-          <Icon className="size-4 shrink-0 text-gray-11" aria-hidden />
-
-          <Text color="white" weight="bold" size="2">
-            {label}
-          </Text>
-        </div>
-
-        <div className="flex-1 flex flex-col min-h-0 overflow-y-auto p-4">
-          <InspectorGlobal showSectionIds={showGlobalSectionIds} />
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="h-full flex flex-col min-h-0" ref={sidebarRef}>
-      <div className="p-4 pb-0 shrink-0">
-        <InspectorBreadcrumb
-          pathFromRoot={pathFromRoot}
-          onSelectNode={handleSelectNode}
-          onSelectLayout={() => {
-            editor?.commands.setTextSelection(0);
-          }}
-        />
-      </div>
-      <div className="flex-1 min-h-0 overflow-y-auto p-4">
-        <InspectorLocal
-          key={inspectorTarget.nodePos.pos}
-          data={inspectorTarget}
-        />
-      </div>
-    </div>
+    <InspectorContext.Provider value={{ inspectorTarget, pathToRoot }}>
+      {children}
+    </InspectorContext.Provider>
   );
+
+  // if (inspectorTarget === 'text') {
+  //   return (
+  //     <div className="h-full flex flex-col min-h-0" ref={sidebarRef}>
+  //       <div className="p-4 pb-0 shrink-0">
+  //         <InspectorBreadcrumb
+  //           pathFromRoot={pathFromRoot}
+  //           onSelectNode={handleSelectNode}
+  //           onSelectLayout={() => {
+  //             editor?.commands.setTextSelection(0);
+  //           }}
+  //         />
+  //       </div>
+  //       <div className="flex-1 min-h-0 overflow-y-auto p-4">
+  //         <InspectorText />
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
+  // if (inspectorTarget === 'doc') {
+  // const { icon: Icon, label } = getNodeMeta('global');
+  //
+  // return (
+  //   <div ref={sidebarRef} className="h-full flex flex-col min-h-0">
+  //     <div className="p-4 pb-0 shrink-0 flex items-center gap-2">
+  //       <Icon className="size-4 shrink-0 text-gray-11" aria-hidden />
+  //
+  //       <Text color="white" weight="bold" size="2">
+  //         {label}
+  //       </Text>
+  //     </div>
+  //
+  //     <div className="flex-1 flex flex-col min-h-0 overflow-y-auto p-4">
+  //       <InspectorGlobal showSectionIds={showGlobalSectionIds} />
+  //     </div>
+  //   </div>
+  // );
+  // }
+
+  // return (
+  //   <div className="h-full flex flex-col min-h-0" ref={sidebarRef}>
+  //     <div className="p-4 pb-0 shrink-0">
+  //       <InspectorBreadcrumb
+  //         pathFromRoot={pathFromRoot}
+  //         onSelectNode={handleSelectNode}
+  //         onSelectLayout={() => {
+  //           editor?.commands.setTextSelection(0);
+  //         }}
+  //       />
+  //     </div>
+  //     <div className="flex-1 min-h-0 overflow-y-auto p-4">
+  //       <InspectorLocal
+  //         key={inspectorTarget.nodePos.pos}
+  //         data={inspectorTarget}
+  //       />
+  //     </div>
+  //   </div>
+  // );
 }

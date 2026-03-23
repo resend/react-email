@@ -5,7 +5,7 @@ import { NumberInput } from '../components/number-input';
 import { PropRow } from '../components/prop-row';
 import { Section } from '../components/section';
 import { TextInput } from '../components/text-input';
-import type { AttributeInput } from '../utils/parse-attributes';
+import type { AttributeInput } from '../inspector/utils/parse-attributes';
 
 interface AttributesSectionProps {
   inputs: AttributeInput[];

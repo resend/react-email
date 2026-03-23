@@ -1,25 +1,20 @@
 import { useCurrentEditor } from '@tiptap/react';
 import * as React from 'react';
-import { SparklesButton } from '@/components/editor/sparkles-button';
-import { Label } from '@/ui/label';
-import { Text } from '@/ui/text';
-import { Textarea } from '@/ui/textarea';
-import { useAltTextGeneration } from '../../../../plugins/ai/hooks/use-alt-text-generation';
-import { getPanelTitle } from '../../../../plugins/email-theming/themes';
+import { getPanelTitle } from '../../../plugins/email-theming/themes';
 import type {
   PanelGroup,
   PanelSectionId,
-} from '../../../../plugins/email-theming/types';
+} from '../../../plugins/email-theming/types';
 import {
   DEFAULT_GLOBAL_PANEL_CONFIG,
   GLOBAL_SECTION_CONFIG,
   type SectionId,
-} from '../config/node-section-config';
-import { useDocumentColors } from '../hooks/use-document-colors';
+} from '../inspector/config/node-section-config';
+import { useDocumentColors } from '../inspector/hooks/use-document-colors';
 import {
   buildPropClassMap,
   inputsToStyleObject,
-} from '../utils/panel-group-utils';
+} from '../inspector/utils/panel-group-utils';
 import { PropRow } from './prop-row';
 import { StylePanel } from './style-panel';
 import { TextInput } from './text-input';
@@ -52,43 +47,11 @@ export function PropertyGroups({
     boolean | null
   >(null);
 
-  const metadata = editor?.storage.metadata;
-  const { execute: generateAltText, isGenerating: isGeneratingAltText } =
-    useAltTextGeneration({
-      objectType: metadata?.objectType || 'template',
-      objectId: metadata?.objectId || '',
-      onChunk: (_, isFirstChunk) => {
-        if (isFirstChunk) {
-          setHasGeneratedAltText(true);
-        }
-      },
-      onError: () => {
-        setHasGeneratedAltText(false);
-      },
-      onSuccess: (content) => {
-        onChange({
-          prop: 'alt',
-          newValue: content,
-        });
-      },
-    });
-
   const srcInput = renderTree
     .flatMap((group) => group.inputs)
     .find((input) => (input.prop as string) === 'src');
   const imageSrc = (srcInput?.value as string) || '';
   const hasImage = !!imageSrc;
-
-  const handleGenerateAltText = React.useCallback(() => {
-    if (imageSrc) {
-      const altInput = renderTree
-        .flatMap((group) => group.inputs)
-        .find((input) => (input.prop as string) === 'alt');
-      const currentAltValue = (altInput?.value as string) || '';
-
-      generateAltText(imageSrc, currentAltValue);
-    }
-  }, [imageSrc, generateAltText, renderTree]);
 
   React.useEffect(() => {
     const altInput = renderTree

@@ -6,7 +6,7 @@ import { ColorInput } from '@/ui/color-input';
 import { Label } from '@/ui/label';
 import { ToggleGroup } from '@/ui/toggle-group';
 import { setTextAlignment } from '../../../../core/set-text-alignment';
-import { SUPPORTED_CSS_PROPERTIES } from '../../../../plugins/email-theming/themes';
+import { SUPPORTED_CSS_PROPERTIES } from '../../../plugins/email-theming/themes';
 import { NumberInput } from '../components/number-input';
 import { PropRow } from '../components/prop-row';
 import { Section } from '../components/section';
@@ -17,12 +17,12 @@ import {
   JUSTIFY_AND_LIST_ITEMS,
   MARK_TOGGLES,
   TEXT_TYPE_OPTIONS,
-} from '../config/text-config';
+} from '../inspector/config/text-config';
 import {
   applyMarkToggles,
   textTypeValue,
   updateParentBlockStyle,
-} from '../utils/text-block-utils';
+} from '../inspector/utils/text-block-utils';
 
 type Editor = NonNullable<ReturnType<typeof useCurrentEditor>['editor']>;
 

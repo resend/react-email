@@ -7,7 +7,7 @@ import {
   type AttributeInput,
   getOtherStyles,
   parseOtherStyleToInput,
-} from '../utils/parse-attributes';
+} from '../inspector/utils/parse-attributes';
 
 interface OtherStylesSectionProps {
   styleObject: Record<string, string | number>;

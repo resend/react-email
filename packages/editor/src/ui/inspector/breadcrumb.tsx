@@ -3,7 +3,7 @@ import { getNodeMeta } from "./inspector/config/node-meta";
 
 const BREADCRUMB_COLLAPSE_THRESHOLD = 3;
 
-export function Breadcrumb({
+export function InspectorBreadcrumb({
   pathFromRoot,
   onSelectNode,
   onSelectLayout,

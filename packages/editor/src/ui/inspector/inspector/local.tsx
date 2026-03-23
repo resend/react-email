@@ -11,7 +11,7 @@ import {
   expandShorthandProperties,
   inlineCssToJs,
 } from '../../../utils/styles';
-import { Section } from './components/section';
+import { Section } from '../components/section';
 import { LOCAL_PROPS_SCHEMA } from './config/attribute-schema';
 import {
   getNodeSectionConfig,
@@ -22,16 +22,16 @@ import {
 import { ALIGNMENT_ITEMS } from './config/text-config';
 import { useCollapsibleSections } from './hooks/use-collapsible-sections';
 import { useDocumentColors } from './hooks/use-document-colors';
-import { AttributesSection } from './sections/attributes';
-import { BackgroundSection } from './sections/background';
-import { BorderSection } from './sections/border';
-import { FallbackSection } from './sections/fallback';
-import { LinkSection } from './sections/link';
-import { OtherStylesSection } from './sections/other-styles';
-import { PaddingSection } from './sections/padding';
-import { SizeSection } from './sections/size';
-import { SocialLinksSection } from './sections/social-links';
-import { TextSection } from './sections/text';
+import { AttributesSection } from '../sections/attributes';
+import { BackgroundSection } from '../sections/background';
+import { BorderSection } from '../sections/border';
+import { FallbackSection } from '../sections/fallback';
+import { LinkSection } from '../sections/link';
+import { OtherStylesSection } from '../sections/other-styles';
+import { PaddingSection } from '../sections/padding';
+import { SizeSection } from '../sections/size';
+import { SocialLinksSection } from '../sections/social-links';
+import { TextSection } from '../sections/text';
 import { InspectorText } from './text';
 import { parseAttributes } from './utils/parse-attributes';
 import { resolveThemeDefaults } from './utils/resolve-theme-defaults';

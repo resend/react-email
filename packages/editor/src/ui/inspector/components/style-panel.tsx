@@ -1,6 +1,6 @@
 import { ToggleGroup } from '@/ui/toggle-group';
-import type { SectionId } from '../config/node-section-config';
-import { ALIGNMENT_ITEMS } from '../config/text-config';
+import type { SectionId } from '../inspector/config/node-section-config';
+import { ALIGNMENT_ITEMS } from '../inspector/config/text-config';
 import { BackgroundSection } from '../sections/background';
 import { BorderSection } from '../sections/border';
 import { PaddingSection } from '../sections/padding';

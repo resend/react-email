@@ -18,7 +18,7 @@ import { Text } from '@/ui/text';
 import { TextField } from '@/ui/text-field';
 import { ToggleGroup } from '@/ui/toggle-group';
 import * as Tooltip from '@/ui/tooltip';
-import { SUPPORTED_CSS_PROPERTIES } from '../../../../plugins/email-theming/themes';
+import { SUPPORTED_CSS_PROPERTIES } from '../../../plugins/email-theming/themes';
 import type { BatchableChangeFn } from '../sections/border';
 import { PropRow } from './prop-row';
 import { useDragToChange } from './use-drag-to-change';

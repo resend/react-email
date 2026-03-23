@@ -10,7 +10,7 @@ import { cn } from '@/lib/cn';
 import { IconButton } from '@/ui/icon-button';
 import { TextField } from '@/ui/text-field';
 import { Section } from '../components/section';
-import { getNodeAtExactPos } from '../utils/get-node-at-pos';
+import { getNodeAtExactPos } from '../inspector/utils/get-node-at-pos';
 
 type SocialLink = {
   type: SocialLinkType;

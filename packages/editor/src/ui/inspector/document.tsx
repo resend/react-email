@@ -1,19 +1,18 @@
 import { useCurrentEditor } from '@tiptap/react';
-import { useEmailTheming } from '@/components/editor/plugins/email-theming/extension';
+import { useEmailTheming } from '../../plugins/email-theming/extension';
+import {
+  EDITOR_THEMES,
+  SUPPORTED_CSS_PROPERTIES,
+} from '../../plugins/email-theming/themes';
 import type {
   KnownCssProperties,
   KnownThemeComponents,
   PanelGroup,
   PanelSectionId,
-} from '@/components/editor/plugins/email-theming/types';
-import { Text } from '@/ui/text';
-import {
-  EDITOR_THEMES,
-  SUPPORTED_CSS_PROPERTIES,
-} from '../../../plugins/email-theming/themes';
-import { GlobalCSSPanel } from '../../panels/global-css';
-import { PropertyGroups } from '../components/property-groups';
-import { DevToolPanel } from '../sections/devtools';
+} from '../../plugins/email-theming/types';
+import { PropertyGroups } from './components/property-groups';
+import { useInspector } from './root';
+import { DevToolPanel } from './sections/devtools';
 
 /**
  * Ensures every section shows all of its theme-default properties.
@@ -73,26 +72,19 @@ function ensureAllProperties(
   });
 }
 
-export function InspectorGlobal({
+export interface InspectorDocumentProps { }
+
+export function InspectorDocument({
   showSectionIds,
 }: {
   showSectionIds?: PanelSectionId[];
 }) {
   const { editor } = useCurrentEditor();
   const theming = useEmailTheming(editor);
+  const { inspectorTarget } = useInspector();
 
-  if (!editor || !theming) {
+  if (!editor || !theming || inspectorTarget !== 'doc') {
     return null;
-  }
-
-  function handleChange(content: PanelGroup[]) {
-    // Update only the editor; the Editor update hook will sync the context
-    editor?.commands.setGlobalContent('styles', content);
-  }
-
-  function resetStyles() {
-    // Update only the editor; the Editor update hook will sync the context
-    editor?.commands.setGlobalContent('styles', EDITOR_THEMES[theming!.theme]);
   }
 
   /**
@@ -197,28 +189,6 @@ export function InspectorGlobal({
     });
   }
 
-  function onChangeValue(change: {
-    classReference?: string;
-    prop: string;
-    newValue: string | number;
-  }) {
-    handleChange(applyStyleChange(theming!.styles, change));
-  }
-
-  function onBatchChangeValue(
-    changes: Array<{
-      classReference?: string;
-      prop: string;
-      newValue: string | number;
-    }>,
-  ) {
-    let styles: PanelGroup[] = theming!.styles;
-    for (const change of changes) {
-      styles = applyStyleChange(styles, change);
-    }
-    handleChange(styles);
-  }
-
   const themeDefaults = EDITOR_THEMES[theming!.theme];
 
   const groups = ensureAllProperties(theming.styles, themeDefaults).filter(
@@ -237,23 +207,36 @@ export function InspectorGlobal({
     <>
       <PropertyGroups
         renderTree={groups}
-        onChange={onChangeValue}
-        onBatchChange={onBatchChangeValue}
+        onChange={(change) => {
+          editor?.commands.setGlobalContent(
+            'styles',
+            applyStyleChange(theming!.styles, change),
+          );
+        }}
+        onBatchChange={(changes) => {
+          let styles: PanelGroup[] = theming!.styles;
+          for (const change of changes) {
+            styles = applyStyleChange(styles, change);
+          }
+          editor?.commands.setGlobalContent('styles', styles);
+        }}
         showSectionTitles={false}
       />
 
       <div className="flex-1 mt-8" />
 
-      <Text
-        color="white"
-        weight="bold"
-        className="flex flex-row items-center justify-between gap-3 pb-5"
-      >
-        Global CSS <GlobalCSSPanel />
-      </Text>
+      {/* Global CSS <GlobalCSSPanel /> */}
 
       {process.env.NODE_ENV === 'development' && (
-        <DevToolPanel resetStyles={resetStyles} />
+        <DevToolPanel
+          resetStyles={() => {
+            // Update only the editor; the Editor update hook will sync the context
+            editor?.commands.setGlobalContent(
+              'styles',
+              EDITOR_THEMES[theming!.theme],
+            );
+          }}
+        />
       )}
     </>
   );

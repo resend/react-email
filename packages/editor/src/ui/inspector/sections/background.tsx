@@ -1,6 +1,6 @@
 import { ColorInput } from '@/ui/color-input';
 import { Label } from '@/ui/label';
-import { SUPPORTED_CSS_PROPERTIES } from '../../../../plugins/email-theming/themes';
+import { SUPPORTED_CSS_PROPERTIES } from '../../../plugins/email-theming/themes';
 import { PropRow } from '../components/prop-row';
 import { Section } from '../components/section';
 

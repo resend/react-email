@@ -2,11 +2,11 @@ import { ColorInput } from '@/ui/color-input';
 import { Label } from '@/ui/label';
 import * as Select from '@/ui/select';
 import { ToggleGroup } from '@/ui/toggle-group';
-import { SUPPORTED_CSS_PROPERTIES } from '../../../../plugins/email-theming/themes';
+import { SUPPORTED_CSS_PROPERTIES } from '../../../plugins/email-theming/themes';
 import { NumberInput } from '../components/number-input';
 import { PropRow } from '../components/prop-row';
 import { Section } from '../components/section';
-import { TEXT_DECORATION_ITEMS } from '../config/text-config';
+import { TEXT_DECORATION_ITEMS } from '../inspector/config/text-config';
 
 interface TextSectionProps {
   styleObject: Record<string, string | number | undefined>;
