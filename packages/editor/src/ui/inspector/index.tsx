@@ -1,9 +1,11 @@
 'use client';
 
-import { Breadcrumb } from './breadcrumb';
-import { Root } from './root';
+import { InspectorBreadcrumb } from './breadcrumb';
+import { InspectorDocument } from './doc';
+import { InspectorRoot } from './root';
 
 export const Inspector = {
-  Root,
-  Breadcrumb,
+  Root: InspectorRoot,
+  Breadcrumb: InspectorBreadcrumb,
+  Document: InspectorDocument,
 };
