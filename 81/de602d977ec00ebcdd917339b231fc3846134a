@@ -1,0 +1,43 @@
+apps/docs/editor/api-reference/compose-react-email.mdx
+  978084dbea2d181c 1-128
+apps/docs/editor/api-reference/email-node.mdx
+  978084dbea2d181c 1-125
+apps/docs/editor/api-reference/ui/button-bubble-menu.mdx
+  978084dbea2d181c 1-65
+apps/docs/editor/advanced/custom-extensions.mdx
+  978084dbea2d181c 231,233-235,250,252,254-255,259-263
+apps/docs/editor/api-reference/ui/link-bubble-menu.mdx
+  978084dbea2d181c 1-67
+apps/docs/editor/api-reference/email-mark.mdx
+  978084dbea2d181c 1-135
+apps/docs/editor/api-reference/ui/bubble-menu.mdx
+  978084dbea2d181c 1-135
+apps/docs/editor/api-reference/ui/image-bubble-menu.mdx
+  978084dbea2d181c 1-64
+apps/docs/editor/api-reference/ui/slash-command.mdx
+  978084dbea2d181c 1-95
+apps/docs/editor/features/theming.mdx
+  978084dbea2d181c 30-44,51-52
+apps/docs/docs.json
+  978084dbea2d181c 17-71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.17",
+  "base_commit_sha": "81de602d977ec00ebcdd917339b231fc3846134a",
+  "prompts": {
+    "978084dbea2d181c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019d1ccd-b1ba-7540-a7ed-fe6c9ef610b7",
+        "model": "unknown"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 902,
+      "total_deletions": 286,
+      "accepted_lines": 902,
+      "overriden_lines": 0
+    }
+  }
+}
