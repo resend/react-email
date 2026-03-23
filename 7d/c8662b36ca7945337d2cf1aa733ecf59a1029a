@@ -1,0 +1,123 @@
+packages/editor/src/ui/icons/link-icon.tsx
+  98f8e8414449c9f8 1-24
+packages/editor/src/ui/bubble-menu/underline.tsx
+  98f8e8414449c9f8 1
+packages/editor/src/ui/bubble-menu/node-selector.tsx
+  98f8e8414449c9f8 14
+packages/editor/src/ui/slash-command/commands.tsx
+  98f8e8414449c9f8 16
+packages/editor/src/ui/bubble-menu/code.tsx
+  98f8e8414449c9f8 1
+packages/editor/src/ui/bubble-menu/align-right.tsx
+  98f8e8414449c9f8 2
+packages/editor/src/ui/icons/chevron-down-icon.tsx
+  98f8e8414449c9f8 1-23
+packages/editor/src/ui/icons/case-upper-icon.tsx
+  98f8e8414449c9f8 1-25
+packages/editor/src/ui/icons/heading-2-icon.tsx
+  98f8e8414449c9f8 1-26
+packages/editor/src/ui/icons/heading-3-icon.tsx
+  98f8e8414449c9f8 1-27
+packages/editor/src/ui/icons/bold-icon.tsx
+  98f8e8414449c9f8 1-23
+packages/editor/src/ui/icons/types.ts
+  98f8e8414449c9f8 1-5
+packages/editor/src/ui/icons/split-square-vertical-icon.tsx
+  98f8e8414449c9f8 1-25
+packages/editor/src/ui/icons/underline-icon.tsx
+  98f8e8414449c9f8 1-24
+packages/editor/src/ui/icons/italic-icon.tsx
+  98f8e8414449c9f8 1-25
+packages/editor/src/ui/button-bubble-menu/unlink.tsx
+  98f8e8414449c9f8 1
+packages/editor/src/ui/icons/external-link-icon.tsx
+  98f8e8414449c9f8 1-25
+packages/editor/src/ui/icons/text-quote-icon.tsx
+  98f8e8414449c9f8 1-26
+packages/editor/src/ui/link-bubble-menu/form.tsx
+  98f8e8414449c9f8 1
+packages/editor/src/ui/link-bubble-menu/open-link.tsx
+  98f8e8414449c9f8 1
+packages/editor/src/ui/image-bubble-menu/edit-link.tsx
+  98f8e8414449c9f8 1
+packages/editor/src/ui/icons/check-icon.tsx
+  98f8e8414449c9f8 1-23
+packages/editor/src/ui/icons/columns-2-icon.tsx
+  98f8e8414449c9f8 1-24
+packages/editor/src/ui/button-bubble-menu/form.tsx
+  98f8e8414449c9f8 1
+packages/editor/src/ui/bubble-menu/bold.tsx
+  98f8e8414449c9f8 1
+packages/editor/src/ui/icons/align-right-icon.tsx
+  98f8e8414449c9f8 1-25
+packages/editor/src/ui/icons/list-ordered-icon.tsx
+  98f8e8414449c9f8 1-28
+packages/editor/src/ui/icons/pencil-icon.tsx
+  98f8e8414449c9f8 1-24
+packages/editor/src/ui/bubble-menu/link-selector.tsx
+  98f8e8414449c9f8 3
+packages/editor/src/ui/bubble-menu/italic.tsx
+  98f8e8414449c9f8 1
+packages/editor/src/ui/icons/mouse-pointer-icon.tsx
+  98f8e8414449c9f8 1-24
+packages/editor/src/ui/icons/columns-4-icon.tsx
+  98f8e8414449c9f8 1-26
+packages/editor/src/ui/icons/square-code-icon.tsx
+  98f8e8414449c9f8 1-25
+packages/editor/src/ui/icons/code-icon.tsx
+  98f8e8414449c9f8 1-24
+packages/editor/src/ui/icons/text-icon.tsx
+  98f8e8414449c9f8 1-25
+packages/editor/src/ui/icons/unlink-icon.tsx
+  98f8e8414449c9f8 1-28
+packages/editor/src/ui/icons/rows-2-icon.tsx
+  98f8e8414449c9f8 1-24
+packages/editor/src/ui/icons/strikethrough-icon.tsx
+  98f8e8414449c9f8 1-25
+packages/editor/src/ui/link-bubble-menu/edit-link.tsx
+  98f8e8414449c9f8 1
+packages/editor/src/ui/link-bubble-menu/unlink.tsx
+  98f8e8414449c9f8 1
+packages/editor/src/ui/icons/align-left-icon.tsx
+  98f8e8414449c9f8 1-25
+packages/editor/src/ui/icons/heading-1-icon.tsx
+  98f8e8414449c9f8 1-26
+packages/editor/src/ui/icons/list-icon.tsx
+  98f8e8414449c9f8 1-28
+packages/editor/src/ui/bubble-menu/align-left.tsx
+  98f8e8414449c9f8 2
+packages/editor/src/ui/bubble-menu/strike.tsx
+  98f8e8414449c9f8 1
+packages/editor/src/ui/bubble-menu/align-center.tsx
+  98f8e8414449c9f8 2
+packages/editor/src/ui/bubble-menu/uppercase.tsx
+  98f8e8414449c9f8 1
+packages/editor/src/ui/button-bubble-menu/edit-link.tsx
+  98f8e8414449c9f8 1
+packages/editor/src/ui/icons/align-center-icon.tsx
+  98f8e8414449c9f8 1-25
+packages/editor/src/ui/icons/columns-3-icon.tsx
+  98f8e8414449c9f8 1-25
+packages/editor/src/ui/icons/index.ts
+  98f8e8414449c9f8 1-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.17",
+  "base_commit_sha": "7dc8662b36ca7945337d2cf1aa733ecf59a1029a",
+  "prompts": {
+    "98f8e8414449c9f8": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019d1ced-eb11-70e3-8cb0-e1b79267c7a6",
+        "model": "unknown"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 783,
+      "total_deletions": 21,
+      "accepted_lines": 783,
+      "overriden_lines": 0
+    }
+  }
+}
