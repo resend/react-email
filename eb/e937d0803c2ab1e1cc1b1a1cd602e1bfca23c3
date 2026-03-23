@@ -1,0 +1,27 @@
+apps/docs/editor/api-reference/ui/slash-command.mdx
+  35dad102ceb36f51 38-98
+apps/docs/editor/api-reference/ui/image-bubble-menu.mdx
+  35dad102ceb36f51 44-46,48-64,70-71,74-84,87-91
+apps/docs/editor/api-reference/ui/link-bubble-menu.mdx
+  35dad102ceb36f51 44-47,51-106,111-112,115-123,126-131
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.17",
+  "base_commit_sha": "ebe937d0803c2ab1e1cc1b1a1cd602e1bfca23c3",
+  "prompts": {
+    "35dad102ceb36f51": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019d1cdb-dfa1-7e62-bccb-13ad56507a2b",
+        "model": "unknown"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 179,
+      "total_deletions": 11,
+      "accepted_lines": 179,
+      "overriden_lines": 0
+    }
+  }
+}
