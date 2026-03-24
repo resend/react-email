@@ -44,9 +44,9 @@ export type CustomPlaceholder = {
 };
 
 declare module './event-bus' {
-export interface EditorEventMap {
-  'node-clicked': NodeClickedEvent;
-}
+  export interface EditorEventMap {
+    'node-clicked': NodeClickedEvent;
+  }
 }
 
 /**
@@ -56,12 +56,12 @@ export type EventHandler<T extends EditorEventName> = (
   payload: EditorEventMap[T],
 ) => void | Promise<void>;
 
-  /**
-   * Subscription handle returned when subscribing to events.
-   */
-  export interface EventSubscription {
-    unsubscribe: () => void;
-  }
+/**
+ * Subscription handle returned when subscribing to events.
+ */
+export interface EventSubscription {
+  unsubscribe: () => void;
+}
 
 /**
  * Options for dispatching events.

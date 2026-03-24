@@ -1,14 +1,14 @@
 import { useCurrentEditor } from '@tiptap/react';
-import type { NodeClickedEvent } from '../../core';
-import { FocusedNode, useInspector } from './root';
-import React from 'react';
 import path from 'path';
+import React from 'react';
+import type { NodeClickedEvent } from '../../core';
+import { type FocusedNode, useInspector } from './root';
 
 export interface InspectorBreadcrumbSegment {
   props: {};
   /**
-    * Only null when the segment is for the document
-    */
+   * Only null when the segment is for the document
+   */
   node: FocusedNode | null;
 }
 
@@ -42,11 +42,10 @@ export function InspectorBreadcrumb({ children }: InspectorBreadcrumbProps) {
             editor?.commands.focus();
           },
           ['aria-label']: `Select ${focusedNode.nodeType}`,
-        }
-      }))
+        },
+      })),
     ] satisfies InspectorBreadcrumbSegment[];
   }, [pathFromRoot]);
 
   return children(segments);
 }
-

@@ -12,15 +12,15 @@ import {
   expandShorthandProperties,
   inlineCssToJs,
 } from '../../../utils/styles';
-import type { SectionId } from './config/node-section-config';
-import type { EditorSnapshot } from './config/text-config';
-import { useCollapsibleSections } from './hooks/use-collapsible-sections';
-import { useDocumentColors } from './hooks/use-document-colors';
 import { BackgroundSection } from '../sections/background';
 import { BorderSection } from '../sections/border';
 import { LinkSection } from '../sections/link';
 import { PaddingSection } from '../sections/padding';
 import { TextTypographySection } from '../sections/text-typography';
+import type { SectionId } from './config/node-section-config';
+import type { EditorSnapshot } from './config/text-config';
+import { useCollapsibleSections } from './hooks/use-collapsible-sections';
+import { useDocumentColors } from './hooks/use-document-colors';
 import {
   normalizeInlineStyleUnits,
   resolveThemeDefaults,

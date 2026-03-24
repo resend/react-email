@@ -49,7 +49,10 @@ export function useDragToChange({
       const dx = e.clientX - startXRef.current;
       const effectiveStep = e.shiftKey ? step * 10 : step;
       const delta = Math.round(dx / 2) * effectiveStep;
-      const next = Math.max(min ?? -Infinity, startValueRef.current + delta);
+      const next = Math.max(
+        min ?? Number.NEGATIVE_INFINITY,
+        startValueRef.current + delta,
+      );
       onCommit(next);
     },
     [onCommit, min, step],

@@ -26,7 +26,7 @@ export function parseCssValue(
 
   if (match) {
     return {
-      numeric: parseFloat(match[1]),
+      numeric: Number.parseFloat(match[1]),
       unit: match[2] || '',
     };
   }

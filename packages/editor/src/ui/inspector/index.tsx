@@ -12,5 +12,8 @@ export const Inspector = {
   DefaultField,
 };
 
-export type { InspectorPanelEntry, PanelInputWithHandler } from './hooks/use-inspector-fields';
+export type {
+  InspectorPanelEntry,
+  PanelInputWithHandler,
+} from './hooks/use-inspector-fields';
 export { useInspectorFields } from './hooks/use-inspector-fields';

@@ -253,7 +253,7 @@ function expandShorthand(value: string | number): {
 
   const [topLeft, topRight, bottomRight, bottomLeft] = value
     .split(' ')
-    .map((v) => parseInt(v, 10));
+    .map((v) => Number.parseInt(v, 10));
 
   return {
     borderTopLeftRadius: topLeft,

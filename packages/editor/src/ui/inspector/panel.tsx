@@ -1,6 +1,9 @@
 import * as React from 'react';
 import type { PanelGroup } from '../../plugins/email-theming/types';
-import { useInspectorFields, type PanelInputWithHandler } from './hooks/use-inspector-fields';
+import {
+  type PanelInputWithHandler,
+  useInspectorFields,
+} from './hooks/use-inspector-fields';
 
 export interface InspectorPanelProps {
   children: (
