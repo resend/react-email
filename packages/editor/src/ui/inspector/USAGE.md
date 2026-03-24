@@ -34,6 +34,23 @@ Render-props component. Calls its children function **once per group** with the 
 </Inspector.Panel>
 ```
 
+this above only works if we have a preset json for the fields that go in each
+section and that would be unflexible, as in the user wouldn't be able to define
+the fields they want customizable per node that they create. the only way we
+could make ti custmoizable is if we were to move thse sections to the nodes
+thsemelves, but I don't feel that's a good API.
+
+a new option that comes to my mind that would solve the flexibliity problem,
+and also give a good DX:
+
+```tsx
+<Inspector>{(target: 'doc' | 'text' | FocusedNode | null, setAttribute: (name: string, value: unknown)) => {
+  if (target === 'doc') {
+    return <></>;
+  }
+}}</Inspector>
+```
+
 ### `Inspector.DefaultField`
 
 Renders the appropriate built-in input component for a single field based on its `type`. Useful as a fallback when you only want to customize certain fields.
