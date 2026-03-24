@@ -136,6 +136,11 @@ export function InspectorRoot({ children }: RootProps) {
         return null;
       }
 
+      // When the editor is not focused, show the doc-level inspector
+      if (!context.editor.isFocused) {
+        return 'doc';
+      }
+
       const { selection } = context.editor.state;
 
       // If there's actual content selected, it's a text selection
