@@ -1,5 +1,5 @@
-import { LinkIcon } from 'lucide-react';
 import type * as React from 'react';
+import { LinkIcon } from '../icons';
 import { useImageBubbleMenuContext } from './context';
 
 export interface ImageBubbleMenuEditLinkProps

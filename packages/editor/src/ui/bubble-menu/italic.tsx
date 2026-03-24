@@ -1,4 +1,4 @@
-import { ItalicIcon } from 'lucide-react';
+import { ItalicIcon } from '../icons';
 import { createMarkBubbleItem } from './create-mark-bubble-item';
 
 export const BubbleMenuItalic = createMarkBubbleItem({
