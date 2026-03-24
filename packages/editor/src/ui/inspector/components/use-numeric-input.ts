@@ -63,7 +63,7 @@ export function useNumericInput({
         return;
       }
 
-      const clamped = Math.max(num, min ?? -Infinity);
+      const clamped = Math.max(num, min ?? Number.NEGATIVE_INFINITY);
       setDisplayValue(String(clamped));
       onCommit(clamped);
     },
@@ -105,7 +105,7 @@ export function useNumericInput({
         const step = e.shiftKey ? 10 : 1;
         const current = Number(displayValue) || fallbackValue || 0;
         const next = Math.max(
-          min ?? -Infinity,
+          min ?? Number.NEGATIVE_INFINITY,
           e.key === 'ArrowUp' ? current + step : current - step,
         );
         setDisplayValue(String(next));

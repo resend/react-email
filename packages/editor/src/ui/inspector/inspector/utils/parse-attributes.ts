@@ -107,7 +107,7 @@ export function parseOtherStyleToInput(
     return {
       label: humanizeString(prop),
       type: 'number',
-      value: parseFloat(numericMatch[1]),
+      value: Number.parseFloat(numericMatch[1]),
       prop,
       unit: detectedUnit as 'px' | '%',
       detectedUnit,

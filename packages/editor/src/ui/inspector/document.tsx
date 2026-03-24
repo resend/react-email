@@ -72,7 +72,7 @@ function ensureAllProperties(
   });
 }
 
-export interface InspectorDocumentProps { }
+export type InspectorDocumentProps = {};
 
 export function InspectorDocument({
   showSectionIds,

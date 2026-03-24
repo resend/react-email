@@ -12,16 +12,6 @@ import {
   inlineCssToJs,
 } from '../../../utils/styles';
 import { Section } from '../components/section';
-import { LOCAL_PROPS_SCHEMA } from './config/attribute-schema';
-import {
-  getNodeSectionConfig,
-  SECTION_METADATA,
-  type SectionId,
-  SIZE_AS_ATTRIBUTES,
-} from './config/node-section-config';
-import { ALIGNMENT_ITEMS } from './config/text-config';
-import { useCollapsibleSections } from './hooks/use-collapsible-sections';
-import { useDocumentColors } from './hooks/use-document-colors';
 import { AttributesSection } from '../sections/attributes';
 import { BackgroundSection } from '../sections/background';
 import { BorderSection } from '../sections/border';
@@ -32,6 +22,16 @@ import { PaddingSection } from '../sections/padding';
 import { SizeSection } from '../sections/size';
 import { SocialLinksSection } from '../sections/social-links';
 import { TextSection } from '../sections/text';
+import { LOCAL_PROPS_SCHEMA } from './config/attribute-schema';
+import {
+  getNodeSectionConfig,
+  SECTION_METADATA,
+  type SectionId,
+  SIZE_AS_ATTRIBUTES,
+} from './config/node-section-config';
+import { ALIGNMENT_ITEMS } from './config/text-config';
+import { useCollapsibleSections } from './hooks/use-collapsible-sections';
+import { useDocumentColors } from './hooks/use-document-colors';
 import { InspectorText } from './text';
 import { parseAttributes } from './utils/parse-attributes';
 import { resolveThemeDefaults } from './utils/resolve-theme-defaults';
