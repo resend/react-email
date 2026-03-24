@@ -72,8 +72,6 @@ function ensureAllProperties(
   });
 }
 
-export type InspectorDocumentProps = {};
-
 export function InspectorDocument({
   showSectionIds,
 }: {
