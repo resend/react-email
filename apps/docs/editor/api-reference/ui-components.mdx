@@ -1,0 +1,260 @@
+---
+title: "UI Components"
+sidebarTitle: "UI Components"
+description: "Complete reference for all editor UI components."
+icon: "window"
+---
+
+## BubbleMenu
+
+Floating formatting toolbar that appears on text selection.
+
+### BubbleMenu.Default
+
+Pre-configured bubble menu with all formatting options.
+
+```tsx
+import { BubbleMenu } from '@react-email/editor/ui';
+
+<BubbleMenu.Default />
+```
+
+<ResponseField name="excludeItems" type="ExcludableItem[]" default="[]">
+  Items to hide from the menu. Options: `'bold'`, `'italic'`, `'underline'`,
+  `'strike'`, `'code'`, `'uppercase'`, `'align-left'`, `'align-center'`,
+  `'align-right'`, `'node-selector'`, `'link-selector'`.
+</ResponseField>
+
+<ResponseField name="excludeNodes" type="string[]" default="[]">
+  Node types that should NOT trigger the bubble menu (e.g., `'codeBlock'`, `'button'`).
+</ResponseField>
+
+<ResponseField name="excludeMarks" type="string[]" default="[]">
+  Mark types that should NOT trigger the bubble menu (e.g., `'link'`).
+</ResponseField>
+
+<ResponseField name="placement" type="'top' | 'bottom'" default="'bottom'">
+  Position relative to the selection.
+</ResponseField>
+
+<ResponseField name="offset" type="number" default="8">
+  Distance from the selection in pixels.
+</ResponseField>
+
+<ResponseField name="onHide" type="() => void">
+  Called when the bubble menu is hidden.
+</ResponseField>
+
+<ResponseField name="className" type="string">
+  Additional CSS class on the wrapper element.
+</ResponseField>
+
+---
+
+### BubbleMenu.Root
+
+Base container for building custom bubble menus.
+
+```tsx
+<BubbleMenu.Root excludeNodes={['codeBlock']} placement="bottom" offset={8}>
+  {children}
+</BubbleMenu.Root>
+```
+
+Accepts the same props as `Default` except `excludeItems`.
+
+---
+
+### BubbleMenu.ItemGroup
+
+Visual grouping of bubble menu items.
+
+```tsx
+<BubbleMenu.ItemGroup>
+  <BubbleMenu.Bold />
+  <BubbleMenu.Italic />
+</BubbleMenu.ItemGroup>
+```
+
+---
+
+### Individual items
+
+| Component | Description |
+|-----------|-------------|
+| `BubbleMenu.Bold` | Bold toggle |
+| `BubbleMenu.Italic` | Italic toggle |
+| `BubbleMenu.Underline` | Underline toggle |
+| `BubbleMenu.Strike` | Strikethrough toggle |
+| `BubbleMenu.Code` | Inline code toggle |
+| `BubbleMenu.Uppercase` | Uppercase toggle |
+| `BubbleMenu.AlignLeft` | Left alignment |
+| `BubbleMenu.AlignCenter` | Center alignment |
+| `BubbleMenu.AlignRight` | Right alignment |
+| `BubbleMenu.Separator` | Visual separator |
+
+---
+
+### BubbleMenu.NodeSelector
+
+Dropdown to change the block type (paragraph, heading, etc.).
+
+<ResponseField name="open" type="boolean">
+  Controlled open state.
+</ResponseField>
+
+<ResponseField name="onOpenChange" type="(open: boolean) => void">
+  Called when the dropdown opens or closes.
+</ResponseField>
+
+---
+
+### BubbleMenu.LinkSelector
+
+Popover for adding and editing links.
+
+<ResponseField name="open" type="boolean">
+  Controlled open state.
+</ResponseField>
+
+<ResponseField name="onOpenChange" type="(open: boolean) => void">
+  Called when the popover opens or closes.
+</ResponseField>
+
+---
+
+## LinkBubbleMenu
+
+Contextual menu that appears when clicking a link.
+
+### LinkBubbleMenu.Default
+
+Pre-configured link bubble menu with edit, open, and unlink actions.
+
+```tsx
+import { LinkBubbleMenu } from '@react-email/editor/ui';
+
+<LinkBubbleMenu.Default />
+```
+
+---
+
+## ButtonBubbleMenu
+
+Contextual menu that appears when clicking an email button.
+
+### ButtonBubbleMenu.Default
+
+Pre-configured button bubble menu with edit link and unlink actions.
+
+```tsx
+import { ButtonBubbleMenu } from '@react-email/editor/ui';
+
+<ButtonBubbleMenu.Default />
+```
+
+### ButtonBubbleMenu.Form
+
+Inline form for editing the button's link URL.
+
+### ButtonBubbleMenu.Unlink
+
+Button to remove the link from an email button.
+
+---
+
+## ImageBubbleMenu
+
+Contextual menu that appears when clicking an image.
+
+### ImageBubbleMenu.Default
+
+Pre-configured image bubble menu.
+
+```tsx
+import { ImageBubbleMenu } from '@react-email/editor/ui';
+
+<ImageBubbleMenu.Default />
+```
+
+---
+
+## SlashCommand
+
+Command menu triggered by typing a character (default: `/`).
+
+### SlashCommand.Root
+
+```tsx
+import { defaultSlashCommands, SlashCommand } from '@react-email/editor/ui';
+
+<SlashCommand.Root items={defaultSlashCommands} />
+```
+
+<ResponseField name="items" type="SlashCommandItem[]" default="defaultSlashCommands">
+  Array of commands to display. Falls back to `defaultSlashCommands` when not provided.
+</ResponseField>
+
+<ResponseField name="filterItems" type="(items, query, editor) => SlashCommandItem[]">
+  Custom filter function. By default, uses fuzzy matching on title, description, and search terms.
+</ResponseField>
+
+<ResponseField name="char" type="string" default="/">
+  Character that triggers the command menu.
+</ResponseField>
+
+<ResponseField name="allow" type="(props: { editor }) => boolean">
+  Controls when the menu can appear. Return `false` to prevent it.
+</ResponseField>
+
+<ResponseField name="children" type="(props: SlashCommandRenderProps) => ReactNode">
+  Custom render function for the command list. Receives `items`, `query`, `selectedIndex`, and `onSelect`.
+</ResponseField>
+
+### SlashCommandItem
+
+```tsx
+interface SlashCommandItem {
+  title: string;
+  description: string;
+  searchTerms?: string[];
+  icon: ReactNode;
+  category: string;
+  command: (props: { editor: Editor; range: Range }) => void;
+}
+```
+
+### SlashCommandRenderProps
+
+```tsx
+interface SlashCommandRenderProps {
+  items: SlashCommandItem[];
+  query: string;
+  selectedIndex: number;
+  onSelect: (index: number) => void;
+}
+```
+
+---
+
+## CSS imports
+
+Each UI component has a corresponding CSS file:
+
+| Component | CSS import |
+|-----------|------------|
+| BubbleMenu | `@react-email/editor/styles/bubble-menu.css` |
+| LinkBubbleMenu | `@react-email/editor/styles/link-bubble-menu.css` |
+| ButtonBubbleMenu | `@react-email/editor/styles/button-bubble-menu.css` |
+| ImageBubbleMenu | `@react-email/editor/styles/image-bubble-menu.css` |
+| SlashCommand | `@react-email/editor/styles/slash-command.css` |
+| Theme (colors) | `@react-email/editor/themes/default.css` |
+
+<Tip>
+  `@react-email/editor/themes/default.css` bundles all of the above CSS files into a single
+  import. Unless you need to cherry-pick specific styles, this is all you need:
+
+  ```tsx
+  import '@react-email/editor/themes/default.css';
+  ```
+</Tip>
