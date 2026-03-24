@@ -1,5 +1,5 @@
-import { ExternalLinkIcon } from 'lucide-react';
 import type * as React from 'react';
+import { ExternalLinkIcon } from '../icons';
 import { useLinkBubbleMenuContext } from './context';
 
 export interface LinkBubbleMenuOpenLinkProps

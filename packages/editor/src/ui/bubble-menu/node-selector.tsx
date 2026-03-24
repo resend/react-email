@@ -1,5 +1,6 @@
 import * as Popover from '@radix-ui/react-popover';
 import { useEditorState } from '@tiptap/react';
+import * as React from 'react';
 import {
   Check,
   ChevronDown,
@@ -11,8 +12,7 @@ import {
   ListOrdered,
   TextIcon,
   TextQuote,
-} from 'lucide-react';
-import * as React from 'react';
+} from '../icons';
 import { useBubbleMenuContext } from './context';
 
 export type NodeType =

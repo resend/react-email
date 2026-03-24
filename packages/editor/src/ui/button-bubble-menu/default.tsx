@@ -1,26 +1,55 @@
+import { useButtonBubbleMenuContext } from './context';
 import { ButtonBubbleMenuEditLink } from './edit-link';
+import { ButtonBubbleMenuForm } from './form';
 import { ButtonBubbleMenuRoot } from './root';
 import { ButtonBubbleMenuToolbar } from './toolbar';
-
-type ExcludableItem = 'edit-link';
+import { ButtonBubbleMenuUnlink } from './unlink';
 
 export interface ButtonBubbleMenuDefaultProps {
-  excludeItems?: ExcludableItem[];
   placement?: 'top' | 'bottom';
   offset?: number;
   onHide?: () => void;
   className?: string;
+  validateUrl?: (value: string) => string | null;
+  onLinkApply?: (href: string) => void;
+  onLinkRemove?: () => void;
+}
+
+function ButtonBubbleMenuDefaultInner({
+  validateUrl,
+  onLinkApply,
+  onLinkRemove,
+}: Pick<
+  ButtonBubbleMenuDefaultProps,
+  'validateUrl' | 'onLinkApply' | 'onLinkRemove'
+>) {
+  const { buttonHref } = useButtonBubbleMenuContext();
+  const hasLink = buttonHref !== '' && buttonHref !== '#';
+
+  return (
+    <>
+      <ButtonBubbleMenuToolbar>
+        <ButtonBubbleMenuEditLink />
+        {hasLink && <ButtonBubbleMenuUnlink onLinkRemove={onLinkRemove} />}
+      </ButtonBubbleMenuToolbar>
+      <ButtonBubbleMenuForm
+        validateUrl={validateUrl}
+        onLinkApply={onLinkApply}
+        onLinkRemove={onLinkRemove}
+      />
+    </>
+  );
 }
 
 export function ButtonBubbleMenuDefault({
-  excludeItems = [],
   placement,
   offset,
   onHide,
   className,
+  validateUrl,
+  onLinkApply,
+  onLinkRemove,
 }: ButtonBubbleMenuDefaultProps) {
-  const hasEditLink = !excludeItems.includes('edit-link');
-
   return (
     <ButtonBubbleMenuRoot
       placement={placement}
@@ -28,11 +57,11 @@ export function ButtonBubbleMenuDefault({
       onHide={onHide}
       className={className}
     >
-      {hasEditLink && (
-        <ButtonBubbleMenuToolbar>
-          <ButtonBubbleMenuEditLink />
-        </ButtonBubbleMenuToolbar>
-      )}
+      <ButtonBubbleMenuDefaultInner
+        validateUrl={validateUrl}
+        onLinkApply={onLinkApply}
+        onLinkRemove={onLinkRemove}
+      />
     </ButtonBubbleMenuRoot>
   );
 }
