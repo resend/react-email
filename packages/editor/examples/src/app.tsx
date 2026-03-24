@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { BasicEditor } from './examples/basic-editor';
 import { ColumnLayouts } from './examples/column-layouts';
 import { CustomBubbleMenus } from './examples/custom-bubble-menus';
+import { GlobalInspector } from './examples/global-inspector';
 import { SlashCommands } from './examples/slash-commands';
 
 const examples = [
@@ -13,10 +14,15 @@ const examples = [
   },
   { id: 'columns', label: 'Column layouts', component: ColumnLayouts },
   { id: 'slash', label: 'Slash commands', component: SlashCommands },
+  {
+    id: 'inspector',
+    label: 'Global inspector',
+    component: GlobalInspector,
+  },
 ] as const;
 
 export function App() {
-  const [active, setActive] = useState(examples[0].id);
+  const [active, setActive] = useState<(typeof examples)[number]['id']>(examples[0].id);
   const ActiveExample = examples.find((e) => e.id === active)!.component;
 
   return (
