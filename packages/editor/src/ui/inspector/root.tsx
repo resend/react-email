@@ -3,12 +3,6 @@ import { NodeSelection, TextSelection } from '@tiptap/pm/state';
 import { useCurrentEditor, useEditorState } from '@tiptap/react';
 import * as React from 'react';
 import type { NodeClickedEvent } from '../../core';
-import type { PanelInputProperty } from '../../plugins/email-theming/types';
-import { getNodeMeta } from './inspector/config/node-meta';
-import { InspectorGlobal } from './inspector/global';
-import { InspectorLocal } from './inspector/local';
-import { InspectorText } from './inspector/text';
-import { InspectorBreadcrumb } from './breadcrumb';
 
 const IGNORED_NODES = ['doc', 'text'];
 
@@ -102,7 +96,7 @@ function getNodeHierarchy(
   return hierarchy;
 }
 
-interface FocusedNode {
+export interface FocusedNode {
   nodeType: string;
   nodeAttrs: Attrs;
   nodePos: { pos: number; inside: number };
@@ -196,14 +190,6 @@ export function InspectorRoot({ children }: RootProps) {
     }
     return [];
   }, [editor, inspectorTarget]);
-
-  const handleSelectNode = React.useCallback(
-    (entry: NodeClickedEvent) => {
-      editor?.commands.setNodeSelection(entry.nodePos.pos);
-      editor?.commands.focus();
-    },
-    [editor],
-  );
 
   return (
     <InspectorContext.Provider value={{ inspectorTarget, pathFromRoot }}>
