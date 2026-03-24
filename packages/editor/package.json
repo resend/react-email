@@ -64,6 +64,7 @@
     "./styles/button-bubble-menu.css": "./dist/ui/button-bubble-menu/button-bubble-menu.css",
     "./styles/image-bubble-menu.css": "./dist/ui/image-bubble-menu/image-bubble-menu.css",
     "./styles/slash-command.css": "./dist/ui/slash-command/slash-command.css",
+    "./styles/inspector.css": "./dist/ui/inspector/inspector.css",
     "./themes/default.css": "./dist/ui/themes/default.css"
   },
   "license": "MIT",
@@ -124,6 +125,8 @@
     "@tiptap/react": "^3.17.1",
     "@tiptap/starter-kit": "^3.17.1",
     "@tiptap/suggestion": "^3.17.1",
+    "@zag-js/color-picker": "^1.37.0",
+    "@zag-js/react": "^1.37.0",
     "hast-util-from-html": "^2.0.3",
     "prismjs": "^1.30.0"
   },
