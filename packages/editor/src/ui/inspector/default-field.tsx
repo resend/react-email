@@ -1,8 +1,6 @@
 'use client';
 
-import * as colorPicker from '@zag-js/color-picker';
-import { normalizeProps, useMachine } from '@zag-js/react';
-import { useId, useRef } from 'react';
+import { useRef } from 'react';
 import type { PanelInputWithHandler } from './hooks/use-inspector-fields';
 
 export function DefaultField(field: PanelInputWithHandler) {
@@ -23,57 +21,37 @@ function ColorField({
   value: string;
   onChange: (color: string) => void;
 }) {
-  const id = useId();
-
-  const service = useMachine(colorPicker.machine, {
-    id,
-    value: colorPicker.parse(value || '#000000'),
-    onValueChangeEnd(details) {
-      onChange(details.valueAsString);
-    },
-  });
-
-  const api = colorPicker.connect(service, normalizeProps);
+  // Normalize to 6-digit hex for <input type="color"> (requires #rrggbb)
+  const normalizedValue = normalizeHex(value);
 
   return (
-    <div {...api.getRootProps()}>
-      <div {...api.getControlProps()} data-re-inspector-color-control>
-        <button
-          type="button"
-          {...api.getTriggerProps()}
-          data-re-inspector-color-trigger
-          style={{ background: api.value.toString('css') }}
-        />
-        <input
-          {...api.getChannelInputProps({ channel: 'hex' })}
-          data-re-inspector-color-hex
-        />
-      </div>
-
-      <div {...api.getPositionerProps()}>
-        <div {...api.getContentProps()} data-re-inspector-color-content>
-          <div {...api.getAreaProps()} data-re-inspector-color-area>
-            <div {...api.getAreaBackgroundProps()} />
-            <div {...api.getAreaThumbProps()} />
-          </div>
-          <div
-            {...api.getChannelSliderProps({ channel: 'hue' })}
-            data-re-inspector-color-slider
-          >
-            <div {...api.getChannelSliderTrackProps({ channel: 'hue' })} />
-            <div {...api.getChannelSliderThumbProps({ channel: 'hue' })} />
-          </div>
-          <div
-            {...api.getChannelSliderProps({ channel: 'alpha' })}
-            data-re-inspector-color-slider
-          >
-            <div {...api.getChannelSliderTrackProps({ channel: 'alpha' })} />
-            <div {...api.getChannelSliderThumbProps({ channel: 'alpha' })} />
-          </div>
-        </div>
-      </div>
-    </div>
+    <span data-re-inspector-color-control>
+      <input
+        type="color"
+        value={normalizedValue}
+        onChange={(e) => onChange(e.target.value)}
+        data-re-inspector-color-trigger
+      />
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        data-re-inspector-color-hex
+      />
+    </span>
   );
+}
+
+function normalizeHex(value: string): string {
+  if (!value) return '#000000';
+  const v = value.trim();
+  // Expand 3-digit hex to 6-digit: #abc -> #aabbcc
+  const shortHex = /^#([0-9a-f])([0-9a-f])([0-9a-f])$/i.exec(v);
+  if (shortHex) {
+    return `#${shortHex[1]}${shortHex[1]}${shortHex[2]}${shortHex[2]}${shortHex[3]}${shortHex[3]}`;
+  }
+  if (/^#[0-9a-f]{6}$/i.test(v)) return v;
+  return '#000000';
 }
 
 function NumberField({

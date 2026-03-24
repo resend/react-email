@@ -134,8 +134,6 @@
     "@tiptap/react": "^3.17.1",
     "@tiptap/starter-kit": "^3.17.1",
     "@tiptap/suggestion": "^3.17.1",
-    "@zag-js/color-picker": "^1.37.0",
-    "@zag-js/react": "^1.37.0",
     "hast-util-from-html": "^2.0.3",
     "prismjs": "^1.30.0"
   },

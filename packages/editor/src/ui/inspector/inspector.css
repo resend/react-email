@@ -125,23 +125,3 @@
   outline: none;
   border-color: var(--re-text-muted, #6b6b6b);
 }
-
-[data-re-inspector-color-content] {
-  background: var(--re-bg, #fff);
-  border: 1px solid var(--re-border, #e5e5e5);
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 50;
-}
-
-[data-re-inspector-color-area] {
-  width: 200px;
-  height: 150px;
-  border-radius: 0.25rem;
-  overflow: hidden;
-}
-
-[data-re-inspector-color-slider] {
-  margin-top: 0.5rem;
-}
