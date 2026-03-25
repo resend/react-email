@@ -88,6 +88,25 @@ Renders the appropriate built-in input component for a single field based on
 its `type`. Useful as a fallback when you only want to customize certain
 fields.
 
+### 3.
+
+I don't like `context` because the name doesn't really make it very clear what the purpose for it is. So another option that we could try is:
+
+```tsx
+<Inspector.Provider>
+  <Inspector.Document>{(
+    styles: PanelGroup[], 
+    setGlobalStyle: (classReference: string, property: string, value: unknown)
+  ) => (
+    {/* ... */}
+  )}</Inspector.Document>
+</Inspector.Provider>
+```
+
+And then the component there would render conditionally based on the target of the InspectorContext.
+
+The problem with this is having to define a function for each of them, which I dislike and can make things noisy. And the user having to provide this `classReference`.
+
 ## Breadcrumb API
 
 ### 1.

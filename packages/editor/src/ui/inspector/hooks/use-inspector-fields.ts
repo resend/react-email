@@ -1,5 +1,5 @@
 import type { PanelGroup } from '../../../plugins/email-theming/types';
-import { useInspector } from '../root';
+import { useInspector } from '../provider';
 import { getDocInspectorData } from './get-doc-inspector-data';
 
 /** A PanelGroup input with an onChange callback attached. */
