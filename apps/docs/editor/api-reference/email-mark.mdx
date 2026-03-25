@@ -1,0 +1,135 @@
+---
+title: "EmailMark"
+sidebarTitle: "EmailMark"
+description: "Base class for creating editor marks with email serialization."
+icon: "paintbrush-fine"
+---
+
+`EmailMark` extends TipTap's `Mark` class with an additional `renderToReactEmail()` method
+that controls how the mark is serialized when exporting to email HTML via
+[`composeReactEmail`](/editor/api-reference/compose-react-email).
+
+Marks are used for inline formatting like bold, italic, links, and custom text annotations.
+
+## Import
+
+```tsx
+import { EmailMark } from '@react-email/editor/core';
+```
+
+## EmailMark.create
+
+Create a new email-compatible mark from scratch.
+
+```tsx
+const Highlight = EmailMark.create({
+  name: 'highlight',
+
+  parseHTML() {
+    return [{ tag: 'mark' }];
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    return ['mark', HTMLAttributes, 0];
+  },
+
+  renderToReactEmail({ children, style }) {
+    return (
+      <mark style={{ ...style, backgroundColor: '#fef08a' }}>{children}</mark>
+    );
+  },
+});
+```
+
+The config object accepts all standard [TipTap Mark options](https://tiptap.dev/docs/editor/api/mark)
+plus the `renderToReactEmail` method.
+
+### renderToReactEmail props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `children` | `React.ReactNode` | The content wrapped by this mark |
+| `style` | `React.CSSProperties` | Resolved theme styles for this mark (empty object if no theme) |
+| `mark` | `Mark` | The ProseMirror mark instance |
+| `node` | `Node` | The ProseMirror node that contains this mark |
+| `extension` | `EmailMark` | The extension instance, useful for accessing `options` |
+
+## EmailMark.from
+
+Wrap an existing TipTap mark with email serialization support. This is useful when you want to
+reuse a community TipTap extension and add email export support without rewriting it.
+
+```tsx
+import { EmailMark } from '@react-email/editor/core';
+import { Mark } from '@tiptap/core';
+
+const MyTipTapMark = Mark.create({
+  name: 'customHighlight',
+
+  parseHTML() {
+    return [{ tag: 'mark' }];
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    return ['mark', HTMLAttributes, 0];
+  },
+});
+
+const MyEmailMark = EmailMark.from(MyTipTapMark, ({ children, style }) => {
+  return (
+    <mark style={{ ...style, backgroundColor: '#fef08a' }}>{children}</mark>
+  );
+});
+```
+
+The second argument is the `renderToReactEmail` renderer component. It receives the same props
+as described above.
+
+## .configure
+
+Configure options on an `EmailMark` (same as TipTap's `.configure()`):
+
+```tsx
+import { Bold } from '@react-email/editor/extensions';
+
+const CustomBold = Bold.configure({ HTMLAttributes: { class: 'custom-bold' } });
+```
+
+## .extend
+
+Extend an `EmailMark` with additional behavior:
+
+```tsx
+import { Link } from '@react-email/editor/extensions';
+
+const CustomLink = Link.extend({
+  addKeyboardShortcuts() {
+    return {
+      'Mod-k': () => this.editor.commands.toggleLink({ href: '' }),
+    };
+  },
+});
+```
+
+You can also override `renderToReactEmail` when extending:
+
+```tsx
+const CustomLink = Link.extend({
+  renderToReactEmail({ children, style, mark }) {
+    return (
+      <a
+        href={mark.attrs.href}
+        style={{ ...style, color: '#0066cc', textDecoration: 'underline' }}
+      >
+        {children}
+      </a>
+    );
+  },
+});
+```
+
+## See also
+
+- [Custom Extensions](/editor/advanced/custom-extensions) — tutorial on building custom extensions
+- [`EmailNode`](/editor/api-reference/email-node) — the equivalent class for block nodes
+- [`composeReactEmail`](/editor/api-reference/compose-react-email) — the function that calls `renderToReactEmail`

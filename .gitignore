@@ -38,3 +38,4 @@ yarn-error.log*
 
 # turbo
 .turbo
+.serena/

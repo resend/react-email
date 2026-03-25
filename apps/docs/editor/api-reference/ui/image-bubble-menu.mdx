@@ -1,0 +1,99 @@
+---
+title: "ImageBubbleMenu"
+sidebarTitle: "ImageBubbleMenu"
+description: "Contextual menu for editing images."
+icon: "image"
+---
+
+Contextual menu that appears when clicking an image.
+
+## ImageBubbleMenu.Default
+
+Pre-configured image bubble menu.
+
+```tsx
+import { ImageBubbleMenu } from '@react-email/editor/ui';
+
+<ImageBubbleMenu.Default />
+```
+
+<ResponseField name="placement" type="'top' | 'bottom'" default="'bottom'">
+  Position relative to the image.
+</ResponseField>
+
+<ResponseField name="offset" type="number" default="8">
+  Distance from the image in pixels.
+</ResponseField>
+
+<ResponseField name="onHide" type="() => void">
+  Called when the bubble menu is hidden.
+</ResponseField>
+
+<ResponseField name="className" type="string">
+  Additional CSS class on the wrapper element.
+</ResponseField>
+
+---
+
+## Compound components
+
+For custom image bubble menus, compose with these sub-components:
+
+| Component | Description |
+|-----------|-------------|
+| `ImageBubbleMenu.Root` | Base container — sets up context and positioning |
+| `ImageBubbleMenu.Toolbar` | Wrapper that hides when editing mode is active |
+| `ImageBubbleMenu.EditLink` | Button that enters editing mode to change the image link |
+
+### Example
+
+Here's how `ImageBubbleMenu.Default` is composed internally — use this as a
+starting point for your own custom image bubble menu:
+
+```tsx
+import { ImageBubbleMenu } from '@react-email/editor/ui';
+
+<ImageBubbleMenu.Root placement="top" offset={8}>
+  <ImageBubbleMenu.Toolbar>
+    <ImageBubbleMenu.EditLink />
+  </ImageBubbleMenu.Toolbar>
+</ImageBubbleMenu.Root>
+```
+
+The `Toolbar` component automatically hides when the user clicks `EditLink` and
+enters editing mode. When editing is finished, the toolbar reappears.
+
+---
+
+## Context
+
+Use `useImageBubbleMenuContext()` inside custom children of `ImageBubbleMenu.Root`
+to access the editor and editing state:
+
+```tsx
+import { useImageBubbleMenuContext } from '@react-email/editor/ui';
+
+function CustomToolbarItem() {
+  const { editor, isEditing, setIsEditing } = useImageBubbleMenuContext();
+
+  return (
+    <button onClick={() => setIsEditing(true)}>
+      Edit Image Link
+    </button>
+  );
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `editor` | `Editor` | The TipTap editor instance |
+| `isEditing` | `boolean` | Whether the menu is in editing mode |
+| `setIsEditing` | `(value: boolean) => void` | Toggle editing mode |
+
+---
+
+## CSS import
+
+```tsx
+import '@react-email/editor/styles/image-bubble-menu.css';
+```
