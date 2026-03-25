@@ -56,8 +56,18 @@ and also give a good DX:
 
 ```tsx
 <Inspector>{(
-  target: 'doc' | 'text' | FocusedNode, 
-  setAttribute: (name: string, value: unknown) => void
+  context: 
+    | {
+      target: 'doc',
+      styles: PanelGroup[];
+      setGlobalStyle: (name: string, value: unknown) => void,
+    } 
+    | { target: 'text' } 
+    | {
+      target: FocusedNode, 
+      setStyles: (property: string, changes: Record<string, unknown>) => void,
+      setAttribute: (name: string, value: unknown) => void,
+    }
 ) => {
   if (target === 'doc') {
     return /* ... */;
