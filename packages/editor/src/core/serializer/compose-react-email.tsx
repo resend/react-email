@@ -21,7 +21,7 @@ export const composeReactEmail = async ({
   preview,
 }: {
   editor: Editor;
-  preview: string | null;
+  preview?: string;
 }): Promise<ComposeReactEmailResult> => {
   const data = editor.getJSON();
   const extensions = editor.extensionManager.extensions;

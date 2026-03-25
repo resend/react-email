@@ -3,7 +3,7 @@ import type * as React from 'react';
 
 type BaseTemplateProps = {
   children: React.ReactNode;
-  previewText: string | null;
+  previewText?: string;
 };
 
 export function DefaultBaseTemplate({

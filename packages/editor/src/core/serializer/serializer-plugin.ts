@@ -7,7 +7,7 @@ export interface SerializerPlugin {
     editor: Editor,
   ): React.CSSProperties;
   BaseTemplate(props: {
-    previewText: string | null;
+    previewText?: string;
     children: React.ReactNode;
     editor: Editor;
   }): React.ReactNode;
