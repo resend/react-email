@@ -14,12 +14,11 @@ import type {
 const PANEL_SECTION_TITLES: Record<PanelSectionId, string> = {
   body: 'Background',
   container: 'Body',
-  typography: 'Typography',
   link: 'Link',
   image: 'Image',
   button: 'Button',
-  'code-block': 'Code Block',
-  'inline-code': 'Inline Code',
+  codeBlock: 'Code Block',
+  inlineCode: 'Inline Code',
 };
 
 /**
@@ -38,13 +37,19 @@ const THEME_BASIC: PanelGroup[] = [
   {
     id: 'body',
     title: 'Background',
-    classReference: 'body',
-    inputs: [],
+    inputs: [
+      {
+        label: 'Font size',
+        type: 'number',
+        value: 14,
+        unit: 'px',
+        prop: 'fontSize',
+      },
+    ],
   },
   {
     id: 'container',
-    title: 'Content',
-    classReference: 'container',
+    title: 'Body',
     inputs: [
       {
         label: 'Align',
@@ -56,7 +61,6 @@ const THEME_BASIC: PanelGroup[] = [
           right: 'Right',
         },
         prop: 'align',
-        classReference: 'container',
       },
       {
         label: 'Width',
@@ -64,38 +68,6 @@ const THEME_BASIC: PanelGroup[] = [
         value: 600,
         unit: 'px',
         prop: 'width',
-        classReference: 'container',
-      },
-      {
-        label: 'Padding Left',
-        type: 'number',
-        value: 0,
-        unit: 'px',
-        prop: 'paddingLeft',
-        classReference: 'container',
-      },
-      {
-        label: 'Padding Right',
-        type: 'number',
-        value: 0,
-        unit: 'px',
-        prop: 'paddingRight',
-        classReference: 'container',
-      },
-    ],
-  },
-  {
-    id: 'typography',
-    title: 'Typography',
-    classReference: 'body',
-    inputs: [
-      {
-        label: 'Font size',
-        type: 'number',
-        value: 14,
-        unit: 'px',
-        prop: 'fontSize',
-        classReference: 'body',
       },
       {
         label: 'Line Height',
@@ -103,21 +75,32 @@ const THEME_BASIC: PanelGroup[] = [
         value: 155,
         unit: '%',
         prop: 'lineHeight',
-        classReference: 'container',
+      },
+      {
+        label: 'Padding Left',
+        type: 'number',
+        value: 0,
+        unit: 'px',
+        prop: 'paddingLeft',
+      },
+      {
+        label: 'Padding Right',
+        type: 'number',
+        value: 0,
+        unit: 'px',
+        prop: 'paddingRight',
       },
     ],
   },
   {
     id: 'link',
     title: 'Link',
-    classReference: 'link',
     inputs: [
       {
         label: 'Color',
         type: 'color',
         value: '#0670DB',
         prop: 'color',
-        classReference: 'link',
       },
       {
         label: 'Decoration',
@@ -128,14 +111,12 @@ const THEME_BASIC: PanelGroup[] = [
           underline: 'Underline',
           none: 'None',
         },
-        classReference: 'link',
       },
     ],
   },
   {
     id: 'image',
     title: 'Image',
-    classReference: 'image',
     inputs: [
       {
         label: 'Border radius',
@@ -143,28 +124,24 @@ const THEME_BASIC: PanelGroup[] = [
         value: 8,
         unit: 'px',
         prop: 'borderRadius',
-        classReference: 'image',
       },
     ],
   },
   {
     id: 'button',
     title: 'Button',
-    classReference: 'button',
     inputs: [
       {
         label: 'Background',
         type: 'color',
         value: '#000000',
         prop: 'backgroundColor',
-        classReference: 'button',
       },
       {
         label: 'Text color',
         type: 'color',
         value: '#ffffff',
         prop: 'color',
-        classReference: 'button',
       },
       {
         label: 'Radius',
@@ -172,7 +149,6 @@ const THEME_BASIC: PanelGroup[] = [
         value: 4,
         unit: 'px',
         prop: 'borderRadius',
-        classReference: 'button',
       },
       {
         label: 'Padding Top',
@@ -180,7 +156,6 @@ const THEME_BASIC: PanelGroup[] = [
         value: 7,
         unit: 'px',
         prop: 'paddingTop',
-        classReference: 'button',
       },
       {
         label: 'Padding Right',
@@ -188,7 +163,6 @@ const THEME_BASIC: PanelGroup[] = [
         value: 12,
         unit: 'px',
         prop: 'paddingRight',
-        classReference: 'button',
       },
       {
         label: 'Padding Bottom',
@@ -196,7 +170,6 @@ const THEME_BASIC: PanelGroup[] = [
         value: 7,
         unit: 'px',
         prop: 'paddingBottom',
-        classReference: 'button',
       },
       {
         label: 'Padding Left',
@@ -204,14 +177,12 @@ const THEME_BASIC: PanelGroup[] = [
         value: 12,
         unit: 'px',
         prop: 'paddingLeft',
-        classReference: 'button',
       },
     ],
   },
   {
-    id: 'code-block',
+    id: 'codeBlock',
     title: 'Code Block',
-    classReference: 'codeBlock',
     inputs: [
       {
         label: 'Border Radius',
@@ -219,7 +190,6 @@ const THEME_BASIC: PanelGroup[] = [
         value: 4,
         unit: 'px',
         prop: 'borderRadius',
-        classReference: 'codeBlock',
       },
       {
         label: 'Padding Top',
@@ -227,7 +197,6 @@ const THEME_BASIC: PanelGroup[] = [
         value: 12,
         unit: 'px',
         prop: 'paddingTop',
-        classReference: 'codeBlock',
       },
       {
         label: 'Padding Bottom',
@@ -235,7 +204,6 @@ const THEME_BASIC: PanelGroup[] = [
         value: 12,
         unit: 'px',
         prop: 'paddingBottom',
-        classReference: 'codeBlock',
       },
       {
         label: 'Padding Left',
@@ -243,7 +211,6 @@ const THEME_BASIC: PanelGroup[] = [
         value: 16,
         unit: 'px',
         prop: 'paddingLeft',
-        classReference: 'codeBlock',
       },
       {
         label: 'Padding Right',
@@ -251,28 +218,24 @@ const THEME_BASIC: PanelGroup[] = [
         value: 16,
         unit: 'px',
         prop: 'paddingRight',
-        classReference: 'codeBlock',
       },
     ],
   },
   {
-    id: 'inline-code',
+    id: 'inlineCode',
     title: 'Inline Code',
-    classReference: 'inlineCode',
     inputs: [
       {
         label: 'Background',
         type: 'color',
         value: '#e5e7eb',
         prop: 'backgroundColor',
-        classReference: 'inlineCode',
       },
       {
         label: 'Text color',
         type: 'color',
         value: '#1e293b',
         prop: 'color',
-        classReference: 'inlineCode',
       },
       {
         label: 'Radius',
@@ -280,7 +243,6 @@ const THEME_BASIC: PanelGroup[] = [
         value: 4,
         unit: 'px',
         prop: 'borderRadius',
-        classReference: 'inlineCode',
       },
     ],
   },

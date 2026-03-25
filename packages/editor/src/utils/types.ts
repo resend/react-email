@@ -90,7 +90,6 @@ export interface PanelInputProperty {
   type: InputType;
   value: string | number;
   prop: KnownCssProperties;
-  classReference?: KnownThemeComponents;
   unit?: InputUnit;
   options?: Options;
   placeholder?: string;
@@ -100,7 +99,6 @@ export interface PanelInputProperty {
 export interface PanelGroup {
   title: string;
   headerSlot?: React.ReactNode;
-  classReference?: KnownThemeComponents;
   inputs: Omit<PanelInputProperty, 'category'>[];
 }
 

@@ -6,15 +6,29 @@ import type {
   PanelSectionId,
 } from './types';
 
+/**
+ * Represents the shape of a PanelGroup as it may exist in persisted data.
+ * Legacy data can include `classReference` and old-style section IDs
+ * (e.g. `'code-block'`, `'typography'`) that no longer exist in the
+ * current `PanelSectionId` type.
+ */
+export interface PersistedPanelGroup {
+  id?: string;
+  title: string;
+  classReference?: KnownThemeComponents;
+  inputs: Array<
+    PanelGroup['inputs'][number] & { classReference?: KnownThemeComponents }
+  >;
+}
+
 const PANEL_SECTION_IDS = new Set<PanelSectionId>([
   'body',
   'container',
-  'typography',
   'link',
   'image',
   'button',
-  'code-block',
-  'inline-code',
+  'codeBlock',
+  'inlineCode',
 ]);
 
 const PANEL_SECTION_IDS_BY_TITLE: Record<string, PanelSectionId> = {
@@ -22,23 +36,34 @@ const PANEL_SECTION_IDS_BY_TITLE: Record<string, PanelSectionId> = {
   body: 'body',
   content: 'container',
   container: 'container',
-  typography: 'typography',
   link: 'link',
   image: 'image',
   button: 'button',
-  'code block': 'code-block',
-  'inline code': 'inline-code',
+  'code block': 'codeBlock',
+  'inline code': 'inlineCode',
 };
 
-const PANEL_SECTION_IDS_BY_CLASS_REFERENCE: Partial<
-  Record<KnownThemeComponents, PanelSectionId>
-> = {
+/**
+ * Maps legacy section IDs and classReference values to current PanelSectionId.
+ * Handles backward compatibility for persisted data.
+ */
+const LEGACY_ID_MAP: Record<string, PanelSectionId> = {
+  'code-block': 'codeBlock',
+  'inline-code': 'inlineCode',
+};
+
+/**
+ * Maps legacy classReference values to PanelSectionId for data
+ * that predates the id field.
+ */
+const LEGACY_CLASS_REFERENCE_MAP: Record<string, PanelSectionId> = {
+  body: 'body',
   container: 'container',
   link: 'link',
   image: 'image',
   button: 'button',
-  codeBlock: 'code-block',
-  inlineCode: 'inline-code',
+  codeBlock: 'codeBlock',
+  inlineCode: 'inlineCode',
 };
 
 function isPanelSectionId(value: unknown): value is PanelSectionId {
@@ -51,35 +76,35 @@ function normalizeTitle(title: string | undefined): string {
   return title?.trim().toLowerCase().replace(/\s+/g, ' ') ?? '';
 }
 
-function resolvePanelSectionId(group: PanelGroup): PanelSectionId | null {
+function resolvePanelSectionId(
+  group: PersistedPanelGroup,
+): PanelSectionId | null {
   if (isPanelSectionId(group.id)) {
     return group.id;
   }
 
-  const normalizedTitle = normalizeTitle(group.title);
+  // Handle legacy IDs like 'code-block' → 'codeBlock'
+  if (group.id && LEGACY_ID_MAP[group.id]) {
+    return LEGACY_ID_MAP[group.id]!;
+  }
 
-  if (group.classReference === 'body') {
-    if (normalizedTitle === 'typography') {
-      return 'typography';
+  // Handle legacy classReference-based resolution
+  if (group.classReference && LEGACY_CLASS_REFERENCE_MAP[group.classReference]) {
+    const normalizedTitle = normalizeTitle(group.title);
+    // Special case: legacy 'typography' section with classReference 'body'
+    // should be merged into 'body' (its inputs have been redistributed)
+    if (group.classReference === 'body' && normalizedTitle === 'typography') {
+      return 'body';
     }
-
-    return 'body';
+    return LEGACY_CLASS_REFERENCE_MAP[group.classReference]!;
   }
 
-  if (
-    group.classReference &&
-    PANEL_SECTION_IDS_BY_CLASS_REFERENCE[group.classReference]
-  ) {
-    return PANEL_SECTION_IDS_BY_CLASS_REFERENCE[group.classReference] ?? null;
-  }
-
-  return PANEL_SECTION_IDS_BY_TITLE[normalizedTitle] ?? null;
+  return PANEL_SECTION_IDS_BY_TITLE[normalizeTitle(group.title)] ?? null;
 }
 
 function normalizePanelInputs(
-  inputs: PanelGroup['inputs'],
+  inputs: PersistedPanelGroup['inputs'],
   defaultInputs: PanelGroup['inputs'],
-  fallbackClassReference?: KnownThemeComponents,
 ): PanelGroup['inputs'] {
   if (!Array.isArray(inputs)) {
     return [];
@@ -90,19 +115,17 @@ function normalizePanelInputs(
       (candidate) => candidate.prop === input.prop,
     );
 
+    const { classReference: _, ...inputWithoutClassRef } = input;
+
     return {
       ...defaultInput,
-      ...input,
-      classReference:
-        input.classReference ??
-        defaultInput?.classReference ??
-        fallbackClassReference,
+      ...inputWithoutClassRef,
     };
   });
 }
 
 export function inferThemeFromPanelStyles(
-  panelStyles: PanelGroup[] | null | undefined,
+  panelStyles: PersistedPanelGroup[] | null | undefined,
 ): EditorTheme | null {
   if (!Array.isArray(panelStyles) || panelStyles.length === 0) {
     return null;
@@ -128,37 +151,35 @@ export function inferThemeFromPanelStyles(
 
 export function normalizeThemePanelStyles(
   theme: EditorTheme,
-  panelStyles: PanelGroup[] | null | undefined,
+  panelStyles: PersistedPanelGroup[] | null | undefined,
 ): PanelGroup[] | null {
   if (!Array.isArray(panelStyles)) {
     return null;
   }
 
-  return panelStyles.map((group) => {
-    const panelId = resolvePanelSectionId(group);
+  return panelStyles
+    .map((group) => {
+      const panelId = resolvePanelSectionId(group);
 
-    if (!panelId) {
-      return group;
-    }
+      if (!panelId) {
+        return null;
+      }
 
-    const defaultGroup = EDITOR_THEMES[theme].find(
-      (candidate) => candidate.id === panelId,
-    );
+      const defaultGroup = EDITOR_THEMES[theme].find(
+        (candidate) => candidate.id === panelId,
+      );
 
-    if (!defaultGroup) {
-      return group;
-    }
+      if (!defaultGroup) {
+        return null;
+      }
 
-    return {
-      ...group,
-      id: panelId,
-      title: defaultGroup.title,
-      classReference: defaultGroup.classReference,
-      inputs: normalizePanelInputs(
-        group.inputs,
-        defaultGroup.inputs,
-        defaultGroup.classReference,
-      ),
-    };
-  });
+      const normalized: PanelGroup = {
+        id: panelId,
+        title: defaultGroup.title,
+        inputs: normalizePanelInputs(group.inputs, defaultGroup.inputs),
+      };
+
+      return normalized;
+    })
+    .filter((group): group is PanelGroup => group !== null);
 }
