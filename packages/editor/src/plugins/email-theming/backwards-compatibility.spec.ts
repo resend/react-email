@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import {
+  applyPanelStylesBackwardsCompat,
   inferThemeFromPanelStyles,
-  normalizeThemePanelStyles,
-} from './normalization';
+} from './backwards-compatibility';
 
-describe('normalizeThemePanelStyles', () => {
+describe('applyPanelStylesBackwardsCompat', () => {
   it('maps legacy global panel groups to the current section ids', () => {
-    const result = normalizeThemePanelStyles('minimal', [
+    const result = applyPanelStylesBackwardsCompat('minimal', [
       {
         title: 'Body',
         classReference: 'body',
