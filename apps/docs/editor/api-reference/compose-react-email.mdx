@@ -83,10 +83,6 @@ It recursively walks the ProseMirror document. For each node it:
 4. **Wraps with marks** — iterates through the node's marks (bold, italic, link, etc.) and
    wraps the rendered output with each mark's `renderToReactEmail()`
 
-<Info>
-  Text nodes are rendered as raw strings. Block nodes like headings, paragraphs, and sections
-  go through `renderToReactEmail()`. Marks like bold or links wrap the text they apply to.
-</Info>
 
 ### 4. Depth tracking
 
