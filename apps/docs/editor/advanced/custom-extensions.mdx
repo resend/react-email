@@ -228,9 +228,11 @@ export function MyEditor() {
 }
 ```
 
-## Creating based on an existing Node
+## Wrapping existing TipTap extensions
 
-Wrap an existing TipTap node with email serialization support:
+Both `EmailNode` and `EmailMark` provide a `.from()` method that wraps an existing TipTap
+extension with email serialization support. This is useful when you want to reuse a community
+TipTap extension and add email export support without rewriting it.
 
 ```tsx
 import { EmailNode } from '@react-email/editor/core';
@@ -243,33 +245,22 @@ const MyEmailNode = EmailNode.from(MyTipTapNode, ({ children, style }) => {
 });
 ```
 
-This is useful when you want to reuse a community TipTap extension and add email export support.
-
-## EmailMark
-
-For inline marks (like bold, italic, or custom annotations), use `EmailMark`:
-
 ```tsx
 import { EmailMark } from '@react-email/editor/core';
+import { Mark } from '@tiptap/core';
 
-const Highlight = EmailMark.create({
-  name: 'highlight',
+const MyTipTapMark = Mark.create({ /* ... */ });
 
-  parseHTML() {
-    return [{ tag: 'mark' }];
-  },
-
-  renderHTML({ HTMLAttributes }) {
-    return ['mark', HTMLAttributes, 0];
-  },
-
-  renderToReactEmail({ children, style }) {
-    return (
-      <mark style={{ ...style, backgroundColor: '#fef08a' }}>{children}</mark>
-    );
-  },
+const MyEmailMark = EmailMark.from(MyTipTapMark, ({ children, style }) => {
+  return <mark style={{ ...style, backgroundColor: '#fef08a' }}>{children}</mark>;
 });
 ```
+
+<Info>
+  For full API details on all methods (`create`, `from`, `configure`, `extend`), see the
+  [`EmailNode`](/editor/api-reference/email-node) and [`EmailMark`](/editor/api-reference/email-mark)
+  reference pages.
+</Info>
 
 ## Configure and extend
 
