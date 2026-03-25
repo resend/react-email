@@ -1,33 +1,20 @@
 import { describe, expect, it } from 'vitest';
 import {
+  type PersistedPanelGroup,
   inferThemeFromPanelStyles,
   normalizeThemePanelStyles,
 } from './normalization';
 
 describe('normalizeThemePanelStyles', () => {
   it('maps legacy global panel groups to the current section ids', () => {
-    const result = normalizeThemePanelStyles('minimal', [
-      {
-        title: 'Body',
-        classReference: 'body',
-        inputs: [],
-      } as any,
-      {
-        title: 'Container',
-        classReference: 'container',
-        inputs: [],
-      } as any,
-      {
-        title: 'Typography',
-        classReference: 'body',
-        inputs: [],
-      } as any,
-      {
-        title: 'Code Block',
-        classReference: 'codeBlock',
-        inputs: [],
-      } as any,
-    ]);
+    const legacy: PersistedPanelGroup[] = [
+      { title: 'Body', classReference: 'body', inputs: [] },
+      { title: 'Container', classReference: 'container', inputs: [] },
+      { title: 'Typography', classReference: 'body', inputs: [] },
+      { title: 'Code Block', classReference: 'codeBlock', inputs: [] },
+    ];
+
+    const result = normalizeThemePanelStyles('minimal', legacy);
 
     expect(result).toEqual([
       expect.objectContaining({
@@ -39,7 +26,6 @@ describe('normalizeThemePanelStyles', () => {
         title: 'Body',
       }),
       // Legacy 'typography' with classReference 'body' maps to 'body'
-      // and is merged — the second 'body' group is kept
       expect.objectContaining({
         id: 'body',
         title: 'Background',
@@ -57,18 +43,12 @@ describe('normalizeThemePanelStyles', () => {
   });
 
   it('maps legacy kebab-case section ids to camelCase', () => {
-    const result = normalizeThemePanelStyles('minimal', [
-      {
-        id: 'code-block' as any,
-        title: 'Code Block',
-        inputs: [],
-      },
-      {
-        id: 'inline-code' as any,
-        title: 'Inline Code',
-        inputs: [],
-      },
-    ]);
+    const legacy: PersistedPanelGroup[] = [
+      { id: 'code-block', title: 'Code Block', inputs: [] },
+      { id: 'inline-code', title: 'Inline Code', inputs: [] },
+    ];
+
+    const result = normalizeThemePanelStyles('minimal', legacy);
 
     expect(result).toEqual([
       expect.objectContaining({ id: 'codeBlock' }),
@@ -77,7 +57,7 @@ describe('normalizeThemePanelStyles', () => {
   });
 
   it('strips classReference from inputs during normalization', () => {
-    const result = normalizeThemePanelStyles('basic', [
+    const legacy: PersistedPanelGroup[] = [
       {
         id: 'button',
         title: 'Button',
@@ -88,10 +68,12 @@ describe('normalizeThemePanelStyles', () => {
             value: '#000000',
             prop: 'backgroundColor',
             classReference: 'button',
-          } as any,
+          },
         ],
       },
-    ]);
+    ];
+
+    const result = normalizeThemePanelStyles('basic', legacy);
 
     expect(result![0].inputs[0]).not.toHaveProperty('classReference');
     expect(result![0].inputs[0]).toMatchObject({

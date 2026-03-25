@@ -12,6 +12,7 @@ import {
   mergeCssJs,
   transformToCssJs,
 } from './css-transforms';
+import type { PersistedPanelGroup } from './normalization';
 import {
   inferThemeFromPanelStyles,
   normalizeThemePanelStyles,
@@ -83,7 +84,7 @@ export function getThemeComponentKey(
  */
 export function getMergedCssJs(
   theme: EditorTheme,
-  panelStyles: PanelGroup[] | undefined,
+  panelStyles: PersistedPanelGroup[] | PanelGroup[] | undefined,
 ): CssJs {
   const panels: PanelGroup[] =
     normalizeThemePanelStyles(theme, panelStyles) ?? EDITOR_THEMES[theme];
@@ -176,7 +177,7 @@ export function useEmailTheming(editor: Editor | null) {
 }
 
 function getEmailStyles(editor: Editor) {
-  return getGlobalContent('styles', editor) as PanelGroup[] | null;
+  return getGlobalContent('styles', editor) as PersistedPanelGroup[] | null;
 }
 
 function getEmailTheme(editor: Editor) {
@@ -292,7 +293,7 @@ export const EmailTheming = Extension.create<{
       new Plugin({
         key: new PluginKey('themingStyleInjector'),
         view(view) {
-          let prevStyles: PanelGroup[] | null = null;
+          let prevStyles: PersistedPanelGroup[] | null = null;
           let prevTheme: EditorTheme | null = null;
           let prevCss: string | null = null;
 
@@ -305,7 +306,7 @@ export const EmailTheming = Extension.create<{
             const css = getEmailCss(editor);
 
             if (styles !== prevStyles || theme !== prevTheme) {
-              prevStyles = styles as PanelGroup[] | null;
+              prevStyles = styles;
               prevTheme = theme;
               injectThemeCss(getMergedCssJs(theme, resolvedStyles), {
                 scopeSelector,
