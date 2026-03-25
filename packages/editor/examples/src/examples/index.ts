@@ -8,6 +8,8 @@ import { EmailThemingExample } from './email-theming';
 import { FullEmailBuilder } from './full-email-builder';
 import { Buttons } from './images-and-buttons';
 import { LinkEditing } from './link-editing';
+import { OneLineEditor } from './one-line-editor';
+import { OneLineEditorFull } from './one-line-editor-full';
 import { SlashCommands } from './slash-commands';
 
 export interface ExampleItem {
@@ -22,6 +24,21 @@ export interface ExampleSection {
 }
 
 export const sections: ExampleSection[] = [
+  {
+    title: 'One-Line Editor',
+    examples: [
+      {
+        id: 'one-line-editor',
+        label: 'Minimal',
+        component: OneLineEditor,
+      },
+      {
+        id: 'one-line-editor-full',
+        label: 'Full Features',
+        component: OneLineEditorFull,
+      },
+    ],
+  },
   {
     title: 'Getting Started',
     examples: [
