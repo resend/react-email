@@ -72,7 +72,7 @@ plugin is found, styles default to `{}` and the built-in `DefaultBaseTemplate` i
 
 ### 3. Traverse the document tree
 
-The core `parseContent()` function recursively walks the document. For each node it:
+It recursively walks the ProseMirror document. For each node it:
 
 1. **Resolves styles** — calls `serializerPlugin.getNodeStyles(node, depth, editor)` to get
    theme styles, then merges any inline styles from the node's attributes
