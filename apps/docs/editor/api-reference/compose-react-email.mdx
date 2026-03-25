@@ -77,7 +77,7 @@ It recursively walks the ProseMirror document. For each node it:
 1. **Resolves styles** — calls `serializerPlugin.getNodeStyles(node, depth, editor)` to get
    theme styles, then merges any inline styles from the node's attributes
 2. **Skips unknown nodes** — if the node type isn't registered or isn't an
-   [`EmailNode`](/editor/api-reference/email-node), it's skipped
+   [`EmailNode`](/editor/api-reference/email-node), it's rendered as `null`
 3. **Renders the node** — calls the extension's `renderToReactEmail()` component, passing
    `children` (from recursing into child nodes), `style`, `node`, and `extension`
 4. **Wraps with marks** — iterates through the node's marks (bold, italic, link, etc.) and
