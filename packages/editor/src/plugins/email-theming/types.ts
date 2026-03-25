@@ -8,12 +8,11 @@ export type EditorTheme = 'basic' | 'minimal';
 export type PanelSectionId =
   | 'body'
   | 'container'
-  | 'typography'
   | 'link'
   | 'image'
   | 'button'
-  | 'code-block'
-  | 'inline-code';
+  | 'codeBlock'
+  | 'inlineCode';
 export type KnownThemeComponents =
   | 'reset'
   | 'body'
@@ -103,7 +102,6 @@ export interface PanelInputProperty {
   type: InputType;
   value: string | number;
   prop: KnownCssProperties;
-  classReference?: KnownThemeComponents;
   unit?: InputUnit;
   options?: Options;
   placeholder?: string;
@@ -114,6 +112,5 @@ export interface PanelGroup {
   id?: PanelSectionId;
   title: string;
   headerSlot?: React.ReactNode;
-  classReference?: KnownThemeComponents;
   inputs: Omit<PanelInputProperty, 'category'>[];
 }
