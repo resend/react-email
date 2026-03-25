@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 2.0.5
+
+### Patch Changes
+
+- ecfc141: fix process crashes in client errors
+
 ## 2.0.4
 
 ### Patch Changes
@@ -281,7 +287,6 @@
   ## Why
 
   Three reasons:
-
   1. Better support of NextJS's latest versions
   2. Being ready for future React API deprecations
   3. Support for Suspense which allows for using async inside components
@@ -307,7 +312,6 @@
   ## Why
 
   Three reasons:
-
   1. Better support of NextJS's latest versions
   2. Being ready for future React API deprecations
   3. Support for Suspense which allows for using async inside components
