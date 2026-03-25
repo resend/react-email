@@ -233,35 +233,6 @@ function ExportPanel() {
 
 ---
 
-## SerializerPlugin
-
-The `SerializerPlugin` interface is what makes `composeReactEmail` extensible.
-[`EmailTheming`](/editor/features/theming) implements it, but you could build your own
-plugin for custom style resolution or template wrapping.
-
-```tsx
-interface SerializerPlugin {
-  getNodeStyles(
-    node: JSONContent,
-    depth: number,
-    editor: Editor,
-  ): React.CSSProperties;
-
-  BaseTemplate(props: {
-    previewText: string | null;
-    children: React.ReactNode;
-    editor: Editor;
-  }): React.ReactNode;
-}
-```
-
-| Method | Description |
-|--------|-------------|
-| `getNodeStyles` | Called for every node and mark during traversal. Returns inline styles to pass to `renderToReactEmail()` via the `style` prop. |
-| `BaseTemplate` | Wraps the serialized content in the email's outer structure (`Html`, `Head`, `Body`, etc.). Replaces the default template entirely. |
-
----
-
 ## See also
 
 - [`EmailNode`](/editor/api-reference/email-node) — defines how nodes serialize via `renderToReactEmail()`
