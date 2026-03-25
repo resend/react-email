@@ -60,7 +60,7 @@ and also give a good DX:
     | {
       target: 'doc',
       styles: PanelGroup[];
-      setGlobalStyle: (name: string, value: unknown) => void,
+      setGlobalStyle: (classReference: string, property: string, value: unknown) => void,
     } 
     | { target: 'text' } 
     | {
