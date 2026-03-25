@@ -120,13 +120,13 @@ export function useInspector() {
   const context = React.useContext(InspectorContext);
   if (!context) {
     throw new Error(
-      'useInspector can only be called from inside the InspectorContext. This probably means you forgot the <Inspector.Root>',
+      'useInspector can only be called from inside the InspectorContext. This probably means you forgot the <Inspector.Provider>',
     );
   }
   return context;
 }
 
-export function InspectorRoot({ children }: RootProps) {
+export function InspectorProvider({ children }: RootProps) {
   const { editor } = useCurrentEditor();
 
   const inspectorTarget = useEditorState({

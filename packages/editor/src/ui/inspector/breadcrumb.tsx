@@ -2,7 +2,7 @@ import { useCurrentEditor } from '@tiptap/react';
 import path from 'path';
 import React from 'react';
 import type { NodeClickedEvent } from '../../core';
-import { type FocusedNode, useInspector } from './root';
+import { type FocusedNode, useInspector } from './provider';
 
 export interface InspectorBreadcrumbSegment {
   props: {};
