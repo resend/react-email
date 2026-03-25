@@ -7,15 +7,15 @@ import type * as React from 'react';
 import type { SerializerPlugin } from '../../core/serializer/serializer-plugin';
 import { getGlobalContent } from '../../extensions/global-content';
 import {
+  applyPanelStylesBackwardsCompat,
+  inferThemeFromPanelStyles,
+} from './backwards-compatibility';
+import {
   injectGlobalPlainCss,
   injectThemeCss,
   mergeCssJs,
   transformToCssJs,
 } from './css-transforms';
-import {
-  inferThemeFromPanelStyles,
-  applyPanelStylesBackwardsCompat,
-} from './backwards-compatibility';
 import { EDITOR_THEMES, RESET_THEMES } from './themes';
 import type {
   CssJs,

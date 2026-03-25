@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
-  inferThemeFromPanelStyles,
   applyPanelStylesBackwardsCompat,
+  inferThemeFromPanelStyles,
 } from './backwards-compatibility';
 
 describe('applyPanelStylesBackwardsCompat', () => {
