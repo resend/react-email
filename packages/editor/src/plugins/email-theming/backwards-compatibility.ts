@@ -76,7 +76,7 @@ function resolvePanelSectionId(group: PanelGroup): PanelSectionId | null {
   return PANEL_SECTION_IDS_BY_TITLE[normalizedTitle] ?? null;
 }
 
-function normalizePanelInputs(
+function backfillPanelInputs(
   inputs: PanelGroup['inputs'],
   defaultInputs: PanelGroup['inputs'],
   fallbackClassReference?: KnownThemeComponents,
@@ -126,7 +126,7 @@ export function inferThemeFromPanelStyles(
   return finalTheme;
 }
 
-export function normalizeThemePanelStyles(
+export function applyPanelStylesBackwardsCompat(
   theme: EditorTheme,
   panelStyles: PanelGroup[] | null | undefined,
 ): PanelGroup[] | null {
@@ -154,7 +154,7 @@ export function normalizeThemePanelStyles(
       id: panelId,
       title: defaultGroup.title,
       classReference: defaultGroup.classReference,
-      inputs: normalizePanelInputs(
+      inputs: backfillPanelInputs(
         group.inputs,
         defaultGroup.inputs,
         defaultGroup.classReference,

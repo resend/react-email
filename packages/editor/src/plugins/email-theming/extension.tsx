@@ -14,8 +14,8 @@ import {
 } from './css-transforms';
 import {
   inferThemeFromPanelStyles,
-  normalizeThemePanelStyles,
-} from './normalization';
+  applyPanelStylesBackwardsCompat,
+} from './backwards-compatibility';
 import { EDITOR_THEMES, RESET_THEMES } from './themes';
 import type {
   CssJs,
@@ -86,7 +86,7 @@ export function getMergedCssJs(
   panelStyles: PanelGroup[] | undefined,
 ): CssJs {
   const panels: PanelGroup[] =
-    normalizeThemePanelStyles(theme, panelStyles) ?? EDITOR_THEMES[theme];
+    applyPanelStylesBackwardsCompat(theme, panelStyles) ?? EDITOR_THEMES[theme];
   const parsed = transformToCssJs(panels);
   return mergeCssJs(RESET_THEMES[theme], parsed);
 }
@@ -145,19 +145,19 @@ export function stylesToCss(
   theme: EditorTheme,
 ): Record<KnownThemeComponents, React.CSSProperties> {
   const parsed = transformToCssJs(
-    normalizeThemePanelStyles(theme, styles) ?? EDITOR_THEMES[theme],
+    applyPanelStylesBackwardsCompat(theme, styles) ?? EDITOR_THEMES[theme],
   );
   return mergeCssJs(RESET_THEMES[theme], parsed);
 }
 
 function getEmailTheming(editor: Editor) {
   const theme = getEmailTheme(editor);
-  const normalizedStyles =
-    normalizeThemePanelStyles(theme, getEmailStyles(editor)) ??
+  const compatStyles =
+    applyPanelStylesBackwardsCompat(theme, getEmailStyles(editor)) ??
     EDITOR_THEMES[theme];
 
   return {
-    styles: normalizedStyles,
+    styles: compatStyles,
     theme,
     css: getEmailCss(editor),
   };
