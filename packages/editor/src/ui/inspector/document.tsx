@@ -166,15 +166,15 @@ function applyStyleChange(
 }
 
 export type SetGlobalStyle = (
-  classReference: string,
-  property: string,
+  classReference: KnownThemeComponents,
+  property: KnownCssProperties,
   value: unknown,
 ) => void;
 
 export type BatchSetGlobalStyle = (
   changes: Array<{
-    classReference: string;
-    property: string;
+    classReference: KnownThemeComponents;
+    property: KnownCssProperties;
     value: unknown;
   }>,
 ) => void;
@@ -215,8 +215,8 @@ export function InspectorDocument({
   );
 
   function setGlobalStyle(
-    classReference: string,
-    property: string,
+    classReference: KnownThemeComponents,
+    property: KnownCssProperties,
     value: unknown,
   ) {
     const newStyles = applyStyleChange(theming!.styles, theming!.theme, {
@@ -229,8 +229,8 @@ export function InspectorDocument({
 
   function batchSetGlobalStyle(
     changes: Array<{
-      classReference: string;
-      property: string;
+      classReference: KnownThemeComponents;
+      property: KnownCssProperties;
       value: unknown;
     }>,
   ) {
