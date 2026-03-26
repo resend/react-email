@@ -433,7 +433,7 @@ export function resolveResetValue(
     return undefined;
   }
   const str = String(value);
-  const num = parseFloat(str);
+  const num = Number.parseFloat(str);
   if (Number.isNaN(num)) {
     return undefined;
   }

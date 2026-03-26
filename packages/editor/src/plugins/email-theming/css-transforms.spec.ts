@@ -29,324 +29,324 @@ describe('transformToCssJs', () => {
     expect(result).toEqual({});
   });
 
-it('transforms basic styles without units', () => {
-  const styles: PanelGroup[] = [
-    {
-      title: 'Basic',
-      inputs: [
-        {
-          label: 'Color',
-          type: 'color',
-          value: '#FF0000',
-          prop: 'color',
-          classReference: 'body',
-        },
-        {
-          label: 'Background',
-          type: 'color',
-          value: '#FFFFFF',
-          prop: 'backgroundColor',
-          classReference: 'container',
-        },
-      ],
-    },
-  ];
+  it('transforms basic styles without units', () => {
+    const styles: PanelGroup[] = [
+      {
+        title: 'Basic',
+        inputs: [
+          {
+            label: 'Color',
+            type: 'color',
+            value: '#FF0000',
+            prop: 'color',
+            classReference: 'body',
+          },
+          {
+            label: 'Background',
+            type: 'color',
+            value: '#FFFFFF',
+            prop: 'backgroundColor',
+            classReference: 'container',
+          },
+        ],
+      },
+    ];
 
-  const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
-  expect(result).toEqual({
-    body: { color: '#FF0000' },
-    container: { backgroundColor: '#FFFFFF' },
+    const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
+    expect(result).toEqual({
+      body: { color: '#FF0000' },
+      container: { backgroundColor: '#FFFFFF' },
+    });
   });
-});
 
-it('appends units to numeric values', () => {
-  const styles: PanelGroup[] = [
-    {
-      title: 'With Units',
-      inputs: [
-        {
-          label: 'Width',
-          type: 'number',
-          value: 100,
-          unit: 'px',
-          prop: 'width',
-          classReference: 'container',
-        },
-        {
-          label: 'Height',
-          type: 'number',
-          value: 200,
-          unit: 'px',
-          prop: 'height',
-          classReference: 'container',
-        },
-      ],
-    },
-  ];
+  it('appends units to numeric values', () => {
+    const styles: PanelGroup[] = [
+      {
+        title: 'With Units',
+        inputs: [
+          {
+            label: 'Width',
+            type: 'number',
+            value: 100,
+            unit: 'px',
+            prop: 'width',
+            classReference: 'container',
+          },
+          {
+            label: 'Height',
+            type: 'number',
+            value: 200,
+            unit: 'px',
+            prop: 'height',
+            classReference: 'container',
+          },
+        ],
+      },
+    ];
 
-  const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
-  expect(result).toEqual({
-    container: { width: '100px', height: '200px' },
+    const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
+    expect(result).toEqual({
+      container: { width: '100px', height: '200px' },
+    });
   });
-});
 
-it('converts fontSize from px to em for mobile adjustment', () => {
-  const styles: PanelGroup[] = [
-    {
-      title: 'Font Size',
-      inputs: [
-        {
-          label: 'Font Size',
-          type: 'number',
-          value: 26,
-          unit: 'px',
-          prop: 'fontSize',
-          classReference: 'body',
-        },
-      ],
-    },
-  ];
+  it('converts fontSize from px to em for mobile adjustment', () => {
+    const styles: PanelGroup[] = [
+      {
+        title: 'Font Size',
+        inputs: [
+          {
+            label: 'Font Size',
+            type: 'number',
+            value: 26,
+            unit: 'px',
+            prop: 'fontSize',
+            classReference: 'body',
+          },
+        ],
+      },
+    ];
 
-  const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
-  expect(result).toEqual({
-    body: { fontSize: '1.8571428571428572em' }, // 26 / DEFAULT_INBOX_FONT_SIZE_PX
+    const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
+    expect(result).toEqual({
+      body: { fontSize: '1.8571428571428572em' }, // 26 / DEFAULT_INBOX_FONT_SIZE_PX
+    });
   });
-});
 
-it('includes container background when body is not white', () => {
-  const styles: PanelGroup[] = [
-    {
-      title: 'Body',
-      inputs: [
-        {
-          label: 'Background',
-          type: 'color',
-          value: '#F0F0F0',
-          prop: 'backgroundColor',
-          classReference: 'body',
-        },
-      ],
-    },
-    {
-      title: 'Container',
-      inputs: [
-        {
-          label: 'Background',
-          type: 'color',
-          value: '#FFFFFF',
-          prop: 'backgroundColor',
-          classReference: 'container',
-        },
-      ],
-    },
-  ];
+  it('includes container background when body is not white', () => {
+    const styles: PanelGroup[] = [
+      {
+        title: 'Body',
+        inputs: [
+          {
+            label: 'Background',
+            type: 'color',
+            value: '#F0F0F0',
+            prop: 'backgroundColor',
+            classReference: 'body',
+          },
+        ],
+      },
+      {
+        title: 'Container',
+        inputs: [
+          {
+            label: 'Background',
+            type: 'color',
+            value: '#FFFFFF',
+            prop: 'backgroundColor',
+            classReference: 'container',
+          },
+        ],
+      },
+    ];
 
-  const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
-  expect(result).toEqual({
-    body: { backgroundColor: '#F0F0F0' },
-    container: { backgroundColor: '#FFFFFF' },
+    const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
+    expect(result).toEqual({
+      body: { backgroundColor: '#F0F0F0' },
+      container: { backgroundColor: '#FFFFFF' },
+    });
   });
-});
 
-it('includes non-black text colors for body', () => {
-  const styles: PanelGroup[] = [
-    {
-      title: 'Body',
-      inputs: [
-        {
-          label: 'Color',
-          type: 'color',
-          value: '#333333',
-          prop: 'color',
-          classReference: 'body',
-        },
-      ],
-    },
-  ];
+  it('includes non-black text colors for body', () => {
+    const styles: PanelGroup[] = [
+      {
+        title: 'Body',
+        inputs: [
+          {
+            label: 'Color',
+            type: 'color',
+            value: '#333333',
+            prop: 'color',
+            classReference: 'body',
+          },
+        ],
+      },
+    ];
 
-  const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
-  expect(result).toEqual({
-    body: { color: '#333333' },
+    const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
+    expect(result).toEqual({
+      body: { color: '#333333' },
+    });
   });
-});
 
-it('handles mixed input types and properties', () => {
-  const styles: PanelGroup[] = [
-    {
-      title: 'Mixed Properties',
-      inputs: [
-        {
-          label: 'Width',
-          type: 'number',
-          value: 600,
-          unit: 'px',
-          prop: 'width',
-          classReference: 'container',
-        },
-        {
-          label: 'Align',
-          type: 'select',
-          value: 'center',
-          prop: 'align',
-          classReference: 'container',
-        },
-        {
-          label: 'Background',
-          type: 'color',
-          value: '#F5F5F5',
-          prop: 'backgroundColor',
-          classReference: 'container',
-        },
-      ],
-    },
-  ];
+  it('handles mixed input types and properties', () => {
+    const styles: PanelGroup[] = [
+      {
+        title: 'Mixed Properties',
+        inputs: [
+          {
+            label: 'Width',
+            type: 'number',
+            value: 600,
+            unit: 'px',
+            prop: 'width',
+            classReference: 'container',
+          },
+          {
+            label: 'Align',
+            type: 'select',
+            value: 'center',
+            prop: 'align',
+            classReference: 'container',
+          },
+          {
+            label: 'Background',
+            type: 'color',
+            value: '#F5F5F5',
+            prop: 'backgroundColor',
+            classReference: 'container',
+          },
+        ],
+      },
+    ];
 
-  const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
-  expect(result).toEqual({
-    container: {
-      width: '600px',
-      align: 'center',
-      backgroundColor: '#F5F5F5',
-    },
+    const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
+    expect(result).toEqual({
+      container: {
+        width: '600px',
+        align: 'center',
+        backgroundColor: '#F5F5F5',
+      },
+    });
   });
-});
 
-it('handles multiple class references', () => {
-  const styles: PanelGroup[] = [
-    {
-      title: 'Multiple Classes',
-      inputs: [
-        {
-          label: 'Body Color',
-          type: 'color',
-          value: '#333333',
-          prop: 'color',
-          classReference: 'body',
-        },
-        {
-          label: 'Link Color',
-          type: 'color',
-          value: '#0066CC',
-          prop: 'color',
-          classReference: 'link',
-        },
-        {
-          label: 'Button Background',
-          type: 'color',
-          value: '#000000',
-          prop: 'backgroundColor',
-          classReference: 'button',
-        },
-      ],
-    },
-  ];
+  it('handles multiple class references', () => {
+    const styles: PanelGroup[] = [
+      {
+        title: 'Multiple Classes',
+        inputs: [
+          {
+            label: 'Body Color',
+            type: 'color',
+            value: '#333333',
+            prop: 'color',
+            classReference: 'body',
+          },
+          {
+            label: 'Link Color',
+            type: 'color',
+            value: '#0066CC',
+            prop: 'color',
+            classReference: 'link',
+          },
+          {
+            label: 'Button Background',
+            type: 'color',
+            value: '#000000',
+            prop: 'backgroundColor',
+            classReference: 'button',
+          },
+        ],
+      },
+    ];
 
-  const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
-  expect(result).toEqual({
-    body: { color: '#333333' },
-    link: { color: '#0066CC' },
-    button: { backgroundColor: '#000000' },
+    const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
+    expect(result).toEqual({
+      body: { color: '#333333' },
+      link: { color: '#0066CC' },
+      button: { backgroundColor: '#000000' },
+    });
   });
-});
 
-it('handles string values with units', () => {
-  const styles: PanelGroup[] = [
-    {
-      title: 'String Values',
-      inputs: [
-        {
-          label: 'Width',
-          type: 'number',
-          value: 'auto',
-          unit: 'px',
-          prop: 'width',
-          classReference: 'button',
-        },
-      ],
-    },
-  ];
+  it('handles string values with units', () => {
+    const styles: PanelGroup[] = [
+      {
+        title: 'String Values',
+        inputs: [
+          {
+            label: 'Width',
+            type: 'number',
+            value: 'auto',
+            unit: 'px',
+            prop: 'width',
+            classReference: 'button',
+          },
+        ],
+      },
+    ];
 
-  const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
-  expect(result).toEqual({
-    button: { width: 'auto' }, // Should not append unit for string values
+    const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
+    expect(result).toEqual({
+      button: { width: 'auto' }, // Should not append unit for string values
+    });
   });
-});
 
-it('handles complex nested structure', () => {
-  const styles: PanelGroup[] = [
-    {
-      title: 'Complex Theme',
-      inputs: [
-        {
-          label: 'Body Background',
-          type: 'color',
-          value: '#FFFFFF',
-          prop: 'backgroundColor',
-          classReference: 'body',
-        },
-        {
-          label: 'Container Background',
-          type: 'color',
-          value: '#FFFFFF',
-          prop: 'backgroundColor',
-          classReference: 'container',
-        },
-        {
-          label: 'Container Width',
-          type: 'number',
-          value: 600,
-          unit: 'px',
-          prop: 'width',
-          classReference: 'container',
-        },
-        {
-          label: 'Padding Left',
-          type: 'number',
-          value: 20,
-          unit: 'px',
-          prop: 'paddingLeft',
-          classReference: 'container',
-        },
-        {
-          label: 'Padding Right',
-          type: 'number',
-          value: 20,
-          unit: 'px',
-          prop: 'paddingRight',
-          classReference: 'container',
-        },
-        {
-          label: 'Body Font Size',
-          type: 'number',
-          value: 16,
-          unit: 'px',
-          prop: 'fontSize',
-          classReference: 'body',
-        },
-        {
-          label: 'Body Color',
-          type: 'color',
-          value: '#000000',
-          prop: 'color',
-          classReference: 'body',
-        },
-      ],
-    },
-  ];
+  it('handles complex nested structure', () => {
+    const styles: PanelGroup[] = [
+      {
+        title: 'Complex Theme',
+        inputs: [
+          {
+            label: 'Body Background',
+            type: 'color',
+            value: '#FFFFFF',
+            prop: 'backgroundColor',
+            classReference: 'body',
+          },
+          {
+            label: 'Container Background',
+            type: 'color',
+            value: '#FFFFFF',
+            prop: 'backgroundColor',
+            classReference: 'container',
+          },
+          {
+            label: 'Container Width',
+            type: 'number',
+            value: 600,
+            unit: 'px',
+            prop: 'width',
+            classReference: 'container',
+          },
+          {
+            label: 'Padding Left',
+            type: 'number',
+            value: 20,
+            unit: 'px',
+            prop: 'paddingLeft',
+            classReference: 'container',
+          },
+          {
+            label: 'Padding Right',
+            type: 'number',
+            value: 20,
+            unit: 'px',
+            prop: 'paddingRight',
+            classReference: 'container',
+          },
+          {
+            label: 'Body Font Size',
+            type: 'number',
+            value: 16,
+            unit: 'px',
+            prop: 'fontSize',
+            classReference: 'body',
+          },
+          {
+            label: 'Body Color',
+            type: 'color',
+            value: '#000000',
+            prop: 'color',
+            classReference: 'body',
+          },
+        ],
+      },
+    ];
 
-  const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
-  expect(result).toEqual({
-    body: {
-      backgroundColor: '#FFFFFF',
-      color: '#000000',
-      fontSize: '1.1428571428571428em', // 16 / DEFAULT_INBOX_FONT_SIZE_PX
-    },
-    container: {
-      backgroundColor: '#FFFFFF',
-      width: '600px',
-      paddingLeft: '20px',
-      paddingRight: '20px',
-    },
+    const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
+    expect(result).toEqual({
+      body: {
+        backgroundColor: '#FFFFFF',
+        color: '#000000',
+        fontSize: '1.1428571428571428em', // 16 / DEFAULT_INBOX_FONT_SIZE_PX
+      },
+      container: {
+        backgroundColor: '#FFFFFF',
+        width: '600px',
+        paddingLeft: '20px',
+        paddingRight: '20px',
+      },
+    });
   });
-});
 });
