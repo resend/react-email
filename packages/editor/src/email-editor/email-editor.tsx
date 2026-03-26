@@ -67,7 +67,7 @@ function RefBridge({ editorRef }: { editorRef: Ref<EmailEditorRef> }) {
 }
 
 export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
-  function EmailEditor(
+  (
     {
       content,
       onChange,
@@ -81,7 +81,7 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
       className,
     },
     ref,
-  ) {
+  ) => {
     const extensions = useMemo(() => {
       if (extensionsProp) {
         return extensionsProp;
@@ -134,3 +134,5 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
     );
   },
 );
+
+EmailEditor.displayName = 'EmailEditor';
