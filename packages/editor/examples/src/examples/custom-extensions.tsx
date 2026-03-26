@@ -1,12 +1,11 @@
-import { EmailNode } from '@react-email/editor/core';
 import { StarterKit } from '@react-email/editor/extensions';
 import { BubbleMenu } from '@react-email/editor/ui';
-import { mergeAttributes } from '@tiptap/core';
+import { mergeAttributes, Node } from '@tiptap/core';
 import { EditorProvider, useCurrentEditor } from '@tiptap/react';
 import { Info } from 'lucide-react';
 import { ExampleShell } from '../example-shell';
 
-const Callout = EmailNode.create({
+const Callout = Node.create({
   name: 'callout',
   group: 'block',
   content: 'inline*',
@@ -55,7 +54,7 @@ const content = {
       content: [
         {
           type: 'text',
-          text: 'This example shows a custom "Callout" node created with EmailNode.create. Use the toolbar to insert one.',
+          text: 'This example shows a custom "Callout" node created with Node.create and renderToReactEmail. Use the toolbar to insert one.',
         },
       ],
     },
@@ -102,7 +101,7 @@ export function CustomExtensions() {
   return (
     <ExampleShell
       title="Custom Extensions"
-      description="A custom Callout node created with EmailNode.create — showing how to extend the editor with email-compatible nodes."
+      description="A custom Callout node created with Node.create and renderToReactEmail — showing how to extend the editor with email-compatible nodes."
     >
       <EditorProvider
         extensions={extensions}

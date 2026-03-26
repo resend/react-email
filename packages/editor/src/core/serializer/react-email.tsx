@@ -1,30 +1,58 @@
 import { pretty, render, toPlainText } from '@react-email/components';
-import type { Editor, JSONContent } from '@tiptap/core';
+import {
+  type AnyExtension,
+  type Editor,
+  Extension,
+  type JSONContent,
+  type MarkConfig,
+  type NodeConfig,
+} from '@tiptap/core';
 import { inlineCssToJs } from '../../utils/styles';
 import { DefaultBaseTemplate } from './default-base-template';
-import type { MarkRendererComponent, NodeRendererComponent } from './react-email';
 import type { SerializerPlugin } from './serializer-plugin';
+
+export type NodeRendererComponent = (props: {
+  node: JSONContent;
+  style: React.CSSProperties;
+  children?: React.ReactNode;
+  extension: AnyExtension;
+}) => React.ReactNode;
+
+export type SerializedMark = NonNullable<JSONContent['marks']>[number];
+
+export type MarkRendererComponent = (props: {
+  mark: SerializedMark;
+  node: JSONContent;
+  style: React.CSSProperties;
+  children?: React.ReactNode;
+  extension: AnyExtension;
+}) => React.ReactNode;
+
+declare module '@tiptap/core' {
+  interface NodeConfig<Options, Storage> {
+    renderToReactEmail?: NodeRendererComponent;
+  }
+
+  interface MarkConfig<Options, Storage> {
+    renderToReactEmail?: MarkRendererComponent;
+  }
+
+  interface Editor {
+    getReactEmail(options?: {
+      preview?: string;
+    }): Promise<{ html: string; text: string }>;
+  }
+}
 
 const NODES_WITH_INCREMENTED_CHILD_DEPTH = new Set([
   'bulletList',
   'orderedList',
 ]);
 
-interface ComposeReactEmailResult {
-  html: string;
-  text: string;
-}
-
-/**
- * @deprecated Use `editor.getReactEmail()` instead after adding the `ReactEmail` extension.
- */
-export const composeReactEmail = async ({
-  editor,
-  preview,
-}: {
-  editor: Editor;
-  preview?: string;
-}): Promise<ComposeReactEmailResult> => {
+function serializeToReactEmail(
+  editor: Editor,
+  preview?: string,
+): Promise<{ html: string; text: string }> {
   const data = editor.getJSON();
   const extensions = editor.extensionManager.extensions;
 
@@ -125,16 +153,31 @@ export const composeReactEmail = async ({
   const BaseTemplate = serializerPlugin?.BaseTemplate ?? DefaultBaseTemplate;
 
   const parsedContent = parseContent(data.content);
-  const unformattedHtml = await render(
+
+  return render(
     <BaseTemplate previewText={preview} editor={editor}>
       {parsedContent}
     </BaseTemplate>,
-  );
+  ).then(async (unformattedHtml) => {
+    const [prettyHtml, text] = await Promise.all([
+      pretty(unformattedHtml),
+      toPlainText(unformattedHtml),
+    ]);
+    return { html: prettyHtml, text };
+  });
+}
 
-  const [prettyHtml, text] = await Promise.all([
-    pretty(unformattedHtml),
-    toPlainText(unformattedHtml),
-  ]);
+export const ReactEmail = Extension.create({
+  name: 'reactEmail',
 
-  return { html: prettyHtml, text };
-};
+  onBeforeCreate() {
+    this.editor.getReactEmail = (options) => {
+      return serializeToReactEmail(this.editor, options?.preview);
+    };
+  },
+
+  onDestroy() {
+    delete (this.editor as Partial<Pick<Editor, 'getReactEmail'>>)
+      .getReactEmail;
+  },
+});

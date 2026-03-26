@@ -3,8 +3,7 @@ import {
   Button as ReactEmailButton,
   Row,
 } from '@react-email/components';
-import { mergeAttributes } from '@tiptap/core';
-import { EmailNode } from '../core/serializer/email-node';
+import { mergeAttributes, Node } from '@tiptap/core';
 import { inlineCssToJs } from '../utils/styles';
 
 export interface EditorButtonOptions {
@@ -21,7 +20,7 @@ declare module '@tiptap/core' {
   }
 }
 
-export const Button = EmailNode.create<EditorButtonOptions>({
+export const Button = Node.create<EditorButtonOptions>({
   name: 'button',
   group: 'block',
   content: 'inline*',

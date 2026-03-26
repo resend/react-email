@@ -1,8 +1,10 @@
 import type { ItalicOptions } from '@tiptap/extension-italic';
 import ItalicBase from '@tiptap/extension-italic';
-import { EmailMark } from '../core/serializer/email-mark';
 
-export const Italic: EmailMark<ItalicOptions, any> = EmailMark.from(
-  ItalicBase,
-  ({ children, style }) => <em style={style}>{children}</em>,
-);
+export { type ItalicOptions };
+
+export const Italic = ItalicBase.extend({
+  renderToReactEmail({ children, style }) {
+    return <em style={style}>{children}</em>;
+  },
+});

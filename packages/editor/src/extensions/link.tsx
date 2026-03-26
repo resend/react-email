@@ -5,13 +5,11 @@ import TiptapLink from '@tiptap/extension-link';
 export type LinkOptions = TipTapLinkOptions;
 
 import { editorEventBus } from '../core';
-import { EmailMark } from '../core/serializer/email-mark';
 import { inlineCssToJs } from '../utils/styles';
 import { processStylesForUnlink } from './preserved-style';
 
-export const Link: EmailMark<TipTapLinkOptions, any> = EmailMark.from(
-  TiptapLink,
-  ({ children, mark, style }) => {
+export const Link = TiptapLink.extend({
+  renderToReactEmail({ children, mark, style }) {
     const linkMarkStyle = mark.attrs?.style
       ? inlineCssToJs(mark.attrs.style)
       : {};
@@ -33,7 +31,7 @@ export const Link: EmailMark<TipTapLinkOptions, any> = EmailMark.from(
       </ReactEmailLink>
     );
   },
-).extend({
+
   parseHTML() {
     return [
       {

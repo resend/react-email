@@ -1,4 +1,4 @@
-import { composeReactEmail } from '@react-email/editor/core';
+import { ReactEmail } from '@react-email/editor/core';
 import { StarterKit } from '@react-email/editor/extensions';
 import { EmailTheming } from '@react-email/editor/plugins';
 import { BubbleMenu } from '@react-email/editor/ui';
@@ -6,7 +6,7 @@ import { EditorProvider, useCurrentEditor } from '@tiptap/react';
 import { useState } from 'react';
 import { ExampleShell } from '../example-shell';
 
-const extensions = [StarterKit, EmailTheming];
+const extensions = [StarterKit, EmailTheming, ReactEmail];
 
 const content = {
   type: 'doc',
@@ -44,7 +44,7 @@ function ExportPanel() {
   const handleExport = async () => {
     if (!editor) return;
     setExporting(true);
-    const result = await composeReactEmail({ editor });
+    const result = await editor.getReactEmail();
     setHtml(result.html);
     setExporting(false);
   };
@@ -74,7 +74,7 @@ export function EmailExport() {
   return (
     <ExampleShell
       title="Email Export"
-      description="Edit content and export it as email-ready HTML using composeReactEmail()."
+      description="Edit content and export it as email-ready HTML using editor.getReactEmail()."
     >
       <EditorProvider extensions={extensions} content={content}>
         <BubbleMenu.Default />

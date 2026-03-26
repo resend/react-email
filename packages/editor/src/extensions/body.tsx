@@ -1,5 +1,4 @@
-import { mergeAttributes } from '@tiptap/core';
-import { EmailNode } from '../core/serializer/email-node';
+import { mergeAttributes, Node } from '@tiptap/core';
 import {
   COMMON_HTML_ATTRIBUTES,
   createStandardAttributes,
@@ -11,7 +10,7 @@ export interface BodyOptions {
   HTMLAttributes: Record<string, unknown>;
 }
 
-export const Body = EmailNode.create<BodyOptions>({
+export const Body = Node.create<BodyOptions>({
   name: 'body',
 
   group: 'block',

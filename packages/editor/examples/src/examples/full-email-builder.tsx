@@ -1,4 +1,4 @@
-import { composeReactEmail } from '@react-email/editor/core';
+import { ReactEmail } from '@react-email/editor/core';
 import { StarterKit } from '@react-email/editor/extensions';
 import { EmailTheming } from '@react-email/editor/plugins';
 import {
@@ -30,7 +30,7 @@ function ControlPanel() {
   const handleExport = async () => {
     if (!editor) return;
     setExporting(true);
-    const result = await composeReactEmail({ editor });
+    const result = await editor.getReactEmail();
     setHtml(result.html);
     setExporting(false);
   };
@@ -58,7 +58,7 @@ function ControlPanel() {
 
 export function FullEmailBuilder() {
   const [theme, setTheme] = useState<EditorTheme>('basic');
-  const extensions = [StarterKit, EmailTheming.configure({ theme })];
+  const extensions = [StarterKit, EmailTheming.configure({ theme }), ReactEmail];
 
   return (
     <ExampleShell
