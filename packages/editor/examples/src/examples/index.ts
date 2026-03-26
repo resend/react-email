@@ -3,6 +3,7 @@ import { BubbleMenuExample } from './bubble-menu';
 import { ColumnLayouts } from './column-layouts';
 import { CustomBubbleMenu } from './custom-bubble-menu';
 import { CustomExtensions } from './custom-extensions';
+import { DocumentInspector } from './document-inspector';
 import { EmailExport } from './email-export';
 import { EmailThemingExample } from './email-theming';
 import { FullEmailBuilder } from './full-email-builder';
@@ -94,6 +95,11 @@ export const sections: ExampleSection[] = [
         id: 'full-email-builder',
         label: 'Full Email Builder',
         component: FullEmailBuilder,
+      },
+      {
+        id: 'document-inspector',
+        label: 'Document Inspector',
+        component: DocumentInspector,
       },
     ],
   },
