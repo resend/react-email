@@ -1,6 +1,7 @@
 import { StarterKit } from '@react-email/editor/extensions';
 import { Inspector } from '@react-email/editor/ui';
 import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
+import { useId } from 'react';
 
 const extensions = [StarterKit];
 
@@ -170,14 +171,15 @@ function ColorRow({
   onChange: (v: string) => void;
 }) {
   const strValue = String(value ?? '#000000');
+  const id = useId();
   return (
     <div className="flex items-center justify-between gap-2">
-      <label htmlFor={label} className="text-xs text-(--re-text-muted) min-w-20">
+      <label htmlFor={id} className="text-xs text-(--re-text-muted) min-w-20">
         {label}
       </label>
       <span className="flex items-center gap-1">
         <input
-          id={label}
+          id={id}
           type="color"
           value={normalizeHex(strValue)}
           onChange={(e) => onChange(e.target.value)}
@@ -205,12 +207,13 @@ function NumberRow({
   unit?: string;
   onChange: (v: number | '') => void;
 }) {
+  const id = useId();
   return (
     <div className="flex items-center justify-between gap-2">
-      <label htmlFor={label} className="text-xs text-(--re-text-muted) min-w-20">{label}</label>
+      <label htmlFor={id} className="text-xs text-(--re-text-muted) min-w-20">{label}</label>
       <span className="flex items-center gap-1">
         <input
-          id={label}
+          id={id}
           type="number"
           value={value ?? ''}
           onChange={(e) => {
