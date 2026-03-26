@@ -1,3 +1,4 @@
+import type * as React from 'react';
 import { LinkBubbleMenuEditLink } from './edit-link';
 import { LinkBubbleMenuForm } from './form';
 import { LinkBubbleMenuOpenLink } from './open-link';
@@ -7,12 +8,12 @@ import { LinkBubbleMenuUnlink } from './unlink';
 
 type ExcludableItem = 'edit-link' | 'open-link' | 'unlink';
 
-export interface LinkBubbleMenuDefaultProps {
+export interface LinkBubbleMenuDefaultProps
+  extends Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> {
   excludeItems?: ExcludableItem[];
   placement?: 'top' | 'bottom';
   offset?: number;
   onHide?: () => void;
-  className?: string;
   validateUrl?: (value: string) => string | null;
   onLinkApply?: (href: string) => void;
   onLinkRemove?: () => void;
@@ -27,6 +28,7 @@ export function LinkBubbleMenuDefault({
   validateUrl,
   onLinkApply,
   onLinkRemove,
+  ...rest
 }: LinkBubbleMenuDefaultProps) {
   const has = (item: ExcludableItem) => !excludeItems.includes(item);
 
@@ -38,6 +40,7 @@ export function LinkBubbleMenuDefault({
       offset={offset}
       onHide={onHide}
       className={className}
+      {...rest}
     >
       {hasToolbarItems && (
         <LinkBubbleMenuToolbar>

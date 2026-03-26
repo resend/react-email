@@ -1,15 +1,16 @@
+import type * as React from 'react';
 import { ImageBubbleMenuEditLink } from './edit-link';
 import { ImageBubbleMenuRoot } from './root';
 import { ImageBubbleMenuToolbar } from './toolbar';
 
 type ExcludableItem = 'edit-link';
 
-export interface ImageBubbleMenuDefaultProps {
+export interface ImageBubbleMenuDefaultProps
+  extends Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> {
   excludeItems?: ExcludableItem[];
   placement?: 'top' | 'bottom';
   offset?: number;
   onHide?: () => void;
-  className?: string;
 }
 
 export function ImageBubbleMenuDefault({
@@ -18,6 +19,7 @@ export function ImageBubbleMenuDefault({
   offset,
   onHide,
   className,
+  ...rest
 }: ImageBubbleMenuDefaultProps) {
   const hasEditLink = !excludeItems.includes('edit-link');
 
@@ -27,6 +29,7 @@ export function ImageBubbleMenuDefault({
       offset={offset}
       onHide={onHide}
       className={className}
+      {...rest}
     >
       {hasEditLink && (
         <ImageBubbleMenuToolbar>

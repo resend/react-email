@@ -3,15 +3,14 @@ import { BubbleMenu } from '@tiptap/react/menus';
 import * as React from 'react';
 import { ImageBubbleMenuContext } from './context';
 
-export interface ImageBubbleMenuRootProps {
+export interface ImageBubbleMenuRootProps
+  extends Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> {
   /** Called when the bubble menu hides */
   onHide?: () => void;
   /** Placement relative to cursor (default: 'top') */
   placement?: 'top' | 'bottom';
   /** Offset from cursor in px (default: 8) */
   offset?: number;
-  /** className on the outer wrapper */
-  className?: string;
   children: React.ReactNode;
 }
 
@@ -21,6 +20,7 @@ export function ImageBubbleMenuRoot({
   offset = 8,
   className,
   children,
+  ...rest
 }: ImageBubbleMenuRootProps) {
   const { editor } = useCurrentEditor();
   const [isEditing, setIsEditing] = React.useState(false);
@@ -46,6 +46,7 @@ export function ImageBubbleMenuRoot({
         },
       }}
       className={className}
+      {...rest}
     >
       <ImageBubbleMenuContext.Provider
         value={{ editor, isEditing, setIsEditing }}

@@ -3,15 +3,14 @@ import { BubbleMenu } from '@tiptap/react/menus';
 import * as React from 'react';
 import { ButtonBubbleMenuContext } from './context';
 
-export interface ButtonBubbleMenuRootProps {
+export interface ButtonBubbleMenuRootProps
+  extends Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> {
   /** Called when the bubble menu hides */
   onHide?: () => void;
   /** Placement relative to cursor (default: 'top') */
   placement?: 'top' | 'bottom';
   /** Offset from cursor in px (default: 8) */
   offset?: number;
-  /** className on the outer wrapper */
-  className?: string;
   children: React.ReactNode;
 }
 
@@ -21,6 +20,7 @@ export function ButtonBubbleMenuRoot({
   offset = 8,
   className,
   children,
+  ...rest
 }: ButtonBubbleMenuRootProps) {
   const { editor } = useCurrentEditor();
   const [isEditing, setIsEditing] = React.useState(false);
@@ -52,6 +52,7 @@ export function ButtonBubbleMenuRoot({
         },
       }}
       className={className}
+      {...rest}
     >
       <ButtonBubbleMenuContext.Provider
         value={{
