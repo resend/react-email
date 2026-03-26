@@ -14,7 +14,10 @@ import type {
 const PANEL_SECTION_TITLES: Record<PanelSectionId, string> = {
   body: 'Background',
   container: 'Body',
-  typography: 'Typography',
+  typography: 'Text',
+  h1: 'Title',
+  h2: 'Subtitle',
+  h3: 'Heading',
   link: 'Link',
   image: 'Image',
   button: 'Button',
@@ -86,7 +89,7 @@ const THEME_BASIC: PanelGroup[] = [
   },
   {
     id: 'typography',
-    title: 'Typography',
+    title: 'Text',
     classReference: 'body',
     inputs: [
       {
@@ -106,6 +109,27 @@ const THEME_BASIC: PanelGroup[] = [
         classReference: 'container',
       },
     ],
+  },
+  {
+    id: 'h1',
+    title: 'Title',
+    category: 'Text',
+    classReference: 'h1',
+    inputs: [],
+  },
+  {
+    id: 'h2',
+    title: 'Subtitle',
+    category: 'Text',
+    classReference: 'h2',
+    inputs: [],
+  },
+  {
+    id: 'h3',
+    title: 'Heading',
+    category: 'Text',
+    classReference: 'h3',
+    inputs: [],
   },
   {
     id: 'link',
@@ -400,10 +424,43 @@ export const RESET_THEMES: Record<EditorTheme, ResetTheme> = {
   minimal: RESET_MINIMAL,
 };
 
+export function resolveResetValue(
+  value: string | number | undefined,
+  targetUnit: 'px' | '%',
+  bodyFontSizePx: number,
+): number | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+  const str = String(value);
+  const num = parseFloat(str);
+  if (Number.isNaN(num)) {
+    return undefined;
+  }
+  if (str.endsWith('em')) {
+    return targetUnit === 'px' ? Math.floor(num * bodyFontSizePx) : num * 100;
+  }
+  return num;
+}
+
 export const EDITOR_THEMES: Record<EditorTheme, PanelGroup[]> = {
   minimal: THEME_MINIMAL,
   basic: THEME_BASIC,
 };
+
+export function getThemeBodyFontSizePx(theme: EditorTheme): number {
+  for (const group of EDITOR_THEMES[theme]) {
+    if (group.classReference !== 'body') {
+      continue;
+    }
+    for (const input of group.inputs) {
+      if (input.prop === 'fontSize' && typeof input.value === 'number') {
+        return input.value;
+      }
+    }
+  }
+  return 14;
+}
 
 /**
  * Use to make the preview nicer once the theme might miss some
@@ -469,6 +526,14 @@ export const SUPPORTED_CSS_PROPERTIES: SupportedCssProperties = {
     },
     excludeNodes: ['image', 'youtube'],
     defaultValue: 400,
+    category: 'typography',
+  },
+  letterSpacing: {
+    label: 'Letter spacing',
+    type: 'number',
+    unit: 'px',
+    excludeNodes: ['image', 'youtube'],
+    defaultValue: 0,
     category: 'typography',
   },
   lineHeight: {
