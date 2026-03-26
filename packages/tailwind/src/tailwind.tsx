@@ -119,6 +119,7 @@ export function Tailwind({ children, config }: TailwindProps) {
     ),
   };
   sanitizeNonInlinableRules(nonInlineStyles);
+  downlevelForEmailClients(nonInlineStyles);
 
   const hasNonInlineStylesToApply = nonInlinableRules.size > 0;
   let appliedNonInlineStyles = false as boolean;
@@ -137,9 +138,7 @@ export function Tailwind({ children, config }: TailwindProps) {
 
         const styleElement = (
           <style
-            dangerouslySetInnerHTML={{
-              __html: downlevelForEmailClients(generate(nonInlineStyles)),
-            }}
+            dangerouslySetInnerHTML={{ __html: generate(nonInlineStyles) }}
           />
         );
 
