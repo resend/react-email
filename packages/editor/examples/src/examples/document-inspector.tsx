@@ -1,9 +1,10 @@
 import { StarterKit } from '@react-email/editor/extensions';
+import { EmailTheming } from '@react-email/editor/plugins';
 import { Inspector } from '@react-email/editor/ui';
 import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
 import { useId } from 'react';
 
-const extensions = [StarterKit];
+const extensions = [StarterKit, EmailTheming];
 
 const content = {
   type: 'doc',
@@ -52,7 +53,8 @@ export function DocumentInspector() {
                           )}
                           <button
                             type="button"
-                            className="bg-transparent border-0 cursor-pointer text-(--re-text) hover:underline p-0 text-xs"
+                            data-clickable={i !== segments.length - 1}
+                            className="bg-transparent border-0 data-clickable:cursor-pointer text-(--re-text) p-0 text-xs data-clickable:hover:underline"
                             onClick={() => segment.focus()}
                           >
                             {segment.node?.nodeType ?? 'Layout'}
@@ -170,7 +172,8 @@ function ColorRow({
   value: string | number | undefined;
   onChange: (v: string) => void;
 }) {
-  const strValue = String(value ?? '#000000');
+  console.log(label, value);
+  const strValue = String(value);
   const id = useId();
   return (
     <div className="flex items-center justify-between gap-2">
@@ -210,12 +213,14 @@ function NumberRow({
   const id = useId();
   return (
     <div className="flex items-center justify-between gap-2">
-      <label htmlFor={id} className="text-xs text-(--re-text-muted) min-w-20">{label}</label>
+      <label htmlFor={id} className="text-xs text-(--re-text-muted) min-w-20">
+        {label}
+      </label>
       <span className="flex items-center gap-1">
         <input
           id={id}
           type="number"
-          value={value ?? ''}
+          value={value}
           onChange={(e) => {
             const raw = e.target.value;
             onChange(raw === '' ? '' : Number.parseFloat(raw));
