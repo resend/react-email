@@ -1,5 +1,4 @@
 import { StarterKit } from '@react-email/editor/extensions';
-import type { PanelGroup } from '@react-email/editor/plugins';
 import { Inspector } from '@react-email/editor/ui';
 import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
 
@@ -19,24 +18,6 @@ const content = {
     },
   ],
 };
-
-/**
- * Finds the value for a specific property within a specific section of the
- * incoming styles. Returns the raw value or `undefined` if not found.
- */
-function findValue(
-  styles: PanelGroup[],
-  sectionId: string,
-  classReference: string,
-  prop: string,
-): string | number | undefined {
-  const group = styles.find((g) => g.id === sectionId);
-  if (!group) return undefined;
-  const input = group.inputs.find(
-    (i) => i.classReference === classReference && i.prop === prop,
-  );
-  return input?.value;
-}
 
 export function DocumentInspector() {
   const editor = useEditor({
@@ -71,7 +52,7 @@ export function DocumentInspector() {
                           <button
                             type="button"
                             className="bg-transparent border-0 cursor-pointer text-(--re-text) hover:underline p-0 text-xs"
-                            {...segment.props}
+                            onClick={() => segment.focus()}
                           >
                             {segment.node?.nodeType ?? 'Layout'}
                           </button>
@@ -83,25 +64,20 @@ export function DocumentInspector() {
               </nav>
 
               <Inspector.Document>
-                {(styles, setGlobalStyle) => (
+                {({ findStyleValue, setGlobalStyle }) => (
                   <div className="flex flex-col gap-4">
                     {/* Body */}
                     <Section title="Body">
                       <ColorRow
                         label="Background"
-                        value={findValue(
-                          styles,
-                          'body',
-                          'body',
-                          'backgroundColor',
-                        )}
+                        value={findStyleValue('body', 'backgroundColor')}
                         onChange={(v) =>
                           setGlobalStyle('body', 'backgroundColor', v)
                         }
                       />
                       <ColorRow
                         label="Text color"
-                        value={findValue(styles, 'body', 'body', 'color')}
+                        value={findStyleValue('body', 'color')}
                         onChange={(v) => setGlobalStyle('body', 'color', v)}
                       />
                     </Section>
@@ -110,12 +86,7 @@ export function DocumentInspector() {
                     <Section title="Container">
                       <ColorRow
                         label="Background"
-                        value={findValue(
-                          styles,
-                          'container',
-                          'container',
-                          'backgroundColor',
-                        )}
+                        value={findStyleValue('container', 'backgroundColor')}
                         onChange={(v) =>
                           setGlobalStyle('container', 'backgroundColor', v)
                         }
@@ -123,12 +94,7 @@ export function DocumentInspector() {
                       <NumberRow
                         label="Border radius"
                         unit="px"
-                        value={findValue(
-                          styles,
-                          'container',
-                          'container',
-                          'borderRadius',
-                        )}
+                        value={findStyleValue('container', 'borderRadius')}
                         onChange={(v) =>
                           setGlobalStyle('container', 'borderRadius', v)
                         }
@@ -139,12 +105,7 @@ export function DocumentInspector() {
                     <Section title="Typography">
                       <ColorRow
                         label="Paragraph color"
-                        value={findValue(
-                          styles,
-                          'typography',
-                          'paragraph',
-                          'color',
-                        )}
+                        value={findStyleValue('paragraph', 'color')}
                         onChange={(v) =>
                           setGlobalStyle('paragraph', 'color', v)
                         }
@@ -152,12 +113,7 @@ export function DocumentInspector() {
                       <NumberRow
                         label="Font size"
                         unit="px"
-                        value={findValue(
-                          styles,
-                          'typography',
-                          'paragraph',
-                          'fontSize',
-                        )}
+                        value={findStyleValue('paragraph', 'fontSize')}
                         onChange={(v) =>
                           setGlobalStyle('paragraph', 'fontSize', v)
                         }
@@ -168,7 +124,7 @@ export function DocumentInspector() {
                     <Section title="Links">
                       <ColorRow
                         label="Link color"
-                        value={findValue(styles, 'link', 'link', 'color')}
+                        value={findStyleValue('link', 'color')}
                         onChange={(v) => setGlobalStyle('link', 'color', v)}
                       />
                     </Section>
