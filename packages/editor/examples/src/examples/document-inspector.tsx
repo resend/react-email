@@ -1,11 +1,7 @@
 import { StarterKit } from '@react-email/editor/extensions';
 import type { PanelGroup } from '@react-email/editor/plugins';
 import { Inspector } from '@react-email/editor/ui';
-import {
-  EditorContent,
-  EditorContext,
-  useEditor,
-} from '@tiptap/react';
+import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
 
 const extensions = [StarterKit];
 
@@ -93,8 +89,15 @@ export function DocumentInspector() {
                     <Section title="Body">
                       <ColorRow
                         label="Background"
-                        value={findValue(styles, 'body', 'body', 'backgroundColor')}
-                        onChange={(v) => setGlobalStyle('body', 'backgroundColor', v)}
+                        value={findValue(
+                          styles,
+                          'body',
+                          'body',
+                          'backgroundColor',
+                        )}
+                        onChange={(v) =>
+                          setGlobalStyle('body', 'backgroundColor', v)
+                        }
                       />
                       <ColorRow
                         label="Text color"
@@ -107,14 +110,28 @@ export function DocumentInspector() {
                     <Section title="Container">
                       <ColorRow
                         label="Background"
-                        value={findValue(styles, 'container', 'container', 'backgroundColor')}
-                        onChange={(v) => setGlobalStyle('container', 'backgroundColor', v)}
+                        value={findValue(
+                          styles,
+                          'container',
+                          'container',
+                          'backgroundColor',
+                        )}
+                        onChange={(v) =>
+                          setGlobalStyle('container', 'backgroundColor', v)
+                        }
                       />
                       <NumberRow
                         label="Border radius"
                         unit="px"
-                        value={findValue(styles, 'container', 'container', 'borderRadius')}
-                        onChange={(v) => setGlobalStyle('container', 'borderRadius', v)}
+                        value={findValue(
+                          styles,
+                          'container',
+                          'container',
+                          'borderRadius',
+                        )}
+                        onChange={(v) =>
+                          setGlobalStyle('container', 'borderRadius', v)
+                        }
                       />
                     </Section>
 
@@ -122,14 +139,28 @@ export function DocumentInspector() {
                     <Section title="Typography">
                       <ColorRow
                         label="Paragraph color"
-                        value={findValue(styles, 'typography', 'paragraph', 'color')}
-                        onChange={(v) => setGlobalStyle('paragraph', 'color', v)}
+                        value={findValue(
+                          styles,
+                          'typography',
+                          'paragraph',
+                          'color',
+                        )}
+                        onChange={(v) =>
+                          setGlobalStyle('paragraph', 'color', v)
+                        }
                       />
                       <NumberRow
                         label="Font size"
                         unit="px"
-                        value={findValue(styles, 'typography', 'paragraph', 'fontSize')}
-                        onChange={(v) => setGlobalStyle('paragraph', 'fontSize', v)}
+                        value={findValue(
+                          styles,
+                          'typography',
+                          'paragraph',
+                          'fontSize',
+                        )}
+                        onChange={(v) =>
+                          setGlobalStyle('paragraph', 'fontSize', v)
+                        }
                       />
                     </Section>
 
@@ -228,9 +259,7 @@ function NumberRow({
           }}
           className="w-16 text-xs bg-transparent border border-(--re-border) rounded px-1.5 py-1 text-(--re-text)"
         />
-        {unit && (
-          <span className="text-xs text-(--re-text-muted)">{unit}</span>
-        )}
+        {unit && <span className="text-xs text-(--re-text-muted)">{unit}</span>}
       </span>
     </div>
   );

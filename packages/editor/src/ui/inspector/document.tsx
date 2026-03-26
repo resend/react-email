@@ -92,8 +92,7 @@ function applyStyleChange(
   // First pass: try to update an existing input in the stored styles
   const updatedStyles = styles.map((styleGroup) => {
     const matchingInput = styleGroup.inputs.find(
-      (input) =>
-        input.classReference === classReference && input.prop === prop,
+      (input) => input.classReference === classReference && input.prop === prop,
     );
 
     if (matchingInput) {
@@ -101,10 +100,7 @@ function applyStyleChange(
       return {
         ...styleGroup,
         inputs: styleGroup.inputs.map((input) => {
-          if (
-            input.classReference === classReference &&
-            input.prop === prop
-          ) {
+          if (input.classReference === classReference && input.prop === prop) {
             return { ...input, value: newValue };
           }
           return input;
@@ -122,8 +118,7 @@ function applyStyleChange(
   // Second pass: if the property wasn't in the stored data yet, add it to
   // the matching group (upsert). This handles "filled-in" default properties
   // that the user is setting for the first time.
-  const propDef =
-    SUPPORTED_CSS_PROPERTIES[prop as KnownCssProperties] ?? null;
+  const propDef = SUPPORTED_CSS_PROPERTIES[prop as KnownCssProperties] ?? null;
 
   return updatedStyles.map((styleGroup) => {
     if (styleGroup.classReference !== classReference) {
@@ -158,9 +153,7 @@ function applyStyleChange(
             type: propDef.type,
             value: newValue,
             prop: prop as KnownCssProperties,
-            classReference: classReference as
-              | KnownThemeComponents
-              | undefined,
+            classReference: classReference as KnownThemeComponents | undefined,
             unit: propDef.unit,
             options: propDef.options,
           },
@@ -203,7 +196,7 @@ export function InspectorDocument({
   const theming = useEmailTheming(editor);
   const { inspectorTarget } = useInspector();
 
-  if (!editor || !theming || inspectorTarget !== 'doc') {
+  if (!editor || !theming) {
     return null;
   }
 
@@ -252,5 +245,7 @@ export function InspectorDocument({
     editor!.commands.setGlobalContent('styles', styles);
   }
 
-  return <>{children(groups, setGlobalStyle, batchSetGlobalStyle)}</>;
+  if (inspectorTarget === 'doc') {
+    return <>{children(groups, setGlobalStyle, batchSetGlobalStyle)}</>;
+  }
 }

@@ -22,7 +22,9 @@ const examples = [
 ] as const;
 
 export function App() {
-  const [active, setActive] = useState<(typeof examples)[number]['id']>(examples[0].id);
+  const [active, setActive] = useState<(typeof examples)[number]['id']>(
+    examples[0].id,
+  );
   const ActiveExample = examples.find((e) => e.id === active)!.component;
 
   return (
