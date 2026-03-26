@@ -1,5 +1,8 @@
 import { useCurrentEditor } from '@tiptap/react';
-import { useEmailTheming } from '../../plugins/email-theming/extension';
+import {
+  setGlobalStyles,
+  useEmailTheming,
+} from '../../plugins/email-theming/extension';
 import {
   EDITOR_THEMES,
   SUPPORTED_CSS_PROPERTIES,
@@ -217,7 +220,7 @@ export function InspectorDocument({ children }: InspectorDocumentProps) {
       prop: property,
       newValue: value as string | number,
     });
-    editor!.commands.setGlobalContent('styles', newStyles);
+    setGlobalStyles(editor!, newStyles);
   }
 
   function batchSetGlobalStyle(
@@ -235,7 +238,7 @@ export function InspectorDocument({ children }: InspectorDocumentProps) {
         newValue: change.value as string | number,
       });
     }
-    editor!.commands.setGlobalContent('styles', styles);
+    setGlobalStyles(editor!, styles);
   }
 
   function findStyleValue(
