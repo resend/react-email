@@ -12,6 +12,7 @@ import {
 } from '@react-email/editor/ui';
 import { EditorProvider } from '@tiptap/react';
 import { Star } from 'lucide-react';
+import { ExampleShell } from '../example-shell';
 
 const CUSTOM_COMMAND: SlashCommandItem = {
   title: 'Greeting',
@@ -57,19 +58,13 @@ const content = {
 
 export function SlashCommands() {
   return (
-    <div>
-      <p className="text-sm text-(--re-text-muted) mb-4">
-        Type <code className="bg-(--re-hover) px-1.5 py-0.5 rounded-sm">/</code>{' '}
-        to open the command menu. This example extends the default commands with
-        a custom "Greeting" command.
-      </p>
-      <div className="border border-(--re-border) rounded-xl p-4 min-h-75">
-        <EditorProvider extensions={extensions} content={content}>
-          <SlashCommand.Root
-            items={[...defaultSlashCommands, CUSTOM_COMMAND]}
-          />
-        </EditorProvider>
-      </div>
-    </div>
+    <ExampleShell
+      title="Slash Commands"
+      description='Type / to open the command menu. Includes default commands plus a custom "Greeting" command.'
+    >
+      <EditorProvider extensions={extensions} content={content}>
+        <SlashCommand.Root items={[...defaultSlashCommands, CUSTOM_COMMAND]} />
+      </EditorProvider>
+    </ExampleShell>
   );
 }

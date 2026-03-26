@@ -38,6 +38,7 @@ export function LinkBubbleMenuRoot({
   return (
     <BubbleMenu
       editor={editor}
+      pluginKey="linkBubbleMenu"
       data-re-link-bm=""
       shouldShow={({ editor: e }) =>
         e.isActive('link') && e.view.state.selection.content().size === 0

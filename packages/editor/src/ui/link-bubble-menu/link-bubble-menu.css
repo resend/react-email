@@ -20,12 +20,12 @@
   cursor: pointer;
   border: none;
   background: none;
-  padding: 0.5rem;
+  padding: 0.375rem;
 }
 
 [data-re-link-bm-item] svg {
-  width: 1rem;
-  height: 1rem;
+  width: 0.875rem;
+  height: 0.875rem;
 }
 
 a[data-re-link-bm-item] {
@@ -37,13 +37,15 @@ a[data-re-link-bm-item] {
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  min-width: 16rem;
+  padding: 0.25rem;
 }
 
 [data-re-link-bm-input] {
   flex: 1;
   border: none;
   outline: none;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   padding: 0.25rem;
   background: transparent;
 }
@@ -61,6 +63,6 @@ a[data-re-link-bm-item] {
 
 [data-re-link-bm-apply] svg,
 [data-re-link-bm-unlink] svg {
-  width: 1rem;
-  height: 1rem;
+  width: 0.875rem;
+  height: 0.875rem;
 }

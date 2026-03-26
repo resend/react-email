@@ -1,7 +1,10 @@
 import { ensureBorderStyleFallback } from '../../utils/styles';
 import type { CssJs, PanelGroup } from './types';
 
-export function transformToCssJs(styleArray: PanelGroup[]): CssJs {
+export function transformToCssJs(
+  styleArray: PanelGroup[],
+  baseFontSize: number,
+): CssJs {
   const cssJS = {} as CssJs;
 
   if (!Array.isArray(styleArray)) {
@@ -16,7 +19,7 @@ export function transformToCssJs(styleArray: PanelGroup[]): CssJs {
       if (input.unit && typeof value === 'number') {
         // if font size prop convert px unit to em to adjust size in mobile
         if (input.prop === 'fontSize') {
-          value = `${value / 13}em`;
+          value = `${value / baseFontSize}em`;
         } else {
           value = `${value}${input.unit}`;
         }

@@ -1,0 +1,116 @@
+---
+title: "Column Layouts"
+sidebarTitle: "Column Layouts"
+description: "Insert responsive multi-column layouts."
+icon: "columns-3"
+---
+
+## Quick start
+
+Column extensions are included in `StarterKit` by default — no extra imports needed:
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+import { EditorProvider } from '@tiptap/react';
+
+const extensions = [StarterKit];
+
+export function MyEditor() {
+  return <EditorProvider extensions={extensions} content={content} />;
+}
+```
+
+## Inserting columns programmatically
+
+Use the `insertColumns` command to add a column layout:
+
+```tsx
+// Insert a 2-column layout
+editor.chain().focus().insertColumns(2).run();
+
+// Insert a 3-column layout
+editor.chain().focus().insertColumns(3).run();
+
+// Insert a 4-column layout
+editor.chain().focus().insertColumns(4).run();
+```
+
+## Building a toolbar
+
+Here's a complete example with a toolbar for inserting column layouts, using the `slotBefore`
+prop to position it above the editor:
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+import { EditorProvider, useCurrentEditor } from '@tiptap/react';
+import { Columns2, Columns3, Columns4 } from 'lucide-react';
+
+const extensions = [StarterKit];
+
+function ToolbarButton({
+  label,
+  icon,
+  onClick,
+}: {
+  label: string;
+  icon?: React.ReactNode;
+  onClick: () => void;
+}) {
+  return (
+    <button type="button" onClick={onClick}>
+      {icon}
+      {label}
+    </button>
+  );
+}
+
+function Toolbar() {
+  const { editor } = useCurrentEditor();
+  if (!editor) return null;
+
+  return (
+    <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
+      <ToolbarButton
+        label="2 columns"
+        icon={<Columns2 size={16} />}
+        onClick={() => editor.chain().focus().insertColumns(2).run()}
+      />
+      <ToolbarButton
+        label="3 columns"
+        icon={<Columns3 size={16} />}
+        onClick={() => editor.chain().focus().insertColumns(3).run()}
+      />
+      <ToolbarButton
+        label="4 columns"
+        icon={<Columns4 size={16} />}
+        onClick={() => editor.chain().focus().insertColumns(4).run()}
+      />
+    </div>
+  );
+}
+
+export function MyEditor() {
+  return (
+    <EditorProvider
+      extensions={extensions}
+      content={content}
+      slotBefore={<Toolbar />}
+    />
+  );
+}
+```
+
+<Tip>
+  Use `slotBefore` to render custom UI above the editor, and `useCurrentEditor()` to access
+  the editor instance from child components.
+</Tip>
+
+## Via slash commands
+
+The default slash commands already include column layouts. Type `/` and search for "columns":
+
+- **Two Columns** — `TWO_COLUMNS`
+- **Three Columns** — `THREE_COLUMNS`
+- **Four Columns** — `FOUR_COLUMNS`
+
+See [Slash Commands](/editor/features/slash-commands) for setup details.

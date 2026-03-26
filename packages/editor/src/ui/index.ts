@@ -1,5 +1,6 @@
 export * from './bubble-menu';
 export * from './button-bubble-menu';
+export * from './icons';
 export * from './image-bubble-menu';
 export * from './inspector';
 export * from './link-bubble-menu';
