@@ -11,5 +11,5 @@ export default defineConfig({
   format: ['esm', 'cjs'],
   dts: true,
   external: ['react', 'react-dom'],
-  onSuccess: 'tsx scripts/copy-css.ts',
+  onSuccess: 'pnpm build:css',
 });
