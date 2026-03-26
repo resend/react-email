@@ -338,10 +338,15 @@ export const EmailTheming = Extension.create<{
             if (styles !== prevStyles || theme !== prevTheme) {
               prevStyles = styles as PanelGroup[] | null;
               prevTheme = theme;
-              injectThemeCss(getMergedCssJs(theme, resolvedStyles), {
+              const mergedCssJs = getMergedCssJs(theme, resolvedStyles);
+              injectThemeCss(mergedCssJs, {
                 scopeSelector,
                 styleId: themeStyleId,
               });
+
+              const bodyBg = mergedCssJs.body?.backgroundColor;
+              view.dom.style.backgroundColor =
+                typeof bodyBg === 'string' ? bodyBg : '';
             }
 
             if (css !== prevCss) {
@@ -360,6 +365,7 @@ export const EmailTheming = Extension.create<{
             destroy() {
               document.getElementById(themeStyleId)?.remove();
               document.getElementById(globalStyleId)?.remove();
+              view.dom.style.backgroundColor = '';
               view.dom.removeAttribute(scopeAttribute);
             },
           };

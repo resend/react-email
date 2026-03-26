@@ -36,6 +36,82 @@ const BUTTON_DOC = {
 
 const GLOBAL_CSS = '.foo { color: red; }';
 
+function createDocWithBodyBg(backgroundColor: string) {
+  return {
+    type: 'doc',
+    content: [
+      {
+        type: 'globalContent',
+        attrs: {
+          data: {
+            css: '',
+            styles: [
+              {
+                id: 'body',
+                title: 'Background',
+                classReference: 'body',
+                inputs: [
+                  {
+                    label: 'Background',
+                    type: 'color',
+                    value: backgroundColor,
+                    prop: 'backgroundColor',
+                    classReference: 'body',
+                  },
+                ],
+              },
+              {
+                id: 'container',
+                title: 'Content',
+                classReference: 'container',
+                inputs: [],
+              },
+              {
+                id: 'typography',
+                title: 'Text',
+                classReference: 'body',
+                inputs: [],
+              },
+              {
+                id: 'link',
+                title: 'Link',
+                classReference: 'link',
+                inputs: [],
+              },
+              {
+                id: 'image',
+                title: 'Image',
+                classReference: 'image',
+                inputs: [],
+              },
+              {
+                id: 'button',
+                title: 'Button',
+                classReference: 'button',
+                inputs: [],
+              },
+              {
+                id: 'code-block',
+                title: 'Code Block',
+                classReference: 'codeBlock',
+                inputs: [],
+              },
+              {
+                id: 'inline-code',
+                title: 'Inline Code',
+                classReference: 'inlineCode',
+                inputs: [],
+              },
+            ],
+            theme: 'basic',
+          },
+        },
+      },
+      ...BUTTON_DOC.content,
+    ],
+  };
+}
+
 const LEGACY_MINIMAL_DOC = {
   type: 'doc',
   content: [
@@ -138,5 +214,65 @@ describe('EmailTheming', () => {
     const occurrences =
       globalStyleTag?.textContent?.split(GLOBAL_CSS).length ?? 0;
     expect(occurrences - 1).toBe(1);
+  });
+
+  it('applies body background color to the editor DOM element', () => {
+    editor = new Editor({
+      extensions: [StarterKit, EmailTheming.configure({ theme: 'basic' })],
+      content: createDocWithBodyBg('#F0F0F0'),
+    });
+
+    expect(editor.view.dom.style.backgroundColor).toBe('#F0F0F0');
+  });
+
+  it('does not set background color when no body backgroundColor is defined', () => {
+    editor = createEditor();
+
+    expect(editor.view.dom.style.backgroundColor).toBe('');
+  });
+
+  it('updates body background color reactively when theme styles change', () => {
+    editor = new Editor({
+      extensions: [StarterKit, EmailTheming.configure({ theme: 'basic' })],
+      content: createDocWithBodyBg('#F0F0F0'),
+    });
+
+    expect(editor.view.dom.style.backgroundColor).toBe('#F0F0F0');
+
+    editor.commands.setGlobalContent('styles', [
+      {
+        id: 'body',
+        title: 'Background',
+        classReference: 'body',
+        inputs: [
+          {
+            label: 'Background',
+            type: 'color',
+            value: '#FF0000',
+            prop: 'backgroundColor',
+            classReference: 'body',
+          },
+        ],
+      },
+    ]);
+
+    expect(editor.view.dom.style.backgroundColor).toBe('#FF0000');
+  });
+
+  it('clears body background color on destroy', () => {
+    editor = new Editor({
+      extensions: [StarterKit, EmailTheming.configure({ theme: 'basic' })],
+      content: createDocWithBodyBg('#F0F0F0'),
+    });
+
+    const dom = editor.view.dom;
+    expect(dom.style.backgroundColor).toBe('#F0F0F0');
+
+    editor.destroy();
+
+    expect(dom.style.backgroundColor).toBe('');
+
+    // Prevent afterEach from calling destroy again
+    editor = undefined as unknown as Editor;
   });
 });
