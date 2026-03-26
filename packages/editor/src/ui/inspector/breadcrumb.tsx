@@ -26,7 +26,6 @@ export function InspectorBreadcrumb({ children }: InspectorBreadcrumbProps) {
         // the node for the root layout
         node: null,
         props: {
-          key: 'root',
           onClick() {
             editor?.commands.setTextSelection(0);
           },
@@ -36,7 +35,6 @@ export function InspectorBreadcrumb({ children }: InspectorBreadcrumbProps) {
       ...pathFromRoot.map((focusedNode, i) => ({
         node: focusedNode,
         props: {
-          key: `${focusedNode.nodePos.pos}-${i}`,
           onClick() {
             editor?.commands.setNodeSelection(focusedNode.nodePos.pos);
             editor?.commands.focus();
