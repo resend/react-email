@@ -1,0 +1,23 @@
+packages/editor/src/email-editor/email-editor.tsx
+  86620a9e09ff8ba4 70,84,137-138
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.19",
+  "base_commit_sha": "bb8ac67d36b8f7628f24c461a3700e8ae0d4945b",
+  "prompts": {
+    "86620a9e09ff8ba4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4989da06-d7e6-4bac-aae8-2c21ed208f5d",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 4,
+      "total_deletions": 2,
+      "accepted_lines": 4,
+      "overriden_lines": 0
+    }
+  }
+}
