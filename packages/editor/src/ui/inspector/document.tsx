@@ -8,7 +8,6 @@ import type {
   KnownCssProperties,
   KnownThemeComponents,
   PanelGroup,
-  PanelSectionId,
 } from '../../plugins/email-theming/types';
 import { useInspector } from './provider';
 
@@ -179,19 +178,23 @@ export type BatchSetGlobalStyle = (
   }>,
 ) => void;
 
-export interface InspectorDocumentProps {
-  showSectionIds?: PanelSectionId[];
-  children: (
-    styles: PanelGroup[],
-    setGlobalStyle: SetGlobalStyle,
-    batchSetGlobalStyle: BatchSetGlobalStyle,
-  ) => React.ReactNode;
+export type FindStyleValue = (
+  classReference: KnownThemeComponents,
+  prop: KnownCssProperties,
+) => string | number;
+
+export interface InspectorDocumentContext {
+  styles: PanelGroup[];
+  setGlobalStyle: SetGlobalStyle;
+  batchSetGlobalStyle: BatchSetGlobalStyle;
+  findStyleValue: FindStyleValue;
 }
 
-export function InspectorDocument({
-  showSectionIds,
-  children,
-}: InspectorDocumentProps) {
+export interface InspectorDocumentProps {
+  children: (context: InspectorDocumentContext) => React.ReactNode;
+}
+
+export function InspectorDocument({ children }: InspectorDocumentProps) {
   const { editor } = useCurrentEditor();
   const theming = useEmailTheming(editor);
   const { inspectorTarget } = useInspector();
@@ -202,17 +205,7 @@ export function InspectorDocument({
 
   const themeDefaults = EDITOR_THEMES[theming.theme];
 
-  const groups = ensureAllProperties(theming.styles, themeDefaults).filter(
-    (group) => {
-      if (!showSectionIds) {
-        return true;
-      }
-
-      return group.id
-        ? showSectionIds.includes(group.id as PanelSectionId)
-        : false;
-    },
-  );
+  const groups = ensureAllProperties(theming.styles, themeDefaults);
 
   function setGlobalStyle(
     classReference: KnownThemeComponents,
@@ -245,7 +238,39 @@ export function InspectorDocument({
     editor!.commands.setGlobalContent('styles', styles);
   }
 
+  function findStyleValue(
+    classReference: KnownThemeComponents,
+    prop: KnownCssProperties,
+  ): string | number {
+    for (const group of groups) {
+      const input = group.inputs.find(
+        (i) => i.classReference === classReference && i.prop === prop,
+      );
+      if (input) return input.value;
+    }
+
+    // Fall back to the theme default
+    for (const group of themeDefaults) {
+      const input = group.inputs.find(
+        (i) => i.classReference === classReference && i.prop === prop,
+      );
+      if (input) return input.value;
+    }
+
+    const propDef = SUPPORTED_CSS_PROPERTIES[prop];
+    return propDef?.defaultValue ?? '';
+  }
+
   if (inspectorTarget === 'doc') {
-    return <>{children(groups, setGlobalStyle, batchSetGlobalStyle)}</>;
+    return (
+      <>
+        {children({
+          styles: groups,
+          setGlobalStyle,
+          batchSetGlobalStyle,
+          findStyleValue,
+        })}
+      </>
+    );
   }
 }
