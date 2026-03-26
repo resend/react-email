@@ -1,8 +1,7 @@
-import { mergeAttributes } from '@tiptap/core';
-import { EmailMark } from '../core/serializer/email-mark';
+import { Mark, mergeAttributes } from '@tiptap/core';
 import { inlineCssToJs } from '../utils/styles';
 
-export const PreservedStyle = EmailMark.create({
+export const PreservedStyle = Mark.create({
   name: 'preservedStyle',
 
   addAttributes() {

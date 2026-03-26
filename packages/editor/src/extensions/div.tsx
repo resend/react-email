@@ -1,5 +1,4 @@
-import { mergeAttributes } from '@tiptap/core';
-import { EmailNode } from '../core/serializer/email-node';
+import { mergeAttributes, Node } from '@tiptap/core';
 import {
   COMMON_HTML_ATTRIBUTES,
   createStandardAttributes,
@@ -11,7 +10,7 @@ export interface DivOptions {
   HTMLAttributes: Record<string, unknown>;
 }
 
-export const Div = EmailNode.create<DivOptions>({
+export const Div = Node.create<DivOptions>({
   name: 'div',
 
   group: 'block',

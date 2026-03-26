@@ -1,5 +1,4 @@
-import { mergeAttributes } from '@tiptap/core';
-import { EmailMark } from '../core/serializer/email-mark';
+import { Mark, mergeAttributes } from '@tiptap/core';
 
 export interface UppercaseOptions {
   HTMLAttributes: Record<string, unknown>;
@@ -15,7 +14,7 @@ declare module '@tiptap/core' {
   }
 }
 
-export const Uppercase = EmailMark.create<UppercaseOptions>({
+export const Uppercase = Mark.create<UppercaseOptions>({
   name: 'uppercase',
 
   addOptions() {

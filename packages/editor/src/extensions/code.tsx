@@ -1,9 +1,12 @@
 import CodeBase from '@tiptap/extension-code';
-import { EmailMark } from '../core/serializer/email-mark';
 import { inlineCssToJs } from '../utils/styles';
 
-export const Code = EmailMark.from(CodeBase, ({ children, node, style }) => (
-  <code style={{ ...style, ...inlineCssToJs(node.attrs?.style) }}>
-    {children}
-  </code>
-));
+export const Code = CodeBase.extend({
+  renderToReactEmail({ children, node, style }) {
+    return (
+      <code style={{ ...style, ...inlineCssToJs(node.attrs?.style) }}>
+        {children}
+      </code>
+    );
+  },
+});

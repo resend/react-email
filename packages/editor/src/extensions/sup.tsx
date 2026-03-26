@@ -1,6 +1,5 @@
 import type { SuperscriptExtensionOptions as TipTapSuperscriptOptions } from '@tiptap/extension-superscript';
 import SuperscriptBase from '@tiptap/extension-superscript';
-import { EmailMark } from '../core/serializer/email-mark';
 
 export type SupOptions = TipTapSuperscriptOptions;
 
@@ -23,7 +22,7 @@ declare module '@tiptap/core' {
   }
 }
 
-const SupBase = SuperscriptBase.extend({
+export const Sup = SuperscriptBase.extend({
   name: 'sup',
 
   addCommands() {
@@ -46,9 +45,8 @@ const SupBase = SuperscriptBase.extend({
         },
     };
   },
-});
 
-export const Sup: EmailMark<TipTapSuperscriptOptions, any> = EmailMark.from(
-  SupBase,
-  ({ children, style }) => <sup style={style}>{children}</sup>,
-);
+  renderToReactEmail({ children, style }) {
+    return <sup style={style}>{children}</sup>;
+  },
+});

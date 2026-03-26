@@ -1,9 +1,9 @@
 import type { AnyExtension, JSONContent } from '@tiptap/core';
-import { Editor } from '@tiptap/core';
+import { Editor, Node } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
 import { StarterKit } from '../../extensions';
 import { composeReactEmail } from './compose-react-email';
-import { EmailNode } from './email-node';
+import { ReactEmail } from './react-email';
 
 vi.mock('@/actions/ai', () => ({
   uploadImageViaAI: vi.fn(),
@@ -136,7 +136,7 @@ describe('Text marks', () => {
   });
 
   it('wraps custom email nodes with marks around the rendered node', async () => {
-    const CustomInlineNode = EmailNode.create({
+    const CustomInlineNode = Node.create({
       name: 'customInlineNode',
       group: 'inline',
       inline: true,
@@ -350,5 +350,59 @@ describe('StarterKit node wrappers', () => {
     expect(result.html).toContain('<br');
     expect(result.html).toContain('Hello');
     expect(result.html).toContain('World');
+  });
+});
+
+describe('editor.getReactEmail()', () => {
+  it('returns html and text when ReactEmail extension is registered', async () => {
+    const content = docWithGlobalContent([
+      {
+        type: 'paragraph',
+        content: [
+          {
+            type: 'text',
+            text: 'Hello from getReactEmail',
+          },
+        ],
+      },
+    ]);
+
+    const editor = createEditorWithContent(content, [ReactEmail]);
+    const result = await editor.getReactEmail({ preview: '' });
+
+    expect(result.html).toContain('Hello from getReactEmail');
+    expect(result.text).toContain('Hello from getReactEmail');
+  });
+
+  it('supports custom nodes with renderToReactEmail in config', async () => {
+    const CustomBlock = Node.create({
+      name: 'customBlock',
+      group: 'block',
+      content: 'inline*',
+      renderHTML({ HTMLAttributes }) {
+        return ['div', HTMLAttributes, 0];
+      },
+      renderToReactEmail({ children, style }) {
+        return <div style={{ ...style, border: '1px solid red' }}>{children}</div>;
+      },
+    });
+
+    const content = docWithGlobalContent([
+      {
+        type: 'customBlock',
+        content: [
+          {
+            type: 'text',
+            text: 'Custom content',
+          },
+        ],
+      },
+    ]);
+
+    const editor = createEditorWithContent(content, [ReactEmail, CustomBlock]);
+    const result = await editor.getReactEmail();
+
+    expect(result.html).toContain('Custom content');
+    expect(result.html).toContain('border:1px solid red');
   });
 });

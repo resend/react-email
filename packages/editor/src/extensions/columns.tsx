@@ -1,8 +1,7 @@
 import { Column, Row } from '@react-email/components';
-import { type CommandProps, mergeAttributes } from '@tiptap/core';
+import { type CommandProps, mergeAttributes, Node } from '@tiptap/core';
 import type { Node as ProseMirrorNode } from '@tiptap/pm/model';
 import { TextSelection } from '@tiptap/pm/state';
-import { EmailNode } from '../core/serializer/email-node';
 import {
   COMMON_HTML_ATTRIBUTES,
   createStandardAttributes,
@@ -77,7 +76,7 @@ function createColumnsNode(
   config: ColumnsVariantConfig,
   includeCommands: boolean,
 ) {
-  return EmailNode.create({
+  return Node.create({
     name: config.name,
     group: 'block',
     content: config.content,
@@ -155,7 +154,7 @@ export const TwoColumns = createColumnsNode(VARIANTS[0], true);
 export const ThreeColumns = createColumnsNode(VARIANTS[1], false);
 export const FourColumns = createColumnsNode(VARIANTS[2], false);
 
-export const ColumnsColumn = EmailNode.create({
+export const ColumnsColumn = Node.create({
   name: 'columnsColumn',
   group: 'columnsColumn',
   content: 'block+',

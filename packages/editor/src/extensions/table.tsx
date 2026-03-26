@@ -1,7 +1,6 @@
 import { Column, Section } from '@react-email/components';
 import type { ParentConfig } from '@tiptap/core';
-import { mergeAttributes, Node } from '@tiptap/core';
-import { EmailNode } from '../core/serializer/email-node';
+import { mergeAttributes, Node, type NodeConfig } from '@tiptap/core';
 import {
   COMMON_HTML_ATTRIBUTES,
   createStandardAttributes,
@@ -34,7 +33,7 @@ export interface TableOptions {
   HTMLAttributes: Record<string, unknown>;
 }
 
-export const Table = EmailNode.create<TableOptions>({
+export const Table = Node.create<TableOptions>({
   name: 'table',
 
   group: 'block',
@@ -110,7 +109,7 @@ export interface TableRowOptions extends Record<string, unknown> {
   HTMLAttributes?: Record<string, unknown>;
 }
 
-export const TableRow = EmailNode.create<TableRowOptions>({
+export const TableRow = Node.create<TableRowOptions>({
   name: 'tableRow',
 
   group: 'tableRow',
@@ -172,7 +171,7 @@ export interface TableCellOptions extends Record<string, unknown> {
   HTMLAttributes?: Record<string, unknown>;
 }
 
-export const TableCell = EmailNode.create<TableCellOptions>({
+export const TableCell = Node.create<TableCellOptions>({
   name: 'tableCell',
 
   group: 'tableCell',

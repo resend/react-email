@@ -1,7 +1,6 @@
 import { Section as ReactEmailSection } from '@react-email/components';
-import { mergeAttributes } from '@tiptap/core';
+import { mergeAttributes, Node } from '@tiptap/core';
 import type * as React from 'react';
-import { EmailNode } from '../core/serializer/email-node';
 import { getTextAlignment } from '../utils/get-text-alignment';
 import { inlineCssToJs } from '../utils/styles';
 
@@ -18,7 +17,7 @@ declare module '@tiptap/core' {
   }
 }
 
-export const Section = EmailNode.create<SectionOptions>({
+export const Section = Node.create<SectionOptions>({
   name: 'section',
   group: 'block',
   content: 'block+',

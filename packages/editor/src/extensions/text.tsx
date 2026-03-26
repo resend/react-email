@@ -1,6 +1,7 @@
 import { Text as BaseText } from '@tiptap/extension-text';
-import { EmailNode } from '../core';
 
-export const Text = EmailNode.from(BaseText, ({ children }) => {
-  return <>{children}</>;
+export const Text = BaseText.extend({
+  renderToReactEmail({ children }) {
+    return <>{children}</>;
+  },
 });
