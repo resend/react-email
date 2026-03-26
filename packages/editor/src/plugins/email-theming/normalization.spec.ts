@@ -42,7 +42,7 @@ describe('normalizeThemePanelStyles', () => {
       }),
       expect.objectContaining({
         id: 'typography',
-        title: 'Typography',
+        title: 'Text',
         classReference: 'body',
       }),
       expect.objectContaining({

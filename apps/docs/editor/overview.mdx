@@ -1,0 +1,61 @@
+---
+title: "Editor"
+sidebarTitle: "Overview"
+description: "A visual email template editor for React, built on TipTap."
+icon: "pen-nib"
+---
+
+The React Email Editor is a visual WYSIWYG editor for composing email templates in React. It produces email-safe HTML through React Email components and is built on top of [TipTap](https://tiptap.dev/) and [ProseMirror](https://prosemirror.net/).
+
+## Key features
+
+- **Rich text editing** — Paragraphs, headings, lists, code blocks, tables, and more
+- **Bubble menus** — Floating formatting toolbars that appear on text selection
+- **Slash commands** — Insert content blocks by typing `/`
+- **Multi-column layouts** — Two, three, and four column email layouts
+- **Email theming** — Built-in themes with customizable CSS properties
+- **HTML export** — Convert editor content to email-ready HTML and plain text
+- **Custom extensions** — Create your own email-compatible nodes and marks
+
+## Architecture
+
+The editor is organized into five entry points:
+
+| Import | Purpose |
+|--------|---------|
+| `@react-email/editor/core` | `useEditor` hook, `composeReactEmail` serialization, event bus |
+| `@react-email/editor/extensions` | `StarterKit` and 35+ email-aware extensions |
+| `@react-email/editor/ui` | Bubble menus, slash commands |
+| `@react-email/editor/plugins` | Email theming plugin |
+| `@react-email/editor/utils` | Attribute helpers, style utilities |
+
+<Info>
+  The editor uses [TipTap](https://tiptap.dev/) under the hood, so [TipTap](https://tiptap.dev/) and [ProseMirror](https://prosemirror.net/) concepts apply.
+  Extensions are email-aware versions of TipTap nodes and marks that know how to serialize to React Email components.
+</Info>
+
+## Quick links
+
+<CardGroup cols={2}>
+  <Card title="Getting Started" icon="rocket" href="/editor/getting-started">
+    Set up the editor in under 5 minutes.
+  </Card>
+  <Card title="Bubble Menu" icon="message-lines" href="/editor/features/bubble-menu">
+    Add floating formatting toolbars.
+  </Card>
+  <Card title="Slash Commands" icon="slash-forward" href="/editor/features/slash-commands">
+    Insert content blocks with a command menu.
+  </Card>
+  <Card title="Email Theming" icon="palette" href="/editor/features/theming">
+    Apply visual themes to your email output.
+  </Card>
+  <Card title="Styling" icon="paintbrush" href="/editor/features/styling">
+    Customize the editor's appearance with CSS.
+  </Card>
+  <Card title="Email Export" icon="file-export" href="/editor/features/email-export">
+    Convert editor content to email-ready HTML.
+  </Card>
+  <Card title="Custom Extensions" icon="wrench" href="/editor/advanced/custom-extensions">
+    Create your own email-compatible nodes.
+  </Card>
+</CardGroup>
