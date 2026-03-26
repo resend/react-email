@@ -78,7 +78,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsdown && pnpm run build:css",
+    "build": "tsdown",
     "build:css": "tsx scripts/copy-css.ts",
     "build:watch": "tsdown --watch",
     "clean": "rm -rf dist",
