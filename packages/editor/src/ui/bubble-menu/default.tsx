@@ -26,7 +26,8 @@ type ExcludableItem =
   | 'node-selector'
   | 'link-selector';
 
-export interface BubbleMenuDefaultProps {
+export interface BubbleMenuDefaultProps
+  extends Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> {
   /** Items to exclude from the default layout */
   excludeItems?: ExcludableItem[];
   /** Node types that should NOT trigger the bubble menu (forwarded to Root) */
@@ -39,8 +40,6 @@ export interface BubbleMenuDefaultProps {
   offset?: number;
   /** Called when the bubble menu hides (forwarded to Root) */
   onHide?: () => void;
-  /** className applied to the Root wrapper */
-  className?: string;
 }
 
 export function BubbleMenuDefault({
@@ -51,6 +50,7 @@ export function BubbleMenuDefault({
   offset,
   onHide,
   className,
+  ...rest
 }: BubbleMenuDefaultProps) {
   const [isNodeSelectorOpen, setIsNodeSelectorOpen] = React.useState(false);
   const [isLinkSelectorOpen, setIsLinkSelectorOpen] = React.useState(false);
@@ -96,6 +96,7 @@ export function BubbleMenuDefault({
       offset={offset}
       onHide={handleHide}
       className={className}
+      {...rest}
     >
       {has('node-selector') && (
         <BubbleMenuNodeSelector
