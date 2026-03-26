@@ -7,15 +7,16 @@ import type * as React from 'react';
 import type { SerializerPlugin } from '../../core/serializer/serializer-plugin';
 import { getGlobalContent } from '../../extensions/global-content';
 import {
+  applyPanelStylesBackwardsCompat,
+  inferThemeFromPanelStyles,
+} from './backwards-compatibility';
+import type { PersistedPanelGroup } from './backwards-compatibility';
+import {
   injectGlobalPlainCss,
   injectThemeCss,
   mergeCssJs,
   transformToCssJs,
 } from './css-transforms';
-import {
-  inferThemeFromPanelStyles,
-  normalizeThemePanelStyles,
-} from './normalization';
 import { EDITOR_THEMES, RESET_THEMES } from './themes';
 import type {
   CssJs,
@@ -83,10 +84,10 @@ export function getThemeComponentKey(
  */
 export function getMergedCssJs(
   theme: EditorTheme,
-  panelStyles: PanelGroup[] | undefined,
+  panelStyles: PersistedPanelGroup[] | PanelGroup[] | undefined,
 ): CssJs {
   const panels: PanelGroup[] =
-    normalizeThemePanelStyles(theme, panelStyles) ?? EDITOR_THEMES[theme];
+    applyPanelStylesBackwardsCompat(theme, panelStyles) ?? EDITOR_THEMES[theme];
   const parsed = transformToCssJs(panels);
   return mergeCssJs(RESET_THEMES[theme], parsed);
 }
@@ -145,19 +146,19 @@ export function stylesToCss(
   theme: EditorTheme,
 ): Record<KnownThemeComponents, React.CSSProperties> {
   const parsed = transformToCssJs(
-    normalizeThemePanelStyles(theme, styles) ?? EDITOR_THEMES[theme],
+    applyPanelStylesBackwardsCompat(theme, styles) ?? EDITOR_THEMES[theme],
   );
   return mergeCssJs(RESET_THEMES[theme], parsed);
 }
 
 function getEmailTheming(editor: Editor) {
   const theme = getEmailTheme(editor);
-  const normalizedStyles =
-    normalizeThemePanelStyles(theme, getEmailStyles(editor)) ??
+  const compatStyles =
+    applyPanelStylesBackwardsCompat(theme, getEmailStyles(editor)) ??
     EDITOR_THEMES[theme];
 
   return {
-    styles: normalizedStyles,
+    styles: compatStyles,
     theme,
     css: getEmailCss(editor),
   };
@@ -176,7 +177,7 @@ export function useEmailTheming(editor: Editor | null) {
 }
 
 function getEmailStyles(editor: Editor) {
-  return getGlobalContent('styles', editor) as PanelGroup[] | null;
+  return getGlobalContent('styles', editor) as PersistedPanelGroup[] | null;
 }
 
 function getEmailTheme(editor: Editor) {
@@ -292,7 +293,7 @@ export const EmailTheming = Extension.create<{
       new Plugin({
         key: new PluginKey('themingStyleInjector'),
         view(view) {
-          let prevStyles: PanelGroup[] | null = null;
+          let prevStyles: PersistedPanelGroup[] | null = null;
           let prevTheme: EditorTheme | null = null;
           let prevCss: string | null = null;
 
@@ -305,7 +306,7 @@ export const EmailTheming = Extension.create<{
             const css = getEmailCss(editor);
 
             if (styles !== prevStyles || theme !== prevTheme) {
-              prevStyles = styles as PanelGroup[] | null;
+              prevStyles = styles;
               prevTheme = theme;
               injectThemeCss(getMergedCssJs(theme, resolvedStyles), {
                 scopeSelector,
