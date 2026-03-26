@@ -16,7 +16,11 @@ import {
   inferThemeFromPanelStyles,
   normalizeThemePanelStyles,
 } from './normalization';
-import { EDITOR_THEMES, RESET_THEMES } from './themes';
+import {
+  DEFAULT_INBOX_FONT_SIZE_PX,
+  EDITOR_THEMES,
+  RESET_THEMES,
+} from './themes';
 import type {
   CssJs,
   EditorTheme,
@@ -87,8 +91,10 @@ export function getMergedCssJs(
 ): CssJs {
   const panels: PanelGroup[] =
     normalizeThemePanelStyles(theme, panelStyles) ?? EDITOR_THEMES[theme];
-  const parsed = transformToCssJs(panels);
-  return mergeCssJs(RESET_THEMES[theme], parsed);
+  const parsed = transformToCssJs(panels, DEFAULT_INBOX_FONT_SIZE_PX);
+  const merged = mergeCssJs(RESET_THEMES[theme], parsed);
+
+  return merged;
 }
 
 /**
@@ -146,6 +152,7 @@ export function stylesToCss(
 ): Record<KnownThemeComponents, React.CSSProperties> {
   const parsed = transformToCssJs(
     normalizeThemePanelStyles(theme, styles) ?? EDITOR_THEMES[theme],
+    DEFAULT_INBOX_FONT_SIZE_PX,
   );
   return mergeCssJs(RESET_THEMES[theme], parsed);
 }

@@ -9,6 +9,9 @@ export type PanelSectionId =
   | 'body'
   | 'container'
   | 'typography'
+  | 'h1'
+  | 'h2'
+  | 'h3'
   | 'link'
   | 'image'
   | 'button'
@@ -43,6 +46,7 @@ export type KnownCssProperties =
   | 'color'
   | 'fontSize'
   | 'fontWeight'
+  | 'letterSpacing'
   | 'lineHeight'
   | 'textDecoration'
   | 'borderRadius'
@@ -113,6 +117,7 @@ export interface PanelInputProperty {
 export interface PanelGroup {
   id?: PanelSectionId;
   title: string;
+  category?: string;
   headerSlot?: React.ReactNode;
   classReference?: KnownThemeComponents;
   inputs: Omit<PanelInputProperty, 'category'>[];
