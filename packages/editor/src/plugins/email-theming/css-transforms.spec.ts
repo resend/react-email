@@ -27,26 +27,21 @@ it('returns empty object for empty array', () => {
 it('transforms basic styles without units', () => {
   const styles: PanelGroup[] = [
     {
-      id: 'body',
-      title: 'Body',
+      title: 'Basic',
       inputs: [
         {
           label: 'Color',
           type: 'color',
           value: '#FF0000',
           prop: 'color',
+          classReference: 'body',
         },
-      ],
-    },
-    {
-      id: 'container',
-      title: 'Container',
-      inputs: [
         {
           label: 'Background',
           type: 'color',
           value: '#FFFFFF',
           prop: 'backgroundColor',
+          classReference: 'container',
         },
       ],
     },
@@ -62,7 +57,6 @@ it('transforms basic styles without units', () => {
 it('appends units to numeric values', () => {
   const styles: PanelGroup[] = [
     {
-      id: 'container',
       title: 'With Units',
       inputs: [
         {
@@ -71,6 +65,7 @@ it('appends units to numeric values', () => {
           value: 100,
           unit: 'px',
           prop: 'width',
+          classReference: 'container',
         },
         {
           label: 'Height',
@@ -78,6 +73,7 @@ it('appends units to numeric values', () => {
           value: 200,
           unit: 'px',
           prop: 'height',
+          classReference: 'container',
         },
       ],
     },
@@ -92,7 +88,6 @@ it('appends units to numeric values', () => {
 it('converts fontSize from px to em for mobile adjustment', () => {
   const styles: PanelGroup[] = [
     {
-      id: 'body',
       title: 'Font Size',
       inputs: [
         {
@@ -101,6 +96,7 @@ it('converts fontSize from px to em for mobile adjustment', () => {
           value: 26,
           unit: 'px',
           prop: 'fontSize',
+          classReference: 'body',
         },
       ],
     },
@@ -115,7 +111,6 @@ it('converts fontSize from px to em for mobile adjustment', () => {
 it('includes container background when body is not white', () => {
   const styles: PanelGroup[] = [
     {
-      id: 'body',
       title: 'Body',
       inputs: [
         {
@@ -123,11 +118,11 @@ it('includes container background when body is not white', () => {
           type: 'color',
           value: '#F0F0F0',
           prop: 'backgroundColor',
+          classReference: 'body',
         },
       ],
     },
     {
-      id: 'container',
       title: 'Container',
       inputs: [
         {
@@ -135,6 +130,7 @@ it('includes container background when body is not white', () => {
           type: 'color',
           value: '#FFFFFF',
           prop: 'backgroundColor',
+          classReference: 'container',
         },
       ],
     },
@@ -150,7 +146,6 @@ it('includes container background when body is not white', () => {
 it('includes non-black text colors for body', () => {
   const styles: PanelGroup[] = [
     {
-      id: 'body',
       title: 'Body',
       inputs: [
         {
@@ -158,6 +153,7 @@ it('includes non-black text colors for body', () => {
           type: 'color',
           value: '#333333',
           prop: 'color',
+          classReference: 'body',
         },
       ],
     },
@@ -172,7 +168,6 @@ it('includes non-black text colors for body', () => {
 it('handles mixed input types and properties', () => {
   const styles: PanelGroup[] = [
     {
-      id: 'container',
       title: 'Mixed Properties',
       inputs: [
         {
@@ -181,18 +176,21 @@ it('handles mixed input types and properties', () => {
           value: 600,
           unit: 'px',
           prop: 'width',
+          classReference: 'container',
         },
         {
           label: 'Align',
           type: 'select',
           value: 'center',
           prop: 'align',
+          classReference: 'container',
         },
         {
           label: 'Background',
           type: 'color',
           value: '#F5F5F5',
           prop: 'backgroundColor',
+          classReference: 'container',
         },
       ],
     },
@@ -208,41 +206,31 @@ it('handles mixed input types and properties', () => {
   });
 });
 
-it('handles multiple sections with different ids', () => {
+it('handles multiple class references', () => {
   const styles: PanelGroup[] = [
     {
-      id: 'body',
-      title: 'Body',
+      title: 'Multiple Classes',
       inputs: [
         {
           label: 'Body Color',
           type: 'color',
           value: '#333333',
           prop: 'color',
+          classReference: 'body',
         },
-      ],
-    },
-    {
-      id: 'link',
-      title: 'Link',
-      inputs: [
         {
           label: 'Link Color',
           type: 'color',
           value: '#0066CC',
           prop: 'color',
+          classReference: 'link',
         },
-      ],
-    },
-    {
-      id: 'button',
-      title: 'Button',
-      inputs: [
         {
           label: 'Button Background',
           type: 'color',
           value: '#000000',
           prop: 'backgroundColor',
+          classReference: 'button',
         },
       ],
     },
@@ -259,7 +247,6 @@ it('handles multiple sections with different ids', () => {
 it('handles string values with units', () => {
   const styles: PanelGroup[] = [
     {
-      id: 'button',
       title: 'String Values',
       inputs: [
         {
@@ -268,6 +255,7 @@ it('handles string values with units', () => {
           value: 'auto',
           unit: 'px',
           prop: 'width',
+          classReference: 'button',
         },
       ],
     },
@@ -282,39 +270,21 @@ it('handles string values with units', () => {
 it('handles complex nested structure', () => {
   const styles: PanelGroup[] = [
     {
-      id: 'body',
-      title: 'Body',
+      title: 'Complex Theme',
       inputs: [
         {
           label: 'Body Background',
           type: 'color',
           value: '#FFFFFF',
           prop: 'backgroundColor',
+          classReference: 'body',
         },
-        {
-          label: 'Body Font Size',
-          type: 'number',
-          value: 16,
-          unit: 'px',
-          prop: 'fontSize',
-        },
-        {
-          label: 'Body Color',
-          type: 'color',
-          value: '#000000',
-          prop: 'color',
-        },
-      ],
-    },
-    {
-      id: 'container',
-      title: 'Container',
-      inputs: [
         {
           label: 'Container Background',
           type: 'color',
           value: '#FFFFFF',
           prop: 'backgroundColor',
+          classReference: 'container',
         },
         {
           label: 'Container Width',
@@ -322,6 +292,7 @@ it('handles complex nested structure', () => {
           value: 600,
           unit: 'px',
           prop: 'width',
+          classReference: 'container',
         },
         {
           label: 'Padding Left',
@@ -329,6 +300,7 @@ it('handles complex nested structure', () => {
           value: 20,
           unit: 'px',
           prop: 'paddingLeft',
+          classReference: 'container',
         },
         {
           label: 'Padding Right',
@@ -336,6 +308,22 @@ it('handles complex nested structure', () => {
           value: 20,
           unit: 'px',
           prop: 'paddingRight',
+          classReference: 'container',
+        },
+        {
+          label: 'Body Font Size',
+          type: 'number',
+          value: 16,
+          unit: 'px',
+          prop: 'fontSize',
+          classReference: 'body',
+        },
+        {
+          label: 'Body Color',
+          type: 'color',
+          value: '#000000',
+          prop: 'color',
+          classReference: 'body',
         },
       ],
     },
@@ -355,23 +343,4 @@ it('handles complex nested structure', () => {
       paddingRight: '20px',
     },
   });
-});
-
-it('skips groups without an id', () => {
-  const styles: PanelGroup[] = [
-    {
-      title: 'No ID',
-      inputs: [
-        {
-          label: 'Color',
-          type: 'color',
-          value: '#FF0000',
-          prop: 'color',
-        },
-      ],
-    },
-  ];
-
-  const result = transformToCssJs(styles);
-  expect(result).toEqual({});
 });

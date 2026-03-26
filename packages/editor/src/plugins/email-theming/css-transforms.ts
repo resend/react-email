@@ -1,5 +1,5 @@
 import { ensureBorderStyleFallback } from '../../utils/styles';
-import type { CssJs, KnownThemeComponents, PanelGroup } from './types';
+import type { CssJs, PanelGroup } from './types';
 
 export function transformToCssJs(styleArray: PanelGroup[]): CssJs {
   const cssJS = {} as CssJs;
@@ -9,11 +9,6 @@ export function transformToCssJs(styleArray: PanelGroup[]): CssJs {
   }
 
   for (const style of styleArray) {
-    const key = style.id as KnownThemeComponents | undefined;
-    if (!key) {
-      continue;
-    }
-
     for (const input of style.inputs) {
       let value = input.value;
 
@@ -27,20 +22,24 @@ export function transformToCssJs(styleArray: PanelGroup[]): CssJs {
         }
       }
 
-      if (!cssJS[key]) {
-        cssJS[key] = {};
+      if (!input.classReference) {
+        continue;
+      }
+
+      if (!cssJS[input.classReference]) {
+        cssJS[input.classReference] = {};
       }
 
       // @ts-expect-error -- backward compatibility: 'h-padding' is a legacy prop not in KnownCssProperties
       if (input.prop === 'h-padding') {
-        cssJS[key].paddingLeft = value;
-        cssJS[key].paddingRight = value;
+        cssJS[input.classReference].paddingLeft = value;
+        cssJS[input.classReference].paddingRight = value;
 
         continue;
       }
 
       // @ts-expect-error -- input.prop is KnownCssProperties but CssJs values are React.CSSProperties; dynamic assignment is intentional
-      cssJS[key][input.prop] = value;
+      cssJS[input.classReference][input.prop] = value;
     }
   }
 
