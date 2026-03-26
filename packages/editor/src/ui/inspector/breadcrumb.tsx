@@ -1,15 +1,13 @@
 import { useCurrentEditor } from '@tiptap/react';
-import path from 'path';
 import React from 'react';
-import type { NodeClickedEvent } from '../../core';
 import { type FocusedNode, useInspector } from './provider';
 
 export interface InspectorBreadcrumbSegment {
-  props: {};
   /**
    * Only null when the segment is for the document
    */
   node: FocusedNode | null;
+  focus: () => void;
 }
 
 export interface InspectorBreadcrumbProps {
@@ -25,21 +23,15 @@ export function InspectorBreadcrumb({ children }: InspectorBreadcrumbProps) {
       {
         // the node for the root layout
         node: null,
-        props: {
-          onClick() {
-            editor?.commands.setTextSelection(0);
-          },
-          ['aria-label']: 'Select layout',
+        focus() {
+          editor?.commands.setTextSelection(0);
         },
       },
-      ...pathFromRoot.map((focusedNode, i) => ({
+      ...pathFromRoot.map((focusedNode) => ({
         node: focusedNode,
-        props: {
-          onClick() {
-            editor?.commands.setNodeSelection(focusedNode.nodePos.pos);
-            editor?.commands.focus();
-          },
-          ['aria-label']: `Select ${focusedNode.nodeType}`,
+        focus() {
+          editor?.commands.setNodeSelection(focusedNode.nodePos.pos);
+          editor?.commands.focus();
         },
       })),
     ] satisfies InspectorBreadcrumbSegment[];
