@@ -206,7 +206,7 @@ export function setCurrentTheme(editor: Editor, theme: EditorTheme): boolean {
  * Sets the global CSS string injected into the email `<head>`.
  * Persists into the `GlobalContent` node under the `'css'` key.
  */
-export function setGlobalCSSInjected(editor: Editor, css: string): boolean {
+export function setGlobalCssInjected(editor: Editor, css: string): boolean {
   return editor.commands.setGlobalContent('css', css);
 }
 
