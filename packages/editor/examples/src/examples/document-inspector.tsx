@@ -216,9 +216,12 @@ function ColorRow({
   const strValue = String(value ?? '#000000');
   return (
     <div className="flex items-center justify-between gap-2">
-      <label className="text-xs text-(--re-text-muted) min-w-20">{label}</label>
+      <label htmlFor={label} className="text-xs text-(--re-text-muted) min-w-20">
+        {label}
+      </label>
       <span className="flex items-center gap-1">
         <input
+          id={label}
           type="color"
           value={normalizeHex(strValue)}
           onChange={(e) => onChange(e.target.value)}
@@ -248,9 +251,10 @@ function NumberRow({
 }) {
   return (
     <div className="flex items-center justify-between gap-2">
-      <label className="text-xs text-(--re-text-muted) min-w-20">{label}</label>
+      <label htmlFor={label} className="text-xs text-(--re-text-muted) min-w-20">{label}</label>
       <span className="flex items-center gap-1">
         <input
+          id={label}
           type="number"
           value={value ?? ''}
           onChange={(e) => {
