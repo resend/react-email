@@ -3,7 +3,8 @@ import { BubbleMenu } from '@tiptap/react/menus';
 import type * as React from 'react';
 import { BubbleMenuContext } from './context';
 
-export interface BubbleMenuRootProps {
+export interface BubbleMenuRootProps
+  extends Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> {
   /** Node types that should NOT trigger the bubble menu */
   excludeNodes?: string[];
   /** Mark types that should NOT trigger the bubble menu */
@@ -14,8 +15,6 @@ export interface BubbleMenuRootProps {
   offset?: number;
   /** Called when the bubble menu is hidden (e.g., click outside, selection cleared) */
   onHide?: () => void;
-  /** Additional className on the outer wrapper */
-  className?: string;
   children: React.ReactNode;
 }
 
@@ -27,6 +26,7 @@ export function BubbleMenuRoot({
   onHide,
   className,
   children,
+  ...rest
 }: BubbleMenuRootProps) {
   const { editor } = useCurrentEditor();
 
@@ -67,6 +67,7 @@ export function BubbleMenuRoot({
         onHide,
       }}
       className={className}
+      {...rest}
     >
       <BubbleMenuContext.Provider value={{ editor }}>
         {children}

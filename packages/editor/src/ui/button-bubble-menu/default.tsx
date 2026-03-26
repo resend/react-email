@@ -1,3 +1,4 @@
+import type * as React from 'react';
 import { useButtonBubbleMenuContext } from './context';
 import { ButtonBubbleMenuEditLink } from './edit-link';
 import { ButtonBubbleMenuForm } from './form';
@@ -5,11 +6,11 @@ import { ButtonBubbleMenuRoot } from './root';
 import { ButtonBubbleMenuToolbar } from './toolbar';
 import { ButtonBubbleMenuUnlink } from './unlink';
 
-export interface ButtonBubbleMenuDefaultProps {
+export interface ButtonBubbleMenuDefaultProps
+  extends Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> {
   placement?: 'top' | 'bottom';
   offset?: number;
   onHide?: () => void;
-  className?: string;
   validateUrl?: (value: string) => string | null;
   onLinkApply?: (href: string) => void;
   onLinkRemove?: () => void;
@@ -49,6 +50,7 @@ export function ButtonBubbleMenuDefault({
   validateUrl,
   onLinkApply,
   onLinkRemove,
+  ...rest
 }: ButtonBubbleMenuDefaultProps) {
   return (
     <ButtonBubbleMenuRoot
@@ -56,6 +58,7 @@ export function ButtonBubbleMenuDefault({
       offset={offset}
       onHide={onHide}
       className={className}
+      {...rest}
     >
       <ButtonBubbleMenuDefaultInner
         validateUrl={validateUrl}

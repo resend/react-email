@@ -2,6 +2,7 @@ import { defineConfig } from 'tsdown';
 
 export default defineConfig({
   entry: {
+    index: 'src/index.ts',
     'core/index': 'src/core/index.ts',
     'extensions/index': 'src/extensions/index.ts',
     'plugins/index': 'src/plugins/index.ts',
@@ -11,4 +12,5 @@ export default defineConfig({
   format: ['esm', 'cjs'],
   dts: true,
   external: ['react', 'react-dom'],
+  onSuccess: 'pnpm build:css',
 });
