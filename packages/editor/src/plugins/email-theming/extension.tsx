@@ -16,7 +16,11 @@ import {
   inferThemeFromPanelStyles,
   normalizeThemePanelStyles,
 } from './normalization';
-import { EDITOR_THEMES, RESET_THEMES } from './themes';
+import {
+  DEFAULT_INBOX_FONT_SIZE_PX,
+  EDITOR_THEMES,
+  RESET_THEMES,
+} from './themes';
 import type {
   CssJs,
   EditorTheme,
@@ -87,8 +91,10 @@ export function getMergedCssJs(
 ): CssJs {
   const panels: PanelGroup[] =
     normalizeThemePanelStyles(theme, panelStyles) ?? EDITOR_THEMES[theme];
-  const parsed = transformToCssJs(panels);
-  return mergeCssJs(RESET_THEMES[theme], parsed);
+  const parsed = transformToCssJs(panels, DEFAULT_INBOX_FONT_SIZE_PX);
+  const merged = mergeCssJs(RESET_THEMES[theme], parsed);
+
+  return merged;
 }
 
 /**
@@ -146,6 +152,7 @@ export function stylesToCss(
 ): Record<KnownThemeComponents, React.CSSProperties> {
   const parsed = transformToCssJs(
     normalizeThemePanelStyles(theme, styles) ?? EDITOR_THEMES[theme],
+    DEFAULT_INBOX_FONT_SIZE_PX,
   );
   return mergeCssJs(RESET_THEMES[theme], parsed);
 }
@@ -177,6 +184,30 @@ export function useEmailTheming(editor: Editor | null) {
 
 function getEmailStyles(editor: Editor) {
   return getGlobalContent('styles', editor) as PanelGroup[] | null;
+}
+
+/**
+ * Sets the global panel styles on the editor document.
+ * Persists into the `GlobalContent` node under the `'styles'` key.
+ */
+export function setGlobalStyles(editor: Editor, styles: PanelGroup[]): boolean {
+  return editor.commands.setGlobalContent('styles', styles);
+}
+
+/**
+ * Sets the current email theme on the editor document.
+ * Persists into the `GlobalContent` node under the `'theme'` key.
+ */
+export function setCurrentTheme(editor: Editor, theme: EditorTheme): boolean {
+  return editor.commands.setGlobalContent('theme', theme);
+}
+
+/**
+ * Sets the global CSS string injected into the email `<head>`.
+ * Persists into the `GlobalContent` node under the `'css'` key.
+ */
+export function setGlobalCssInjected(editor: Editor, css: string): boolean {
+  return editor.commands.setGlobalContent('css', css);
 }
 
 function getEmailTheme(editor: Editor) {

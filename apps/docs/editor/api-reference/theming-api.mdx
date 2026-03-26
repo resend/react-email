@@ -1,0 +1,205 @@
+---
+title: "Theming API"
+sidebarTitle: "Theming API"
+description: "Types and utilities for the email theming system."
+icon: "swatchbook"
+---
+
+## EmailTheming extension
+
+The `EmailTheming` extension from `@react-email/editor/plugins` adds theme-aware styling
+to the editor and provides a `SerializerPlugin` for theme-aware HTML export.
+
+```tsx
+import { EmailTheming } from '@react-email/editor/plugins';
+
+const extensions = [StarterKit, EmailTheming.configure({ theme: 'basic' })];
+```
+
+<ResponseField name="theme" type="EditorTheme" default="'basic'">
+  The active theme. Built-in options: `'basic'` or `'minimal'`.
+</ResponseField>
+
+## Types
+
+### EditorTheme
+
+```tsx
+type EditorTheme = 'basic' | 'minimal';
+```
+
+---
+
+### KnownThemeComponents
+
+All component keys that a theme can style:
+
+```tsx
+type KnownThemeComponents =
+  | 'reset'
+  | 'body'
+  | 'container'
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'paragraph'
+  | 'list'
+  | 'listItem'
+  | 'listParagraph'
+  | 'nestedList'
+  | 'blockquote'
+  | 'codeBlock'
+  | 'inlineCode'
+  | 'link'
+  | 'button'
+  | 'section'
+  | 'footer'
+  | 'hr'
+  | 'image';
+```
+
+---
+
+### KnownCssProperties
+
+CSS properties that can be customized per theme component:
+
+**Layout:** `align`, `width`, `height`, `padding`, `paddingTop`, `paddingRight`,
+`paddingBottom`, `paddingLeft`, `margin`, `marginTop`, `marginRight`, `marginBottom`,
+`marginLeft`
+
+**Appearance:** `backgroundColor`, `color`, `borderRadius`, `borderWidth`, `borderColor`,
+`borderStyle`
+
+**Typography:** `fontSize`, `fontWeight`, `lineHeight`, `textDecoration`, `fontFamily`,
+`letterSpacing`
+
+---
+
+### CssJs
+
+A mapping of theme component keys to CSS properties:
+
+```tsx
+type CssJs = Partial<Record<KnownThemeComponents, React.CSSProperties>>;
+```
+
+---
+
+### PanelGroup
+
+Represents a group of configurable theme properties for a component:
+
+```tsx
+interface PanelGroup {
+  id: string;
+  title: string;
+  headerSlot?: React.ReactNode;
+  classReference?: string;
+  inputs: PanelInputProperty[];
+}
+```
+
+---
+
+### PanelInputProperty
+
+An individual configurable CSS property within a panel:
+
+```tsx
+interface PanelInputProperty {
+  label: string;
+  type: 'text' | 'number' | 'color' | 'select';
+  value: string;
+  prop: string;
+  classReference: string;
+  unit?: string;
+  options?: { label: string; value: string }[];
+  placeholder?: string;
+  category?: string;
+}
+```
+
+## Utility functions
+
+### getMergedCssJs
+
+Merges the base theme styles with custom panel overrides:
+
+```tsx
+import { getMergedCssJs } from '@react-email/editor/plugins';
+
+const mergedStyles = getMergedCssJs(theme, panelStyles);
+```
+
+<ResponseField name="theme" type="EditorTheme" required>
+  The active theme to use as a base.
+</ResponseField>
+
+<ResponseField name="panelStyles" type="PanelGroup[]">
+  Custom style overrides from the theme panel UI.
+</ResponseField>
+
+---
+
+### getResolvedNodeStyles
+
+Resolves the final CSS styles for a specific node based on theme and document depth:
+
+```tsx
+import { getResolvedNodeStyles } from '@react-email/editor/plugins';
+
+const styles = getResolvedNodeStyles(node, depth, mergedCssJs);
+```
+
+<ResponseField name="node" type="JSONContent" required>
+  The TipTap node to resolve styles for.
+</ResponseField>
+
+<ResponseField name="depth" type="number" required>
+  The node's depth in the document tree. Affects styles for nested elements (e.g., nested lists).
+</ResponseField>
+
+<ResponseField name="mergedCssJs" type="CssJs" required>
+  The merged theme styles from `getMergedCssJs`.
+</ResponseField>
+
+---
+
+### getThemeComponentKey
+
+Maps a node type and depth to a theme component key:
+
+```tsx
+import { getThemeComponentKey } from '@react-email/editor/plugins';
+
+const paragraphKey = getThemeComponentKey('paragraph', 0); // 'paragraph'
+const nestedListKey = getThemeComponentKey('bulletList', 2); // 'nestedList'
+```
+
+---
+
+### stylesToCss
+
+Converts a theme's style definitions to a CSS object:
+
+```tsx
+import { stylesToCss } from '@react-email/editor/plugins';
+
+const css = stylesToCss(styles, theme);
+```
+
+---
+
+### useEmailTheming
+
+React hook that provides access to the current theme state from within the editor:
+
+```tsx
+import { useEmailTheming } from '@react-email/editor/plugins';
+
+function MyComponent() {
+  const theming = useEmailTheming(editor);
+  // Access theming.styles, theming.theme, theming.css
+}
+```

@@ -1,5 +1,22 @@
 # @react-email/tailwind
 
+## 2.0.7
+
+### Patch Changes
+
+- 5a23505: use unpinned version for tailwindcss again
+  - @react-email/body@0.3.0
+  - @react-email/button@0.2.1
+  - @react-email/code-block@0.2.1
+  - @react-email/code-inline@0.0.6
+  - @react-email/container@0.0.16
+  - @react-email/heading@0.0.16
+  - @react-email/hr@0.0.12
+  - @react-email/img@0.0.12
+  - @react-email/link@0.0.13
+  - @react-email/preview@0.0.14
+  - @react-email/text@0.1.6
+
 ## 2.0.6
 
 ### Patch Changes
