@@ -1,1 +1,1 @@
-export * from './email-theming/extension';
+export * from './email-theming';
