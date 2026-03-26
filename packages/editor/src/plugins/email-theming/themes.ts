@@ -296,7 +296,7 @@ const RESET_BASIC: ResetTheme = {
   body: {
     fontFamily:
       "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
-    fontSize: '16px',
+    fontSize: '14px',
     minHeight: '100%',
     lineHeight: '155%',
   },
@@ -409,12 +409,13 @@ export const EDITOR_THEMES: Record<EditorTheme, PanelGroup[]> = {
  * Use to make the preview nicer once the theme might miss some
  * important properties to make layout accurate
  */
-export const PREVIEW_THEME_OVERWRITE: Partial<ResetTheme> = {
+export const DEFAULT_INBOX_FONT_SIZE_PX = 14;
+export const INBOX_EMAIL_DEFAULTS: Partial<ResetTheme> = {
   body: {
     color: '#000000',
     fontFamily:
       "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
-    fontSize: '14px',
+    fontSize: `${DEFAULT_INBOX_FONT_SIZE_PX}px`,
     lineHeight: '155%',
   },
   container: {

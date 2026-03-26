@@ -1,28 +1,33 @@
-import { expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { transformToCssJs } from './css-transforms';
+import { DEFAULT_INBOX_FONT_SIZE_PX } from './themes';
 import type { PanelGroup } from './types';
 
-it('returns empty object for non-array input', () => {
-  const result = transformToCssJs(
-    null as unknown as Parameters<typeof transformToCssJs>[0],
-  );
-  expect(result).toEqual({});
+describe('transformToCssJs', () => {
+  it('returns empty object for non-array input', () => {
+    const result = transformToCssJs(
+      null as unknown as Parameters<typeof transformToCssJs>[0],
+      DEFAULT_INBOX_FONT_SIZE_PX,
+    );
+    expect(result).toEqual({});
 
-  const result2 = transformToCssJs(
-    undefined as unknown as Parameters<typeof transformToCssJs>[0],
-  );
-  expect(result2).toEqual({});
+    const result2 = transformToCssJs(
+      undefined as unknown as Parameters<typeof transformToCssJs>[0],
+      DEFAULT_INBOX_FONT_SIZE_PX,
+    );
+    expect(result2).toEqual({});
 
-  const result3 = transformToCssJs(
-    'not-an-array' as unknown as Parameters<typeof transformToCssJs>[0],
-  );
-  expect(result3).toEqual({});
-});
+    const result3 = transformToCssJs(
+      'not-an-array' as unknown as Parameters<typeof transformToCssJs>[0],
+      DEFAULT_INBOX_FONT_SIZE_PX,
+    );
+    expect(result3).toEqual({});
+  });
 
-it('returns empty object for empty array', () => {
-  const result = transformToCssJs([]);
-  expect(result).toEqual({});
-});
+  it('returns empty object for empty array', () => {
+    const result = transformToCssJs([], DEFAULT_INBOX_FONT_SIZE_PX);
+    expect(result).toEqual({});
+  });
 
 it('transforms basic styles without units', () => {
   const styles: PanelGroup[] = [
@@ -47,7 +52,7 @@ it('transforms basic styles without units', () => {
     },
   ];
 
-  const result = transformToCssJs(styles);
+  const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
   expect(result).toEqual({
     body: { color: '#FF0000' },
     container: { backgroundColor: '#FFFFFF' },
@@ -79,7 +84,7 @@ it('appends units to numeric values', () => {
     },
   ];
 
-  const result = transformToCssJs(styles);
+  const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
   expect(result).toEqual({
     container: { width: '100px', height: '200px' },
   });
@@ -102,9 +107,9 @@ it('converts fontSize from px to em for mobile adjustment', () => {
     },
   ];
 
-  const result = transformToCssJs(styles);
+  const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
   expect(result).toEqual({
-    body: { fontSize: '2em' }, // 26 / 13 = 2
+    body: { fontSize: '1.8571428571428572em' }, // 26 / DEFAULT_INBOX_FONT_SIZE_PX
   });
 });
 
@@ -136,7 +141,7 @@ it('includes container background when body is not white', () => {
     },
   ];
 
-  const result = transformToCssJs(styles);
+  const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
   expect(result).toEqual({
     body: { backgroundColor: '#F0F0F0' },
     container: { backgroundColor: '#FFFFFF' },
@@ -159,7 +164,7 @@ it('includes non-black text colors for body', () => {
     },
   ];
 
-  const result = transformToCssJs(styles);
+  const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
   expect(result).toEqual({
     body: { color: '#333333' },
   });
@@ -196,7 +201,7 @@ it('handles mixed input types and properties', () => {
     },
   ];
 
-  const result = transformToCssJs(styles);
+  const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
   expect(result).toEqual({
     container: {
       width: '600px',
@@ -236,7 +241,7 @@ it('handles multiple class references', () => {
     },
   ];
 
-  const result = transformToCssJs(styles);
+  const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
   expect(result).toEqual({
     body: { color: '#333333' },
     link: { color: '#0066CC' },
@@ -261,7 +266,7 @@ it('handles string values with units', () => {
     },
   ];
 
-  const result = transformToCssJs(styles);
+  const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
   expect(result).toEqual({
     button: { width: 'auto' }, // Should not append unit for string values
   });
@@ -329,12 +334,12 @@ it('handles complex nested structure', () => {
     },
   ];
 
-  const result = transformToCssJs(styles);
+  const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
   expect(result).toEqual({
     body: {
       backgroundColor: '#FFFFFF',
       color: '#000000',
-      fontSize: '1.2307692307692308em', // 16 / 13
+      fontSize: '1.1428571428571428em', // 16 / DEFAULT_INBOX_FONT_SIZE_PX
     },
     container: {
       backgroundColor: '#FFFFFF',
@@ -343,4 +348,5 @@ it('handles complex nested structure', () => {
       paddingRight: '20px',
     },
   });
+});
 });
