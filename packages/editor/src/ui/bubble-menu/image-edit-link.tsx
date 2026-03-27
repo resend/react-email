@@ -1,18 +1,18 @@
 import type * as React from 'react';
 import { LinkIcon } from '../icons';
-import { useImageBubbleMenuContext } from './context';
+import { useBubbleMenuContext } from './context';
 
-export interface ImageBubbleMenuEditLinkProps
+export interface BubbleMenuImageEditLinkProps
   extends Omit<React.ComponentProps<'button'>, 'type'> {}
 
-export function ImageBubbleMenuEditLink({
+export function BubbleMenuImageEditLink({
   className,
   children,
   onClick,
   onMouseDown,
   ...rest
-}: ImageBubbleMenuEditLinkProps) {
-  const { setIsEditing } = useImageBubbleMenuContext();
+}: BubbleMenuImageEditLinkProps) {
+  const { setIsEditing } = useBubbleMenuContext();
 
   return (
     <button
