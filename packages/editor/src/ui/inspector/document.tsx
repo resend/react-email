@@ -200,7 +200,7 @@ export interface InspectorDocumentProps {
 export function InspectorDocument({ children }: InspectorDocumentProps) {
   const { editor } = useCurrentEditor();
   const theming = useEmailTheming(editor);
-  const { inspectorTarget } = useInspector();
+  const { target } = useInspector();
 
   if (!editor || !theming) {
     return null;
@@ -264,7 +264,7 @@ export function InspectorDocument({ children }: InspectorDocumentProps) {
     return propDef?.defaultValue ?? '';
   }
 
-  if (inspectorTarget === 'doc') {
+  if (target === 'doc') {
     return (
       <>
         {children({

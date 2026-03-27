@@ -1,5 +1,11 @@
+import { extensions } from '@tiptap/core';
 import type { Attrs } from '@tiptap/pm/model';
-import { NodeSelection, TextSelection } from '@tiptap/pm/state';
+import {
+  NodeSelection,
+  Plugin,
+  PluginKey,
+  TextSelection,
+} from '@tiptap/pm/state';
 import { useCurrentEditor, useEditorState } from '@tiptap/react';
 import * as React from 'react';
 import type { NodeClickedEvent } from '../../core';
@@ -109,8 +115,11 @@ export interface RootProps {
 }
 
 export interface InspectorContextValue {
-  inspectorTarget: InspectorTarget;
+  target: InspectorTarget;
   pathFromRoot: FocusedNode[];
+
+  focus: (event: Event) => void;
+  blur: (event: Event) => void;
 }
 
 export const InspectorContext =
@@ -129,21 +138,19 @@ export function useInspector() {
 export function InspectorProvider({ children }: RootProps) {
   const { editor } = useCurrentEditor();
 
-  const inspectorTarget = useEditorState({
+  const target = useEditorState({
     editor,
     selector(context): InspectorTarget {
       if (!context.editor) {
         return null;
       }
 
-      // When the editor is not focused, show the doc-level inspector
       if (!context.editor.isFocused) {
         return 'doc';
       }
 
       const { selection } = context.editor.state;
 
-      // If there's actual content selected, it's a text selection
       if (selection.content().size > 0 && selection instanceof TextSelection) {
         const { $from } = selection;
         for (let depth = $from.depth; depth > 0; depth--) {
@@ -164,7 +171,6 @@ export function InspectorProvider({ children }: RootProps) {
         return 'text';
       }
 
-      // Derive the inspector target from the node hierarchy
       const hierarchy = getNodeHierarchy(context.editor);
 
       if (hierarchy.length > 0) {
@@ -184,20 +190,104 @@ export function InspectorProvider({ children }: RootProps) {
     if (!editor) {
       return [];
     }
-    if (typeof inspectorTarget === 'object' && inspectorTarget) {
-      const atPos = getHierarchyAtPosition(editor, inspectorTarget.nodePos.pos);
+    if (typeof target === 'object' && target) {
+      const atPos = getHierarchyAtPosition(editor, target.nodePos.pos);
       const path = [...atPos].reverse();
-      return path.length > 0 ? path : [inspectorTarget];
+      return path.length > 0 ? path : [target];
     }
-    if (inspectorTarget === 'text') {
+    if (target === 'text') {
       const hierarchy = getNodeHierarchy(editor);
       return [...hierarchy].reverse();
     }
     return [];
-  }, [editor, inspectorTarget]);
+  }, [editor, target]);
+
+  const editorDomFocused = React.useRef(false);
+  const inspectorFocused = React.useRef(false);
+  React.useEffect(() => {
+    // This is the plugin that sets up the `focus` and `blur` event handlers for `editor.view.dom`, which then sets editor.isFocused.
+    // We want isFocused to only be true if the focus is not in the editor and not in the inspector, therefore we override this to keep track of it ourselves.
+    const defaultFocusPlugin = editor?.state.plugins.find(
+      (plugin) => plugin.spec.key === extensions.focusEventsPluginKey,
+    );
+    if (editor && defaultFocusPlugin) {
+      editor?.unregisterPlugin(extensions.focusEventsPluginKey);
+      const pluginKey = new PluginKey('inspectorReactEmailFocusEvents');
+      editor.registerPlugin(
+        new Plugin({
+          key: new PluginKey('inspectorReactEmailFocusEvents'),
+          props: {
+            handleDOMEvents: {
+              focus: (view, event: Event) => {
+                editorDomFocused.current = true;
+                editor.isFocused = true;
+
+                const transaction = editor.state.tr
+                  .setMeta('focus', { event })
+                  .setMeta('addToHistory', false);
+
+                view.dispatch(transaction);
+
+                return false;
+              },
+              blur: (view, event: Event) => {
+                editorDomFocused.current = false;
+
+                if (!inspectorFocused.current) {
+                  editor.isFocused = false;
+
+                  const transaction = editor.state.tr
+                    .setMeta('blur', { event })
+                    .setMeta('addToHistory', false);
+
+                  view.dispatch(transaction);
+                }
+
+                return false;
+              },
+            },
+          },
+        }),
+      );
+
+      return () => {
+        editor?.unregisterPlugin(pluginKey);
+        editor?.registerPlugin(defaultFocusPlugin);
+      };
+    }
+  }, [editor]);
 
   return (
-    <InspectorContext.Provider value={{ inspectorTarget, pathFromRoot }}>
+    <InspectorContext.Provider
+      value={{
+        target,
+        pathFromRoot,
+        focus: (event: Event) => {
+          inspectorFocused.current = true;
+          if (editor) {
+            editor.isFocused = true;
+
+            const transaction = editor.state.tr
+              .setMeta('focus', { event })
+              .setMeta('addToHistory', false);
+
+            editor.view.dispatch(transaction);
+          }
+        },
+        blur: (event: Event) => {
+          inspectorFocused.current = false;
+          if (!editorDomFocused.current && editor) {
+            editor.isFocused = false;
+
+            const transaction = editor.state.tr
+              .setMeta('blur', { event })
+              .setMeta('addToHistory', false);
+
+            editor.view.dispatch(transaction);
+          }
+        },
+      }}
+    >
       {children}
     </InspectorContext.Provider>
   );
