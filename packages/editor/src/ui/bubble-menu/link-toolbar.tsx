@@ -1,14 +1,14 @@
 import type * as React from 'react';
-import { useLinkBubbleMenuContext } from './context';
+import { useBubbleMenuContext } from './context';
 
-export interface LinkBubbleMenuToolbarProps
+export interface BubbleMenuLinkToolbarProps
   extends React.ComponentProps<'div'> {}
 
-export function LinkBubbleMenuToolbar({
+export function BubbleMenuLinkToolbar({
   children,
   ...rest
-}: LinkBubbleMenuToolbarProps) {
-  const { isEditing } = useLinkBubbleMenuContext();
+}: BubbleMenuLinkToolbarProps) {
+  const { isEditing } = useBubbleMenuContext();
 
   if (isEditing) {
     return null;

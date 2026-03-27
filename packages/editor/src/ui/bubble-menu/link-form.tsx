@@ -1,36 +1,35 @@
+import { useEditorState } from '@tiptap/react';
 import * as React from 'react';
-import {
-  focusEditor,
-  getUrlFromString,
-  setLinkHref,
-} from '../bubble-menu/utils';
 import { Check, UnlinkIcon } from '../icons';
-import { useLinkBubbleMenuContext } from './context';
+import { useBubbleMenuContext } from './context';
+import { focusEditor, getUrlFromString, setLinkHref } from './utils';
 
-export interface LinkBubbleMenuFormProps {
+export interface BubbleMenuLinkFormProps {
   className?: string;
-  /** Custom URL validator (default: getUrlFromString) */
   validateUrl?: (value: string) => string | null;
-  /** Called after link is applied */
   onLinkApply?: (href: string) => void;
-  /** Called after link is removed */
   onLinkRemove?: () => void;
-  /** Extra content inside the form (e.g. a variables dropdown slot) */
   children?: React.ReactNode;
 }
 
-export function LinkBubbleMenuForm({
+export function BubbleMenuLinkForm({
   className,
   validateUrl,
   onLinkApply,
   onLinkRemove,
   children,
-}: LinkBubbleMenuFormProps) {
-  const { editor, linkHref, isEditing, setIsEditing } =
-    useLinkBubbleMenuContext();
+}: BubbleMenuLinkFormProps) {
+  const { editor, isEditing, setIsEditing } = useBubbleMenuContext();
   const inputRef = React.useRef<HTMLInputElement>(null);
   const formRef = React.useRef<HTMLFormElement>(null);
-  const displayHref = linkHref === '#' ? '' : linkHref;
+
+  const linkHref = useEditorState({
+    editor,
+    selector: ({ editor: e }) =>
+      (e?.getAttributes('link').href as string) ?? '',
+  });
+
+  const displayHref = (linkHref ?? '') === '#' ? '' : (linkHref ?? '');
   const [inputValue, setInputValue] = React.useState(displayHref);
 
   React.useEffect(() => {

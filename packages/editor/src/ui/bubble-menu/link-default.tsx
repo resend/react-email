@@ -1,14 +1,15 @@
 import type * as React from 'react';
-import { LinkBubbleMenuEditLink } from './edit-link';
-import { LinkBubbleMenuForm } from './form';
-import { LinkBubbleMenuOpenLink } from './open-link';
-import { LinkBubbleMenuRoot } from './root';
-import { LinkBubbleMenuToolbar } from './toolbar';
-import { LinkBubbleMenuUnlink } from './unlink';
+import { BubbleMenuLinkEditLink } from './link-edit-link';
+import { BubbleMenuLinkForm } from './link-form';
+import { BubbleMenuLinkOpenLink } from './link-open-link';
+import { BubbleMenuLinkToolbar } from './link-toolbar';
+import { BubbleMenuLinkUnlink } from './link-unlink';
+import { BubbleMenuRoot } from './root';
+import { bubbleMenuTriggers } from './triggers';
 
 type ExcludableItem = 'edit-link' | 'open-link' | 'unlink';
 
-export interface LinkBubbleMenuDefaultProps
+export interface BubbleMenuLinkDefaultProps
   extends Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> {
   excludeItems?: ExcludableItem[];
   placement?: 'top' | 'bottom';
@@ -19,9 +20,9 @@ export interface LinkBubbleMenuDefaultProps
   onLinkRemove?: () => void;
 }
 
-export function LinkBubbleMenuDefault({
+export function BubbleMenuLinkDefault({
   excludeItems = [],
-  placement,
+  placement = 'top',
   offset,
   onHide,
   className,
@@ -29,13 +30,15 @@ export function LinkBubbleMenuDefault({
   onLinkApply,
   onLinkRemove,
   ...rest
-}: LinkBubbleMenuDefaultProps) {
+}: BubbleMenuLinkDefaultProps) {
   const has = (item: ExcludableItem) => !excludeItems.includes(item);
 
   const hasToolbarItems = has('edit-link') || has('open-link') || has('unlink');
 
   return (
-    <LinkBubbleMenuRoot
+    <BubbleMenuRoot
+      shouldShow={bubbleMenuTriggers.nodeWithoutSelection('link')}
+      pluginKey="linkBubbleMenu"
       placement={placement}
       offset={offset}
       onHide={onHide}
@@ -43,17 +46,17 @@ export function LinkBubbleMenuDefault({
       {...rest}
     >
       {hasToolbarItems && (
-        <LinkBubbleMenuToolbar>
-          {has('edit-link') && <LinkBubbleMenuEditLink />}
-          {has('open-link') && <LinkBubbleMenuOpenLink />}
-          {has('unlink') && <LinkBubbleMenuUnlink />}
-        </LinkBubbleMenuToolbar>
+        <BubbleMenuLinkToolbar>
+          {has('edit-link') && <BubbleMenuLinkEditLink />}
+          {has('open-link') && <BubbleMenuLinkOpenLink />}
+          {has('unlink') && <BubbleMenuLinkUnlink />}
+        </BubbleMenuLinkToolbar>
       )}
-      <LinkBubbleMenuForm
+      <BubbleMenuLinkForm
         validateUrl={validateUrl}
         onLinkApply={onLinkApply}
         onLinkRemove={onLinkRemove}
       />
-    </LinkBubbleMenuRoot>
+    </BubbleMenuRoot>
   );
 }
