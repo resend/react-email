@@ -41,14 +41,14 @@ export const bubbleMenuTriggers = {
     };
   },
 
-  node(nodeName: string): ShouldShowFn {
+  node(name: string): ShouldShowFn {
     return ({ editor, view }) =>
-      editor.isActive(nodeName) && !view.dom.classList.contains('dragging');
+      editor.isActive(name) && !view.dom.classList.contains('dragging');
   },
 
-  nodeWithoutSelection(nodeName: string): ShouldShowFn {
+  nodeWithoutSelection(name: string): ShouldShowFn {
     return ({ editor, view }) =>
-      editor.isActive(nodeName) &&
+      editor.isActive(name) &&
       !view.dom.classList.contains('dragging') &&
       editor.view.state.selection.content().size === 0;
   },
