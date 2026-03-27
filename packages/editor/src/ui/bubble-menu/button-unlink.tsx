@@ -1,22 +1,22 @@
 import type * as React from 'react';
-import { focusEditor } from '../bubble-menu/utils';
 import { UnlinkIcon } from '../icons';
-import { useButtonBubbleMenuContext } from './context';
+import { focusEditor } from './utils';
+import { useBubbleMenuContext } from './context';
 
-export interface ButtonBubbleMenuUnlinkProps
+export interface BubbleMenuButtonUnlinkProps
   extends Omit<React.ComponentProps<'button'>, 'type'> {
   onLinkRemove?: () => void;
 }
 
-export function ButtonBubbleMenuUnlink({
+export function BubbleMenuButtonUnlink({
   className,
   children,
   onClick,
   onMouseDown,
   onLinkRemove,
   ...rest
-}: ButtonBubbleMenuUnlinkProps) {
-  const { editor } = useButtonBubbleMenuContext();
+}: BubbleMenuButtonUnlinkProps) {
+  const { editor } = useBubbleMenuContext();
 
   return (
     <button

@@ -1,25 +1,27 @@
 import * as React from 'react';
-import { focusEditor, getUrlFromString } from '../bubble-menu/utils';
 import { Check, UnlinkIcon } from '../icons';
-import { useButtonBubbleMenuContext } from './context';
+import { useBubbleMenuContext } from './context';
+import { focusEditor, getUrlFromString } from './utils';
 
-export interface ButtonBubbleMenuFormProps {
+export interface BubbleMenuButtonFormProps {
   className?: string;
   validateUrl?: (value: string) => string | null;
   onLinkApply?: (href: string) => void;
   onLinkRemove?: () => void;
 }
 
-export function ButtonBubbleMenuForm({
+export function BubbleMenuButtonForm({
   className,
   validateUrl,
   onLinkApply,
   onLinkRemove,
-}: ButtonBubbleMenuFormProps) {
-  const { editor, buttonHref, isEditing, setIsEditing } =
-    useButtonBubbleMenuContext();
+}: BubbleMenuButtonFormProps) {
+  const { editor, isEditing, setIsEditing } = useBubbleMenuContext();
   const inputRef = React.useRef<HTMLInputElement>(null);
   const formRef = React.useRef<HTMLFormElement>(null);
+
+  const buttonHref =
+    (editor.getAttributes('button').href as string) ?? '';
   const displayHref = buttonHref === '#' ? '' : buttonHref;
   const [inputValue, setInputValue] = React.useState(displayHref);
 
@@ -27,12 +29,15 @@ export function ButtonBubbleMenuForm({
     if (!isEditing) {
       return;
     }
-    setInputValue(displayHref);
+    const currentHref =
+      (editor.getAttributes('button').href as string) ?? '';
+    const display = currentHref === '#' ? '' : currentHref;
+    setInputValue(display);
     const timeoutId = setTimeout(() => {
       inputRef.current?.focus();
     }, 0);
     return () => clearTimeout(timeoutId);
-  }, [isEditing, displayHref]);
+  }, [isEditing, editor]);
 
   React.useEffect(() => {
     if (!isEditing) {
