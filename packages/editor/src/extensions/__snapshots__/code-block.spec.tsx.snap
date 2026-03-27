@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CodeBlockPrism Node > renders React Email properly 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--$-->
+<pre
+  style="color:#f8f8f2;background:#282a36;text-shadow:0 1px rgba(0, 0, 0, 0.3);font-family:monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;hyphens:none;padding:0.75rem 1rem;margin:.5em 0;overflow:auto;border-radius:0.125rem;width:auto;font-weight:500;font-size:.92em"><code><span style="color:#8be9fd">const</span><span> ‍​x ‍​</span><span style="color:#f8f8f2">=</span><span> ‍​</span><span style="color:#bd93f9">1</span><span style="color:#f8f8f2">;</span><br/></code></pre>
+<!--/$-->
+"
+`;

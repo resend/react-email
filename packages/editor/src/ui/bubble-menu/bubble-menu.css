@@ -1,0 +1,146 @@
+/* Minimal functional styles for BubbleMenu compound components.
+ * This file handles layout and positioning only - no visual design.
+ * Import this optionally: import '@react-email/editor/styles/bubble-menu.css';
+ */
+
+[data-re-bubble-menu] {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+[data-re-bubble-menu-group] {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+  padding: 0 0.125rem;
+  border: none;
+  margin: 0;
+  min-width: 0;
+}
+
+[data-re-bubble-menu-separator] {
+  align-self: stretch;
+  width: 1px;
+  margin: 0.25rem 0;
+}
+
+[data-re-bubble-menu-item] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0.375rem;
+}
+
+[data-re-bubble-menu-item] svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+[data-re-node-selector] {
+  position: relative;
+}
+
+[data-re-node-selector-trigger] {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+  border: none;
+  background: none;
+  white-space: nowrap;
+  font-size: 0.8125rem;
+  padding: 0.375rem 0.5rem;
+}
+
+[data-re-node-selector-trigger] svg {
+  width: 0.75rem;
+  height: 0.75rem;
+  opacity: 0.5;
+}
+
+[data-re-node-selector-content] {
+  display: flex;
+  flex-direction: column;
+  min-width: 10rem;
+}
+
+[data-re-node-selector-item] {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0.375rem 0.5rem;
+  font-size: 0.8125rem;
+  width: 100%;
+  text-align: left;
+}
+
+[data-re-node-selector-item] svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+[data-re-link-selector] {
+  display: flex;
+  position: relative;
+}
+
+[data-re-link-selector-trigger] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0.375rem;
+}
+
+[data-re-link-selector-trigger] svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+[data-re-link-selector-form] {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.25rem;
+  width: max-content;
+  min-width: 16rem;
+  padding: 0.25rem;
+}
+
+[data-re-link-selector-input] {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 0.8125rem;
+  padding: 0.25rem;
+  background: transparent;
+}
+
+[data-re-link-selector-apply],
+[data-re-link-selector-unlink] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0.25rem;
+}
+
+[data-re-link-selector-apply] svg,
+[data-re-link-selector-unlink] svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
