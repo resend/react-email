@@ -47,6 +47,10 @@ jobs:
                 echo "Changed: $skill_name/$item"
                 changed=true
               fi
+              if [ -e "$dst" ] && [ ! -e "$src" ]; then
+                echo "Deleted: $skill_name/$item"
+                changed=true
+              fi
             done
           done
 
