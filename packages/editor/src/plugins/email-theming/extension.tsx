@@ -248,9 +248,9 @@ export const EmailTheming = Extension.create<{
       theme: undefined as EditorTheme | undefined,
       serializerPlugin: {
         getNodeStyles(
-          node: JSONContent,
-          depth: number,
-          editor: Editor,
+          node,
+          depth,
+          editor,
         ): React.CSSProperties {
           const theming = getEmailTheming(editor);
 
@@ -264,10 +264,6 @@ export const EmailTheming = Extension.create<{
           previewText,
           children,
           editor,
-        }: {
-          previewText: string | null;
-          children: React.ReactNode;
-          editor: Editor;
         }) {
           const { css: globalCss, styles, theme } = getEmailTheming(editor);
           const mergedStyles = getMergedCssJs(theme, styles);
