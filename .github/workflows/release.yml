@@ -27,7 +27,10 @@ jobs:
         uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320
       - name: Install packages
         run: pnpm install --frozen-lockfile --prefer-offline
-      - name: Publish stable release
-        run: node --import tsx/esm ./scripts/release.mts
-        env: 
+      - name: Publish packages
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --import tsx/esm ./scripts/release.mts
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
