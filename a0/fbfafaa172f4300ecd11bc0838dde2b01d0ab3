@@ -1,0 +1,23 @@
+packages/editor/src/ui/bubble-menu/index.ts
+  0968c8ef3c833edb 5-9,13-15,18-23,37,42-51,53-54,60-65,69-80,104-105,128-141
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.20",
+  "base_commit_sha": "a0fbfafaa172f4300ecd11bc0838dde2b01d0ab3",
+  "prompts": {
+    "0968c8ef3c833edb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "317ed657-5a82-4575-a991-a64b5b43df84",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 61,
+      "total_deletions": 4,
+      "accepted_lines": 1804,
+      "overriden_lines": 0
+    }
+  }
+}
