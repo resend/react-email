@@ -1,0 +1,25 @@
+docs/superpowers/specs/2026-03-27-unified-bubble-menu-design.md
+  0968c8ef3c833edb 1-160
+docs/superpowers/plans/2026-03-27-unified-bubble-menu.md
+  0968c8ef3c833edb 1-1583
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.20",
+  "base_commit_sha": "896e13dd763cfec61d9bf1122966a5a013e9d125",
+  "prompts": {
+    "0968c8ef3c833edb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "317ed657-5a82-4575-a991-a64b5b43df84",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo <jopcmelo@gmail.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 1743,
+      "overriden_lines": 0
+    }
+  }
+}
