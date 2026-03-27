@@ -11,8 +11,3 @@ export const Inspector = {
 };
 
 export type { InspectorDocumentProps } from './document';
-export type {
-  InspectorPanelEntry,
-  PanelInputWithHandler,
-} from './hooks/use-inspector-fields';
-export { useInspectorFields } from './hooks/use-inspector-fields';
