@@ -75,10 +75,7 @@
  * Root containers
  * ---------------------------------------------------------------- */
 
-[data-re-bubble-menu],
-[data-re-link-bm],
-[data-re-btn-bm],
-[data-re-img-bm] {
+[data-re-bubble-menu] {
   background: var(--re-bg);
   border: 1px solid var(--re-border);
   border-radius: var(--re-radius);

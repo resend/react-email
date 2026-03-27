@@ -47,8 +47,9 @@ export const bubbleMenuTriggers = {
   },
 
   nodeWithoutSelection(nodeName: string): ShouldShowFn {
-    return ({ editor }) =>
+    return ({ editor, view }) =>
       editor.isActive(nodeName) &&
+      !view.dom.classList.contains('dragging') &&
       editor.view.state.selection.content().size === 0;
   },
 };

@@ -101,5 +101,10 @@ describe('bubbleMenuTriggers', () => {
       const shouldShow = bubbleMenuTriggers.nodeWithoutSelection('link');
       expect(shouldShow(createMockParams({ selectionSize: 0 }))).toBe(false);
     });
+
+    it('hides when dragging', () => {
+      const shouldShow = bubbleMenuTriggers.nodeWithoutSelection('link');
+      expect(shouldShow(createMockParams({ isActive: (n) => n === 'link', selectionSize: 0, isDragging: true }))).toBe(false);
+    });
   });
 });

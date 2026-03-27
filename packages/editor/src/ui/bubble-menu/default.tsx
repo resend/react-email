@@ -84,6 +84,7 @@ export function BubbleMenuDefault({
 
   return (
     <BubbleMenuRoot
+      pluginKey="textBubbleMenu"
       hideWhenActiveNodes={hideWhenActiveNodes}
       hideWhenActiveMarks={hideWhenActiveMarks}
       placement={placement}

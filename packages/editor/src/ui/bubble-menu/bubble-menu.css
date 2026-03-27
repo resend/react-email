@@ -147,11 +147,6 @@
 
 /* Button bubble menu */
 
-[data-re-btn-bm] {
-  display: flex;
-  align-items: center;
-}
-
 [data-re-btn-bm-toolbar] {
   display: flex;
   align-items: center;
@@ -207,11 +202,6 @@
 }
 
 /* Link bubble menu */
-
-[data-re-link-bm] {
-  display: flex;
-  align-items: center;
-}
 
 [data-re-link-bm-toolbar] {
   display: flex;
@@ -273,11 +263,6 @@ a[data-re-link-bm-item] {
 }
 
 /* Image bubble menu */
-
-[data-re-img-bm] {
-  display: flex;
-  align-items: center;
-}
 
 [data-re-img-bm-toolbar] {
   display: flex;
