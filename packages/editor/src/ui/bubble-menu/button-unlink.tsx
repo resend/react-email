@@ -1,7 +1,7 @@
 import type * as React from 'react';
 import { UnlinkIcon } from '../icons';
-import { focusEditor } from './utils';
 import { useBubbleMenuContext } from './context';
+import { focusEditor } from './utils';
 
 export interface BubbleMenuButtonUnlinkProps
   extends Omit<React.ComponentProps<'button'>, 'type'> {

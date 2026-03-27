@@ -1,6 +1,6 @@
 import type { Editor } from '@tiptap/core';
-import type { EditorView } from '@tiptap/pm/view';
 import type { EditorState } from '@tiptap/pm/state';
+import type { EditorView } from '@tiptap/pm/view';
 import { bubbleMenuTriggers } from './triggers';
 
 function createMockParams(overrides: {
@@ -19,8 +19,19 @@ function createMockParams(overrides: {
   } = overrides;
 
   return {
-    editor: { isActive, view: { state: { selection: { content: () => ({ size: selectionSize }) } } } } as unknown as Editor,
-    view: { dom: { classList: { contains: (cls: string) => cls === 'dragging' && isDragging } } } as unknown as EditorView,
+    editor: {
+      isActive,
+      view: {
+        state: { selection: { content: () => ({ size: selectionSize }) } },
+      },
+    } as unknown as Editor,
+    view: {
+      dom: {
+        classList: {
+          contains: (cls: string) => cls === 'dragging' && isDragging,
+        },
+      },
+    } as unknown as EditorView,
     state: {
       selection: {
         $from: { depth: fromDepth, node: nodeAtDepth },
@@ -51,28 +62,36 @@ describe('bubbleMenuTriggers', () => {
 
     it('hides when an excluded node is active', () => {
       const shouldShow = bubbleMenuTriggers.textSelection(['codeBlock']);
-      expect(shouldShow(createMockParams({ isActive: (n) => n === 'codeBlock' }))).toBe(false);
+      expect(
+        shouldShow(createMockParams({ isActive: (n) => n === 'codeBlock' })),
+      ).toBe(false);
     });
 
     it('hides when an excluded node is in ancestor chain', () => {
       const shouldShow = bubbleMenuTriggers.textSelection(['codeBlock']);
       const params = createMockParams({
         fromDepth: 2,
-        nodeAtDepth: (d) => ({ type: { name: d === 2 ? 'paragraph' : 'codeBlock' } }),
+        nodeAtDepth: (d) => ({
+          type: { name: d === 2 ? 'paragraph' : 'codeBlock' },
+        }),
       });
       expect(shouldShow(params)).toBe(false);
     });
 
     it('hides when an excluded mark is active', () => {
       const shouldShow = bubbleMenuTriggers.textSelection([], ['link']);
-      expect(shouldShow(createMockParams({ isActive: (n) => n === 'link' }))).toBe(false);
+      expect(
+        shouldShow(createMockParams({ isActive: (n) => n === 'link' })),
+      ).toBe(false);
     });
   });
 
   describe('node', () => {
     it('shows when the specified node is active', () => {
       const shouldShow = bubbleMenuTriggers.node('button');
-      expect(shouldShow(createMockParams({ isActive: (n) => n === 'button' }))).toBe(true);
+      expect(
+        shouldShow(createMockParams({ isActive: (n) => n === 'button' })),
+      ).toBe(true);
     });
 
     it('hides when the specified node is not active', () => {
@@ -82,19 +101,34 @@ describe('bubbleMenuTriggers', () => {
 
     it('hides when dragging', () => {
       const shouldShow = bubbleMenuTriggers.node('button');
-      expect(shouldShow(createMockParams({ isActive: (n) => n === 'button', isDragging: true }))).toBe(false);
+      expect(
+        shouldShow(
+          createMockParams({
+            isActive: (n) => n === 'button',
+            isDragging: true,
+          }),
+        ),
+      ).toBe(false);
     });
   });
 
   describe('nodeWithoutSelection', () => {
     it('shows when node is active and selection is empty', () => {
       const shouldShow = bubbleMenuTriggers.nodeWithoutSelection('link');
-      expect(shouldShow(createMockParams({ isActive: (n) => n === 'link', selectionSize: 0 }))).toBe(true);
+      expect(
+        shouldShow(
+          createMockParams({ isActive: (n) => n === 'link', selectionSize: 0 }),
+        ),
+      ).toBe(true);
     });
 
     it('hides when there is a text selection', () => {
       const shouldShow = bubbleMenuTriggers.nodeWithoutSelection('link');
-      expect(shouldShow(createMockParams({ isActive: (n) => n === 'link', selectionSize: 5 }))).toBe(false);
+      expect(
+        shouldShow(
+          createMockParams({ isActive: (n) => n === 'link', selectionSize: 5 }),
+        ),
+      ).toBe(false);
     });
 
     it('hides when node is not active', () => {

@@ -20,8 +20,7 @@ export function BubbleMenuButtonForm({
   const inputRef = React.useRef<HTMLInputElement>(null);
   const formRef = React.useRef<HTMLFormElement>(null);
 
-  const buttonHref =
-    (editor.getAttributes('button').href as string) ?? '';
+  const buttonHref = (editor.getAttributes('button').href as string) ?? '';
   const displayHref = buttonHref === '#' ? '' : buttonHref;
   const [inputValue, setInputValue] = React.useState(displayHref);
 
@@ -29,8 +28,7 @@ export function BubbleMenuButtonForm({
     if (!isEditing) {
       return;
     }
-    const currentHref =
-      (editor.getAttributes('button').href as string) ?? '';
+    const currentHref = (editor.getAttributes('button').href as string) ?? '';
     const display = currentHref === '#' ? '' : currentHref;
     setInputValue(display);
     const timeoutId = setTimeout(() => {

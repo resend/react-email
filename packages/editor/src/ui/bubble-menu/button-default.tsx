@@ -1,10 +1,10 @@
 import { useEditorState } from '@tiptap/react';
 import type * as React from 'react';
-import { useBubbleMenuContext } from './context';
 import { BubbleMenuButtonEditLink } from './button-edit-link';
 import { BubbleMenuButtonForm } from './button-form';
 import { BubbleMenuButtonToolbar } from './button-toolbar';
 import { BubbleMenuButtonUnlink } from './button-unlink';
+import { useBubbleMenuContext } from './context';
 import { BubbleMenuRoot } from './root';
 import { bubbleMenuTriggers } from './triggers';
 

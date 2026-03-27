@@ -1,5 +1,5 @@
-import type * as React from 'react';
 import { useEditorState } from '@tiptap/react';
+import type * as React from 'react';
 import { ExternalLinkIcon } from '../icons';
 import { useBubbleMenuContext } from './context';
 

@@ -88,7 +88,10 @@ export function FullEmailBuilder() {
         </button>
       </div>
       <EditorProvider key={theme} extensions={extensions} content={content}>
-        <BubbleMenu.Default hideWhenActiveNodes={['button']} hideWhenActiveMarks={['link']} />
+        <BubbleMenu.Default
+          hideWhenActiveNodes={['button']}
+          hideWhenActiveMarks={['link']}
+        />
         <BubbleMenu.LinkDefault />
         <BubbleMenu.ButtonDefault />
         <SlashCommand.Root items={defaultSlashCommands} />

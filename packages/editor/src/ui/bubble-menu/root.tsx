@@ -2,7 +2,7 @@ import { useCurrentEditor } from '@tiptap/react';
 import { BubbleMenu } from '@tiptap/react/menus';
 import * as React from 'react';
 import { BubbleMenuContext } from './context';
-import { type ShouldShowFn, bubbleMenuTriggers } from './triggers';
+import { bubbleMenuTriggers, type ShouldShowFn } from './triggers';
 
 export interface BubbleMenuRootProps
   extends Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> {
