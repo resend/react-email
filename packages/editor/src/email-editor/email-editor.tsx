@@ -15,9 +15,9 @@ import { composeReactEmail } from '../core/serializer/compose-react-email';
 import { StarterKit } from '../extensions';
 import { EmailTheming } from '../plugins/email-theming/extension';
 import { BubbleMenuDefault } from '../ui/bubble-menu/default';
-import { ButtonBubbleMenuDefault } from '../ui/button-bubble-menu/default';
-import { ImageBubbleMenuDefault } from '../ui/image-bubble-menu/default';
-import { LinkBubbleMenuDefault } from '../ui/link-bubble-menu/default';
+import { BubbleMenuButtonDefault } from '../ui/bubble-menu/button-default';
+import { BubbleMenuImageDefault } from '../ui/bubble-menu/image-default';
+import { BubbleMenuLinkDefault } from '../ui/bubble-menu/link-default';
 import { SlashCommandRoot } from '../ui/slash-command/root';
 import '../ui/themes/default.css';
 
@@ -37,8 +37,8 @@ export interface EmailEditorProps {
   editable?: boolean;
   placeholder?: string;
   bubbleMenu?: {
-    excludeNodes?: string[];
-    excludeMarks?: string[];
+    hideWhenActiveNodes?: string[];
+    hideWhenActiveMarks?: string[];
   };
   extensions?: Extensions;
   className?: string;
@@ -123,12 +123,12 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
       >
         <RefBridge editorRef={ref} />
         <BubbleMenuDefault
-          excludeNodes={bubbleMenu?.excludeNodes ?? ['button']}
-          excludeMarks={bubbleMenu?.excludeMarks ?? ['link']}
+          hideWhenActiveNodes={bubbleMenu?.hideWhenActiveNodes ?? ['button']}
+          hideWhenActiveMarks={bubbleMenu?.hideWhenActiveMarks ?? ['link']}
         />
-        <LinkBubbleMenuDefault />
-        <ButtonBubbleMenuDefault />
-        <ImageBubbleMenuDefault />
+        <BubbleMenuLinkDefault />
+        <BubbleMenuButtonDefault />
+        <BubbleMenuImageDefault />
         <SlashCommandRoot />
       </EditorProvider>
     );
