@@ -212,7 +212,7 @@ describe('BubbleMenuDefault', () => {
   });
 
   it('forwards excludeNodes to Root so shouldShow rejects excluded nodes', () => {
-    render(<BubbleMenuDefault excludeNodes={['image', 'button']} />);
+    render(<BubbleMenuDefault hideWhenActiveNodes={['image', 'button']} />);
 
     expect(capturedShouldShow).toBeDefined();
 
