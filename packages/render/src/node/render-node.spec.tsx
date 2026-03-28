@@ -151,6 +151,43 @@ describe('render on node environments', () => {
     );
   });
 
+  // Regression test for https://github.com/resend/react-email/issues/1667
+  // and https://github.com/resend/react-email/issues/1932
+  //
+  // React's streaming renderer can produce chunks that split multi-byte UTF-8
+  // characters at chunk boundaries, resulting in NULL bytes (U+0000) in the
+  // rendered output. Email clients treat NULL as a string terminator, causing
+  // emails to be truncated mid-content.
+  it('rendered output contains no NULL bytes with multi-byte characters', async () => {
+    const MultiByteTemplate = () => {
+      const paragraphs = Array(30)
+        .fill(null)
+        .map((_, i) => (
+          <p key={i}>
+            段落{i}：日本語のテキストを含むメールテンプレートのテストです。
+            Ärzte und Ünternehmen für Lösung und Grüße aus München. Тестовая
+            компания приветствует вас в нашем сервисе. 이메일 템플릿 테스트를
+            위한 한국어 텍스트입니다.
+          </p>
+        ));
+
+      return (
+        <div>
+          <h1>テスト会社ABCははハハtestあ</h1>
+          {paragraphs}
+        </div>
+      );
+    };
+
+    const html = await render(<MultiByteTemplate />);
+
+    expect(html).not.toContain('\0');
+    expect(html).toContain('テスト会社ABCははハハtestあ');
+    expect(html).toContain('日本語のテキスト');
+    expect(html).toContain('Ünternehmen');
+    expect(html).toContain('Тестовая');
+  });
+
   /**
    * Create a large email that would trigger React's streaming optimization
    * if progressiveChunkSize wasn't set to Infinity

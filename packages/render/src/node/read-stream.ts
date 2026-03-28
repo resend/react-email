@@ -54,5 +54,7 @@ export const readStream = async (
     });
   }
 
-  return result;
+  // Strip NULL bytes (U+0000) that can appear when React's streaming renderer
+  // produces chunks that split multi-byte UTF-8 characters at chunk boundaries.
+  return result.replaceAll('\0', '');
 };
