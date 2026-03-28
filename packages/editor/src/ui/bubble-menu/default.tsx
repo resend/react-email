@@ -28,24 +28,18 @@ type ExcludableItem =
 
 export interface BubbleMenuDefaultProps
   extends Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> {
-  /** Items to exclude from the default layout */
   excludeItems?: ExcludableItem[];
-  /** Node types that should NOT trigger the bubble menu (forwarded to Root) */
-  excludeNodes?: string[];
-  /** Mark types that should NOT trigger the bubble menu (forwarded to Root) */
-  excludeMarks?: string[];
-  /** Placement relative to selection (forwarded to Root, default: 'bottom') */
+  hideWhenActiveNodes?: string[];
+  hideWhenActiveMarks?: string[];
   placement?: 'top' | 'bottom';
-  /** Offset from selection in px (forwarded to Root, default: 8) */
   offset?: number;
-  /** Called when the bubble menu hides (forwarded to Root) */
   onHide?: () => void;
 }
 
 export function BubbleMenuDefault({
   excludeItems = [],
-  excludeNodes,
-  excludeMarks,
+  hideWhenActiveNodes,
+  hideWhenActiveMarks,
   placement,
   offset,
   onHide,
@@ -90,8 +84,9 @@ export function BubbleMenuDefault({
 
   return (
     <BubbleMenuRoot
-      excludeNodes={excludeNodes}
-      excludeMarks={excludeMarks}
+      pluginKey="textBubbleMenu"
+      hideWhenActiveNodes={hideWhenActiveNodes}
+      hideWhenActiveMarks={hideWhenActiveMarks}
       placement={placement}
       offset={offset}
       onHide={handleHide}

@@ -1,48 +1,41 @@
 import * as React from 'react';
-import {
-  focusEditor,
-  getUrlFromString,
-  setLinkHref,
-} from '../bubble-menu/utils';
 import { Check, UnlinkIcon } from '../icons';
-import { useLinkBubbleMenuContext } from './context';
+import { useBubbleMenuContext } from './context';
+import { focusEditor, getUrlFromString } from './utils';
 
-export interface LinkBubbleMenuFormProps {
+export interface BubbleMenuButtonFormProps {
   className?: string;
-  /** Custom URL validator (default: getUrlFromString) */
   validateUrl?: (value: string) => string | null;
-  /** Called after link is applied */
   onLinkApply?: (href: string) => void;
-  /** Called after link is removed */
   onLinkRemove?: () => void;
-  /** Extra content inside the form (e.g. a variables dropdown slot) */
-  children?: React.ReactNode;
 }
 
-export function LinkBubbleMenuForm({
+export function BubbleMenuButtonForm({
   className,
   validateUrl,
   onLinkApply,
   onLinkRemove,
-  children,
-}: LinkBubbleMenuFormProps) {
-  const { editor, linkHref, isEditing, setIsEditing } =
-    useLinkBubbleMenuContext();
+}: BubbleMenuButtonFormProps) {
+  const { editor, isEditing, setIsEditing } = useBubbleMenuContext();
   const inputRef = React.useRef<HTMLInputElement>(null);
   const formRef = React.useRef<HTMLFormElement>(null);
-  const displayHref = linkHref === '#' ? '' : linkHref;
+
+  const buttonHref = (editor.getAttributes('button').href as string) ?? '';
+  const displayHref = buttonHref === '#' ? '' : buttonHref;
   const [inputValue, setInputValue] = React.useState(displayHref);
 
   React.useEffect(() => {
     if (!isEditing) {
       return;
     }
-    setInputValue(displayHref);
+    const currentHref = (editor.getAttributes('button').href as string) ?? '';
+    const display = currentHref === '#' ? '' : currentHref;
+    setInputValue(display);
     const timeoutId = setTimeout(() => {
       inputRef.current?.focus();
     }, 0);
     return () => clearTimeout(timeoutId);
-  }, [isEditing, displayHref]);
+  }, [isEditing, editor]);
 
   React.useEffect(() => {
     if (!isEditing) {
@@ -86,7 +79,7 @@ export function LinkBubbleMenuForm({
     const value = inputValue.trim();
 
     if (value === '') {
-      setLinkHref(editor, '');
+      editor.commands.updateButton({ href: '#' });
       setIsEditing(false);
       focusEditor(editor);
       onLinkRemove?.();
@@ -97,14 +90,14 @@ export function LinkBubbleMenuForm({
     const finalValue = validate(value);
 
     if (!finalValue) {
-      setLinkHref(editor, '');
+      editor.commands.updateButton({ href: '#' });
       setIsEditing(false);
       focusEditor(editor);
       onLinkRemove?.();
       return;
     }
 
-    setLinkHref(editor, finalValue);
+    editor.commands.updateButton({ href: finalValue });
     setIsEditing(false);
     focusEditor(editor);
     onLinkApply?.(finalValue);
@@ -112,7 +105,7 @@ export function LinkBubbleMenuForm({
 
   function handleUnlink(e: React.MouseEvent) {
     e.stopPropagation();
-    setLinkHref(editor, '');
+    editor.commands.updateButton({ href: '#' });
     setIsEditing(false);
     focusEditor(editor);
     onLinkRemove?.();
@@ -121,7 +114,7 @@ export function LinkBubbleMenuForm({
   return (
     <form
       ref={formRef}
-      data-re-link-bm-form=""
+      data-re-btn-bm-form=""
       className={className}
       onMouseDown={(e) => e.stopPropagation()}
       onClick={(e) => e.stopPropagation()}
@@ -130,7 +123,7 @@ export function LinkBubbleMenuForm({
     >
       <input
         ref={inputRef}
-        data-re-link-bm-input=""
+        data-re-btn-bm-input=""
         value={inputValue}
         onFocus={(e) => e.stopPropagation()}
         onChange={(e) => setInputValue(e.target.value)}
@@ -138,13 +131,11 @@ export function LinkBubbleMenuForm({
         type="text"
       />
 
-      {children}
-
       {displayHref ? (
         <button
           type="button"
           aria-label="Remove link"
-          data-re-link-bm-unlink=""
+          data-re-btn-bm-unlink=""
           onClick={handleUnlink}
         >
           <UnlinkIcon />
@@ -153,7 +144,7 @@ export function LinkBubbleMenuForm({
         <button
           type="submit"
           aria-label="Apply link"
-          data-re-link-bm-apply=""
+          data-re-btn-bm-apply=""
           onMouseDown={(e) => e.stopPropagation()}
         >
           <Check />

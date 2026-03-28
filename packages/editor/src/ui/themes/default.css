@@ -8,9 +8,6 @@
 
 /* Layer 0: layout (inlined at build time via postcss-import) */
 @import "../bubble-menu/bubble-menu.css";
-@import "../link-bubble-menu/link-bubble-menu.css";
-@import "../button-bubble-menu/button-bubble-menu.css";
-@import "../image-bubble-menu/image-bubble-menu.css";
 @import "../slash-command/slash-command.css";
 
 /* ----------------------------------------------------------------
@@ -78,10 +75,7 @@
  * Root containers
  * ---------------------------------------------------------------- */
 
-[data-re-bubble-menu],
-[data-re-link-bm],
-[data-re-btn-bm],
-[data-re-img-bm] {
+[data-re-bubble-menu] {
   background: var(--re-bg);
   border: 1px solid var(--re-border);
   border-radius: var(--re-radius);

@@ -1,26 +1,26 @@
 import { useCurrentEditor } from '@tiptap/react';
 import { BubbleMenu } from '@tiptap/react/menus';
-import type * as React from 'react';
+import * as React from 'react';
 import { BubbleMenuContext } from './context';
+import { bubbleMenuTriggers, type ShouldShowFn } from './triggers';
 
 export interface BubbleMenuRootProps
   extends Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> {
-  /** Node types that should NOT trigger the bubble menu */
-  excludeNodes?: string[];
-  /** Mark types that should NOT trigger the bubble menu */
-  excludeMarks?: string[];
-  /** Placement relative to selection */
+  shouldShow?: ShouldShowFn;
+  pluginKey?: string;
+  hideWhenActiveNodes?: string[];
+  hideWhenActiveMarks?: string[];
   placement?: 'top' | 'bottom';
-  /** Offset from selection in px */
   offset?: number;
-  /** Called when the bubble menu is hidden (e.g., click outside, selection cleared) */
   onHide?: () => void;
   children: React.ReactNode;
 }
 
 export function BubbleMenuRoot({
-  excludeNodes = [],
-  excludeMarks = [],
+  shouldShow,
+  pluginKey = 'bubbleMenu',
+  hideWhenActiveNodes = [],
+  hideWhenActiveMarks = [],
   placement = 'bottom',
   offset = 8,
   onHide,
@@ -29,6 +29,11 @@ export function BubbleMenuRoot({
   ...rest
 }: BubbleMenuRootProps) {
   const { editor } = useCurrentEditor();
+  const [isEditing, setIsEditing] = React.useState(false);
+
+  const resolvedShouldShow =
+    shouldShow ??
+    bubbleMenuTriggers.textSelection(hideWhenActiveNodes, hideWhenActiveMarks);
 
   if (!editor) {
     return null;
@@ -37,39 +42,21 @@ export function BubbleMenuRoot({
   return (
     <BubbleMenu
       editor={editor}
-      pluginKey="textBubbleMenu"
+      pluginKey={pluginKey}
       data-re-bubble-menu=""
-      shouldShow={({ editor, view, state }) => {
-        for (const node of excludeNodes) {
-          if (editor.isActive(node)) {
-            return false;
-          }
-          const { $from } = state.selection;
-          for (let d = $from.depth; d > 0; d--) {
-            if ($from.node(d).type.name === node) {
-              return false;
-            }
-          }
-        }
-        for (const mark of excludeMarks) {
-          if (editor.isActive(mark)) {
-            return false;
-          }
-        }
-        if (view.dom.classList.contains('dragging')) {
-          return false;
-        }
-        return editor.view.state.selection.content().size > 0;
-      }}
+      shouldShow={resolvedShouldShow}
       options={{
         placement,
         offset,
-        onHide,
+        onHide: () => {
+          setIsEditing(false);
+          onHide?.();
+        },
       }}
       className={className}
       {...rest}
     >
-      <BubbleMenuContext.Provider value={{ editor }}>
+      <BubbleMenuContext.Provider value={{ editor, isEditing, setIsEditing }}>
         {children}
       </BubbleMenuContext.Provider>
     </BubbleMenu>

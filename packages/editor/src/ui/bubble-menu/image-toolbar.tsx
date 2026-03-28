@@ -1,14 +1,14 @@
 import type * as React from 'react';
-import { useImageBubbleMenuContext } from './context';
+import { useBubbleMenuContext } from './context';
 
-export interface ImageBubbleMenuToolbarProps
+export interface BubbleMenuImageToolbarProps
   extends React.ComponentProps<'div'> {}
 
-export function ImageBubbleMenuToolbar({
+export function BubbleMenuImageToolbar({
   children,
   ...rest
-}: ImageBubbleMenuToolbarProps) {
-  const { isEditing } = useImageBubbleMenuContext();
+}: BubbleMenuImageToolbarProps) {
+  const { isEditing } = useBubbleMenuContext();
 
   if (isEditing) {
     return null;

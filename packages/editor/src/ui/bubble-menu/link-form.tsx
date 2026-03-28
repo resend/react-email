@@ -1,26 +1,35 @@
+import { useEditorState } from '@tiptap/react';
 import * as React from 'react';
-import { focusEditor, getUrlFromString } from '../bubble-menu/utils';
 import { Check, UnlinkIcon } from '../icons';
-import { useButtonBubbleMenuContext } from './context';
+import { useBubbleMenuContext } from './context';
+import { focusEditor, getUrlFromString, setLinkHref } from './utils';
 
-export interface ButtonBubbleMenuFormProps {
+export interface BubbleMenuLinkFormProps {
   className?: string;
   validateUrl?: (value: string) => string | null;
   onLinkApply?: (href: string) => void;
   onLinkRemove?: () => void;
+  children?: React.ReactNode;
 }
 
-export function ButtonBubbleMenuForm({
+export function BubbleMenuLinkForm({
   className,
   validateUrl,
   onLinkApply,
   onLinkRemove,
-}: ButtonBubbleMenuFormProps) {
-  const { editor, buttonHref, isEditing, setIsEditing } =
-    useButtonBubbleMenuContext();
+  children,
+}: BubbleMenuLinkFormProps) {
+  const { editor, isEditing, setIsEditing } = useBubbleMenuContext();
   const inputRef = React.useRef<HTMLInputElement>(null);
   const formRef = React.useRef<HTMLFormElement>(null);
-  const displayHref = buttonHref === '#' ? '' : buttonHref;
+
+  const linkHref = useEditorState({
+    editor,
+    selector: ({ editor: e }) =>
+      (e?.getAttributes('link').href as string) ?? '',
+  });
+
+  const displayHref = (linkHref ?? '') === '#' ? '' : (linkHref ?? '');
   const [inputValue, setInputValue] = React.useState(displayHref);
 
   React.useEffect(() => {
@@ -76,7 +85,7 @@ export function ButtonBubbleMenuForm({
     const value = inputValue.trim();
 
     if (value === '') {
-      editor.commands.updateButton({ href: '#' });
+      setLinkHref(editor, '');
       setIsEditing(false);
       focusEditor(editor);
       onLinkRemove?.();
@@ -87,14 +96,14 @@ export function ButtonBubbleMenuForm({
     const finalValue = validate(value);
 
     if (!finalValue) {
-      editor.commands.updateButton({ href: '#' });
+      setLinkHref(editor, '');
       setIsEditing(false);
       focusEditor(editor);
       onLinkRemove?.();
       return;
     }
 
-    editor.commands.updateButton({ href: finalValue });
+    setLinkHref(editor, finalValue);
     setIsEditing(false);
     focusEditor(editor);
     onLinkApply?.(finalValue);
@@ -102,7 +111,7 @@ export function ButtonBubbleMenuForm({
 
   function handleUnlink(e: React.MouseEvent) {
     e.stopPropagation();
-    editor.commands.updateButton({ href: '#' });
+    setLinkHref(editor, '');
     setIsEditing(false);
     focusEditor(editor);
     onLinkRemove?.();
@@ -111,7 +120,7 @@ export function ButtonBubbleMenuForm({
   return (
     <form
       ref={formRef}
-      data-re-btn-bm-form=""
+      data-re-link-bm-form=""
       className={className}
       onMouseDown={(e) => e.stopPropagation()}
       onClick={(e) => e.stopPropagation()}
@@ -120,7 +129,7 @@ export function ButtonBubbleMenuForm({
     >
       <input
         ref={inputRef}
-        data-re-btn-bm-input=""
+        data-re-link-bm-input=""
         value={inputValue}
         onFocus={(e) => e.stopPropagation()}
         onChange={(e) => setInputValue(e.target.value)}
@@ -128,11 +137,13 @@ export function ButtonBubbleMenuForm({
         type="text"
       />
 
+      {children}
+
       {displayHref ? (
         <button
           type="button"
           aria-label="Remove link"
-          data-re-btn-bm-unlink=""
+          data-re-link-bm-unlink=""
           onClick={handleUnlink}
         >
           <UnlinkIcon />
@@ -141,7 +152,7 @@ export function ButtonBubbleMenuForm({
         <button
           type="submit"
           aria-label="Apply link"
-          data-re-btn-bm-apply=""
+          data-re-link-bm-apply=""
           onMouseDown={(e) => e.stopPropagation()}
         >
           <Check />
