@@ -8,6 +8,7 @@
   "ignore": [
     "@benchmarks/preview-server",
     "@benchmarks/tailwind-component",
+    "@react-email/editor",
     "demo",
     "email-dev",
     "web"
