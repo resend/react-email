@@ -69,6 +69,7 @@ test('email export', { retry: 3 }, async () => {
                               <td>
                                 <img
                                   alt="Vercel Logo"
+                                  fetchpriority="low"
                                   height="37"
                                   src="/static/vercel-logo.png"
                                   style="display:block;outline:none;border:none;text-decoration:none;margin-right:auto;margin-left:auto;margin-bottom:0;margin-top:0"
@@ -119,6 +120,7 @@ test('email export', { retry: 3 }, async () => {
                                         data-id="__react-email-column">
                                         <img
                                           alt="undefined&#x27;s profile picture"
+                                          fetchpriority="low"
                                           height="64"
                                           style="display:block;outline:none;border:none;text-decoration:none;border-radius:9999px"
                                           width="64" />
@@ -128,6 +130,7 @@ test('email export', { retry: 3 }, async () => {
                                         data-id="__react-email-column">
                                         <img
                                           alt="Arrow indicating invitation"
+                                          fetchpriority="low"
                                           height="9"
                                           src="/static/vercel-arrow.png"
                                           style="display:block;outline:none;border:none;text-decoration:none"
@@ -138,6 +141,7 @@ test('email export', { retry: 3 }, async () => {
                                         data-id="__react-email-column">
                                         <img
                                           alt="undefined team logo"
+                                          fetchpriority="low"
                                           height="64"
                                           style="display:block;outline:none;border:none;text-decoration:none;border-radius:9999px"
                                           width="64" />

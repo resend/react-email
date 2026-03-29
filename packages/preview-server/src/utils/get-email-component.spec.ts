@@ -77,6 +77,7 @@ describe('getEmailComponent()', () => {
                                   <td>
                                     <img
                                       alt="Vercel Logo"
+                                      fetchpriority="low"
                                       height="37"
                                       src="/static/vercel-logo.png"
                                       style="display:block;outline:none;border:none;text-decoration:none;margin-right:auto;margin-left:auto;margin-bottom:0;margin-top:0"
@@ -128,6 +129,7 @@ describe('getEmailComponent()', () => {
                                             data-id="__react-email-column">
                                             <img
                                               alt="alanturing&#x27;s profile picture"
+                                              fetchpriority="low"
                                               height="64"
                                               src="/static/vercel-user.png"
                                               style="display:block;outline:none;border:none;text-decoration:none;border-radius:9999px"
@@ -138,6 +140,7 @@ describe('getEmailComponent()', () => {
                                             data-id="__react-email-column">
                                             <img
                                               alt="Arrow indicating invitation"
+                                              fetchpriority="low"
                                               height="9"
                                               src="/static/vercel-arrow.png"
                                               style="display:block;outline:none;border:none;text-decoration:none"
@@ -148,6 +151,7 @@ describe('getEmailComponent()', () => {
                                             data-id="__react-email-column">
                                             <img
                                               alt="Enigma team logo"
+                                              fetchpriority="low"
                                               height="64"
                                               src="/static/vercel-team.png"
                                               style="display:block;outline:none;border:none;text-decoration:none;border-radius:9999px"
