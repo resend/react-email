@@ -1,6 +1,6 @@
 {
   "name": "create-email",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "The easiest way to get started with React Email",
   "main": "src/index.js",
   "type": "module",
@@ -9,10 +9,10 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "commander": "^13.0.0",
-    "fs-extra": "^11.1.1",
-    "log-symbols": "^7.0.0",
-    "ora": "^8.0.0"
+    "commander": "catalog:",
+    "fs-extra": "^11.3.3",
+    "log-symbols": "catalog:",
+    "ora": "catalog:"
   },
   "repository": {
     "type": "git",
@@ -24,14 +24,15 @@
     "email"
   ],
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "bin": {
     "create-email": "src/index.js"
   },
   "devDependencies": {
-    "react": "19.0.0",
+    "nypm": "catalog:",
+    "react": "catalog:",
     "tsconfig": "workspace:*",
-    "typescript": "5.8.3"
+    "typescript": "catalog:"
   }
 }

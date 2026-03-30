@@ -4,19 +4,19 @@ import type { toPlainText } from './utils/to-plain-text';
 
 export type Options = {
   /**
-   * @deprecated use {@link pretty} instead
+   * @see {@link pretty}
    */
   pretty?: boolean;
 } & (
   | {
       /**
-       * @deprecated use {@link toPlainText} instead
+       * @see {@link toPlainText}
        */
       plainText?: false;
     }
   | {
       /**
-       * @deprecated use {@link toPlainText} instead
+       * @see {@link toPlainText}
        */
       plainText?: true;
       /**

@@ -2,11 +2,9 @@ import { type CssNode, generate, List, type StyleSheet } from 'css-tree';
 import * as React from 'react';
 import type { Config } from 'tailwindcss';
 import { useSuspensedPromise } from './hooks/use-suspended-promise';
+import { sanitizeStyleSheet } from './sanitize-stylesheet';
 import { extractRulesPerClass } from './utils/css/extract-rules-per-class';
 import { getCustomProperties } from './utils/css/get-custom-properties';
-import { resolveAllCssVariables } from './utils/css/resolve-all-css-variables';
-import { resolveCalcExpressions } from './utils/css/resolve-calc-expressions';
-import { sanitizeDeclarations } from './utils/css/sanitize-declarations';
 import { sanitizeNonInlinableRules } from './utils/css/sanitize-non-inlinable-rules';
 import { mapReactTree } from './utils/react/map-react-tree';
 import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element-with-inlined-styles';
@@ -106,13 +104,10 @@ export function Tailwind({ children, config }: TailwindProps) {
   });
 
   const styleSheet = tailwindSetup.getStyleSheet();
-  resolveAllCssVariables(styleSheet);
-  resolveCalcExpressions(styleSheet);
-  sanitizeDeclarations(styleSheet);
+  sanitizeStyleSheet(styleSheet);
 
   const { inlinable: inlinableRules, nonInlinable: nonInlinableRules } =
     extractRulesPerClass(styleSheet, classesUsed);
-  sanitizeNonInlinableRules(styleSheet);
 
   const customProperties = getCustomProperties(styleSheet);
 
@@ -122,6 +117,7 @@ export function Tailwind({ children, config }: TailwindProps) {
       Array.from(nonInlinableRules.values()),
     ),
   };
+  sanitizeNonInlinableRules(nonInlineStyles);
 
   const hasNonInlineStylesToApply = nonInlinableRules.size > 0;
   let appliedNonInlineStyles = false as boolean;
@@ -138,7 +134,11 @@ export function Tailwind({ children, config }: TailwindProps) {
       if (elementWithInlinedStyles.type === 'head') {
         appliedNonInlineStyles = true;
 
-        const styleElement = <style>{generate(nonInlineStyles)}</style>;
+        const styleElement = (
+          <style
+            dangerouslySetInnerHTML={{ __html: generate(nonInlineStyles) }}
+          />
+        );
 
         return React.cloneElement(
           elementWithInlinedStyles,

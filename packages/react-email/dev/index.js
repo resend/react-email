@@ -1,19 +1,21 @@
 import child_process from 'node:child_process';
 import path from 'node:path';
 import url from 'node:url';
+import { join } from 'shlex';
 
 const filename = url.fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
 const root = path.resolve(dirname, '../src/index.ts');
 
-const tsxPath = path.resolve(dirname, '../../../node_modules/.bin/tsx');
-
-const tsx = child_process.spawn(tsxPath, [root, ...process.argv.slice(2)], {
-  shell: true,
-  cwd: process.cwd(),
-  stdio: 'inherit',
-});
+const tsx = child_process.spawn(
+  `pnpm tsx ${root} ${join(process.argv.slice(2))}`,
+  {
+    cwd: process.cwd(),
+    shell: true,
+    stdio: 'inherit',
+  },
+);
 
 tsx.on('close', (code) => {
   process.exit(code);

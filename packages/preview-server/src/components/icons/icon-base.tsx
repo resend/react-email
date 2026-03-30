@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-export type IconElement = React.ElementRef<'svg'>;
-export type RootProps = React.ComponentPropsWithoutRef<'svg'>;
+export type IconElement = React.ComponentRef<'svg'>;
+export type RootProps = React.ComponentProps<'svg'>;
 
 export interface IconProps extends RootProps {
   size?: number;

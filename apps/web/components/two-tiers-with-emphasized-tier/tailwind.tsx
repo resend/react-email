@@ -15,8 +15,8 @@ import { Layout } from '../_components/layout';
 export const component = (
   <Html>
     <Head />
-    <Preview>Choose the right plan for you</Preview>
     <Body>
+      <Preview>Choose the right plan for you</Preview>
       <Container className="bg-white rounded-[8px] mx-auto max-w-[600px] p-[24px]">
         <Section className="mb-[42px]">
           <Heading className="text-[24px] leading-[32px] mb-[12px] text-center">

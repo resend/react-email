@@ -10,7 +10,12 @@ describe('makeInlineStylesFor()', async () => {
 
     expect(
       makeInlineStylesFor(tailwindStyles.children.toArray()),
-    ).toMatchSnapshot();
+    ).toMatchInlineSnapshot(`
+      {
+        "backgroundColor": "#f56565",
+        "width": "100%",
+      }
+    `);
   });
 
   it('does basic local variable resolution', () => {
@@ -27,6 +32,13 @@ describe('makeInlineStylesFor()', async () => {
 
     expect(
       makeInlineStylesFor(tailwindStyles.children.toArray()),
-    ).toMatchSnapshot();
+    ).toMatchInlineSnapshot(`
+      {
+        "backgroundColor": " #3490dc",
+        "borderRadius": "0.25rem",
+        "color": " #fff",
+        "padding": "0.5rem 1rem",
+      }
+    `);
   });
 });

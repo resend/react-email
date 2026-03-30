@@ -1,5 +1,23 @@
 # @react-email/code-block
 
+## 0.2.1
+
+### Patch Changes
+
+- 8b7a660: remove use of devEngines which npm detects
+
+## 0.2.0
+
+### Minor Changes
+
+- 4f858a3: deal with spark mail's compatibility issues
+
+## 0.2.0-canary.0
+
+### Minor Changes
+
+- 4f858a3: deal with spark mail's compatibility issues
+
 ## 0.1.0
 
 ### Minor Changes

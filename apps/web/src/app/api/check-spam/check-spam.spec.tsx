@@ -2,7 +2,10 @@ import { render } from '@react-email/components';
 import { checkSpam } from './check-spam';
 import { StripeWelcomeEmail } from './testing/stripe-welcome-email';
 
-describe('checkSpam()', { timeout: 10_000 }, () => {
+const host = process.env.SPAM_ASSASSIN_HOST;
+const port = process.env.SPAM_ASSASSIN_PORT;
+
+describe.skipIf(!host || !port)('checkSpam()', { timeout: 10_000 }, () => {
   test('with most spammy email', async () => {
     const template = (
       <html lang="en">
@@ -18,7 +21,29 @@ describe('checkSpam()', { timeout: 10_000 }, () => {
     // const plainText = await render(template, { plainText: true });
     const plainText = 'Completely different content from the original';
 
-    expect(await checkSpam(html, plainText)).toMatchSnapshot();
+    expect(await checkSpam(html, plainText)).toMatchInlineSnapshot(`
+      {
+        "checks": [
+          {
+            "description": "BODY: Money back guarantee",
+            "name": "MONEY_BACK",
+            "points": 1,
+          },
+          {
+            "description": "BODY: HTML and text parts are different",
+            "name": "MPART_ALT_DIFF",
+            "points": 0.7,
+          },
+          {
+            "description": "Refers to an erectile drug",
+            "name": "DRUGS_ERECTILE",
+            "points": 2.2,
+          },
+        ],
+        "isSpam": false,
+        "points": 3.9000000000000004,
+      }
+    `);
   });
 
   test('with stripe email template using true base url', async () => {
@@ -27,6 +52,12 @@ describe('checkSpam()', { timeout: 10_000 }, () => {
       plainText: true,
     });
 
-    expect(await checkSpam(html, plainText)).toMatchSnapshot();
+    expect(await checkSpam(html, plainText)).toMatchInlineSnapshot(`
+      {
+        "checks": [],
+        "isSpam": false,
+        "points": 0,
+      }
+    `);
   });
 });

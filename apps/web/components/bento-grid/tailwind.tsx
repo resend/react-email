@@ -17,8 +17,8 @@ import { Layout } from '../_components/layout';
 export const component = (
   <Html>
     <Head />
-    <Preview>Coffee Storage</Preview>
     <Body>
+      <Preview>Coffee Storage</Preview>
       <Container className="bg-white rounded-[8px] mx-auto max-w-[900px] overflow-hidden p-0">
         <Section>
           <Row className="bg-[rgb(41,37,36)] border-separate [border-spacing:24px] m-0 table-fixed w-full">

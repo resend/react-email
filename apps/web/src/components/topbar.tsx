@@ -17,10 +17,11 @@ export function Topbar({
       {...props}
     >
       <Link
-        className="-ml-[.375rem] flex scroll-m-2 rounded-md pr-[.375rem] transition-colors focus:outline-none focus-visible:ring focus-visible:ring-slate-4"
+        className="-ml-1.5 flex scroll-m-2 rounded-md pr-[.375rem] transition-colors focus:outline-hidden focus-visible:ring-3 focus-visible:ring-slate-4"
         href="/"
       >
         <Logo />
+        <span className="sr-only">Home</span>
       </Link>
       <Menu />
     </header>

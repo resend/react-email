@@ -6,7 +6,7 @@ const PrimitivesSection = () => {
   return (
     <section className="relative md:my-40 md:py-20 space-y-16 max-md:px-6">
       <div className="flex flex-col gap-4">
-        <Heading size="8" weight="medium" className="text-white/80">
+        <Heading as="h2" size="8" weight="medium" className="text-white/80">
           Battle-tested Primitives
         </Heading>
         <Text size="5" className="opacity-70">
@@ -19,7 +19,7 @@ const PrimitivesSection = () => {
             key={index}
             className="flex flex-col items-center justify-center gap-3"
           >
-            <div className="flex items-center w-20 h-20 shrink-0 grow justify-center bg-gradient-to-b from-zinc-800 to-zinc-950 rounded-[18px] shadow-[0px_32px_64px_-16px_transparent,0px_16px_32px_-8px_transparent,0px_8px_16px_-4px_transparent,0px_4px_8px_-2px_transparent,0px_-8px_16px_-1px_transparent,0px_2px_4px_-1px_transparent,0px_0px_0px_1px_transparent,inset_0px_0px_0px_1px_rgba(255,255,255,0.1),inset_0px_1px_0px_rgb(255,255,255,0.15)]">
+            <div className="flex items-center w-20 h-20 shrink-0 grow justify-center bg-linear-to-b from-zinc-800 to-zinc-950 rounded-[18px] shadow-[0px_32px_64px_-16px_transparent,0px_16px_32px_-8px_transparent,0px_8px_16px_-4px_transparent,0px_4px_8px_-2px_transparent,0px_-8px_16px_-1px_transparent,0px_2px_4px_-1px_transparent,0px_0px_0px_1px_transparent,inset_0px_0px_0px_1px_rgba(255,255,255,0.1),inset_0px_1px_0px_rgb(255,255,255,0.15)]">
               {item.icon}
             </div>
             <Text
@@ -33,7 +33,7 @@ const PrimitivesSection = () => {
       </div>
       <Image
         alt=""
-        className="pointer-events-none absolute sm:-translate-x-48 -top-20 z-[3] scale-110 select-none mix-blend-lighten"
+        className="pointer-events-none absolute sm:-translate-x-48 -top-20 z-3 scale-110 select-none mix-blend-lighten"
         fill
         priority
         src="/static/bg.png"

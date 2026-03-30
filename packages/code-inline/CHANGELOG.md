@@ -1,5 +1,11 @@
 # @react-email/code-inline
 
+## 0.0.6
+
+### Patch Changes
+
+- 8b7a660: remove use of devEngines which npm detects
+
 ## 0.0.5
 
 ### Patch Changes

@@ -80,7 +80,7 @@ export const ViewSizeControls = ({
   return (
     <div className="relative flex h-9 w-fit overflow-hidden rounded-lg border border-slate-6 text-sm transition-colors duration-300 ease-in-out">
       {VIEW_PRESETS.map((preset) => (
-        <Tooltip>
+        <Tooltip key={preset.name}>
           <Tooltip.Trigger asChild>
             <button
               key={preset.name}
@@ -88,9 +88,7 @@ export const ViewSizeControls = ({
               className={cn(
                 'relative flex items-center justify-center w-9 transition-colors hover:text-slate-12',
                 {
-                  'bg-slate-4':
-                    viewWidth === preset.dimensions.width &&
-                    viewHeight === preset.dimensions.height,
+                  'bg-slate-4': viewWidth === preset.dimensions.width,
                 },
               )}
               type="button"
@@ -106,7 +104,7 @@ export const ViewSizeControls = ({
         <Popover.Trigger asChild>
           <button
             type="button"
-            className="relative flex items-center justify-center overflow-hidden w-9 text-slate-11 text-sm leading-none outline-none transition-colors ease-linear focus-within:text-slate-12 hover:text-slate-12 focus:text-slate-12"
+            className="relative flex items-center justify-center overflow-hidden w-9 text-slate-11 text-sm leading-none outline-hidden transition-colors ease-linear focus-within:text-slate-12 hover:text-slate-12 focus:text-slate-12"
           >
             <span className="sr-only">View presets</span>
             <IconArrowDown
@@ -122,7 +120,7 @@ export const ViewSizeControls = ({
         <Popover.Portal>
           <Popover.Content
             align="end"
-            className="flex min-w-[12rem] flex-col gap-2 rounded-md border border-slate-8 border-solid bg-black px-2 py-2 text-white"
+            className="flex min-w-48 flex-col gap-2 rounded-md border border-slate-8 border-solid bg-black px-2 py-2 text-white"
             sideOffset={5}
           >
             <div className="flex w-full items-center justify-between text-sm gap-2">
@@ -139,7 +137,7 @@ export const ViewSizeControls = ({
                     setViewWidth(value);
                   }
                 }}
-                className="w-20 appearance-none rounded-lg border border-slate-6 bg-slate-5 px-1 py-1 text-sm text-slate-12 placeholder-slate-10 outline-none transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
+                className="w-20 appearance-none rounded-lg border border-slate-6 bg-slate-5 px-1 py-1 text-sm text-slate-12 placeholder-slate-10 outline-hidden transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
               />
             </div>
 
@@ -157,7 +155,7 @@ export const ViewSizeControls = ({
                     setViewHeight(value);
                   }
                 }}
-                className="w-20 appearance-none rounded-lg border border-slate-6 bg-slate-5 px-1 py-1 text-sm text-slate-12 placeholder-slate-10 outline-none transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
+                className="w-20 appearance-none rounded-lg border border-slate-6 bg-slate-5 px-1 py-1 text-sm text-slate-12 placeholder-slate-10 outline-hidden transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
               />
             </div>
           </Popover.Content>

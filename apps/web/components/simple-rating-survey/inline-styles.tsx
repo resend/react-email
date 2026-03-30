@@ -17,11 +17,11 @@ import { Layout } from '../_components/layout';
 export const component = (
   <Html>
     <Head />
-    <Preview>
-      How satisfied were you overall with the initial conversation about your
-      claim?
-    </Preview>
     <Body>
+      <Preview>
+        How satisfied were you overall with the initial conversation about your
+        claim?
+      </Preview>
       <Container
         style={{
           backgroundColor: 'rgb(255,255,255)',
@@ -86,39 +86,40 @@ export const component = (
             </Column>
           </Row>
         </Section>
-        <Section style={{ marginTop: '12px', marginBottom: '24px' }}>
-          <Row
-            style={{
-              borderCollapse: 'separate',
-              borderSpacing: '12px',
-              maxWidth: '300px',
-              tableLayout: 'fixed',
-              width: '100%',
-            }}
-          >
+        <Section
+          style={{ marginTop: '12px', marginBottom: '24px' }}
+          align="center"
+        >
+          <Row width={undefined}>
             {Array.from({ length: 5 }).map((_, i) => (
               <Column
                 key={i}
+                width="51"
+                height="43"
                 style={{
-                  backgroundColor: 'rgb(79,70,229)',
-                  borderRadius: '6px',
+                  width: 51,
+                  height: 43,
+                  paddingLeft: 4,
+                  paddingRight: 4,
                 }}
+                align="center"
+                valign="middle"
               >
                 <Button
                   href={`?rating=${i + 1}`}
                   style={{
-                    alignItems: 'center',
+                    backgroundColor: 'rgb(79,70,229)',
+                    borderRadius: '6px',
                     boxSizing: 'border-box',
                     color: 'rgb(255,255,255)',
-                    display: 'flex',
                     fontSize: '16px',
                     fontWeight: '600',
-                    justifyContent: 'center',
+                    height: 43,
                     lineHeight: '1',
                     margin: '0px',
                     padding: '12px',
                     textAlign: 'center',
-                    width: '100%',
+                    width: 43,
                   }}
                 >
                   {i + 1}

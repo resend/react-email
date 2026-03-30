@@ -1,4 +1,4 @@
-import { type CssNode, parse } from 'css-tree';
+import { parse, type StyleSheet } from 'css-tree';
 import { compile } from 'tailwindcss';
 import type { TailwindConfig } from '../../tailwind';
 import indexCss from './tailwind-stylesheets/index';
@@ -75,8 +75,8 @@ export async function setupTailwind(config: TailwindConfig) {
     addUtilities: function addUtilities(candidates: string[]): void {
       css = compiler.build(candidates);
     },
-    getStyleSheet: function getCss(): CssNode {
-      return parse(css);
+    getStyleSheet: function getCss() {
+      return parse(css) as StyleSheet;
     },
   };
 }

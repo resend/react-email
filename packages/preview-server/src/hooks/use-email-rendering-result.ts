@@ -20,7 +20,6 @@ export const useEmailRenderingResult = (
   const { emailsDirectoryMetadata } = useEmails();
 
   if (!isBuilding && !isPreviewDevelopment) {
-    // biome-ignore lint/correctness/useHookAtTopLevel: This is fine since isBuilding does not change at runtime
     useHotreload(async (changes) => {
       for await (const change of changes) {
         const relativePathForChangedFile =
@@ -41,6 +40,9 @@ export const useEmailRenderingResult = (
         const pathForChangedEmail = await getEmailPathFromSlug(
           relativePathForChangedFile,
         );
+        if (!pathForChangedEmail) {
+          continue;
+        }
 
         const newRenderingResult = await renderEmailByPath(
           pathForChangedEmail,

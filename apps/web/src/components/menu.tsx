@@ -1,10 +1,10 @@
 'use client';
 
 import classnames from 'classnames';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
 import { Drawer } from 'vaul';
+import { SmartLink } from './smart-link';
 
 interface MenuItemProps {
   className?: string;
@@ -31,9 +31,9 @@ function MenuItem({ className, children, href, onClick }: MenuItemProps) {
 
   return (
     <li className="inline-flex w-full items-center justify-center md:w-fit">
-      <Link
+      <SmartLink
         className={classnames(
-          'inline-flex h-8 scroll-m-2 items-center rounded-md text-slate-11 text-sm transition-colors hover:bg-slate-6 hover:text-slate-12 focus:bg-slate-6 focus:outline-none focus:ring focus:ring-slate-3 md:justify-center',
+          'inline-flex h-8 scroll-m-2 items-center rounded-md text-slate-11 text-sm transition-colors hover:bg-slate-6 hover:text-slate-12 focus:bg-slate-6 focus:outline-hidden focus:ring-3 focus:ring-slate-3 md:justify-center',
           'data-[active=true]:bg-slate-6 data-[active=true]:text-slate-12',
           className,
         )}
@@ -43,7 +43,7 @@ function MenuItem({ className, children, href, onClick }: MenuItemProps) {
         data-active={activeItem === href.replace('/', '')}
       >
         {children}
-      </Link>
+      </SmartLink>
     </li>
   );
 }
@@ -130,7 +130,7 @@ export function Menu() {
         </ul>
         <span
           aria-hidden="true"
-          className="sm:!inline-block mx-2 hidden h-5 w-px bg-slate-6"
+          className="sm:inline-block! mx-2 hidden h-5 w-px bg-slate-6"
         />
         <ul className="flex gap-2">
           <SocialIcons onItemClick={handleItemClick} />
@@ -149,7 +149,7 @@ export function Menu() {
             </Drawer.Trigger>
             <Drawer.Portal>
               <Drawer.Overlay className="-translate-x-1/2 -translate-y-1/2 fixed top-1/2 left-1/2 z-50 h-[200dvh] w-[200dvw] bg-black/80" />
-              <Drawer.Content className="fixed right-0 bottom-0 left-0 z-[51] flex h-fit flex-col gap-8 rounded-t-xl bg-black border-t border-slate-5 p-8 pt-10">
+              <Drawer.Content className="fixed right-0 bottom-0 left-0 z-51 flex h-fit flex-col gap-8 rounded-t-xl bg-black border-t border-slate-5 p-8 pt-10">
                 <Drawer.Title className="sr-only">Menu</Drawer.Title>
                 <ul className="flex w-full flex-col items-start gap-4">
                   <MenuItems onItemClick={handleItemClick} />

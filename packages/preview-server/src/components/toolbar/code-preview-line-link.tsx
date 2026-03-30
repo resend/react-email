@@ -17,9 +17,9 @@ export const CodePreviewLineLink = ({
   const newSearchParams = new URLSearchParams(searchParams);
   newSearchParams.set('view', 'source');
   if (type === 'html') {
-    newSearchParams.set('lang', 'markup');
+    newSearchParams.set('lang', 'html');
   } else if (type === 'react') {
-    newSearchParams.set('lang', 'jsx');
+    newSearchParams.set('lang', 'tsx');
   }
 
   const fragmentIdentifier = `#L${line}`;

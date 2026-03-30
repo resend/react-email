@@ -34,7 +34,7 @@ export const ResultList = ({
     <Collapsible.Root className="group" defaultOpen={defaultOpen && !disabled}>
       <Collapsible.Trigger
         className={cn(
-          'group flex w-full items-center gap-1 rounded p-2 transition-colors duration-200 ease-[cubic-bezier(.36,.66,.6,1)]',
+          'group flex w-full items-center gap-1 rounded-sm p-2 transition-colors duration-200 ease-[cubic-bezier(.36,.66,.6,1)]',
           statusStyles[status],
           disabled && 'cursor-not-allowed opacity-70',
         )}
@@ -42,7 +42,7 @@ export const ResultList = ({
       >
         <span
           className={cn(
-            '-mt-[.125rem] transition-transform duration-200 ease-[cubic-bezier(.36,.66,.6,1)]',
+            '-mt-0.5 transition-transform duration-200 ease-[cubic-bezier(.36,.66,.6,1)]',
             'rotate-0 group-data-[state=open]:rotate-90',
           )}
         >

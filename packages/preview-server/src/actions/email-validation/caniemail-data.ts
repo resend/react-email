@@ -1863,6 +1863,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2019-07": "a #2"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -1962,6 +1965,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "a #2"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -2201,6 +2207,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2019-08": "n"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -2256,6 +2265,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "n"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -2443,6 +2455,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-05": "a #1"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -2539,6 +2554,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "a #1"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -2731,6 +2749,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2019-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -2830,6 +2851,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -3002,6 +3026,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2024-03": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -3059,17 +3086,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2022-08": "u"
+            "2022-08": "y"
           }
         ],
         "ios": [
           {
-            "2022-08": "u"
+            "2022-08": "y"
           }
         ],
         "android": [
           {
-            "2022-08": "u"
+            "2022-08": "y"
           }
         ]
       },
@@ -3098,6 +3125,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2022-08": "u"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       }
@@ -3135,6 +3165,9 @@ export const supportEntries: SupportEntry[] = [
           },
           {
             "15": "y"
+          },
+          {
+            "18.3.2": "a #2"
           }
         ]
       },
@@ -3147,6 +3180,9 @@ export const supportEntries: SupportEntry[] = [
         "ios": [
           {
             "2019-08": "y"
+          },
+          {
+            "2025-04": "n"
           }
         ],
         "android": [
@@ -3256,6 +3292,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2019-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -3355,6 +3394,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -3407,7 +3449,8 @@ export const supportEntries: SupportEntry[] = [
     },
     "notes": null,
     "notes_by_num": {
-      "1": "Buggy. The first rule inside a media query is not prefixed."
+      "1": "Buggy. The first rule inside a media query is not prefixed.",
+      "2": "Partial. `orientation:portrait` is not supported."
     }
   },
   {
@@ -3602,6 +3645,9 @@ export const supportEntries: SupportEntry[] = [
           },
           {
             "2022-12": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -3737,6 +3783,9 @@ export const supportEntries: SupportEntry[] = [
           },
           {
             "2022-12": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -4010,17 +4059,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2021-02": "n"
+            "2021-02": "a #2"
           }
         ],
         "ios": [
           {
-            "2021-02": "n"
+            "2021-02": "a #2"
           }
         ],
         "android": [
           {
-            "2021-02": "n"
+            "2021-02": "a #2"
           }
         ]
       },
@@ -4049,6 +4098,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -4101,7 +4153,8 @@ export const supportEntries: SupportEntry[] = [
     },
     "notes": null,
     "notes_by_num": {
-      "1": "Not supported. `@media (prefers-reduced-motion:reduce)` is transformed into `@media none`."
+      "1": "Not supported. `@media (prefers-reduced-motion:reduce)` is transformed into `@media none`.",
+      "2": "Partially supported. Not supported on `picture`."
     }
   },
   {
@@ -4255,6 +4308,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2019-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -4304,6 +4360,9 @@ export const supportEntries: SupportEntry[] = [
           },
           {
             "2020-01": "a #2 #3"
+          },
+          {
+            "2025-06": "a #2"
           }
         ]
       },
@@ -4381,6 +4440,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -4575,6 +4637,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2020-05": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -4674,6 +4739,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -7903,7 +7971,7 @@ export const supportEntries: SupportEntry[] = [
         ],
         "android": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
@@ -8729,17 +8797,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "ios": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "android": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
@@ -9030,17 +9098,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "ios": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "android": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
@@ -9317,17 +9385,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "ios": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "android": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
@@ -9415,7 +9483,9 @@ export const supportEntries: SupportEntry[] = [
     "description": "Support for border radius logical properties",
     "url": "https://www.caniemail.com/features/css-border-radius-logical/",
     "category": "css",
-    "tags": [],
+    "tags": [
+      "i18n"
+    ],
     "keywords": "border-start-start-radius, border-start-end-radius, border-end-start-radius, border-end-end-radius",
     "last_test_date": "2022-08-16",
     "test_url": "https://www.caniemail.com/tests/css-border-logical-properties.html",
@@ -9602,17 +9672,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2022-08": "u"
+            "2022-08": "y"
           }
         ],
         "ios": [
           {
-            "2022-08": "u"
+            "2022-08": "y"
           }
         ],
         "android": [
           {
-            "2022-08": "u"
+            "2022-08": "y"
           }
         ]
       },
@@ -13279,6 +13349,296 @@ export const supportEntries: SupportEntry[] = [
     }
   },
   {
+    "slug": "css-cursor",
+    "title": "cursor",
+    "description": "The cursor CSS property sets the mouse cursor, if any, to show when the mouse pointer is over an element.",
+    "url": "https://www.caniemail.com/features/css-cursor/",
+    "category": "css",
+    "tags": [
+      "accessibility"
+    ],
+    "keywords": "pointer, mouse, touch",
+    "last_test_date": "2025-07-02",
+    "test_url": "https://www.caniemail.com/tests/css-cursor.html",
+    "test_results_url": "https://testi.at/proj/52gbh94rh6lncdl4fge",
+    "stats": {
+      "apple-mail": {
+        "macos": [
+          {
+            "15": "a #1"
+          }
+        ],
+        "ios": [
+          {
+            "15": "n #3"
+          }
+        ]
+      },
+      "gmail": {
+        "desktop-webmail": [
+          {
+            "2025-07": "n #2"
+          }
+        ],
+        "ios": [
+          {
+            "2025-07": "n #2"
+          }
+        ],
+        "android": [
+          {
+            "2025-07": "n #2"
+          }
+        ],
+        "mobile-webmail": [
+          {
+            "2025-07": "n #2"
+          }
+        ]
+      },
+      "orange": {
+        "desktop-webmail": [
+          {
+            "2025-07": "u"
+          }
+        ],
+        "ios": [
+          {
+            "2025-07": "u"
+          }
+        ],
+        "android": [
+          {
+            "2025-07": "u"
+          }
+        ]
+      },
+      "outlook": {
+        "windows": [
+          {
+            "2007": "u"
+          },
+          {
+            "2010": "u"
+          },
+          {
+            "2013": "u"
+          },
+          {
+            "2016": "u"
+          },
+          {
+            "2019": "u"
+          }
+        ],
+        "windows-mail": [
+          {
+            "2025-07": "u"
+          }
+        ],
+        "macos": [
+          {
+            "16.98": "n"
+          }
+        ],
+        "outlook-com": [
+          {
+            "2025-07": "n"
+          }
+        ],
+        "ios": [
+          {
+            "2025-07": "n #3"
+          }
+        ],
+        "android": [
+          {
+            "2025-07": "n"
+          }
+        ]
+      },
+      "samsung-email": {
+        "android": [
+          {
+            "6.0": "u"
+          }
+        ]
+      },
+      "sfr": {
+        "desktop-webmail": [
+          {
+            "2025-07": "u"
+          }
+        ],
+        "ios": [
+          {
+            "2025-07": "u"
+          }
+        ],
+        "android": [
+          {
+            "2025-07": "u"
+          }
+        ]
+      },
+      "thunderbird": {
+        "macos": [
+          {
+            "78.14": "y"
+          }
+        ]
+      },
+      "aol": {
+        "desktop-webmail": [
+          {
+            "2025-07": "u"
+          }
+        ],
+        "ios": [
+          {
+            "2025-07": "u"
+          }
+        ],
+        "android": [
+          {
+            "2025-07": "u"
+          }
+        ]
+      },
+      "yahoo": {
+        "desktop-webmail": [
+          {
+            "2025-07": "a #4"
+          }
+        ],
+        "ios": [
+          {
+            "2025-07": "n #3"
+          }
+        ],
+        "android": [
+          {
+            "2025-07": "a #4"
+          }
+        ]
+      },
+      "protonmail": {
+        "desktop-webmail": [
+          {
+            "2025-07": "a #5"
+          }
+        ],
+        "ios": [
+          {
+            "2025-07": "u"
+          }
+        ],
+        "android": [
+          {
+            "2025-07": "u"
+          }
+        ]
+      },
+      "hey": {
+        "desktop-webmail": [
+          {
+            "2025-07": "u"
+          }
+        ]
+      },
+      "mail-ru": {
+        "desktop-webmail": [
+          {
+            "2025-07": "u"
+          }
+        ]
+      },
+      "fastmail": {
+        "desktop-webmail": [
+          {
+            "2025-07": "u"
+          }
+        ]
+      },
+      "laposte": {
+        "desktop-webmail": [
+          {
+            "2025-07": "u"
+          }
+        ]
+      },
+      "free-fr": {
+        "desktop-webmail": [
+          {
+            "2025-07": "u"
+          }
+        ]
+      },
+      "t-online-de": {
+        "desktop-webmail": [
+          {
+            "2025-07": "u"
+          }
+        ]
+      },
+      "gmx": {
+        "desktop-webmail": [
+          {
+            "2025-07": "a #6"
+          }
+        ],
+        "ios": [
+          {
+            "2025-07": "n #3"
+          }
+        ],
+        "android": [
+          {
+            "2025-07": "y"
+          }
+        ]
+      },
+      "web-de": {
+        "desktop-webmail": [
+          {
+            "2025-07": "u"
+          }
+        ],
+        "ios": [
+          {
+            "2025-07": "u"
+          }
+        ],
+        "android": [
+          {
+            "2025-07": "u"
+          }
+        ]
+      },
+      "ionos-1and1": {
+        "desktop-webmail": [
+          {
+            "2025-07": "u"
+          }
+        ],
+        "android": [
+          {
+            "2025-07": "u"
+          }
+        ]
+      }
+    },
+    "notes": "Cursor appearance on Android mobile devices depends on external pointer device/mouse. Cursor on iOS mobile devices also requires assistive touch to be enabled, and does not appear to respond to content.",
+    "notes_by_num": {
+      "1": "Partial. URL is not supported.",
+      "2": "Cursor property is removed.",
+      "3": "iOS assistive touch does not respond to cursor.",
+      "4": "Partial. Only supports: crosshair, help, move, pointer, progress, text, wait, auto, default, and all single-direction resize properties.",
+      "5": "Partial. URL buggy and only works inline.",
+      "6": "Partial. Inline CSS only. Only supports: crosshair, help, move, pointer, wait, auto, default, and all single-direction resize properties."
+    }
+  },
+  {
     "slug": "css-direction",
     "title": "direction",
     "description": "Sets the direction of text or table columns.",
@@ -16314,6 +16674,13 @@ export const supportEntries: SupportEntry[] = [
             "2024-03": "u"
           }
         ]
+      },
+      "thunderbird": {
+        "macos": [
+          {
+            "128.9.0": "y"
+          }
+        ]
       }
     },
     "notes": null,
@@ -17817,7 +18184,7 @@ export const supportEntries: SupportEntry[] = [
       "samsung-email": {
         "android": [
           {
-            "6.0": "u"
+            "6.2": "a #3"
           }
         ]
       },
@@ -17952,7 +18319,8 @@ export const supportEntries: SupportEntry[] = [
     "notes": null,
     "notes_by_num": {
       "1": "Only supported if you’ve updated your OS with Safari 17.5 or later.",
-      "2": "Buggy. The function is supported but the color stays light even in dark mode."
+      "2": "Buggy. The function is supported but the color stays light even in dark mode.",
+      "3": "Partial. Not supported with Hotmail/Outlook accounts."
     }
   },
   {
@@ -19223,17 +19591,17 @@ export const supportEntries: SupportEntry[] = [
       "aol": {
         "desktop-webmail": [
           {
-            "2019-09": "y #1"
+            "2019-09": "n #1"
           }
         ],
         "ios": [
           {
-            "2019-09": "y #1"
+            "2019-09": "n #1"
           }
         ],
         "android": [
           {
-            "2019-09": "y #1"
+            "2019-09": "n #1"
           }
         ]
       },
@@ -20326,6 +20694,9 @@ export const supportEntries: SupportEntry[] = [
         "ios": [
           {
             "2021-11": "a #6"
+          },
+          {
+            "2025-08": "a #9"
           }
         ],
         "android": [
@@ -20425,7 +20796,8 @@ export const supportEntries: SupportEntry[] = [
       "5": "Partial. Not supported inline. (See [email-bugs#31](https://github.com/hteumeuleu/email-bugs/issues/31))",
       "6": "Partial. Only supported inline due to the lack of `<style>` support.",
       "7": "Partial. Removed if there is no space before when used with a `background-image` property. (See [email-bugs#16](https://github.com/hteumeuleu/email-bugs/issues/16))",
-      "8": "Partial. Only supported in lowercase."
+      "8": "Partial. Only supported in lowercase.",
+      "9": "Partial. Only supported if not written in lowercase."
     }
   },
   {
@@ -20710,8 +21082,10 @@ export const supportEntries: SupportEntry[] = [
     "description": "Shorthand that corresponds to the `top`, `right`, `bottom`, and/or `left` properties",
     "url": "https://www.caniemail.com/features/css-inset/",
     "category": "css",
-    "tags": [],
-    "keywords": null,
+    "tags": [
+      "i18n"
+    ],
+    "keywords": "inset-block, inset-inline, inset-inline-start, inset-inline-end, inset-block-start, inset-block-end",
     "last_test_date": "2024-05-29",
     "test_url": "https://www.caniemail.com/tests/css-inset.html",
     "test_results_url": "https://testi.at/proj/rlpdia3k18jytjx8c2",
@@ -21625,6 +21999,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "6.0": "y"
+          },
+          {
+            "6.2.01.1": "a #2"
           }
         ]
       },
@@ -21780,7 +22157,8 @@ export const supportEntries: SupportEntry[] = [
     },
     "notes": null,
     "notes_by_num": {
-      "1": "Partial. `left` and `top` are not supported."
+      "1": "Partial. `left` and `top` are not supported.",
+      "2": "Partial. Percentages values are not supported."
     }
   },
   {
@@ -22379,6 +22757,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "2021-12": "y"
+          },
+          {
+            "2025-04": "a #3"
           }
         ],
         "mobile-webmail": [
@@ -22634,7 +23015,8 @@ export const supportEntries: SupportEntry[] = [
     "notes": null,
     "notes_by_num": {
       "1": "Gradients can be created in VML using `type=\"gradient\"` on a `<v:fill>`. See [VML documentation](https://docs.microsoft.com/en-us/windows/win32/vml/web-workshop---how-to-use-vml-on-web-pages-----fill--element#gradient-fill).",
-      "2": "Partial. Not supported with Hotmail/Outlook accounts."
+      "2": "Partial. Not supported with Hotmail/Outlook accounts.",
+      "3": "Buggy. Does not work inline in the `background-image` property. (See [email-bugs#135](https://github.com/hteumeuleu/email-bugs/issues/135))"
     }
   },
   {
@@ -23982,17 +24364,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "ios": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "android": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
@@ -24146,17 +24528,20 @@ export const supportEntries: SupportEntry[] = [
       "orange": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
+          },
+          {
+            "2021-03": "y"
           }
         ],
         "ios": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "android": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
@@ -24220,24 +24605,24 @@ export const supportEntries: SupportEntry[] = [
       "sfr": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "ios": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "android": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
       "thunderbird": {
         "macos": [
           {
-            "60.3": "u"
+            "60.3": "y"
           }
         ]
       },
@@ -24278,24 +24663,24 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "ios": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "android": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
       "hey": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
@@ -24309,14 +24694,14 @@ export const supportEntries: SupportEntry[] = [
       "fastmail": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
       "laposte": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
@@ -24574,17 +24959,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "ios": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "android": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
@@ -24613,300 +24998,6 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2022-07": "u"
-          }
-        ]
-      },
-      "gmx": {
-        "desktop-webmail": [
-          {
-            "2022-09": "n"
-          }
-        ],
-        "ios": [
-          {
-            "2022-09": "y"
-          }
-        ],
-        "android": [
-          {
-            "2022-09": "y"
-          }
-        ]
-      },
-      "web-de": {
-        "desktop-webmail": [
-          {
-            "2022-09": "n"
-          }
-        ],
-        "ios": [
-          {
-            "2022-09": "y"
-          }
-        ],
-        "android": [
-          {
-            "2022-09": "y"
-          }
-        ]
-      },
-      "ionos-1and1": {
-        "desktop-webmail": [
-          {
-            "2022-09": "y"
-          }
-        ],
-        "android": [
-          {
-            "2022-09": "y"
-          }
-        ]
-      }
-    },
-    "notes": null,
-    "notes_by_num": null
-  },
-  {
-    "slug": "css-margin-inline",
-    "title": "margin-inline & margin-block",
-    "description": "Support for the `margin-inline` and `margin-block` shorthand properties.",
-    "url": "https://www.caniemail.com/features/css-margin-inline/",
-    "category": "css",
-    "tags": [],
-    "keywords": "margin-inline, margin-block",
-    "last_test_date": "2022-07-01",
-    "test_url": "https://www.caniemail.com/tests/css-margin-logical-properties.html",
-    "test_results_url": "https://testi.at/proj/qAmuL03Fg51cE6hkbNSVrXik",
-    "stats": {
-      "apple-mail": {
-        "macos": [
-          {
-            "10.12.6": "n"
-          },
-          {
-            "10.13.6": "n"
-          },
-          {
-            "10.15.7": "n"
-          },
-          {
-            "12.4": "y"
-          }
-        ],
-        "ios": [
-          {
-            "11.4": "n"
-          },
-          {
-            "12": "n"
-          },
-          {
-            "13": "n"
-          },
-          {
-            "14": "n"
-          },
-          {
-            "15": "y"
-          }
-        ]
-      },
-      "gmail": {
-        "desktop-webmail": [
-          {
-            "2022-07": "n"
-          }
-        ],
-        "ios": [
-          {
-            "2022-07": "n"
-          }
-        ],
-        "android": [
-          {
-            "2022-07": "n"
-          }
-        ],
-        "mobile-webmail": [
-          {
-            "2022-07": "n"
-          }
-        ]
-      },
-      "orange": {
-        "desktop-webmail": [
-          {
-            "2022-07": "y"
-          },
-          {
-            "2021-03": "y"
-          }
-        ],
-        "ios": [
-          {
-            "2022-07": "y"
-          }
-        ],
-        "android": [
-          {
-            "2022-07": "y"
-          }
-        ]
-      },
-      "outlook": {
-        "windows": [
-          {
-            "2013": "n"
-          },
-          {
-            "2016": "n"
-          },
-          {
-            "2019": "n"
-          },
-          {
-            "2021": "n"
-          }
-        ],
-        "windows-mail": [
-          {
-            "2022-07": "n"
-          }
-        ],
-        "macos": [
-          {
-            "2011": "n"
-          },
-          {
-            "2016": "n"
-          },
-          {
-            "16.80": "n"
-          }
-        ],
-        "outlook-com": [
-          {
-            "2022-07": "n"
-          }
-        ],
-        "ios": [
-          {
-            "2022-07": "n"
-          }
-        ],
-        "android": [
-          {
-            "2022-07": "n"
-          }
-        ]
-      },
-      "samsung-email": {
-        "android": [
-          {
-            "10": "n"
-          }
-        ]
-      },
-      "sfr": {
-        "desktop-webmail": [
-          {
-            "2022-07": "y"
-          }
-        ],
-        "ios": [
-          {
-            "2022-07": "y"
-          }
-        ],
-        "android": [
-          {
-            "2022-07": "y"
-          }
-        ]
-      },
-      "thunderbird": {
-        "macos": [
-          {
-            "60.3": "y"
-          }
-        ]
-      },
-      "aol": {
-        "desktop-webmail": [
-          {
-            "2022-07": "n"
-          }
-        ],
-        "ios": [
-          {
-            "2022-07": "n"
-          }
-        ],
-        "android": [
-          {
-            "2022-07": "n"
-          }
-        ]
-      },
-      "yahoo": {
-        "desktop-webmail": [
-          {
-            "2022-07": "n"
-          }
-        ],
-        "ios": [
-          {
-            "2022-07": "n"
-          }
-        ],
-        "android": [
-          {
-            "2022-07": "n"
-          }
-        ]
-      },
-      "protonmail": {
-        "desktop-webmail": [
-          {
-            "2022-07": "y"
-          }
-        ],
-        "ios": [
-          {
-            "2022-07": "y"
-          }
-        ],
-        "android": [
-          {
-            "2022-07": "y"
-          }
-        ]
-      },
-      "hey": {
-        "desktop-webmail": [
-          {
-            "2022-07": "y"
-          }
-        ]
-      },
-      "mail-ru": {
-        "desktop-webmail": [
-          {
-            "2022-07": "y"
-          }
-        ]
-      },
-      "fastmail": {
-        "desktop-webmail": [
-          {
-            "2022-07": "y"
-          }
-        ]
-      },
-      "laposte": {
-        "desktop-webmail": [
-          {
-            "2022-07": "y"
           }
         ]
       },
@@ -25567,7 +25658,9 @@ export const supportEntries: SupportEntry[] = [
     "description": "",
     "url": "https://www.caniemail.com/features/css-max-block-size/",
     "category": "css",
-    "tags": [],
+    "tags": [
+      "i18n"
+    ],
     "keywords": "max, block, size",
     "last_test_date": "2022-09-01",
     "test_url": "https://www.caniemail.com/tests/css-max-block-size.html",
@@ -25748,17 +25841,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "ios": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "android": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
@@ -26069,7 +26162,9 @@ export const supportEntries: SupportEntry[] = [
     "description": "Defines the horizontal or vertical maximum size of an element's block, depending on its writing mode",
     "url": "https://www.caniemail.com/features/css-max-inline-size/",
     "category": "css",
-    "tags": [],
+    "tags": [
+      "i18n"
+    ],
     "keywords": "max, inline, size",
     "last_test_date": "2024-05-31",
     "test_url": "https://www.caniemail.com/tests/css-max-inline-size.html",
@@ -26228,17 +26323,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2024-05": "u"
+            "2024-05": "y"
           }
         ],
         "ios": [
           {
-            "2024-05": "u"
+            "2024-05": "y"
           }
         ],
         "android": [
           {
-            "2024-05": "u"
+            "2024-05": "y"
           }
         ]
       },
@@ -26620,7 +26715,9 @@ export const supportEntries: SupportEntry[] = [
     "description": "Defines the minimum horizontal or vertical size of an element's block, depending on its writing mode",
     "url": "https://www.caniemail.com/features/css-min-block-size/",
     "category": "css",
-    "tags": [],
+    "tags": [
+      "i18n"
+    ],
     "keywords": "min, block, size",
     "last_test_date": "2024-05-31",
     "test_url": "https://www.caniemail.com/tests/css-min-block-size.html",
@@ -26779,17 +26876,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2024-05": "u"
+            "2024-05": "y"
           }
         ],
         "ios": [
           {
-            "2024-05": "u"
+            "2024-05": "y"
           }
         ],
         "android": [
           {
-            "2024-05": "u"
+            "2024-05": "y"
           }
         ]
       },
@@ -27153,7 +27250,9 @@ export const supportEntries: SupportEntry[] = [
     "description": "",
     "url": "https://www.caniemail.com/features/css-min-inline-size/",
     "category": "css",
-    "tags": [],
+    "tags": [
+      "i18n"
+    ],
     "keywords": "min, inline, size",
     "last_test_date": "2022-08-30",
     "test_url": "https://www.caniemail.com/tests/css-min-inline-size.html",
@@ -27351,17 +27450,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "ios": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "android": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
@@ -28345,6 +28444,9 @@ export const supportEntries: SupportEntry[] = [
         "macos": [
           {
             "102.15": "n"
+          },
+          {
+            "137.0b3": "y"
           }
         ]
       },
@@ -29206,16 +29308,25 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2019-02": "n"
+          },
+          {
+            "2025-06": "y"
           }
         ],
         "ios": [
           {
             "2019-02": "n"
+          },
+          {
+            "2025-06": "y"
           }
         ],
         "android": [
           {
             "2019-02": "n"
+          },
+          {
+            "2025-06": "y"
           }
         ]
       },
@@ -30167,39 +30278,12 @@ export const supportEntries: SupportEntry[] = [
       "apple-mail": {
         "macos": [
           {
-            "16": "n"
-          },
-          {
-            "17": "n"
-          },
-          {
-            "18": "n"
-          },
-          {
-            "19": "n"
-          },
-          {
-            "20": "n"
-          },
-          {
-            "21": "n"
+            "16.0": "a #1"
           }
         ],
         "ios": [
           {
-            "11": "n"
-          },
-          {
-            "12": "n"
-          },
-          {
-            "13": "n"
-          },
-          {
-            "14": "n"
-          },
-          {
-            "15": "n"
+            "18.3.2": "a #1"
           }
         ]
       },
@@ -30393,7 +30477,9 @@ export const supportEntries: SupportEntry[] = [
       }
     },
     "notes": null,
-    "notes_by_num": null
+    "notes_by_num": {
+      "1": "Buggy. Requires `word-break:normal` to reset Apple Mail default style (See [issue#394](https://github.com/hteumeuleu/caniemail/issues/394).)"
+    }
   },
   {
     "slug": "css-overflow",
@@ -30402,10 +30488,10 @@ export const supportEntries: SupportEntry[] = [
     "url": "https://www.caniemail.com/features/css-overflow/",
     "category": "css",
     "tags": [],
-    "keywords": null,
-    "last_test_date": "2024-10-02",
+    "keywords": "overflow-block, overflow-inline",
+    "last_test_date": "2025-05-27",
     "test_url": "https://www.caniemail.com/tests/css-box-model.html",
-    "test_results_url": "https://testi.at/proj/p4rru3ez069p15p6ij",
+    "test_results_url": "https://testi.at/proj/278gsp8afyl8f6nbu4",
     "stats": {
       "apple-mail": {
         "macos": [
@@ -30448,6 +30534,9 @@ export const supportEntries: SupportEntry[] = [
           },
           {
             "2024-10": "a #4"
+          },
+          {
+            "2025-07": "a #1 #4"
           }
         ],
         "mobile-webmail": [
@@ -30495,6 +30584,9 @@ export const supportEntries: SupportEntry[] = [
           },
           {
             "2021": "n"
+          },
+          {
+            "2024": "n"
           }
         ],
         "windows-mail": [
@@ -30522,6 +30614,9 @@ export const supportEntries: SupportEntry[] = [
           },
           {
             "2024-10": "a #3"
+          },
+          {
+            "2025-05": "a #4"
           }
         ],
         "ios": [
@@ -30535,6 +30630,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "2019-02": "n"
+          },
+          {
+            "2025-05": "a #1 #4"
           }
         ]
       },
@@ -30542,6 +30640,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2019-02": "y"
+          },
+          {
+            "2025-05": "a #4"
           }
         ],
         "ios": [
@@ -30555,6 +30656,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "2019-02": "n"
+          },
+          {
+            "2025-05": "a #1 #4"
           }
         ]
       },
@@ -30578,6 +30682,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "2019-02": "n"
+          },
+          {
+            "2025-07": "a #1 #4"
           }
         ]
       },
@@ -30612,6 +30719,9 @@ export const supportEntries: SupportEntry[] = [
         "macos": [
           {
             "60.5": "y"
+          },
+          {
+            "138": "y"
           }
         ]
       },
@@ -30619,16 +30729,25 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2020-03": "y"
+          },
+          {
+            "2025-07": "a #3"
           }
         ],
         "ios": [
           {
             "2020-03": "y"
+          },
+          {
+            "2025-07": "a #3"
           }
         ],
         "android": [
           {
             "2020-03": "y"
+          },
+          {
+            "2025-07": "a #1 #3"
           }
         ]
       },
@@ -30686,6 +30805,9 @@ export const supportEntries: SupportEntry[] = [
           },
           {
             "2024-10": "a #3"
+          },
+          {
+            "2025-07": "a #1 #3"
           }
         ]
       },
@@ -30943,17 +31065,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "ios": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "android": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
@@ -31242,17 +31364,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "ios": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "android": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
@@ -31541,17 +31663,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "ios": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "android": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
@@ -32222,6 +32344,9 @@ export const supportEntries: SupportEntry[] = [
         "macos": [
           {
             "12.4": "n"
+          },
+          {
+            "16": "a #2"
           }
         ],
         "ios": [
@@ -32374,6 +32499,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2020-01": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -32390,12 +32518,12 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2020-03": "n"
+            "2020-03": "y"
           }
         ],
         "ios": [
           {
-            "2020-03": "n"
+            "2020-03": "y"
           }
         ],
         "android": [
@@ -32429,6 +32557,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -32481,7 +32612,8 @@ export const supportEntries: SupportEntry[] = [
     },
     "notes": null,
     "notes_by_num": {
-      "1": "Partial. Only supported on type selectors."
+      "1": "Partial. Only supported on type selectors.",
+      "2": "Partial. Supported with mouse clicks. Not supported with keyboard input."
     }
   },
   {
@@ -32614,6 +32746,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2020-03": "n #2"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -32710,6 +32845,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "n #2"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -32899,6 +33037,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2019-10": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -32995,6 +33136,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -33183,6 +33327,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2019-10": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -33279,6 +33426,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -33352,6 +33502,9 @@ export const supportEntries: SupportEntry[] = [
         "macos": [
           {
             "12.4": "n"
+          },
+          {
+            "16": "y"
           }
         ],
         "ios": [
@@ -33504,6 +33657,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2020-01": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -33520,12 +33676,12 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2020-03": "n"
+            "2020-03": "y"
           }
         ],
         "ios": [
           {
-            "2020-03": "n"
+            "2020-03": "y"
           }
         ],
         "android": [
@@ -33559,6 +33715,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -33765,6 +33924,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-12": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -33888,6 +34050,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-12": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -34123,6 +34288,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2020-01": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -34139,12 +34307,12 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2020-03": "n"
+            "2020-03": "y"
           }
         ],
         "ios": [
           {
-            "2020-03": "n"
+            "2020-03": "y"
           }
         ],
         "android": [
@@ -34178,6 +34346,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -34360,6 +34531,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2022-07": "u"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -34417,17 +34591,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "ios": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "android": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
@@ -34456,6 +34630,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2022-07": "u"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       }
@@ -34596,6 +34773,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2019-10": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -34692,6 +34872,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -34880,6 +35063,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2019-10": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -34976,6 +35162,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -35167,6 +35356,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2019-10": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -35263,6 +35455,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -35452,6 +35647,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2019-10": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -35548,6 +35746,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -35737,6 +35938,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2019-10": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -35833,6 +36037,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -36025,6 +36232,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2019-10": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -36121,6 +36331,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -36313,6 +36526,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2019-10": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -36409,6 +36625,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -36601,6 +36820,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2019-10": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -36697,6 +36919,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -36886,6 +37111,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2019-10": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -36982,6 +37210,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -37170,6 +37401,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2019-10": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -37266,6 +37500,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -37489,6 +37726,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2020-01": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -37544,6 +37784,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "n #2"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -37768,6 +38011,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2020-01": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -37823,6 +38069,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -38029,6 +38278,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2020-05": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -38125,6 +38377,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -38333,6 +38588,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2020-05": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -38429,6 +38687,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -38628,6 +38889,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2020-05": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -38724,6 +38988,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -38922,6 +39189,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2020-05": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -39018,6 +39288,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -39204,6 +39477,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2022-12": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -39300,6 +39576,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2022-12": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       }
@@ -39451,6 +39730,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2020-05": "n"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -39547,6 +39829,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "n #2"
+          },
+          {
+            "2025-07": "n"
           }
         ]
       },
@@ -39642,6 +39927,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "2021-12": "y"
+          },
+          {
+            "2025-04": "a #2"
           }
         ],
         "mobile-webmail": [
@@ -39893,7 +40181,8 @@ export const supportEntries: SupportEntry[] = [
     },
     "notes": null,
     "notes_by_num": {
-      "1": "Gradients can be created in VML using `type=\"gradientRadial\"` on a `<v:fill>`. See [VML documentation](https://docs.microsoft.com/en-us/windows/win32/vml/web-workshop---how-to-use-vml-on-web-pages-----fill--element#gradient-fill)."
+      "1": "Gradients can be created in VML using `type=\"gradientRadial\"` on a `<v:fill>`. See [VML documentation](https://docs.microsoft.com/en-us/windows/win32/vml/web-workshop---how-to-use-vml-on-web-pages-----fill--element#gradient-fill).",
+      "2": "Buggy. Does not work inline in the `background-image` property. (See [email-bugs#135](https://github.com/hteumeuleu/email-bugs/issues/135))"
     }
   },
   {
@@ -41749,6 +42038,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "2019-10": "a #2"
+          },
+          {
+            "2025-06": "y"
           }
         ]
       },
@@ -42037,6 +42329,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "2019-10": "a #2"
+          },
+          {
+            "2025-06": "y"
           }
         ]
       },
@@ -42322,6 +42617,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "2019-10": "a #2"
+          },
+          {
+            "2025-06": "y"
           }
         ]
       },
@@ -42607,6 +42905,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "2019-10": "a #2"
+          },
+          {
+            "2025-06": "y"
           }
         ]
       },
@@ -43177,6 +43478,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "2019-10": "a #2"
+          },
+          {
+            "2025-06": "y"
           }
         ]
       },
@@ -43463,6 +43767,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "2019-10": "a #2"
+          },
+          {
+            "2025-06": "y"
           }
         ]
       },
@@ -43748,6 +44055,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "2019-10": "a #2"
+          },
+          {
+            "2025-06": "y"
           }
         ]
       },
@@ -44033,6 +44343,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "2019-10": "a #2"
+          },
+          {
+            "2025-06": "y"
           }
         ]
       },
@@ -46247,6 +46560,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "2023-12": "n"
+          },
+          {
+            "2025-06": "y"
           }
         ]
       },
@@ -46301,17 +46617,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2023-12": "u"
+            "2023-12": "y"
           }
         ],
         "ios": [
           {
-            "2023-12": "u"
+            "2023-12": "y"
           }
         ],
         "android": [
           {
-            "2023-12": "u"
+            "2023-12": "y"
           }
         ]
       },
@@ -46607,7 +46923,7 @@ export const supportEntries: SupportEntry[] = [
         ],
         "android": [
           {
-            "2023-12": "u"
+            "2023-12": "y"
           }
         ]
       },
@@ -46843,6 +47159,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "2023-12": "n"
+          },
+          {
+            "2025-06": "y"
           }
         ]
       },
@@ -47787,17 +48106,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "ios": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "android": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
@@ -48074,17 +48393,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "ios": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ],
         "android": [
           {
-            "2022-07": "u"
+            "2022-07": "y"
           }
         ]
       },
@@ -48736,7 +49055,9 @@ export const supportEntries: SupportEntry[] = [
     "description": "Sets the orientation of the text characters in vertical mode.",
     "url": "https://www.caniemail.com/features/css-text-orientation/",
     "category": "css",
-    "tags": [],
+    "tags": [
+      "i18n"
+    ],
     "keywords": "vertical orientation",
     "last_test_date": "2023-12-08",
     "test_url": "https://www.caniemail.com/tests/css-text-orientation.html",
@@ -48965,17 +49286,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2023-12": "u"
+            "2023-12": "y"
           }
         ],
         "ios": [
           {
-            "2023-12": "u"
+            "2023-12": "y"
           }
         ],
         "android": [
           {
-            "2023-12": "u"
+            "2023-12": "y"
           }
         ]
       },
@@ -49468,6 +49789,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "2019-02": "n"
+          },
+          {
+            "2025-06": "y"
           }
         ]
       },
@@ -50377,17 +50701,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2023-12": "u"
+            "2023-12": "y"
           }
         ],
         "ios": [
           {
-            "2023-12": "u"
+            "2023-12": "y"
           }
         ],
         "android": [
           {
-            "2023-12": "u"
+            "2023-12": "y"
           }
         ]
       },
@@ -57337,6 +57661,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "2019-02": "n"
+          },
+          {
+            "2025-06": "y"
           }
         ]
       },
@@ -58919,6 +59246,9 @@ export const supportEntries: SupportEntry[] = [
         "android": [
           {
             "2024-03": "n"
+          },
+          {
+            "2025-06": "a #1"
           }
         ]
       },
@@ -58973,17 +59303,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2024-03": "u"
+            "2024-03": "y"
           }
         ],
         "ios": [
           {
-            "2024-03": "u"
+            "2024-03": "y"
           }
         ],
         "android": [
           {
-            "2024-03": "u"
+            "2024-03": "y"
           }
         ]
       },
@@ -59065,6 +59395,90 @@ export const supportEntries: SupportEntry[] = [
     "notes": null,
     "notes_by_num": {
       "1": "Does not support `rem` and `ch` values."
+    }
+  },
+  {
+    "slug": "css-word-wrap",
+    "title": "word-wrap",
+    "description": "The word-wrap CSS property (now standardized as overflow-wrap) controls whether the browser should break words to prevent them from overflowing their container. When set to break-word, it forces otherwise unbreakable strings to wrap onto the next line to avoid layout issues.",
+    "url": "https://www.caniemail.com/features/css-word-wrap/",
+    "category": "css",
+    "tags": [],
+    "keywords": "word-wrap, word-break, overflow-wrap",
+    "last_test_date": "2025-05-08",
+    "test_url": "https://www.caniemail.com/tests/css-word-wrap.html",
+    "test_results_url": "https://app.emailonacid.com/app/acidtest/vCaPUwbCjmYsdRJi38QdpqJSetV5X7wBQh5iymp8t1Sty/list",
+    "stats": {
+      "apple-mail": {
+        "macos": [
+          {
+            "16": "y"
+          }
+        ],
+        "ios": [
+          {
+            "16": "y"
+          }
+        ]
+      },
+      "gmail": {
+        "desktop-webmail": [
+          {
+            "2025-05": "a #1"
+          }
+        ],
+        "android": [
+          {
+            "2025-05": "a #1"
+          }
+        ]
+      },
+      "outlook": {
+        "windows": [
+          {
+            "2016": "n #2"
+          },
+          {
+            "2019": "n #2"
+          },
+          {
+            "2021": "n #2"
+          }
+        ],
+        "windows-mail": [
+          {
+            "2025-05": "n"
+          }
+        ],
+        "outlook-com": [
+          {
+            "2022-05": "y #3"
+          }
+        ],
+        "ios": [
+          {
+            "2025-05": "y #3"
+          }
+        ],
+        "android": [
+          {
+            "2025-05": "n"
+          }
+        ]
+      },
+      "yahoo": {
+        "desktop-webmail": [
+          {
+            "2025-05": "y"
+          }
+        ]
+      }
+    },
+    "notes": null,
+    "notes_by_num": {
+      "1": "Applies `word-wrap: break-word` to all items.",
+      "2": "Does not honor any wrapping, including `word-wrap`, `overflow-wrap`, and `word-break`. Using an equivalent MSO breakdown (`-ms-word-break: break-all` and `mso-hyphenate: none` together) does not work.",
+      "3": "Supports both `word-wrap` and equivalent MSO breakdown (`-ms-word-break: break-all` and `mso-hyphenate: none` together)"
     }
   },
   {
@@ -59635,7 +60049,9 @@ export const supportEntries: SupportEntry[] = [
     "description": "Represents an abbreviation or acronym.",
     "url": "https://www.caniemail.com/features/html-abbr/",
     "category": "html",
-    "tags": [],
+    "tags": [
+      "accessibility"
+    ],
     "keywords": null,
     "last_test_date": "2023-09-13",
     "test_url": "https://www.caniemail.com/tests/html-abbr.html",
@@ -63007,7 +63423,7 @@ export const supportEntries: SupportEntry[] = [
       "mail-ru": {
         "desktop-webmail": [
           {
-            "2020-10": "y"
+            "2020-09": "y"
           }
         ]
       },
@@ -64058,11 +64474,17 @@ export const supportEntries: SupportEntry[] = [
         "ios": [
           {
             "2021-11": "n"
+          },
+          {
+            "2025-04": "a #1"
           }
         ],
         "android": [
           {
             "2021-11": "n"
+          },
+          {
+            "2025-04": "a #1"
           }
         ]
       },
@@ -65381,7 +65803,9 @@ export const supportEntries: SupportEntry[] = [
     "description": "A short fragment of computer code.",
     "url": "https://www.caniemail.com/features/html-code/",
     "category": "html",
-    "tags": [],
+    "tags": [
+      "accessibility"
+    ],
     "keywords": null,
     "last_test_date": "2023-04-25",
     "test_url": "https://www.caniemail.com/tests/html-code.html",
@@ -66355,17 +66779,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2023-09": "u"
+            "2023-09": "y"
           }
         ],
         "ios": [
           {
-            "2023-09": "u"
+            "2023-09": "y"
           }
         ],
         "android": [
           {
-            "2023-09": "u"
+            "2023-09": "y"
           }
         ]
       },
@@ -66723,7 +67147,8 @@ export const supportEntries: SupportEntry[] = [
     "url": "https://www.caniemail.com/features/html-dir/",
     "category": "html",
     "tags": [
-      "i18n"
+      "i18n",
+      "accessibility"
     ],
     "keywords": "direction, ltr, rtl",
     "last_test_date": "2021-11-01",
@@ -68671,17 +69096,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2024-01": "u"
+            "2024-01": "y"
           }
         ],
         "ios": [
           {
-            "2024-01": "u"
+            "2024-01": "y"
           }
         ],
         "android": [
           {
-            "2024-01": "u"
+            "2024-01": "y"
           }
         ]
       },
@@ -68771,7 +69196,9 @@ export const supportEntries: SupportEntry[] = [
     "description": "HTML horizontal rule",
     "url": "https://www.caniemail.com/features/html-hr/",
     "category": "html",
-    "tags": [],
+    "tags": [
+      "accessibility"
+    ],
     "keywords": null,
     "last_test_date": "2023-09-08",
     "test_url": "https://www.caniemail.com/tests/html-hr.html",
@@ -68943,17 +69370,17 @@ export const supportEntries: SupportEntry[] = [
       "protonmail": {
         "desktop-webmail": [
           {
-            "2023-09": "u"
+            "2023-09": "y"
           }
         ],
         "ios": [
           {
-            "2023-09": "u"
+            "2023-09": "y"
           }
         ],
         "android": [
           {
-            "2023-09": "u"
+            "2023-09": "y"
           }
         ]
       },
@@ -69299,7 +69726,10 @@ export const supportEntries: SupportEntry[] = [
     "description": "Displays an image into the document",
     "url": "https://www.caniemail.com/features/html-img/",
     "category": "html",
-    "tags": [],
+    "tags": [
+      "performance",
+      "accessibility"
+    ],
     "keywords": null,
     "last_test_date": "2023-12-16",
     "test_url": "https://www.caniemail.com/tests/html-img.html",
@@ -79057,7 +79487,7 @@ export const supportEntries: SupportEntry[] = [
     "keywords": null,
     "last_test_date": "2023-07-27",
     "test_url": "https://www.caniemail.com/tests/html-style.html",
-    "test_results_url": "https://app.emailonacid.com/app/acidtest/od5IYQtx8yIbIUbeRyQXnP0yzFKEm2E9CKa3FU4BcEXFv/list",
+    "test_results_url": "https://app.emailonacid.com/app/acidtest/CAMb612bxbVwRWPhM4wZKNhhdcdkNxj0Rj6dtRRw6LQUO/list",
     "stats": {
       "apple-mail": {
         "macos": [
@@ -79231,6 +79661,9 @@ export const supportEntries: SupportEntry[] = [
           },
           {
             "2023-02": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
@@ -79239,6 +79672,9 @@ export const supportEntries: SupportEntry[] = [
           },
           {
             "2023-02": "n"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "android": [
@@ -79311,6 +79747,9 @@ export const supportEntries: SupportEntry[] = [
           },
           {
             "2023-01": "a #3"
+          },
+          {
+            "2025-06": "y"
           }
         ]
       },
@@ -79365,11 +79804,17 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2021-08": "y"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "ios": [
           {
             "2023-02": "n"
+          },
+          {
+            "2025-07": "n"
           }
         ],
         "android": [
@@ -79402,6 +79847,9 @@ export const supportEntries: SupportEntry[] = [
         "desktop-webmail": [
           {
             "2022-11": "y"
+          },
+          {
+            "2025-04": "n"
           }
         ],
         "ios": [

@@ -1,6 +1,6 @@
 const languageMap = {
-  jsx: 'React',
-  markup: 'HTML',
+  tsx: 'React',
+  html: 'HTML',
   markdown: 'Plain Text',
 };
 

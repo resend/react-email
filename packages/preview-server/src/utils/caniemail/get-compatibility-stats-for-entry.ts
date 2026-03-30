@@ -69,7 +69,8 @@ export const getCompatibilityStatsForEntry = (
           for (const match of statusString.matchAll(noteNumbersRegex)) {
             if (match.groups?.noteNumber) {
               const { noteNumber } = match.groups;
-              const note = entry.notes_by_num?.[Number.parseInt(noteNumber)];
+              const note =
+                entry.notes_by_num?.[Number.parseInt(noteNumber, 10)];
               if (note) {
                 notes.push(note);
               }

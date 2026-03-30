@@ -1,0 +1,159 @@
+---
+title: "Extensions"
+sidebarTitle: "Extensions"
+description: "Configure and customize the editor's built-in extensions."
+icon: "puzzle-piece"
+---
+
+## StarterKit
+
+`StarterKit` bundles all 35+ editor extensions into a single import. It wraps TipTap's
+StarterKit and replaces most nodes with email-aware versions that know how to serialize
+to React Email components.
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+
+const extensions = [StarterKit];
+```
+
+<Tip>
+  Use `StarterKit` unless you need fine-grained control over which extensions are loaded.
+  It's the recommended way to set up the editor.
+</Tip>
+
+## Configuring extensions
+
+Pass options to configure individual extensions, or set them to `false` to disable:
+
+```tsx
+const extensions = [
+  StarterKit.configure({
+    // Customize heading levels
+    Heading: { levels: [1, 2] },
+
+    // Disable strikethrough
+    Strike: false,
+
+    // Disable code blocks
+    CodeBlockPrism: false,
+  }),
+];
+```
+
+## Using individual extensions
+
+For maximum control, import and compose extensions manually instead of using StarterKit:
+
+```tsx
+import {
+  Body,
+  Bold,
+  Heading,
+  Italic,
+  Link,
+  Paragraph,
+} from '@react-email/editor/extensions';
+
+const extensions = [Body, Paragraph, Heading, Bold, Italic, Link];
+```
+
+<Note>
+  When using individual extensions, you're responsible for including all the extensions
+  your content needs. Missing extensions will cause those content types to be dropped.
+</Note>
+
+## Extension categories
+
+<AccordionGroup>
+
+<Accordion title="Block Nodes">
+  Extensions that create block-level content:
+
+  | Extension | Description |
+  |-----------|-------------|
+  | `Body` | Email body wrapper |
+  | `Section` | Content section |
+  | `Div` | Generic div container |
+  | `Paragraph` | Text paragraph |
+  | `Heading` | Heading levels 1–6 |
+  | `Blockquote` | Block quote |
+  | `CodeBlockPrism` | Code block with Prism syntax highlighting |
+  | `Divider` | Horizontal rule |
+  | `Button` | Email button element |
+  | `PreviewText` | Email preview text (shown in inbox list) |
+</Accordion>
+
+<Accordion title="Lists">
+  List-related extensions:
+
+  | Extension | Description |
+  |-----------|-------------|
+  | `BulletList` | Unordered list |
+  | `OrderedList` | Ordered (numbered) list |
+  | `ListItem` | Individual list item |
+</Accordion>
+
+<Accordion title="Layout">
+  Multi-column layout extensions:
+
+  | Extension | Description |
+  |-----------|-------------|
+  | `TwoColumns` | Two column layout |
+  | `ThreeColumns` | Three column layout |
+  | `FourColumns` | Four column layout |
+  | `ColumnsColumn` | Individual column within a layout |
+</Accordion>
+
+<Accordion title="Tables">
+  Table-related extensions:
+
+  | Extension | Description |
+  |-----------|-------------|
+  | `Table` | Table container |
+  | `TableRow` | Table row |
+  | `TableCell` | Table cell |
+  | `TableHeader` | Table header cell |
+</Accordion>
+
+<Accordion title="Inline Marks">
+  Extensions that style inline text:
+
+  | Extension | Description |
+  |-----------|-------------|
+  | `Bold` | Bold text |
+  | `Italic` | Italic text |
+  | `Strike` | Strikethrough text |
+  | `Underline` | Underlined text |
+  | `Code` | Inline code |
+  | `Sup` | Superscript text |
+  | `Uppercase` | Uppercase transform |
+  | `Link` | Hyperlink (with `openOnClick: false` by default) |
+  | `Text` | Base text node |
+</Accordion>
+
+<Accordion title="Attributes">
+  Extensions that add HTML attributes to nodes:
+
+  | Extension | Description |
+  |-----------|-------------|
+  | `AlignmentAttribute` | Text alignment (left, center, right) |
+  | `StyleAttribute` | Inline CSS styles |
+  | `ClassAttribute` | CSS class names |
+</Accordion>
+
+<Accordion title="Utility">
+  Helper extensions for editor behavior:
+
+  | Extension | Description |
+  |-----------|-------------|
+  | `Placeholder` | Placeholder text when content is empty |
+  | `PreservedStyle` | Preserves formatting when unlinking |
+  | `GlobalContent` | Stores metadata for serialization (CSS, etc.) |
+  | `MaxNesting` | Enforces maximum nesting depth |
+  | `HardBreak` | Line break within a block |
+</Accordion>
+
+</AccordionGroup>
+
+For the full API reference with configurable options for each extension, see [Extensions Reference](/editor/api-reference/extensions-list).

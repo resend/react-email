@@ -9,12 +9,15 @@ permissions:
   pull-requests: read
 jobs:
   pull-request-title-check:
-    runs-on: buildjet-2vcpu-ubuntu-2204
+    runs-on: blacksmith-2vcpu-ubuntu-2204
     container:
       image: node:22-slim
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Checkout Repo
+        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
+        with:
+          fetch-depth: 1
+      - name: pnpm setup
+        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320
       - name: Check pull request title
-        run: |
-          npx tsx ./scripts/pull-request-title-check.ts
+        run: pnpm dlx tsx@4.21.0 ./scripts/pull-request-title-check.ts

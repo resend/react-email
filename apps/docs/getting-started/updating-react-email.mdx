@@ -1,0 +1,25 @@
+---
+title: 'Updating React Email'
+sidebarTitle: 'Updating React Email'
+description: 'How to update from React Email 4.0 to 5.0'
+'og:image': 'https://react.email/static/covers/react-email.png'
+icon: 'arrow-up-wide-short'
+---
+
+import NextSteps from '/snippets/next-steps.mdx';
+
+## Update from React Email 4.0 to 5.0
+
+1. Update your React Email packages: `npm install @react-email/components@latest react-email@latest`.
+2. Replace all `renderAsync` uses with `render`.
+
+Make sure you update `@react-email/components` alongside `react-email`. The compatibility checker now only supports Tailwind 4, so you need to update both in sync.
+
+### Tailwind 4
+
+This update includes Tailwind 4 via `@react-email/components@latest`. Some utilities have changed since Tailwind 3—review their [upgrade guide](https://tailwindcss.com/docs/upgrade-guide#changes-from-v3) to adjust your code if needed.
+
+Tailwind 4 also changes how classes are handled in components. Previously, passing `className` added an equivalent inlined `style` prop, which caused confusion and performance issues. Now, styles are only inlined on elements, not components. If you were merging utilities with the `style` prop, consider using [tailwind-merge](https://github.com/dcastil/tailwind-merge) instead.
+
+The configuration remains in the `config` prop.
+

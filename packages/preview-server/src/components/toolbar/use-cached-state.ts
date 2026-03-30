@@ -2,7 +2,10 @@ import { useSyncExternalStore } from 'react';
 
 export const useCachedState = <T>(key: string) => {
   let value: T | undefined;
-  if ('localStorage' in global) {
+  if (
+    'localStorage' in global &&
+    typeof global.localStorage.getItem === 'function'
+  ) {
     const storedValue = global.localStorage.getItem(key);
     if (storedValue !== null && storedValue !== 'undefined') {
       try {

@@ -9,16 +9,16 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "^15",
-    "@react-email/components": "^0.0.36",
-    "react": "^19",
-    "react-dom": "^19",
-    "resend": "^4"
+    "next": "catalog:",
+    "@react-email/components": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "resend": "catalog:"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "typescript": "^5"
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "typescript": "catalog:"
   }
 }

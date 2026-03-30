@@ -42,7 +42,22 @@
                   "getting-started/monorepo-setup/bun"
                 ]
               },
-              "getting-started/migrating-to-react-email"
+              "getting-started/migrating-to-react-email",
+              "getting-started/updating-react-email"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              {
+                "group": "Internationalization",
+                "icon": "earth-americas",
+                "pages": [
+                  "guides/internationalization/next-intl",
+                  "guides/internationalization/react-i18next",
+                  "guides/internationalization/react-intl"
+                ]
+              }
             ]
           },
           {
@@ -77,6 +92,7 @@
             "pages": [
               "integrations/overview",
               "integrations/resend",
+              "integrations/inbound",
               "integrations/nodemailer",
               "integrations/sendgrid",
               "integrations/postmark",

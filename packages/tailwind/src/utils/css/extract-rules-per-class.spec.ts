@@ -19,8 +19,13 @@ describe('extractRulesPerClass()', async () => {
       classes,
     );
 
-    expect(convertToComparable(inlinable)).toMatchSnapshot();
-    expect(convertToComparable(nonInlinable)).toMatchSnapshot();
+    expect(convertToComparable(inlinable)).toMatchInlineSnapshot(`
+      {
+        "bg-red-500": ".bg-red-500{background-color:var(--color-red-500)}",
+        "text-center": ".text-center{text-align:center}",
+      }
+    `);
+    expect(convertToComparable(nonInlinable)).toMatchInlineSnapshot('{}');
   });
 
   it('handles non-inlinable utilities', async () => {
@@ -35,8 +40,12 @@ describe('extractRulesPerClass()', async () => {
       classes,
     );
 
-    expect(convertToComparable(inlinable)).toMatchSnapshot();
-    expect(convertToComparable(nonInlinable)).toMatchSnapshot();
+    expect(convertToComparable(inlinable)).toMatchInlineSnapshot('{}');
+    expect(convertToComparable(nonInlinable)).toMatchInlineSnapshot(`
+      {
+        "lg:w-1/2": ".lg\\:w-1\\/2{@media (width>=64rem){width:calc(1/2*100%)}}",
+      }
+    `);
   });
 
   it('handles a mix of inlinable and non-inlinable utilities', async () => {
@@ -55,7 +64,83 @@ describe('extractRulesPerClass()', async () => {
       stylesheet,
       classes,
     );
-    expect(convertToComparable(inlinable)).toMatchSnapshot();
-    expect(convertToComparable(nonInlinable)).toMatchSnapshot();
+    expect(convertToComparable(inlinable)).toMatchInlineSnapshot(`
+      {
+        "bg-red-500": ".bg-red-500{background-color:var(--color-red-500)}",
+        "text-center": ".text-center{text-align:center}",
+        "w-full": ".w-full{width:100%}",
+      }
+    `);
+    expect(convertToComparable(nonInlinable)).toMatchInlineSnapshot(`
+      {
+        "lg:w-1/2": ".lg\\:w-1\\/2{@media (width>=64rem){width:calc(1/2*100%)}}",
+      }
+    `);
+  });
+
+  it('splits mixed rules (base + media) into inlinable base and non-inlinable media', async () => {
+    const tailwind = await setupTailwind({
+      plugins: [
+        {
+          handler: (api) => {
+            api.addUtilities({
+              '.text-body': {
+                '@apply text-[green] sm:text-[darkgreen]': {},
+              },
+            });
+          },
+        },
+      ],
+    });
+    const classes = ['text-body'];
+    tailwind.addUtilities(classes);
+
+    const stylesheet = tailwind.getStyleSheet();
+    const { inlinable, nonInlinable } = extractRulesPerClass(
+      stylesheet,
+      classes,
+    );
+
+    expect(convertToComparable(inlinable)).toMatchInlineSnapshot(`
+      {
+        "text-body": ".text-body{color:green}",
+      }
+    `);
+    expect(convertToComparable(nonInlinable)).toMatchInlineSnapshot(`
+      {
+        "text-body": ".text-body{@media (width>=40rem){color:darkgreen}}",
+      }
+    `);
+  });
+
+  it('treats rules with pseudo-selectors as fully non-inlinable', async () => {
+    const tailwind = await setupTailwind({
+      plugins: [
+        {
+          handler: (api) => {
+            api.addUtilities({
+              '.btn:hover': {
+                color: 'red',
+              },
+            });
+          },
+        },
+      ],
+    });
+    const classes = ['btn'];
+    tailwind.addUtilities(classes);
+
+    const stylesheet = tailwind.getStyleSheet();
+    const { inlinable, nonInlinable } = extractRulesPerClass(
+      stylesheet,
+      classes,
+    );
+
+    expect(convertToComparable(inlinable)).toMatchInlineSnapshot('{}');
+    expect(convertToComparable(nonInlinable)).toMatchInlineSnapshot(`
+      {
+        "btn": ".btn{&:hover{color:red}}",
+      }
+    `);
   });
 });

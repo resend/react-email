@@ -73,6 +73,7 @@ export const checkLinks = async (code: string) => {
             res = await quickFetch(url);
             const hasSucceeded =
               res.statusCode?.toString().startsWith('2') ?? false;
+            res.resume();
             result.checks.push({
               type: 'fetch_attempt',
               passed: hasSucceeded,

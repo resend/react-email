@@ -81,7 +81,7 @@ your email template when you make changes.
     export default function Email(props) {
       return (
         <div>
-          <a src={props.source}>click here if you want candy 👀</a>
+          <a href={props.source}>click here if you want candy 👀</a>
         </div>
       );
     }
@@ -194,3 +194,12 @@ Generates the plain HTML files of your emails into a `out` directory.
 ## `email help <cmd>`
 
 Shows all the options for a specific command.
+
+## `email resend setup`
+
+Sets up a configuration in your home directory with your Resend API Key by prompting interactively.
+
+## `email resend reset`
+
+Removes your API Key from the configuration in your home directory.
+

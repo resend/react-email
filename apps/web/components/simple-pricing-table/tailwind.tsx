@@ -14,10 +14,10 @@ import { Layout } from '../_components/layout';
 export const component = (
   <Html>
     <Head />
-    <Preview>
-      Exclusive Offer Just For You: Unlock Premium Features at $12/month
-    </Preview>
     <Body>
+      <Preview>
+        Exclusive Offer Just For You: Unlock Premium Features at $12/month
+      </Preview>
       <Container className="bg-white rounded-[12px] mx-auto max-w-[500px] p-[24px]">
         <Section className="bg-white border border-solid border-gray-300 rounded-[12px] text-gray-600 p-[28px] w-full text-left mb-0">
           <Text className="text-indigo-600 text-[12px] leading-[20px] font-semibold tracking-wide mb-[16px] mt-[16px] uppercase">

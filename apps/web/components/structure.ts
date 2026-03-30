@@ -19,70 +19,6 @@ export const getComponentPathFromSlug = (slug: string) => {
 
 export const componentsStructure: Category[] = [
   {
-    name: 'Gallery',
-    description:
-      'Gallery components for displaying images in grids and columns.',
-    components: [
-      { slug: 'four-images-in-a-grid', title: 'Four images in a grid' },
-      { slug: 'images-on-horizontal-grid', title: 'Images on horizontal grid' },
-      { slug: 'images-on-vertical-grid', title: 'Images on vertical grid' },
-      { slug: 'three-columns-with-images', title: 'Three columns with images' },
-    ],
-  },
-  {
-    name: 'Ecommerce',
-    description:
-      'Components designed for eCommerce layouts, including product displays and card grids.',
-    components: [
-      { slug: 'one-product', title: 'One product' },
-      {
-        slug: 'one-product-with-image-on-the-left',
-        title: 'One product with image on the left',
-      },
-      {
-        slug: 'title-three-cards-in-a-row',
-        title: 'Title + three cards in a row',
-      },
-      { slug: 'title-four-cards', title: 'Title + four cards' },
-      { slug: 'checkout', title: 'Checkout' },
-    ],
-  },
-  {
-    name: 'Articles',
-    description:
-      'Components for creating various types of articles, including layouts with images and cards.',
-    components: [
-      { slug: 'article-with-image', title: 'Article with image' },
-      {
-        slug: 'article-with-image-as-background',
-        title: 'Article with image as background',
-      },
-      {
-        slug: 'article-with-image-on-right',
-        title: 'Article with image on right',
-      },
-      { slug: 'article-with-two-cards', title: 'Article with two cards' },
-      {
-        slug: 'article-with-single-author',
-        title: 'Article with single author',
-      },
-      {
-        slug: 'article-with-multiple-authors',
-        title: 'Article with multiple authors',
-      },
-    ],
-  },
-  {
-    name: 'Buttons',
-    description:
-      'A collection of button components to use in various parts of your application.',
-    components: [
-      { slug: 'single-button', title: 'Single button' },
-      { slug: 'two-buttons', title: 'Two buttons' },
-      { slug: 'download-buttons', title: 'Download buttons' },
-    ],
-  },
-  {
     name: 'Headers',
     description:
       'Components for creating headers with different menu layouts and social icons.',
@@ -101,23 +37,117 @@ export const componentsStructure: Category[] = [
     ],
   },
   {
-    name: 'Code Block',
+    name: 'Container',
     description:
-      'Code block components with options for themes, line numbers, and customization.',
+      'Container components for wrapping content with different layout options.',
+    components: [{ slug: 'simple-container', title: 'Simple container' }],
+  },
+  {
+    name: 'Section',
+    description:
+      'Section components for dividing content into distinct sections with rows and columns.',
     components: [
+      { slug: 'simple-section', title: 'Simple section' },
       {
-        slug: 'code-block-with-predefined-theme',
-        title: 'Code Block with predefined theme',
+        slug: 'section-with-rows-and-columns',
+        title: 'Section with rows and columns',
       },
+    ],
+  },
+  {
+    name: 'Grid',
+    description: 'Grid components for arranging content in rows and columns.',
+    components: [
+      { slug: 'one-row-two-columns', title: 'One row, two columns' },
+      { slug: 'one-row-three-columns', title: 'One row, three columns' },
+    ],
+  },
+  {
+    name: 'Divider',
+    description: 'Divider components to separate content in rows or columns.',
+    components: [
+      { slug: 'simple-divider', title: 'Simple divider' },
       {
-        slug: 'code-block-with-line-numbers',
-        title: 'Code Block with line numbers',
+        slug: 'divider-between-rows-and-columns',
+        title: 'Divider between rows and columns',
       },
-      {
-        slug: 'code-block-with-custom-theme',
-        title: 'Code Block with custom theme',
-      },
-      { slug: 'code-block-without-theme', title: 'Code Block without theme' },
+    ],
+  },
+  {
+    name: 'Heading',
+    description:
+      'Heading components for displaying titles and subtitles with different spacing options.',
+    components: [
+      { slug: 'simple-heading', title: 'Simple heading' },
+      { slug: 'multiple-headings', title: 'Multiple headings' },
+    ],
+  },
+  {
+    name: 'Text',
+    description:
+      'Text components for displaying text with simple and styled formatting.',
+    components: [
+      { slug: 'simple-text', title: 'Simple text' },
+      { slug: 'text-with-styling', title: 'Text with styling' },
+    ],
+  },
+  {
+    name: 'Link',
+    description: 'Link components for creating simple and styled links.',
+    components: [
+      { slug: 'simple-link', title: 'Simple link' },
+      { slug: 'link-inline-with-text', title: 'Link inline with text' },
+    ],
+  },
+  {
+    name: 'Buttons',
+    description:
+      'A collection of button components to use in various parts of your application.',
+    components: [
+      { slug: 'single-button', title: 'Single button' },
+      { slug: 'two-buttons', title: 'Two buttons' },
+      { slug: 'download-buttons', title: 'Download buttons' },
+    ],
+  },
+  {
+    name: 'Image',
+    description:
+      'Image components for displaying images with various styling options.',
+    components: [
+      { slug: 'simple-image', title: 'Simple image' },
+      { slug: 'rounded-image', title: 'Rounded image' },
+      { slug: 'image-with-varying-sizes', title: 'Image with varying sizes' },
+    ],
+  },
+  {
+    name: 'Avatars',
+    description:
+      'Components for displaying user avatars with different styles and sizes.',
+    components: [
+      { slug: 'avatars-group-stacked', title: 'Avatars group stacked' },
+      { slug: 'avatars-with-text', title: 'Avatars with text' },
+      { slug: 'avatars-circular', title: 'Circular avatars' },
+      { slug: 'avatars-rounded', title: 'Rounded avatars' },
+    ],
+  },
+  {
+    name: 'Gallery',
+    description:
+      'Gallery components for displaying images in grids and columns.',
+    components: [
+      { slug: 'four-images-in-a-grid', title: 'Four images in a grid' },
+      { slug: 'three-columns-with-images', title: 'Three columns with images' },
+      { slug: 'images-on-horizontal-grid', title: 'Images on horizontal grid' },
+      { slug: 'images-on-vertical-grid', title: 'Images on vertical grid' },
+    ],
+  },
+  {
+    name: 'List',
+    description:
+      'List components for displaying ordered and unordered lists with different styles.',
+    components: [
+      { slug: 'simple-list', title: 'Simple List' },
+      { slug: 'list-with-image-on-left', title: 'List with image on left' },
     ],
   },
   {
@@ -133,19 +163,63 @@ export const componentsStructure: Category[] = [
     ],
   },
   {
-    name: 'Container',
+    name: 'Code Block',
     description:
-      'Container components for wrapping content with different layout options.',
-    components: [{ slug: 'simple-container', title: 'Simple container' }],
+      'Code block components with options for themes, line numbers, and customization.',
+    components: [
+      { slug: 'code-block-without-theme', title: 'Code Block without theme' },
+      {
+        slug: 'code-block-with-predefined-theme',
+        title: 'Code Block with predefined theme',
+      },
+      {
+        slug: 'code-block-with-custom-theme',
+        title: 'Code Block with custom theme',
+      },
+      {
+        slug: 'code-block-with-line-numbers',
+        title: 'Code Block with line numbers',
+      },
+    ],
   },
   {
-    name: 'Divider',
-    description: 'Divider components to separate content in rows or columns.',
+    name: 'Markdown',
+    description:
+      'Markdown components for displaying markdown content with custom styles.',
     components: [
-      { slug: 'simple-divider', title: 'Simple divider' },
+      { slug: 'simple-markdown', title: 'Simple markdown' },
       {
-        slug: 'divider-between-rows-and-columns',
-        title: 'Divider between rows and columns',
+        slug: 'markdown-with-container-styles',
+        title: 'Markdown with container styles',
+      },
+      {
+        slug: 'markdown-with-custom-styles',
+        title: 'Markdown with custom styles',
+      },
+    ],
+  },
+  {
+    name: 'Articles',
+    description:
+      'Components for creating various types of articles, including layouts with images and cards.',
+    components: [
+      { slug: 'article-with-image', title: 'Article with image' },
+      {
+        slug: 'article-with-image-on-right',
+        title: 'Article with image on right',
+      },
+      {
+        slug: 'article-with-image-as-background',
+        title: 'Article with image as background',
+      },
+      { slug: 'article-with-two-cards', title: 'Article with two cards' },
+      {
+        slug: 'article-with-single-author',
+        title: 'Article with single author',
+      },
+      {
+        slug: 'article-with-multiple-authors',
+        title: 'Article with multiple authors',
       },
     ],
   },
@@ -174,102 +248,25 @@ export const componentsStructure: Category[] = [
     ],
   },
   {
-    name: 'Grid',
-    description: 'Grid components for arranging content in rows and columns.',
+    name: 'Stats',
+    description: 'Stats components for displaying statistics.',
     components: [
-      { slug: 'one-row-three-columns', title: 'One row, three columns' },
-      { slug: 'one-row-two-columns', title: 'One row, two columns' },
+      { slug: 'stats-simple', title: 'Stats simple' },
+      { slug: 'stats-stepped', title: 'Stats stepped' },
     ],
   },
   {
-    name: 'Heading',
-    description:
-      'Heading components for displaying titles and subtitles with different spacing options.',
-    components: [
-      { slug: 'simple-heading', title: 'Simple heading' },
-      { slug: 'multiple-headings', title: 'Multiple headings' },
-    ],
-  },
-  {
-    name: 'Image',
-    description:
-      'Image components for displaying images with various styling options.',
-    components: [
-      { slug: 'simple-image', title: 'Simple image' },
-      { slug: 'rounded-image', title: 'Rounded image' },
-      { slug: 'image-with-varying-sizes', title: 'Image with varying sizes' },
-    ],
-  },
-  {
-    name: 'Link',
-    description: 'Link components for creating simple and styled links.',
-    components: [
-      { slug: 'simple-link', title: 'Simple link' },
-      { slug: 'link-inline-with-text', title: 'Link inline with text' },
-    ],
-  },
-  {
-    name: 'Markdown',
-    description:
-      'Markdown components for displaying markdown content with custom styles.',
-    components: [
-      { slug: 'simple-markdown', title: 'Simple markdown' },
-      {
-        slug: 'markdown-with-container-styles',
-        title: 'Markdown with container styles',
-      },
-      {
-        slug: 'markdown-with-custom-styles',
-        title: 'Markdown with custom styles',
-      },
-    ],
-  },
-  {
-    name: 'Marketing',
-    description:
-      'Marketing components for creating surveys and checkout forms.',
-    components: [{ slug: 'bento-grid', title: 'Bento Grid' }],
-  },
-  {
-    name: 'Pricing',
-    description:
-      'Pricing components for displaying pricing tables and comparison charts.',
+    name: 'Testimonials',
+    description: 'Testimonials components for displaying testimonials.',
     components: [
       {
-        slug: 'two-tiers-with-emphasized-tier',
-        title: 'Two tiers with emphasized tier',
+        slug: 'testimonial-simple-centered',
+        title: 'Testimonial simple centered',
       },
-      { slug: 'simple-pricing-table', title: 'Simple pricing table' },
-    ],
-  },
-  {
-    name: 'Section',
-    description:
-      'Section components for dividing content into distinct sections with rows and columns.',
-    components: [
-      { slug: 'simple-section', title: 'Simple section' },
       {
-        slug: 'section-with-rows-and-columns',
-        title: 'Section with rows and columns',
+        slug: 'testimonial-with-large-avatar',
+        title: 'Testimonial with large avatar',
       },
-    ],
-  },
-  {
-    name: 'Text',
-    description:
-      'Text components for displaying text with simple and styled formatting.',
-    components: [
-      { slug: 'simple-text', title: 'Simple text' },
-      { slug: 'text-with-styling', title: 'Text with styling' },
-    ],
-  },
-  {
-    name: 'List',
-    description:
-      'List components for displaying ordered and unordered lists with different styles.',
-    components: [
-      { slug: 'simple-list', title: 'Simple List' },
-      { slug: 'list-with-image-on-left', title: 'List with image on left' },
     ],
   },
   {
@@ -281,5 +278,41 @@ export const componentsStructure: Category[] = [
       { slug: 'survey-section', title: 'Survey section' },
       { slug: 'customer-reviews', title: 'Customer reviews' },
     ],
+  },
+  {
+    name: 'Pricing',
+    description:
+      'Pricing components for displaying pricing tables and comparison charts.',
+    components: [
+      { slug: 'simple-pricing-table', title: 'Simple pricing table' },
+      {
+        slug: 'two-tiers-with-emphasized-tier',
+        title: 'Two tiers with emphasized tier',
+      },
+    ],
+  },
+  {
+    name: 'Ecommerce',
+    description:
+      'Components designed for eCommerce layouts, including product displays and card grids.',
+    components: [
+      { slug: 'one-product', title: 'One product' },
+      {
+        slug: 'one-product-with-image-on-the-left',
+        title: 'One product with image on the left',
+      },
+      {
+        slug: 'title-three-cards-in-a-row',
+        title: 'Title + three cards in a row',
+      },
+      { slug: 'title-four-cards', title: 'Title + four cards' },
+      { slug: 'checkout', title: 'Checkout' },
+    ],
+  },
+  {
+    name: 'Marketing',
+    description:
+      'Marketing components for creating surveys and checkout forms.',
+    components: [{ slug: 'bento-grid', title: 'Bento Grid' }],
   },
 ];

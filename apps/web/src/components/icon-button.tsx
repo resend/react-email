@@ -8,7 +8,7 @@ export function IconButton({ children, className, ...props }: IconButtonProps) {
     <button
       {...props}
       className={classNames(
-        'rounded p-1 text-[#EEF7FE] transition duration-200 ease-in-out hover:text-white focus:text-white focus:outline-none focus:ring-2 focus:ring-slate-6',
+        'rounded-sm p-1 text-[#EEF7FE] transition duration-200 ease-in-out hover:text-white focus:text-white focus:outline-hidden focus:ring-2 focus:ring-slate-6',
         className,
       )}
       type="button"

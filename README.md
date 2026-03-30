@@ -98,27 +98,13 @@ All components were tested using the most popular email clients.
 | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
 | Gmail ✔                                                                                           | Apple Mail ✔                                                                                           | Outlook ✔                                                                                             | Yahoo! Mail ✔                                                                                                | HEY ✔                                                                                         | Superhuman ✔                                                                                                |
 
-## Development
+## Development workflow
 
-#### Install dependencies
-
-```sh
-pnpm install
-```
-
-#### Build
-
-```sh
-pnpm build
-```
-
-#### Run packages
-
-```sh
-pnpm dev
-```
-
-This will initialize all packages in parallel and watch for changes, including the website which will be available at [localhost:3000](http://localhost:3000).
+1. [Setting up your development environment](https://react.email/docs/contributing/development-workflow/1-setup)
+2. [Running tests](https://react.email/docs/contributing/development-workflow/2-running-tests)
+3. [Linting](https://react.email/docs/contributing/development-workflow/3-linting)
+4. [Building](https://react.email/docs/contributing/development-workflow/4-building)
+5. [Writing documentation](https://react.email/docs/contributing/development-workflow/5-writing-docs)
 
 ## Contributing
 

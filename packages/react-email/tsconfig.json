@@ -23,7 +23,7 @@
     "declaration": false,
     "declarationMap": false,
     "incremental": false,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "lib": ["dom", "dom.iterable", "esnext", "ESNext.AsyncIterable"],
     "noEmit": true,
     "strict": false,

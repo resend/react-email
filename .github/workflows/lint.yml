@@ -13,16 +13,18 @@ permissions:
   pull-requests: read
 jobs:
   lint:
-    runs-on: buildjet-2vcpu-ubuntu-2204
+    runs-on: blacksmith-2vcpu-ubuntu-2204
     container:
       image: node:22-slim
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout Repo
+        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
+        with:
+          fetch-depth: 1
       - name: pnpm setup
-        uses: pnpm/action-setup@f2b2b233b538f500472c7274c7012f57857d8ce0
+        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320
       - name: Install packages
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile --prefer-offline
       - name: Run Lint
         run: pnpm lint
         env:

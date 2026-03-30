@@ -23,7 +23,7 @@ export const sendToSpamd = (html: string, plainText: string) => {
 
     const connection = net.createConnection({
       host,
-      port: Number.parseInt(port),
+      port: Number.parseInt(port, 10),
     });
     connection.setTimeout(timeout, () => {
       reject(

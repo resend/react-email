@@ -1,5 +1,29 @@
 # @react-email/body
 
+## 0.3.0
+
+### Minor Changes
+
+- 493f367: Reset padding properties in `<body>` tag when there's any user defined padding properties
+
+## 0.2.1
+
+### Patch Changes
+
+- 8b7a660: remove use of devEngines which npm detects
+
+## 0.2.0
+
+### Minor Changes
+
+- aa2bc86: reset the `margin` property in the `<body>` when it has a user definition
+
+## 0.2.0-canary.0
+
+### Minor Changes
+
+- aa2bc86: reset the `margin` property in the `<body>` when it has a user definition
+
 ## 0.1.0
 
 ### Minor Changes

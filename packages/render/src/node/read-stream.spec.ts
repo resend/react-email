@@ -156,6 +156,31 @@ describe('readStream', () => {
     });
   });
 
+  describe('PipeableStream error handling', () => {
+    it('should reject when the source PipeableStream errors', async () => {
+      let hasError = false;
+      const erroringStream = new Readable({
+        read() {
+          if (!hasError) {
+            this.push(Buffer.from('<html>'));
+            hasError = true;
+            setImmediate(() => {
+              this.destroy(new Error('Streaming failed'));
+            });
+          }
+        },
+      });
+
+      const pipeableStream = {
+        pipe: (writable: any) => erroringStream.pipe(writable),
+      };
+
+      await expect(readStream(pipeableStream as any)).rejects.toThrow(
+        'Streaming failed',
+      );
+    });
+  });
+
   describe('ReadableStream (pipeTo) path', () => {
     it('handles multi-byte characters with ReadableStream', async () => {
       const japaneseText = 'バクラクのメールテンプレートでスケジュール確認';

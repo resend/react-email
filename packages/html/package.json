@@ -1,11 +1,11 @@
 {
   "name": "@react-email/html",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "A React html component to wrap emails",
   "sideEffects": false,
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.cts",
   "files": [
     "dist/**"
   ],
@@ -16,8 +16,8 @@
         "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
       }
     }
   },
@@ -39,7 +39,7 @@
     "email"
   ],
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "peerDependencies": {
     "react": "^18.0 || ^19.0 || ^19.0.0-rc"
@@ -47,7 +47,7 @@
   "devDependencies": {
     "@react-email/render": "workspace:*",
     "tsconfig": "workspace:*",
-    "typescript": "5.8.3"
+    "typescript": "catalog:"
   },
   "publishConfig": {
     "access": "public"

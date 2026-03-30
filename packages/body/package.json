@@ -1,11 +1,14 @@
 {
   "name": "@react-email/body",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "A React body component to wrap emails",
   "sideEffects": false,
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.cts",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "files": [
     "dist/**"
   ],
@@ -16,8 +19,8 @@
         "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
       }
     }
   },
@@ -29,13 +32,18 @@
     "test": "vitest run",
     "test:watch": "vitest"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resend/react-email.git",
+    "directory": "packages/body"
+  },
   "peerDependencies": {
     "react": "^18.0 || ^19.0 || ^19.0.0-rc"
   },
   "devDependencies": {
     "@react-email/render": "workspace:*",
     "tsconfig": "workspace:*",
-    "typescript": "5.8.3"
+    "typescript": "catalog:"
   },
   "publishConfig": {
     "access": "public"

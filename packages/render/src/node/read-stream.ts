@@ -39,13 +39,18 @@ export const readStream = async (
         callback();
       },
     });
-    stream.pipe(writable);
-
     await new Promise<void>((resolve, reject) => {
+      writable.on('pipe', (source) => {
+        source.on('error', (err: Error) => {
+          writable.destroy(err);
+        });
+      });
       writable.on('error', reject);
       writable.on('close', () => {
         resolve();
       });
+
+      stream.pipe(writable);
     });
   }
 
