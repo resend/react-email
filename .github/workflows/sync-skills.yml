@@ -6,10 +6,6 @@ on:
     paths: ['skills/**']
   workflow_dispatch:
 
-concurrency:
-  group: sync-skills
-  cancel-in-progress: false
-
 permissions:
   contents: read
 
@@ -17,77 +13,14 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source repo
-        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
-        with:
-          path: source
-
-      - name: Checkout resend-skills
-        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
-        with:
-          repository: resend/resend-skills
-          token: ${{ secrets.SYNC_SKILLS_TO_RESEND_SKILLS }}
-          path: target
-
-      - name: Compare skills
-        id: diff
-        run: |
-          changed=false
-          for skill_dir in source/skills/*/; do
-            skill_name=$(basename "$skill_dir")
-            target_dir="target/skills/$skill_name"
-
-            if [ ! -d "$target_dir" ]; then
-              echo "New skill: $skill_name"
-              changed=true
-              continue
-            fi
-
-            for item in SKILL.md references scripts assets; do
-              src="$skill_dir/$item"
-              dst="$target_dir/$item"
-              if [ -e "$src" ] && ! diff -rq "$src" "$dst" > /dev/null 2>&1; then
-                echo "Changed: $skill_name/$item"
-                changed=true
-              fi
-              if [ -e "$dst" ] && [ ! -e "$src" ]; then
-                echo "Deleted: $skill_name/$item"
-                changed=true
-              fi
-            done
-          done
-
-          echo "changed=$changed" >> "$GITHUB_OUTPUT"
-
-      - name: Copy skills and open PR
-        if: steps.diff.outputs.changed == 'true'
+      - name: Trigger sync on resend-skills
         env:
           GH_TOKEN: ${{ secrets.SYNC_SKILLS_TO_RESEND_SKILLS }}
         run: |
-          cd target
-
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -b sync/react-email-${{ github.sha }}
-
-          for skill_dir in ../source/skills/*/; do
-            skill_name=$(basename "$skill_dir")
-            rm -rf "skills/$skill_name"
-            mkdir -p "skills/$skill_name"
-
-            cp "$skill_dir/SKILL.md" "skills/$skill_name/"
-            for dir in references scripts assets; do
-              if [ -d "$skill_dir/$dir" ]; then
-                cp -r "$skill_dir/$dir" "skills/$skill_name/"
-              fi
-            done
-          done
-
-          git add skills/
-          git commit -m "sync: react-email skills from ${GITHUB_SHA::7}"
-          git push origin sync/react-email-${{ github.sha }}
-
-          gh pr create \
+          gh workflow run sync-from-repo.yml \
             --repo resend/resend-skills \
-            --title "Sync react-email skills" \
-            --body "Automated sync from [resend/react-email@\`${GITHUB_SHA::7}\`](https://github.com/resend/react-email/commit/${{ github.sha }})."
+            --field repo=react-email \
+            --field skill-path=skills/react-email \
+            --field skill-name=react-email \
+            --field sha=${{ github.sha }} \
+            --field reviewer=${{ github.actor }}
