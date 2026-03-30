@@ -34,7 +34,26 @@ describe('Container Node', () => {
         </Component>,
         { pretty: true },
       ),
-    ).toMatchSnapshot();
+    ).toMatchInlineSnapshot(`
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <!--$-->
+      <table
+        align="center"
+        width="100%"
+        border="0"
+        cellpadding="0"
+        cellspacing="0"
+        role="presentation"
+        style="margin:0;padding:0;width:100%">
+        <tbody>
+          <tr style="width:100%">
+            <td>Container content</td>
+          </tr>
+        </tbody>
+      </table>
+      <!--/$-->
+      "
+    `);
   });
 
   it('renders with width and maxWidth from style', async () => {
@@ -52,8 +71,9 @@ describe('Container Node', () => {
       </Component>,
     );
 
-    expect(html).toContain('max-width:600px');
-    expect(html).toContain('width:100%');
+    expect(html).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="max-width:600px;margin:0;padding:0;width:100%"><tbody><tr style="width:100%"><td>Content</td></tr></tbody></table><!--/$-->"`,
+    );
   });
 });
 
@@ -80,15 +100,32 @@ describe('Container in editor', () => {
     });
 
     const json = editor.getJSON();
-    const containerNode = json.content?.find((n) => n.type === 'container');
-    expect(containerNode).toBeDefined();
-    expect(containerNode?.content).toBeDefined();
-
-    // The paragraph should be inside the container
-    const paragraph = containerNode?.content?.find(
-      (n) => n.type === 'paragraph',
-    );
-    expect(paragraph).toBeDefined();
+    expect(json).toMatchInlineSnapshot(`
+      {
+        "content": [
+          {
+            "content": [
+              {
+                "attrs": {
+                  "alignment": null,
+                  "class": "",
+                  "style": "",
+                },
+                "content": [
+                  {
+                    "text": "Hello",
+                    "type": "text",
+                  },
+                ],
+                "type": "paragraph",
+              },
+            ],
+            "type": "container",
+          },
+        ],
+        "type": "doc",
+      }
+    `);
   });
 
   it('preserves globalContent outside the container', () => {
@@ -113,19 +150,40 @@ describe('Container in editor', () => {
 
     const json = editor.getJSON();
 
-    // globalContent should remain a direct child of doc
-    const globalContent = json.content?.find((n) => n.type === 'globalContent');
-    expect(globalContent).toBeDefined();
-
-    // container should wrap the paragraph
-    const containerNode = json.content?.find((n) => n.type === 'container');
-    expect(containerNode).toBeDefined();
-
-    // globalContent should NOT be inside the container
-    const globalInsideContainer = containerNode?.content?.find(
-      (n) => n.type === 'globalContent',
-    );
-    expect(globalInsideContainer).toBeUndefined();
+    expect(json).toMatchInlineSnapshot(`
+      {
+        "content": [
+          {
+            "attrs": {
+              "data": {
+                "theme": "basic",
+              },
+            },
+            "type": "globalContent",
+          },
+          {
+            "content": [
+              {
+                "attrs": {
+                  "alignment": null,
+                  "class": "",
+                  "style": "",
+                },
+                "content": [
+                  {
+                    "text": "Hello",
+                    "type": "text",
+                  },
+                ],
+                "type": "paragraph",
+              },
+            ],
+            "type": "container",
+          },
+        ],
+        "type": "doc",
+      }
+    `);
   });
 
   it('renders container div with node-container class in editor HTML', () => {
@@ -143,8 +201,9 @@ describe('Container in editor', () => {
     });
 
     const html = editor.getHTML();
-    expect(html).toContain('data-type="container"');
-    expect(html).toContain('class="node-container"');
+    expect(html).toMatchInlineSnapshot(
+      `"<div data-type="container" class="node-container"><p class="node-paragraph" style="">Hello</p></div>"`,
+    );
   });
 });
 
@@ -184,9 +243,54 @@ describe('Container in composeReactEmail', () => {
     const ed = createEditorWithContent(content);
     const result = await composeReactEmail({ editor: ed, preview: '' });
 
-    // The Container component renders as a <table> in email HTML
-    expect(result.html).toContain('Hello world');
-    expect(result.text).toContain('Hello world');
+    expect(result.html).toMatchInlineSnapshot(`
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html dir="ltr" lang="en">
+        <head>
+          <meta content="width=device-width" name="viewport" />
+          <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+          <meta name="x-apple-disable-message-reformatting" />
+          <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+          <meta name="x-apple-disable-message-reformatting" />
+          <meta
+            content="telephone=no,address=no,email=no,date=no,url=no"
+            name="format-detection" />
+          <!--$-->
+        </head>
+        <body>
+          <table
+            border="0"
+            width="100%"
+            cellpadding="0"
+            cellspacing="0"
+            role="presentation"
+            align="center">
+            <tbody>
+              <tr>
+                <td>
+                  <table
+                    align="center"
+                    width="100%"
+                    border="0"
+                    cellpadding="0"
+                    cellspacing="0"
+                    role="presentation"
+                    style="width:100%">
+                    <tbody>
+                      <tr style="width:100%">
+                        <td><p>Hello world</p></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!--/$-->
+        </body>
+      </html>
+      "
+    `);
   });
 
   it('wraps content inside a container in the serialized output', async () => {
@@ -214,8 +318,53 @@ describe('Container in composeReactEmail', () => {
     const ed = createEditorWithContent(content);
     const result = await composeReactEmail({ editor: ed, preview: '' });
 
-    expect(result.html).toContain('Inside container');
-    // Container renders as a table with role="presentation"
-    expect(result.html).toContain('role="presentation"');
+    expect(result.html).toMatchInlineSnapshot(`
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html dir="ltr" lang="en">
+        <head>
+          <meta content="width=device-width" name="viewport" />
+          <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+          <meta name="x-apple-disable-message-reformatting" />
+          <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+          <meta name="x-apple-disable-message-reformatting" />
+          <meta
+            content="telephone=no,address=no,email=no,date=no,url=no"
+            name="format-detection" />
+          <!--$-->
+        </head>
+        <body>
+          <table
+            border="0"
+            width="100%"
+            cellpadding="0"
+            cellspacing="0"
+            role="presentation"
+            align="center">
+            <tbody>
+              <tr>
+                <td>
+                  <table
+                    align="center"
+                    width="100%"
+                    border="0"
+                    cellpadding="0"
+                    cellspacing="0"
+                    role="presentation"
+                    style="width:100%">
+                    <tbody>
+                      <tr style="width:100%">
+                        <td><p>Inside container</p></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!--/$-->
+        </body>
+      </html>
+      "
+    `);
   });
 });
