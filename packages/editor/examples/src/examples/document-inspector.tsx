@@ -67,68 +67,82 @@ export function DocumentInspector() {
               </nav>
 
               <Inspector.Document>
-                {({ findStyleValue, setGlobalStyle }) => (
+                {({ findStyleValue, setGlobalStyle, batchSetGlobalStyle }) => (
                   <div className="flex flex-col gap-4">
-                    {/* Body */}
-                    <Section title="Body">
+                    {/* Background */}
+                    <Section title="Background">
                       <ColorRow
-                        label="Background"
+                        label="Color"
                         value={findStyleValue('body', 'backgroundColor')}
                         onChange={(v) =>
                           setGlobalStyle('body', 'backgroundColor', v)
                         }
                       />
-                      <ColorRow
-                        label="Text color"
-                        value={findStyleValue('body', 'color')}
-                        onChange={(v) => setGlobalStyle('body', 'color', v)}
+                      <NumberRow
+                        label="Padding"
+                        unit="px"
+                        value={findStyleValue('body', 'padding')}
+                        onChange={(v) =>
+                          setGlobalStyle('body', 'padding', v)
+                        }
                       />
                     </Section>
 
-                    {/* Container */}
-                    <Section title="Container">
+                    {/* Body */}
+                    <Section title="Body">
                       <ColorRow
-                        label="Background"
+                        label="Color"
                         value={findStyleValue('container', 'backgroundColor')}
                         onChange={(v) =>
                           setGlobalStyle('container', 'backgroundColor', v)
                         }
                       />
                       <NumberRow
-                        label="Border radius"
+                        label="Width"
+                        unit="px"
+                        value={findStyleValue('container', 'width')}
+                        onChange={(v) =>
+                          setGlobalStyle('container', 'width', v)
+                        }
+                      />
+                      <NumberRow
+                        label="Height"
+                        unit="px"
+                        value={findStyleValue('container', 'height')}
+                        onChange={(v) =>
+                          setGlobalStyle('container', 'height', v)
+                        }
+                      />
+                      <NumberRow
+                        label="Padding"
+                        unit="px"
+                        value={findStyleValue('container', 'padding')}
+                        onChange={(v) =>
+                          setGlobalStyle('container', 'padding', v)
+                        }
+                      />
+                      <NumberRow
+                        label="Rounded"
                         unit="px"
                         value={findStyleValue('container', 'borderRadius')}
                         onChange={(v) =>
                           setGlobalStyle('container', 'borderRadius', v)
                         }
                       />
-                    </Section>
-
-                    {/* Typography */}
-                    <Section title="Typography">
-                      <ColorRow
-                        label="Paragraph color"
-                        value={findStyleValue('paragraph', 'color')}
-                        onChange={(v) =>
-                          setGlobalStyle('paragraph', 'color', v)
-                        }
-                      />
                       <NumberRow
-                        label="Font size"
+                        label="Border"
                         unit="px"
-                        value={findStyleValue('paragraph', 'fontSize')}
+                        value={findStyleValue('container', 'borderWidth')}
                         onChange={(v) =>
-                          setGlobalStyle('paragraph', 'fontSize', v)
+                          setGlobalStyle('container', 'borderWidth', v)
                         }
                       />
-                    </Section>
-
-                    {/* Links */}
-                    <Section title="Links">
                       <ColorRow
-                        label="Link color"
-                        value={findStyleValue('link', 'color')}
-                        onChange={(v) => setGlobalStyle('link', 'color', v)}
+                        label=""
+                        value={findStyleValue('container', 'borderColor')}
+                        onChange={(v) =>
+                          setGlobalStyle('container', 'borderColor', v)
+                        }
                       />
                     </Section>
                   </div>
