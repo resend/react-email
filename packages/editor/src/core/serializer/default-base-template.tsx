@@ -23,9 +23,7 @@ export function DefaultBaseTemplate({
       </Head>
       {previewText && previewText !== '' && <Preview>{previewText}</Preview>}
 
-      <Body>
-        {children}
-      </Body>
+      <Body>{children}</Body>
     </Html>
   );
 }

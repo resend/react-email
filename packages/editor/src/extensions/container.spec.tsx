@@ -114,9 +114,7 @@ describe('Container in editor', () => {
     const json = editor.getJSON();
 
     // globalContent should remain a direct child of doc
-    const globalContent = json.content?.find(
-      (n) => n.type === 'globalContent',
-    );
+    const globalContent = json.content?.find((n) => n.type === 'globalContent');
     expect(globalContent).toBeDefined();
 
     // container should wrap the paragraph

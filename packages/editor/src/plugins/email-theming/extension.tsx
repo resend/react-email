@@ -280,9 +280,7 @@ export const EmailTheming = Extension.create<{
                 <Preview>{previewText}</Preview>
               )}
 
-              <Body style={mergedStyles.body}>
-                {children}
-              </Body>
+              <Body style={mergedStyles.body}>{children}</Body>
             </Html>
           );
         },
