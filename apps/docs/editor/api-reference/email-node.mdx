@@ -58,24 +58,14 @@ reuse a community TipTap extension and add email export support without rewritin
 
 ```tsx
 import { EmailNode } from '@react-email/editor/core';
-import { Node } from '@tiptap/core';
+import Blockquote from '@tiptap/extension-blockquote';
 
-const MyTipTapNode = Node.create({
-  name: 'customBlock',
-  group: 'block',
-  content: 'inline*',
-
-  parseHTML() {
-    return [{ tag: 'div[data-custom]' }];
-  },
-
-  renderHTML({ HTMLAttributes }) {
-    return ['div', HTMLAttributes, 0];
-  },
-});
-
-const MyEmailNode = EmailNode.from(MyTipTapNode, ({ children, style }) => {
-  return <div style={style}>{children}</div>;
+const EmailBlockquote = EmailNode.from(Blockquote, ({ children, style }) => {
+  return (
+    <blockquote style={{ ...style, borderLeft: '4px solid #e0e0e0', paddingLeft: '16px' }}>
+      {children}
+    </blockquote>
+  );
 });
 ```
 
