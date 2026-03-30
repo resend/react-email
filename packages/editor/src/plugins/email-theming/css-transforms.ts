@@ -88,7 +88,7 @@ export function injectThemeCss(
   const styleId = options.styleId ?? 'tiptap-extended-theme-css';
 
   const css = Object.entries(styles).reduce((acc, [key, value]) => {
-    const className = `${container} ${prefix}${key}`;
+    const className = key === 'body' ? container : `${container} ${prefix}${key}`;
 
     const cssString = Object.entries(value).reduce((acc, [prop, val]) => {
       const normalizeProp = prop.replace(/([A-Z])/g, '-$1').toLowerCase();
