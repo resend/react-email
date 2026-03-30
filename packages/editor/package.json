@@ -1,6 +1,6 @@
 {
   "name": "@react-email/editor",
-  "version": "0.0.0-experimental.37",
+  "version": "0.0.0-experimental.38",
   "description": "",
   "sideEffects": [
     "**/*.css"
