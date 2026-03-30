@@ -32,6 +32,8 @@ import {
   ThreeColumns,
   TwoColumns,
 } from './columns';
+import type { ContainerOptions } from './container';
+import { Container } from './container';
 import type { DivOptions } from './div';
 import { Div } from './div';
 import type { DividerOptions } from './divider';
@@ -79,6 +81,7 @@ export * from './class-attribute';
 export * from './code';
 export * from './code-block';
 export * from './columns';
+export * from './container';
 export * from './div';
 export * from './divider';
 export * from './global-content';
@@ -108,6 +111,7 @@ const starterKitExtensions: Record<string, AnyExtension> = {
   TwoColumns,
   ThreeColumns,
   FourColumns,
+  Container,
   ColumnsColumn,
   Paragraph,
   BulletList,
@@ -173,6 +177,7 @@ export type StarterKitOptions = {
   TableCell: Partial<TableCellOptions> | false;
   TableHeader: Partial<Record<string, any>> | false;
   Body: Partial<BodyOptions> | false;
+  Container: Partial<ContainerOptions> | false;
   Div: Partial<DivOptions> | false;
   Text: Record<string, never> | false;
   Button: Partial<EditorButtonOptions> | false;
@@ -246,6 +251,7 @@ export const StarterKit = Extension.create<StarterKitOptions>({
       TableCell: {},
       TableHeader: {},
       Body: {},
+      Container: {},
       Div: {},
       Button: {},
       Section: {},
