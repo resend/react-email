@@ -9,6 +9,7 @@
     "@benchmarks/preview-server",
     "@benchmarks/tailwind-component",
     "@react-email/editor",
+    "editor-examples",
     "demo",
     "email-dev",
     "web"
