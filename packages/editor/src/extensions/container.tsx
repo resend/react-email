@@ -16,6 +16,7 @@ function hasContainerNode(doc: PmNode): boolean {
 }
 
 function wrapInContainer(state: EditorState) {
+  console.log('warpping everything in container');
   const { doc } = state;
   const containerType = state.schema.nodes.container;
 
@@ -88,15 +89,22 @@ export const Container = EmailNode.create<ContainerOptions>({
     return [
       new Plugin({
         key: new PluginKey('containerEnforcer'),
-        view(editorView) {
-          // Ensure container exists on editor initialization
-          if (!hasContainerNode(editorView.state.doc)) {
-            const tr = wrapInContainer(editorView.state);
-            editorView.dispatch(tr);
+        // view(editorView) {
+        //   debugger;
+        //   if (!hasContainerNode(editorView.state.doc)) {
+        //     const tr = wrapInContainer(editorView.state);
+        //     editorView.dispatch(tr);
+        //   }
+        //   return {};
+        // },
+        appendTransaction(transactions, _oldState, newState) {
+          const isRemoteChange = transactions.some((tr) => tr.getMeta('y-sync$'));
+
+          if (isRemoteChange) {
+            return null;
           }
-          return {};
-        },
-        appendTransaction(_transactions, _oldState, newState) {
+          debugger;
+
           if (hasContainerNode(newState.doc)) {
             return null;
           }
