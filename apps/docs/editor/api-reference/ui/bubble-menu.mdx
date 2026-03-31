@@ -23,17 +23,17 @@ Text formatting toolbar that appears on text selection.
 <BubbleMenu.Default />
 ```
 
-<ResponseField name="excludeItems" type="ExcludableItem\[\]" default="\[\]">
+<ResponseField name="excludeItems" type="ExcludableItem[]" default="[]">
   Items to hide. Options: `'bold'`, `'italic'`, `'underline'`,
   `'strike'`, `'code'`, `'uppercase'`, `'align-left'`, `'align-center'`,
   `'align-right'`, `'node-selector'`, `'link-selector'`.
 </ResponseField>
 
-<ResponseField name="hideWhenActiveNodes" type="string\[\]" default="\[\]">
+<ResponseField name="hideWhenActiveNodes" type="string[]" default="[]">
   Node types that prevent the menu from showing (e.g., `'codeBlock'`, `'button'`).
 </ResponseField>
 
-<ResponseField name="hideWhenActiveMarks" type="string\[\]" default="\[\]">
+<ResponseField name="hideWhenActiveMarks" type="string[]" default="[]">
   Mark types that prevent the menu from showing (e.g., `'link'`).
 </ResponseField>
 
@@ -61,7 +61,7 @@ Link editing menu that appears when clicking a link.
 <BubbleMenu.LinkDefault />
 ```
 
-<ResponseField name="excludeItems" type="('edit-link' | 'open-link' | 'unlink')\[\]" default="\[\]">
+<ResponseField name="excludeItems" type="('edit-link' | 'open-link' | 'unlink')[]" default="[]">
   Actions to hide from the toolbar.
 </ResponseField>
 
@@ -107,7 +107,7 @@ Image editing menu that appears when clicking an image.
 <BubbleMenu.ImageDefault />
 ```
 
-<ResponseField name="excludeItems" type="('edit-link')\[\]" default="\[\]">
+<ResponseField name="excludeItems" type="('edit-link')[]" default="[]">
   Actions to hide.
 </ResponseField>
 
@@ -180,11 +180,11 @@ const myPluginKey = new PluginKey('myCustomMenu');
   Import `PluginKey` from `@tiptap/pm/state`.
 </ResponseField>
 
-<ResponseField name="hideWhenActiveNodes" type="string\[\]" default="\[\]">
+<ResponseField name="hideWhenActiveNodes" type="string[]" default="[]">
   Node types that prevent the menu from showing.
 </ResponseField>
 
-<ResponseField name="hideWhenActiveMarks" type="string\[\]" default="\[\]">
+<ResponseField name="hideWhenActiveMarks" type="string[]" default="[]">
   Mark types that prevent the menu from showing.
 </ResponseField>
 
