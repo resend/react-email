@@ -17,7 +17,7 @@ export const bubbleMenuTriggers = {
     hideWhenActiveNodes: string[] = [],
     hideWhenActiveMarks: string[] = [],
   ): ShouldShowFn {
-    return ({ editor, view, state }) => {
+    return ({ editor, state }) => {
       for (const node of hideWhenActiveNodes) {
         if (editor.isActive(node)) {
           return false;
@@ -34,22 +34,16 @@ export const bubbleMenuTriggers = {
           return false;
         }
       }
-      if (view.dom.classList.contains('dragging')) {
-        return false;
-      }
       return editor.view.state.selection.content().size > 0;
     };
   },
 
   node(name: string): ShouldShowFn {
-    return ({ editor, view }) =>
-      editor.isActive(name) && !view.dom.classList.contains('dragging');
+    return ({ editor }) => editor.isActive(name);
   },
 
   nodeWithoutSelection(name: string): ShouldShowFn {
-    return ({ editor, view }) =>
-      editor.isActive(name) &&
-      !view.dom.classList.contains('dragging') &&
-      editor.view.state.selection.content().size === 0;
+    return ({ editor }) =>
+      editor.isActive(name) && editor.view.state.selection.content().size === 0;
   },
 };

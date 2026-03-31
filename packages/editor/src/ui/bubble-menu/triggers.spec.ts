@@ -6,14 +6,12 @@ import { bubbleMenuTriggers } from './triggers';
 function createMockParams(overrides: {
   isActive?: (name: string) => boolean;
   selectionSize?: number;
-  isDragging?: boolean;
   nodeAtDepth?: (d: number) => { type: { name: string } };
   fromDepth?: number;
 }) {
   const {
     isActive = () => false,
     selectionSize = 5,
-    isDragging = false,
     nodeAtDepth = () => ({ type: { name: 'paragraph' } }),
     fromDepth = 1,
   } = overrides;
@@ -25,13 +23,7 @@ function createMockParams(overrides: {
         state: { selection: { content: () => ({ size: selectionSize }) } },
       },
     } as unknown as Editor,
-    view: {
-      dom: {
-        classList: {
-          contains: (cls: string) => cls === 'dragging' && isDragging,
-        },
-      },
-    } as unknown as EditorView,
+    view: {} as unknown as EditorView,
     state: {
       selection: {
         $from: { depth: fromDepth, node: nodeAtDepth },
@@ -53,11 +45,6 @@ describe('bubbleMenuTriggers', () => {
     it('hides when selection is empty', () => {
       const shouldShow = bubbleMenuTriggers.textSelection();
       expect(shouldShow(createMockParams({ selectionSize: 0 }))).toBe(false);
-    });
-
-    it('hides when dragging', () => {
-      const shouldShow = bubbleMenuTriggers.textSelection();
-      expect(shouldShow(createMockParams({ isDragging: true }))).toBe(false);
     });
 
     it('hides when an excluded node is active', () => {
@@ -98,18 +85,6 @@ describe('bubbleMenuTriggers', () => {
       const shouldShow = bubbleMenuTriggers.node('button');
       expect(shouldShow(createMockParams({}))).toBe(false);
     });
-
-    it('hides when dragging', () => {
-      const shouldShow = bubbleMenuTriggers.node('button');
-      expect(
-        shouldShow(
-          createMockParams({
-            isActive: (n) => n === 'button',
-            isDragging: true,
-          }),
-        ),
-      ).toBe(false);
-    });
   });
 
   describe('nodeWithoutSelection', () => {
@@ -134,19 +109,6 @@ describe('bubbleMenuTriggers', () => {
     it('hides when node is not active', () => {
       const shouldShow = bubbleMenuTriggers.nodeWithoutSelection('link');
       expect(shouldShow(createMockParams({ selectionSize: 0 }))).toBe(false);
-    });
-
-    it('hides when dragging', () => {
-      const shouldShow = bubbleMenuTriggers.nodeWithoutSelection('link');
-      expect(
-        shouldShow(
-          createMockParams({
-            isActive: (n) => n === 'link',
-            selectionSize: 0,
-            isDragging: true,
-          }),
-        ),
-      ).toBe(false);
     });
   });
 });
