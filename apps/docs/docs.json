@@ -12,9 +12,9 @@
   },
   "favicon": "/favicon.png",
   "navigation": {
-    "anchors": [
+    "tabs": [
       {
-        "anchor": "Documentation",
+        "tab": "Documentation",
         "icon": "book-open",
         "groups": [
           {
@@ -119,6 +119,63 @@
                   "contributing/development-workflow/4-building",
                   "contributing/development-workflow/5-writing-docs",
                   "contributing/development-workflow/6-editing-the-components"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Editor",
+        "icon": "flask",
+        "tag": "Experimental",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "editor/overview",
+              "editor/getting-started"
+            ]
+          },
+          {
+            "group": "Features",
+            "pages": [
+              "editor/features/bubble-menu",
+              "editor/features/slash-commands",
+              "editor/features/theming",
+              "editor/features/styling",
+              "editor/features/buttons",
+              "editor/features/column-layouts",
+              "editor/features/link-editing",
+              "editor/features/email-export"
+            ]
+          },
+          {
+            "group": "Advanced",
+            "pages": [
+              "editor/advanced/extensions",
+              "editor/advanced/event-bus",
+              "editor/advanced/custom-extensions"
+            ]
+          },
+          {
+            "group": "API Reference",
+            "pages": [
+              "editor/api-reference/use-editor",
+              "editor/api-reference/compose-react-email",
+              "editor/api-reference/email-node",
+              "editor/api-reference/email-mark",
+              "editor/api-reference/extensions-list",
+              "editor/api-reference/theming-api",
+              {
+                "group": "UI Components",
+                "icon": "window",
+                "pages": [
+                  "editor/api-reference/ui/bubble-menu",
+                  "editor/api-reference/ui/link-bubble-menu",
+                  "editor/api-reference/ui/button-bubble-menu",
+                  "editor/api-reference/ui/image-bubble-menu",
+                  "editor/api-reference/ui/slash-command"
                 ]
               }
             ]
