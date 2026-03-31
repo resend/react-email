@@ -7,11 +7,11 @@ icon: "link"
 
 ## Quick start
 
-Add `LinkBubbleMenu.Default` to enable an inline link editing toolbar:
+Use `BubbleMenu.LinkDefault` to add an inline link editing toolbar:
 
 ```tsx
 import { StarterKit } from '@react-email/editor/extensions';
-import { LinkBubbleMenu } from '@react-email/editor/ui';
+import { BubbleMenu } from '@react-email/editor/ui';
 import { EditorProvider } from '@tiptap/react';
 import '@react-email/editor/themes/default.css';
 
@@ -25,7 +25,7 @@ const content = `
 export function MyEditor() {
   return (
     <EditorProvider extensions={extensions} content={content}>
-      <LinkBubbleMenu.Default />
+      <BubbleMenu.LinkDefault />
     </EditorProvider>
   );
 }
@@ -35,28 +35,27 @@ export function MyEditor() {
 
 When you click on a link in the editor, the link bubble menu appears with:
 
-- **URL display** — Shows the current link URL
-- **Edit button** — Opens an inline form to change the URL
-- **Open button** — Opens the link in a new tab
-- **Unlink button** — Removes the link, keeping the text
+- **Edit button** -- Opens an inline form to change the URL
+- **Open button** -- Opens the link in a new tab
+- **Unlink button** -- Removes the link, keeping the text
 
 To **add a new link**, select text and press `Cmd+K` (or `Ctrl+K` on Windows/Linux).
 
 ## Using with the text bubble menu
 
-When combining the link bubble menu with `BubbleMenu.Default`, use `excludeMarks` to prevent
+When combining the link bubble menu with `BubbleMenu.Default`, use `hideWhenActiveMarks` to prevent
 the text bubble menu from appearing when a link is focused:
 
 ```tsx
-import { BubbleMenu, LinkBubbleMenu } from '@react-email/editor/ui';
+import { BubbleMenu } from '@react-email/editor/ui';
 
 <EditorProvider extensions={extensions} content={content}>
-  <BubbleMenu.Default excludeMarks={['link']} />
-  <LinkBubbleMenu.Default />
+  <BubbleMenu.Default hideWhenActiveMarks={['link']} />
+  <BubbleMenu.LinkDefault />
 </EditorProvider>
 ```
 
-Without `excludeMarks`, both menus would try to show at the same time when a link is selected.
+Without `hideWhenActiveMarks`, both menus would try to show at the same time when a link is selected.
 
 ## HTML content with links
 
