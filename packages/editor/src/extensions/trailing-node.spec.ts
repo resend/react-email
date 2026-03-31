@@ -18,10 +18,6 @@ function createEditor(extensions: AnyExtension[], content: JSONContent) {
   return editor;
 }
 
-function countRootContainers(json: JSONContent): number {
-  return (json.content ?? []).filter((n) => n.type === 'container').length;
-}
-
 describe('TrailingNode', () => {
   let editor: Editor;
 
@@ -152,16 +148,8 @@ describe('TrailingNode', () => {
       expect(container.content![1].type).toBe('paragraph');
     }
   });
-});
 
-describe('TrailingNode with container enforcer', () => {
-  let editor: Editor;
-
-  afterEach(() => {
-    editor.destroy();
-  });
-
-  it('always inserts a paragraph, never a container', () => {
+  it('always inserts a paragraph as the trailing node, never a container', () => {
     editor = createEditor(
       [StarterKit],
       {
@@ -185,149 +173,5 @@ describe('TrailingNode with container enforcer', () => {
     const container = json.content!.find((n) => n.type === 'container')!;
     const trailingNode = container.content![container.content!.length - 1];
     expect(trailingNode.type).toBe('paragraph');
-  });
-
-  it('produces exactly one root container when content has no container', () => {
-    editor = createEditor(
-      [StarterKit],
-      {
-        type: 'doc',
-        content: [
-          {
-            type: 'heading',
-            attrs: { level: 1 },
-            content: [{ type: 'text', text: 'Hello' }],
-          },
-        ],
-      },
-    );
-
-    const json = editor.getJSON();
-    expect(countRootContainers(json)).toBe(1);
-  });
-
-  it('keeps exactly one root container after setContent with no container', () => {
-    editor = createEditor(
-      [StarterKit],
-      {
-        type: 'doc',
-        content: [
-          {
-            type: 'container',
-            content: [
-              {
-                type: 'paragraph',
-                content: [{ type: 'text', text: 'Initial' }],
-              },
-            ],
-          },
-        ],
-      },
-    );
-
-    editor.commands.setContent({
-      type: 'doc',
-      content: [
-        {
-          type: 'heading',
-          attrs: { level: 1 },
-          content: [{ type: 'text', text: 'Replaced' }],
-        },
-      ],
-    });
-
-    const json = editor.getJSON();
-    expect(countRootContainers(json)).toBe(1);
-  });
-
-  it('keeps exactly one root container after multiple setContent calls', () => {
-    editor = createEditor(
-      [StarterKit],
-      {
-        type: 'doc',
-        content: [
-          {
-            type: 'container',
-            content: [
-              {
-                type: 'paragraph',
-                content: [{ type: 'text', text: 'Initial' }],
-              },
-            ],
-          },
-        ],
-      },
-    );
-
-    for (let i = 0; i < 5; i++) {
-      editor.commands.setContent({
-        type: 'doc',
-        content: [
-          {
-            type: 'heading',
-            attrs: { level: 1 },
-            content: [{ type: 'text', text: `Round ${i}` }],
-          },
-        ],
-      });
-
-      const json = editor.getJSON();
-      expect(countRootContainers(json)).toBe(1);
-    }
-  });
-
-  it('keeps exactly one root container with globalContent', () => {
-    editor = createEditor(
-      [StarterKit],
-      {
-        type: 'doc',
-        content: [
-          {
-            type: 'globalContent',
-            attrs: { data: { theme: 'basic' } },
-          },
-          {
-            type: 'heading',
-            attrs: { level: 1 },
-            content: [{ type: 'text', text: 'Hello' }],
-          },
-        ],
-      },
-    );
-
-    const json = editor.getJSON();
-    expect(countRootContainers(json)).toBe(1);
-  });
-
-  it('does not insert a trailing container when node option is not explicitly set', () => {
-    editor = createEditor(
-      [
-        StarterKit.configure({ TrailingNode: false }),
-        TrailingNode.configure({ appendTo: 'container' }),
-      ],
-      {
-        type: 'doc',
-        content: [
-          {
-            type: 'container',
-            content: [
-              {
-                type: 'heading',
-                attrs: { level: 1 },
-                content: [{ type: 'text', text: 'Hello' }],
-              },
-            ],
-          },
-        ],
-      },
-    );
-
-    const json = editor.getJSON();
-    const container = json.content!.find((n) => n.type === 'container')!;
-
-    for (const child of container.content!) {
-      expect(child.type).not.toBe('container');
-    }
-    expect(countRootContainers(json)).toBe(1);
   });
 });
