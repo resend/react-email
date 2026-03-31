@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { transformToCssJs } from './css-transforms';
+import { afterEach, describe, expect, it } from 'vitest';
+import { injectThemeCss, transformToCssJs } from './css-transforms';
 import { DEFAULT_INBOX_FONT_SIZE_PX } from './themes';
 import type { PanelGroup } from './types';
 
@@ -348,5 +348,34 @@ describe('transformToCssJs', () => {
         paddingRight: '20px',
       },
     });
+  });
+});
+
+describe('injectThemeCss', () => {
+  const STYLE_ID = 'inject-theme-css-test';
+
+  afterEach(() => {
+    document.getElementById(STYLE_ID)?.remove();
+  });
+
+  it('maps body styles directly to the scope selector', () => {
+    injectThemeCss(
+      {
+        body: { backgroundColor: '#f0f0f0' },
+        container: { width: '600px' },
+      },
+      { styleId: STYLE_ID, scopeSelector: '.editor-scope' },
+    );
+
+    const styleTag = document.getElementById(STYLE_ID);
+
+    expect(styleTag).not.toBeNull();
+    expect(styleTag?.textContent).toContain(
+      '.editor-scope{background-color:#f0f0f0;}',
+    );
+    expect(styleTag?.textContent).toContain(
+      '.editor-scope .node-container{width:600px;}',
+    );
+    expect(styleTag?.textContent).not.toContain('.editor-scope .node-body');
   });
 });
