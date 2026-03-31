@@ -76,8 +76,8 @@ It recursively walks the ProseMirror document. For each node it:
 
 1. **Resolves styles** — calls `serializerPlugin.getNodeStyles(node, depth, editor)` to get
    theme styles, then merges any inline styles from the node's attributes
-2. **Skips unknown nodes** — if the node type isn't registered or isn't an
-   [`EmailNode`](/editor/api-reference/email-node), it's rendered as `null`
+2. **Renders unknown nodes as `null`** — if the node type isn't registered or isn't an
+   [`EmailNode`](/editor/api-reference/email-node), it returns `null`
 3. **Renders the node** — calls the extension's `renderToReactEmail()` component, passing
    `children` (from recursing into child nodes), `style`, `node`, and `extension`
 4. **Wraps with marks** — iterates through the node's marks (bold, italic, link, etc.) and
@@ -150,7 +150,7 @@ default — it adds theme-specific body/container styles and can inject global C
 
 The React tree is rendered to an HTML string using `@react-email/components`' `render()`
 function. Both the formatted HTML and a plain text version (tags stripped, text preserved)
-are rendered in parallel from the final React.
+are produced in parallel from the final React tree.
 
 ---
 

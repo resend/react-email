@@ -3,9 +3,7 @@ import { StarterKit } from '@react-email/editor/extensions';
 import { EmailTheming } from '@react-email/editor/plugins';
 import {
   BubbleMenu,
-  ButtonBubbleMenu,
   defaultSlashCommands,
-  LinkBubbleMenu,
   SlashCommand,
 } from '@react-email/editor/ui';
 import { EditorProvider, useCurrentEditor } from '@tiptap/react';
@@ -90,9 +88,12 @@ export function FullEmailBuilder() {
         </button>
       </div>
       <EditorProvider key={theme} extensions={extensions} content={content}>
-        <BubbleMenu.Default excludeNodes={['button']} excludeMarks={['link']} />
-        <LinkBubbleMenu.Default />
-        <ButtonBubbleMenu.Default />
+        <BubbleMenu.Default
+          hideWhenActiveNodes={['button']}
+          hideWhenActiveMarks={['link']}
+        />
+        <BubbleMenu.LinkDefault />
+        <BubbleMenu.ButtonDefault />
         <SlashCommand.Root items={defaultSlashCommands} />
         <ControlPanel />
       </EditorProvider>

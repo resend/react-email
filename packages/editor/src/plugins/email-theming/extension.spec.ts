@@ -216,28 +216,46 @@ describe('EmailTheming', () => {
     expect(occurrences - 1).toBe(1);
   });
 
-  it('applies body background color to the editor DOM element', () => {
+  it('injects body background color on the scoped editor selector', () => {
     editor = new Editor({
       extensions: [StarterKit, EmailTheming.configure({ theme: 'basic' })],
       content: createDocWithBodyBg('#F0F0F0'),
     });
 
-    expect(editor.view.dom.style.backgroundColor).toBe('#F0F0F0');
+    const themeStyleTag = document.head.querySelector<HTMLStyleElement>(
+      'style[id^="tiptap-theme-"][id$="-theme"]',
+    );
+
+    expect(themeStyleTag).not.toBeNull();
+    expect(themeStyleTag?.textContent).toContain('background-color:#F0F0F0;');
+    expect(themeStyleTag?.textContent).not.toContain('.node-body');
   });
 
-  it('does not set background color when no body backgroundColor is defined', () => {
+  it('does not inject a body background color when not defined', () => {
     editor = createEditor();
 
-    expect(editor.view.dom.style.backgroundColor).toBe('');
+    const themeStyleTag = document.head.querySelector<HTMLStyleElement>(
+      'style[id^="tiptap-theme-"][id$="-theme"]',
+    );
+
+    expect(themeStyleTag).not.toBeNull();
+    expect(themeStyleTag?.textContent).not.toContain(
+      'background-color:#F0F0F0;',
+    );
   });
 
-  it('updates body background color reactively when theme styles change', () => {
+  it('updates body background color in scoped CSS when theme styles change', () => {
     editor = new Editor({
       extensions: [StarterKit, EmailTheming.configure({ theme: 'basic' })],
       content: createDocWithBodyBg('#F0F0F0'),
     });
 
-    expect(editor.view.dom.style.backgroundColor).toBe('#F0F0F0');
+    const initialThemeStyleTag = document.head.querySelector<HTMLStyleElement>(
+      'style[id^="tiptap-theme-"][id$="-theme"]',
+    );
+    expect(initialThemeStyleTag?.textContent).toContain(
+      'background-color:#F0F0F0;',
+    );
 
     editor.commands.setGlobalContent('styles', [
       {
@@ -256,21 +274,32 @@ describe('EmailTheming', () => {
       },
     ]);
 
-    expect(editor.view.dom.style.backgroundColor).toBe('#FF0000');
+    const updatedThemeStyleTag = document.head.querySelector<HTMLStyleElement>(
+      'style[id^="tiptap-theme-"][id$="-theme"]',
+    );
+    expect(updatedThemeStyleTag?.textContent).toContain(
+      'background-color:#FF0000;',
+    );
   });
 
-  it('clears body background color on destroy', () => {
+  it('removes injected style tag on destroy', () => {
     editor = new Editor({
       extensions: [StarterKit, EmailTheming.configure({ theme: 'basic' })],
       content: createDocWithBodyBg('#F0F0F0'),
     });
 
-    const dom = editor.view.dom;
-    expect(dom.style.backgroundColor).toBe('#F0F0F0');
+    const themeStyleTag = document.head.querySelector<HTMLStyleElement>(
+      'style[id^="tiptap-theme-"][id$="-theme"]',
+    );
+    expect(themeStyleTag).not.toBeNull();
 
     editor.destroy();
 
-    expect(dom.style.backgroundColor).toBe('');
+    const themeStyleTagAfterDestroy =
+      document.head.querySelector<HTMLStyleElement>(
+        'style[id^="tiptap-theme-"][id$="-theme"]',
+      );
+    expect(themeStyleTagAfterDestroy).toBeNull();
 
     // Prevent afterEach from calling destroy again
     editor = undefined as unknown as Editor;

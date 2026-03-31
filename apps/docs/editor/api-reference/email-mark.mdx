@@ -61,24 +61,10 @@ reuse a community TipTap extension and add email export support without rewritin
 
 ```tsx
 import { EmailMark } from '@react-email/editor/core';
-import { Mark } from '@tiptap/core';
+import Strike from '@tiptap/extension-strike';
 
-const MyTipTapMark = Mark.create({
-  name: 'customHighlight',
-
-  parseHTML() {
-    return [{ tag: 'mark' }];
-  },
-
-  renderHTML({ HTMLAttributes }) {
-    return ['mark', HTMLAttributes, 0];
-  },
-});
-
-const MyEmailMark = EmailMark.from(MyTipTapMark, ({ children, style }) => {
-  return (
-    <mark style={{ ...style, backgroundColor: '#fef08a' }}>{children}</mark>
-  );
+const EmailStrike = EmailMark.from(Strike, ({ children, style }) => {
+  return <s style={style}>{children}</s>;
 });
 ```
 

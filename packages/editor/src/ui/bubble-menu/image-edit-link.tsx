@@ -1,24 +1,25 @@
 import type * as React from 'react';
-import { PencilIcon } from '../icons';
-import { useLinkBubbleMenuContext } from './context';
+import { LinkIcon } from '../icons';
+import { useBubbleMenuContext } from './context';
 
-export interface LinkBubbleMenuEditLinkProps
+export interface BubbleMenuImageEditLinkProps
   extends Omit<React.ComponentProps<'button'>, 'type'> {}
 
-export function LinkBubbleMenuEditLink({
+export function BubbleMenuImageEditLink({
   className,
   children,
   onClick,
   onMouseDown,
   ...rest
-}: LinkBubbleMenuEditLinkProps) {
-  const { setIsEditing } = useLinkBubbleMenuContext();
+}: BubbleMenuImageEditLinkProps) {
+  const { setIsEditing } = useBubbleMenuContext();
 
   return (
     <button
+      {...rest}
       type="button"
       aria-label="Edit link"
-      data-re-link-bm-item=""
+      data-re-img-bm-item=""
       data-item="edit-link"
       className={className}
       onMouseDown={(e) => {
@@ -29,9 +30,8 @@ export function LinkBubbleMenuEditLink({
         onClick?.(e);
         setIsEditing(true);
       }}
-      {...rest}
     >
-      {children ?? <PencilIcon />}
+      {children ?? <LinkIcon />}
     </button>
   );
 }
