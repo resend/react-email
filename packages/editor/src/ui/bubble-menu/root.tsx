@@ -1,3 +1,4 @@
+import { PluginKey } from '@tiptap/pm/state';
 import { useCurrentEditor } from '@tiptap/react';
 import { BubbleMenu } from '@tiptap/react/menus';
 import * as React from 'react';
@@ -7,7 +8,7 @@ import { bubbleMenuTriggers, type ShouldShowFn } from './triggers';
 export interface BubbleMenuRootProps
   extends Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> {
   shouldShow?: ShouldShowFn;
-  pluginKey?: string;
+  pluginKey?: PluginKey;
   hideWhenActiveNodes?: string[];
   hideWhenActiveMarks?: string[];
   placement?: 'top' | 'bottom';
@@ -18,7 +19,7 @@ export interface BubbleMenuRootProps
 
 export function BubbleMenuRoot({
   shouldShow,
-  pluginKey = 'bubbleMenu',
+  pluginKey = new PluginKey('bubbleMenu'),
   hideWhenActiveNodes = [],
   hideWhenActiveMarks = [],
   placement = 'bottom',

@@ -1,3 +1,4 @@
+import { PluginKey } from '@tiptap/pm/state';
 import type * as React from 'react';
 import { BubbleMenuLinkEditLink } from './link-edit-link';
 import { BubbleMenuLinkForm } from './link-form';
@@ -38,7 +39,7 @@ export function BubbleMenuLinkDefault({
   return (
     <BubbleMenuRoot
       shouldShow={bubbleMenuTriggers.nodeWithoutSelection('link')}
-      pluginKey="linkBubbleMenu"
+      pluginKey={new PluginKey('linkBubbleMenu')}
       placement={placement}
       offset={offset}
       onHide={onHide}

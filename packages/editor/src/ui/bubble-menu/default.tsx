@@ -1,3 +1,4 @@
+import { PluginKey } from '@tiptap/pm/state';
 import * as React from 'react';
 import { BubbleMenuAlignCenter } from './align-center';
 import { BubbleMenuAlignLeft } from './align-left';
@@ -84,7 +85,7 @@ export function BubbleMenuDefault({
 
   return (
     <BubbleMenuRoot
-      pluginKey="textBubbleMenu"
+      pluginKey={new PluginKey('textBubbleMenu')}
       hideWhenActiveNodes={hideWhenActiveNodes}
       hideWhenActiveMarks={hideWhenActiveMarks}
       placement={placement}

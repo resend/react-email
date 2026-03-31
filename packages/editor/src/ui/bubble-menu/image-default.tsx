@@ -1,3 +1,4 @@
+import { PluginKey } from '@tiptap/pm/state';
 import type * as React from 'react';
 import { BubbleMenuImageEditLink } from './image-edit-link';
 import { BubbleMenuImageToolbar } from './image-toolbar';
@@ -27,7 +28,7 @@ export function BubbleMenuImageDefault({
   return (
     <BubbleMenuRoot
       shouldShow={bubbleMenuTriggers.node('image')}
-      pluginKey="imageBubbleMenu"
+      pluginKey={new PluginKey('imageBubbleMenu')}
       placement={placement}
       offset={offset}
       onHide={onHide}

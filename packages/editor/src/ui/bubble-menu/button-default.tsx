@@ -1,3 +1,4 @@
+import { PluginKey } from '@tiptap/pm/state';
 import { useEditorState } from '@tiptap/react';
 import type * as React from 'react';
 import { BubbleMenuButtonEditLink } from './button-edit-link';
@@ -62,7 +63,7 @@ export function BubbleMenuButtonDefault({
   return (
     <BubbleMenuRoot
       shouldShow={bubbleMenuTriggers.node('button')}
-      pluginKey="buttonBubbleMenu"
+      pluginKey={new PluginKey('buttonBubbleMenu')}
       placement={placement}
       offset={offset}
       onHide={onHide}
