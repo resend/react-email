@@ -82,6 +82,9 @@ describe('EmailEditor (browser)', () => {
   });
 
   it('applies text formatting via keyboard shortcuts', async () => {
+    // Use Control on Linux (CI), Meta (Cmd) on macOS
+    const mod = navigator.platform.includes('Mac') ? 'Meta' : 'Control';
+
     render(<TestEditor />);
 
     const editor = getEditor();
@@ -89,8 +92,8 @@ describe('EmailEditor (browser)', () => {
 
     // Type and apply bold
     await userEvent.keyboard('Bold text');
-    await userEvent.keyboard('{Meta>}a{/Meta}');
-    await userEvent.keyboard('{Meta>}b{/Meta}');
+    await userEvent.keyboard(`{${mod}>}a{/${mod}}`);
+    await userEvent.keyboard(`{${mod}>}b{/${mod}}`);
 
     const editorEl = editor.element() as HTMLElement;
     expect(editorEl.innerHTML).toMatch(/<strong/i);
@@ -99,8 +102,8 @@ describe('EmailEditor (browser)', () => {
     await userEvent.keyboard('{End}');
     await userEvent.keyboard('{Enter}');
     await userEvent.keyboard('Italic text');
-    await userEvent.keyboard('{Meta>}a{/Meta}');
-    await userEvent.keyboard('{Meta>}i{/Meta}');
+    await userEvent.keyboard(`{${mod}>}a{/${mod}}`);
+    await userEvent.keyboard(`{${mod}>}i{/${mod}}`);
 
     expect(editorEl.innerHTML).toMatch(/<em/i);
 
@@ -108,8 +111,8 @@ describe('EmailEditor (browser)', () => {
     await userEvent.keyboard('{End}');
     await userEvent.keyboard('{Enter}');
     await userEvent.keyboard('Underlined text');
-    await userEvent.keyboard('{Meta>}a{/Meta}');
-    await userEvent.keyboard('{Meta>}u{/Meta}');
+    await userEvent.keyboard(`{${mod}>}a{/${mod}}`);
+    await userEvent.keyboard(`{${mod}>}u{/${mod}}`);
 
     expect(editorEl.innerHTML).toMatch(/<u[ >]/i);
   });
