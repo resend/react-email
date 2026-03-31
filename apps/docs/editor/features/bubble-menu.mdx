@@ -95,11 +95,9 @@ import { StarterKit } from '@react-email/editor/extensions';
 import { BubbleMenu } from '@react-email/editor/ui';
 import { EditorProvider } from '@tiptap/react';
 
-const extensions = [StarterKit];
-
 export function MyEditor() {
   return (
-    <EditorProvider extensions={extensions} content={content}>
+    <EditorProvider extensions={[StarterKit]} content={content}>
       <BubbleMenu.Root>
         <BubbleMenu.ItemGroup>
           <BubbleMenu.Bold />
