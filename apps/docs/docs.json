@@ -15,7 +15,7 @@
     "tabs": [
       {
         "tab": "Primitives",
-        "icon": "book-open",
+        "icon": "cubes",
         "groups": [
           {
             "group": "Overview",
@@ -169,9 +169,6 @@
                 "icon": "window",
                 "pages": [
                   "editor/api-reference/ui/bubble-menu",
-                  "editor/api-reference/ui/link-bubble-menu",
-                  "editor/api-reference/ui/button-bubble-menu",
-                  "editor/api-reference/ui/image-bubble-menu",
                   "editor/api-reference/ui/slash-command"
                 ]
               }
