@@ -1,32 +1,40 @@
 ---
 title: "BubbleMenu"
 sidebarTitle: "BubbleMenu"
-description: "Floating formatting toolbar that appears on text selection."
+description: "Floating contextual toolbars for text, links, images, and buttons."
 icon: "message-lines"
 ---
 
-## BubbleMenu.Default
-
-Pre-configured bubble menu with all formatting options.
+Everything is accessed through a single import:
 
 ```tsx
-import { BubbleMenu } from '@react-email/editor/ui';
+import { BubbleMenu, bubbleMenuTriggers, useBubbleMenuContext } from '@react-email/editor/ui';
+```
 
+## Pre-built menus
+
+Drop-in menus for common use cases. Each one handles its own trigger logic and plugin key.
+
+### BubbleMenu.Default
+
+Text formatting toolbar that appears on text selection.
+
+```tsx
 <BubbleMenu.Default />
 ```
 
-<ResponseField name="excludeItems" type="ExcludableItem[]" default="[]">
-  Items to hide from the menu. Options: `'bold'`, `'italic'`, `'underline'`,
+<ResponseField name="excludeItems" type="ExcludableItem\[\]" default="\[\]">
+  Items to hide. Options: `'bold'`, `'italic'`, `'underline'`,
   `'strike'`, `'code'`, `'uppercase'`, `'align-left'`, `'align-center'`,
   `'align-right'`, `'node-selector'`, `'link-selector'`.
 </ResponseField>
 
-<ResponseField name="excludeNodes" type="string[]" default="[]">
-  Node types that should NOT trigger the bubble menu (e.g., `'codeBlock'`, `'button'`).
+<ResponseField name="hideWhenActiveNodes" type="string\[\]" default="\[\]">
+  Node types that prevent the menu from showing (e.g., `'codeBlock'`, `'button'`).
 </ResponseField>
 
-<ResponseField name="excludeMarks" type="string[]" default="[]">
-  Mark types that should NOT trigger the bubble menu (e.g., `'link'`).
+<ResponseField name="hideWhenActiveMarks" type="string\[\]" default="\[\]">
+  Mark types that prevent the menu from showing (e.g., `'link'`).
 </ResponseField>
 
 <ResponseField name="placement" type="'top' | 'bottom'" default="'bottom'">
@@ -42,75 +50,172 @@ import { BubbleMenu } from '@react-email/editor/ui';
 </ResponseField>
 
 <ResponseField name="className" type="string">
-  Additional CSS class on the wrapper element.
+  CSS class on the wrapper element.
 </ResponseField>
+
+### BubbleMenu.LinkDefault
+
+Link editing menu that appears when clicking a link.
+
+```tsx
+<BubbleMenu.LinkDefault />
+```
+
+<ResponseField name="excludeItems" type="('edit-link' | 'open-link' | 'unlink')\[\]" default="\[\]">
+  Actions to hide from the toolbar.
+</ResponseField>
+
+<ResponseField name="placement" type="'top' | 'bottom'" default="'top'">
+  Position relative to the link.
+</ResponseField>
+
+<ResponseField name="offset" type="number">
+  Distance from the link in pixels.
+</ResponseField>
+
+<ResponseField name="onHide" type="() => void">
+  Called when the bubble menu is hidden.
+</ResponseField>
+
+<ResponseField name="validateUrl" type="(value: string) => string | null">
+  Custom URL validator. Return the valid URL string or `null`.
+</ResponseField>
+
+<ResponseField name="onLinkApply" type="(href: string) => void">
+  Called after a link is applied.
+</ResponseField>
+
+<ResponseField name="onLinkRemove" type="() => void">
+  Called after a link is removed.
+</ResponseField>
+
+### BubbleMenu.ButtonDefault
+
+Button link editing menu that appears when clicking a button.
+
+```tsx
+<BubbleMenu.ButtonDefault />
+```
+
+Same props as `LinkDefault` (except `excludeItems`).
+
+### BubbleMenu.ImageDefault
+
+Image editing menu that appears when clicking an image.
+
+```tsx
+<BubbleMenu.ImageDefault />
+```
+
+<ResponseField name="excludeItems" type="('edit-link')\[\]" default="\[\]">
+  Actions to hide.
+</ResponseField>
+
+<ResponseField name="placement" type="'top' | 'bottom'" default="'top'">
+  Position relative to the image.
+</ResponseField>
+
+<ResponseField name="offset" type="number">
+  Distance from the image in pixels.
+</ResponseField>
+
+<ResponseField name="onHide" type="() => void">
+  Called when the bubble menu is hidden.
+</ResponseField>
+
+---
+
+## Combining menus
+
+A typical email editor uses multiple bubble menus together. Use `hideWhenActiveNodes` and `hideWhenActiveMarks`
+to prevent overlapping menus:
+
+```tsx
+import { BubbleMenu } from '@react-email/editor/ui';
+
+<EditorProvider extensions={extensions} content={content}>
+  <BubbleMenu.Default
+    hideWhenActiveNodes={['image', 'button']}
+    hideWhenActiveMarks={['link']}
+  />
+  <BubbleMenu.LinkDefault />
+  <BubbleMenu.ButtonDefault />
+  <BubbleMenu.ImageDefault />
+</EditorProvider>
+```
 
 ---
 
 ## Compound components
 
-Build a fully custom bubble menu using the compound API. Here's how `BubbleMenu.Default`
-is composed internally — use this as a starting point:
-
-```tsx
-import { BubbleMenu } from '@react-email/editor/ui';
-
-<BubbleMenu.Root excludeNodes={['codeBlock', 'button']} excludeMarks={['link']}>
-  <BubbleMenu.ItemGroup>
-    <BubbleMenu.Bold />
-    <BubbleMenu.Italic />
-    <BubbleMenu.Underline />
-    <BubbleMenu.Strike />
-    <BubbleMenu.Code />
-    <BubbleMenu.Uppercase />
-  </BubbleMenu.ItemGroup>
-
-  <BubbleMenu.Separator />
-
-  <BubbleMenu.ItemGroup>
-    <BubbleMenu.AlignLeft />
-    <BubbleMenu.AlignCenter />
-    <BubbleMenu.AlignRight />
-  </BubbleMenu.ItemGroup>
-
-  <BubbleMenu.Separator />
-
-  <BubbleMenu.NodeSelector />
-  <BubbleMenu.LinkSelector />
-</BubbleMenu.Root>
-```
-
-You can pick only the items you need. For example, a minimal bold/italic-only menu:
-
-```tsx
-<BubbleMenu.Root>
-  <BubbleMenu.ItemGroup>
-    <BubbleMenu.Bold />
-    <BubbleMenu.Italic />
-  </BubbleMenu.ItemGroup>
-</BubbleMenu.Root>
-```
-
----
+Build fully custom menus using the compound API.
 
 ### BubbleMenu.Root
 
-Base container for building custom bubble menus.
+Base container for all custom bubble menus. Provides editor context to children.
 
-Accepts the same props as `Default` except `excludeItems`.
+```tsx
+import { BubbleMenu, bubbleMenuTriggers } from '@react-email/editor/ui';
+import { PluginKey } from '@tiptap/pm/state';
 
----
+const myPluginKey = new PluginKey('myCustomMenu');
 
-### BubbleMenu.ItemGroup
+<BubbleMenu.Root
+  shouldShow={bubbleMenuTriggers.node('image')}
+  pluginKey={myPluginKey}
+  placement="top"
+>
+  {/* your custom menu content */}
+</BubbleMenu.Root>
+```
 
-Visual grouping of bubble menu items.
+<ResponseField name="shouldShow" type="ShouldShowFn">
+  Controls when the menu is visible. Defaults to showing on text selection.
+  Use `bubbleMenuTriggers` for common patterns.
+</ResponseField>
 
----
+<ResponseField name="pluginKey" type="PluginKey">
+  Unique key for the ProseMirror plugin backing this menu. Required when
+  rendering multiple `BubbleMenu.Root` instances to avoid collisions.
+  Import `PluginKey` from `@tiptap/pm/state`.
+</ResponseField>
 
-### Individual items
+<ResponseField name="hideWhenActiveNodes" type="string\[\]" default="\[\]">
+  Node types that prevent the menu from showing.
+</ResponseField>
+
+<ResponseField name="hideWhenActiveMarks" type="string\[\]" default="\[\]">
+  Mark types that prevent the menu from showing.
+</ResponseField>
+
+<ResponseField name="placement" type="'top' | 'bottom'" default="'bottom'">
+  Position relative to the selection.
+</ResponseField>
+
+<ResponseField name="offset" type="number" default="8">
+  Distance from the selection in pixels.
+</ResponseField>
+
+<ResponseField name="onHide" type="() => void">
+  Called when the bubble menu is hidden.
+</ResponseField>
+
+### bubbleMenuTriggers
+
+Factory for common `shouldShow` functions:
+
+| Trigger | Description |
+| -- | -- |
+| `bubbleMenuTriggers.textSelection(hideNodes?, hideMarks?)` | Show on text selection. This is the default. |
+| `bubbleMenuTriggers.node(name)` | Show when a specific node type is active (e.g., `'button'`, `'image'`) |
+| `bubbleMenuTriggers.nodeWithoutSelection(name)` | Show when a node is active but no text is selected (e.g., `'link'`) |
+
+### Text formatting items
 
 | Component | Description |
-|-----------|-------------|
+| -- | -- |
+| `BubbleMenu.ItemGroup` | Visual grouping of items |
+| `BubbleMenu.Separator` | Divider between groups |
 | `BubbleMenu.Bold` | Bold toggle |
 | `BubbleMenu.Italic` | Italic toggle |
 | `BubbleMenu.Underline` | Underline toggle |
@@ -120,35 +225,93 @@ Visual grouping of bubble menu items.
 | `BubbleMenu.AlignLeft` | Left alignment |
 | `BubbleMenu.AlignCenter` | Center alignment |
 | `BubbleMenu.AlignRight` | Right alignment |
-| `BubbleMenu.Separator` | Visual separator between groups |
+| `BubbleMenu.NodeSelector` | Block type dropdown |
+| `BubbleMenu.LinkSelector` | Link add/edit popover |
+
+### Link components
+
+| Component | Description |
+| -- | -- |
+| `BubbleMenu.LinkToolbar` | Wrapper -- hides when editing mode is active |
+| `BubbleMenu.LinkEditLink` | Button that enters editing mode |
+| `BubbleMenu.LinkUnlink` | Removes the link |
+| `BubbleMenu.LinkOpenLink` | Opens the link in a new tab |
+| `BubbleMenu.LinkForm` | Inline form for editing link URLs |
+
+### Button components
+
+| Component | Description |
+| -- | -- |
+| `BubbleMenu.ButtonToolbar` | Wrapper -- hides when editing mode is active |
+| `BubbleMenu.ButtonEditLink` | Button that enters editing mode |
+| `BubbleMenu.ButtonUnlink` | Removes the button link |
+| `BubbleMenu.ButtonForm` | Inline form for editing button URLs |
+
+### Image components
+
+| Component | Description |
+| -- | -- |
+| `BubbleMenu.ImageToolbar` | Wrapper -- hides when editing mode is active |
+| `BubbleMenu.ImageEditLink` | Button that enters editing mode |
 
 ---
 
-### BubbleMenu.NodeSelector
+## Custom menu example
 
-Dropdown to change the block type (paragraph, heading, etc.).
+Here's a complete custom link bubble menu built from compound components:
 
-<ResponseField name="open" type="boolean">
-  Controlled open state.
-</ResponseField>
+```tsx
+import { BubbleMenu, bubbleMenuTriggers, useBubbleMenuContext } from '@react-email/editor/ui';
+import { PluginKey } from '@tiptap/pm/state';
 
-<ResponseField name="onOpenChange" type="(open: boolean) => void">
-  Called when the dropdown opens or closes.
-</ResponseField>
+const linkKey = new PluginKey('myLinkMenu');
+
+function MyLinkMenu() {
+  return (
+    <BubbleMenu.Root
+      shouldShow={bubbleMenuTriggers.nodeWithoutSelection('link')}
+      pluginKey={linkKey}
+      placement="top"
+    >
+      <BubbleMenu.LinkToolbar>
+        <BubbleMenu.LinkEditLink />
+        <BubbleMenu.LinkOpenLink />
+        <BubbleMenu.LinkUnlink />
+      </BubbleMenu.LinkToolbar>
+      <BubbleMenu.LinkForm />
+    </BubbleMenu.Root>
+  );
+}
+```
+
+The `LinkToolbar` automatically hides when `LinkEditLink` is clicked, and `LinkForm`
+appears in its place. When the user submits or cancels, the toolbar reappears.
 
 ---
 
-### BubbleMenu.LinkSelector
+## Context
 
-Popover for adding and editing links.
+Use `useBubbleMenuContext()` inside any child of `BubbleMenu.Root` to access the editor and editing state:
 
-<ResponseField name="open" type="boolean">
-  Controlled open state.
-</ResponseField>
+```tsx
+import { useBubbleMenuContext } from '@react-email/editor/ui';
 
-<ResponseField name="onOpenChange" type="(open: boolean) => void">
-  Called when the popover opens or closes.
-</ResponseField>
+function CustomToolbarItem() {
+  const { editor, isEditing, setIsEditing } = useBubbleMenuContext();
+
+  return (
+    <button onClick={() => setIsEditing(true)}>
+      Edit
+    </button>
+  );
+}
+```
+
+| Field | Type | Description |
+| -- | -- | -- |
+| `editor` | `Editor` | The TipTap editor instance |
+| `isEditing` | `boolean` | Whether the menu is in editing mode |
+| `setIsEditing` | `(value: boolean) => void` | Toggle editing mode |
 
 ---
 
@@ -159,10 +322,11 @@ import '@react-email/editor/styles/bubble-menu.css';
 ```
 
 <Tip>
-  `@react-email/editor/themes/default.css` bundles all UI component styles into a single
-  import. Unless you need to cherry-pick specific styles, this is all you need:
+  `@react-email/editor/themes/default.css` bundles all UI component styles.
+  Unless you need to cherry-pick, use this single import:
 
-  ```tsx
-  import '@react-email/editor/themes/default.css';
-  ```
+```tsx
+import '@react-email/editor/themes/default.css';
+```
+
 </Tip>
