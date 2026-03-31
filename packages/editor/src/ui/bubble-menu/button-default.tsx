@@ -9,6 +9,8 @@ import { useBubbleMenuContext } from './context';
 import { BubbleMenuRoot } from './root';
 import { bubbleMenuTriggers } from './triggers';
 
+const buttonPluginKey = new PluginKey('buttonBubbleMenu');
+
 export interface BubbleMenuButtonDefaultProps
   extends Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> {
   placement?: 'top' | 'bottom';
@@ -63,7 +65,7 @@ export function BubbleMenuButtonDefault({
   return (
     <BubbleMenuRoot
       shouldShow={bubbleMenuTriggers.node('button')}
-      pluginKey={new PluginKey('buttonBubbleMenu')}
+      pluginKey={buttonPluginKey}
       placement={placement}
       offset={offset}
       onHide={onHide}

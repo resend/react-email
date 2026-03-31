@@ -8,6 +8,8 @@ import { BubbleMenuLinkUnlink } from './link-unlink';
 import { BubbleMenuRoot } from './root';
 import { bubbleMenuTriggers } from './triggers';
 
+const linkPluginKey = new PluginKey('linkBubbleMenu');
+
 type ExcludableItem = 'edit-link' | 'open-link' | 'unlink';
 
 export interface BubbleMenuLinkDefaultProps
@@ -39,7 +41,7 @@ export function BubbleMenuLinkDefault({
   return (
     <BubbleMenuRoot
       shouldShow={bubbleMenuTriggers.nodeWithoutSelection('link')}
-      pluginKey={new PluginKey('linkBubbleMenu')}
+      pluginKey={linkPluginKey}
       placement={placement}
       offset={offset}
       onHide={onHide}

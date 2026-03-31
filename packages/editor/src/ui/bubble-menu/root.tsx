@@ -5,6 +5,8 @@ import * as React from 'react';
 import { BubbleMenuContext } from './context';
 import { bubbleMenuTriggers, type ShouldShowFn } from './triggers';
 
+const defaultPluginKey = new PluginKey('bubbleMenu');
+
 export interface BubbleMenuRootProps
   extends Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> {
   shouldShow?: ShouldShowFn;
@@ -19,7 +21,7 @@ export interface BubbleMenuRootProps
 
 export function BubbleMenuRoot({
   shouldShow,
-  pluginKey = new PluginKey('bubbleMenu'),
+  pluginKey = defaultPluginKey,
   hideWhenActiveNodes = [],
   hideWhenActiveMarks = [],
   placement = 'bottom',

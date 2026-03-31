@@ -5,6 +5,8 @@ import { BubbleMenuImageToolbar } from './image-toolbar';
 import { BubbleMenuRoot } from './root';
 import { bubbleMenuTriggers } from './triggers';
 
+const imagePluginKey = new PluginKey('imageBubbleMenu');
+
 type ExcludableItem = 'edit-link';
 
 export interface BubbleMenuImageDefaultProps
@@ -28,7 +30,7 @@ export function BubbleMenuImageDefault({
   return (
     <BubbleMenuRoot
       shouldShow={bubbleMenuTriggers.node('image')}
-      pluginKey={new PluginKey('imageBubbleMenu')}
+      pluginKey={imagePluginKey}
       placement={placement}
       offset={offset}
       onHide={onHide}

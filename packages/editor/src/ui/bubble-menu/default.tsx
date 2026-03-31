@@ -14,6 +14,8 @@ import { BubbleMenuStrike } from './strike';
 import { BubbleMenuUnderline } from './underline';
 import { BubbleMenuUppercase } from './uppercase';
 
+const textPluginKey = new PluginKey('textBubbleMenu');
+
 type ExcludableItem =
   | 'bold'
   | 'italic'
@@ -85,7 +87,7 @@ export function BubbleMenuDefault({
 
   return (
     <BubbleMenuRoot
-      pluginKey={new PluginKey('textBubbleMenu')}
+      pluginKey={textPluginKey}
       hideWhenActiveNodes={hideWhenActiveNodes}
       hideWhenActiveMarks={hideWhenActiveMarks}
       placement={placement}
