@@ -84,6 +84,8 @@
     "clean": "rm -rf dist",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "test:unit": "vitest run --project unit",
+    "test:browser": "vitest run --project browser",
     "test:watch": "vitest"
   },
   "repository": {
@@ -117,7 +119,6 @@
     "@tiptap/extension-horizontal-rule": "^3.17.1",
     "@tiptap/extension-italic": "^3.17.1",
     "@tiptap/extension-link": "^3.17.1",
-    "@tiptap/extension-text": "^3.17.1",
     "@tiptap/extension-list-item": "^3.17.1",
     "@tiptap/extension-mention": "^3.17.1",
     "@tiptap/extension-ordered-list": "^3.17.1",
@@ -125,6 +126,7 @@
     "@tiptap/extension-placeholder": "^3.17.1",
     "@tiptap/extension-strike": "^3.17.1",
     "@tiptap/extension-superscript": "^3.17.1",
+    "@tiptap/extension-text": "^3.17.1",
     "@tiptap/extension-underline": "^3.17.1",
     "@tiptap/extensions": "^3.17.1",
     "@tiptap/html": "^3.17.1",
@@ -139,11 +141,14 @@
     "@testing-library/react": "16.0.0",
     "@types/node": "catalog:",
     "@types/prismjs": "1.26.5",
+    "@vitejs/plugin-react": "catalog:",
+    "@vitest/browser-playwright": "^4.0.17",
     "postcss": "8.5.6",
     "postcss-import": "16.1.1",
     "tsconfig": "workspace:*",
     "tsx": "catalog:",
-    "typescript": "5.8.3"
+    "typescript": "5.8.3",
+    "vitest-browser-react": "^2.1.0"
   },
   "publishConfig": {
     "access": "public"
