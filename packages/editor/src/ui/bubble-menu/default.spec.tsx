@@ -211,8 +211,8 @@ describe('BubbleMenuDefault', () => {
     expect(screen.getAllByRole('group')).toHaveLength(1);
   });
 
-  it('forwards excludeNodes to Root so shouldShow rejects excluded nodes', () => {
-    render(<BubbleMenuDefault excludeNodes={['image', 'button']} />);
+  it('forwards hideWhenActiveNodes to Root so shouldShow rejects excluded nodes', () => {
+    render(<BubbleMenuDefault hideWhenActiveNodes={['image', 'button']} />);
 
     expect(capturedShouldShow).toBeDefined();
 

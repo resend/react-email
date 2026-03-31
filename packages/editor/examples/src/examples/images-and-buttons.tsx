@@ -1,5 +1,5 @@
 import { StarterKit } from '@react-email/editor/extensions';
-import { BUTTON, ButtonBubbleMenu, SlashCommand } from '@react-email/editor/ui';
+import { BUTTON, BubbleMenu, SlashCommand } from '@react-email/editor/ui';
 import { EditorProvider } from '@tiptap/react';
 import { ExampleShell } from '../example-shell';
 
@@ -18,7 +18,7 @@ export function Buttons() {
       description="Click the button to edit its link via the button bubble menu."
     >
       <EditorProvider extensions={extensions} content={content}>
-        <ButtonBubbleMenu.Default />
+        <BubbleMenu.ButtonDefault />
         <SlashCommand.Root items={[BUTTON]} />
       </EditorProvider>
     </ExampleShell>
