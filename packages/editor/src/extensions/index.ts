@@ -49,6 +49,7 @@ import { Link } from './link';
 import { ListItem } from './list-item';
 import type { MaxNestingOptions } from './max-nesting';
 import { MaxNesting } from './max-nesting';
+import { TrailingNode, type TrailingNodeOptions } from './trailing-node';
 import { OrderedList } from './ordered-list';
 import { Paragraph } from './paragraph';
 import type { PlaceholderOptions } from './placeholder';
@@ -78,6 +79,7 @@ export * from './bold';
 export * from './bullet-list';
 export * from './button';
 export * from './class-attribute';
+export * from './trailing-node';
 export * from './code';
 export * from './code-block';
 export * from './columns';
@@ -122,6 +124,7 @@ const starterKitExtensions: Record<string, AnyExtension> = {
   Italic,
   Placeholder,
   PreviewText,
+  TrailingNode,
   Bold,
   Strike,
   Heading,
@@ -157,6 +160,7 @@ export type StarterKitOptions = {
   Paragraph: Partial<ParagraphOptions> | false;
   BulletList: Partial<BulletListOptions> | false;
   OrderedList: Partial<OrderedListOptions> | false;
+  TrailingNode: Partial<TrailingNodeOptions> | false;
   Blockquote: Partial<BlockquoteOptions> | false;
   ListItem: Partial<ListItemOptions> | false;
   HardBreak: Partial<HardBreakOptions> | false;
@@ -201,6 +205,9 @@ export const StarterKit = Extension.create<StarterKitOptions>({
         HTMLAttributes: {
           class: 'prism node-codeBlock',
         },
+      },
+      TrailingNode: {
+        appendTo: 'container',
       },
       Code: {
         HTMLAttributes: {
