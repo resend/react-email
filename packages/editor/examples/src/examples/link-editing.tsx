@@ -1,5 +1,5 @@
 import { StarterKit } from '@react-email/editor/extensions';
-import { LinkBubbleMenu } from '@react-email/editor/ui';
+import { BubbleMenu } from '@react-email/editor/ui';
 import { EditorProvider } from '@tiptap/react';
 import { ExampleShell } from '../example-shell';
 
@@ -17,7 +17,7 @@ export function LinkEditing() {
       description="Click a link to see the link bubble menu. Select text and press Cmd+K to add links."
     >
       <EditorProvider extensions={extensions} content={content}>
-        <LinkBubbleMenu.Default />
+        <BubbleMenu.LinkDefault />
       </EditorProvider>
     </ExampleShell>
   );

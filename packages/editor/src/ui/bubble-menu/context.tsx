@@ -3,6 +3,8 @@ import * as React from 'react';
 
 export interface BubbleMenuContextValue {
   editor: Editor;
+  isEditing: boolean;
+  setIsEditing: (value: boolean) => void;
 }
 
 export const BubbleMenuContext =

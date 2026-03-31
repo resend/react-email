@@ -1,21 +1,28 @@
+import { useEditorState } from '@tiptap/react';
 import type * as React from 'react';
 import { ExternalLinkIcon } from '../icons';
-import { useLinkBubbleMenuContext } from './context';
+import { useBubbleMenuContext } from './context';
 
-export interface LinkBubbleMenuOpenLinkProps
+export interface BubbleMenuLinkOpenLinkProps
   extends Omit<React.ComponentProps<'a'>, 'href' | 'target' | 'rel'> {}
 
-export function LinkBubbleMenuOpenLink({
+export function BubbleMenuLinkOpenLink({
   className,
   children,
   ...rest
-}: LinkBubbleMenuOpenLinkProps) {
-  const { linkHref } = useLinkBubbleMenuContext();
+}: BubbleMenuLinkOpenLinkProps) {
+  const { editor } = useBubbleMenuContext();
+
+  const linkHref = useEditorState({
+    editor,
+    selector: ({ editor: e }) =>
+      (e?.getAttributes('link').href as string) ?? '',
+  });
 
   return (
     <a
       {...rest}
-      href={linkHref}
+      href={linkHref ?? ''}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Open link"
