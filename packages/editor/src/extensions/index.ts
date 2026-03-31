@@ -207,6 +207,7 @@ export const StarterKit = Extension.create<StarterKitOptions>({
         },
       },
       TrailingNode: {
+        node: 'paragraph',
         appendTo: 'container',
       },
       Code: {
