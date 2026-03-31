@@ -40,8 +40,7 @@ describe('paste handling (browser)', () => {
     const editorEl = editor.element() as HTMLElement;
     pasteText(editorEl, ' plus pasted');
 
-    await expect.element(editor).toHaveTextContent('existing');
-    await expect.element(editor).toHaveTextContent('plus pasted');
+    await expect.element(editor).toHaveTextContent('existing plus pasted');
   });
 
   it('pasting HTML into a non-empty document preserves existing content', async () => {
