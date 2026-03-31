@@ -85,21 +85,27 @@ describe('Container in editor', () => {
     editor = null;
   });
 
-  it('auto-inserts container node when editor initializes with plain content', () => {
+  function createEditor(content: JSONContent) {
     editor = new Editor({
-      content: {
-        type: 'doc',
-        content: [
-          {
-            type: 'paragraph',
-            content: [{ type: 'text', text: 'Hello' }],
-          },
-        ],
-      },
+      content,
       extensions: [StarterKit],
     });
+    editor.view.dispatch(editor.state.tr);
+    return editor;
+  }
 
-    const json = editor.getJSON();
+  it('auto-inserts container node when editor initializes with plain content', () => {
+    createEditor({
+      type: 'doc',
+      content: [
+        {
+          type: 'paragraph',
+          content: [{ type: 'text', text: 'Hello' }],
+        },
+      ],
+    });
+
+    const json = editor!.getJSON();
     expect(json).toMatchInlineSnapshot(`
       {
         "content": [
@@ -129,26 +135,23 @@ describe('Container in editor', () => {
   });
 
   it('preserves globalContent outside the container', () => {
-    editor = new Editor({
-      content: {
-        type: 'doc',
-        content: [
-          {
-            type: 'globalContent',
-            attrs: {
-              data: { theme: 'basic' },
-            },
+    createEditor({
+      type: 'doc',
+      content: [
+        {
+          type: 'globalContent',
+          attrs: {
+            data: { theme: 'basic' },
           },
-          {
-            type: 'paragraph',
-            content: [{ type: 'text', text: 'Hello' }],
-          },
-        ],
-      },
-      extensions: [StarterKit],
+        },
+        {
+          type: 'paragraph',
+          content: [{ type: 'text', text: 'Hello' }],
+        },
+      ],
     });
 
-    const json = editor.getJSON();
+    const json = editor!.getJSON();
 
     expect(json).toMatchInlineSnapshot(`
       {
@@ -187,23 +190,49 @@ describe('Container in editor', () => {
   });
 
   it('renders container div with node-container class in editor HTML', () => {
-    editor = new Editor({
-      content: {
-        type: 'doc',
-        content: [
-          {
-            type: 'paragraph',
-            content: [{ type: 'text', text: 'Hello' }],
-          },
-        ],
-      },
-      extensions: [StarterKit],
+    createEditor({
+      type: 'doc',
+      content: [
+        {
+          type: 'paragraph',
+          content: [{ type: 'text', text: 'Hello' }],
+        },
+      ],
     });
 
-    const html = editor.getHTML();
+    const html = editor!.getHTML();
     expect(html).toMatchInlineSnapshot(
       `"<div data-type="container" class="node-container"><p class="node-paragraph" style="">Hello</p></div>"`,
     );
+  });
+
+  it('does not duplicate the container when content already has one', () => {
+    createEditor({
+      type: 'doc',
+      content: [
+        {
+          type: 'container',
+          content: [
+            {
+              type: 'heading',
+              attrs: { level: 1 },
+              content: [{ type: 'text', text: 'Hello' }],
+            },
+          ],
+        },
+      ],
+    });
+
+    const json = editor!.getJSON();
+    const rootContainers = json.content!.filter(
+      (n) => n.type === 'container',
+    );
+    expect(rootContainers).toHaveLength(1);
+
+    const container = rootContainers[0];
+    for (const child of container.content!) {
+      expect(child.type).not.toBe('container');
+    }
   });
 });
 
@@ -220,6 +249,7 @@ describe('Container in composeReactEmail', () => {
       content,
       extensions: [StarterKit],
     });
+    editor.view.dispatch(editor.state.tr);
     return editor;
   }
 
