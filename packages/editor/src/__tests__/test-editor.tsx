@@ -21,10 +21,10 @@ import {
 } from '../core/create-paste-handler';
 import { StarterKit } from '../extensions';
 import { EmailTheming } from '../plugins/email-theming/extension';
+import { BubbleMenuButtonDefault } from '../ui/bubble-menu/button-default';
 import { BubbleMenuDefault } from '../ui/bubble-menu/default';
-import { ButtonBubbleMenuDefault } from '../ui/button-bubble-menu/default';
-import { ImageBubbleMenuDefault } from '../ui/image-bubble-menu/default';
-import { LinkBubbleMenuDefault } from '../ui/link-bubble-menu/default';
+import { BubbleMenuImageDefault } from '../ui/bubble-menu/image-default';
+import { BubbleMenuLinkDefault } from '../ui/bubble-menu/link-default';
 import { SlashCommandRoot } from '../ui/slash-command/root';
 import '../ui/themes/default.css';
 
@@ -61,10 +61,13 @@ export function TestEditor({
       immediatelyRender={false}
       editorProps={editorProps}
     >
-      <BubbleMenuDefault excludeNodes={['button']} excludeMarks={['link']} />
-      <LinkBubbleMenuDefault />
-      <ButtonBubbleMenuDefault />
-      <ImageBubbleMenuDefault />
+      <BubbleMenuDefault
+        hideWhenActiveNodes={['button']}
+        hideWhenActiveMarks={['link']}
+      />
+      <BubbleMenuLinkDefault />
+      <BubbleMenuButtonDefault />
+      <BubbleMenuImageDefault />
       <SlashCommandRoot />
     </EditorProvider>
   );

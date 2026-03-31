@@ -34,7 +34,9 @@ describe('BubbleMenuItem (browser)', () => {
       </BubbleMenuItem>,
     );
 
-    await page.getByRole('button', { name: 'bold' }).click();
+    const button = page.getByRole('button', { name: 'bold' });
+    await expect.element(button).toBeVisible();
+    await button.click();
     expect(onCommand).toHaveBeenCalledOnce();
   });
 });
