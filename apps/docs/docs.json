@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "willow",
   "name": "React Email",
   "colors": {
     "primary": "#06BCEE",
@@ -126,6 +126,16 @@
         ]
       },
       {
+        "tab": "Components",
+        "href": "https://react.email/components",
+        "icon": "grid-2-plus"
+      },
+      {
+        "tab": "Templates",
+        "href": "https://demo.react.email/preview/notifications/vercel-invite-user",
+        "icon": "arrow-pointer"
+      },
+      {
         "tab": "Editor",
         "icon": "flask",
         "tag": "Experimental",
@@ -179,26 +189,7 @@
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Components",
-          "href": "https://react.email/components",
-          "icon": "grid-2-plus"
-        },
-        {
-          "anchor": "Templates",
-          "href": "https://demo.react.email/preview/notifications/vercel-invite-user",
-          "icon": "arrow-pointer"
-        },
-        {
-          "anchor": "GitHub",
-          "href": "https://github.com/resend/react-email",
-          "icon": "github"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
