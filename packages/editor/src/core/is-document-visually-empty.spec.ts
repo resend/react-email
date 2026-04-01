@@ -61,6 +61,14 @@ describe('isDocumentVisuallyEmpty', () => {
 
       expect(isDocumentVisuallyEmpty(doc)).toBe(false);
     });
+
+    it('considers just white spaces as not empty', () => {
+      const doc = schema.node('doc', null, [
+        schema.node('paragraph', null, [schema.text('                 ')]),
+      ]);
+
+      expect(isDocumentVisuallyEmpty(doc)).toBe(false);
+    });
   });
 
   describe('with container', () => {
