@@ -51,7 +51,7 @@ describe('Tailwind component', () => {
         <meta name="x-apple-disable-message-reformatting" />
         <!--$-->
         <style>
-          .md_p-4{@media (width>=48rem){padding:1rem!important}}
+          @media (min-width:48rem){.md_p-4{padding:1rem!important}}
         </style>
       </head>
       <body>
@@ -352,7 +352,7 @@ describe('Tailwind component', () => {
           <meta name="x-apple-disable-message-reformatting" />
           <!--$-->
           <style>
-            .sm_bg-red-50{@media (width>=40rem){background-color:rgb(254,242,242)!important}}.sm_text-sm{@media (width>=40rem){font-size:0.875rem!important;line-height:1.4285714285714286!important}}.md_text-lg{@media (width>=48rem){font-size:1.125rem!important;line-height:1.5555555555555556!important}}
+            @media (min-width:40rem){.sm_bg-red-50{background-color:rgb(254,242,242)!important}}@media (min-width:40rem){.sm_text-sm{font-size:0.875rem!important;line-height:1.4285714285714286!important}}@media (min-width:48rem){.md_text-lg{font-size:1.125rem!important;line-height:1.5555555555555556!important}}
           </style></head
         ><span
           ><!--[if mso]><i style="letter-spacing: 10px;mso-font-width:-100%;" hidden>&nbsp;</i><![endif]--></span
@@ -390,7 +390,7 @@ describe('Tailwind component', () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>.text-body{@media (prefers-color-scheme:dark){color:orange!important}}</style></head><body class="text-body"><table border="0" width="100%" cellPadding="0" cellSpacing="0" role="presentation" align="center"><tbody><tr><td style="color:green">this is the body</td></tr></tbody></table><!--/$--></body></html>"`,
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>@media (prefers-color-scheme:dark){.text-body{color:orange!important}}</style></head><body class="text-body"><table border="0" width="100%" cellPadding="0" cellSpacing="0" role="presentation" align="center"><tbody><tr><td style="color:green">this is the body</td></tr></tbody></table><!--/$--></body></html>"`,
     );
   });
 
@@ -425,7 +425,7 @@ describe('Tailwind component', () => {
           <meta name="x-apple-disable-message-reformatting" />
           <!--$-->
           <style>
-            .xl_bg-green-500{@media (width>=1280px){background-color:rgb(0,201,80)!important}}.twoxl_bg-blue-500{@media (width>=1536px){background-color:rgb(43,127,255)!important}}
+            @media (min-width:1280px){.xl_bg-green-500{background-color:rgb(0,201,80)!important}}@media (min-width:1536px){.twoxl_bg-blue-500{background-color:rgb(43,127,255)!important}}
           </style>
         </head>
         <div class="xl_bg-green-500" style="background-color:rgb(255,226,226)">
@@ -453,7 +453,7 @@ describe('Tailwind component', () => {
       <head>
         <!--$-->
         <style>
-          .lg_max-h-calc50pxplus5rem{@media (width>=64rem){max-height:calc(50px + 5rem)!important}}
+          @media (min-width:64rem){.lg_max-h-calc50pxplus5rem{max-height:calc(50px + 5rem)!important}}
         </style>
       </head>
       <div
@@ -496,7 +496,7 @@ describe('Tailwind component', () => {
           <head>
             <!--$-->
             <style>
-              .sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,162,162)!important}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,100,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(251,44,54)!important}}
+              @media (min-width:40rem){.sm_bg-red-300{background-color:rgb(255,162,162)!important}}@media (min-width:48rem){.md_bg-red-400{background-color:rgb(255,100,103)!important}}@media (min-width:64rem){.lg_bg-red-500{background-color:rgb(251,44,54)!important}}
             </style>
           </head>
           <body>
@@ -525,7 +525,7 @@ describe('Tailwind component', () => {
           </Tailwind>,
         ),
       ).toMatchInlineSnapshot(
-        `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>.sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,162,162)!important}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,100,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(251,44,54)!important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(255,201,201)"></div><!--/$--></body></html>"`,
+        `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>@media (min-width:40rem){.sm_bg-red-300{background-color:rgb(255,162,162)!important}}@media (min-width:48rem){.md_bg-red-400{background-color:rgb(255,100,103)!important}}@media (min-width:64rem){.lg_bg-red-500{background-color:rgb(251,44,54)!important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(255,201,201)"></div><!--/$--></body></html>"`,
       );
     });
 
@@ -560,7 +560,7 @@ describe('Tailwind component', () => {
           <head>
             <!--$-->
             <style>
-              .text-body{@media (width>=40rem){color:darkgreen!important}}
+              @media (min-width:40rem){.text-body{color:darkgreen!important}}
             </style>
           </head>
           <body>
@@ -590,7 +590,7 @@ describe('Tailwind component', () => {
           <head>
             <!--$-->
             <style>
-              .hover_bg-red-600{&:hover{@media (hover:hover){background-color:rgb(231,0,11)!important}}}.focus_bg-red-700{&:focus{background-color:rgb(193,0,7)!important}}.sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,162,162)!important}}.sm_hover_bg-red-200{@media (width>=40rem){&:hover{@media (hover:hover){background-color:rgb(255,201,201)!important}}}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,100,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(251,44,54)!important}}
+              @media (hover:hover){.hover_bg-red-600:hover{background-color:rgb(231,0,11)!important}}.focus_bg-red-700:focus{background-color:rgb(193,0,7)!important}@media (min-width:40rem){.sm_bg-red-300{background-color:rgb(255,162,162)!important}}@media (min-width:40rem){@media (hover:hover){.sm_hover_bg-red-200:hover{background-color:rgb(255,201,201)!important}}}@media (min-width:48rem){.md_bg-red-400{background-color:rgb(255,100,103)!important}}@media (min-width:64rem){.lg_bg-red-500{background-color:rgb(251,44,54)!important}}
             </style>
           </head>
           <body>
@@ -661,7 +661,7 @@ describe('Tailwind component', () => {
           <meta name="x-apple-disable-message-reformatting" />
           <!--$-->
           <style>
-            .max-sm_text-red-600{@media (width<40rem){color:rgb(231,0,11)!important}}
+            @media (max-width:40rem){.max-sm_text-red-600{color:rgb(231,0,11)!important}}
           </style>
         </head>
         <p class="max-sm_text-red-600" style="color:rgb(20,71,230)">I am some text</p>
@@ -705,7 +705,7 @@ describe('Tailwind component', () => {
           <head>
             <!--$-->
             <style>
-              .sm_bg-red-500{@media (width>=40rem){background-color:rgb(251,44,54)!important}}
+              @media (min-width:40rem){.sm_bg-red-500{background-color:rgb(251,44,54)!important}}
             </style>
             <style></style>
             <link />
@@ -926,7 +926,7 @@ describe('Tailwind component', () => {
           <head>
             <!--$-->
             <style>
-              .sm_border-custom{@media (width>=40rem){border:2px solid!important}}
+              @media (min-width:40rem){.sm_border-custom{border:2px solid!important}}
             </style>
           </head>
           <body>
