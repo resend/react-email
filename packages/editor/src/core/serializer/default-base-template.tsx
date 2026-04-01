@@ -1,4 +1,4 @@
-import { Body, Head, Html, Preview, Section } from '@react-email/components';
+import { Body, Head, Html, Preview } from '@react-email/components';
 import type * as React from 'react';
 
 type BaseTemplateProps = {
@@ -23,17 +23,7 @@ export function DefaultBaseTemplate({
       </Head>
       {previewText && previewText !== '' && <Preview>{previewText}</Preview>}
 
-      <Body>
-        <Section width="100%" align="center">
-          <Section
-            style={{
-              width: '100%',
-            }}
-          >
-            {children}
-          </Section>
-        </Section>
-      </Body>
+      <Body>{children}</Body>
     </Html>
   );
 }
