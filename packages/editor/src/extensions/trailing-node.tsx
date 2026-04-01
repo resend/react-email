@@ -49,6 +49,8 @@ export interface TrailingNodeOptions {
  *
  * Differently from TipTap's native one, it allows you to pick which node to append the trailing node to.
  * @see https://www.tiptap.dev/api/extensions/trailing-node
+ *
+ * We could contribute this to TipTap's core extensions and I think we should at some once we get some time.
  */
 export const TrailingNode = Extension.create<TrailingNodeOptions>({
   name: 'trailingNode',
