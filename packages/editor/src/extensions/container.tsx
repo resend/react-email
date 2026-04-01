@@ -4,6 +4,7 @@ import type { Node as PmNode } from '@tiptap/pm/model';
 import { type EditorState, Plugin, PluginKey } from '@tiptap/pm/state';
 import { EmailNode } from '../core/serializer/email-node';
 import { inlineCssToJs } from '../utils/styles';
+import { hasCollaborationExtension } from '../utils/is-collaboration';
 
 function hasContainerNode(doc: PmNode): boolean {
   let found = false;
@@ -16,7 +17,6 @@ function hasContainerNode(doc: PmNode): boolean {
 }
 
 function wrapInContainer(state: EditorState) {
-  console.log('warpping everything in container');
   const { doc } = state;
   const containerType = state.schema.nodes.container;
 
@@ -86,26 +86,27 @@ export const Container = EmailNode.create<ContainerOptions>({
   },
 
   addProseMirrorPlugins() {
+    const isCollaborative = hasCollaborationExtension(
+      this.editor.extensionManager.extensions,
+    );
     return [
       new Plugin({
         key: new PluginKey('containerEnforcer'),
-        // view(editorView) {
-        //   debugger;
-        //   if (!hasContainerNode(editorView.state.doc)) {
-        //     const tr = wrapInContainer(editorView.state);
-        //     editorView.dispatch(tr);
-        //   }
-        //   return {};
-        // },
+        view: isCollaborative
+          ? undefined
+          : (editorView) => {
+            if (!hasContainerNode(editorView.state.doc)) {
+              const tr = wrapInContainer(editorView.state);
+              editorView.dispatch(tr);
+            }
+            return {};
+          },
         appendTransaction(transactions, _oldState, newState) {
-          const isRemoteChange = transactions.some((tr) => tr.getMeta('y-sync$'));
+          const shouldIgnore = transactions.some(
+            (tr) => tr.getMeta('y-sync$') || !tr.docChanged,
+          );
 
-          if (isRemoteChange) {
-            return null;
-          }
-          debugger;
-
-          if (hasContainerNode(newState.doc)) {
+          if (shouldIgnore || hasContainerNode(newState.doc)) {
             return null;
           }
 
