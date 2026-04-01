@@ -75,9 +75,7 @@ describe('Container Node', () => {
       `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="max-width:600px;margin:0;padding:0;width:100%"><tbody><tr style="width:100%"><td>Content</td></tr></tbody></table><!--/$-->"`,
     );
   });
-});
 
-describe('Container in editor', () => {
   let editor: Editor | null = null;
 
   afterEach(() => {
@@ -233,15 +231,6 @@ describe('Container in editor', () => {
     for (const child of container.content!) {
       expect(child.type).not.toBe('container');
     }
-  });
-});
-
-describe('Container in composeReactEmail', () => {
-  let editor: Editor | null = null;
-
-  afterEach(() => {
-    editor?.destroy();
-    editor = null;
   });
 
   function createEditorWithContent(content: JSONContent) {
