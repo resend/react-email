@@ -350,11 +350,12 @@ describe('Container Node', () => {
     }
 
     it('wraps collaboration-synced content in a container', async () => {
-      const [fakeLiveblocks, contentResolved] = createFakeLiveblocksExtension((schema) =>
-        schema.nodes.paragraph.create(
-          null,
-          schema.text('Hello from collaboration'),
-        ),
+      const [fakeLiveblocks, contentResolved] = createFakeLiveblocksExtension(
+        (schema) =>
+          schema.nodes.paragraph.create(
+            null,
+            schema.text('Hello from collaboration'),
+          ),
       );
 
       editor = new Editor({
@@ -375,13 +376,15 @@ describe('Container Node', () => {
     });
 
     it('does not duplicate container when collaboration syncs content with a container', async () => {
-      const [fakeLiveblocks, contentResolved] = createFakeLiveblocksExtension((schema) => {
-        const paragraph = schema.nodes.paragraph.create(
-          null,
-          schema.text('Hello from collaboration'),
-        );
-        return schema.nodes.container.create(null, paragraph);
-      });
+      const [fakeLiveblocks, contentResolved] = createFakeLiveblocksExtension(
+        (schema) => {
+          const paragraph = schema.nodes.paragraph.create(
+            null,
+            schema.text('Hello from collaboration'),
+          );
+          return schema.nodes.container.create(null, paragraph);
+        },
+      );
 
       editor = new Editor({
         extensions: [StarterKit, fakeLiveblocks],

@@ -3,8 +3,8 @@ import { mergeAttributes } from '@tiptap/core';
 import type { Node as PmNode } from '@tiptap/pm/model';
 import { type EditorState, Plugin, PluginKey } from '@tiptap/pm/state';
 import { EmailNode } from '../core/serializer/email-node';
-import { inlineCssToJs } from '../utils/styles';
 import { hasCollaborationExtension } from '../utils/is-collaboration';
+import { inlineCssToJs } from '../utils/styles';
 
 function hasContainerNode(doc: PmNode): boolean {
   let found = false;
@@ -95,12 +95,12 @@ export const Container = EmailNode.create<ContainerOptions>({
         view: isCollaborative
           ? undefined
           : (editorView) => {
-            if (!hasContainerNode(editorView.state.doc)) {
-              const tr = wrapInContainer(editorView.state);
-              editorView.dispatch(tr);
-            }
-            return {};
-          },
+              if (!hasContainerNode(editorView.state.doc)) {
+                const tr = wrapInContainer(editorView.state);
+                editorView.dispatch(tr);
+              }
+              return {};
+            },
         appendTransaction(transactions, _oldState, newState) {
           const shouldIgnore = transactions.some(
             (tr) => tr.getMeta('y-sync$') || !tr.docChanged,

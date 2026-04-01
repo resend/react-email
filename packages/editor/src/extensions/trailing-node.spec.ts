@@ -1,4 +1,4 @@
-import { Editor, type AnyExtension, type JSONContent } from '@tiptap/core';
+import { type AnyExtension, Editor, type JSONContent } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
 import { StarterKit } from './index';
 import { TrailingNode } from './trailing-node';
@@ -27,7 +27,10 @@ describe('TrailingNode', () => {
 
   it('inserts a trailing paragraph at the end of the doc by default', () => {
     editor = createEditor(
-      [StarterKit.configure({ TrailingNode: false, Container: false }), TrailingNode],
+      [
+        StarterKit.configure({ TrailingNode: false, Container: false }),
+        TrailingNode,
+      ],
       {
         type: 'doc',
         content: [
@@ -78,24 +81,21 @@ describe('TrailingNode', () => {
   });
 
   it('inserts a trailing paragraph inside the container with the default StarterKit', () => {
-    editor = createEditor(
-      [StarterKit],
-      {
-        type: 'doc',
-        content: [
-          {
-            type: 'container',
-            content: [
-              {
-                type: 'heading',
-                attrs: { level: 1 },
-                content: [{ type: 'text', text: 'Hello' }],
-              },
-            ],
-          },
-        ],
-      },
-    );
+    editor = createEditor([StarterKit], {
+      type: 'doc',
+      content: [
+        {
+          type: 'container',
+          content: [
+            {
+              type: 'heading',
+              attrs: { level: 1 },
+              content: [{ type: 'text', text: 'Hello' }],
+            },
+          ],
+        },
+      ],
+    });
 
     const json = editor.getJSON();
     const container = json.content!.find((n) => n.type === 'container');
@@ -150,24 +150,21 @@ describe('TrailingNode', () => {
   });
 
   it('always inserts a paragraph as the trailing node, never a container', () => {
-    editor = createEditor(
-      [StarterKit],
-      {
-        type: 'doc',
-        content: [
-          {
-            type: 'container',
-            content: [
-              {
-                type: 'heading',
-                attrs: { level: 1 },
-                content: [{ type: 'text', text: 'Hello' }],
-              },
-            ],
-          },
-        ],
-      },
-    );
+    editor = createEditor([StarterKit], {
+      type: 'doc',
+      content: [
+        {
+          type: 'container',
+          content: [
+            {
+              type: 'heading',
+              attrs: { level: 1 },
+              content: [{ type: 'text', text: 'Hello' }],
+            },
+          ],
+        },
+      ],
+    });
 
     const json = editor.getJSON();
     const container = json.content!.find((n) => n.type === 'container')!;

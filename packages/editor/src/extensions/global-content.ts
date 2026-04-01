@@ -93,7 +93,8 @@ export const GlobalContent = Node.create<GlobalContentOptions>({
         // The node needs to have a width and height, so then
         // internal TipTap extension can find the first node position
         // and calculate the correct position of the document container
-        style: 'width: 100%; height: 1px; visibility: hidden; background-color: transparent;',
+        style:
+          'width: 100%; height: 1px; visibility: hidden; background-color: transparent;',
       }),
     ];
   },

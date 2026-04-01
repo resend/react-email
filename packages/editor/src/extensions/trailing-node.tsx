@@ -34,8 +34,8 @@ export interface TrailingNodeOptions {
    */
   node?: string;
   /**
-    * The node that the trailing node should be appended to. The default is the 'doc', giving the same behavior as TipTap's extension.
-    */
+   * The node that the trailing node should be appended to. The default is the 'doc', giving the same behavior as TipTap's extension.
+   */
   appendTo?: string;
   /**
    * The node types after which the trailing node should not be inserted.
