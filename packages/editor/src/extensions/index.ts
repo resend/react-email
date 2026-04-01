@@ -32,6 +32,8 @@ import {
   ThreeColumns,
   TwoColumns,
 } from './columns';
+import type { ContainerOptions } from './container';
+import { Container } from './container';
 import type { DivOptions } from './div';
 import { Div } from './div';
 import type { DividerOptions } from './divider';
@@ -64,6 +66,7 @@ import { Sup } from './sup';
 import type { TableCellOptions, TableOptions, TableRowOptions } from './table';
 import { Table, TableCell, TableHeader, TableRow } from './table';
 import { Text } from './text';
+import { TrailingNode, type TrailingNodeOptions } from './trailing-node';
 import type { UnderlineOptions } from './underline';
 import { Underline } from './underline';
 import type { UppercaseOptions } from './uppercase';
@@ -79,6 +82,7 @@ export * from './class-attribute';
 export * from './code';
 export * from './code-block';
 export * from './columns';
+export * from './container';
 export * from './div';
 export * from './divider';
 export * from './global-content';
@@ -99,6 +103,7 @@ export * from './style-attribute';
 export * from './sup';
 export * from './table';
 export * from './text';
+export * from './trailing-node';
 export * from './underline';
 export * from './uppercase';
 
@@ -108,6 +113,7 @@ const starterKitExtensions: Record<string, AnyExtension> = {
   TwoColumns,
   ThreeColumns,
   FourColumns,
+  Container,
   ColumnsColumn,
   Paragraph,
   BulletList,
@@ -118,6 +124,7 @@ const starterKitExtensions: Record<string, AnyExtension> = {
   Italic,
   Placeholder,
   PreviewText,
+  TrailingNode,
   Bold,
   Strike,
   Heading,
@@ -153,6 +160,7 @@ export type StarterKitOptions = {
   Paragraph: Partial<ParagraphOptions> | false;
   BulletList: Partial<BulletListOptions> | false;
   OrderedList: Partial<OrderedListOptions> | false;
+  TrailingNode: Partial<TrailingNodeOptions> | false;
   Blockquote: Partial<BlockquoteOptions> | false;
   ListItem: Partial<ListItemOptions> | false;
   HardBreak: Partial<HardBreakOptions> | false;
@@ -173,6 +181,7 @@ export type StarterKitOptions = {
   TableCell: Partial<TableCellOptions> | false;
   TableHeader: Partial<Record<string, any>> | false;
   Body: Partial<BodyOptions> | false;
+  Container: Partial<ContainerOptions> | false;
   Div: Partial<DivOptions> | false;
   Text: Record<string, never> | false;
   Button: Partial<EditorButtonOptions> | false;
@@ -196,6 +205,10 @@ export const StarterKit = Extension.create<StarterKitOptions>({
         HTMLAttributes: {
           class: 'prism node-codeBlock',
         },
+      },
+      TrailingNode: {
+        node: 'paragraph',
+        appendTo: 'container',
       },
       Code: {
         HTMLAttributes: {
@@ -246,6 +259,7 @@ export const StarterKit = Extension.create<StarterKitOptions>({
       TableCell: {},
       TableHeader: {},
       Body: {},
+      Container: {},
       Div: {},
       Button: {},
       Section: {},

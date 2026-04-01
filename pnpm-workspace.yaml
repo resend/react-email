@@ -22,18 +22,18 @@ catalog:
   '@types/babel__traverse': 7.20.7
   '@types/css-tree': 2.3.11
   '@types/mime-types': 2.1.4
-  '@types/node': 22.19.13
+  '@types/node': 22.19.15
   '@types/react': 19.2.13
   '@types/react-dom': 19.2.3
   '@vitejs/plugin-react': 5.1.4
   commander: ^13.0.0
-  esbuild: 0.27.3
+  esbuild: 0.27.4
   framer-motion: 12.23.22
   log-symbols: ^7.0.0
   next: 16.1.7
   nypm: 0.6.5
   ora: ^8.0.0
-  postcss: 8.5.6
+  postcss: 8.5.8
   prism-react-renderer: 2.4.1
   react: 19.0.0
   react-dom: 19.0.0

@@ -26,23 +26,19 @@ describe('integrations', () => {
 
   const integrationsLocation = __dirname;
 
-  test(
-    "Tailwind works on the Next App's build process",
-    { timeout: 65_000 },
-    () => {
-      const nextAppLocation = path.resolve(integrationsLocation, 'nextjs');
-      $('npm install', nextAppLocation);
-      $('npm run build', nextAppLocation);
-    },
-  );
+  test("Tailwind works on the Next App's build process", {
+    timeout: 65_000,
+  }, () => {
+    const nextAppLocation = path.resolve(integrationsLocation, 'nextjs');
+    $('npm install', nextAppLocation);
+    $('npm run build', nextAppLocation);
+  });
 
-  test(
-    "Tailwind works on the Vite App's build process",
-    { timeout: 15_000 },
-    () => {
-      const viteAppLocation = path.resolve(integrationsLocation, 'vite');
-      $('npm install', viteAppLocation);
-      $('npm run build', viteAppLocation);
-    },
-  );
+  test("Tailwind works on the Vite App's build process", {
+    timeout: 15_000,
+  }, () => {
+    const viteAppLocation = path.resolve(integrationsLocation, 'vite');
+    $('npm install', viteAppLocation);
+    $('npm run build', viteAppLocation);
+  });
 });
