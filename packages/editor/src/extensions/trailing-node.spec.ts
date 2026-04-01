@@ -171,4 +171,68 @@ describe('TrailingNode', () => {
     const trailingNode = container.content![container.content!.length - 1];
     expect(trailingNode.type).toBe('paragraph');
   });
+
+  it('handles notAfter as a string the same as a single-element array', () => {
+    editor = createEditor(
+      [
+        StarterKit.configure({ TrailingNode: false, Container: false }),
+        TrailingNode.configure({ notAfter: 'heading' }),
+      ],
+      {
+        type: 'doc',
+        content: [
+          {
+            type: 'heading',
+            attrs: { level: 1 },
+            content: [{ type: 'text', text: 'Hello' }],
+          },
+        ],
+      },
+    );
+
+    const json = editor.getJSON();
+    expect(json.content).toHaveLength(1);
+    expect(json.content![0].type).toBe('heading');
+  });
+
+  it('does not treat notAfter string as a substring match', () => {
+    // "table" is a substring of "tableRow"; with the old bug,
+    // `"tableRow".concat("paragraph")` produced the string
+    // "tableRowparagraph" and `.includes("table")` matched via
+    // substring, incorrectly suppressing trailing nodes after tables.
+    editor = createEditor(
+      [
+        StarterKit.configure({ TrailingNode: false, Container: false }),
+        TrailingNode.configure({ notAfter: 'tableRow' }),
+      ],
+      {
+        type: 'doc',
+        content: [
+          {
+            type: 'table',
+            content: [
+              {
+                type: 'tableRow',
+                content: [
+                  {
+                    type: 'tableCell',
+                    content: [
+                      {
+                        type: 'paragraph',
+                        content: [{ type: 'text', text: 'cell' }],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    );
+
+    const json = editor.getJSON();
+    expect(json.content!.at(-1)!.type).toBe('paragraph');
+    expect(json.content!.at(-1)!.content).toBeUndefined();
+  });
 });

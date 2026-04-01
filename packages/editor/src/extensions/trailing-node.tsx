@@ -70,10 +70,14 @@ export const TrailingNode = Extension.create<TrailingNodeOptions>({
       this.editor.schema.topNodeType.contentMatch.defaultType?.name ||
       'paragraph';
 
+    const notAfter = Array.isArray(this.options.notAfter)
+      ? this.options.notAfter
+      : [this.options.notAfter].filter(Boolean);
+
     const disabledNodes = Object.entries(this.editor.schema.nodes)
       .map(([, value]) => value)
       .filter((node) =>
-        (this.options.notAfter || []).concat(defaultNode).includes(node.name),
+        notAfter.concat(defaultNode).includes(node.name),
       );
 
     const appendToType =
