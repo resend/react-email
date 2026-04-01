@@ -1,6 +1,6 @@
 import { render } from '@react-email/components';
 import type { JSONContent } from '@tiptap/core';
-import { Editor } from '@tiptap/core';
+import { Editor, Extension } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
 import { composeReactEmail } from '../core/serializer/compose-react-email';
 import { DEFAULT_STYLES } from '../utils/default-styles';
@@ -222,9 +222,7 @@ describe('Container Node', () => {
     });
 
     const json = editor!.getJSON();
-    const rootContainers = json.content!.filter(
-      (n) => n.type === 'container',
-    );
+    const rootContainers = json.content!.filter((n) => n.type === 'container');
     expect(rootContainers).toHaveLength(1);
 
     const container = rootContainers[0];
@@ -310,6 +308,94 @@ describe('Container Node', () => {
       </html>
       "
     `);
+  });
+
+  describe('collaboration mode (simulated liveblocks)', () => {
+    function createFakeLiveblocksExtension(getContent: (schema: any) => any) {
+      let resolve: () => void;
+      const promise = new Promise<void>((rslv) => {
+        resolve = rslv;
+      });
+      return [
+        Extension.create({
+          name: 'liveblocksExtension',
+          onCreate() {
+            const { view } = this.editor;
+            const { schema } = view.state;
+            const content = getContent(schema);
+
+            const tr1 = view.state.tr;
+            tr1.setMeta('y-sync$', true);
+            // transaction with y-sync$ meta
+            view.dispatch(tr1);
+
+            // empty transaction without y-sync$ meta also caused by liveblocks
+            view.dispatch(view.state.tr);
+
+            setTimeout(() => {
+              const tr2 = view.state.tr.replaceWith(
+                0,
+                view.state.doc.content.size,
+                content,
+              );
+              // actual update to the content bringing over the new content from liveblocks
+              tr2.setMeta('y-sync$', true);
+              view.dispatch(tr2);
+              resolve();
+            }, 100);
+          },
+        }),
+        promise,
+      ] as const;
+    }
+
+    it('wraps collaboration-synced content in a container', async () => {
+      const [fakeLiveblocks, contentResolved] = createFakeLiveblocksExtension((schema) =>
+        schema.nodes.paragraph.create(
+          null,
+          schema.text('Hello from collaboration'),
+        ),
+      );
+
+      editor = new Editor({
+        extensions: [StarterKit, fakeLiveblocks],
+      });
+
+      await contentResolved;
+
+      const json = editor!.getJSON();
+      console.dir(json);
+      const containers = json.content!.filter((n) => n.type === 'container');
+      expect(containers).toHaveLength(1);
+      expect(containers[0]!.content).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ type: 'paragraph' }),
+        ]),
+      );
+    });
+
+    it('does not duplicate container when collaboration syncs content with a container', async () => {
+      const [fakeLiveblocks, contentResolved] = createFakeLiveblocksExtension((schema) => {
+        const paragraph = schema.nodes.paragraph.create(
+          null,
+          schema.text('Hello from collaboration'),
+        );
+        return schema.nodes.container.create(null, paragraph);
+      });
+
+      editor = new Editor({
+        extensions: [StarterKit, fakeLiveblocks],
+      });
+
+      await contentResolved;
+
+      const json = editor!.getJSON();
+      const containers = json.content!.filter((n) => n.type === 'container');
+      expect(containers).toHaveLength(1);
+      for (const child of containers[0]!.content!) {
+        expect(child.type).not.toBe('container');
+      }
+    });
   });
 
   it('wraps content inside a container in the serialized output', async () => {
