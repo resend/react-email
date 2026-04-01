@@ -1,0 +1,185 @@
+---
+title: "Email Export"
+sidebarTitle: "Email Export"
+description: "Convert editor content to email-ready HTML."
+icon: "file-export"
+---
+
+## Quick start
+
+Use `composeReactEmail` to convert editor content into email-ready HTML and plain text:
+
+```tsx
+import { composeReactEmail } from '@react-email/editor/core';
+import { StarterKit } from '@react-email/editor/extensions';
+import { EmailTheming } from '@react-email/editor/plugins';
+import { BubbleMenu } from '@react-email/editor/ui';
+import { EditorProvider, useCurrentEditor } from '@tiptap/react';
+import { useState } from 'react';
+
+const extensions = [StarterKit, EmailTheming];
+
+const content = `
+  <h1>My Email Newsletter</h1>
+  <p>Edit this content, then click <strong>Export HTML</strong> to see the generated email markup.</p>
+  <p>The exported HTML uses React Email components and is ready to send.</p>
+`;
+
+function ExportPanel() {
+  const { editor } = useCurrentEditor();
+  const [html, setHtml] = useState('');
+  const [exporting, setExporting] = useState(false);
+
+  const handleExport = async () => {
+    if (!editor) return;
+    setExporting(true);
+    const result = await composeReactEmail({ editor, preview: null });
+    setHtml(result.html);
+    setExporting(false);
+  };
+
+  return (
+    <div>
+      <button onClick={handleExport} disabled={exporting}>
+        {exporting ? 'Exporting...' : 'Export HTML'}
+      </button>
+      {html && (
+        <textarea readOnly value={html} rows={16} style={{ width: '100%', fontFamily: 'monospace' }} />
+      )}
+    </div>
+  );
+}
+
+export function MyEditor() {
+  return (
+    <EditorProvider extensions={extensions} content={content}>
+      <BubbleMenu.Default />
+      <ExportPanel />
+    </EditorProvider>
+  );
+}
+```
+
+## How it works
+
+The `composeReactEmail` function follows this pipeline:
+
+1. **Read** the editor's JSON document
+2. **Traverse** each node and mark in the document tree
+3. **Call** `renderToReactEmail()` on each `EmailNode` and `EmailMark` extension
+4. **Apply** theme styles via the `SerializerPlugin` (if `EmailTheming` is configured)
+5. **Wrap** the content in a `BaseTemplate` component
+6. **Renders** to an HTML string and plain text version using [render](/utilities/render)
+
+The return value is:
+
+```tsx
+const { html, text } = await composeReactEmail({ editor, preview: null });
+
+// html  — Full HTML email string, ready to send
+// text  — Plain text version for email clients that don't support HTML
+```
+
+## Preview text
+
+The `preview` parameter sets the email preview text — the snippet shown in inbox list views
+before the email is opened:
+
+```tsx
+const result = await composeReactEmail({
+  editor,
+  preview: 'Check out our latest updates!',
+});
+```
+
+Pass `null` to omit preview text.
+
+## Using with theming
+
+When the `EmailTheming` extension is in your extensions array, theme styles are automatically
+injected into the exported HTML. The serializer uses the `SerializerPlugin` provided by
+`EmailTheming` to resolve styles for each node based on the current theme and depth in the
+document tree.
+
+```tsx
+const extensions = [StarterKit, EmailTheming.configure({ theme: 'basic' })];
+
+// Later, when exporting:
+const { html } = await composeReactEmail({ editor, preview: null });
+// html includes all theme styles inline
+```
+
+## Full example with export panel
+
+Here's a complete editor with theming and an export panel:
+
+```tsx
+import { composeReactEmail } from '@react-email/editor/core';
+import { StarterKit } from '@react-email/editor/extensions';
+import { EmailTheming } from '@react-email/editor/plugins';
+import {
+  BubbleMenu,
+  defaultSlashCommands,
+  SlashCommand,
+} from '@react-email/editor/ui';
+import { EditorProvider, useCurrentEditor } from '@tiptap/react';
+import { useState } from 'react';
+
+type EditorTheme = 'basic' | 'minimal';
+
+function ControlPanel() {
+  const { editor } = useCurrentEditor();
+  const [html, setHtml] = useState('');
+  const [exporting, setExporting] = useState(false);
+
+  const handleExport = async () => {
+    if (!editor) return;
+    setExporting(true);
+    const result = await composeReactEmail({ editor, preview: null });
+    setHtml(result.html);
+    setExporting(false);
+  };
+
+  return (
+    <div>
+      <button onClick={handleExport} disabled={exporting}>
+        {exporting ? 'Exporting...' : 'Export HTML'}
+      </button>
+      {html && (
+        <textarea
+          readOnly
+          value={html}
+          rows={16}
+          style={{ width: '100%', fontFamily: 'monospace', fontSize: '12px' }}
+        />
+      )}
+    </div>
+  );
+}
+
+export function FullEmailBuilder() {
+  const [theme, setTheme] = useState<EditorTheme>('basic');
+  const extensions = [StarterKit, EmailTheming.configure({ theme })];
+
+  const content = `
+    <h1>Weekly Newsletter</h1>
+    <p>Edit this content, then click <strong>Export HTML</strong> to see the generated email markup.</p>
+  `;
+
+  return (
+    <div>
+      <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
+        <button onClick={() => setTheme('basic')}>Basic Theme</button>
+        <button onClick={() => setTheme('minimal')}>Minimal Theme</button>
+      </div>
+      <EditorProvider key={theme} extensions={extensions} content={content}>
+        <BubbleMenu.Default hideWhenActiveNodes={['button']} hideWhenActiveMarks={['link']} />
+        <BubbleMenu.LinkDefault />
+        <BubbleMenu.ButtonDefault />
+        <SlashCommand.Root items={defaultSlashCommands} />
+        <ControlPanel />
+      </EditorProvider>
+    </div>
+  );
+}
+```

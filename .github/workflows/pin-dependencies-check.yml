@@ -22,7 +22,7 @@ jobs:
         with:
           fetch-depth: 1
       - name: pnpm setup
-        uses: pnpm/action-setup@9b5745cdf0a2e8c2620f0746130f809adb911c19
+        uses: pnpm/action-setup@738f428026a1f5a72398de22aeed83d859c4a660
       - name: Install root dependencies only
         run: pnpm install --frozen-lockfile --filter . --ignore-scripts
       - name: Check for pinned dependencies

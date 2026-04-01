@@ -1,0 +1,115 @@
+---
+title: "EmailNode"
+sidebarTitle: "EmailNode"
+description: "Base class for creating editor nodes with email serialization."
+icon: "cube"
+---
+
+`EmailNode` extends TipTap's `Node` class with an additional `renderToReactEmail()` method
+that controls how the node is serialized when exporting to email HTML via
+[`composeReactEmail`](/editor/api-reference/compose-react-email).
+
+## Import
+
+```tsx
+import { EmailNode } from '@react-email/editor/core';
+```
+
+## EmailNode.create
+
+Create a new email-compatible node from scratch.
+
+```tsx
+const MyNode = EmailNode.create({
+  name: 'myNode',
+  group: 'block',
+  content: 'inline*',
+
+  parseHTML() {
+    return [{ tag: 'div[data-my-node]' }];
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    return ['div', mergeAttributes(HTMLAttributes, { 'data-my-node': '' }), 0];
+  },
+
+  renderToReactEmail({ children, style }) {
+    return <div style={style}>{children}</div>;
+  },
+});
+```
+
+The config object accepts all standard [TipTap Node options](https://tiptap.dev/docs/editor/api/node)
+plus the `renderToReactEmail` method.
+
+### renderToReactEmail props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `children` | `React.ReactNode` | The serialized child content of this node |
+| `style` | `React.CSSProperties` | Resolved theme styles for this node (empty object if no theme) |
+| `node` | `Node` | The ProseMirror node instance |
+| `extension` | `EmailNode` | The extension instance, useful for accessing `options` |
+
+## EmailNode.from
+
+Wrap an existing TipTap node with email serialization support. This is useful when you want to
+reuse a community TipTap extension and add email export support without rewriting it.
+
+```tsx
+import { EmailNode } from '@react-email/editor/core';
+import Blockquote from '@tiptap/extension-blockquote';
+
+const EmailBlockquote = EmailNode.from(Blockquote, ({ children, style }) => {
+  return (
+    <blockquote style={{ ...style, borderLeft: '4px solid #e0e0e0', paddingLeft: '16px' }}>
+      {children}
+    </blockquote>
+  );
+});
+```
+
+The second argument is the `renderToReactEmail` renderer component. It receives the same props
+as described above.
+
+## .configure
+
+Configure options on an `EmailNode` (same as TipTap's `.configure()`):
+
+```tsx
+import { Heading } from '@react-email/editor/extensions';
+
+const CustomHeading = Heading.configure({ levels: [1, 2] });
+```
+
+## .extend
+
+Extend an `EmailNode` with additional behavior:
+
+```tsx
+import { Paragraph } from '@react-email/editor/extensions';
+
+const CustomParagraph = Paragraph.extend({
+  addKeyboardShortcuts() {
+    return {
+      'Mod-Shift-p': () => this.editor.commands.setParagraph(),
+    };
+  },
+});
+```
+
+You can also override `renderToReactEmail` when extending:
+
+```tsx
+const CustomParagraph = Paragraph.extend({
+  renderToReactEmail({ children, style }) {
+    return <p style={{ ...style, lineHeight: '1.8' }}>{children}</p>;
+  },
+});
+```
+
+## See also
+
+- [Custom Extensions](/editor/advanced/custom-extensions) — tutorial on building custom nodes
+- [`EmailMark`](/editor/api-reference/email-mark) — the equivalent class for inline marks
+- [`composeReactEmail`](/editor/api-reference/compose-react-email) — the function that calls `renderToReactEmail`

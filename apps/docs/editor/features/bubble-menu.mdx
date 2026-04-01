@@ -1,0 +1,154 @@
+---
+title: "Bubble Menu"
+sidebarTitle: "Bubble Menu"
+description: "Add floating formatting toolbars that appear on text selection."
+icon: "message-lines"
+---
+
+## Quick start
+
+Add `BubbleMenu.Default` as a child of `EditorProvider` to get a fully-featured formatting toolbar:
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+import { BubbleMenu } from '@react-email/editor/ui';
+import { EditorProvider } from '@tiptap/react';
+import '@react-email/editor/themes/default.css';
+
+const extensions = [StarterKit];
+
+export function MyEditor() {
+  return (
+    <EditorProvider extensions={extensions} content={content}>
+      <BubbleMenu.Default />
+    </EditorProvider>
+  );
+}
+```
+
+Select text to see the toolbar with formatting, alignment, node type selection, and link controls.
+
+## Excluding items
+
+Hide specific items from the default bubble menu using `excludeItems`:
+
+```tsx
+<BubbleMenu.Default excludeItems={['strike', 'code', 'uppercase']} />
+```
+
+All excludable item keys:
+
+| Key | Description |
+| -- | -- |
+| `bold` | Bold toggle |
+| `italic` | Italic toggle |
+| `underline` | Underline toggle |
+| `strike` | Strikethrough toggle |
+| `code` | Inline code toggle |
+| `uppercase` | Uppercase toggle |
+| `align-left` | Left alignment |
+| `align-center` | Center alignment |
+| `align-right` | Right alignment |
+| `node-selector` | Block type selector (paragraph, headings, etc.) |
+| `link-selector` | Link add/edit control |
+
+## Hiding on specific nodes or marks
+
+Prevent the bubble menu from appearing on certain node types or when certain marks are active:
+
+```tsx
+<BubbleMenu.Default
+  hideWhenActiveNodes={['codeBlock', 'button']}
+  hideWhenActiveMarks={['link']}
+/>
+```
+
+This is useful when combining the text bubble menu with contextual menus for links, images, or buttons -- each gets its own menu via `BubbleMenu.Root`:
+
+```tsx
+import { BubbleMenu, bubbleMenuTriggers } from '@react-email/editor/ui';
+import { PluginKey } from '@tiptap/pm/state';
+
+const linkPluginKey = new PluginKey('linkBubbleMenu');
+
+{/* Hide text bubble menu on links and buttons -- their own menus handle those */}
+<BubbleMenu.Default hideWhenActiveNodes={['button']} hideWhenActiveMarks={['link']} />
+
+<BubbleMenu.Root
+  shouldShow={bubbleMenuTriggers.nodeWithoutSelection('link')}
+  pluginKey={linkPluginKey}
+>
+  <BubbleMenu.LinkToolbar>
+    <BubbleMenu.LinkEditLink />
+    <BubbleMenu.LinkOpenLink />
+    <BubbleMenu.LinkUnlink />
+  </BubbleMenu.LinkToolbar>
+</BubbleMenu.Root>
+```
+
+## Composing from primitives
+
+For full control, build a custom bubble menu using the compound component API:
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+import { BubbleMenu } from '@react-email/editor/ui';
+import { EditorProvider } from '@tiptap/react';
+
+export function MyEditor() {
+  return (
+    <EditorProvider extensions={[StarterKit]} content={content}>
+      <BubbleMenu.Root>
+        <BubbleMenu.ItemGroup>
+          <BubbleMenu.Bold />
+          <BubbleMenu.Italic />
+          <BubbleMenu.Underline />
+        </BubbleMenu.ItemGroup>
+        <BubbleMenu.ItemGroup>
+          <BubbleMenu.AlignLeft />
+          <BubbleMenu.AlignCenter />
+          <BubbleMenu.AlignRight />
+        </BubbleMenu.ItemGroup>
+      </BubbleMenu.Root>
+    </EditorProvider>
+  );
+}
+```
+
+`BubbleMenu.Root` wraps everything, `BubbleMenu.ItemGroup` creates visual groupings,
+and individual items render the toggle buttons.
+
+## Available items
+
+| Component | Description |
+| -- | -- |
+| `BubbleMenu.Bold` | Bold toggle |
+| `BubbleMenu.Italic` | Italic toggle |
+| `BubbleMenu.Underline` | Underline toggle |
+| `BubbleMenu.Strike` | Strikethrough toggle |
+| `BubbleMenu.Code` | Inline code toggle |
+| `BubbleMenu.Uppercase` | Uppercase toggle |
+| `BubbleMenu.AlignLeft` | Left alignment |
+| `BubbleMenu.AlignCenter` | Center alignment |
+| `BubbleMenu.AlignRight` | Right alignment |
+| `BubbleMenu.NodeSelector` | Block type dropdown (paragraph, h1-h3, etc.) |
+| `BubbleMenu.LinkSelector` | Link add/edit popover |
+| `BubbleMenu.Separator` | Visual separator between groups |
+
+## Placement and offset
+
+Control where the bubble menu appears relative to the selection:
+
+```tsx
+<BubbleMenu.Root placement="top" offset={12}>
+  {/* items */}
+</BubbleMenu.Root>
+```
+
+<ResponseField name="placement" type="'top' | 'bottom'" default="'bottom'">
+  Whether the menu appears above or below the selection.
+</ResponseField>
+
+<ResponseField name="offset" type="number" default="8">
+  Distance from the selection in pixels.
+</ResponseField>

@@ -1,0 +1,281 @@
+---
+title: "Custom Extensions"
+sidebarTitle: "Custom Extensions"
+description: "Create custom email-compatible editor nodes and marks."
+icon: "wrench"
+---
+
+## EmailNode vs TipTap Node
+
+The editor uses `EmailNode` instead of TipTap's standard `Node`, which is a class that extends `Node`. The key difference is a
+required `renderToReactEmail()` method that tells the serializer how to convert the node to
+a React Email component for HTML export.
+
+```
+TipTap Node
+├── name, group, content
+├── parseHTML()
+├── renderHTML()          ← How it looks in the editor
+└── ...
+
+EmailNode (extends Node)
+├── name, group, content
+├── parseHTML()
+├── renderHTML()          ← How it looks in the editor
+├── renderToReactEmail()  ← How it looks in the exported email HTML
+└── ...
+```
+
+## Creating a custom node
+
+Here's a complete example of a custom "Callout" node that renders as a highlighted block:
+
+```tsx
+import { EmailNode } from '@react-email/editor/core';
+import { mergeAttributes } from '@tiptap/core';
+
+const Callout = EmailNode.create({
+  name: 'callout',
+  group: 'block',
+  content: 'inline*',
+
+  parseHTML() {
+    return [{ tag: 'div[data-callout]' }];
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    return [
+      'div',
+      mergeAttributes(HTMLAttributes, {
+        'data-callout': '',
+        style:
+          'padding: 12px 16px; background: #f4f4f5; border-left: 3px solid #1c1c1c; border-radius: 4px; margin: 8px 0;',
+      }),
+      0,
+    ];
+  },
+
+  renderToReactEmail({ children, style }) {
+    return (
+      <div
+        style={{
+          ...style,
+          padding: '12px 16px',
+          backgroundColor: '#f4f4f5',
+          borderLeft: '3px solid #1c1c1c',
+          borderRadius: '4px',
+          margin: '8px 0',
+        }}
+      >
+        {children}
+      </div>
+    );
+  },
+});
+```
+
+Key methods:
+
+- **`parseHTML()`** — Defines which HTML elements get parsed into this node (for clipboard paste, HTML content)
+- **`renderHTML()`** — Controls how the node appears in the editor (in the browser DOM)
+- **`renderToReactEmail()`** — Controls how the node is serialized when exporting to email HTML via `composeReactEmail`
+
+## Registering the extension
+
+Add your custom extension to the extensions array alongside `StarterKit`:
+
+```tsx
+const extensions = [StarterKit, Callout];
+```
+
+## Inserting custom nodes
+
+Use the editor's `insertContent` command to programmatically insert your custom node:
+
+```tsx
+import { useCurrentEditor } from '@tiptap/react';
+
+function Toolbar() {
+  const { editor } = useCurrentEditor();
+  if (!editor) return null;
+
+  return (
+    <button
+      onClick={() =>
+        editor
+          .chain()
+          .focus()
+          .insertContent({
+            type: 'callout',
+            content: [{ type: 'text', text: 'New callout' }],
+          })
+          .run()
+      }
+    >
+      Insert Callout
+    </button>
+  );
+}
+```
+
+## Complete example
+
+Here's the full editor setup with the custom Callout extension, a toolbar, and a bubble menu:
+
+```tsx
+import { EmailNode } from '@react-email/editor/core';
+import { StarterKit } from '@react-email/editor/extensions';
+import { BubbleMenu } from '@react-email/editor/ui';
+import { mergeAttributes } from '@tiptap/core';
+import { EditorProvider, useCurrentEditor } from '@tiptap/react';
+import { Info } from 'lucide-react';
+
+const Callout = EmailNode.create({
+  name: 'callout',
+  group: 'block',
+  content: 'inline*',
+
+  parseHTML() {
+    return [{ tag: 'div[data-callout]' }];
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    return [
+      'div',
+      mergeAttributes(HTMLAttributes, {
+        'data-callout': '',
+        style:
+          'padding: 12px 16px; background: #f4f4f5; border-left: 3px solid #1c1c1c; border-radius: 4px; margin: 8px 0;',
+      }),
+      0,
+    ];
+  },
+
+  renderToReactEmail({ children, style }) {
+    return (
+      <div
+        style={{
+          ...style,
+          padding: '12px 16px',
+          backgroundColor: '#f4f4f5',
+          borderLeft: '3px solid #1c1c1c',
+          borderRadius: '4px',
+          margin: '8px 0',
+        }}
+      >
+        {children}
+      </div>
+    );
+  },
+});
+
+const extensions = [StarterKit, Callout];
+
+const content = {
+  type: 'doc',
+  content: [
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'This editor includes a custom Callout node. Use the toolbar to insert one.',
+        },
+      ],
+    },
+    {
+      type: 'callout',
+      content: [
+        { type: 'text', text: 'This is a callout block — a custom extension!' },
+      ],
+    },
+  ],
+};
+
+function Toolbar() {
+  const { editor } = useCurrentEditor();
+  if (!editor) return null;
+
+  return (
+    <button
+      onClick={() =>
+        editor
+          .chain()
+          .focus()
+          .insertContent({
+            type: 'callout',
+            content: [{ type: 'text', text: 'New callout' }],
+          })
+          .run()
+      }
+    >
+      <Info size={16} />
+      Insert Callout
+    </button>
+  );
+}
+
+export function MyEditor() {
+  return (
+    <EditorProvider
+      extensions={extensions}
+      content={content}
+      slotBefore={<Toolbar />}
+    >
+      <BubbleMenu.Default />
+    </EditorProvider>
+  );
+}
+```
+
+## Wrapping existing TipTap extensions
+
+Both `EmailNode` and `EmailMark` provide a `.from()` method that wraps an existing TipTap
+extension with email serialization support. This is useful when you want to reuse a community
+TipTap extension and add email export support without rewriting it.
+
+```tsx
+import { EmailNode } from '@react-email/editor/core';
+import { Node } from '@tiptap/core';
+
+const MyTipTapNode = Node.create({ /* ... */ });
+
+const MyEmailNode = EmailNode.from(MyTipTapNode, ({ children, style }) => {
+  return <div style={style}>{children}</div>;
+});
+```
+
+```tsx
+import { EmailMark } from '@react-email/editor/core';
+import { Mark } from '@tiptap/core';
+
+const MyTipTapMark = Mark.create({ /* ... */ });
+
+const MyEmailMark = EmailMark.from(MyTipTapMark, ({ children, style }) => {
+  return <mark style={{ ...style, backgroundColor: '#fef08a' }}>{children}</mark>;
+});
+```
+
+<Info>
+  For full API details on all methods (`create`, `from`, `configure`, `extend`), see the
+  [`EmailNode`](/editor/api-reference/email-node) and [`EmailMark`](/editor/api-reference/email-mark)
+  reference pages.
+</Info>
+
+## Configure and extend
+
+Both `EmailNode` and `EmailMark` support TipTap's standard customization methods:
+
+```tsx
+// Configure options
+const CustomHeading = Heading.configure({ levels: [1, 2] });
+
+// Extend with additional behavior
+const CustomParagraph = Paragraph.extend({
+  addKeyboardShortcuts() {
+    return {
+      'Mod-Shift-p': () => this.editor.commands.setParagraph(),
+    };
+  },
+});
+```

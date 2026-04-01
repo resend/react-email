@@ -1,0 +1,500 @@
+/* Default theme for @react-email/editor bubble menu primitives.
+ *
+ * Opt-in: import '@react-email/editor/themes/default.css';
+ *
+ * Override any variable on a parent element:
+ *   .my-editor { --re-bg: #1a1a1a; --re-border: #333; }
+ */
+
+/* Layer 0: layout (inlined at build time via postcss-import) */
+@import "../bubble-menu/bubble-menu.css";
+@import "../slash-command/slash-command.css";
+
+/* ----------------------------------------------------------------
+ * CSS custom properties — light defaults
+ * ---------------------------------------------------------------- */
+
+:root {
+  --re-bg: #fff;
+  --re-border: #e5e5e5;
+  --re-text: #1c1c1c;
+  --re-text-muted: #6b6b6b;
+  --re-hover: rgba(0, 0, 0, 0.04);
+  --re-active: rgba(0, 0, 0, 0.06);
+  --re-pressed: rgba(0, 0, 0, 0.06);
+  --re-separator: #e5e5e5;
+  --re-radius: 0.75rem;
+  --re-radius-sm: 0.5rem;
+  --re-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --re-danger: #dc2626;
+  --re-danger-hover: rgba(220, 38, 38, 0.1);
+}
+
+/* ----------------------------------------------------------------
+ * Dark mode — prefers-color-scheme
+ * ---------------------------------------------------------------- */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --re-bg: #1c1c1c;
+    --re-border: #2e2e2e;
+    --re-text: #ececec;
+    --re-text-muted: #a0a0a0;
+    --re-hover: rgba(255, 255, 255, 0.06);
+    --re-active: rgba(255, 255, 255, 0.09);
+    --re-pressed: rgba(255, 255, 255, 0.09);
+    --re-separator: #2e2e2e;
+    --re-shadow:
+      0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+    --re-danger: #f87171;
+    --re-danger-hover: rgba(248, 113, 113, 0.15);
+  }
+}
+
+/* ----------------------------------------------------------------
+ * Dark mode — .dark class override
+ * ---------------------------------------------------------------- */
+
+.dark {
+  --re-bg: #1c1c1c;
+  --re-border: #2e2e2e;
+  --re-text: #ececec;
+  --re-text-muted: #a0a0a0;
+  --re-hover: rgba(255, 255, 255, 0.06);
+  --re-active: rgba(255, 255, 255, 0.09);
+  --re-pressed: rgba(255, 255, 255, 0.09);
+  --re-separator: #2e2e2e;
+  --re-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  --re-danger: #f87171;
+  --re-danger-hover: rgba(248, 113, 113, 0.15);
+}
+
+/* ----------------------------------------------------------------
+ * Root containers
+ * ---------------------------------------------------------------- */
+
+[data-re-bubble-menu] {
+  background: var(--re-bg);
+  border: 1px solid var(--re-border);
+  border-radius: var(--re-radius);
+  box-shadow: var(--re-shadow);
+  z-index: 50;
+  padding: 0.125rem;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1;
+}
+
+/* ----------------------------------------------------------------
+ * Toolbars (link, button, image bubble menus)
+ * ---------------------------------------------------------------- */
+
+[data-re-img-bm-toolbar] > * + * {
+  border-left: 1px solid var(--re-border);
+}
+
+/* ----------------------------------------------------------------
+ * Item buttons (all bubble menus)
+ * ---------------------------------------------------------------- */
+
+[data-re-bubble-menu-item],
+[data-re-link-bm-item],
+[data-re-btn-bm-item],
+[data-re-img-bm-item] {
+  color: var(--re-text-muted);
+  border-radius: var(--re-radius-sm);
+  transition:
+    background-color 0.15s,
+    color 0.15s;
+}
+
+[data-re-bubble-menu-item]:hover,
+[data-re-link-bm-item]:hover,
+[data-re-btn-bm-item]:hover,
+[data-re-img-bm-item]:hover {
+  background: var(--re-hover);
+  color: var(--re-text);
+}
+
+[data-re-bubble-menu-item]:active,
+[data-re-link-bm-item]:active,
+[data-re-btn-bm-item]:active,
+[data-re-img-bm-item]:active {
+  background: var(--re-active);
+}
+
+/* Active / pressed state */
+[data-re-bubble-menu-item][data-active],
+[data-re-bubble-menu-item][aria-pressed="true"] {
+  background: var(--re-pressed);
+  color: var(--re-text);
+}
+
+/* ----------------------------------------------------------------
+ * Separator (text bubble menu)
+ * ---------------------------------------------------------------- */
+
+[data-re-bubble-menu-separator] {
+  background: var(--re-separator);
+}
+
+/* ----------------------------------------------------------------
+ * Node Selector
+ * ---------------------------------------------------------------- */
+
+[data-re-node-selector-trigger] {
+  color: var(--re-text);
+  border-radius: var(--re-radius-sm);
+  transition: background-color 0.15s;
+  font-weight: 500;
+}
+
+[data-re-node-selector-trigger]:hover {
+  background: var(--re-hover);
+}
+
+[data-re-node-selector-trigger]:active {
+  background: var(--re-active);
+}
+
+[data-re-node-selector-content] {
+  background: var(--re-bg);
+  border: 1px solid var(--re-border);
+  border-radius: var(--re-radius);
+  box-shadow: var(--re-shadow);
+  padding: 0.25rem;
+  margin-top: 0.25rem;
+  z-index: 50;
+}
+
+[data-re-node-selector-item] {
+  color: var(--re-text-muted);
+  border-radius: var(--re-radius-sm);
+  transition:
+    background-color 0.15s,
+    color 0.15s;
+}
+
+[data-re-node-selector-item]:hover {
+  background: var(--re-hover);
+  color: var(--re-text);
+}
+
+[data-re-node-selector-item][data-active] {
+  color: var(--re-text);
+}
+
+/* ----------------------------------------------------------------
+ * Link Selector (text bubble menu)
+ * ---------------------------------------------------------------- */
+
+[data-re-link-selector-trigger] {
+  color: var(--re-text-muted);
+  border-radius: var(--re-radius-sm);
+  transition:
+    background-color 0.15s,
+    color 0.15s;
+}
+
+[data-re-link-selector-trigger]:hover {
+  background: var(--re-hover);
+  color: var(--re-text);
+}
+
+[data-re-link-selector-trigger][aria-pressed="true"] {
+  background: var(--re-pressed);
+}
+
+[data-re-link-selector-form] {
+  background: var(--re-bg);
+  border: 1px solid var(--re-border);
+  border-radius: var(--re-radius);
+  box-shadow: var(--re-shadow);
+  padding: 0.25rem;
+}
+
+[data-re-link-selector-input] {
+  color: var(--re-text);
+}
+
+[data-re-link-selector-input]::placeholder {
+  color: var(--re-text-muted);
+}
+
+[data-re-link-selector-apply] {
+  color: var(--re-text);
+  border-radius: var(--re-radius-sm);
+  transition: background-color 0.15s;
+}
+
+[data-re-link-selector-apply]:hover {
+  background: var(--re-hover);
+}
+
+[data-re-link-selector-unlink] {
+  color: var(--re-danger);
+  border-radius: var(--re-radius-sm);
+  transition: background-color 0.15s;
+}
+
+[data-re-link-selector-unlink]:hover {
+  background: var(--re-danger-hover);
+}
+
+/* ----------------------------------------------------------------
+ * Link Bubble Menu Form
+ * ---------------------------------------------------------------- */
+
+[data-re-link-bm-form] {
+  background: var(--re-bg);
+  padding: 0.25rem;
+}
+
+[data-re-link-bm-input] {
+  color: var(--re-text);
+}
+
+[data-re-link-bm-input]::placeholder {
+  color: var(--re-text-muted);
+}
+
+[data-re-link-bm-apply] {
+  color: var(--re-text);
+  border-radius: var(--re-radius-sm);
+  transition: background-color 0.15s;
+}
+
+[data-re-link-bm-apply]:hover {
+  background: var(--re-hover);
+}
+
+[data-re-link-bm-unlink] {
+  color: var(--re-danger);
+  border-radius: var(--re-radius-sm);
+  transition: background-color 0.15s;
+}
+
+[data-re-link-bm-unlink]:hover {
+  background: var(--re-danger-hover);
+}
+
+/* ----------------------------------------------------------------
+ * Button Bubble Menu Form
+ * ---------------------------------------------------------------- */
+
+[data-re-btn-bm-form] {
+  background: var(--re-bg);
+  padding: 0.25rem;
+}
+
+[data-re-btn-bm-input] {
+  color: var(--re-text);
+}
+
+[data-re-btn-bm-input]::placeholder {
+  color: var(--re-text-muted);
+}
+
+[data-re-btn-bm-apply] {
+  color: var(--re-text);
+  border-radius: var(--re-radius-sm);
+  transition: background-color 0.15s;
+}
+
+[data-re-btn-bm-apply]:hover {
+  background: var(--re-hover);
+}
+
+[data-re-btn-bm-unlink] {
+  color: var(--re-danger);
+  border-radius: var(--re-radius-sm);
+  transition: background-color 0.15s;
+}
+
+[data-re-btn-bm-unlink]:hover {
+  background: var(--re-danger-hover);
+}
+
+/* ----------------------------------------------------------------
+ * Slash Command
+ * ---------------------------------------------------------------- */
+
+[data-re-slash-command] {
+  background: var(--re-bg);
+  border: 1px solid var(--re-border);
+  border-radius: var(--re-radius);
+  box-shadow: var(--re-shadow);
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+[data-re-slash-command-item] {
+  color: var(--re-text);
+  border-radius: var(--re-radius-sm);
+  transition: background-color 0.15s;
+}
+
+[data-re-slash-command-item]:hover {
+  background: var(--re-hover);
+}
+
+[data-re-slash-command-item][data-selected] {
+  background: var(--re-hover);
+}
+
+[data-re-slash-command-item]:active {
+  background: var(--re-active);
+}
+
+[data-re-slash-command-item] svg {
+  color: var(--re-text-muted);
+}
+
+[data-re-slash-command-category] {
+  color: var(--re-text-muted);
+}
+
+[data-re-slash-command-empty] {
+  color: var(--re-text-muted);
+}
+
+/* ----------------------------------------------------------------
+ * Editor content — alignment attribute
+ * ---------------------------------------------------------------- */
+
+.tiptap [alignment="left"] {
+  text-align: left;
+}
+
+.tiptap [alignment="center"] {
+  text-align: center;
+}
+
+.tiptap [alignment="right"] {
+  text-align: right;
+}
+
+.tiptap [alignment="justify"] {
+  text-align: justify;
+}
+
+/* ----------------------------------------------------------------
+ * Editor content — columns
+ * ---------------------------------------------------------------- */
+
+.tiptap .node-columns {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.tiptap .node-column {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ----------------------------------------------------------------
+ * Editor content — base typography
+ * ---------------------------------------------------------------- */
+
+.tiptap {
+  outline: none;
+  color: var(--re-text);
+}
+
+.tiptap p {
+  margin: 0.25em 0;
+}
+
+.tiptap h1,
+.tiptap h2,
+.tiptap h3 {
+  margin: 0.5em 0 0.25em;
+  font-weight: 700;
+}
+
+.tiptap h1 {
+  font-size: 2em;
+}
+
+.tiptap h2 {
+  font-size: 1.5em;
+}
+
+.tiptap h3 {
+  font-size: 1.17em;
+}
+
+.tiptap a:not(.node-button) {
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: text;
+}
+
+.tiptap .node-button {
+  display: inline-block;
+  padding: 0.625em 1.25em;
+  background-color: #000;
+  color: #fff;
+  border-radius: 0.375em;
+  font-weight: 500;
+  font-size: 0.875em;
+  text-decoration: none;
+  text-align: center;
+  cursor: text;
+}
+
+.tiptap blockquote {
+  border-left: 3px solid var(--re-border);
+  margin: 0.5em 0;
+  padding-left: 1em;
+  color: var(--re-text-muted);
+}
+
+.tiptap hr {
+  border: none;
+  border-top: 1px solid var(--re-border);
+  margin: 1em 0;
+}
+
+.tiptap code {
+  background: var(--re-hover);
+  border-radius: 0.25rem;
+  padding: 0.125rem 0.375rem;
+  font-size: 0.875em;
+}
+
+.tiptap pre {
+  background: var(--re-hover);
+  border-radius: var(--re-radius-sm);
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+}
+
+.tiptap pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+.tiptap ul {
+  list-style-type: disc;
+  padding-left: 1.5em;
+  margin: 0.25em 0;
+}
+
+.tiptap ol {
+  list-style-type: decimal;
+  padding-left: 1.5em;
+  margin: 0.25em 0;
+}
+
+.tiptap .node-placeholder::before {
+  color: var(--re-text-muted);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
