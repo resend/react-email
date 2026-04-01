@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "almond",
   "name": "React Email",
   "colors": {
     "primary": "#06BCEE",
@@ -12,10 +12,10 @@
   },
   "favicon": "/favicon.png",
   "navigation": {
-    "anchors": [
+    "tabs": [
       {
-        "anchor": "Documentation",
-        "icon": "book-open",
+        "tab": "Primitives",
+        "icon": "cubes",
         "groups": [
           {
             "group": "Overview",
@@ -124,6 +124,57 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Editor",
+        "icon": "flask",
+        "tag": "Experimental",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": ["editor/overview", "editor/getting-started"]
+          },
+          {
+            "group": "Features",
+            "pages": [
+              "editor/features/bubble-menu",
+              "editor/features/slash-commands",
+              "editor/features/theming",
+              "editor/features/styling",
+              "editor/features/buttons",
+              "editor/features/column-layouts",
+              "editor/features/link-editing",
+              "editor/features/email-export"
+            ]
+          },
+          {
+            "group": "Advanced",
+            "pages": [
+              "editor/advanced/extensions",
+              "editor/advanced/event-bus",
+              "editor/advanced/custom-extensions"
+            ]
+          },
+          {
+            "group": "API Reference",
+            "pages": [
+              "editor/api-reference/use-editor",
+              "editor/api-reference/compose-react-email",
+              "editor/api-reference/email-node",
+              "editor/api-reference/email-mark",
+              "editor/api-reference/extensions-list",
+              "editor/api-reference/theming-api",
+              {
+                "group": "UI Components",
+                "icon": "window",
+                "pages": [
+                  "editor/api-reference/ui/bubble-menu",
+                  "editor/api-reference/ui/slash-command"
+                ]
+              }
+            ]
+          }
+        ]
       }
     ],
     "global": {
@@ -137,11 +188,6 @@
           "anchor": "Templates",
           "href": "https://demo.react.email/preview/notifications/vercel-invite-user",
           "icon": "arrow-pointer"
-        },
-        {
-          "anchor": "GitHub",
-          "href": "https://github.com/resend/react-email",
-          "icon": "github"
         }
       ]
     }

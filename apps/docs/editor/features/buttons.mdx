@@ -7,11 +7,11 @@ icon: "rectangle-wide"
 
 ## Quick start
 
-Add `ButtonBubbleMenu.Default` and a slash command for inserting buttons:
+Add `BubbleMenu.ButtonDefault` and a slash command for inserting buttons:
 
 ```tsx
 import { StarterKit } from '@react-email/editor/extensions';
-import { BUTTON, ButtonBubbleMenu, SlashCommand } from '@react-email/editor/ui';
+import { BUTTON, BubbleMenu, SlashCommand } from '@react-email/editor/ui';
 import { EditorProvider } from '@tiptap/react';
 import '@react-email/editor/themes/default.css';
 
@@ -26,7 +26,7 @@ const content = `
 export function MyEditor() {
   return (
     <EditorProvider extensions={extensions} content={content}>
-      <ButtonBubbleMenu.Default />
+      <BubbleMenu.ButtonDefault />
       <SlashCommand.Root items={[BUTTON]} />
     </EditorProvider>
   );
@@ -52,8 +52,8 @@ as a styled button in the editor and serializes to a React Email `<Button>` comp
 
 When you click a button in the editor, the button bubble menu appears with:
 
-- **Edit link** (pencil icon) — Opens an inline form to change the button's URL
-- **Unlink** — Removes the button link
+- **Edit link** (pencil icon) -- Opens an inline form to change the button's URL
+- **Unlink** -- Removes the button link
 
 The form validates URLs and lets you apply or cancel changes inline.
 
