@@ -6,7 +6,8 @@
     "SUPABASE_ANON_KEY",
     "SUPABASE_TABLE_NAME",
     "SPAM_ASSASSIN_HOST",
-    "SPAM_ASSASSIN_PORT"
+    "SPAM_ASSASSIN_PORT",
+    "PLAYWRIGHT_BROWSERS_PATH"
   ],
   "tasks": {
     "build": {
