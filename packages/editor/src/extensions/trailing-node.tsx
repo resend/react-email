@@ -76,9 +76,7 @@ export const TrailingNode = Extension.create<TrailingNodeOptions>({
 
     const disabledNodes = Object.entries(this.editor.schema.nodes)
       .map(([, value]) => value)
-      .filter((node) =>
-        notAfter.concat(defaultNode).includes(node.name),
-      );
+      .filter((node) => notAfter.concat(defaultNode).includes(node.name));
 
     const appendToType =
       this.editor.schema.nodes[this.options.appendTo || 'doc'];
