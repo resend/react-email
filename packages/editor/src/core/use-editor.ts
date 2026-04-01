@@ -7,6 +7,7 @@ import {
 } from '@tiptap/react';
 import * as React from 'react';
 import { StarterKit } from '../extensions';
+import { hasCollaborationExtension } from '../utils/is-collaboration';
 import { createDropHandler } from './create-drop-handler';
 import {
   createPasteHandler,
@@ -14,15 +15,6 @@ import {
   type UploadImageHandler,
 } from './create-paste-handler';
 import { isDocumentVisuallyEmpty } from './is-document-visually-empty';
-
-const COLLABORATION_EXTENSION_NAMES = new Set([
-  'liveblocksExtension',
-  'collaboration',
-]);
-
-function hasCollaborationExtension(exts: Extensions): boolean {
-  return exts.some((ext) => COLLABORATION_EXTENSION_NAMES.has(ext.name));
-}
 
 type Merge<A, B> = A & Omit<B, keyof A>;
 
