@@ -79,8 +79,8 @@ catalogs:
       specifier: ^8.0.0
       version: 8.2.0
     postcss:
-      specifier: 8.5.6
-      version: 8.5.6
+      specifier: 8.5.8
+      version: 8.5.8
     prism-react-renderer:
       specifier: 2.4.1
       version: 2.4.1
@@ -365,7 +365,7 @@ importers:
         version: 0.0.6
       postcss:
         specifier: 'catalog:'
-        version: 8.5.6
+        version: 8.5.8
       tailwindcss:
         specifier: 'catalog:'
         version: 4.1.18
@@ -1125,7 +1125,7 @@ importers:
         version: 8.2.0
       postcss:
         specifier: 'catalog:'
-        version: 8.5.6
+        version: 8.5.8
       pretty-bytes:
         specifier: 6.1.1
         version: 6.1.1
@@ -7420,6 +7420,10 @@ packages:
 
   postcss@8.5.6:
     resolution: {integrity: sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==}
+    engines: {node: ^10 || ^12 || >=14}
+
+  postcss@8.5.8:
+    resolution: {integrity: sha512-OW/rX8O/jXnm82Ey1k44pObPtdblfiuWnrd8X7GJ7emImCOstunGbXUpp7HdBrFQX6rJzn3sPT397Wp5aCwCHg==}
     engines: {node: ^10 || ^12 || >=14}
 
   potpack@1.0.2:
@@ -16087,6 +16091,12 @@ snapshots:
       source-map-js: 1.2.1
 
   postcss@8.5.6:
+    dependencies:
+      nanoid: 3.3.11
+      picocolors: 1.1.1
+      source-map-js: 1.2.1
+
+  postcss@8.5.8:
     dependencies:
       nanoid: 3.3.11
       picocolors: 1.1.1
