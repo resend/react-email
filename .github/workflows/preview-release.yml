@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 2
       - run: git config --global --add safe.directory $GITHUB_WORKSPACE
       - name: pnpm setup
-        uses: pnpm/action-setup@738f428026a1f5a72398de22aeed83d859c4a660
+        uses: pnpm/action-setup@6e7bdbda5fe05107efc88b23b7ed00aa05f84ca0
       - name: Install packages
         run: pnpm install --frozen-lockfile --prefer-offline
       - name: Find changed packages
