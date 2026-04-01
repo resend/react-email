@@ -102,7 +102,16 @@ export const Container = EmailNode.create<ContainerOptions>({
               return {};
             },
         appendTransaction(_transactions, oldState, newState) {
-          if (newState.doc.eq(oldState.doc) || hasContainerNode(newState.doc)) {
+          if (hasContainerNode(newState.doc)) {
+            return null;
+          }
+
+          // This is meant to deal with the weird behavior from Liveblocks's extension. It repeatedly creates transactions that do basically no changes before the actual content of the room arrives. And, if we don't do this, this plugin wraps the initial document from TipTap (an empty paragraph) with a container, and this is then kept in the TipTap, effectively duplicating containers every time someone opens the editor.
+          //
+          // This check is, at the end of the day, a heuristic and therefore it might fail. It's just not the best solution, the best solution would be for us to either not receive any content update until the contents are actually being set, or to be able to distinguish between "fake" transactions and "real" transactions in the Liveblocks extension. But, for now, this is what we have.
+          // 
+          // One such case where this fails is if the email's contents are literally the default contents from TipTap, meaning an empty paragraph, it won't wrap, and we have a test for this that's being skipped in container.spec.tsx
+          if (newState.doc.eq(oldState.doc)) {
             return null;
           }
 
