@@ -39,7 +39,7 @@ Hide specific items from the default bubble menu using `excludeItems`:
 All excludable item keys:
 
 | Key | Description |
-|-----|-------------|
+| -- | -- |
 | `bold` | Bold toggle |
 | `italic` | Italic toggle |
 | `underline` | Underline toggle |
@@ -52,24 +52,38 @@ All excludable item keys:
 | `node-selector` | Block type selector (paragraph, headings, etc.) |
 | `link-selector` | Link add/edit control |
 
-## Excluding nodes and marks
+## Hiding on specific nodes or marks
 
-Prevent the bubble menu from showing on certain node types or when certain marks are active:
+Prevent the bubble menu from appearing on certain node types or when certain marks are active:
 
 ```tsx
 <BubbleMenu.Default
-  excludeNodes={['codeBlock', 'button']}
-  excludeMarks={['link']}
+  hideWhenActiveNodes={['codeBlock', 'button']}
+  hideWhenActiveMarks={['link']}
 />
 ```
 
-This is especially useful when combining the text bubble menu with other contextual menus:
+This is useful when combining the text bubble menu with contextual menus for links, images, or buttons -- each gets its own menu via `BubbleMenu.Root`:
 
 ```tsx
-{/* Hide text bubble menu on links and buttons — their own menus handle those */}
-<BubbleMenu.Default excludeNodes={['button']} excludeMarks={['link']} />
-<LinkBubbleMenu.Default />
-<ButtonBubbleMenu.Default />
+import { BubbleMenu, bubbleMenuTriggers } from '@react-email/editor/ui';
+import { PluginKey } from '@tiptap/pm/state';
+
+const linkPluginKey = new PluginKey('linkBubbleMenu');
+
+{/* Hide text bubble menu on links and buttons -- their own menus handle those */}
+<BubbleMenu.Default hideWhenActiveNodes={['button']} hideWhenActiveMarks={['link']} />
+
+<BubbleMenu.Root
+  shouldShow={bubbleMenuTriggers.nodeWithoutSelection('link')}
+  pluginKey={linkPluginKey}
+>
+  <BubbleMenu.LinkToolbar>
+    <BubbleMenu.LinkEditLink />
+    <BubbleMenu.LinkOpenLink />
+    <BubbleMenu.LinkUnlink />
+  </BubbleMenu.LinkToolbar>
+</BubbleMenu.Root>
 ```
 
 ## Composing from primitives
@@ -101,13 +115,13 @@ export function MyEditor() {
 }
 ```
 
-The pattern is: `BubbleMenu.Root` wraps everything, `BubbleMenu.ItemGroup` creates visual groupings,
+`BubbleMenu.Root` wraps everything, `BubbleMenu.ItemGroup` creates visual groupings,
 and individual items render the toggle buttons.
 
 ## Available items
 
 | Component | Description |
-|-----------|-------------|
+| -- | -- |
 | `BubbleMenu.Bold` | Bold toggle |
 | `BubbleMenu.Italic` | Italic toggle |
 | `BubbleMenu.Underline` | Underline toggle |
@@ -117,7 +131,7 @@ and individual items render the toggle buttons.
 | `BubbleMenu.AlignLeft` | Left alignment |
 | `BubbleMenu.AlignCenter` | Center alignment |
 | `BubbleMenu.AlignRight` | Right alignment |
-| `BubbleMenu.NodeSelector` | Block type dropdown (paragraph, h1–h3, etc.) |
+| `BubbleMenu.NodeSelector` | Block type dropdown (paragraph, h1-h3, etc.) |
 | `BubbleMenu.LinkSelector` | Link add/edit popover |
 | `BubbleMenu.Separator` | Visual separator between groups |
 

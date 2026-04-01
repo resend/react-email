@@ -343,10 +343,6 @@ export const EmailTheming = Extension.create<{
                 scopeSelector,
                 styleId: themeStyleId,
               });
-
-              const bodyBg = mergedCssJs.body?.backgroundColor;
-              view.dom.style.backgroundColor =
-                typeof bodyBg === 'string' ? bodyBg : '';
             }
 
             if (css !== prevCss) {
@@ -365,7 +361,6 @@ export const EmailTheming = Extension.create<{
             destroy() {
               document.getElementById(themeStyleId)?.remove();
               document.getElementById(globalStyleId)?.remove();
-              view.dom.style.backgroundColor = '';
               view.dom.removeAttribute(scopeAttribute);
             },
           };

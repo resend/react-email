@@ -1,0 +1,26 @@
+name: Sync Skills
+
+on:
+  push:
+    branches: [main]
+    paths: ['skills/**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger sync on resend-skills
+        env:
+          GH_TOKEN: ${{ secrets.SYNC_SKILLS_TO_RESEND_SKILLS }}
+        run: |
+          gh workflow run sync-from-repo.yml \
+            --repo resend/resend-skills \
+            --field repo=react-email \
+            --field skill-path=skills/react-email \
+            --field skill-name=react-email \
+            --field sha=${{ github.sha }} \
+            --field reviewer=${{ github.actor }}
