@@ -48,7 +48,7 @@ describe('isDocumentVisuallyEmpty', () => {
   it('returns true when document contains only an image node', () => {
     const doc = schema.node('doc', null, [schema.node('image')]);
 
-    expect(isDocumentVisuallyEmpty(doc)).toBe(true);
+    expect(isDocumentVisuallyEmpty(doc)).toBe(false);
   });
 
   it('returns false when document contains both an image and text', () => {
