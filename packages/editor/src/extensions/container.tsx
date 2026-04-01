@@ -75,17 +75,24 @@ export const Container = EmailNode.create<ContainerOptions>({
       {
         tag: 'table[role="presentation"]',
         priority: 60,
-        contentElement: 'td',
         getAttrs: (node) => {
           if (typeof node === 'string') {
             return false;
           }
-          const element = node as HTMLElement;
-          if (!element.style.maxWidth) {
+          const table = node as HTMLElement;
+          if (!table.style.maxWidth) {
+            return false;
+          }
+          const td = table.querySelector(
+            ':scope > tbody > tr:only-child > td:only-child',
+          );
+          if (!td) {
             return false;
           }
           return null;
         },
+        contentElement: (node) =>
+          node.querySelector(':scope > tbody > tr > td') as HTMLElement,
       },
     ];
   },
