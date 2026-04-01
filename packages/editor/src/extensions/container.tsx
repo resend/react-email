@@ -101,12 +101,8 @@ export const Container = EmailNode.create<ContainerOptions>({
               }
               return {};
             },
-        appendTransaction(transactions, _oldState, newState) {
-          const shouldIgnore = transactions.some(
-            (tr) => !tr.docChanged,
-          );
-
-          if (shouldIgnore || hasContainerNode(newState.doc)) {
+        appendTransaction(_transactions, oldState, newState) {
+          if (newState.doc.eq(oldState.doc) || hasContainerNode(newState.doc)) {
             return null;
           }
 
