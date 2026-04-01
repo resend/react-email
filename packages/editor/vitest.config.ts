@@ -4,12 +4,12 @@ import { playwright } from '@vitest/browser-playwright';
 import { defineConfig } from 'vitest/config';
 
 /**
- * Stub module used by browser tests to satisfy imports from
- * `@react-email/render` and `@react-email/markdown`. Those packages depend on
+ * Stub module used by browser tests to replace `@react-email/render` and
+ * `@react-email/markdown` at resolution time. Those packages depend on
  * Node-only modules (`prettier`, `md-to-react-email`) that Vite cannot resolve
- * in the browser environment. The extensions only use React component exports
- * from `@react-email/components` at runtime, never the render/markdown
- * functions, so stubbing is safe for component-level testing.
+ * in the browser environment. The stubs allow importing the real `EmailEditor`
+ * directly in browser tests — the serializer (`composeReactEmail`) is never
+ * called during component-level testing, so no-op stubs are safe.
  */
 const stubModule = resolve(__dirname, 'src/__tests__/stub-module.ts');
 

@@ -1,6 +1,6 @@
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
-import { TestEditor } from '../__tests__/test-editor';
+import { EmailEditor } from './email-editor';
 
 function getEditor() {
   return page.getByRole('textbox');
@@ -8,7 +8,7 @@ function getEditor() {
 
 describe('EmailEditor (browser)', () => {
   it('loads and content is editable', async () => {
-    render(<TestEditor />);
+    render(<EmailEditor />);
 
     const editor = getEditor();
     await expect.element(editor).toBeVisible();
@@ -23,7 +23,7 @@ describe('EmailEditor (browser)', () => {
   });
 
   it('slash command opens and inserts a heading', async () => {
-    render(<TestEditor />);
+    render(<EmailEditor />);
 
     const editor = getEditor();
     await editor.click();
@@ -55,7 +55,7 @@ describe('EmailEditor (browser)', () => {
   });
 
   it('slash command inserts a bullet list', async () => {
-    render(<TestEditor />);
+    render(<EmailEditor />);
 
     const editor = getEditor();
     await editor.click();
@@ -85,7 +85,7 @@ describe('EmailEditor (browser)', () => {
     // Use Control on Linux (CI), Meta (Cmd) on macOS
     const mod = navigator.platform.includes('Mac') ? 'Meta' : 'Control';
 
-    render(<TestEditor />);
+    render(<EmailEditor />);
 
     const editor = getEditor();
     await editor.click();

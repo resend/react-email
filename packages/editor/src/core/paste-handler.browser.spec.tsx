@@ -1,7 +1,7 @@
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { pasteHtml, pasteText } from '../__tests__/browser-test-helpers';
-import { TestEditor } from '../__tests__/test-editor';
+import { EmailEditor } from '../email-editor/email-editor';
 
 const htmlTemplate = `
 <!doctype html>
@@ -19,7 +19,7 @@ function getEditor() {
 
 describe('paste handling (browser)', () => {
   it('pasting plain text into an empty editor inserts text', async () => {
-    render(<TestEditor />);
+    render(<EmailEditor />);
 
     const editor = getEditor();
     await editor.click();
@@ -31,7 +31,7 @@ describe('paste handling (browser)', () => {
   });
 
   it('pasting plain text into a non-empty editor appends text', async () => {
-    render(<TestEditor />);
+    render(<EmailEditor />);
 
     const editor = getEditor();
     await editor.click();
@@ -45,7 +45,7 @@ describe('paste handling (browser)', () => {
 
   it('pasting HTML into a non-empty document preserves existing content', async () => {
     render(
-      <TestEditor
+      <EmailEditor
         content={{
           type: 'doc',
           content: [
