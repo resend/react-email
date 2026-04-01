@@ -140,7 +140,7 @@
   "devDependencies": {
     "@testing-library/react": "16.0.0",
     "@types/node": "catalog:",
-    "@types/prismjs": "1.26.5",
+    "@types/prismjs": "1.26.6",
     "@vitejs/plugin-react": "catalog:",
     "@vitest/browser-playwright": "4.0.17",
     "playwright": "1.58.2",
