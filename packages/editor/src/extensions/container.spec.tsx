@@ -2,6 +2,7 @@ import { render } from '@react-email/components';
 import type { JSONContent } from '@tiptap/core';
 import { Editor, Extension } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
+import { Container as ReactEmailContainer } from '@react-email/components';
 import { composeReactEmail } from '../core/serializer/compose-react-email';
 import { DEFAULT_STYLES } from '../utils/default-styles';
 import { Container } from './container';
@@ -820,6 +821,488 @@ describe('Container Node', () => {
         }
       }
     });
+  });
+
+  function createEmptyEditor() {
+    editor = new Editor({ extensions: [StarterKit] });
+    editor.view.dispatch(editor.state.tr);
+    return editor;
+  }
+
+  it('parses Container component HTML as a container node', async () => {
+    const ed = createEmptyEditor();
+
+    ed.commands.setContent(
+      await render(
+        <ReactEmailContainer>
+          well hello friendsssssssssss{' '}
+          <a href="httsp://react.email">click this</a>
+        </ReactEmailContainer>,
+      ),
+    );
+
+    expect(ed.getJSON()).toMatchInlineSnapshot(`
+      {
+        "content": [
+          {
+            "content": [
+              {
+                "attrs": {
+                  "alignment": null,
+                  "class": "",
+                  "style": "",
+                },
+                "content": [
+                  {
+                    "text": "well hello friendsssssssssss ",
+                    "type": "text",
+                  },
+                  {
+                    "marks": [
+                      {
+                        "attrs": {
+                          "class": "",
+                          "href": "httsp://react.email",
+                          "rel": "noopener noreferrer nofollow",
+                          "ses:no-track": null,
+                          "style": "",
+                          "target": "_blank",
+                          "title": null,
+                        },
+                        "type": "link",
+                      },
+                    ],
+                    "text": "click this",
+                    "type": "text",
+                  },
+                ],
+                "type": "paragraph",
+              },
+            ],
+            "type": "container",
+          },
+        ],
+        "type": "doc",
+      }
+    `);
+  });
+
+  it('does not parse a table without max-width as a container', () => {
+    const ed = createEmptyEditor();
+
+    ed.commands.setContent(
+      '<table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation"><tbody><tr style="width: 100%"><td><p>Hello world</p></td></tr></tbody></table>',
+    );
+
+    expect(ed.getJSON()).toMatchInlineSnapshot(`
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "attrs": {
+                    "align": "center",
+                    "alignment": "center",
+                    "border": "0",
+                    "cellpadding": "0",
+                    "cellspacing": "0",
+                    "class": "",
+                    "data-id": null,
+                    "dir": null,
+                    "height": null,
+                    "id": null,
+                    "lang": null,
+                    "style": "",
+                    "title": null,
+                    "width": "100%",
+                  },
+                  "content": [
+                    {
+                      "attrs": {
+                        "align": null,
+                        "alignment": null,
+                        "bgcolor": null,
+                        "class": "",
+                        "colspan": null,
+                        "data-id": null,
+                        "dir": null,
+                        "height": null,
+                        "id": null,
+                        "lang": null,
+                        "rowspan": null,
+                        "style": "width: 100%",
+                        "title": null,
+                        "valign": null,
+                        "width": null,
+                      },
+                      "content": [
+                        {
+                          "attrs": {
+                            "align": null,
+                            "alignment": null,
+                            "bgcolor": null,
+                            "class": "",
+                            "colspan": null,
+                            "data-id": null,
+                            "dir": null,
+                            "height": null,
+                            "id": null,
+                            "lang": null,
+                            "rowspan": null,
+                            "style": "",
+                            "title": null,
+                            "valign": null,
+                            "width": null,
+                          },
+                          "content": [
+                            {
+                              "attrs": {
+                                "alignment": null,
+                                "class": "",
+                                "style": "",
+                              },
+                              "content": [
+                                {
+                                  "text": "Hello world",
+                                  "type": "text",
+                                },
+                              ],
+                              "type": "paragraph",
+                            },
+                          ],
+                          "type": "tableCell",
+                        },
+                      ],
+                      "type": "tableRow",
+                    },
+                  ],
+                  "type": "table",
+                },
+                {
+                  "attrs": {
+                    "alignment": null,
+                    "class": "",
+                    "style": "",
+                  },
+                  "type": "paragraph",
+                },
+              ],
+              "type": "container",
+            },
+          ],
+          "type": "doc",
+        }
+      `);
+  });
+
+  it('does not parse a table with multiple rows as a container', () => {
+    const ed = createEmptyEditor();
+
+    ed.commands.setContent(
+      '<table role="presentation" style="max-width: 37.5em"><tbody><tr><td><p>Row 1</p></td></tr><tr><td><p>Row 2</p></td></tr></tbody></table>',
+    );
+
+    expect(ed.getJSON()).toMatchInlineSnapshot(`
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "attrs": {
+                    "align": null,
+                    "alignment": null,
+                    "border": null,
+                    "cellpadding": null,
+                    "cellspacing": null,
+                    "class": "",
+                    "data-id": null,
+                    "dir": null,
+                    "height": null,
+                    "id": null,
+                    "lang": null,
+                    "style": "max-width: 37.5em",
+                    "title": null,
+                    "width": null,
+                  },
+                  "content": [
+                    {
+                      "attrs": {
+                        "align": null,
+                        "alignment": null,
+                        "bgcolor": null,
+                        "class": "",
+                        "colspan": null,
+                        "data-id": null,
+                        "dir": null,
+                        "height": null,
+                        "id": null,
+                        "lang": null,
+                        "rowspan": null,
+                        "style": "",
+                        "title": null,
+                        "valign": null,
+                        "width": null,
+                      },
+                      "content": [
+                        {
+                          "attrs": {
+                            "align": null,
+                            "alignment": null,
+                            "bgcolor": null,
+                            "class": "",
+                            "colspan": null,
+                            "data-id": null,
+                            "dir": null,
+                            "height": null,
+                            "id": null,
+                            "lang": null,
+                            "rowspan": null,
+                            "style": "",
+                            "title": null,
+                            "valign": null,
+                            "width": null,
+                          },
+                          "content": [
+                            {
+                              "attrs": {
+                                "alignment": null,
+                                "class": "",
+                                "style": "",
+                              },
+                              "content": [
+                                {
+                                  "text": "Row 1",
+                                  "type": "text",
+                                },
+                              ],
+                              "type": "paragraph",
+                            },
+                          ],
+                          "type": "tableCell",
+                        },
+                      ],
+                      "type": "tableRow",
+                    },
+                    {
+                      "attrs": {
+                        "align": null,
+                        "alignment": null,
+                        "bgcolor": null,
+                        "class": "",
+                        "colspan": null,
+                        "data-id": null,
+                        "dir": null,
+                        "height": null,
+                        "id": null,
+                        "lang": null,
+                        "rowspan": null,
+                        "style": "",
+                        "title": null,
+                        "valign": null,
+                        "width": null,
+                      },
+                      "content": [
+                        {
+                          "attrs": {
+                            "align": null,
+                            "alignment": null,
+                            "bgcolor": null,
+                            "class": "",
+                            "colspan": null,
+                            "data-id": null,
+                            "dir": null,
+                            "height": null,
+                            "id": null,
+                            "lang": null,
+                            "rowspan": null,
+                            "style": "",
+                            "title": null,
+                            "valign": null,
+                            "width": null,
+                          },
+                          "content": [
+                            {
+                              "attrs": {
+                                "alignment": null,
+                                "class": "",
+                                "style": "",
+                              },
+                              "content": [
+                                {
+                                  "text": "Row 2",
+                                  "type": "text",
+                                },
+                              ],
+                              "type": "paragraph",
+                            },
+                          ],
+                          "type": "tableCell",
+                        },
+                      ],
+                      "type": "tableRow",
+                    },
+                  ],
+                  "type": "table",
+                },
+                {
+                  "attrs": {
+                    "alignment": null,
+                    "class": "",
+                    "style": "",
+                  },
+                  "type": "paragraph",
+                },
+              ],
+              "type": "container",
+            },
+          ],
+          "type": "doc",
+        }
+      `);
+  });
+
+  it('does not parse a table with multiple cells as a container', () => {
+    const ed = createEmptyEditor();
+
+    ed.commands.setContent(
+      '<table role="presentation" style="max-width: 37.5em"><tbody><tr><td><p>Cell 1</p></td><td><p>Cell 2</p></td></tr></tbody></table>',
+    );
+
+    expect(ed.getJSON()).toMatchInlineSnapshot(`
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "attrs": {
+                    "align": null,
+                    "alignment": null,
+                    "border": null,
+                    "cellpadding": null,
+                    "cellspacing": null,
+                    "class": "",
+                    "data-id": null,
+                    "dir": null,
+                    "height": null,
+                    "id": null,
+                    "lang": null,
+                    "style": "max-width: 37.5em",
+                    "title": null,
+                    "width": null,
+                  },
+                  "content": [
+                    {
+                      "attrs": {
+                        "align": null,
+                        "alignment": null,
+                        "bgcolor": null,
+                        "class": "",
+                        "colspan": null,
+                        "data-id": null,
+                        "dir": null,
+                        "height": null,
+                        "id": null,
+                        "lang": null,
+                        "rowspan": null,
+                        "style": "",
+                        "title": null,
+                        "valign": null,
+                        "width": null,
+                      },
+                      "content": [
+                        {
+                          "attrs": {
+                            "align": null,
+                            "alignment": null,
+                            "bgcolor": null,
+                            "class": "",
+                            "colspan": null,
+                            "data-id": null,
+                            "dir": null,
+                            "height": null,
+                            "id": null,
+                            "lang": null,
+                            "rowspan": null,
+                            "style": "",
+                            "title": null,
+                            "valign": null,
+                            "width": null,
+                          },
+                          "content": [
+                            {
+                              "attrs": {
+                                "alignment": null,
+                                "class": "",
+                                "style": "",
+                              },
+                              "content": [
+                                {
+                                  "text": "Cell 1",
+                                  "type": "text",
+                                },
+                              ],
+                              "type": "paragraph",
+                            },
+                          ],
+                          "type": "tableCell",
+                        },
+                        {
+                          "attrs": {
+                            "align": null,
+                            "alignment": null,
+                            "bgcolor": null,
+                            "class": "",
+                            "colspan": null,
+                            "data-id": null,
+                            "dir": null,
+                            "height": null,
+                            "id": null,
+                            "lang": null,
+                            "rowspan": null,
+                            "style": "",
+                            "title": null,
+                            "valign": null,
+                            "width": null,
+                          },
+                          "content": [
+                            {
+                              "attrs": {
+                                "alignment": null,
+                                "class": "",
+                                "style": "",
+                              },
+                              "content": [
+                                {
+                                  "text": "Cell 2",
+                                  "type": "text",
+                                },
+                              ],
+                              "type": "paragraph",
+                            },
+                          ],
+                          "type": "tableCell",
+                        },
+                      ],
+                      "type": "tableRow",
+                    },
+                  ],
+                  "type": "table",
+                },
+                {
+                  "attrs": {
+                    "alignment": null,
+                    "class": "",
+                    "style": "",
+                  },
+                  "type": "paragraph",
+                },
+              ],
+              "type": "container",
+            },
+          ],
+          "type": "doc",
+        }
+      `);
   });
 
   it('wraps content inside a container in the serialized output', async () => {
