@@ -1,8 +1,10 @@
-import { render } from '@react-email/components';
+import {
+  Container as ReactEmailContainer,
+  render,
+} from '@react-email/components';
 import type { JSONContent } from '@tiptap/core';
 import { Editor, Extension } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
-import { Container as ReactEmailContainer } from '@react-email/components';
 import { composeReactEmail } from '../core/serializer/compose-react-email';
 import { DEFAULT_STYLES } from '../utils/default-styles';
 import { Container } from './container';
