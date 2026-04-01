@@ -46,9 +46,5 @@ function hasOnlyEmptyParagraph(node: Node): boolean {
 }
 
 function isEmptyParagraph(node: Node): boolean {
-  return (
-    node.type.name === 'paragraph' &&
-    node.textContent.trim().length === 0 &&
-    node.content.childCount === 0
-  );
+  return node.type.name === 'paragraph' && node.textContent.length === 0;
 }
