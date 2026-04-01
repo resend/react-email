@@ -311,6 +311,17 @@ describe('Container Node', () => {
   });
 
   describe('collaboration mode (simulated liveblocks)', () => {
+    // Replays the real Liveblocks transaction pattern observed in production:
+    //
+    //  1. One y-sync$ replacing doc with a bare empty paragraph
+    //     (TipTap normalises null → '' → schema `block+` gives one <p>)
+    //  2. ~18 rapid-fire y-sync$ "stabilisation" transactions that each
+    //     replace the doc with container+paragraph (the Yjs doc mirrors
+    //     back the container that appendTransaction created after step 1)
+    //  3. One final y-sync$ delivering the real document content
+    //  4. Two generic no-op transactions (Liveblocks cleanup)
+    const STABILIZATION_ROUNDS = 18;
+
     function createFakeLiveblocksExtension(getContent: (schema: any) => any) {
       let resolve: () => void;
       const promise = new Promise<void>((rslv) => {
@@ -322,27 +333,40 @@ describe('Container Node', () => {
           onCreate() {
             const { view } = this.editor;
             const { schema } = view.state;
-            const content = getContent(schema);
+            const finalContent = getContent(schema);
 
-            const tr1 = view.state.tr;
+            const tr1 = view.state.tr.replaceWith(
+              0,
+              view.state.doc.content.size,
+              schema.nodes.paragraph.create(),
+            );
             tr1.setMeta('y-sync$', true);
-            // transaction with y-sync$ meta
             view.dispatch(tr1);
 
-            // empty transaction without y-sync$ meta also caused by liveblocks
-            view.dispatch(view.state.tr);
-
-            setTimeout(() => {
-              const tr2 = view.state.tr.replaceWith(
+            // lots of updates that don't really change the document
+            for (let i = 0; i < STABILIZATION_ROUNDS; i++) {
+              const tr = view.state.tr.replaceWith(
                 0,
                 view.state.doc.content.size,
-                content,
+                view.state.doc,
               );
-              // actual update to the content bringing over the new content from liveblocks
-              tr2.setMeta('y-sync$', true);
-              view.dispatch(tr2);
-              resolve();
-            }, 100);
+              tr.setMeta('y-sync$', true);
+              view.dispatch(tr);
+            }
+
+            // some empty transactions that don't do anything
+            view.dispatch(view.state.tr);
+            view.dispatch(view.state.tr);
+
+            const trFinal = view.state.tr.replaceWith(
+              0,
+              view.state.doc.content.size,
+              finalContent,
+            );
+            trFinal.setMeta('y-sync$', true);
+            view.dispatch(trFinal);
+
+            resolve();
           },
         }),
         promise,
@@ -365,13 +389,32 @@ describe('Container Node', () => {
       await contentResolved;
 
       const json = editor!.getJSON();
-      const containers = json.content!.filter((n) => n.type === 'container');
-      expect(containers).toHaveLength(1);
-      expect(containers[0]!.content).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({ type: 'paragraph' }),
-        ]),
-      );
+      expect(json).toMatchInlineSnapshot(`
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "attrs": {
+                    "alignment": null,
+                    "class": "",
+                    "style": "",
+                  },
+                  "content": [
+                    {
+                      "text": "Hello from collaboration",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "container",
+            },
+          ],
+          "type": "doc",
+        }
+      `);
     });
 
     it('does not duplicate container when collaboration syncs content with a container', async () => {
@@ -392,10 +435,394 @@ describe('Container Node', () => {
       await contentResolved;
 
       const json = editor!.getJSON();
+      expect(json).toMatchInlineSnapshot(`
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "attrs": {
+                    "alignment": null,
+                    "class": "",
+                    "style": "",
+                  },
+                  "content": [
+                    {
+                      "text": "Hello from collaboration",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "container",
+            },
+          ],
+          "type": "doc",
+        }
+      `);
+    });
+
+    it('wraps the schema-default empty paragraph when collaboration starts with no content', async () => {
+      const [fakeLiveblocks, contentResolved] = createFakeLiveblocksExtension(
+        (schema) => schema.nodes.paragraph.create(),
+      );
+
+      editor = new Editor({
+        extensions: [StarterKit, fakeLiveblocks],
+      });
+
+      await contentResolved;
+
+      const json = editor!.getJSON();
+      expect(json).toMatchInlineSnapshot(`
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "attrs": {
+                    "alignment": null,
+                    "class": "",
+                    "style": "",
+                  },
+                  "content": [
+                    {
+                      "text": "",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "container",
+            },
+          ],
+          "type": "doc",
+        }
+      `);
+    });
+
+    it('preserves globalContent outside the container when synced via collaboration', async () => {
+      const [fakeLiveblocks, contentResolved] = createFakeLiveblocksExtension(
+        (schema) => {
+          const globalContent = schema.nodes.globalContent.create({
+            data: { theme: 'basic' },
+          });
+          const paragraph = schema.nodes.paragraph.create(
+            null,
+            schema.text('Collab content'),
+          );
+          return [globalContent, paragraph];
+        },
+      );
+
+      editor = new Editor({
+        extensions: [StarterKit, fakeLiveblocks],
+      });
+
+      await contentResolved;
+
+      const json = editor!.getJSON();
+      expect(json).toMatchInlineSnapshot(`
+        {
+          "content": [
+            {
+              "attrs": {
+                "data": {
+                  "theme": "basic",
+                },
+              },
+              "type": "globalContent",
+            },
+            {
+              "content": [
+                {
+                  "attrs": {
+                    "alignment": null,
+                    "class": "",
+                    "style": "",
+                  },
+                  "content": [
+                    {
+                      "text": "Collab content",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "container",
+            },
+          ],
+          "type": "doc",
+        }
+      `);
+    });
+
+    it('wraps multiple blocks synced via collaboration into a single container', async () => {
+      const [fakeLiveblocks, contentResolved] = createFakeLiveblocksExtension(
+        (schema) => {
+          const heading = schema.nodes.heading.create(
+            { level: 1 },
+            schema.text('Title'),
+          );
+          const p1 = schema.nodes.paragraph.create(
+            null,
+            schema.text('First paragraph'),
+          );
+          const p2 = schema.nodes.paragraph.create(
+            null,
+            schema.text('Second paragraph'),
+          );
+          return [heading, p1, p2];
+        },
+      );
+
+      editor = new Editor({
+        extensions: [StarterKit, fakeLiveblocks],
+      });
+
+      await contentResolved;
+
+      const json = editor!.getJSON();
+      expect(json).toMatchInlineSnapshot(`
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "attrs": {
+                    "alignment": null,
+                    "class": "",
+                    "level": 1,
+                    "style": "",
+                  },
+                  "content": [
+                    {
+                      "text": "Title",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "heading",
+                },
+                {
+                  "attrs": {
+                    "alignment": null,
+                    "class": "",
+                    "style": "",
+                  },
+                  "content": [
+                    {
+                      "text": "First paragraph",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+                {
+                  "attrs": {
+                    "alignment": null,
+                    "class": "",
+                    "style": "",
+                  },
+                  "content": [
+                    {
+                      "text": "Second paragraph",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "container",
+            },
+          ],
+          "type": "doc",
+        }
+      `);
+    });
+
+    it('does not duplicate container across multiple sequential y-sync$ updates', async () => {
+      let resolveInit: () => void;
+      let resolveUpdate: () => void;
+      const initDone = new Promise<void>((r) => {
+        resolveInit = r;
+      });
+      const updateDone = new Promise<void>((r) => {
+        resolveUpdate = r;
+      });
+
+      const fakeLiveblocks = Extension.create({
+        name: 'liveblocksExtension',
+        onCreate() {
+          const { view } = this.editor;
+          const { schema } = view.state;
+
+          // Full init pattern
+          const tr1 = view.state.tr.replaceWith(
+            0,
+            view.state.doc.content.size,
+            schema.nodes.paragraph.create(),
+          );
+          tr1.setMeta('y-sync$', true);
+          view.dispatch(tr1);
+
+          for (let i = 0; i < STABILIZATION_ROUNDS; i++) {
+            const tr = view.state.tr.replaceWith(
+              0,
+              view.state.doc.content.size,
+              view.state.doc,
+            );
+            tr.setMeta('y-sync$', true);
+            view.dispatch(tr);
+          }
+
+          const p1 = schema.nodes.paragraph.create(
+            null,
+            schema.text('First sync'),
+          );
+          const trFinal = view.state.tr.replaceWith(
+            0,
+            view.state.doc.content.size,
+            schema.nodes.container.create(null, p1),
+          );
+          trFinal.setMeta('y-sync$', true);
+          view.dispatch(trFinal);
+
+          view.dispatch(view.state.tr);
+          view.dispatch(view.state.tr);
+
+          resolveInit!();
+
+          // A second user edits; Liveblocks delivers another y-sync$
+          setTimeout(() => {
+            const p2 = schema.nodes.paragraph.create(
+              null,
+              schema.text('Second sync'),
+            );
+            const trUpdate = view.state.tr.replaceWith(
+              0,
+              view.state.doc.content.size,
+              schema.nodes.container.create(null, p2),
+            );
+            trUpdate.setMeta('y-sync$', true);
+            view.dispatch(trUpdate);
+            resolveUpdate!();
+          }, 50);
+        },
+      });
+
+      editor = new Editor({
+        extensions: [StarterKit, fakeLiveblocks],
+      });
+
+      await initDone;
+      let json = editor.getJSON();
+      expect(json).toMatchInlineSnapshot(`
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "attrs": {
+                    "alignment": null,
+                    "class": "",
+                    "style": "",
+                  },
+                  "content": [
+                    {
+                      "text": "First sync",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "container",
+            },
+          ],
+          "type": "doc",
+        }
+      `);
+
+      await updateDone;
+      json = editor.getJSON();
+      expect(json).toMatchInlineSnapshot(`
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "attrs": {
+                    "alignment": null,
+                    "class": "",
+                    "style": "",
+                  },
+                  "content": [
+                    {
+                      "text": "Second sync",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "container",
+            },
+          ],
+          "type": "doc",
+        }
+      `);
+    });
+
+    it('does not eagerly wrap before the first y-sync$ content arrives', () => {
+      const fakeLiveblocks = Extension.create({
+        name: 'liveblocksExtension',
+      });
+
+      editor = new Editor({
+        extensions: [StarterKit, fakeLiveblocks],
+      });
+
+      const json = editor!.getJSON();
+      expect(json.content!.some((n) => n.type === 'container')).toBe(false);
+    });
+
+    it('preserves multiple containers when the synced document has them', async () => {
+      const [fakeLiveblocks, contentResolved] = createFakeLiveblocksExtension(
+        (schema) => {
+          const container1 = schema.nodes.container.create(null, [
+            schema.nodes.paragraph.create(
+              null,
+              schema.text('well hello friends'),
+            ),
+          ]);
+          const container2 = schema.nodes.container.create(
+            null,
+            schema.nodes.paragraph.create(),
+          );
+          const container3 = schema.nodes.container.create(
+            null,
+            schema.nodes.paragraph.create(),
+          );
+          return [container1, container2, container3];
+        },
+      );
+
+      editor = new Editor({
+        extensions: [StarterKit, fakeLiveblocks],
+      });
+
+      await contentResolved;
+
+      const json = editor!.getJSON();
       const containers = json.content!.filter((n) => n.type === 'container');
-      expect(containers).toHaveLength(1);
-      for (const child of containers[0]!.content!) {
-        expect(child.type).not.toBe('container');
+      expect(containers).toHaveLength(3);
+      for (const container of containers) {
+        for (const child of container.content!) {
+          expect(child.type).not.toBe('container');
+        }
       }
     });
   });
