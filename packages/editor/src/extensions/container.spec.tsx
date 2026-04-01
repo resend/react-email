@@ -365,7 +365,6 @@ describe('Container Node', () => {
       await contentResolved;
 
       const json = editor!.getJSON();
-      console.dir(json);
       const containers = json.content!.filter((n) => n.type === 'container');
       expect(containers).toHaveLength(1);
       expect(containers[0]!.content).toEqual(

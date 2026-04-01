@@ -103,7 +103,7 @@ export const Container = EmailNode.create<ContainerOptions>({
             },
         appendTransaction(transactions, _oldState, newState) {
           const shouldIgnore = transactions.some(
-            (tr) => tr.getMeta('y-sync$') || !tr.docChanged,
+            (tr) => !tr.docChanged,
           );
 
           if (shouldIgnore || hasContainerNode(newState.doc)) {
