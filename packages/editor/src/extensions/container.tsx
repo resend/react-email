@@ -70,7 +70,24 @@ export const Container = EmailNode.create<ContainerOptions>({
   },
 
   parseHTML() {
-    return [{ tag: 'div[data-type="container"]' }];
+    return [
+      { tag: 'div[data-type="container"]' },
+      {
+        tag: 'table[role="presentation"]',
+        priority: 60,
+        contentElement: 'td',
+        getAttrs: (node) => {
+          if (typeof node === 'string') {
+            return false;
+          }
+          const element = node as HTMLElement;
+          if (!element.style.maxWidth) {
+            return false;
+          }
+          return null;
+        },
+      },
+    ];
   },
 
   renderHTML({ HTMLAttributes }) {
