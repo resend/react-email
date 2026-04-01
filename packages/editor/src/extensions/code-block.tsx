@@ -142,6 +142,7 @@ export const CodeBlockPrism = EmailNode.from(
       : 'javascript';
 
     // @ts-expect-error -- @react-email/components does not export theme objects by name; dynamic access needed for user-selected themes
+    // biome-ignore lint/performance/noDynamicNamespaceImportAccess: dynamic access needed for user-selected themes
     const userTheme = ReactEmailComponents[node.attrs?.theme];
 
     // Without theme, render a gray code block
