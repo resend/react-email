@@ -738,8 +738,8 @@ importers:
         specifier: 'catalog:'
         version: 22.19.13
       '@types/prismjs':
-        specifier: 1.26.5
-        version: 1.26.5
+        specifier: 1.26.6
+        version: 1.26.6
       '@vitejs/plugin-react':
         specifier: 'catalog:'
         version: 5.1.4(vite@7.3.1(@types/node@22.19.13)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.37.0)(tsx@4.21.0)(yaml@2.6.1))
@@ -4339,9 +4339,6 @@ packages:
 
   '@types/phoenix@1.6.6':
     resolution: {integrity: sha512-PIzZZlEppgrpoT2QgbnDU+MMzuR6BbCjllj0bM70lWoejMeNJAxCchxnv7J3XFkI8MpygtRpzXrIlmWUBclP5A==}
-
-  '@types/prismjs@1.26.5':
-    resolution: {integrity: sha512-AUZTa7hQ2KY5L7AmtSiqxlhWxb4ina0yd8hNbl4TWuqnv/pFP0nDMb3YrfSBf4hJVGLh2YEIBfKaBW/9UEl6IQ==}
 
   '@types/prismjs@1.26.6':
     resolution: {integrity: sha512-vqlvI7qlMvcCBbVe0AKAb4f97//Hy0EBTaiW8AalRnG/xAN5zOiWWyrNqNXeq8+KAuvRewjCVY1+IPxk4RdNYw==}
@@ -12462,8 +12459,6 @@ snapshots:
   '@types/offscreencanvas@2019.7.3': {}
 
   '@types/phoenix@1.6.6': {}
-
-  '@types/prismjs@1.26.5': {}
 
   '@types/prismjs@1.26.6': {}
 
