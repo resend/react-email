@@ -1,4 +1,48 @@
-import { type CssNode, clone, List, type StyleSheet, walk } from 'css-tree';
+import {
+  type CssNode,
+  type CssNodeCommon,
+  type List as CssTreeList,
+  clone,
+  type Identifier,
+  List,
+  type ListItem,
+  type StyleSheet,
+  walk,
+} from 'css-tree';
+
+/**
+ * css-tree v3 node types not yet in @types/css-tree@2.3.x.
+ * These match the runtime AST shape produced by css-tree 3.1.0.
+ */
+interface FeatureRange extends CssNodeCommon {
+  type: 'FeatureRange';
+  kind: string;
+  left: CssNode;
+  leftComparison: '>=' | '<=' | '>' | '<';
+  middle: CssNode;
+  rightComparison: string | null;
+  right: CssNode | null;
+}
+
+interface Feature extends CssNodeCommon {
+  type: 'Feature';
+  kind: string;
+  name: string;
+  value: CssNode;
+}
+
+interface RuleNode {
+  type: 'Rule';
+  prelude: CssNode;
+  block: { type: 'Block'; children: CssTreeList<CssNode> };
+}
+
+interface AtruleNode {
+  type: 'Atrule';
+  name: string;
+  prelude: CssNode;
+  block: { type: 'Block'; children: CssTreeList<CssNode> };
+}
 
 /**
  * Converts modern CSS features (range media queries, CSS nesting) into
@@ -27,38 +71,29 @@ const rangeToFeatureName: Record<string, string> = {
  */
 function convertFeatureRanges(ast: CssNode) {
   walk(ast, {
-    enter(node, item, list) {
-      if (node.type !== 'FeatureRange' || !list) return;
+    enter(node: CssNode, item: ListItem<CssNode>, list: CssTreeList<CssNode>) {
+      if (node.type !== ('FeatureRange' as CssNode['type']) || !list) return;
 
-      const prefix = rangeToFeatureName[node.leftComparison];
+      const rangeNode = node as unknown as FeatureRange;
+      const prefix = rangeToFeatureName[rangeNode.leftComparison];
       if (!prefix) return;
 
-      const featureName = node.left.type === 'Identifier' ? node.left.name : '';
+      const featureName =
+        rangeNode.left.type === 'Identifier'
+          ? (rangeNode.left as Identifier).name
+          : '';
       if (!featureName) return;
 
-      const feature: CssNode = {
+      const feature: Feature = {
         type: 'Feature',
-        kind: node.kind,
+        kind: rangeNode.kind,
         name: `${prefix}${featureName}`,
-        value: node.middle,
-      } as CssNode;
+        value: rangeNode.middle,
+      };
 
-      list.replace(item, list.createItem(feature));
+      list.replace(item, list.createItem(feature as unknown as CssNode));
     },
   });
-}
-
-interface RuleNode {
-  type: 'Rule';
-  prelude: CssNode;
-  block: { type: 'Block'; children: List<CssNode> };
-}
-
-interface AtruleNode {
-  type: 'Atrule';
-  name: string;
-  prelude: CssNode;
-  block: { type: 'Block'; children: List<CssNode> };
 }
 
 /**
@@ -72,7 +107,7 @@ function unnestRules(ast: StyleSheet) {
 
   for (const node of ast.children.toArray()) {
     if (node.type === 'Rule') {
-      const flattened = flattenRule(node as RuleNode);
+      const flattened = flattenRule(node as unknown as RuleNode);
       for (const flatNode of flattened) {
         newChildren.appendData(flatNode);
       }
@@ -119,7 +154,7 @@ function flattenRule(rule: RuleNode): CssNode[] {
       const innerFlattened = flattenRule({
         ...nestedRule,
         prelude: resolvedPrelude,
-      } as RuleNode);
+      });
       result.push(...innerFlattened);
     }
   }
@@ -144,7 +179,7 @@ function flattenRule(rule: RuleNode): CssNode[] {
  */
 function flattenBlockWithSelector(
   parentPrelude: CssNode,
-  children: List<CssNode>,
+  children: CssTreeList<CssNode>,
 ): CssNode[] {
   const result: CssNode[] = [];
   const declarations: CssNode[] = [];
@@ -158,7 +193,7 @@ function flattenBlockWithSelector(
       const innerFlattened = flattenRule({
         ...nestedRule,
         prelude: resolvedPrelude,
-      } as RuleNode);
+      });
       result.push(...innerFlattened);
     } else if (child.type === 'Atrule') {
       const atrule = child as unknown as AtruleNode;
@@ -205,7 +240,7 @@ function resolveNesting(
   const resolved = clone(nestedPrelude);
 
   walk(resolved, {
-    enter(node, item, list) {
+    enter(node: CssNode, item: ListItem<CssNode>, list: CssTreeList<CssNode>) {
       if (node.type !== 'NestingSelector' || !list) return;
 
       const parentSelectors = getFirstSelectorChildren(parentPrelude);
@@ -213,10 +248,9 @@ function resolveNesting(
 
       const clonedParent = parentSelectors.map((n) => clone(n));
 
-      let current = item;
+      // Insert each parent token before the `&` node, keeping original order.
       for (const parentNode of clonedParent) {
-        list.insertData(parentNode, current);
-        current = current.prev!;
+        list.insertData(parentNode, item);
       }
       list.remove(item);
     },
