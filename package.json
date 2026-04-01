@@ -29,7 +29,7 @@
     "happy-dom": "20.8.9",
     "mdast-util-to-string": "4.0.0",
     "nypm": "catalog:",
-    "pkg-pr-new": "0.0.65",
+    "pkg-pr-new": "0.0.66",
     "rollup": "4.59.0",
     "remark": "15.0.1",
     "tsconfig": "workspace:*",
