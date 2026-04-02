@@ -135,6 +135,7 @@
     "@tiptap/starter-kit": "^3.17.1",
     "@tiptap/suggestion": "^3.17.1",
     "hast-util-from-html": "^2.0.3",
+    "lucide-react": "0.544.0",
     "prismjs": "^1.30.0"
   },
   "devDependencies": {
