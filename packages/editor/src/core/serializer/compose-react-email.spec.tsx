@@ -2,6 +2,7 @@ import type { AnyExtension, JSONContent } from '@tiptap/core';
 import { Editor } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
 import { StarterKit } from '../../extensions';
+import { EmailTheming } from '../../plugins/email-theming/extension';
 import { composeReactEmail } from './compose-react-email';
 import { EmailNode } from './email-node';
 
@@ -47,6 +48,7 @@ function createEditorWithContent(
 function docWithGlobalContent(
   content: JSONContent['content'],
   styles = basicTheme,
+  theme: 'basic' | 'minimal' = 'basic',
 ): JSONContent {
   return {
     type: 'doc',
@@ -54,7 +56,7 @@ function docWithGlobalContent(
       {
         type: 'globalContent',
         attrs: {
-          data: { styles, theme: 'basic', css: '' },
+          data: { styles, theme, css: '' },
         },
       },
       ...(content ?? []),
@@ -350,5 +352,144 @@ describe('StarterKit node wrappers', () => {
     expect(result.html).toContain('<br');
     expect(result.html).toContain('Hello');
     expect(result.html).toContain('World');
+  });
+});
+
+describe('Button and image reset styles', () => {
+  it('should include display:inline-block on buttons with the basic theme', async () => {
+    const content = docWithGlobalContent(
+      [
+        {
+          type: 'button',
+          attrs: { href: 'https://example.com', class: 'button' },
+          content: [{ type: 'text', text: 'Click me' }],
+        },
+      ],
+      basicTheme,
+      'basic',
+    );
+
+    const ed = createEditorWithContent(content, [EmailTheming]);
+    const result = await composeReactEmail({ editor: ed, preview: '' });
+
+    expect(result.html).toMatch(/display:\s*inline-block/);
+    expect(result.html).toContain('Click me');
+  });
+
+  it('should include display:inline-block on buttons with the minimal theme', async () => {
+    const content = docWithGlobalContent(
+      [
+        {
+          type: 'button',
+          attrs: { href: 'https://example.com', class: 'button' },
+          content: [{ type: 'text', text: 'Click me' }],
+        },
+      ],
+      basicTheme,
+      'minimal',
+    );
+
+    const ed = createEditorWithContent(content, [EmailTheming]);
+    const result = await composeReactEmail({ editor: ed, preview: '' });
+
+    expect(result.html).toMatch(/display:\s*inline-block/);
+    expect(result.html).toContain('Click me');
+  });
+
+  it('should include line-height:100% on buttons with the minimal theme', async () => {
+    const content = docWithGlobalContent(
+      [
+        {
+          type: 'button',
+          attrs: { href: 'https://example.com', class: 'button' },
+          content: [{ type: 'text', text: 'Click me' }],
+        },
+      ],
+      basicTheme,
+      'minimal',
+    );
+
+    const ed = createEditorWithContent(content, [EmailTheming]);
+    const result = await composeReactEmail({ editor: ed, preview: '' });
+
+    expect(result.html).toMatch(/line-height:\s*100%/);
+  });
+
+  it('should include max-width:100% on images with the basic theme', async () => {
+    const ImageNode = EmailNode.create({
+      name: 'image',
+      group: 'block',
+      atom: true,
+      addAttributes() {
+        return {
+          src: { default: '' },
+          alt: { default: '' },
+        };
+      },
+      renderHTML({ HTMLAttributes }) {
+        return ['img', HTMLAttributes];
+      },
+      renderToReactEmail({ style, node }) {
+        return (
+          <img alt={node.attrs?.alt} src={node.attrs?.src} style={style} />
+        );
+      },
+    });
+
+    const content = docWithGlobalContent(
+      [
+        {
+          type: 'image',
+          attrs: { src: 'https://example.com/img.png', alt: 'test image' },
+        },
+      ],
+      basicTheme,
+      'basic',
+    );
+
+    const ed = createEditorWithContent(content, [ImageNode, EmailTheming]);
+    const result = await composeReactEmail({ editor: ed, preview: '' });
+
+    expect(result.html).toMatch(/max-width:\s*100%/);
+    expect(result.html).toContain('test image');
+  });
+
+  it('should include max-width:100% on images with the minimal theme', async () => {
+    const ImageNode = EmailNode.create({
+      name: 'image',
+      group: 'block',
+      atom: true,
+      addAttributes() {
+        return {
+          src: { default: '' },
+          alt: { default: '' },
+        };
+      },
+      renderHTML({ HTMLAttributes }) {
+        return ['img', HTMLAttributes];
+      },
+      renderToReactEmail({ style, node }) {
+        return (
+          <img alt={node.attrs?.alt} src={node.attrs?.src} style={style} />
+        );
+      },
+    });
+
+    const content = docWithGlobalContent(
+      [
+        {
+          type: 'image',
+          attrs: { src: 'https://example.com/img.png', alt: 'test image' },
+        },
+      ],
+      basicTheme,
+      'minimal',
+    );
+
+    const ed = createEditorWithContent(content, [ImageNode, EmailTheming]);
+    const result = await composeReactEmail({ editor: ed, preview: '' });
+
+    expect(result.html).toMatch(/max-width:\s*100%/);
+    expect(result.html).toContain('test image');
   });
 });
