@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isValidHexColor } from './is-valid-hex-color';
+import { isValidHexColor, normalizeHex } from './is-valid-hex-color';
 
 describe('isValidHexColor', () => {
   it('accepts 3-digit hex', () => {
@@ -38,5 +38,23 @@ describe('isValidHexColor', () => {
 
   it('rejects rgb()', () => {
     expect(isValidHexColor('rgb(255, 0, 0)')).toBe(false);
+  });
+});
+
+describe('normalizeHex', () => {
+  it('expands 3-digit hex to 6-digit', () => {
+    expect(normalizeHex('#abc')).toBe('#aabbcc');
+  });
+
+  it('passes through valid 6-digit hex', () => {
+    expect(normalizeHex('#ff00aa')).toBe('#ff00aa');
+  });
+
+  it('defaults empty string to black', () => {
+    expect(normalizeHex('')).toBe('#000000');
+  });
+
+  it('defaults invalid values to black', () => {
+    expect(normalizeHex('red')).toBe('#000000');
   });
 });
