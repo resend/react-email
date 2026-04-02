@@ -186,8 +186,7 @@ function ColorRow({
   value: string | number | undefined;
   onChange: (v: string) => void;
 }) {
-  console.log(label, value);
-  const strValue = String(value);
+  const strValue = value == null ? '' : String(value);
   const id = useId();
   return (
     <div className="flex items-center justify-between gap-2">
