@@ -107,7 +107,6 @@ export function getMergedCssJs(
 const RESET_NODE_TYPES = new Set([
   'body',
   'bulletList',
-  'container',
   'button',
   'columns',
   'div',
