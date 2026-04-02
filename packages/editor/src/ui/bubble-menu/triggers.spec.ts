@@ -38,77 +38,77 @@ function createMockParams(overrides: {
 describe('bubbleMenuTriggers', () => {
   describe('textSelection', () => {
     it('shows when there is a non-empty text selection', () => {
-      const shouldShow = bubbleMenuTriggers.textSelection();
-      expect(shouldShow(createMockParams({ selectionSize: 5 }))).toBe(true);
+      const trigger = bubbleMenuTriggers.textSelection();
+      expect(trigger(createMockParams({ selectionSize: 5 }))).toBe(true);
     });
 
     it('hides when selection is empty', () => {
-      const shouldShow = bubbleMenuTriggers.textSelection();
-      expect(shouldShow(createMockParams({ selectionSize: 0 }))).toBe(false);
+      const trigger = bubbleMenuTriggers.textSelection();
+      expect(trigger(createMockParams({ selectionSize: 0 }))).toBe(false);
     });
 
     it('hides when an excluded node is active', () => {
-      const shouldShow = bubbleMenuTriggers.textSelection(['codeBlock']);
+      const trigger = bubbleMenuTriggers.textSelection(['codeBlock']);
       expect(
-        shouldShow(createMockParams({ isActive: (n) => n === 'codeBlock' })),
+        trigger(createMockParams({ isActive: (n) => n === 'codeBlock' })),
       ).toBe(false);
     });
 
     it('hides when an excluded node is in ancestor chain', () => {
-      const shouldShow = bubbleMenuTriggers.textSelection(['codeBlock']);
+      const trigger = bubbleMenuTriggers.textSelection(['codeBlock']);
       const params = createMockParams({
         fromDepth: 2,
         nodeAtDepth: (d) => ({
           type: { name: d === 2 ? 'paragraph' : 'codeBlock' },
         }),
       });
-      expect(shouldShow(params)).toBe(false);
+      expect(trigger(params)).toBe(false);
     });
 
     it('hides when an excluded mark is active', () => {
-      const shouldShow = bubbleMenuTriggers.textSelection([], ['link']);
+      const trigger = bubbleMenuTriggers.textSelection([], ['link']);
       expect(
-        shouldShow(createMockParams({ isActive: (n) => n === 'link' })),
+        trigger(createMockParams({ isActive: (n) => n === 'link' })),
       ).toBe(false);
     });
   });
 
   describe('node', () => {
     it('shows when the specified node is active', () => {
-      const shouldShow = bubbleMenuTriggers.node('button');
+      const trigger = bubbleMenuTriggers.node('button');
       expect(
-        shouldShow(createMockParams({ isActive: (n) => n === 'button' })),
+        trigger(createMockParams({ isActive: (n) => n === 'button' })),
       ).toBe(true);
     });
 
     it('hides when the specified node is not active', () => {
-      const shouldShow = bubbleMenuTriggers.node('button');
-      expect(shouldShow(createMockParams({}))).toBe(false);
+      const trigger = bubbleMenuTriggers.node('button');
+      expect(trigger(createMockParams({}))).toBe(false);
     });
   });
 
   describe('nodeWithoutSelection', () => {
     it('shows when node is active and selection is empty', () => {
-      const shouldShow = bubbleMenuTriggers.nodeWithoutSelection('link');
+      const trigger = bubbleMenuTriggers.nodeWithoutSelection('link');
       expect(
-        shouldShow(
+        trigger(
           createMockParams({ isActive: (n) => n === 'link', selectionSize: 0 }),
         ),
       ).toBe(true);
     });
 
     it('hides when there is a text selection', () => {
-      const shouldShow = bubbleMenuTriggers.nodeWithoutSelection('link');
+      const trigger = bubbleMenuTriggers.nodeWithoutSelection('link');
       expect(
-        shouldShow(
+        trigger(
           createMockParams({ isActive: (n) => n === 'link', selectionSize: 5 }),
         ),
       ).toBe(false);
     });
 
     it('hides when node is not active', () => {
-      const shouldShow = bubbleMenuTriggers.nodeWithoutSelection('link');
-      expect(shouldShow(createMockParams({ selectionSize: 0 }))).toBe(false);
+      const trigger = bubbleMenuTriggers.nodeWithoutSelection('link');
+      expect(trigger(createMockParams({ selectionSize: 0 }))).toBe(false);
     });
   });
 });

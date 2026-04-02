@@ -75,7 +75,7 @@ const linkPluginKey = new PluginKey('linkBubbleMenu');
 <BubbleMenu.Default hideWhenActiveNodes={['button']} hideWhenActiveMarks={['link']} />
 
 <BubbleMenu.Root
-  shouldShow={bubbleMenuTriggers.nodeWithoutSelection('link')}
+  trigger={bubbleMenuTriggers.nodeWithoutSelection('link')}
   pluginKey={linkPluginKey}
 >
   <BubbleMenu.LinkToolbar>

@@ -3,13 +3,13 @@ import { useCurrentEditor } from '@tiptap/react';
 import { BubbleMenu } from '@tiptap/react/menus';
 import * as React from 'react';
 import { BubbleMenuContext } from './context';
-import { bubbleMenuTriggers, type ShouldShowFn } from './triggers';
+import { bubbleMenuTriggers, type TriggerFn } from './triggers';
 
 const defaultPluginKey = new PluginKey('bubbleMenu');
 
 export interface BubbleMenuRootProps
   extends Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> {
-  shouldShow?: ShouldShowFn;
+  trigger?: TriggerFn;
   pluginKey?: PluginKey;
   hideWhenActiveNodes?: string[];
   hideWhenActiveMarks?: string[];
@@ -20,7 +20,7 @@ export interface BubbleMenuRootProps
 }
 
 export function BubbleMenuRoot({
-  shouldShow,
+  trigger,
   pluginKey = defaultPluginKey,
   hideWhenActiveNodes = [],
   hideWhenActiveMarks = [],
@@ -34,8 +34,8 @@ export function BubbleMenuRoot({
   const { editor } = useCurrentEditor();
   const [isEditing, setIsEditing] = React.useState(false);
 
-  const resolvedShouldShow =
-    shouldShow ??
+  const resolvedTrigger =
+    trigger ??
     bubbleMenuTriggers.textSelection(hideWhenActiveNodes, hideWhenActiveMarks);
 
   if (!editor) {
@@ -47,7 +47,7 @@ export function BubbleMenuRoot({
       editor={editor}
       pluginKey={pluginKey}
       data-re-bubble-menu=""
-      shouldShow={resolvedShouldShow}
+      shouldShow={resolvedTrigger}
       options={{
         placement,
         offset,

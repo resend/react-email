@@ -2,7 +2,7 @@ import type { Editor } from '@tiptap/core';
 import type { EditorState } from '@tiptap/pm/state';
 import type { EditorView } from '@tiptap/pm/view';
 
-export interface ShouldShowParams {
+export interface TriggerParams {
   editor: Editor;
   view: EditorView;
   state: EditorState;
@@ -10,13 +10,13 @@ export interface ShouldShowParams {
   to: number;
 }
 
-export type ShouldShowFn = (params: ShouldShowParams) => boolean;
+export type TriggerFn = (params: TriggerParams) => boolean;
 
 export const bubbleMenuTriggers = {
   textSelection(
     hideWhenActiveNodes: string[] = [],
     hideWhenActiveMarks: string[] = [],
-  ): ShouldShowFn {
+  ): TriggerFn {
     return ({ editor, state }) => {
       for (const node of hideWhenActiveNodes) {
         if (editor.isActive(node)) {
@@ -38,11 +38,11 @@ export const bubbleMenuTriggers = {
     };
   },
 
-  node(name: string): ShouldShowFn {
+  node(name: string): TriggerFn {
     return ({ editor }) => editor.isActive(name);
   },
 
-  nodeWithoutSelection(name: string): ShouldShowFn {
+  nodeWithoutSelection(name: string): TriggerFn {
     return ({ editor }) =>
       editor.isActive(name) && editor.view.state.selection.content().size === 0;
   },
