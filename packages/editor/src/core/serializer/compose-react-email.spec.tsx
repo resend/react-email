@@ -430,7 +430,9 @@ describe('Button and image reset styles', () => {
         return ['img', HTMLAttributes];
       },
       renderToReactEmail({ style, node }) {
-        return <img alt={node.attrs?.alt} src={node.attrs?.src} style={style} />;
+        return (
+          <img alt={node.attrs?.alt} src={node.attrs?.src} style={style} />
+        );
       },
     });
 
@@ -467,7 +469,9 @@ describe('Button and image reset styles', () => {
         return ['img', HTMLAttributes];
       },
       renderToReactEmail({ style, node }) {
-        return <img alt={node.attrs?.alt} src={node.attrs?.src} style={style} />;
+        return (
+          <img alt={node.attrs?.alt} src={node.attrs?.src} style={style} />
+        );
       },
     });
 
