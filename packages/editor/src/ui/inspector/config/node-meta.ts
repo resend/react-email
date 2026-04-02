@@ -1,3 +1,4 @@
+import type { ElementType } from 'react';
 import {
   BoxIcon,
   CodeIcon,
@@ -14,8 +15,7 @@ import {
   TypeIcon,
   VariableIcon,
   YoutubeIcon,
-} from 'lucide-react';
-import type { ElementType } from 'react';
+} from '../../icons';
 
 interface NodeMeta {
   icon: ElementType;

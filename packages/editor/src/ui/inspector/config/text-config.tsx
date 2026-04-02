@@ -1,3 +1,4 @@
+import type { ElementType } from 'react';
 import {
   AlignCenterIcon,
   AlignCenterVerticalIcon,
@@ -13,7 +14,7 @@ import {
   ListOrderedIcon,
   StrikethroughIcon,
   UnderlineIcon,
-} from 'lucide-react';
+} from '../../icons';
 
 export interface ParentBlockInfo {
   alignment: string;
@@ -62,30 +63,27 @@ export const TEXT_TYPE_OPTIONS = [
   { value: 'body', label: 'Body', nodeType: 'paragraph' },
 ] as const;
 
-export const FORMAT_ITEMS = [
-  { value: 'bold', icon: <BoldIcon className="size-4" />, label: 'Bold' },
-  {
-    value: 'italic',
-    icon: <ItalicIcon className="size-4" />,
-    label: 'Italic',
-  },
-  {
-    value: 'underline',
-    icon: <UnderlineIcon className="size-4 translate-y-px" />,
-    label: 'Underline',
-  },
-  {
-    value: 'line-through',
-    icon: <StrikethroughIcon className="size-4" />,
-    label: 'Strikethrough',
-  },
-  { value: 'code', icon: <CodeIcon className="size-4" />, label: 'Code' },
-  {
-    value: 'uppercase',
-    icon: <CaseUpperIcon className="size-4 translate-y-px" />,
-    label: 'Uppercase',
-  },
-];
+export interface FormatItem {
+  value: string;
+  icon: ElementType;
+  iconClassName?: string;
+  label: string;
+}
+
+export interface AlignmentItem {
+  value: string;
+  icon: ElementType;
+  alternativeIcon?: ElementType;
+  iconClassName?: string;
+  alternativeIconClassName?: string;
+}
+
+export interface ListItem {
+  value: string;
+  icon: ElementType;
+  iconClassName?: string;
+  label: string;
+}
 
 export const MARK_TOGGLES = [
   {
@@ -125,51 +123,40 @@ export const MARK_TOGGLES = [
   },
 ] as const;
 
-export const ALIGNMENT_ITEMS = [
+export const FORMAT_ITEMS: FormatItem[] = [
+  { value: 'bold', icon: BoldIcon, label: 'Bold' },
+  { value: 'italic', icon: ItalicIcon, label: 'Italic' },
+  { value: 'underline', icon: UnderlineIcon, label: 'Underline' },
+  { value: 'line-through', icon: StrikethroughIcon, label: 'Strikethrough' },
+  { value: 'code', icon: CodeIcon, label: 'Code' },
+  { value: 'uppercase', icon: CaseUpperIcon, label: 'Uppercase' },
+];
+
+export const ALIGNMENT_ITEMS: AlignmentItem[] = [
   {
     value: 'left',
-    alternativeIcon: <AlignLeftIcon className="size-4" />,
-    icon: <AlignStartVerticalIcon className="size-4" />,
+    alternativeIcon: AlignLeftIcon,
+    icon: AlignStartVerticalIcon,
   },
   {
     value: 'center',
-    alternativeIcon: <AlignCenterIcon className="size-4" />,
-    icon: <AlignCenterVerticalIcon className="size-4" />,
+    alternativeIcon: AlignCenterIcon,
+    icon: AlignCenterVerticalIcon,
   },
   {
     value: 'right',
-    alternativeIcon: <AlignRightIcon className="size-4" />,
-    icon: <AlignEndVerticalIcon className="size-4" />,
+    alternativeIcon: AlignRightIcon,
+    icon: AlignEndVerticalIcon,
   },
 ];
 
-export const JUSTIFY_AND_LIST_ITEMS = [
-  {
-    value: 'bulletList',
-    icon: <ListIcon className="size-4" />,
-    label: 'Bullet list',
-  },
-  {
-    value: 'orderedList',
-    icon: <ListOrderedIcon className="size-4" />,
-    label: 'Ordered list',
-  },
+export const JUSTIFY_AND_LIST_ITEMS: ListItem[] = [
+  { value: 'bulletList', icon: ListIcon, label: 'Bullet list' },
+  { value: 'orderedList', icon: ListOrderedIcon, label: 'Ordered list' },
 ];
 
-export const TEXT_DECORATION_ITEMS = [
-  {
-    value: 'none',
-    icon: <span className="text-xs font-medium">Aa</span>,
-    label: 'None',
-  },
-  {
-    value: 'underline',
-    icon: <UnderlineIcon className="size-4 translate-y-px" />,
-    label: 'Underline',
-  },
-  {
-    value: 'line-through',
-    icon: <StrikethroughIcon className="size-4" />,
-    label: 'Strikethrough',
-  },
+export const TEXT_DECORATION_ITEMS: FormatItem[] = [
+  { value: 'none', icon: () => null, label: 'None' },
+  { value: 'underline', icon: UnderlineIcon, label: 'Underline' },
+  { value: 'line-through', icon: StrikethroughIcon, label: 'Strikethrough' },
 ];
