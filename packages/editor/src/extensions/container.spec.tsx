@@ -290,7 +290,7 @@ describe('Container Node', () => {
                 <td
                   style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%">
                   <table
-                    align="center"
+                    align="left"
                     width="100%"
                     border="0"
                     cellpadding="0"
@@ -1510,7 +1510,7 @@ describe('Container Node', () => {
                 <td
                   style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:14px;min-height:100%;line-height:155%">
                   <table
-                    align="center"
+                    align="left"
                     width="100%"
                     border="0"
                     cellpadding="0"
@@ -1591,7 +1591,7 @@ describe('Container Node', () => {
                 <td
                   style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%">
                   <table
-                    align="center"
+                    align="left"
                     width="100%"
                     border="0"
                     cellpadding="0"

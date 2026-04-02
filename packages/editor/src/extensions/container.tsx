@@ -165,7 +165,12 @@ export const Container = EmailNode.create<ContainerOptions>({
     return (
       <ReactEmailContainer
         className={node.attrs?.class || undefined}
-        align={node.attrs?.align || node.attrs?.alignment || 'center'}
+        align={
+          ((style as Record<string, unknown>).align as
+            | 'left'
+            | 'center'
+            | 'right') || 'center'
+        }
         style={{
           ...style,
           ...inlineStyles,
