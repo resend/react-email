@@ -107,7 +107,7 @@ export const LOCAL_PROPS_SCHEMA: Record<string, LocalPropConfig> = {
     options: {
       default: 'Default',
       atomDark: 'Atom Dark',
-      oneLight: 'Atom Light',
+      oneLight: 'One Light',
       dracula: 'Dracula',
       nord: 'Nord',
       duotoneDark: 'Duotone Dark',
