@@ -1,7 +1,7 @@
 import type { useCurrentEditor } from '@tiptap/react';
 import type { NodeClickedEvent } from '../../../core/types';
-import type { KnownCssProperties } from '../../../plugins/email-theming/types';
 import { SUPPORTED_CSS_PROPERTIES } from '../../../plugins/email-theming/themes';
+import type { KnownCssProperties } from '../../../plugins/email-theming/types';
 import {
   ensureBorderStyleFallback,
   inlineCssToJs,

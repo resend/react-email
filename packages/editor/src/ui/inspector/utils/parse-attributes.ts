@@ -1,13 +1,13 @@
 import type { Attrs } from '@tiptap/pm/model';
-import type { KnownCssProperties } from '../../../plugins/email-theming/types';
-import { humanizeString } from './humanize-string';
 import { SUPPORTED_CSS_PROPERTIES } from '../../../plugins/email-theming/themes';
+import type { KnownCssProperties } from '../../../plugins/email-theming/types';
 import {
   EXCLUDED_ATTRIBUTES,
   LIVEBLOCKS_INTERNAL_PROPS,
   LOCAL_PROPS_SCHEMA,
 } from '../config/attribute-schema';
 import { SECTION_METADATA } from '../config/node-section-config';
+import { humanizeString } from './humanize-string';
 
 export interface AttributeInput {
   label: string;

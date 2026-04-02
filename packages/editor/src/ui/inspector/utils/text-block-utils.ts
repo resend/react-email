@@ -179,10 +179,11 @@ export function applyMarkToggles(
   arr: string[],
   state: EditorSnapshot,
 ) {
+  let result = chain;
   for (const { value, active, toggle } of MARK_TOGGLES) {
     if (arr.includes(value) !== active(state)) {
-      chain = chain[toggle]();
+      result = result[toggle]();
     }
   }
-  return chain;
+  return result;
 }

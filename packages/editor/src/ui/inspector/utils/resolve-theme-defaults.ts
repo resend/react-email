@@ -1,5 +1,5 @@
-import type { KnownThemeComponents } from '../../../plugins/email-theming/types';
 import { getThemeComponentKey } from '../../../plugins/email-theming/extension';
+import type { KnownThemeComponents } from '../../../plugins/email-theming/types';
 
 function expandPaddingShorthand(
   value: string | number,
