@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react';
-import { editorEventBus } from './event-bus';
+import { editorEventBus, useEditorEvent } from './event-bus';
 
 // Augment EditorEventMap with test-only events
 declare module './event-bus' {
@@ -82,10 +82,10 @@ describe('EditorEventBus', () => {
     sub.unsubscribe();
   });
 
-  it('useEvent subscribes on mount and unsubscribes on unmount', () => {
+  it('useEditorEvent subscribes on mount and unsubscribes on unmount', () => {
     const handler = vi.fn();
     const { unmount } = renderHook(() =>
-      editorEventBus.useEvent('test:with-payload', handler),
+      useEditorEvent('test:with-payload', handler),
     );
 
     editorEventBus.dispatch('test:with-payload', { message: 'mounted' });

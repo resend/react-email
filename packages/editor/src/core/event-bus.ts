@@ -48,18 +48,6 @@ class EditorEventBus {
     target.dispatchEvent(event);
   }
 
-  useEvent<T extends EditorEventName>(
-    eventName: T,
-    handler: EditorEventHandler<T>,
-    options?: AddEventListenerOptions & { target?: EventTarget },
-  ) {
-    useEffect(() => {
-      const subscription = this.on(eventName, handler, options);
-
-      return () => subscription.unsubscribe();
-    }, [eventName, handler, options]);
-  }
-
   on<T extends EditorEventName>(
     eventName: T,
     handler: EditorEventHandler<T>,
@@ -97,3 +85,15 @@ class EditorEventBus {
 }
 
 export const editorEventBus = new EditorEventBus();
+
+export function useEditorEvent<T extends EditorEventName>(
+  eventName: T,
+  handler: EditorEventHandler<T>,
+  options?: AddEventListenerOptions & { target?: EventTarget },
+) {
+  useEffect(() => {
+    const subscription = editorEventBus.on(eventName, handler, options);
+
+    return () => subscription.unsubscribe();
+  }, [eventName, handler, options]);
+}
