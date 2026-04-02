@@ -13,7 +13,7 @@ export function App() {
   return (
     <div className="flex h-screen font-sans text-(--re-text)">
       <Sidebar sections={sections} activeId={activeId} onSelect={setActiveId} />
-      <main className="flex-1 overflow-y-auto p-8 max-w-4xl">
+      <main className="flex-1 min-w-0 flex flex-col overflow-y-auto p-8">
         <ActiveExample key={activeId} />
       </main>
     </div>
