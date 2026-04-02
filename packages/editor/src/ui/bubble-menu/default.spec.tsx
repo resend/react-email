@@ -56,7 +56,7 @@ vi.mock('@tiptap/react', () => ({
 }));
 
 let capturedOnHide: (() => void) | undefined;
-let capturedShouldShow:
+let capturedTrigger:
   | ((ctx: {
       editor: typeof mockEditor;
       view: unknown;
@@ -81,7 +81,7 @@ vi.mock('@tiptap/react/menus', () => ({
     }) => boolean;
   }) => {
     capturedOnHide = options?.onHide;
-    capturedShouldShow = shouldShow as typeof capturedShouldShow;
+    capturedTrigger = shouldShow as typeof capturedTrigger;
     return (
       <div
         data-testid="bubble-menu-root"
@@ -211,25 +211,25 @@ describe('BubbleMenuDefault', () => {
     expect(screen.getAllByRole('group')).toHaveLength(1);
   });
 
-  it('forwards hideWhenActiveNodes to Root so shouldShow rejects excluded nodes', () => {
+  it('forwards hideWhenActiveNodes to Root so trigger rejects excluded nodes', () => {
     render(<BubbleMenuDefault hideWhenActiveNodes={['image', 'button']} />);
 
-    expect(capturedShouldShow).toBeDefined();
+    expect(capturedTrigger).toBeDefined();
 
-    // When an excluded node is active, shouldShow returns false
+    // When an excluded node is active, trigger returns false
     mockEditor.isActive.mockReturnValueOnce(true);
     expect(
-      capturedShouldShow!({
+      capturedTrigger!({
         editor: mockEditor,
         view: mockEditor.view,
         state: mockEditor.view.state,
       }),
     ).toBe(false);
 
-    // When no excluded node is active, shouldShow returns true
+    // When no excluded node is active, trigger returns true
     mockEditor.isActive.mockReturnValue(false);
     expect(
-      capturedShouldShow!({
+      capturedTrigger!({
         editor: mockEditor,
         view: mockEditor.view,
         state: mockEditor.view.state,
