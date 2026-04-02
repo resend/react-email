@@ -6,8 +6,30 @@ import {
   LIVEBLOCKS_INTERNAL_PROPS,
   LOCAL_PROPS_SCHEMA,
 } from '../config/attribute-schema';
-import { SECTION_METADATA } from '../config/node-section-config';
 import { humanizeString } from './humanize-string';
+
+const SECTION_HANDLED_PROPERTIES: string[] = [
+  'align',
+  'alignment',
+  'color',
+  'fontSize',
+  'fontWeight',
+  'lineHeight',
+  'textDecoration',
+  'width',
+  'height',
+  'padding',
+  'paddingTop',
+  'paddingRight',
+  'paddingBottom',
+  'paddingLeft',
+  'backgroundColor',
+  'borderRadius',
+  'borderWidth',
+  'borderColor',
+  'borderStyle',
+  'href',
+];
 
 export interface AttributeInput {
   label: string;
@@ -69,11 +91,7 @@ export function parseAttributes(
 export function getOtherStyles(
   styleObject: Record<string, string | number>,
 ): Record<string, string | number> {
-  const sectionHandledKeys = Object.values(SECTION_METADATA).flatMap(
-    (section) => section.properties,
-  );
-
-  const excludedKeys = new Set(sectionHandledKeys);
+  const excludedKeys = new Set(SECTION_HANDLED_PROPERTIES);
 
   return Object.fromEntries(
     Object.entries(styleObject).filter(([key]) => !excludedKeys.has(key)),
