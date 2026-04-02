@@ -28,19 +28,19 @@ export function DocumentInspector() {
   });
 
   return (
-    <div>
+    <div className="flex flex-col flex-1">
       <p className="text-sm text-(--re-text-muted) mb-4">
         Using <code>Inspector.Provider</code> and{' '}
         <code>Inspector.Document</code> to render document-level global styles
         with predefined sections and a render-props API.
       </p>
       <EditorContext.Provider value={{ editor }}>
-        <div className="flex gap-4 border border-(--re-border) rounded-xl min-h-75">
-          <div className="flex-1 p-4">
+        <div className="flex flex-1 border border-(--re-border) rounded-xl min-h-0 overflow-hidden">
+          <div className="flex-1 min-w-0 p-4 overflow-y-auto bg-white text-black">
             <EditorContent editor={editor} />
           </div>
 
-          <aside className="w-100 shrink-0 border-l border-(--re-border) p-4 flex flex-col gap-4 overflow-y-auto">
+          <aside className="w-56 shrink-0 border-l border-(--re-border) p-4 flex flex-col gap-4 overflow-y-auto">
             <Inspector.Provider>
               <nav>
                 <ol className="flex items-center gap-1 text-xs list-none m-0 p-0">

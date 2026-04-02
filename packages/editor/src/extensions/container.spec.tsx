@@ -277,7 +277,8 @@ describe('Container Node', () => {
             name="format-detection" />
           <!--$-->
         </head>
-        <body>
+        <body
+          style="background-color:#ffffff;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0">
           <table
             border="0"
             width="100%"
@@ -288,7 +289,7 @@ describe('Container Node', () => {
             <tbody>
               <tr>
                 <td
-                  style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%">
+                  style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%;background-color:#ffffff;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px">
                   <table
                     align="left"
                     width="100%"
@@ -296,7 +297,7 @@ describe('Container Node', () => {
                     cellpadding="0"
                     cellspacing="0"
                     role="presentation"
-                    style="max-width:600px;align:left;width:100%;padding-left:0px;padding-right:0px;line-height:155%">
+                    style="max-width:600px;align:left;width:100%;color:#000000;background-color:#ffffff;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-radius:0px;border-color:#000000;line-height:155%">
                     <tbody>
                       <tr style="width:100%">
                         <td>
@@ -1578,7 +1579,8 @@ describe('Container Node', () => {
             name="format-detection" />
           <!--$-->
         </head>
-        <body>
+        <body
+          style="background-color:#ffffff;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0">
           <table
             border="0"
             width="100%"
@@ -1589,7 +1591,7 @@ describe('Container Node', () => {
             <tbody>
               <tr>
                 <td
-                  style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%">
+                  style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%;background-color:#ffffff;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px">
                   <table
                     align="left"
                     width="100%"
@@ -1597,7 +1599,7 @@ describe('Container Node', () => {
                     cellpadding="0"
                     cellspacing="0"
                     role="presentation"
-                    style="max-width:600px;align:left;width:100%;padding-left:0px;padding-right:0px;line-height:155%">
+                    style="max-width:600px;align:left;width:100%;color:#000000;background-color:#ffffff;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-radius:0px;border-color:#000000;line-height:155%">
                     <tbody>
                       <tr style="width:100%">
                         <td>
