@@ -1,11 +1,11 @@
 import type { useCurrentEditor } from '@tiptap/react';
 import { useEditorState } from '@tiptap/react';
 import * as React from 'react';
-import { isValidHexColor } from '../utils/is-valid-hex-color';
 import {
   stylesToCss,
   useEmailTheming,
 } from '../../../../plugins/email-theming/extension';
+import { isValidHexColor } from '../utils/is-valid-hex-color';
 
 type Editor = ReturnType<typeof useCurrentEditor>['editor'];
 
