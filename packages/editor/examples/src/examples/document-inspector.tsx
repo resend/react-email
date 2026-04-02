@@ -40,7 +40,7 @@ export function DocumentInspector() {
             <EditorContent editor={editor} />
           </div>
 
-          <aside className="w-80 border-l border-(--re-border) p-4 flex flex-col gap-4 overflow-y-auto">
+          <aside className="w-100 shrink-0 border-l border-(--re-border) p-4 flex flex-col gap-4 overflow-y-auto">
             <Inspector.Provider>
               <nav>
                 <ol className="flex items-center gap-1 text-xs list-none m-0 p-0">
