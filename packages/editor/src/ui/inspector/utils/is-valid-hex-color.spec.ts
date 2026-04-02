@@ -50,6 +50,10 @@ describe('normalizeHex', () => {
     expect(normalizeHex('#ff00aa')).toBe('#ff00aa');
   });
 
+  it('passes through valid 8-digit hex (with alpha)', () => {
+    expect(normalizeHex('#ff00aa80')).toBe('#ff00aa80');
+  });
+
   it('defaults empty string to black', () => {
     expect(normalizeHex('')).toBe('#000000');
   });

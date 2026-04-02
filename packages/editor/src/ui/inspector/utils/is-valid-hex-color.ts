@@ -9,6 +9,6 @@ export function normalizeHex(value: string): string {
   if (shortHex) {
     return `#${shortHex[1]}${shortHex[1]}${shortHex[2]}${shortHex[2]}${shortHex[3]}${shortHex[3]}`;
   }
-  if (/^#[0-9a-f]{6}$/i.test(v)) return v;
+  if (/^#[0-9a-f]{6}([0-9a-f]{2})?$/i.test(v)) return v;
   return '#000000';
 }
