@@ -2,6 +2,8 @@ import type { AnyExtension, JSONContent } from '@tiptap/core';
 import { Editor } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
 import { StarterKit } from '../../extensions';
+import { EmailTheming } from '../../plugins/email-theming/extension';
+import type { EditorTheme } from '../../plugins/email-theming/types';
 import { composeReactEmail } from './compose-react-email';
 import { EmailNode } from './email-node';
 
@@ -47,6 +49,7 @@ function createEditorWithContent(
 function docWithGlobalContent(
   content: JSONContent['content'],
   styles = basicTheme,
+  theme: EditorTheme = 'basic',
 ): JSONContent {
   return {
     type: 'doc',
@@ -54,7 +57,7 @@ function docWithGlobalContent(
       {
         type: 'globalContent',
         attrs: {
-          data: { styles, theme: 'basic', css: '' },
+          data: { styles, theme, css: '' },
         },
       },
       ...(content ?? []),
@@ -63,7 +66,7 @@ function docWithGlobalContent(
 }
 
 describe('Text marks', () => {
-  it('should preserve bold wrapping order when combined with italic', async () => {
+  it('preserves bold wrapping order when combined with italic', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -97,7 +100,7 @@ describe('Text marks', () => {
     expect(strongClose).toBeGreaterThan(emClose);
   });
 
-  it('should keep bold outer when combined with link on text', async () => {
+  it('keeps bold outer when combined with link on text', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -177,7 +180,7 @@ describe('Text marks', () => {
     expect(result.html).toContain('<strong><span>Hello</span></strong>');
   });
 
-  it('should render uppercase marks using the extension renderer', async () => {
+  it('renders uppercase marks using the extension renderer', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -201,7 +204,7 @@ describe('Text marks', () => {
     expect(result.html).toContain('Hello world');
   });
 
-  it('should render sup marks using the extension renderer', async () => {
+  it('renders sup marks using the extension renderer', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -225,7 +228,7 @@ describe('Text marks', () => {
     expect(result.html).toContain('>2</sup>');
   });
 
-  it('should apply inline styles to code marks only', async () => {
+  it('applies inline styles to code marks only', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -251,7 +254,7 @@ describe('Text marks', () => {
     expect(result.html).toMatch(/<code[^>]*>\s*Code\s*<\/code\s*>/s);
   });
 
-  it('should not apply inline text styles to link-only marks', async () => {
+  it('does not apply inline text styles to link-only marks', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -287,7 +290,7 @@ describe('Text marks', () => {
 });
 
 describe('StarterKit node wrappers', () => {
-  it('should render bullet lists using the extension renderer', async () => {
+  it('renders bullet lists using the extension renderer', async () => {
     const content = docWithGlobalContent([
       {
         type: 'bulletList',
@@ -321,7 +324,7 @@ describe('StarterKit node wrappers', () => {
     expect(result.html).toContain('List item');
   });
 
-  it('should render hard breaks using the extension renderer', async () => {
+  it('renders hard breaks using the extension renderer', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -350,5 +353,86 @@ describe('StarterKit node wrappers', () => {
     expect(result.html).toContain('<br');
     expect(result.html).toContain('Hello');
     expect(result.html).toContain('World');
+  });
+});
+
+describe('Reset styles for button and image', () => {
+  const buttonContent: JSONContent[] = [
+    {
+      type: 'button',
+      attrs: {
+        class: 'button',
+        href: 'https://example.com',
+        alignment: 'left',
+      },
+      content: [{ type: 'text', text: 'Click me' }],
+    },
+  ];
+
+  const ImageNode = EmailNode.create({
+    name: 'image',
+    group: 'block',
+    atom: true,
+    renderHTML({ HTMLAttributes }) {
+      return ['img', HTMLAttributes];
+    },
+    renderToReactEmail({ style }) {
+      return <img alt="" src="https://example.com/img.png" style={style} />;
+    },
+  });
+
+  const imageContent: JSONContent[] = [
+    {
+      type: 'image',
+      attrs: { src: 'https://example.com/img.png' },
+    },
+  ];
+
+  it('includes display:inline-block on button with basic theme', async () => {
+    const content = docWithGlobalContent(buttonContent, basicTheme, 'basic');
+
+    const editor = createEditorWithContent(content, [
+      EmailTheming.configure({ theme: 'basic' }),
+    ]);
+    const result = await composeReactEmail({ editor, preview: '' });
+
+    expect(result.html).toMatch(/display:\s*inline-block/);
+    expect(result.html).toMatch(/line-height:\s*100%/);
+  });
+
+  it('includes display:inline-block on button with minimal theme', async () => {
+    const content = docWithGlobalContent(buttonContent, basicTheme, 'minimal');
+
+    const editor = createEditorWithContent(content, [
+      EmailTheming.configure({ theme: 'minimal' }),
+    ]);
+    const result = await composeReactEmail({ editor, preview: '' });
+
+    expect(result.html).toMatch(/display:\s*inline-block/);
+    expect(result.html).toMatch(/line-height:\s*100%/);
+  });
+
+  it('includes max-width:100% on image with basic theme', async () => {
+    const content = docWithGlobalContent(imageContent, basicTheme, 'basic');
+
+    const editor = createEditorWithContent(content, [
+      ImageNode,
+      EmailTheming.configure({ theme: 'basic' }),
+    ]);
+    const result = await composeReactEmail({ editor, preview: '' });
+
+    expect(result.html).toMatch(/max-width:\s*100%/);
+  });
+
+  it('includes max-width:100% on image with minimal theme', async () => {
+    const content = docWithGlobalContent(imageContent, basicTheme, 'minimal');
+
+    const editor = createEditorWithContent(content, [
+      ImageNode,
+      EmailTheming.configure({ theme: 'minimal' }),
+    ]);
+    const result = await composeReactEmail({ editor, preview: '' });
+
+    expect(result.html).toMatch(/max-width:\s*100%/);
   });
 });
