@@ -94,6 +94,7 @@
               "integrations/resend",
               "integrations/inbound",
               "integrations/nodemailer",
+              "integrations/mailgun",
               "integrations/sendgrid",
               "integrations/postmark",
               "integrations/aws-ses",
