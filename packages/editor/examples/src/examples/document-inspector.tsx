@@ -67,7 +67,7 @@ export function DocumentInspector() {
               </nav>
 
               <Inspector.Document>
-                {({ findStyleValue, setGlobalStyle, batchSetGlobalStyle }) => (
+                {({ findStyleValue, setGlobalStyle }) => (
                   <div className="flex flex-col gap-4">
                     {/* Background */}
                     <Section title="Background">
@@ -82,9 +82,7 @@ export function DocumentInspector() {
                         label="Padding"
                         unit="px"
                         value={findStyleValue('body', 'padding')}
-                        onChange={(v) =>
-                          setGlobalStyle('body', 'padding', v)
-                        }
+                        onChange={(v) => setGlobalStyle('body', 'padding', v)}
                       />
                     </Section>
 
