@@ -8,9 +8,9 @@ It includes all components directly from source with a path alias import of `@re
 
 ### 1. Create an email template
 
-Create a new file at `playground/emails/testing.tsx` 
+Create a new file at `/emails` 
 
-```tsx emails/testing.tsx
+```tsx /playground/emails/testing.tsx
 import { Html, Head, Body, Tailwind, Text } from '@react-email/components';
 
 export default function Testing() {
