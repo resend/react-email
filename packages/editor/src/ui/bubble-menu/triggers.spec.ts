@@ -67,9 +67,9 @@ describe('bubbleMenuTriggers', () => {
 
     it('hides when an excluded mark is active', () => {
       const trigger = bubbleMenuTriggers.textSelection([], ['link']);
-      expect(
-        trigger(createMockParams({ isActive: (n) => n === 'link' })),
-      ).toBe(false);
+      expect(trigger(createMockParams({ isActive: (n) => n === 'link' }))).toBe(
+        false,
+      );
     });
   });
 
