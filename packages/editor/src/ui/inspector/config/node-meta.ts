@@ -13,8 +13,6 @@ import {
   SquareRoundCornerIcon,
   TableIcon,
   TypeIcon,
-  VariableIcon,
-  YoutubeIcon,
 } from '../../icons';
 
 interface NodeMeta {
@@ -41,10 +39,6 @@ const NODE_META: Record<string, NodeMeta> = {
   tableCell: { icon: BoxIcon, label: 'Table Cell' },
   tableHeader: { icon: BoxIcon, label: 'Table Header' },
   horizontalRule: { icon: MinusIcon, label: 'Divider' },
-  youtube: { icon: YoutubeIcon, label: 'YouTube' },
-  twitter: { icon: ImageIcon, label: 'Twitter' },
-  socialLinks: { icon: LinkIcon, label: 'Social Links' },
-  variable: { icon: VariableIcon, label: 'Variable' },
   global: { icon: SquareRoundCornerIcon, label: 'Layout' },
 };
 

@@ -58,7 +58,6 @@ describe('applyMarkToggles', () => {
 
   function createMockChain() {
     const called: string[] = [];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const chain: any = {
       _called: called,
       toggleBold: () => {

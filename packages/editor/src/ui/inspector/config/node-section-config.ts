@@ -8,8 +8,7 @@ export type SectionId =
   | 'background'
   | 'border'
   | 'link'
-  | 'otherStyles'
-  | 'fallback';
+  | 'otherStyles';
 
 interface NodeSectionConfig {
   attributes: string[];
@@ -43,11 +42,6 @@ const NODE_SECTION_CONFIG: Record<string, NodeSectionConfig> = {
     attributes: ['src', 'alt'],
     expandedSections: ['alignment', 'size'],
     collapsedSections: ['link', 'padding', 'border'],
-  },
-  youtube: {
-    attributes: [],
-    expandedSections: ['alignment', 'size'],
-    collapsedSections: ['padding'],
   },
   button: {
     attributes: [],
@@ -139,21 +133,6 @@ const NODE_SECTION_CONFIG: Record<string, NodeSectionConfig> = {
     expandedSections: [],
     collapsedSections: ['padding'],
   },
-  twitter: {
-    attributes: [],
-    expandedSections: ['alignment'],
-    collapsedSections: ['padding'],
-  },
-  socialLinks: {
-    attributes: [],
-    expandedSections: [],
-    collapsedSections: [],
-  },
-  variable: {
-    attributes: [],
-    expandedSections: ['fallback'],
-    collapsedSections: [],
-  },
 };
 
 export function getNodeSectionConfig(nodeType: string): NodeSectionConfig {
@@ -166,7 +145,7 @@ interface SectionMeta {
   properties: string[];
 }
 
-export const SIZE_AS_ATTRIBUTES: string[] = ['image', 'youtube'];
+export const SIZE_AS_ATTRIBUTES: string[] = ['image'];
 
 export const GLOBAL_SECTION_CONFIG: Record<PanelSectionId, SectionId[]> = {
   body: ['background', 'padding'],
@@ -233,10 +212,5 @@ export const SECTION_METADATA: Record<SectionId, SectionMeta> = {
     id: 'otherStyles',
     title: 'Other Styles',
     properties: [],
-  },
-  fallback: {
-    id: 'fallback',
-    title: 'Fallback',
-    properties: ['fallback'],
   },
 };

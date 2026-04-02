@@ -38,5 +38,3 @@ export { TextQuote, TextQuote as QuoteIcon } from './text-quote';
 export { TypeIcon } from './type';
 export { UnderlineIcon } from './underline';
 export { UnlinkIcon } from './unlink';
-export { VariableIcon } from './variable';
-export { YoutubeIcon } from './youtube';
