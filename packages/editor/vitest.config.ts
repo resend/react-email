@@ -19,6 +19,13 @@ export default defineConfig({
     projects: [
       {
         extends: true,
+        resolve: {
+          alias: {
+            '@react-email/render': stubModule,
+            '@react-email/markdown': stubModule,
+            '@react-email/components': stubModule,
+          },
+        },
         test: {
           name: 'unit',
           environment: 'happy-dom',

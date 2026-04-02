@@ -4,7 +4,7 @@ import * as React from 'react';
 import {
   stylesToCss,
   useEmailTheming,
-} from '../../../../plugins/email-theming/extension';
+} from '../../../plugins/email-theming/extension';
 import { isValidHexColor } from '../utils/is-valid-hex-color';
 
 type Editor = ReturnType<typeof useCurrentEditor>['editor'];

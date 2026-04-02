@@ -1,6 +1,6 @@
 import type { Editor } from '@tiptap/core';
 import { useEditorState } from '@tiptap/react';
-import { inlineCssToJs, jsToInlineCss } from '../../../../utils/styles';
+import { inlineCssToJs, jsToInlineCss } from '../../../utils/styles';
 
 interface LinkMarkState {
   href: string;

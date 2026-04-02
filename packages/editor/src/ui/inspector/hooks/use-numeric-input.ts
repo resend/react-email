@@ -34,6 +34,7 @@ export function useNumericInput({
     toDisplayString(value),
   );
   const isFocusedRef = React.useRef(false);
+  const cancelledRef = React.useRef(false);
 
   React.useEffect(() => {
     if (!isFocusedRef.current) {
@@ -78,6 +79,10 @@ export function useNumericInput({
 
   const onBlur = React.useCallback(() => {
     isFocusedRef.current = false;
+    if (cancelledRef.current) {
+      cancelledRef.current = false;
+      return;
+    }
     commit(displayValue);
   }, [commit, displayValue]);
 
@@ -94,15 +99,20 @@ export function useNumericInput({
       }
 
       if (e.key === 'Escape') {
+        cancelledRef.current = true;
         setDisplayValue(toDisplayString(value));
-        isFocusedRef.current = false;
         (e.target as HTMLInputElement).blur();
       }
 
       if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
         e.preventDefault();
         const step = e.shiftKey ? 10 : 1;
-        const current = Number(displayValue) || fallbackValue || 0;
+        const trimmed = displayValue.trim();
+        const parsed = Number(trimmed);
+        const current =
+          trimmed === '' || Number.isNaN(parsed)
+            ? (fallbackValue ?? 0)
+            : parsed;
         const next = Math.max(
           min ?? Number.NEGATIVE_INFINITY,
           e.key === 'ArrowUp' ? current + step : current - step,

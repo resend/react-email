@@ -69,6 +69,7 @@ export function useDragToChange({
       onPointerDown,
       onPointerMove,
       onPointerUp,
+      onPointerCancel: onPointerUp,
       style: { cursor: 'ew-resize' } as React.CSSProperties,
     },
   };
