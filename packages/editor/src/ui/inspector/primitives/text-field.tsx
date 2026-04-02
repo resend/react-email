@@ -1,9 +1,15 @@
 import * as React from 'react';
 
-export interface TextFieldProps extends React.ComponentProps<'input'> {}
+function Root({ children, className, ...rest }: React.ComponentProps<'div'>) {
+  return (
+    <div data-re-inspector-text-field="" className={className} {...rest}>
+      {children}
+    </div>
+  );
+}
 
-export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
-  function TextField({ className, ...rest }, ref) {
+const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<'input'>>(
+  function Input({ className, ...rest }, ref) {
     return (
       <input
         ref={ref}
@@ -14,3 +20,13 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
     );
   },
 );
+
+function Slot({ children, ...rest }: React.ComponentProps<'div'>) {
+  return (
+    <div data-re-inspector-text-field-slot="" {...rest}>
+      {children}
+    </div>
+  );
+}
+
+export const TextField = { Root, Input, Slot };
