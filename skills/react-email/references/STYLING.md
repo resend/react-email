@@ -100,7 +100,7 @@ Email.PreviewProps = {
 ### Body
 
 ```tsx
-<Body className="font-sans py-10 bg-gray-100">
+<Body className="font-sans py-40 bg-gray-100">
 ```
 
 ### Container
@@ -108,7 +108,7 @@ Email.PreviewProps = {
 White background, centered, left-aligned content:
 
 ```tsx
-<Container className="mx-auto bg-white p-6 rounded">
+<Container className="mx-auto bg-white p-24 rounded">
 ```
 
 ### Footer
@@ -130,7 +130,7 @@ Include physical address, unsubscribe link, current year:
 Bold, larger font, larger margins:
 
 ```tsx
-<Heading className="text-2xl font-bold text-gray-900 mb-4">
+<Heading className="text-24 font-bold text-gray-900 mb-16">
 ```
 
 ### Paragraphs
@@ -138,7 +138,7 @@ Bold, larger font, larger margins:
 Regular weight, smaller font, smaller margins:
 
 ```tsx
-<Text className="text-base text-gray-700 mb-3">
+<Text className="text-16 text-gray-700 mb-12">
 ```
 
 ### Hierarchy
@@ -170,7 +170,7 @@ Always use `box-border` to prevent padding overflow:
 ```tsx
 <Button
   href="https://example.com"
-  className="bg-blue-600 text-white px-5 py-3 rounded box-border block text-center no-underline"
+  className="bg-blue-600 text-white px-20 py-12 rounded box-border block text-center no-underline"
 >
   Click Here
 </Button>
