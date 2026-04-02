@@ -110,7 +110,7 @@
     "@floating-ui/react-dom": "^2.1.8",
     "@tiptap/core": "^3.17.1",
     "@tiptap/extension-blockquote": "^3.17.1",
-    "@tiptap/extension-bold": "^3.20.1",
+    "@tiptap/extension-bold": "^3.17.1",
     "@tiptap/extension-bullet-list": "^3.17.1",
     "@tiptap/extension-code": "^3.17.1",
     "@tiptap/extension-code-block": "^3.17.1",
