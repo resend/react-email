@@ -417,6 +417,8 @@ const RESET_MINIMAL: ResetTheme = {
     return acc;
   }, {} as ResetTheme),
   reset: RESET_BASIC.reset,
+  button: RESET_BASIC.button,
+  image: RESET_BASIC.image,
 };
 
 export const RESET_THEMES: Record<EditorTheme, ResetTheme> = {
