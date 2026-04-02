@@ -6,10 +6,10 @@ import type { JSONContent } from '@tiptap/core';
 import { Editor, Extension } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
 import { composeReactEmail } from '../core/serializer/compose-react-email';
+import { EmailTheming } from '../plugins';
 import { DEFAULT_STYLES } from '../utils/default-styles';
 import { Container } from './container';
 import { StarterKit } from './index';
-import { EmailTheming } from '../plugins';
 
 vi.mock('@/actions/ai', () => ({
   uploadImageViaAI: vi.fn(),
@@ -1333,7 +1333,11 @@ describe('Container Node', () => {
                       label: 'Align',
                       type: 'select',
                       value: 'center',
-                      options: { left: 'Left', center: 'Center', right: 'Right' },
+                      options: {
+                        left: 'Left',
+                        center: 'Center',
+                        right: 'Right',
+                      },
                       prop: 'align',
                       classReference: 'container',
                     },
@@ -1442,7 +1446,11 @@ describe('Container Node', () => {
                       label: 'Align',
                       type: 'select',
                       value: 'left',
-                      options: { left: 'Left', center: 'Center', right: 'Right' },
+                      options: {
+                        left: 'Left',
+                        center: 'Center',
+                        right: 'Right',
+                      },
                       prop: 'align',
                       classReference: 'container',
                     },
