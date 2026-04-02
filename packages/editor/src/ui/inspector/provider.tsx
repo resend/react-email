@@ -131,17 +131,19 @@ export function useInspector() {
 export function InspectorProvider({ children }: RootProps) {
   const { editor } = useCurrentEditor();
 
-  if (editor) {
-    const hasEmailTheming = editor.extensionManager.extensions.some(
-      (extension) => extension.name === 'theming',
-    );
-    if (!hasEmailTheming) {
-      throw new Error(
-        'Inspector.Provider requires the EmailTheming extension to be added to your editor. ' +
-          'Please add EmailTheming (or EmailTheming.configure({ ... })) to your editor extensions.',
+  React.useEffect(() => {
+    if (editor) {
+      const hasEmailTheming = editor.extensionManager.extensions.some(
+        (extension) => extension.name === 'theming',
       );
+      if (!hasEmailTheming) {
+        throw new Error(
+          'Inspector.Provider requires the EmailTheming extension to be added to your editor. ' +
+            'Please add EmailTheming (or EmailTheming.configure({ ... })) to your editor extensions.',
+        );
+      }
     }
-  }
+  }, [editor]);
 
   const target = useEditorState({
     editor,
