@@ -7,7 +7,7 @@ icon: "message-lines"
 
 ## Quick start
 
-Add `BubbleMenu.Default` as a child of `EditorProvider` to get a fully-featured formatting toolbar:
+Add `BubbleMenu.Default` as a child of `EditorProvider` to get a fully-featured formatting toolbar.
 
 ```tsx
 import { StarterKit } from '@react-email/editor/extensions';
@@ -30,7 +30,7 @@ Select text to see the toolbar with formatting, alignment, node type selection, 
 
 ## Excluding items
 
-Hide specific items from the default bubble menu using `excludeItems`:
+Hide specific items from the default bubble menu using `excludeItems`.
 
 ```tsx
 <BubbleMenu.Default excludeItems={['strike', 'code', 'uppercase']} />
@@ -54,7 +54,7 @@ All excludable item keys:
 
 ## Hiding on specific nodes or marks
 
-Prevent the bubble menu from appearing on certain node types or when certain marks are active:
+Prevent the bubble menu from appearing on certain node types or when certain marks are active.
 
 ```tsx
 <BubbleMenu.Default
@@ -63,7 +63,7 @@ Prevent the bubble menu from appearing on certain node types or when certain mar
 />
 ```
 
-This is useful when combining the text bubble menu with contextual menus for links, images, or buttons -- each gets its own menu via `BubbleMenu.Root`:
+This is useful when combining the text bubble menu with contextual menus for links, images, or buttons -- each gets its own menu via `BubbleMenu.Root`.
 
 ```tsx
 import { BubbleMenu, bubbleMenuTriggers } from '@react-email/editor/ui';
@@ -88,7 +88,7 @@ const linkPluginKey = new PluginKey('linkBubbleMenu');
 
 ## Composing from primitives
 
-For full control, build a custom bubble menu using the compound component API:
+For full control, build a custom bubble menu using the compound component API.
 
 ```tsx
 import { StarterKit } from '@react-email/editor/extensions';
@@ -137,7 +137,7 @@ and individual items render the toggle buttons.
 
 ## Placement and offset
 
-Control where the bubble menu appears relative to the selection:
+Control where the bubble menu appears relative to the selection.
 
 ```tsx
 <BubbleMenu.Root placement="top" offset={12}>
