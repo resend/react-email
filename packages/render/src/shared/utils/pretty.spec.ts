@@ -50,6 +50,7 @@ describe('pretty', () => {
                         <td>
                           <img
                             alt="Stripe"
+                            fetchpriority="low"
                             height="21"
                             src="/static/stripe-logo.png"
                             style="display:block;outline:none;border:none;text-decoration:none"
