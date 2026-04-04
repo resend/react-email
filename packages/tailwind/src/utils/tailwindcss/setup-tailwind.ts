@@ -1,4 +1,4 @@
-import { parse, type StyleSheet } from 'css-tree';
+import { clone, parse, type StyleSheet } from 'css-tree';
 import { compile } from 'tailwindcss';
 import type { TailwindConfig } from '../../tailwind';
 import indexCss from './tailwind-stylesheets/index';
@@ -70,13 +70,19 @@ export async function setupTailwind(config: TailwindConfig) {
   });
 
   let css: string = baseCss;
+  let cachedCss: string | undefined;
+  let cachedAst: StyleSheet | undefined;
 
   return {
     addUtilities: function addUtilities(candidates: string[]): void {
       css = compiler.build(candidates);
     },
     getStyleSheet: function getCss() {
-      return parse(css) as StyleSheet;
+      if (css !== cachedCss) {
+        cachedCss = css;
+        cachedAst = parse(css) as StyleSheet;
+      }
+      return clone(cachedAst!) as StyleSheet;
     },
   };
 }
