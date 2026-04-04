@@ -58,7 +58,15 @@ export const Section = EmailNode.create<SectionOptions>({
         for (let depth = $from.depth; depth >= 1; depth--) {
           if ($from.node(depth).type.name !== 'section') continue;
 
-          if ($from.pos !== $from.start(depth)) return false;
+          if ($from.parentOffset !== 0) return false;
+          let atStart = true;
+          for (let d = depth; d < $from.depth; d++) {
+            if ($from.index(d) !== 0) {
+              atStart = false;
+              break;
+            }
+          }
+          if (!atStart) return false;
 
           const sectionNode = $from.node(depth);
           if (!isSectionEmpty(sectionNode)) return false;
