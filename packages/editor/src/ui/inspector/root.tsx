@@ -104,7 +104,7 @@ export interface FocusedNode {
 
 type InspectorTarget = 'doc' | 'text' | FocusedNode | null;
 
-export interface RootProps extends React.ComponentPropsWithoutRef<'aside'> {
+export interface RootProps extends React.ComponentPropsWithRef<'aside'> {
   asChild?: boolean;
 }
 
@@ -128,7 +128,8 @@ export function useInspector() {
   return context;
 }
 
-export function InspectorRoot({ children, asChild, ...restProps }: RootProps) {
+export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
+  function InspectorRoot({ children, asChild, ...restProps }, forwardedRef) {
   const { editor } = useCurrentEditor();
 
   const target = useEditorState({
@@ -322,13 +323,13 @@ export function InspectorRoot({ children, asChild, ...restProps }: RootProps) {
       }}
     >
       <InspectorFocusScope>
-        <Component {...restProps} tabIndex={-1}>
+        <Component ref={forwardedRef} {...restProps} tabIndex={-1}>
           {children}
         </Component>
       </InspectorFocusScope>
     </InspectorContext.Provider>
   );
-}
+});
 
 export interface FocusScopeProps {
   children: React.ReactNode;
