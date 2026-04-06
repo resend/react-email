@@ -5,12 +5,12 @@
     width: 15rem;
   }
 
-  #navbar .ustify-end:has(.nav-tabs) {
+  #navbar .justify-end:has(.nav-tabs) {
     justify-content: space-between !important;
     margin-left: 0 !important;
   }
 
-  #navbar .flex:has(> .ustify-end) {
+  #navbar .flex:has(> .justify-end) {
     flex: 1 !important;
   }
 
