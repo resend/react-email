@@ -130,206 +130,211 @@ export function useInspector() {
 
 export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
   function InspectorRoot({ children, asChild, ...restProps }, forwardedRef) {
-  const { editor } = useCurrentEditor();
+    const { editor } = useCurrentEditor();
 
-  const target = useEditorState({
-    editor,
-    selector(context): InspectorTarget {
-      if (!context.editor) {
-        return null;
-      }
-
-      if (!context.editor.isFocused) {
-        return 'doc';
-      }
-
-      const { selection } = context.editor.state;
-
-      if (selection.content().size > 0 && selection instanceof TextSelection) {
-        const { $from } = selection;
-        for (let depth = $from.depth; depth > 0; depth--) {
-          if ($from.node(depth).type.name === 'button') {
-            const pos = $from.before(depth);
-            const node = context.editor.state.doc.nodeAt(pos);
-            if (node) {
-              return {
-                nodeType: 'button',
-                nodeAttrs: { ...node.attrs },
-                nodePos: { pos, inside: pos },
-              };
-            }
-            break;
-          }
+    const target = useEditorState({
+      editor,
+      selector(context): InspectorTarget {
+        if (!context.editor) {
+          return null;
         }
 
-        return 'text';
+        if (!context.editor.isFocused) {
+          return 'doc';
+        }
+
+        const { selection } = context.editor.state;
+
+        if (
+          selection.content().size > 0 &&
+          selection instanceof TextSelection
+        ) {
+          const { $from } = selection;
+          for (let depth = $from.depth; depth > 0; depth--) {
+            if ($from.node(depth).type.name === 'button') {
+              const pos = $from.before(depth);
+              const node = context.editor.state.doc.nodeAt(pos);
+              if (node) {
+                return {
+                  nodeType: 'button',
+                  nodeAttrs: { ...node.attrs },
+                  nodePos: { pos, inside: pos },
+                };
+              }
+              break;
+            }
+          }
+
+          return 'text';
+        }
+
+        const hierarchy = getNodeHierarchy(context.editor);
+
+        if (hierarchy.length > 0) {
+          const innermost = hierarchy[0];
+          const columnEntry = hierarchy.find(
+            (h) => h.nodeType === 'columnsColumn',
+          );
+          const preferColumn =
+            columnEntry && innermost.nodeType === 'paragraph';
+          return preferColumn ? columnEntry : innermost;
+        }
+
+        return 'doc';
+      },
+    });
+
+    const pathFromRoot = React.useMemo(() => {
+      if (!editor) {
+        return [];
       }
-
-      const hierarchy = getNodeHierarchy(context.editor);
-
-      if (hierarchy.length > 0) {
-        const innermost = hierarchy[0];
-        const columnEntry = hierarchy.find(
-          (h) => h.nodeType === 'columnsColumn',
-        );
-        const preferColumn = columnEntry && innermost.nodeType === 'paragraph';
-        return preferColumn ? columnEntry : innermost;
+      if (typeof target === 'object' && target) {
+        const atPos = getHierarchyAtPosition(editor, target.nodePos.pos);
+        const path = [...atPos].reverse();
+        return path.length > 0 ? path : [target];
       }
-
-      return 'doc';
-    },
-  });
-
-  const pathFromRoot = React.useMemo(() => {
-    if (!editor) {
+      if (target === 'text') {
+        const hierarchy = getNodeHierarchy(editor);
+        return [...hierarchy].reverse();
+      }
       return [];
-    }
-    if (typeof target === 'object' && target) {
-      const atPos = getHierarchyAtPosition(editor, target.nodePos.pos);
-      const path = [...atPos].reverse();
-      return path.length > 0 ? path : [target];
-    }
-    if (target === 'text') {
-      const hierarchy = getNodeHierarchy(editor);
-      return [...hierarchy].reverse();
-    }
-    return [];
-  }, [editor, target]);
+    }, [editor, target]);
 
-  const editorDomFocused = React.useRef(false);
-  const inspectorFocused = React.useRef(false);
-  React.useEffect(() => {
-    const defaultFocusPlugin = editor?.state.plugins.find(
-      (plugin) => plugin.spec.key === extensions.focusEventsPluginKey,
-    );
-    if (editor && defaultFocusPlugin) {
-      editor?.unregisterPlugin(extensions.focusEventsPluginKey);
-      const pluginKey = new PluginKey('inspectorReactEmailFocusEvents');
-      editor.registerPlugin(
-        new Plugin({
-          key: pluginKey,
-          props: {
-            handleDOMEvents: {
-              focus: (view, event: Event) => {
-                editorDomFocused.current = true;
-                editor.isFocused = true;
-
-                const transaction = editor.state.tr
-                  .setMeta('focus', { event })
-                  .setMeta('addToHistory', false);
-
-                view.dispatch(transaction);
-
-                return false;
-              },
-              blur: (view, event: Event) => {
-                editorDomFocused.current = false;
-
-                if (!inspectorFocused.current) {
-                  editor.isFocused = false;
+    const editorDomFocused = React.useRef(false);
+    const inspectorFocused = React.useRef(false);
+    React.useEffect(() => {
+      const defaultFocusPlugin = editor?.state.plugins.find(
+        (plugin) => plugin.spec.key === extensions.focusEventsPluginKey,
+      );
+      if (editor && defaultFocusPlugin) {
+        editor?.unregisterPlugin(extensions.focusEventsPluginKey);
+        const pluginKey = new PluginKey('inspectorReactEmailFocusEvents');
+        editor.registerPlugin(
+          new Plugin({
+            key: pluginKey,
+            props: {
+              handleDOMEvents: {
+                focus: (view, event: Event) => {
+                  editorDomFocused.current = true;
+                  editor.isFocused = true;
 
                   const transaction = editor.state.tr
-                    .setMeta('blur', { event })
+                    .setMeta('focus', { event })
                     .setMeta('addToHistory', false);
 
                   view.dispatch(transaction);
-                }
 
-                return false;
+                  return false;
+                },
+                blur: (view, event: Event) => {
+                  editorDomFocused.current = false;
+
+                  if (!inspectorFocused.current) {
+                    editor.isFocused = false;
+
+                    const transaction = editor.state.tr
+                      .setMeta('blur', { event })
+                      .setMeta('addToHistory', false);
+
+                    view.dispatch(transaction);
+                  }
+
+                  return false;
+                },
               },
             },
-          },
-        }),
-      );
+          }),
+        );
 
-      return () => {
-        editor?.unregisterPlugin(pluginKey);
-        editor?.registerPlugin(defaultFocusPlugin);
-      };
-    }
-  }, [editor]);
-
-  const scopeRefs = React.useRef(new Set<HTMLElement>());
-
-  // these useCallbacks are importnat to ensure that the same function references are used when adding/removing event listeners,
-  // and so that the focus scopes are not registered/unregistered every re-render
-  const handleFocus = React.useCallback(
-    (event: FocusEvent) => {
-      inspectorFocused.current = true;
-      if (editor) {
-        editor.isFocused = true;
-
-        const transaction = editor.state.tr
-          .setMeta('focus', { event })
-          .setMeta('addToHistory', false);
-
-        editor.view.dispatch(transaction);
+        return () => {
+          editor?.unregisterPlugin(pluginKey);
+          editor?.registerPlugin(defaultFocusPlugin);
+        };
       }
-    },
-    [editor],
-  );
+    }, [editor]);
 
-  const handleBlur = React.useCallback(
-    (event: FocusEvent) => {
-      const nextFocus = event.relatedTarget as Node | null;
-      const stillInside = [...scopeRefs.current].some(
-        (el) => nextFocus && el.contains(nextFocus),
-      );
-      if (!stillInside) {
-        inspectorFocused.current = false;
-        if (!editorDomFocused.current && editor) {
-          editor.isFocused = false;
+    const scopeRefs = React.useRef(new Set<HTMLElement>());
+
+    // these useCallbacks are importnat to ensure that the same function references are used when adding/removing event listeners,
+    // and so that the focus scopes are not registered/unregistered every re-render
+    const handleFocus = React.useCallback(
+      (event: FocusEvent) => {
+        inspectorFocused.current = true;
+        if (editor) {
+          editor.isFocused = true;
 
           const transaction = editor.state.tr
-            .setMeta('blur', { event })
+            .setMeta('focus', { event })
             .setMeta('addToHistory', false);
 
           editor.view.dispatch(transaction);
         }
-      }
-    },
-    [editor],
-  );
+      },
+      [editor],
+    );
 
-  const registerFocusScope = React.useCallback(
-    (el: HTMLElement | null) => {
-      if (!el) return;
-      scopeRefs.current.add(el);
-      el.addEventListener('focusin', handleFocus);
-      el.addEventListener('focusout', handleBlur);
-    },
-    [handleFocus, handleBlur],
-  );
+    const handleBlur = React.useCallback(
+      (event: FocusEvent) => {
+        const nextFocus = event.relatedTarget as Node | null;
+        const stillInside = [...scopeRefs.current].some(
+          (el) => nextFocus && el.contains(nextFocus),
+        );
+        if (!stillInside) {
+          inspectorFocused.current = false;
+          if (!editorDomFocused.current && editor) {
+            editor.isFocused = false;
 
-  const unregisterFocusScope = React.useCallback(
-    (el: HTMLElement | null) => {
-      if (!el) return;
-      scopeRefs.current.delete(el);
-      el.removeEventListener('focusin', handleFocus);
-      el.removeEventListener('focusout', handleBlur);
-    },
-    [handleFocus, handleBlur],
-  );
+            const transaction = editor.state.tr
+              .setMeta('blur', { event })
+              .setMeta('addToHistory', false);
 
-  const Component = asChild ? Slot : 'aside';
+            editor.view.dispatch(transaction);
+          }
+        }
+      },
+      [editor],
+    );
 
-  return (
-    <InspectorContext.Provider
-      value={{
-        target,
-        pathFromRoot,
-        registerFocusScope,
-        unregisterFocusScope,
-      }}
-    >
-      <InspectorFocusScope>
-        <Component ref={forwardedRef} {...restProps} tabIndex={-1}>
-          {children}
-        </Component>
-      </InspectorFocusScope>
-    </InspectorContext.Provider>
-  );
-});
+    const registerFocusScope = React.useCallback(
+      (el: HTMLElement | null) => {
+        if (!el) return;
+        scopeRefs.current.add(el);
+        el.addEventListener('focusin', handleFocus);
+        el.addEventListener('focusout', handleBlur);
+      },
+      [handleFocus, handleBlur],
+    );
+
+    const unregisterFocusScope = React.useCallback(
+      (el: HTMLElement | null) => {
+        if (!el) return;
+        scopeRefs.current.delete(el);
+        el.removeEventListener('focusin', handleFocus);
+        el.removeEventListener('focusout', handleBlur);
+      },
+      [handleFocus, handleBlur],
+    );
+
+    const Component = asChild ? Slot : 'aside';
+
+    return (
+      <InspectorContext.Provider
+        value={{
+          target,
+          pathFromRoot,
+          registerFocusScope,
+          unregisterFocusScope,
+        }}
+      >
+        <InspectorFocusScope>
+          <Component ref={forwardedRef} {...restProps} tabIndex={-1}>
+            {children}
+          </Component>
+        </InspectorFocusScope>
+      </InspectorContext.Provider>
+    );
+  },
+);
 
 export interface FocusScopeProps {
   children: React.ReactNode;

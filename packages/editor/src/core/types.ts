@@ -6,7 +6,6 @@
 import type { Attrs } from '@tiptap/pm/model';
 import type { EditorEventMap, EditorEventName } from './event-bus';
 
-
 /**
  * A single placeholder item with all metadata needed for rendering.
  * Used by the event bus and placeholder plugin.
