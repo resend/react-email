@@ -93,8 +93,9 @@ export function SlashCommandRoot({
 
   useEffect(() => {
     if (!state.clientRect) return;
+    const clientRect = state.clientRect;
     refs.setReference({
-      getBoundingClientRect: state.clientRect,
+      getBoundingClientRect: () => clientRect()!,
     });
   }, [state.clientRect, refs]);
 

@@ -1,5 +1,5 @@
 import type { useCurrentEditor } from '@tiptap/react';
-import type { NodeClickedEvent } from '../../../core/types';
+import type { NodeClickedEvent } from '../../../core/event-bus';
 import {
   ensureBorderStyleFallback,
   expandShorthandProperties,

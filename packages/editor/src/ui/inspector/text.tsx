@@ -14,7 +14,7 @@ import {
   updateLinkColor,
   useLinkMark,
 } from './hooks/use-link-mark';
-import { useInspector } from './provider';
+import { useInspector } from './root';
 import { resolveThemeDefaults } from './utils/resolve-theme-defaults';
 import {
   getParentBlockInfo,
@@ -81,7 +81,7 @@ export function InspectorText({ children }: InspectorTextProps) {
     css,
   );
 
-  const parentStyle = inlineCssToJs(parentAttrs.style || '');
+  const parentStyle = inlineCssToJs(String(parentAttrs.style || ''));
   const mergedStyles: Record<string, string | number | undefined> = {
     ...themeDefaults,
     ...parentStyle,

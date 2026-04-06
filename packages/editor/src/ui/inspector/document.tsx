@@ -229,14 +229,14 @@ export function InspectorDocument({ children }: InspectorDocumentProps) {
       const input = group.inputs.find(
         (i) => i.classReference === classReference && i.prop === prop,
       );
-      if (input) return input.value;
+      if (input && input.value !== undefined) return input.value;
     }
 
     for (const group of themeDefaults) {
       const input = group.inputs.find(
         (i) => i.classReference === classReference && i.prop === prop,
       );
-      if (input) return input.value;
+      if (input && input.value !== undefined) return input.value;
     }
 
     const propDef = SUPPORTED_CSS_PROPERTIES[prop];
