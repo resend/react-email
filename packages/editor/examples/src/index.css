@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "@react-email/editor/themes/default.css";
+@import "@react-email/editor/styles/inspector.css";
 
 html,
 body {
