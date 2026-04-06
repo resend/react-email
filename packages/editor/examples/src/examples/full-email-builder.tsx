@@ -123,7 +123,7 @@ export function FullEmailBuilder() {
         </button>
       </div>
       <EditorProvider key={theme} extensions={extensions} content={content}>
-        <div className="flex border border-(--re-border) rounded-xl min-h-80 overflow-hidden -mx-4 -mb-4">
+        <div className="flex flex-1 min-h-0 overflow-hidden -mx-4 -mb-4">
           <div className="flex-1 min-w-0 p-4 overflow-y-auto">
             <BubbleMenu.Default
               hideWhenActiveNodes={['button']}
@@ -132,10 +132,10 @@ export function FullEmailBuilder() {
             <BubbleMenu.LinkDefault />
             <BubbleMenu.ButtonDefault />
             <SlashCommand.Root items={defaultSlashCommands} />
+            <ExportPanel />
           </div>
           <Sidebar />
         </div>
-        <ExportPanel />
       </EditorProvider>
     </ExampleShell>
   );
