@@ -1,21 +1,25 @@
-/* Left-align nav tabs next to logo (desktop only) */
+/* Left-align nav tabs after sidebar width (desktop only) */
 @media (min-width: 1024px) {
-  #navbar .flex-1:has(> [data-slot="context-menu-trigger"]) {
+  /* Give the logo area a fixed width matching the sidebar (16.5rem + pl-2 - navbar px-7) */
+  #navbar .flex-1:has(> a[href="/"]) {
     flex: none !important;
-    width: 15rem;
+    width: calc(16.5rem - 1.75rem);
   }
 
-  #navbar .justify-end:has(.nav-tabs) {
-    justify-content: space-between !important;
-    margin-left: 0 !important;
-  }
-
-  #navbar .flex:has(> .justify-end) {
+  /* Let the right section expand to fill remaining space */
+  #navbar .gap-4:has(.nav-tabs) {
     flex: 1 !important;
   }
 
-  #navbar .nav-tabs {
-    white-space: nowrap;
+  /* Remove auto margin on the tabs wrapper */
+  #navbar .ml-auto:has(.nav-tabs) {
+    margin-left: 0 !important;
+    flex: 1 !important;
+  }
+
+  /* Push the GitHub star count to the right */
+  #navbar .gap-x-6:has(.nav-tabs) > nav {
+    margin-left: auto !important;
   }
 }
 
