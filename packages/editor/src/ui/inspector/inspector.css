@@ -237,3 +237,45 @@
 [data-re-inspector-text][data-color="muted"] {
   color: var(--re-text-muted, #6b6b6b);
 }
+
+/* ----------------------------------------------------------------
+ * Prop row
+ * ---------------------------------------------------------------- */
+
+[data-re-inspector-prop-row] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+/* ----------------------------------------------------------------
+ * Section
+ * ---------------------------------------------------------------- */
+
+[data-re-inspector-section] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+[data-re-inspector-section-header] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+[data-re-inspector-section-toggle] {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+}
+
+[data-re-inspector-section-body] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
