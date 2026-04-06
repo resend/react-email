@@ -48,10 +48,11 @@ export function updateLinkColor(
   const styleObj = inlineCssToJs(linkStyle);
   styleObj.color = color;
   const newStyle = jsToInlineCss(styleObj);
+  const { from, to } = editor.state.selection;
   editor
     .chain()
-    .focus()
     .extendMarkRange('link')
     .updateAttributes('link', { style: newStyle })
+    .setTextSelection({ from, to })
     .run();
 }
