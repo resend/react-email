@@ -40,7 +40,7 @@ export function BubbleMenuLinkDefault({
 
   return (
     <BubbleMenuRoot
-      shouldShow={bubbleMenuTriggers.nodeWithoutSelection('link')}
+      trigger={bubbleMenuTriggers.nodeWithoutSelection('link')}
       pluginKey={linkPluginKey}
       placement={placement}
       offset={offset}

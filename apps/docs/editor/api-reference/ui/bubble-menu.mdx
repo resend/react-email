@@ -157,7 +157,7 @@ import { PluginKey } from '@tiptap/pm/state';
 const myPluginKey = new PluginKey('myCustomMenu');
 
 <BubbleMenu.Root
-  shouldShow={bubbleMenuTriggers.node('image')}
+  trigger={bubbleMenuTriggers.node('image')}
   pluginKey={myPluginKey}
   placement="top"
 >
@@ -165,7 +165,7 @@ const myPluginKey = new PluginKey('myCustomMenu');
 </BubbleMenu.Root>
 ```
 
-<ResponseField name="shouldShow" type="ShouldShowFn">
+<ResponseField name="trigger" type="TriggerFn">
   Controls when the menu is visible. Defaults to showing on text selection.
   Use `bubbleMenuTriggers` for common patterns.
 </ResponseField>
@@ -198,7 +198,7 @@ const myPluginKey = new PluginKey('myCustomMenu');
 
 ### bubbleMenuTriggers
 
-Factory for common `shouldShow` functions:
+Factory for common `trigger` functions:
 
 | Trigger | Description |
 | -- | -- |
@@ -265,7 +265,7 @@ const linkKey = new PluginKey('myLinkMenu');
 function MyLinkMenu() {
   return (
     <BubbleMenu.Root
-      shouldShow={bubbleMenuTriggers.nodeWithoutSelection('link')}
+      trigger={bubbleMenuTriggers.nodeWithoutSelection('link')}
       pluginKey={linkKey}
       placement="top"
     >

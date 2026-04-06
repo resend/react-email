@@ -6,6 +6,7 @@ import type { JSONContent } from '@tiptap/core';
 import { Editor, Extension } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
 import { composeReactEmail } from '../core/serializer/compose-react-email';
+import { EmailTheming } from '../plugins';
 import { DEFAULT_STYLES } from '../utils/default-styles';
 import { Container } from './container';
 import { StarterKit } from './index';
@@ -15,7 +16,6 @@ vi.mock('@/actions/ai', () => ({
 }));
 
 const containerStyle = {
-  ...DEFAULT_STYLES.reset,
   ...DEFAULT_STYLES.container,
 };
 
@@ -47,7 +47,7 @@ describe('Container Node', () => {
         cellpadding="0"
         cellspacing="0"
         role="presentation"
-        style="margin:0;padding:0;width:100%">
+        style="width:100%">
         <tbody>
           <tr style="width:100%">
             <td>Container content</td>
@@ -75,7 +75,7 @@ describe('Container Node', () => {
     );
 
     expect(html).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="max-width:600px;margin:0;padding:0;width:100%"><tbody><tr style="width:100%"><td>Content</td></tr></tbody></table><!--/$-->"`,
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="max-width:600px;width:100%"><tbody><tr style="width:100%"><td>Content</td></tr></tbody></table><!--/$-->"`,
     );
   });
 
@@ -237,7 +237,7 @@ describe('Container Node', () => {
   function createEditorWithContent(content: JSONContent) {
     editor = new Editor({
       content,
-      extensions: [StarterKit],
+      extensions: [StarterKit, EmailTheming],
     });
     editor.view.dispatch(editor.state.tr);
     return editor;
@@ -277,7 +277,8 @@ describe('Container Node', () => {
             name="format-detection" />
           <!--$-->
         </head>
-        <body>
+        <body
+          style="background-color:#ffffff;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0">
           <table
             border="0"
             width="100%"
@@ -287,18 +288,24 @@ describe('Container Node', () => {
             align="center">
             <tbody>
               <tr>
-                <td>
+                <td
+                  style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%;background-color:#ffffff;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px">
                   <table
-                    align="center"
+                    align="left"
                     width="100%"
                     border="0"
                     cellpadding="0"
                     cellspacing="0"
                     role="presentation"
-                    style="width:100%">
+                    style="max-width:600px;align:left;width:100%;color:#000000;background-color:#ffffff;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-radius:0px;border-color:#000000;line-height:155%">
                     <tbody>
                       <tr style="width:100%">
-                        <td><p>Hello world</p></td>
+                        <td>
+                          <p
+                            style="margin:0;padding:0;font-size:1em;padding-top:0.5em;padding-bottom:0.5em">
+                            Hello world
+                          </p>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -1307,6 +1314,232 @@ describe('Container Node', () => {
       `);
   });
 
+  it('does not apply reset margin/padding to the container when using center alignment', async () => {
+    const content: JSONContent = {
+      type: 'doc',
+      content: [
+        {
+          type: 'globalContent',
+          attrs: {
+            data: {
+              theme: 'basic',
+              css: '',
+              styles: [
+                {
+                  id: 'container',
+                  title: 'Content',
+                  classReference: 'container',
+                  inputs: [
+                    {
+                      label: 'Align',
+                      type: 'select',
+                      value: 'center',
+                      options: {
+                        left: 'Left',
+                        center: 'Center',
+                        right: 'Right',
+                      },
+                      prop: 'align',
+                      classReference: 'container',
+                    },
+                    {
+                      label: 'Width',
+                      type: 'number',
+                      value: 600,
+                      unit: 'px',
+                      prop: 'width',
+                      classReference: 'container',
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        },
+        {
+          type: 'container',
+          content: [
+            {
+              type: 'paragraph',
+              content: [{ type: 'text', text: 'Centered content' }],
+            },
+          ],
+        },
+      ],
+    };
+
+    const ed = createEditorWithContent(content);
+    const result = await composeReactEmail({ editor: ed, preview: '' });
+
+    expect(result.html).toMatchInlineSnapshot(`
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html dir="ltr" lang="en">
+        <head>
+          <meta content="width=device-width" name="viewport" />
+          <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+          <meta name="x-apple-disable-message-reformatting" />
+          <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+          <meta name="x-apple-disable-message-reformatting" />
+          <meta
+            content="telephone=no,address=no,email=no,date=no,url=no"
+            name="format-detection" />
+          <!--$-->
+        </head>
+        <body>
+          <table
+            border="0"
+            width="100%"
+            cellpadding="0"
+            cellspacing="0"
+            role="presentation"
+            align="center">
+            <tbody>
+              <tr>
+                <td
+                  style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:14px;min-height:100%;line-height:155%">
+                  <table
+                    align="center"
+                    width="100%"
+                    border="0"
+                    cellpadding="0"
+                    cellspacing="0"
+                    role="presentation"
+                    style="max-width:600px;align:center;width:100%">
+                    <tbody>
+                      <tr style="width:100%">
+                        <td>
+                          <p
+                            style="margin:0;padding:0;font-size:1em;padding-top:0.5em;padding-bottom:0.5em">
+                            Centered content
+                          </p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!--/$-->
+        </body>
+      </html>
+      "
+    `);
+  });
+
+  it('does not apply reset margin/padding to the container when using left alignment', async () => {
+    const content: JSONContent = {
+      type: 'doc',
+      content: [
+        {
+          type: 'globalContent',
+          attrs: {
+            data: {
+              theme: 'basic',
+              css: '',
+              styles: [
+                {
+                  id: 'container',
+                  title: 'Content',
+                  classReference: 'container',
+                  inputs: [
+                    {
+                      label: 'Align',
+                      type: 'select',
+                      value: 'left',
+                      options: {
+                        left: 'Left',
+                        center: 'Center',
+                        right: 'Right',
+                      },
+                      prop: 'align',
+                      classReference: 'container',
+                    },
+                    {
+                      label: 'Width',
+                      type: 'number',
+                      value: 600,
+                      unit: 'px',
+                      prop: 'width',
+                      classReference: 'container',
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        },
+        {
+          type: 'container',
+          content: [
+            {
+              type: 'paragraph',
+              content: [{ type: 'text', text: 'Left-aligned content' }],
+            },
+          ],
+        },
+      ],
+    };
+
+    const ed = createEditorWithContent(content);
+    const result = await composeReactEmail({ editor: ed, preview: '' });
+
+    expect(result.html).toMatchInlineSnapshot(`
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html dir="ltr" lang="en">
+        <head>
+          <meta content="width=device-width" name="viewport" />
+          <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+          <meta name="x-apple-disable-message-reformatting" />
+          <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+          <meta name="x-apple-disable-message-reformatting" />
+          <meta
+            content="telephone=no,address=no,email=no,date=no,url=no"
+            name="format-detection" />
+          <!--$-->
+        </head>
+        <body>
+          <table
+            border="0"
+            width="100%"
+            cellpadding="0"
+            cellspacing="0"
+            role="presentation"
+            align="center">
+            <tbody>
+              <tr>
+                <td
+                  style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:14px;min-height:100%;line-height:155%">
+                  <table
+                    align="left"
+                    width="100%"
+                    border="0"
+                    cellpadding="0"
+                    cellspacing="0"
+                    role="presentation"
+                    style="max-width:600px;align:left;width:100%">
+                    <tbody>
+                      <tr style="width:100%">
+                        <td>
+                          <p
+                            style="margin:0;padding:0;font-size:1em;padding-top:0.5em;padding-bottom:0.5em">
+                            Left-aligned content
+                          </p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!--/$-->
+        </body>
+      </html>
+      "
+    `);
+  });
+
   it('wraps content inside a container in the serialized output', async () => {
     const content: JSONContent = {
       type: 'doc',
@@ -1346,7 +1579,8 @@ describe('Container Node', () => {
             name="format-detection" />
           <!--$-->
         </head>
-        <body>
+        <body
+          style="background-color:#ffffff;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0">
           <table
             border="0"
             width="100%"
@@ -1356,18 +1590,24 @@ describe('Container Node', () => {
             align="center">
             <tbody>
               <tr>
-                <td>
+                <td
+                  style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%;background-color:#ffffff;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px">
                   <table
-                    align="center"
+                    align="left"
                     width="100%"
                     border="0"
                     cellpadding="0"
                     cellspacing="0"
                     role="presentation"
-                    style="width:100%">
+                    style="max-width:600px;align:left;width:100%;color:#000000;background-color:#ffffff;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-radius:0px;border-color:#000000;line-height:155%">
                     <tbody>
                       <tr style="width:100%">
-                        <td><p>Inside container</p></td>
+                        <td>
+                          <p
+                            style="margin:0;padding:0;font-size:1em;padding-top:0.5em;padding-bottom:0.5em">
+                            Inside container
+                          </p>
+                        </td>
                       </tr>
                     </tbody>
                   </table>

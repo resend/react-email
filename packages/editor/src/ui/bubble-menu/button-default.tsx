@@ -64,7 +64,7 @@ export function BubbleMenuButtonDefault({
 }: BubbleMenuButtonDefaultProps) {
   return (
     <BubbleMenuRoot
-      shouldShow={bubbleMenuTriggers.node('button')}
+      trigger={bubbleMenuTriggers.node('button')}
       pluginKey={buttonPluginKey}
       placement={placement}
       offset={offset}

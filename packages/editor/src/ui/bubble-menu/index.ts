@@ -99,7 +99,7 @@ export { BubbleMenuRoot } from './root';
 export type { BubbleMenuSeparatorProps } from './separator';
 export { BubbleMenuSeparator } from './separator';
 export { BubbleMenuStrike } from './strike';
-export type { ShouldShowFn, ShouldShowParams } from './triggers';
+export type { TriggerFn, TriggerParams } from './triggers';
 export { bubbleMenuTriggers } from './triggers';
 export { BubbleMenuUnderline } from './underline';
 export { BubbleMenuUppercase } from './uppercase';
