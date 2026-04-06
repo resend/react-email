@@ -224,7 +224,7 @@ function InspectorNodeDefaults({ context }: { context: InspectorNodeContext }) {
             return (
               <InspectorAttributes
                 key={section.type}
-                context={context}
+                {...context}
                 initialCollapsed={section.initialCollapsed}
               />
             );
@@ -232,7 +232,7 @@ function InspectorNodeDefaults({ context }: { context: InspectorNodeContext }) {
             return (
               <InspectorSize
                 key={section.type}
-                context={context}
+                {...context}
                 initialCollapsed={section.initialCollapsed}
               />
             );
@@ -240,7 +240,7 @@ function InspectorNodeDefaults({ context }: { context: InspectorNodeContext }) {
             return (
               <InspectorTypography
                 key={section.type}
-                context={context}
+                {...context}
                 initialCollapsed={section.initialCollapsed}
               />
             );
@@ -248,7 +248,7 @@ function InspectorNodeDefaults({ context }: { context: InspectorNodeContext }) {
             return (
               <InspectorPadding
                 key={section.type}
-                context={context}
+                {...context}
                 initialCollapsed={section.initialCollapsed}
               />
             );
@@ -256,7 +256,7 @@ function InspectorNodeDefaults({ context }: { context: InspectorNodeContext }) {
             return (
               <InspectorBackground
                 key={section.type}
-                context={context}
+                {...context}
                 initialCollapsed={section.initialCollapsed}
               />
             );
@@ -264,7 +264,7 @@ function InspectorNodeDefaults({ context }: { context: InspectorNodeContext }) {
             return (
               <InspectorBorder
                 key={section.type}
-                context={context}
+                {...context}
                 initialCollapsed={section.initialCollapsed}
               />
             );

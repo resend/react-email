@@ -5,16 +5,15 @@ import { Section } from '../components/section';
 import type { InspectorNodeContext } from '../node';
 import { ColorInput, Label } from '../primitives';
 
-interface InspectorBackgroundProps {
-  context: InspectorNodeContext;
+type InspectorBackgroundProps = InspectorNodeContext & {
   initialCollapsed?: boolean;
-}
+};
 
 export function InspectorBackground({
-  context,
+  getStyle,
+  setStyle,
   initialCollapsed = false,
 }: InspectorBackgroundProps) {
-  const { getStyle, setStyle } = context;
   const value = String(getStyle('backgroundColor') ?? '');
 
   return (

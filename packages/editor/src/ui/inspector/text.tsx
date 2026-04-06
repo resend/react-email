@@ -128,8 +128,8 @@ export function InspectorText({ children }: InspectorTextProps) {
 function InspectorTextDefaults({ context }: { context: InspectorTextContext }) {
   return (
     <>
-      <InspectorTypography context={context} />
-      {context.isLinkActive && <InspectorLink context={context} />}
+      <InspectorTypography {...context} />
+      {context.isLinkActive && <InspectorLink {...context} />}
     </>
   );
 }

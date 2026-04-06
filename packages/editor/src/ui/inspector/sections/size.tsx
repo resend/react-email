@@ -8,16 +8,18 @@ import { Label } from '../primitives';
 
 const SIZE_AS_ATTRIBUTES = ['image'];
 
-interface InspectorSizeProps {
-  context: InspectorNodeContext;
+type InspectorSizeProps = InspectorNodeContext & {
   initialCollapsed?: boolean;
-}
+};
 
 export function InspectorSize({
-  context,
+  nodeType,
+  getStyle,
+  setStyle,
+  getAttr,
+  setAttr,
   initialCollapsed = false,
 }: InspectorSizeProps) {
-  const { nodeType, getStyle, setStyle, getAttr, setAttr } = context;
   const useAttrs = SIZE_AS_ATTRIBUTES.includes(nodeType);
 
   const width = useAttrs

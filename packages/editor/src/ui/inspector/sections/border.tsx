@@ -5,38 +5,37 @@ import { BorderRadiusPicker } from '../components/border-radius-picker';
 import { Section } from '../components/section';
 import type { InspectorNodeContext } from '../node';
 
-interface InspectorBorderProps {
-  context: InspectorNodeContext;
+type InspectorBorderProps = InspectorNodeContext & {
   initialCollapsed?: boolean;
-}
+};
+
+const BORDER_PROPS = [
+  'borderWidth',
+  'borderColor',
+  'borderStyle',
+  'borderTopWidth',
+  'borderTopColor',
+  'borderTopStyle',
+  'borderRightWidth',
+  'borderRightColor',
+  'borderRightStyle',
+  'borderBottomWidth',
+  'borderBottomColor',
+  'borderBottomStyle',
+  'borderLeftWidth',
+  'borderLeftColor',
+  'borderLeftStyle',
+  'borderRadius',
+] as const;
 
 export function InspectorBorder({
-  context,
+  getStyle,
+  setStyle,
+  batchSetStyle,
   initialCollapsed = false,
 }: InspectorBorderProps) {
-  const { getStyle, setStyle, batchSetStyle } = context;
-
   const styleObject: Record<string, string | number | undefined> = {};
-  const borderProps = [
-    'borderWidth',
-    'borderColor',
-    'borderStyle',
-    'borderTopWidth',
-    'borderTopColor',
-    'borderTopStyle',
-    'borderRightWidth',
-    'borderRightColor',
-    'borderRightStyle',
-    'borderBottomWidth',
-    'borderBottomColor',
-    'borderBottomStyle',
-    'borderLeftWidth',
-    'borderLeftColor',
-    'borderLeftStyle',
-    'borderRadius',
-  ] as const;
-
-  for (const prop of borderProps) {
+  for (const prop of BORDER_PROPS) {
     styleObject[prop] = getStyle(prop);
   }
 
@@ -48,12 +47,12 @@ export function InspectorBorder({
           if (Array.isArray(propOrChanges)) {
             batchSetStyle(
               propOrChanges.map(([p, v]) => ({
-                prop: p as (typeof borderProps)[number],
+                prop: p as (typeof BORDER_PROPS)[number],
                 value: v,
               })),
             );
           } else {
-            setStyle(propOrChanges as (typeof borderProps)[number], value!);
+            setStyle(propOrChanges as (typeof BORDER_PROPS)[number], value!);
           }
         }}
       />

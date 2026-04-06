@@ -11,17 +11,16 @@ import {
 import type { InspectorNodeContext } from '../node';
 import { Label, Select, Textarea, TextField } from '../primitives';
 
-interface InspectorAttributesProps {
-  context: InspectorNodeContext;
+type InspectorAttributesProps = InspectorNodeContext & {
   initialCollapsed?: boolean;
-}
+};
 
 export function InspectorAttributes({
-  context,
+  nodeType,
+  getAttr,
+  setAttr,
   initialCollapsed = false,
 }: InspectorAttributesProps) {
-  const { nodeType, getAttr, setAttr } = context;
-
   const nodeAttrs = getVisibleAttributes(nodeType, getAttr);
 
   if (nodeAttrs.length === 0) {

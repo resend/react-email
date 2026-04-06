@@ -5,20 +5,20 @@ import { Section } from '../components/section';
 import { ColorInput, Label, TextField } from '../primitives';
 import type { InspectorTextContext } from '../text';
 
-interface InspectorLinkProps {
-  context: Pick<
-    InspectorTextContext,
-    'linkHref' | 'linkColor' | 'setLinkColor' | 'isLinkActive' | 'presetColors'
-  >;
+type InspectorLinkProps = Pick<
+  InspectorTextContext,
+  'linkHref' | 'linkColor' | 'setLinkColor' | 'isLinkActive' | 'presetColors'
+> & {
   initialCollapsed?: boolean;
-}
+};
 
 export function InspectorLink({
-  context,
+  linkHref,
+  linkColor,
+  setLinkColor,
+  isLinkActive,
   initialCollapsed = false,
 }: InspectorLinkProps) {
-  const { linkHref, linkColor, setLinkColor, isLinkActive } = context;
-
   if (!isLinkActive) {
     return null;
   }

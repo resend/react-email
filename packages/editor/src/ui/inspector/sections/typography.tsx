@@ -24,20 +24,19 @@ type TypographyContext = Pick<
       InspectorTextContext,
       'marks' | 'toggleMark' | 'alignment' | 'setAlignment'
     >
-  >;
-
-interface InspectorTypographyProps {
-  context: TypographyContext;
-  initialCollapsed?: boolean;
-}
+  > & {
+    initialCollapsed?: boolean;
+  };
 
 export function InspectorTypography({
-  context,
+  getStyle,
+  setStyle,
+  marks,
+  toggleMark,
+  alignment,
+  setAlignment,
   initialCollapsed = false,
-}: InspectorTypographyProps) {
-  const { getStyle, setStyle, marks, toggleMark, alignment, setAlignment } =
-    context;
-
+}: TypographyContext) {
   const color = String(getStyle('color') ?? '');
   const fontSize = getStyle('fontSize') ?? '';
   const lineHeight = getStyle('lineHeight') ?? '';
