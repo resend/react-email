@@ -1,0 +1,31 @@
+/* Left-align nav tabs after sidebar width (desktop only) */
+@media (min-width: 1024px) {
+  /* Give the logo area a fixed width matching the sidebar (16.5rem + pl-2 - navbar px-7) */
+  #navbar .flex-1:has(> a[href="/"]) {
+    flex: none !important;
+    width: calc(16.5rem - 1.75rem);
+  }
+
+  /* Let the right section expand to fill remaining space */
+  #navbar .gap-4:has(.nav-tabs) {
+    flex: 1 !important;
+  }
+
+  /* Remove auto margin on the tabs wrapper */
+  #navbar .ml-auto:has(.nav-tabs) {
+    margin-left: 0 !important;
+    flex: 1 !important;
+  }
+
+  /* Push the GitHub star count to the right */
+  #navbar .gap-x-6:has(.nav-tabs) > nav {
+    margin-left: auto !important;
+  }
+}
+
+#footer {
+  /* hide mintlify referral link */
+  a[href*="mintlify.com"] {
+    display: none;
+  }
+}
