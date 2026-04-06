@@ -108,6 +108,7 @@
   },
   "dependencies": {
     "@floating-ui/react-dom": "^2.1.8",
+    "@radix-ui/react-slot": "^1.2.3",
     "@tiptap/core": "^3.17.1",
     "@tiptap/extension-blockquote": "^3.17.1",
     "@tiptap/extension-bold": "^3.17.1",

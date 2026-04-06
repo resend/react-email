@@ -3,15 +3,16 @@
 import { InspectorBreadcrumb } from './breadcrumb';
 import { InspectorDocument } from './document';
 import { InspectorNode } from './node';
-import { InspectorProvider } from './provider';
+import { InspectorFocusScope, InspectorRoot } from './root';
 import { InspectorText } from './text';
 
 export const Inspector = {
-  Provider: InspectorProvider,
+  Root: InspectorRoot,
   Breadcrumb: InspectorBreadcrumb,
   Document: InspectorDocument,
   Node: InspectorNode,
   Text: InspectorText,
+  FocusScope: InspectorFocusScope,
 };
 
 export type { InspectorDocumentProps } from './document';

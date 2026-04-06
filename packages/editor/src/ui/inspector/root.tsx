@@ -1,3 +1,4 @@
+import { Slot } from '@radix-ui/react-slot';
 import { extensions } from '@tiptap/core';
 import type { Attrs } from '@tiptap/pm/model';
 import {
@@ -103,16 +104,15 @@ export interface FocusedNode {
 
 type InspectorTarget = 'doc' | 'text' | FocusedNode | null;
 
-export interface RootProps {
-  children: React.ReactNode;
+export interface RootProps extends React.ComponentPropsWithoutRef<'aside'> {
+  asChild?: boolean;
 }
 
 export interface InspectorContextValue {
   target: InspectorTarget;
   pathFromRoot: FocusedNode[];
-
-  focus: (event: Event) => void;
-  blur: (event: Event) => void;
+  registerFocusScope: (el: HTMLElement) => void;
+  unregisterFocusScope: (el: HTMLElement) => void;
 }
 
 export const InspectorContext =
@@ -128,7 +128,7 @@ export function useInspector() {
   return context;
 }
 
-export function InspectorProvider({ children }: RootProps) {
+export function InspectorRoot({ children, asChild, ...restProps }: RootProps) {
   const { editor } = useCurrentEditor();
 
   const target = useEditorState({
@@ -248,38 +248,89 @@ export function InspectorProvider({ children }: RootProps) {
     }
   }, [editor]);
 
+  const scopeRefs = React.useRef(new Set<HTMLElement>());
+
+  const handleFocus = React.useCallback(
+    (event: React.FocusEvent<HTMLElement>) => {
+      inspectorFocused.current = true;
+      if (editor) {
+        editor.isFocused = true;
+
+        const transaction = editor.state.tr
+          .setMeta('focus', { event })
+          .setMeta('addToHistory', false);
+
+        editor.view.dispatch(transaction);
+      }
+    },
+    [restProps.onFocus, editor],
+  );
+
+  const handleBlur = React.useCallback(
+    (event: React.FocusEvent<HTMLElement>) => {
+      const nextFocus = event.relatedTarget as Node | null;
+      const stillInside = [...scopeRefs.current].some(
+        (el) => nextFocus && el.contains(nextFocus),
+      );
+      if (!stillInside) {
+        inspectorFocused.current = false;
+        if (!editorDomFocused.current && editor) {
+          editor.isFocused = false;
+
+          const transaction = editor.state.tr
+            .setMeta('blur', { event })
+            .setMeta('addToHistory', false);
+
+          editor.view.dispatch(transaction);
+        }
+      }
+    },
+    [restProps.onBlur, editor],
+  );
+
+  const Component = asChild ? Slot : 'aside';
+
   return (
     <InspectorContext.Provider
       value={{
         target,
         pathFromRoot,
-        focus: (event: Event) => {
-          inspectorFocused.current = true;
-          if (editor) {
-            editor.isFocused = true;
-
-            const transaction = editor.state.tr
-              .setMeta('focus', { event })
-              .setMeta('addToHistory', false);
-
-            editor.view.dispatch(transaction);
-          }
+        registerFocusScope(el) {
+          scopeRefs.current.add(el);
         },
-        blur: (event: Event) => {
-          inspectorFocused.current = false;
-          if (!editorDomFocused.current && editor) {
-            editor.isFocused = false;
-
-            const transaction = editor.state.tr
-              .setMeta('blur', { event })
-              .setMeta('addToHistory', false);
-
-            editor.view.dispatch(transaction);
-          }
+        unregisterFocusScope(el) {
+          scopeRefs.current.delete(el);
         },
       }}
     >
-      {children}
+      <InspectorFocusScope>
+        <Component {...restProps} onFocus={handleFocus} onBlur={handleBlur}>
+          {children}
+        </Component>
+      </InspectorFocusScope>
     </InspectorContext.Provider>
+  );
+}
+
+export interface FocusScopeProps {
+  children: React.ReactNode;
+}
+
+export function InspectorFocusScope({ children }: FocusScopeProps) {
+  const { registerFocusScope, unregisterFocusScope } = useInspector();
+
+  return (
+    <Slot
+      ref={(element) => {
+        if (element) {
+          registerFocusScope(element);
+          return () => {
+            unregisterFocusScope(element);
+          };
+        }
+      }}
+    >
+      {children}
+    </Slot>
   );
 }

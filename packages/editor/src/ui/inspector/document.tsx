@@ -12,7 +12,7 @@ import type {
   KnownThemeComponents,
   PanelGroup,
 } from '../../plugins/email-theming/types';
-import { useInspector } from './provider';
+import { useInspector } from './root';
 
 function ensureAllProperties(
   currentStyles: PanelGroup[],

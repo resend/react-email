@@ -6,11 +6,6 @@
 import type { Attrs } from '@tiptap/pm/model';
 import type { EditorEventMap, EditorEventName } from './event-bus';
 
-export type NodeClickedEvent = {
-  nodeType: string;
-  nodeAttrs: Attrs;
-  nodePos: { pos: number; inside: number };
-};
 
 /**
  * A single placeholder item with all metadata needed for rendering.
