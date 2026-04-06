@@ -111,7 +111,7 @@ export interface RootProps extends React.ComponentPropsWithoutRef<'aside'> {
 export interface InspectorContextValue {
   target: InspectorTarget;
   pathFromRoot: FocusedNode[];
-  registerFocusScope: (el: HTMLElement) => void;
+  registerFocusScope: (el: HTMLElement | null) => void;
   unregisterFocusScope: (el: HTMLElement | null) => void;
 }
 
@@ -250,10 +250,11 @@ export function InspectorRoot({ children, asChild, ...restProps }: RootProps) {
 
   const scopeRefs = React.useRef(new Set<HTMLElement>());
 
+  // these useCallbacks are importnat to ensure that the same function references are used when adding/removing event listeners,
+  // and so that the focus scopes are not registered/unregistered every re-render
   const handleFocus = React.useCallback(
     (event: FocusEvent) => {
       inspectorFocused.current = true;
-      console.log('handleFocus', { relatedTarget: event.relatedTarget });
       if (editor) {
         editor.isFocused = true;
 
@@ -264,13 +265,12 @@ export function InspectorRoot({ children, asChild, ...restProps }: RootProps) {
         editor.view.dispatch(transaction);
       }
     },
-    [restProps.onFocus, editor],
+    [editor],
   );
 
   const handleBlur = React.useCallback(
     (event: FocusEvent) => {
       const nextFocus = event.relatedTarget as Node | null;
-      console.log('handleBlur', { relatedTarget: event.relatedTarget });
       const stillInside = [...scopeRefs.current].some(
         (el) => nextFocus && el.contains(nextFocus),
       );
@@ -287,7 +287,27 @@ export function InspectorRoot({ children, asChild, ...restProps }: RootProps) {
         }
       }
     },
-    [restProps.onBlur, editor],
+    [editor],
+  );
+
+  const registerFocusScope = React.useCallback(
+    (el: HTMLElement | null) => {
+      if (!el) return;
+      scopeRefs.current.add(el);
+      el.addEventListener('focusin', handleFocus);
+      el.addEventListener('focusout', handleBlur);
+    },
+    [handleFocus, handleBlur],
+  );
+
+  const unregisterFocusScope = React.useCallback(
+    (el: HTMLElement | null) => {
+      if (!el) return;
+      scopeRefs.current.delete(el);
+      el.removeEventListener('focusin', handleFocus);
+      el.removeEventListener('focusout', handleBlur);
+    },
+    [handleFocus, handleBlur],
   );
 
   const Component = asChild ? Slot : 'aside';
@@ -297,24 +317,14 @@ export function InspectorRoot({ children, asChild, ...restProps }: RootProps) {
       value={{
         target,
         pathFromRoot,
-        registerFocusScope(el) {
-          console.log('register scope');
-          scopeRefs.current.add(el);
-          el.addEventListener('focusin', handleFocus);
-          el.addEventListener('focusout', handleBlur);
-        },
-        unregisterFocusScope(el) {
-          console.log('unregister scope');
-          if (el) {
-            scopeRefs.current.delete(el);
-            el.removeEventListener('focusin', handleFocus);
-            el.removeEventListener('focusout', handleBlur);
-          }
-        },
+        registerFocusScope,
+        unregisterFocusScope,
       }}
     >
       <InspectorFocusScope>
-        <Component {...restProps}>{children}</Component>
+        <Component {...restProps} tabIndex={-1}>
+          {children}
+        </Component>
       </InspectorFocusScope>
     </InspectorContext.Provider>
   );
