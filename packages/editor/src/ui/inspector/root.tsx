@@ -112,7 +112,7 @@ export interface InspectorContextValue {
   target: InspectorTarget;
   pathFromRoot: FocusedNode[];
   registerFocusScope: (el: HTMLElement) => void;
-  unregisterFocusScope: (el: HTMLElement) => void;
+  unregisterFocusScope: (el: HTMLElement | null) => void;
 }
 
 export const InspectorContext =
@@ -251,8 +251,9 @@ export function InspectorRoot({ children, asChild, ...restProps }: RootProps) {
   const scopeRefs = React.useRef(new Set<HTMLElement>());
 
   const handleFocus = React.useCallback(
-    (event: React.FocusEvent<HTMLElement>) => {
+    (event: FocusEvent) => {
       inspectorFocused.current = true;
+      console.log('handleFocus', { relatedTarget: event.relatedTarget });
       if (editor) {
         editor.isFocused = true;
 
@@ -267,8 +268,9 @@ export function InspectorRoot({ children, asChild, ...restProps }: RootProps) {
   );
 
   const handleBlur = React.useCallback(
-    (event: React.FocusEvent<HTMLElement>) => {
+    (event: FocusEvent) => {
       const nextFocus = event.relatedTarget as Node | null;
+      console.log('handleBlur', { relatedTarget: event.relatedTarget });
       const stillInside = [...scopeRefs.current].some(
         (el) => nextFocus && el.contains(nextFocus),
       );
@@ -296,17 +298,23 @@ export function InspectorRoot({ children, asChild, ...restProps }: RootProps) {
         target,
         pathFromRoot,
         registerFocusScope(el) {
+          console.log('register scope');
           scopeRefs.current.add(el);
+          el.addEventListener('focusin', handleFocus);
+          el.addEventListener('focusout', handleBlur);
         },
         unregisterFocusScope(el) {
-          scopeRefs.current.delete(el);
+          console.log('unregister scope');
+          if (el) {
+            scopeRefs.current.delete(el);
+            el.removeEventListener('focusin', handleFocus);
+            el.removeEventListener('focusout', handleBlur);
+          }
         },
       }}
     >
       <InspectorFocusScope>
-        <Component {...restProps} onFocus={handleFocus} onBlur={handleBlur}>
-          {children}
-        </Component>
+        <Component {...restProps}>{children}</Component>
       </InspectorFocusScope>
     </InspectorContext.Provider>
   );
@@ -319,15 +327,21 @@ export interface FocusScopeProps {
 export function InspectorFocusScope({ children }: FocusScopeProps) {
   const { registerFocusScope, unregisterFocusScope } = useInspector();
 
+  const scopeElementRef = React.useRef<HTMLElement | null>(null);
+
+  React.useEffect(() => {
+    if (scopeElementRef.current) {
+      registerFocusScope(scopeElementRef.current);
+      return () => {
+        unregisterFocusScope(scopeElementRef.current);
+      };
+    }
+  }, [scopeElementRef.current, registerFocusScope, unregisterFocusScope]);
+
   return (
     <Slot
       ref={(element) => {
-        if (element) {
-          registerFocusScope(element);
-          return () => {
-            unregisterFocusScope(element);
-          };
-        }
+        scopeElementRef.current = element;
       }}
     >
       {children}
