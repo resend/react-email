@@ -123,7 +123,7 @@ export function FullEmailBuilder() {
         </button>
       </div>
       <EditorProvider key={theme} extensions={extensions} content={content}>
-        <div className="flex flex-1 min-h-0 overflow-hidden -mx-4 -mb-4">
+        <div className="flex h-[32rem] overflow-hidden -mx-4 -mb-4 border-t border-(--re-border)">
           <div className="flex-1 min-w-0 p-4 overflow-y-auto">
             <BubbleMenu.Default
               hideWhenActiveNodes={['button']}
