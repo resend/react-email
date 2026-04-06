@@ -1,26 +1,26 @@
 import type * as React from 'react';
 
-function TooltipRoot({ children, ...rest }: React.ComponentProps<'div'>) {
+function TooltipRoot({ children, ...rest }: React.ComponentProps<'span'>) {
   return (
-    <div data-re-inspector-tooltip="" {...rest}>
+    <span data-re-inspector-tooltip="" {...rest}>
       {children}
-    </div>
+    </span>
   );
 }
 
-function TooltipTrigger({ children, ...rest }: React.ComponentProps<'div'>) {
+function TooltipTrigger({ children, ...rest }: React.ComponentProps<'span'>) {
   return (
-    <div data-re-inspector-tooltip-trigger="" {...rest}>
+    <span data-re-inspector-tooltip-trigger="" {...rest}>
       {children}
-    </div>
+    </span>
   );
 }
 
-function TooltipContent({ children, ...rest }: React.ComponentProps<'div'>) {
+function TooltipContent({ children, ...rest }: React.ComponentProps<'span'>) {
   return (
-    <div data-re-inspector-tooltip-content="" {...rest}>
+    <span data-re-inspector-tooltip-content="" {...rest}>
       {children}
-    </div>
+    </span>
   );
 }
 

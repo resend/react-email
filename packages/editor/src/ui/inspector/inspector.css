@@ -234,10 +234,6 @@
   color: var(--re-text-muted, #6b6b6b);
 }
 
-[data-re-inspector-text] {
-  font-size: 0.75rem;
-}
-
 [data-re-inspector-text][data-color="muted"] {
   color: var(--re-text-muted, #6b6b6b);
 }
