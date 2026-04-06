@@ -1,6 +1,6 @@
 /* Left-align nav tabs next to logo (desktop only) */
 @media (min-width: 1024px) {
-  #navbar .flex-1:has(> [data-slot='context-menu-trigger']) {
+  #navbar .flex-1:has(> [data-slot="context-menu-trigger"]) {
     flex: none !important;
     width: 15rem;
   }
@@ -21,7 +21,7 @@
 
 #footer {
   /* hide mintlify referral link */
-  a[href*='mintlify.com'] {
+  a[href*="mintlify.com"] {
     display: none;
   }
 }
