@@ -7,7 +7,12 @@ import {
   Inspector,
   SlashCommand,
 } from '@react-email/editor/ui';
-import { EditorProvider, useCurrentEditor } from '@tiptap/react';
+import {
+  EditorContent,
+  EditorContext,
+  useCurrentEditor,
+  useEditor,
+} from '@tiptap/react';
 import { useState } from 'react';
 import { ExampleShell } from '../example-shell';
 
@@ -92,6 +97,13 @@ function ExportPanel() {
 export function FullEmailBuilder() {
   const [theme, setTheme] = useState<EditorTheme>('basic');
   const extensions = [StarterKit, EmailTheming.configure({ theme })];
+  const editor = useEditor(
+    {
+      extensions,
+      content,
+    },
+    [theme],
+  );
 
   return (
     <ExampleShell
@@ -122,9 +134,13 @@ export function FullEmailBuilder() {
           Minimal Theme
         </button>
       </div>
-      <EditorProvider key={theme} extensions={extensions} content={content}>
-        <div className="flex h-[32rem] overflow-hidden -mx-4 -mb-4 border-t border-(--re-border)">
+      <EditorContext.Provider value={{ editor }}>
+        <div
+          className="flex overflow-hidden -mx-4 -mb-4 border-t border-(--re-border)"
+          style={{ height: '32rem' }}
+        >
           <div className="flex-1 min-w-0 p-4 overflow-y-auto">
+            <EditorContent editor={editor} />
             <BubbleMenu.Default
               hideWhenActiveNodes={['button']}
               hideWhenActiveMarks={['link']}
@@ -136,7 +152,7 @@ export function FullEmailBuilder() {
           </div>
           <Sidebar />
         </div>
-      </EditorProvider>
+      </EditorContext.Provider>
     </ExampleShell>
   );
 }
