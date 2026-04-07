@@ -48,6 +48,9 @@ export const generateMetadata = async ({
       images: [
         {
           url: 'https://react.email/static/covers/patterns.png',
+          width: 1600,
+          height: 800,
+          type: 'image/png',
         },
       ],
     },

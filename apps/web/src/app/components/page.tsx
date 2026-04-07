@@ -14,7 +14,14 @@ export const metadata: Metadata = {
   description:
     'Build beautiful emails with pre-built components that you can copy-and-paste into your app.',
   openGraph: {
-    images: [{ url: 'https://react.email/static/covers/patterns.png' }],
+    images: [
+      {
+        url: 'https://react.email/static/covers/patterns.png',
+        width: 1600,
+        height: 800,
+        type: 'image/png',
+      },
+    ],
   },
   alternates: {
     canonical: '/components',
