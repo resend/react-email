@@ -21,6 +21,8 @@ export function InspectorComposed() {
     content,
   });
 
+  if (!editor) return null;
+
   return (
     <ExampleShell
       title="Inspector — Composed"

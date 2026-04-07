@@ -110,6 +110,8 @@ export function FullEmailBuilder() {
     [theme],
   );
 
+  if (!editor) return null;
+
   return (
     <ExampleShell
       title="Full Email Builder"

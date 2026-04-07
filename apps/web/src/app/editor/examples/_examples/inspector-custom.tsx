@@ -21,6 +21,8 @@ export function InspectorCustom() {
     content,
   });
 
+  if (!editor) return null;
+
   return (
     <ExampleShell
       title="Inspector — Fully Custom"

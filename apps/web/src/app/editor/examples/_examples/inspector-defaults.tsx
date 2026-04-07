@@ -22,6 +22,8 @@ export function InspectorDefaults() {
     content,
   });
 
+  if (!editor) return null;
+
   return (
     <ExampleShell
       title="Inspector — Defaults"
