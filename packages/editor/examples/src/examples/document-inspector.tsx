@@ -30,9 +30,9 @@ export function DocumentInspector() {
   return (
     <div className="flex flex-col flex-1">
       <p className="text-sm text-(--re-text-muted) mb-4">
-        Using <code>Inspector.Root</code> and{' '}
-        <code>Inspector.Document</code> to render document-level global styles
-        with predefined sections and a render-props API.
+        Using <code>Inspector.Root</code> and <code>Inspector.Document</code> to
+        render document-level global styles with predefined sections and a
+        render-props API.
       </p>
       <EditorContext.Provider value={{ editor }}>
         <div className="flex flex-1 border border-(--re-border) rounded-xl min-h-0 overflow-hidden">
