@@ -1,5 +1,5 @@
 import { Slot } from '@radix-ui/react-slot';
-import { Plugin, PluginKey } from '@tiptap/pm/state';
+import { Plugin, PluginKey, TextSelection } from '@tiptap/pm/state';
 import {
   extensions as nativeTiptapExtensions,
   useCurrentEditor,
@@ -27,10 +27,12 @@ export function useEditorFocusScope() {
 
 export interface EditorFocusScopeProviderProps {
   children: React.ReactNode;
+  clearSelectionOnBlur?: boolean;
 }
 
 export function EditorFocusScopeProvider({
   children,
+  clearSelectionOnBlur = true,
 }: EditorFocusScopeProviderProps) {
   const { editor } = useCurrentEditor();
 
@@ -63,6 +65,10 @@ export function EditorFocusScopeProvider({
         const transaction = editor.state.tr
           .setMeta('blur', { event })
           .setMeta('addToHistory', false);
+
+        if (clearSelectionOnBlur) {
+          transaction.setSelection(TextSelection.create(transaction.doc, 0));
+        }
 
         editor.view.dispatch(transaction);
       }
