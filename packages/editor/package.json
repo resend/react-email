@@ -74,6 +74,7 @@
     "./styles/button-bubble-menu.css": "./dist/ui/button-bubble-menu/button-bubble-menu.css",
     "./styles/image-bubble-menu.css": "./dist/ui/image-bubble-menu/image-bubble-menu.css",
     "./styles/slash-command.css": "./dist/ui/slash-command/slash-command.css",
+    "./styles/inspector.css": "./dist/ui/inspector/inspector.css",
     "./themes/default.css": "./dist/ui/themes/default.css"
   },
   "license": "MIT",

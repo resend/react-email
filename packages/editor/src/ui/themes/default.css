@@ -9,6 +9,7 @@
 /* Layer 0: layout (inlined at build time via postcss-import) */
 @import "../bubble-menu/bubble-menu.css";
 @import "../slash-command/slash-command.css";
+@import "../inspector/inspector.css";
 
 /* ----------------------------------------------------------------
  * CSS custom properties — light defaults

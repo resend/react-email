@@ -11,6 +11,12 @@ import { inlineCssToJs } from '../../utils/styles';
 import { useDocumentColors } from './hooks/use-document-colors';
 import type { FocusedNode } from './root';
 import { useInspector } from './root';
+import { AttributesSection } from './sections/attributes';
+import { BackgroundSection } from './sections/background';
+import { BorderSection } from './sections/border';
+import { PaddingSection } from './sections/padding';
+import { SizeSection } from './sections/size';
+import { TypographySection } from './sections/typography';
 import { resolveThemeDefaults } from './utils/resolve-theme-defaults';
 import {
   customUpdateAttributes,
@@ -133,12 +139,139 @@ export function InspectorNode({ children }: InspectorNodeProps) {
   return <InspectorNodeDefaults context={context} />;
 }
 
-function InspectorNodeDefaults({
-  context: _context,
-}: {
-  context: InspectorNodeContext;
-}) {
-  // Default rendering will be wired in PR 5 (section components)
-  // For now, render nothing — consumers must use render-props
-  return null;
+interface NodeLayout {
+  sections: Array<{
+    type:
+      | 'attributes'
+      | 'size'
+      | 'link'
+      | 'typography'
+      | 'padding'
+      | 'background'
+      | 'border';
+    initialCollapsed?: boolean;
+  }>;
+}
+
+function getDefaultLayout(nodeType: string): NodeLayout {
+  switch (nodeType) {
+    case 'image':
+      return {
+        sections: [
+          { type: 'attributes' },
+          { type: 'size' },
+          { type: 'link', initialCollapsed: true },
+          { type: 'padding', initialCollapsed: true },
+          { type: 'border', initialCollapsed: true },
+        ],
+      };
+    case 'button':
+      return {
+        sections: [
+          { type: 'link' },
+          { type: 'typography' },
+          { type: 'size', initialCollapsed: true },
+          { type: 'padding', initialCollapsed: true },
+          { type: 'border', initialCollapsed: true },
+          { type: 'background', initialCollapsed: true },
+        ],
+      };
+    case 'section':
+    case 'div':
+      return {
+        sections: [
+          { type: 'background' },
+          { type: 'padding', initialCollapsed: true },
+          { type: 'border', initialCollapsed: true },
+        ],
+      };
+    case 'codeBlock':
+      return {
+        sections: [
+          { type: 'attributes' },
+          { type: 'padding', initialCollapsed: true },
+          { type: 'border', initialCollapsed: true },
+        ],
+      };
+    case 'footer':
+      return {
+        sections: [
+          { type: 'typography', initialCollapsed: true },
+          { type: 'padding', initialCollapsed: true },
+          { type: 'background', initialCollapsed: true },
+        ],
+      };
+    default:
+      return {
+        sections: [
+          { type: 'typography', initialCollapsed: true },
+          { type: 'padding', initialCollapsed: true },
+          { type: 'background', initialCollapsed: true },
+          { type: 'border', initialCollapsed: true },
+        ],
+      };
+  }
+}
+
+function InspectorNodeDefaults({ context }: { context: InspectorNodeContext }) {
+  const layout = getDefaultLayout(context.nodeType);
+
+  return (
+    <>
+      {layout.sections.map((section) => {
+        switch (section.type) {
+          case 'attributes':
+            return (
+              <AttributesSection
+                key={section.type}
+                {...context}
+                initialCollapsed={section.initialCollapsed}
+              />
+            );
+          case 'size':
+            return (
+              <SizeSection
+                key={section.type}
+                {...context}
+                initialCollapsed={section.initialCollapsed}
+              />
+            );
+          case 'typography':
+            return (
+              <TypographySection
+                key={section.type}
+                {...context}
+                initialCollapsed={section.initialCollapsed}
+              />
+            );
+          case 'padding':
+            return (
+              <PaddingSection
+                key={section.type}
+                {...context}
+                initialCollapsed={section.initialCollapsed}
+              />
+            );
+          case 'background':
+            return (
+              <BackgroundSection
+                key={section.type}
+                {...context}
+                initialCollapsed={section.initialCollapsed}
+              />
+            );
+          case 'border':
+            return (
+              <BorderSection
+                key={section.type}
+                {...context}
+                initialCollapsed={section.initialCollapsed}
+              />
+            );
+          default:
+            return null;
+        }
+      })}
+    </>
+  );
 }

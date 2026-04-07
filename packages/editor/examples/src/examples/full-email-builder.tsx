@@ -4,9 +4,15 @@ import { EmailTheming } from '@react-email/editor/plugins';
 import {
   BubbleMenu,
   defaultSlashCommands,
+  Inspector,
   SlashCommand,
 } from '@react-email/editor/ui';
-import { EditorProvider, useCurrentEditor } from '@tiptap/react';
+import {
+  EditorContent,
+  EditorContext,
+  useCurrentEditor,
+  useEditor,
+} from '@tiptap/react';
 import { useState } from 'react';
 import { ExampleShell } from '../example-shell';
 
@@ -20,7 +26,41 @@ const content = `
   <div class="align-left"><a class="node-button button" data-id="react-email-button" href="https://react.email">Read More</a></div>
 `;
 
-function ControlPanel() {
+function Sidebar() {
+  return (
+    <aside className="w-56 shrink-0 border-l border-(--re-border) p-3 flex flex-col gap-3 overflow-y-auto text-xs">
+      <Inspector.Provider>
+        <nav>
+          <ol className="flex items-center gap-1 list-none m-0 p-0">
+            <Inspector.Breadcrumb>
+              {(segments) =>
+                segments.map((segment, i) => (
+                  <li key={i} className="flex items-center gap-1">
+                    {i !== 0 && (
+                      <span className="text-(--re-text-muted)">/</span>
+                    )}
+                    <button
+                      type="button"
+                      className="bg-transparent border-0 cursor-pointer text-(--re-text) p-0 text-xs hover:underline"
+                      onClick={() => segment.focus()}
+                    >
+                      {segment.node?.nodeType ?? 'Layout'}
+                    </button>
+                  </li>
+                ))
+              }
+            </Inspector.Breadcrumb>
+          </ol>
+        </nav>
+        <Inspector.Document />
+        <Inspector.Node />
+        <Inspector.Text />
+      </Inspector.Provider>
+    </aside>
+  );
+}
+
+function ExportPanel() {
   const { editor } = useCurrentEditor();
   const [html, setHtml] = useState('');
   const [exporting, setExporting] = useState(false);
@@ -57,11 +97,18 @@ function ControlPanel() {
 export function FullEmailBuilder() {
   const [theme, setTheme] = useState<EditorTheme>('basic');
   const extensions = [StarterKit, EmailTheming.configure({ theme })];
+  const editor = useEditor(
+    {
+      extensions,
+      content,
+    },
+    [theme],
+  );
 
   return (
     <ExampleShell
       title="Full Email Builder"
-      description="All components combined: bubble menus, slash commands, theming, and export."
+      description="All components combined: bubble menus, slash commands, theming, inspector sidebar, and export."
     >
       <div className="flex gap-2 mb-4">
         <button
@@ -87,16 +134,25 @@ export function FullEmailBuilder() {
           Minimal Theme
         </button>
       </div>
-      <EditorProvider key={theme} extensions={extensions} content={content}>
-        <BubbleMenu.Default
-          hideWhenActiveNodes={['button']}
-          hideWhenActiveMarks={['link']}
-        />
-        <BubbleMenu.LinkDefault />
-        <BubbleMenu.ButtonDefault />
-        <SlashCommand.Root items={defaultSlashCommands} />
-        <ControlPanel />
-      </EditorProvider>
+      <EditorContext.Provider value={{ editor }}>
+        <div
+          className="flex overflow-hidden -mx-4 -mb-4 border-t border-(--re-border)"
+          style={{ height: '32rem' }}
+        >
+          <div className="flex-1 min-w-0 p-4 overflow-y-auto">
+            <EditorContent editor={editor} />
+            <BubbleMenu.Default
+              hideWhenActiveNodes={['button']}
+              hideWhenActiveMarks={['link']}
+            />
+            <BubbleMenu.LinkDefault />
+            <BubbleMenu.ButtonDefault />
+            <SlashCommand.Root items={defaultSlashCommands} />
+            <ExportPanel />
+          </div>
+          <Sidebar />
+        </div>
+      </EditorContext.Provider>
     </ExampleShell>
   );
 }

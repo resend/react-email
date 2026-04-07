@@ -15,6 +15,8 @@ import {
   useLinkMark,
 } from './hooks/use-link-mark';
 import { useInspector } from './root';
+import { LinkSection } from './sections/link';
+import { TypographySection } from './sections/typography';
 import { resolveThemeDefaults } from './utils/resolve-theme-defaults';
 import {
   getParentBlockInfo,
@@ -123,11 +125,11 @@ export function InspectorText({ children }: InspectorTextProps) {
   return <InspectorTextDefaults context={context} />;
 }
 
-function InspectorTextDefaults({
-  context: _context,
-}: {
-  context: InspectorTextContext;
-}) {
-  // Default rendering will be wired in PR 5 (section components)
-  return null;
+function InspectorTextDefaults({ context }: { context: InspectorTextContext }) {
+  return (
+    <>
+      <TypographySection {...context} />
+      {context.isLinkActive && <LinkSection {...context} />}
+    </>
+  );
 }
