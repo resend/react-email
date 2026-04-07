@@ -208,9 +208,6 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
       return [];
     }, [editor, target]);
 
-    const editorRef = React.useRef(editor);
-    editorRef.current = editor;
-
     const Component = asChild ? Slot : 'aside';
 
     return (
