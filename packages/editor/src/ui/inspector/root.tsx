@@ -199,32 +199,6 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
     const editorRef = React.useRef(editor);
     editorRef.current = editor;
 
-    const handleFocusWithin = React.useCallback((event: FocusEvent) => {
-      const ed = editorRef.current;
-      if (ed) {
-        ed.isFocused = true;
-
-        const transaction = ed.state.tr
-          .setMeta('focus', { event })
-          .setMeta('addToHistory', false);
-
-        ed.view.dispatch(transaction);
-      }
-    }, []);
-
-    const handleBlurWithin = React.useCallback((event: FocusEvent) => {
-      const ed = editorRef.current;
-      if (ed) {
-        ed.isFocused = false;
-
-        const transaction = ed.state.tr
-          .setMeta('blur', { event })
-          .setMeta('addToHistory', false);
-
-        ed.view.dispatch(transaction);
-      }
-    }, []);
-
     const Component = asChild ? Slot : 'aside';
 
     return (
@@ -234,10 +208,7 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
           pathFromRoot,
         }}
       >
-        <EditorFocusScopeProvider
-          onFocusIn={handleFocusWithin}
-          onFocusOut={handleBlurWithin}
-        >
+        <EditorFocusScopeProvider>
           <EditorFocusScope>
             <Component ref={forwardedRef} {...restProps} tabIndex={-1}>
               {children}
@@ -248,4 +219,3 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
     );
   },
 );
-

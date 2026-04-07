@@ -27,31 +27,48 @@ export function useEditorFocusScope() {
 
 export interface EditorFocusScopeProviderProps {
   children: React.ReactNode;
-  onFocusIn: (event: FocusEvent) => void;
-  onFocusOut: (event: FocusEvent) => void;
 }
 
 export function EditorFocusScopeProvider({
   children,
-  onFocusIn,
-  onFocusOut,
 }: EditorFocusScopeProviderProps) {
   const { editor } = useCurrentEditor();
 
   const scopeRefs = React.useRef(new Set<HTMLElement>());
-  const handleFocusIn = React.useCallback((event: FocusEvent) => {
-    onFocusIn(event);
-  }, []);
 
-  const handleFocusOut = React.useCallback((event: FocusEvent) => {
-    const nextFocus = event.relatedTarget as Node | null;
-    const stillInside = [...scopeRefs.current].some(
-      (el) => nextFocus && el.contains(nextFocus),
-    );
-    if (!stillInside) {
-      onFocusOut(event);
-    }
-  }, []);
+  const handleFocusIn = React.useCallback(
+    (event: FocusEvent) => {
+      if (editor) {
+        editor.isFocused = true;
+
+        const transaction = editor.state.tr
+          .setMeta('focus', { event })
+          .setMeta('addToHistory', false);
+
+        editor.view.dispatch(transaction);
+      }
+    },
+    [editor],
+  );
+
+  const handleFocusOut = React.useCallback(
+    (event: FocusEvent) => {
+      const nextFocus = event.relatedTarget as Node | null;
+      const stillInside = [...scopeRefs.current].some(
+        (el) => nextFocus && el.contains(nextFocus),
+      );
+      if (!stillInside && editor) {
+        editor.isFocused = false;
+
+        const transaction = editor.state.tr
+          .setMeta('blur', { event })
+          .setMeta('addToHistory', false);
+
+        editor.view.dispatch(transaction);
+      }
+    },
+    [editor],
+  );
 
   const registerScope = React.useCallback(
     (el: HTMLElement | null) => {
@@ -71,11 +88,6 @@ export function EditorFocusScopeProvider({
       el.removeEventListener('focusout', handleFocusOut);
     },
     [handleFocusIn, handleFocusOut],
-  );
-
-  const value = React.useMemo(
-    () => ({ registerScope, unregisterScope }),
-    [registerScope, unregisterScope],
   );
 
   React.useEffect(() => {
@@ -109,17 +121,22 @@ export function EditorFocusScopeProvider({
   }, [editor]);
 
   return (
-    <FocusScopeContext.Provider value={value}>
+    <FocusScopeContext.Provider
+      value={{
+        registerScope,
+        unregisterScope,
+      }}
+    >
       {children}
     </FocusScopeContext.Provider>
   );
 }
 
-export interface FocusScopeProps {
+export interface EditorFocusScopeProps {
   children: React.ReactNode;
 }
 
-export function EditorFocusScope({ children }: FocusScopeProps) {
+export function EditorFocusScope({ children }: EditorFocusScopeProps) {
   const { registerScope, unregisterScope } = useEditorFocusScope();
 
   return (
