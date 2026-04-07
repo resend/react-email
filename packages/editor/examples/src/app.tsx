@@ -1,17 +1,15 @@
-import { useState } from 'react';
 import { CodeBlock } from './code-block';
 import { CopyButton } from './copy-button';
 import { sections } from './examples';
 import { Sidebar } from './sidebar';
 import { useHashRoute } from './use-hash-route';
+import { useTabParam } from './use-tab-param';
 
 const allExamples = sections.flatMap((s) => s.examples);
 
-type Tab = 'preview' | 'source';
-
 export function App() {
   const [activeId, setActiveId] = useHashRoute(allExamples[0].id);
-  const [activeTab, setActiveTab] = useState<Tab>('preview');
+  const [activeTab, setActiveTab] = useTabParam();
   const activeExample =
     allExamples.find((e) => e.id === activeId) ?? allExamples[0];
   const ActiveComponent = activeExample.component;
@@ -55,9 +53,6 @@ export function App() {
             </button>
           </div>
           <div className="flex items-center gap-2">
-            {activeTab === 'source' ? (
-              <CopyButton code={activeExample.sourceCode} />
-            ) : null}
             {activeExample.docsUrl ? (
               <a
                 href={activeExample.docsUrl}
@@ -89,7 +84,8 @@ export function App() {
         {activeTab === 'preview' ? (
           <ActiveComponent key={activeId} />
         ) : (
-          <div className="border border-(--re-border) rounded-xl overflow-hidden bg-[#1a1a1c] flex-1">
+          <div className="relative border border-(--re-border) rounded-xl overflow-auto bg-[#1a1a1c] flex-1">
+            <CopyButton code={activeExample.sourceCode} />
             <CodeBlock>{activeExample.sourceCode}</CodeBlock>
           </div>
         )}
