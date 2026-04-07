@@ -105,7 +105,10 @@ export const composeReactEmail = async ({
         </NodeComponent>
       );
       if (node.marks) {
-        for (const mark of sortMarksBySchema(node.marks, editor.schema).toReversed()) {
+        for (const mark of sortMarksBySchema(
+          node.marks,
+          editor.schema,
+        ).toReversed()) {
           const emailMark = typeToExtensionMap[mark.type];
           if (emailMark instanceof EmailMark) {
             const MarkComponent = emailMark.config.renderToReactEmail;
