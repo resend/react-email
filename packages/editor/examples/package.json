@@ -17,6 +17,7 @@
     "@tiptap/react": "^3.17.1",
     "@tiptap/starter-kit": "^3.17.1",
     "lucide-react": "^0.470.0",
+    "prism-react-renderer": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
   },
