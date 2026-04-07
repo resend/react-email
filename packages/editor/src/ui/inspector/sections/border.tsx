@@ -28,7 +28,7 @@ const BORDER_PROPS = [
   'borderRadius',
 ] as const;
 
-export function InspectorBorder({
+export function BorderSection({
   getStyle,
   setStyle,
   batchSetStyle,

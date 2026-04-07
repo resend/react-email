@@ -15,7 +15,7 @@ type InspectorAttributesProps = InspectorNodeContext & {
   initialCollapsed?: boolean;
 };
 
-export function InspectorAttributes({
+export function AttributesSection({
   nodeType,
   getAttr,
   setAttr,

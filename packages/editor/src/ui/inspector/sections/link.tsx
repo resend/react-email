@@ -12,7 +12,7 @@ type InspectorLinkProps = Pick<
   initialCollapsed?: boolean;
 };
 
-export function InspectorLink({
+export function LinkSection({
   linkHref,
   linkColor,
   setLinkColor,

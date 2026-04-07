@@ -9,7 +9,7 @@ type InspectorBackgroundProps = InspectorNodeContext & {
   initialCollapsed?: boolean;
 };
 
-export function InspectorBackground({
+export function BackgroundSection({
   getStyle,
   setStyle,
   initialCollapsed = false,

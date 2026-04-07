@@ -15,8 +15,8 @@ import {
   useLinkMark,
 } from './hooks/use-link-mark';
 import { useInspector } from './provider';
-import { InspectorLink } from './sections/link';
-import { InspectorTypography } from './sections/typography';
+import { LinkSection } from './sections/link';
+import { TypographySection } from './sections/typography';
 import { resolveThemeDefaults } from './utils/resolve-theme-defaults';
 import {
   getParentBlockInfo,
@@ -128,8 +128,8 @@ export function InspectorText({ children }: InspectorTextProps) {
 function InspectorTextDefaults({ context }: { context: InspectorTextContext }) {
   return (
     <>
-      <InspectorTypography {...context} />
-      {context.isLinkActive && <InspectorLink {...context} />}
+      <TypographySection {...context} />
+      {context.isLinkActive && <LinkSection {...context} />}
     </>
   );
 }

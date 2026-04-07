@@ -4,13 +4,13 @@ import { InspectorBreadcrumb } from './breadcrumb';
 import { InspectorDocument } from './document';
 import { InspectorNode } from './node';
 import { InspectorProvider } from './provider';
-import { InspectorAttributes } from './sections/attributes';
-import { InspectorBackground } from './sections/background';
-import { InspectorBorder } from './sections/border';
-import { InspectorLink } from './sections/link';
-import { InspectorPadding } from './sections/padding';
-import { InspectorSize } from './sections/size';
-import { InspectorTypography } from './sections/typography';
+import { AttributesSection } from './sections/attributes';
+import { BackgroundSection } from './sections/background';
+import { BorderSection } from './sections/border';
+import { LinkSection } from './sections/link';
+import { PaddingSection } from './sections/padding';
+import { SizeSection } from './sections/size';
+import { TypographySection } from './sections/typography';
 import { InspectorText } from './text';
 
 export const Inspector = {
@@ -19,13 +19,13 @@ export const Inspector = {
   Document: InspectorDocument,
   Node: InspectorNode,
   Text: InspectorText,
-  Attributes: InspectorAttributes,
-  Background: InspectorBackground,
-  Border: InspectorBorder,
-  Link: InspectorLink,
-  Padding: InspectorPadding,
-  Size: InspectorSize,
-  Typography: InspectorTypography,
+  Attributes: AttributesSection,
+  Background: BackgroundSection,
+  Border: BorderSection,
+  Link: LinkSection,
+  Padding: PaddingSection,
+  Size: SizeSection,
+  Typography: TypographySection,
 };
 
 export type { InspectorDocumentProps } from './document';

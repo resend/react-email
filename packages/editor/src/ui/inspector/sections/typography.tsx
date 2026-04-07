@@ -28,7 +28,7 @@ type TypographyContext = Pick<
     initialCollapsed?: boolean;
   };
 
-export function InspectorTypography({
+export function TypographySection({
   getStyle,
   setStyle,
   marks,

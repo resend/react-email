@@ -11,12 +11,12 @@ import { inlineCssToJs } from '../../utils/styles';
 import { useDocumentColors } from './hooks/use-document-colors';
 import type { FocusedNode } from './provider';
 import { useInspector } from './provider';
-import { InspectorAttributes } from './sections/attributes';
-import { InspectorBackground } from './sections/background';
-import { InspectorBorder } from './sections/border';
-import { InspectorPadding } from './sections/padding';
-import { InspectorSize } from './sections/size';
-import { InspectorTypography } from './sections/typography';
+import { AttributesSection } from './sections/attributes';
+import { BackgroundSection } from './sections/background';
+import { BorderSection } from './sections/border';
+import { PaddingSection } from './sections/padding';
+import { SizeSection } from './sections/size';
+import { TypographySection } from './sections/typography';
 import { resolveThemeDefaults } from './utils/resolve-theme-defaults';
 import {
   customUpdateAttributes,
@@ -222,7 +222,7 @@ function InspectorNodeDefaults({ context }: { context: InspectorNodeContext }) {
         switch (section.type) {
           case 'attributes':
             return (
-              <InspectorAttributes
+              <AttributesSection
                 key={section.type}
                 {...context}
                 initialCollapsed={section.initialCollapsed}
@@ -230,7 +230,7 @@ function InspectorNodeDefaults({ context }: { context: InspectorNodeContext }) {
             );
           case 'size':
             return (
-              <InspectorSize
+              <SizeSection
                 key={section.type}
                 {...context}
                 initialCollapsed={section.initialCollapsed}
@@ -238,7 +238,7 @@ function InspectorNodeDefaults({ context }: { context: InspectorNodeContext }) {
             );
           case 'typography':
             return (
-              <InspectorTypography
+              <TypographySection
                 key={section.type}
                 {...context}
                 initialCollapsed={section.initialCollapsed}
@@ -246,7 +246,7 @@ function InspectorNodeDefaults({ context }: { context: InspectorNodeContext }) {
             );
           case 'padding':
             return (
-              <InspectorPadding
+              <PaddingSection
                 key={section.type}
                 {...context}
                 initialCollapsed={section.initialCollapsed}
@@ -254,7 +254,7 @@ function InspectorNodeDefaults({ context }: { context: InspectorNodeContext }) {
             );
           case 'background':
             return (
-              <InspectorBackground
+              <BackgroundSection
                 key={section.type}
                 {...context}
                 initialCollapsed={section.initialCollapsed}
@@ -262,7 +262,7 @@ function InspectorNodeDefaults({ context }: { context: InspectorNodeContext }) {
             );
           case 'border':
             return (
-              <InspectorBorder
+              <BorderSection
                 key={section.type}
                 {...context}
                 initialCollapsed={section.initialCollapsed}

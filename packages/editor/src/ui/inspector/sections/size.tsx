@@ -12,7 +12,7 @@ type InspectorSizeProps = InspectorNodeContext & {
   initialCollapsed?: boolean;
 };
 
-export function InspectorSize({
+export function SizeSection({
   nodeType,
   getStyle,
   setStyle,

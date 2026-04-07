@@ -8,7 +8,7 @@ type InspectorPaddingProps = InspectorNodeContext & {
   initialCollapsed?: boolean;
 };
 
-export function InspectorPadding({
+export function PaddingSection({
   getStyle,
   batchSetStyle,
   initialCollapsed = false,
