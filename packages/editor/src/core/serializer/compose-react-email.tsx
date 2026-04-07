@@ -29,7 +29,7 @@ function sortMarksBySchema(
   schema: Schema,
 ): NonNullable<JSONContent['marks']> {
   return [...marks].sort(
-    (a, b) => getMarkRank(schema, a.type) - getMarkRank(schema, b.type),
+    (a, b) => getMarkRank(schema, b.type) - getMarkRank(schema, a.type),
   );
 }
 
@@ -108,7 +108,7 @@ export const composeReactEmail = async ({
         for (const mark of sortMarksBySchema(
           node.marks,
           editor.schema,
-        ).toReversed()) {
+        )) {
           const emailMark = typeToExtensionMap[mark.type];
           if (emailMark instanceof EmailMark) {
             const MarkComponent = emailMark.config.renderToReactEmail;
