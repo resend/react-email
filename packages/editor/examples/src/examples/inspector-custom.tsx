@@ -31,7 +31,7 @@ export function InspectorCustom() {
           </div>
 
           <aside className="w-60 shrink-0 border-l border-(--re-border) p-4 flex flex-col gap-3 overflow-y-auto text-xs">
-            <Inspector.Provider>
+            <Inspector.Root>
               <Inspector.Document>
                 {({ findStyleValue, setGlobalStyle }) => (
                   <fieldset className="border border-(--re-border) rounded p-2 m-0">
@@ -198,7 +198,7 @@ export function InspectorCustom() {
                   </fieldset>
                 )}
               </Inspector.Text>
-            </Inspector.Provider>
+            </Inspector.Root>
           </aside>
         </div>
       </EditorContext.Provider>

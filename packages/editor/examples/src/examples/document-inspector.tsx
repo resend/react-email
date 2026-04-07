@@ -14,7 +14,7 @@ const content = {
       content: [
         {
           type: 'text',
-          text: 'This example uses Inspector.Provider and Inspector.Document to render document-level style properties through a render-props API.',
+          text: 'This example uses Inspector.Root and Inspector.Document to render document-level style properties through a render-props API.',
         },
       ],
     },
@@ -30,7 +30,7 @@ export function DocumentInspector() {
   return (
     <div className="flex flex-col flex-1">
       <p className="text-sm text-(--re-text-muted) mb-4">
-        Using <code>Inspector.Provider</code> and{' '}
+        Using <code>Inspector.Root</code> and{' '}
         <code>Inspector.Document</code> to render document-level global styles
         with predefined sections and a render-props API.
       </p>
