@@ -321,3 +321,8 @@
 [data-re-inspector-breadcrumb-button][data-clickable]:hover {
   text-decoration: underline;
 }
+
+[data-re-inspector-breadcrumb-ellipsis] {
+  color: var(--re-text-muted, #6b6b6b);
+  font-size: 0.75rem;
+}
