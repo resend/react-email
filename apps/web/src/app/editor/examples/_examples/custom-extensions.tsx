@@ -109,6 +109,7 @@ export function CustomExtensions() {
       <EditorProvider
         extensions={extensions}
         content={content}
+        immediatelyRender={false}
         slotBefore={<Toolbar />}
       >
         <BubbleMenu.Default />

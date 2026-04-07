@@ -77,6 +77,7 @@ export function ColumnLayouts() {
       <EditorProvider
         extensions={extensions}
         content={content}
+        immediatelyRender={false}
         slotBefore={<Toolbar />}
       />
     </ExampleShell>

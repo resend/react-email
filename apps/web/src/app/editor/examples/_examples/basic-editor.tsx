@@ -36,7 +36,11 @@ export function BasicEditor() {
       title="Basic Editor"
       description="Minimal setup with StarterKit and no UI overlays."
     >
-      <EditorProvider extensions={extensions} content={content} />
+      <EditorProvider
+        extensions={extensions}
+        content={content}
+        immediatelyRender={false}
+      />
     </ExampleShell>
   );
 }

@@ -71,7 +71,12 @@ export function EmailThemingExample() {
           Minimal
         </button>
       </div>
-      <EditorProvider key={theme} extensions={extensions} content={content}>
+      <EditorProvider
+        key={theme}
+        extensions={extensions}
+        content={content}
+        immediatelyRender={false}
+      >
         <BubbleMenu.Default />
       </EditorProvider>
     </ExampleShell>

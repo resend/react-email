@@ -18,7 +18,11 @@ export function LinkEditing() {
       title="Link Editing"
       description="Click a link to see the link bubble menu. Select text and press Cmd+K to add links."
     >
-      <EditorProvider extensions={extensions} content={content}>
+      <EditorProvider
+        extensions={extensions}
+        content={content}
+        immediatelyRender={false}
+      >
         <BubbleMenu.LinkDefault />
       </EditorProvider>
     </ExampleShell>
