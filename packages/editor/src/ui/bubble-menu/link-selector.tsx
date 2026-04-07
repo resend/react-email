@@ -2,7 +2,7 @@ import type { Editor } from '@tiptap/core';
 import { useEditorState } from '@tiptap/react';
 import * as React from 'react';
 import { editorEventBus } from '../../core/event-bus';
-import { Check, LinkIcon, UnlinkIcon } from '../icons';
+import { CheckIcon, LinkIcon, UnlinkIcon } from '../icons';
 import { useBubbleMenuContext } from './context';
 import { focusEditor, getUrlFromString, setLinkHref } from './utils';
 
@@ -253,7 +253,7 @@ function LinkForm({
           data-re-link-selector-apply=""
           onMouseDown={(e) => e.stopPropagation()}
         >
-          <Check />
+          <CheckIcon />
         </button>
       )}
     </form>

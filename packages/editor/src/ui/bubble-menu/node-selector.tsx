@@ -2,16 +2,16 @@ import * as Popover from '@radix-ui/react-popover';
 import { useEditorState } from '@tiptap/react';
 import * as React from 'react';
 import {
-  Check,
-  ChevronDown,
-  Code,
-  Heading1,
-  Heading2,
-  Heading3,
-  List,
-  ListOrdered,
+  CheckIcon,
+  ChevronDownIcon,
+  CodeIcon,
+  Heading1Icon,
+  Heading2Icon,
+  Heading3Icon,
+  ListIcon,
+  ListOrderedIcon,
   TextIcon,
-  TextQuote,
+  TextQuoteIcon,
 } from '../icons';
 import { useBubbleMenuContext } from './context';
 
@@ -118,42 +118,42 @@ export function NodeSelectorRoot({
       },
       {
         name: 'Title' as const,
-        icon: Heading1,
+        icon: Heading1Icon,
         command: () =>
           editor.chain().focus().clearNodes().toggleHeading({ level: 1 }).run(),
         isActive: editorState?.isHeading1Active ?? false,
       },
       {
         name: 'Subtitle' as const,
-        icon: Heading2,
+        icon: Heading2Icon,
         command: () =>
           editor.chain().focus().clearNodes().toggleHeading({ level: 2 }).run(),
         isActive: editorState?.isHeading2Active ?? false,
       },
       {
         name: 'Heading' as const,
-        icon: Heading3,
+        icon: Heading3Icon,
         command: () =>
           editor.chain().focus().clearNodes().toggleHeading({ level: 3 }).run(),
         isActive: editorState?.isHeading3Active ?? false,
       },
       {
         name: 'Bullet List' as const,
-        icon: List,
+        icon: ListIcon,
         command: () =>
           editor.chain().focus().clearNodes().toggleBulletList().run(),
         isActive: editorState?.isBulletListActive ?? false,
       },
       {
         name: 'Numbered List' as const,
-        icon: ListOrdered,
+        icon: ListOrderedIcon,
         command: () =>
           editor.chain().focus().clearNodes().toggleOrderedList().run(),
         isActive: editorState?.isOrderedListActive ?? false,
       },
       {
         name: 'Quote' as const,
-        icon: TextQuote,
+        icon: TextQuoteIcon,
         command: () =>
           editor
             .chain()
@@ -166,7 +166,7 @@ export function NodeSelectorRoot({
       },
       {
         name: 'Code' as const,
-        icon: Code,
+        icon: CodeIcon,
         command: () =>
           editor.chain().focus().clearNodes().toggleCodeBlock().run(),
         isActive: editorState?.isCodeBlockActive ?? false,
@@ -232,7 +232,7 @@ export function NodeSelectorTrigger({
       {children ?? (
         <>
           <span>{activeItem.name}</span>
-          <ChevronDown />
+          <ChevronDownIcon />
         </>
       )}
     </Popover.Trigger>
@@ -278,7 +278,7 @@ export function NodeSelectorContent({
               >
                 <Icon />
                 <span>{item.name}</span>
-                {item.isActive && <Check />}
+                {item.isActive && <CheckIcon />}
               </button>
             );
           })}

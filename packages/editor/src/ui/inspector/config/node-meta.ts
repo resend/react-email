@@ -9,9 +9,9 @@ import {
   ListIcon,
   MinusIcon,
   MousePointerClickIcon,
-  QuoteIcon,
   SquareRoundCornerIcon,
   TableIcon,
+  TextQuoteIcon,
   TypeIcon,
 } from '../../icons';
 
@@ -30,7 +30,7 @@ const NODE_META: Record<string, NodeMeta> = {
   section: { icon: LayoutIcon, label: 'Section' },
   div: { icon: BoxIcon, label: 'Container' },
   footer: { icon: BoxIcon, label: 'Footer' },
-  blockquote: { icon: QuoteIcon, label: 'Blockquote' },
+  blockquote: { icon: TextQuoteIcon, label: 'Blockquote' },
   bulletList: { icon: ListIcon, label: 'Bullet List' },
   orderedList: { icon: ListIcon, label: 'Ordered List' },
   listItem: { icon: MinusIcon, label: 'List Item' },

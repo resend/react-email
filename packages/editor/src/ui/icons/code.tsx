@@ -1,8 +1,4 @@
-import type * as React from 'react';
-
-interface IconProps extends React.SVGAttributes<SVGSVGElement> {
-  size?: number | string;
-}
+import type { IconProps } from './types';
 
 export function CodeIcon({ size, width, height, ...props }: IconProps) {
   return (
@@ -24,5 +20,3 @@ export function CodeIcon({ size, width, height, ...props }: IconProps) {
     </svg>
   );
 }
-
-export const Code = CodeIcon;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Check, UnlinkIcon } from '../icons';
+import { CheckIcon, UnlinkIcon } from '../icons';
 import { useBubbleMenuContext } from './context';
 import { focusEditor, getUrlFromString } from './utils';
 
@@ -147,7 +147,7 @@ export function BubbleMenuButtonForm({
           data-re-btn-bm-apply=""
           onMouseDown={(e) => e.stopPropagation()}
         >
-          <Check />
+          <CheckIcon />
         </button>
       )}
     </form>

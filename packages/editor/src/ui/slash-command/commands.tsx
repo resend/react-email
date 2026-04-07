@@ -1,25 +1,25 @@
 import {
-  Columns2,
-  Columns3,
-  Columns4,
-  Heading1,
-  Heading2,
-  Heading3,
-  List,
-  ListOrdered,
-  MousePointer,
-  Rows2 as Rows2Icon,
-  SplitSquareVertical as SplitSquareVerticalIcon,
-  SquareCode,
-  Text,
-  TextQuote,
+  Columns2Icon,
+  Columns3Icon,
+  Columns4Icon,
+  Heading1Icon,
+  Heading2Icon,
+  Heading3Icon,
+  ListIcon,
+  ListOrderedIcon,
+  MousePointerIcon,
+  Rows2Icon,
+  SplitSquareVerticalIcon,
+  SquareCodeIcon,
+  TextIcon,
+  TextQuoteIcon,
 } from '../icons';
 import type { SlashCommandItem } from './types';
 
 export const TEXT: SlashCommandItem = {
   title: 'Text',
   description: 'Plain text block',
-  icon: <Text size={20} />,
+  icon: <TextIcon size={20} />,
   category: 'Text',
   searchTerms: ['p', 'paragraph'],
   command: ({ editor, range }) => {
@@ -35,7 +35,7 @@ export const TEXT: SlashCommandItem = {
 export const H1: SlashCommandItem = {
   title: 'Title',
   description: 'Large heading',
-  icon: <Heading1 size={20} />,
+  icon: <Heading1Icon size={20} />,
   category: 'Text',
   searchTerms: ['title', 'big', 'large', 'h1'],
   command: ({ editor, range }) => {
@@ -51,7 +51,7 @@ export const H1: SlashCommandItem = {
 export const H2: SlashCommandItem = {
   title: 'Subtitle',
   description: 'Medium heading',
-  icon: <Heading2 size={20} />,
+  icon: <Heading2Icon size={20} />,
   category: 'Text',
   searchTerms: ['subtitle', 'medium', 'h2'],
   command: ({ editor, range }) => {
@@ -67,7 +67,7 @@ export const H2: SlashCommandItem = {
 export const H3: SlashCommandItem = {
   title: 'Heading',
   description: 'Small heading',
-  icon: <Heading3 size={20} />,
+  icon: <Heading3Icon size={20} />,
   category: 'Text',
   searchTerms: ['subtitle', 'small', 'h3'],
   command: ({ editor, range }) => {
@@ -83,7 +83,7 @@ export const H3: SlashCommandItem = {
 export const BULLET_LIST: SlashCommandItem = {
   title: 'Bullet list',
   description: 'Unordered list',
-  icon: <List size={20} />,
+  icon: <ListIcon size={20} />,
   category: 'Text',
   searchTerms: ['unordered', 'point'],
   command: ({ editor, range }) => {
@@ -94,7 +94,7 @@ export const BULLET_LIST: SlashCommandItem = {
 export const NUMBERED_LIST: SlashCommandItem = {
   title: 'Numbered list',
   description: 'Ordered list',
-  icon: <ListOrdered size={20} />,
+  icon: <ListOrderedIcon size={20} />,
   category: 'Text',
   searchTerms: ['ordered'],
   command: ({ editor, range }) => {
@@ -105,7 +105,7 @@ export const NUMBERED_LIST: SlashCommandItem = {
 export const QUOTE: SlashCommandItem = {
   title: 'Quote',
   description: 'Block quote',
-  icon: <TextQuote size={20} />,
+  icon: <TextQuoteIcon size={20} />,
   category: 'Text',
   searchTerms: ['blockquote'],
   command: ({ editor, range }) => {
@@ -122,7 +122,7 @@ export const QUOTE: SlashCommandItem = {
 export const CODE: SlashCommandItem = {
   title: 'Code block',
   description: 'Code snippet',
-  icon: <SquareCode size={20} />,
+  icon: <SquareCodeIcon size={20} />,
   category: 'Text',
   searchTerms: ['codeblock'],
   command: ({ editor, range }) => {
@@ -133,7 +133,7 @@ export const CODE: SlashCommandItem = {
 export const BUTTON: SlashCommandItem = {
   title: 'Button',
   description: 'Clickable button',
-  icon: <MousePointer size={20} />,
+  icon: <MousePointerIcon size={20} />,
   category: 'Layout',
   searchTerms: ['button'],
   command: ({ editor, range }) => {
@@ -166,7 +166,7 @@ export const SECTION: SlashCommandItem = {
 export const TWO_COLUMNS: SlashCommandItem = {
   title: '2 columns',
   description: 'Two column layout',
-  icon: <Columns2 size={20} />,
+  icon: <Columns2Icon size={20} />,
   category: 'Layout',
   searchTerms: [
     'columns',
@@ -188,7 +188,7 @@ export const TWO_COLUMNS: SlashCommandItem = {
 export const THREE_COLUMNS: SlashCommandItem = {
   title: '3 columns',
   description: 'Three column layout',
-  icon: <Columns3 size={20} />,
+  icon: <Columns3Icon size={20} />,
   category: 'Layout',
   searchTerms: [
     'columns',
@@ -209,7 +209,7 @@ export const THREE_COLUMNS: SlashCommandItem = {
 export const FOUR_COLUMNS: SlashCommandItem = {
   title: '4 columns',
   description: 'Four column layout',
-  icon: <Columns4 size={20} />,
+  icon: <Columns4Icon size={20} />,
   category: 'Layout',
   searchTerms: [
     'columns',
