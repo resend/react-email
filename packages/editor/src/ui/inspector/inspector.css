@@ -1,0 +1,281 @@
+/* Minimal functional styles for Inspector compound components.
+ * This file handles layout only - no visual design.
+ * Import this optionally: import '@react-email/editor/styles/inspector.css';
+ */
+
+[data-re-inspector-field] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+[data-re-inspector-field] > label {
+  font-size: 0.75rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  flex-shrink: 0;
+  width: 40%;
+}
+
+/* ----------------------------------------------------------------
+ * Text / number / textarea inputs
+ * ---------------------------------------------------------------- */
+
+[data-re-inspector-input] {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.375rem;
+  border: 1px solid var(--re-border, #e5e5e5);
+  border-radius: 0.25rem;
+  background: transparent;
+  color: inherit;
+  min-width: 0;
+  flex: 1;
+  max-width: 60%;
+}
+
+[data-re-inspector-input]:focus {
+  outline: none;
+  border-color: var(--re-text-muted, #6b6b6b);
+}
+
+[data-re-inspector-input][data-type="number"] {
+  font-family: monospace;
+  width: 4rem;
+  flex: 0 0 auto;
+}
+
+[data-re-inspector-input][data-type="textarea"] {
+  height: 100px;
+  max-height: 200px;
+  resize: vertical;
+  max-width: 60%;
+}
+
+/* ----------------------------------------------------------------
+ * Number field wrapper (input + unit label)
+ * ---------------------------------------------------------------- */
+
+[data-re-inspector-number] {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+[data-re-inspector-unit] {
+  font-size: 0.6875rem;
+  font-family: monospace;
+  opacity: 0.6;
+}
+
+/* ----------------------------------------------------------------
+ * Select
+ * ---------------------------------------------------------------- */
+
+[data-re-inspector-select] {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.375rem;
+  border: 1px solid var(--re-border, #e5e5e5);
+  border-radius: 0.25rem;
+  background: transparent;
+  color: inherit;
+  min-width: 0;
+  flex: 1;
+  max-width: 60%;
+}
+
+[data-re-inspector-select]:focus {
+  outline: none;
+  border-color: var(--re-text-muted, #6b6b6b);
+}
+
+/* ----------------------------------------------------------------
+ * Color picker
+ * ---------------------------------------------------------------- */
+
+[data-re-inspector-color-control] {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+[data-re-inspector-color-trigger] {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--re-border, #e5e5e5);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+[data-re-inspector-color-hex] {
+  width: 5rem;
+  font-size: 0.75rem;
+  font-family: monospace;
+  padding: 0.25rem 0.375rem;
+  border: 1px solid var(--re-border, #e5e5e5);
+  border-radius: 0.25rem;
+  background: transparent;
+  color: inherit;
+}
+
+[data-re-inspector-color-hex]:focus {
+  outline: none;
+  border-color: var(--re-text-muted, #6b6b6b);
+}
+
+/* ----------------------------------------------------------------
+ * Toggle group
+ * ---------------------------------------------------------------- */
+
+[data-re-inspector-toggle-group] {
+  display: inline-flex;
+  border: 1px solid var(--re-border, #e5e5e5);
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+[data-re-inspector-toggle-item] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.375rem;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+
+[data-re-inspector-toggle-item] + [data-re-inspector-toggle-item] {
+  border-left: 1px solid var(--re-border, #e5e5e5);
+}
+
+[data-re-inspector-toggle-item][data-active] {
+  background: var(--re-bg-active, #f0f0f0);
+}
+
+/* ----------------------------------------------------------------
+ * Tooltip
+ * ---------------------------------------------------------------- */
+
+[data-re-inspector-tooltip] {
+  position: relative;
+  display: inline-flex;
+}
+
+[data-re-inspector-tooltip-content] {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  background: var(--re-tooltip-bg, #1a1a1a);
+  color: var(--re-tooltip-text, #fff);
+  font-size: 0.6875rem;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+  margin-bottom: 0.25rem;
+}
+
+[data-re-inspector-tooltip]:hover [data-re-inspector-tooltip-content] {
+  display: block;
+}
+
+/* ----------------------------------------------------------------
+ * Buttons
+ * ---------------------------------------------------------------- */
+
+[data-re-inspector-button] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--re-border, #e5e5e5);
+  border-radius: 0.25rem;
+  background: transparent;
+  color: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+[data-re-inspector-button]:hover {
+  background: var(--re-bg-hover, #f5f5f5);
+}
+
+[data-re-inspector-icon-button] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  border-radius: 0.25rem;
+}
+
+[data-re-inspector-icon-button]:hover {
+  background: var(--re-bg-hover, #f5f5f5);
+}
+
+/* ----------------------------------------------------------------
+ * Label & Text
+ * ---------------------------------------------------------------- */
+
+[data-re-inspector-label] {
+  font-size: 0.75rem;
+  color: var(--re-text-muted, #6b6b6b);
+}
+
+[data-re-inspector-text][data-color="muted"] {
+  color: var(--re-text-muted, #6b6b6b);
+}
+
+/* ----------------------------------------------------------------
+ * Prop row
+ * ---------------------------------------------------------------- */
+
+[data-re-inspector-prop-row] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+/* ----------------------------------------------------------------
+ * Section
+ * ---------------------------------------------------------------- */
+
+[data-re-inspector-section] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+[data-re-inspector-section-header] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+[data-re-inspector-section-toggle] {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+}
+
+[data-re-inspector-section-body] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
