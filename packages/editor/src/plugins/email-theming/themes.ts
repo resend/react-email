@@ -402,7 +402,7 @@ const THEME_BASIC: PanelGroup[] = [
   },
 ];
 
-const THEME_MINIMAL = [
+const THEME_MINIMAL: PanelGroup[] = [
   {
     id: 'body',
     title: 'Background',

@@ -12,7 +12,11 @@ import type {
   KnownThemeComponents,
   PanelGroup,
 } from '../../plugins/email-theming/types';
-import { useInspector } from './provider';
+import { NumberInput } from './components/number-input';
+import { PropRow } from './components/prop-row';
+import { Section } from './components/section';
+import { ColorInput, Label } from './primitives';
+import { useInspector } from './root';
 
 function ensureAllProperties(
   currentStyles: PanelGroup[],
@@ -174,7 +178,7 @@ export interface InspectorDocumentContext {
 }
 
 export interface InspectorDocumentProps {
-  children: (context: InspectorDocumentContext) => React.ReactNode;
+  children?: (context: InspectorDocumentContext) => React.ReactNode;
 }
 
 export function InspectorDocument({ children }: InspectorDocumentProps) {
@@ -229,30 +233,98 @@ export function InspectorDocument({ children }: InspectorDocumentProps) {
       const input = group.inputs.find(
         (i) => i.classReference === classReference && i.prop === prop,
       );
-      if (input) return input.value;
+      if (input && input.value !== undefined) return input.value;
     }
 
     for (const group of themeDefaults) {
       const input = group.inputs.find(
         (i) => i.classReference === classReference && i.prop === prop,
       );
-      if (input) return input.value;
+      if (input && input.value !== undefined) return input.value;
     }
 
     const propDef = SUPPORTED_CSS_PROPERTIES[prop];
     return propDef?.defaultValue ?? '';
   }
 
-  if (target === 'doc') {
-    return (
-      <>
-        {children({
-          styles: groups,
-          setGlobalStyle,
-          batchSetGlobalStyle,
-          findStyleValue,
-        })}
-      </>
-    );
+  if (target !== 'doc') {
+    return null;
   }
+
+  const context: InspectorDocumentContext = {
+    styles: groups,
+    setGlobalStyle,
+    batchSetGlobalStyle,
+    findStyleValue,
+  };
+
+  if (children) {
+    return <>{children(context)}</>;
+  }
+
+  return <InspectorDocumentDefaults context={context} />;
+}
+
+function InspectorDocumentDefaults({
+  context,
+}: {
+  context: InspectorDocumentContext;
+}) {
+  const { findStyleValue, setGlobalStyle } = context;
+
+  return (
+    <>
+      <Section title="Background">
+        <PropRow>
+          <Label>Color</Label>
+          <ColorInput
+            value={String(findStyleValue('body', 'backgroundColor') ?? '')}
+            onChange={(v) => setGlobalStyle('body', 'backgroundColor', v)}
+          />
+        </PropRow>
+        <PropRow>
+          <Label>Padding</Label>
+          <NumberInput
+            value={findStyleValue('body', 'padding') ?? ''}
+            onChange={(v) => setGlobalStyle('body', 'padding', v)}
+            unit="px"
+          />
+        </PropRow>
+      </Section>
+
+      <Section title="Container">
+        <PropRow>
+          <Label>Color</Label>
+          <ColorInput
+            value={String(findStyleValue('container', 'backgroundColor') ?? '')}
+            onChange={(v) => setGlobalStyle('container', 'backgroundColor', v)}
+          />
+        </PropRow>
+        <PropRow>
+          <Label>Width</Label>
+          <NumberInput
+            value={findStyleValue('container', 'width') ?? ''}
+            onChange={(v) => setGlobalStyle('container', 'width', v)}
+            unit="px"
+          />
+        </PropRow>
+        <PropRow>
+          <Label>Padding</Label>
+          <NumberInput
+            value={findStyleValue('container', 'padding') ?? ''}
+            onChange={(v) => setGlobalStyle('container', 'padding', v)}
+            unit="px"
+          />
+        </PropRow>
+        <PropRow>
+          <Label>Rounded</Label>
+          <NumberInput
+            value={findStyleValue('container', 'borderRadius') ?? ''}
+            onChange={(v) => setGlobalStyle('container', 'borderRadius', v)}
+            unit="px"
+          />
+        </PropRow>
+      </Section>
+    </>
+  );
 }

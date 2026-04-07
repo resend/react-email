@@ -1,6 +1,6 @@
 import { useEditorState } from '@tiptap/react';
 import * as React from 'react';
-import { Check, UnlinkIcon } from '../icons';
+import { CheckIcon, UnlinkIcon } from '../icons';
 import { useBubbleMenuContext } from './context';
 import { focusEditor, getUrlFromString, setLinkHref } from './utils';
 
@@ -155,7 +155,7 @@ export function BubbleMenuLinkForm({
           data-re-link-bm-apply=""
           onMouseDown={(e) => e.stopPropagation()}
         >
-          <Check />
+          <CheckIcon />
         </button>
       )}
     </form>
