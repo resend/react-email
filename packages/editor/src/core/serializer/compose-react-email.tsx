@@ -1,5 +1,6 @@
 import { pretty, render, toPlainText } from '@react-email/components';
 import type { Editor, JSONContent } from '@tiptap/core';
+import type { Schema } from '@tiptap/pm/model';
 import { inlineCssToJs } from '../../utils/styles';
 import { DefaultBaseTemplate } from './default-base-template';
 import { EmailMark } from './email-mark';
@@ -10,6 +11,18 @@ const NODES_WITH_INCREMENTED_CHILD_DEPTH = new Set([
   'bulletList',
   'orderedList',
 ]);
+
+/** Sort marks by `schema.marks[type].rank` (Tiptap priority → ProseMirror order). */
+function sortMarksBySchema(
+  marks: NonNullable<JSONContent['marks']>,
+  schema: Schema,
+): NonNullable<JSONContent['marks']> {
+  return [...marks].sort((a, b) => {
+    const ra = schema.marks[a.type]?.rank ?? Number.MAX_SAFE_INTEGER;
+    const rb = schema.marks[b.type]?.rank ?? Number.MAX_SAFE_INTEGER;
+    return ra - rb;
+  });
+}
 
 interface ComposeReactEmailResult {
   html: string;
@@ -83,7 +96,7 @@ export const composeReactEmail = async ({
         </NodeComponent>
       );
       if (node.marks) {
-        for (const mark of node.marks) {
+        for (const mark of sortMarksBySchema(node.marks, editor.schema).toReversed()) {
           const emailMark = typeToExtensionMap[mark.type];
           if (emailMark instanceof EmailMark) {
             const MarkComponent = emailMark.config.renderToReactEmail;
