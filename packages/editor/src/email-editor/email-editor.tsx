@@ -1,5 +1,4 @@
 import type { Content, Editor, Extensions, JSONContent } from '@tiptap/core';
-import { UndoRedo } from '@tiptap/extensions';
 import {
   EditorProvider,
   type UseEditorOptions,
@@ -91,7 +90,6 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
         StarterKit.configure({
           Placeholder: placeholder ? { placeholder } : undefined,
         }),
-        UndoRedo,
         EmailTheming.configure({ theme }),
       ];
     }, [extensionsProp, theme, placeholder]);
