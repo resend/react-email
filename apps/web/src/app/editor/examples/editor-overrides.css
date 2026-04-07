@@ -3,6 +3,11 @@
   color: highlighttext;
 }
 
+.tiptap .node-button {
+  background-color: #fff;
+  color: #000;
+}
+
 body > div:has([data-re-slash-command]),
 body > div:has([data-re-bubble-menu]) {
   z-index: 50 !important;
