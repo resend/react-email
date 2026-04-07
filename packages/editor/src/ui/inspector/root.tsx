@@ -135,7 +135,7 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
       if (!hasEmailTheming) {
         throw new Error(
           'Inspector.Provider requires the EmailTheming extension. ' +
-          'Add EmailTheming (or EmailTheming.configure({ ... })) to your editor extensions.',
+            'Add EmailTheming (or EmailTheming.configure({ ... })) to your editor extensions.',
         );
       }
     }
