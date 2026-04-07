@@ -1,10 +1,6 @@
-import type * as React from 'react';
+import type { IconProps } from './types';
 
-interface IconProps extends React.SVGAttributes<SVGSVGElement> {
-  size?: number | string;
-}
-
-export function MousePointer({ size, width, height, ...props }: IconProps) {
+export function MousePointerIcon({ size, width, height, ...props }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -1,10 +1,6 @@
-import type * as React from 'react';
+import type { IconProps } from './types';
 
-interface IconProps extends React.SVGAttributes<SVGSVGElement> {
-  size?: number | string;
-}
-
-export function SplitSquareVertical({
+export function SplitSquareVerticalIcon({
   size,
   width,
   height,

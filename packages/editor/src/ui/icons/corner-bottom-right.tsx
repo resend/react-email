@@ -1,8 +1,4 @@
-import type * as React from 'react';
-
-interface IconProps extends React.SVGAttributes<SVGSVGElement> {
-  size?: number | string;
-}
+import type { IconProps } from './types';
 
 export function CornerBottomRightIcon({
   size,
