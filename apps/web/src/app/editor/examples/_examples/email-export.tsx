@@ -46,9 +46,12 @@ function ExportPanel() {
   const handleExport = async () => {
     if (!editor) return;
     setExporting(true);
-    const result = await composeReactEmail({ editor });
-    setHtml(result.html);
-    setExporting(false);
+    try {
+      const result = await composeReactEmail({ editor });
+      setHtml(result.html);
+    } finally {
+      setExporting(false);
+    }
   };
 
   return (
