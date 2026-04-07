@@ -1,0 +1,139 @@
+import { Slot } from '@radix-ui/react-slot';
+import { Plugin, PluginKey } from '@tiptap/pm/state';
+import {
+  extensions as nativeTiptapExtensions,
+  useCurrentEditor,
+} from '@tiptap/react';
+import * as React from 'react';
+
+interface FocusScopeContextValue {
+  registerScope: (el: HTMLElement | null) => void;
+  unregisterScope: (el: HTMLElement | null) => void;
+}
+
+const FocusScopeContext = React.createContext<FocusScopeContextValue | null>(
+  null,
+);
+
+export function useEditorFocusScope() {
+  const context = React.useContext(FocusScopeContext);
+  if (!context) {
+    throw new Error(
+      'InspectorFocusScope must be used inside an InspectorFocusScopeProvider',
+    );
+  }
+  return context;
+}
+
+export interface EditorFocusScopeProviderProps {
+  children: React.ReactNode;
+  onFocusIn: (event: FocusEvent) => void;
+  onFocusOut: (event: FocusEvent) => void;
+}
+
+export function EditorFocusScopeProvider({
+  children,
+  onFocusIn,
+  onFocusOut,
+}: EditorFocusScopeProviderProps) {
+  const { editor } = useCurrentEditor();
+
+  const scopeRefs = React.useRef(new Set<HTMLElement>());
+  const handleFocusIn = React.useCallback((event: FocusEvent) => {
+    onFocusIn(event);
+  }, []);
+
+  const handleFocusOut = React.useCallback((event: FocusEvent) => {
+    const nextFocus = event.relatedTarget as Node | null;
+    const stillInside = [...scopeRefs.current].some(
+      (el) => nextFocus && el.contains(nextFocus),
+    );
+    if (!stillInside) {
+      onFocusOut(event);
+    }
+  }, []);
+
+  const registerScope = React.useCallback(
+    (el: HTMLElement | null) => {
+      if (!el) return;
+      scopeRefs.current.add(el);
+      el.addEventListener('focusin', handleFocusIn);
+      el.addEventListener('focusout', handleFocusOut);
+    },
+    [handleFocusIn, handleFocusOut],
+  );
+
+  const unregisterScope = React.useCallback(
+    (el: HTMLElement | null) => {
+      if (!el) return;
+      scopeRefs.current.delete(el);
+      el.removeEventListener('focusin', handleFocusIn);
+      el.removeEventListener('focusout', handleFocusOut);
+    },
+    [handleFocusIn, handleFocusOut],
+  );
+
+  const value = React.useMemo(
+    () => ({ registerScope, unregisterScope }),
+    [registerScope, unregisterScope],
+  );
+
+  React.useEffect(() => {
+    const defaultFocusPlugin = editor?.state.plugins.find(
+      (plugin) =>
+        plugin.spec.key === nativeTiptapExtensions.focusEventsPluginKey,
+    );
+    if (editor && defaultFocusPlugin) {
+      editor.unregisterPlugin(nativeTiptapExtensions.focusEventsPluginKey);
+      const pluginKey = new PluginKey('inspectorReactEmailFocusEvents');
+      editor.registerPlugin(
+        new Plugin({
+          key: pluginKey,
+          view(view) {
+            registerScope(view.dom);
+
+            return {
+              destroy() {
+                unregisterScope(view.dom);
+              },
+            };
+          },
+        }),
+      );
+
+      return () => {
+        editor?.unregisterPlugin(pluginKey);
+        editor?.registerPlugin(defaultFocusPlugin);
+      };
+    }
+  }, [editor]);
+
+  return (
+    <FocusScopeContext.Provider value={value}>
+      {children}
+    </FocusScopeContext.Provider>
+  );
+}
+
+export interface FocusScopeProps {
+  children: React.ReactNode;
+}
+
+export function EditorFocusScope({ children }: FocusScopeProps) {
+  const { registerScope, unregisterScope } = useEditorFocusScope();
+
+  return (
+    <Slot
+      ref={(element) => {
+        if (element) {
+          registerScope(element);
+          return () => {
+            unregisterScope(element);
+          };
+        }
+      }}
+    >
+      {children}
+    </Slot>
+  );
+}

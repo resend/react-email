@@ -3,7 +3,7 @@
 import { InspectorBreadcrumb } from './breadcrumb';
 import { InspectorDocument } from './document';
 import { InspectorNode } from './node';
-import { InspectorFocusScope, InspectorRoot } from './root';
+import { InspectorRoot } from './root';
 import { InspectorText } from './text';
 
 export const Inspector = {
@@ -12,7 +12,6 @@ export const Inspector = {
   Document: InspectorDocument,
   Node: InspectorNode,
   Text: InspectorText,
-  FocusScope: InspectorFocusScope,
 };
 
 export type { InspectorDocumentProps } from './document';

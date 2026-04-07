@@ -1,15 +1,13 @@
 import { Slot } from '@radix-ui/react-slot';
-import { extensions } from '@tiptap/core';
 import type { Attrs } from '@tiptap/pm/model';
-import {
-  NodeSelection,
-  Plugin,
-  PluginKey,
-  TextSelection,
-} from '@tiptap/pm/state';
+import { NodeSelection, TextSelection } from '@tiptap/pm/state';
 import { useCurrentEditor, useEditorState } from '@tiptap/react';
 import * as React from 'react';
 import type { NodeClickedEvent } from '../../core';
+import {
+  EditorFocusScope,
+  EditorFocusScopeProvider,
+} from '../editor-focus-scope';
 
 const IGNORED_NODES = ['doc', 'text'];
 
@@ -111,8 +109,6 @@ export interface RootProps extends React.ComponentPropsWithRef<'aside'> {
 export interface InspectorContextValue {
   target: InspectorTarget;
   pathFromRoot: FocusedNode[];
-  registerFocusScope: (el: HTMLElement | null) => void;
-  unregisterFocusScope: (el: HTMLElement | null) => void;
 }
 
 export const InspectorContext =
@@ -200,92 +196,34 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
       return [];
     }, [editor, target]);
 
-    React.useEffect(() => {
-      const defaultFocusPlugin = editor?.state.plugins.find(
-        (plugin) => plugin.spec.key === extensions.focusEventsPluginKey,
-      );
-      if (editor && defaultFocusPlugin) {
-        editor?.unregisterPlugin(extensions.focusEventsPluginKey);
-        const pluginKey = new PluginKey('inspectorReactEmailFocusEvents');
-        editor.registerPlugin(
-          new Plugin({
-            key: pluginKey,
-            view(view) {
-              registerFocusScope(view.dom);
-              return {
-                destroy() {
-                  unregisterFocusScope(view.dom);
-                },
-              };
-            },
-          }),
-        );
+    const editorRef = React.useRef(editor);
+    editorRef.current = editor;
 
-        return () => {
-          editor?.unregisterPlugin(pluginKey);
-          editor?.registerPlugin(defaultFocusPlugin);
-        };
+    const handleFocusWithin = React.useCallback((event: FocusEvent) => {
+      const ed = editorRef.current;
+      if (ed) {
+        ed.isFocused = true;
+
+        const transaction = ed.state.tr
+          .setMeta('focus', { event })
+          .setMeta('addToHistory', false);
+
+        ed.view.dispatch(transaction);
       }
-    }, [editor]);
+    }, []);
 
-    const scopeRefs = React.useRef(new Set<HTMLElement>());
+    const handleBlurWithin = React.useCallback((event: FocusEvent) => {
+      const ed = editorRef.current;
+      if (ed) {
+        ed.isFocused = false;
 
-    // these useCallbacks are importnat to ensure that the same function references are used when adding/removing event listeners,
-    // and so that the focus scopes are not registered/unregistered every re-render
-    const handleFocus = React.useCallback(
-      (event: FocusEvent) => {
-        console.log('focus');
-        if (editor) {
-          editor.isFocused = true;
+        const transaction = ed.state.tr
+          .setMeta('blur', { event })
+          .setMeta('addToHistory', false);
 
-          const transaction = editor.state.tr
-            .setMeta('focus', { event })
-            .setMeta('addToHistory', false);
-
-          editor.view.dispatch(transaction);
-        }
-      },
-      [editor],
-    );
-
-    const handleBlur = React.useCallback(
-      (event: FocusEvent) => {
-        const nextFocus = event.relatedTarget as Node | null;
-        const stillInside = [...scopeRefs.current].some(
-          (el) => nextFocus && el.contains(nextFocus),
-        );
-        if (!stillInside && editor) {
-          editor.isFocused = false;
-
-          const transaction = editor.state.tr
-            .setMeta('blur', { event })
-            .setMeta('addToHistory', false);
-
-          editor.view.dispatch(transaction);
-        }
-      },
-      [editor],
-    );
-
-    const registerFocusScope = React.useCallback(
-      (el: HTMLElement | null) => {
-        if (!el) return;
-        scopeRefs.current.add(el);
-        el.addEventListener('focusin', handleFocus);
-        el.addEventListener('focusout', handleBlur);
-      },
-      [handleFocus, handleBlur],
-    );
-
-    const unregisterFocusScope = React.useCallback(
-      (el: HTMLElement | null) => {
-        if (!el) return;
-        scopeRefs.current.delete(el);
-        el.removeEventListener('focusin', handleFocus);
-        el.removeEventListener('focusout', handleBlur);
-      },
-      [handleFocus, handleBlur],
-    );
+        ed.view.dispatch(transaction);
+      }
+    }, []);
 
     const Component = asChild ? Slot : 'aside';
 
@@ -294,39 +232,20 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
         value={{
           target,
           pathFromRoot,
-          registerFocusScope,
-          unregisterFocusScope,
         }}
       >
-        <InspectorFocusScope>
-          <Component ref={forwardedRef} {...restProps} tabIndex={-1}>
-            {children}
-          </Component>
-        </InspectorFocusScope>
+        <EditorFocusScopeProvider
+          onFocusIn={handleFocusWithin}
+          onFocusOut={handleBlurWithin}
+        >
+          <EditorFocusScope>
+            <Component ref={forwardedRef} {...restProps} tabIndex={-1}>
+              {children}
+            </Component>
+          </EditorFocusScope>
+        </EditorFocusScopeProvider>
       </InspectorContext.Provider>
     );
   },
 );
 
-export interface FocusScopeProps {
-  children: React.ReactNode;
-}
-
-export function InspectorFocusScope({ children }: FocusScopeProps) {
-  const { registerFocusScope, unregisterFocusScope } = useInspector();
-
-  return (
-    <Slot
-      ref={(element) => {
-        if (element) {
-          registerFocusScope(element);
-          return () => {
-            unregisterFocusScope(element);
-          };
-        }
-      }}
-    >
-      {children}
-    </Slot>
-  );
-}
