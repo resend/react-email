@@ -1,6 +1,6 @@
 import { pretty, render, toPlainText } from '@react-email/components';
 import type { Editor, JSONContent } from '@tiptap/core';
-import type { Schema } from '@tiptap/pm/model';
+import type { MarkType, Schema } from '@tiptap/pm/model';
 import { inlineCssToJs } from '../../utils/styles';
 import { DefaultBaseTemplate } from './default-base-template';
 import { EmailMark } from './email-mark';
@@ -12,16 +12,25 @@ const NODES_WITH_INCREMENTED_CHILD_DEPTH = new Set([
   'orderedList',
 ]);
 
-/** Sort marks by `schema.marks[type].rank` (Tiptap priority → ProseMirror order). */
+/**
+ * ProseMirror assigns each mark type a numeric `rank` at schema compile time; the public
+ * `MarkType` typings omit it, but it exists at runtime (see prosemirror-model `MarkType.compile`).
+ */
+type MarkTypeWithRank = MarkType & { rank: number };
+
+function getMarkRank(schema: Schema, markName: string): number {
+  const markType = schema.marks[markName] as MarkTypeWithRank | undefined;
+  return markType?.rank ?? Number.MAX_SAFE_INTEGER;
+}
+
+/** Sort marks by schema rank (Tiptap extension priority → ProseMirror order). */
 function sortMarksBySchema(
   marks: NonNullable<JSONContent['marks']>,
   schema: Schema,
 ): NonNullable<JSONContent['marks']> {
-  return [...marks].sort((a, b) => {
-    const ra = schema.marks[a.type]?.rank ?? Number.MAX_SAFE_INTEGER;
-    const rb = schema.marks[b.type]?.rank ?? Number.MAX_SAFE_INTEGER;
-    return ra - rb;
-  });
+  return [...marks].sort(
+    (a, b) => getMarkRank(schema, a.type) - getMarkRank(schema, b.type),
+  );
 }
 
 interface ComposeReactEmailResult {
