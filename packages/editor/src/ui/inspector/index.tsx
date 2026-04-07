@@ -3,7 +3,7 @@
 import { InspectorBreadcrumb } from './breadcrumb';
 import { InspectorDocument } from './document';
 import { InspectorNode } from './node';
-import { InspectorProvider } from './provider';
+import { InspectorRoot } from './root';
 import { AttributesSection } from './sections/attributes';
 import { BackgroundSection } from './sections/background';
 import { BorderSection } from './sections/border';
@@ -14,7 +14,7 @@ import { TypographySection } from './sections/typography';
 import { InspectorText } from './text';
 
 export const Inspector = {
-  Provider: InspectorProvider,
+  Root: InspectorRoot,
   Breadcrumb: InspectorBreadcrumb,
   Document: InspectorDocument,
   Node: InspectorNode,

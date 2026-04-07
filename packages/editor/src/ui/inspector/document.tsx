@@ -16,7 +16,7 @@ import { NumberInput } from './components/number-input';
 import { PropRow } from './components/prop-row';
 import { Section } from './components/section';
 import { ColorInput, Label } from './primitives';
-import { useInspector } from './provider';
+import { useInspector } from './root';
 
 function ensureAllProperties(
   currentStyles: PanelGroup[],
@@ -233,14 +233,14 @@ export function InspectorDocument({ children }: InspectorDocumentProps) {
       const input = group.inputs.find(
         (i) => i.classReference === classReference && i.prop === prop,
       );
-      if (input) return input.value;
+      if (input && input.value !== undefined) return input.value;
     }
 
     for (const group of themeDefaults) {
       const input = group.inputs.find(
         (i) => i.classReference === classReference && i.prop === prop,
       );
-      if (input) return input.value;
+      if (input && input.value !== undefined) return input.value;
     }
 
     const propDef = SUPPORTED_CSS_PROPERTIES[prop];

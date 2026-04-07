@@ -29,7 +29,7 @@ const content = `
 function Sidebar() {
   return (
     <aside className="w-56 shrink-0 border-l border-(--re-border) p-3 flex flex-col gap-3 overflow-y-auto text-xs">
-      <Inspector.Provider>
+      <Inspector.Root>
         <nav>
           <ol className="flex items-center gap-1 list-none m-0 p-0">
             <Inspector.Breadcrumb>
@@ -55,7 +55,7 @@ function Sidebar() {
         <Inspector.Document />
         <Inspector.Node />
         <Inspector.Text />
-      </Inspector.Provider>
+      </Inspector.Root>
     </aside>
   );
 }

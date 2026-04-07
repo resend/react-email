@@ -9,8 +9,8 @@ import {
 import type { KnownCssProperties } from '../../plugins/email-theming/types';
 import { inlineCssToJs } from '../../utils/styles';
 import { useDocumentColors } from './hooks/use-document-colors';
-import type { FocusedNode } from './provider';
-import { useInspector } from './provider';
+import type { FocusedNode } from './root';
+import { useInspector } from './root';
 import { AttributesSection } from './sections/attributes';
 import { BackgroundSection } from './sections/background';
 import { BorderSection } from './sections/border';

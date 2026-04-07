@@ -1,7 +1,7 @@
 import { useCurrentEditor } from '@tiptap/react';
 import React from 'react';
 import { getNodeMeta } from './config/node-meta';
-import { type FocusedNode, useInspector } from './provider';
+import { type FocusedNode, useInspector } from './root';
 
 export interface InspectorBreadcrumbSegment {
   node: FocusedNode | null;

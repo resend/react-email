@@ -1,5 +1,5 @@
 import type { useCurrentEditor } from '@tiptap/react';
-import type { NodeClickedEvent } from '../../../core/types';
+import type { NodeClickedEvent } from '../../../core/event-bus';
 import { SUPPORTED_CSS_PROPERTIES } from '../../../plugins/email-theming/themes';
 import type { KnownCssProperties } from '../../../plugins/email-theming/types';
 import {

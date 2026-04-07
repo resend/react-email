@@ -1,3 +1,4 @@
+import type { Attrs } from '@tiptap/pm/model';
 import { useEffect } from 'react';
 
 const EVENT_PREFIX = '@react-email/editor:';
@@ -16,7 +17,14 @@ const EVENT_PREFIX = '@react-email/editor:';
  */
 export interface EditorEventMap {
   'bubble-menu:add-link': undefined;
+  'node-clicked': NodeClickedEvent;
 }
+
+export type NodeClickedEvent = {
+  nodeType: string;
+  nodeAttrs: Attrs;
+  nodePos: { pos: number; inside: number };
+};
 
 export type EditorEventName = keyof EditorEventMap;
 

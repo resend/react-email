@@ -51,7 +51,7 @@ export function AttributesSection({
             </Select.Root>
           ) : config.type === 'number' ? (
             <NumberInput
-              value={value ?? config.defaultValue}
+              value={(value ?? config.defaultValue) as string | number}
               onChange={(v) => setAttr(name, v)}
               unit={config.unit}
               min={0}
