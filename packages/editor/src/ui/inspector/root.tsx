@@ -200,8 +200,6 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
       return [];
     }, [editor, target]);
 
-    const editorDomFocused = React.useRef(false);
-    const inspectorFocused = React.useRef(false);
     React.useEffect(() => {
       const defaultFocusPlugin = editor?.state.plugins.find(
         (plugin) => plugin.spec.key === extensions.focusEventsPluginKey,
@@ -212,36 +210,13 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
         editor.registerPlugin(
           new Plugin({
             key: pluginKey,
-            props: {
-              handleDOMEvents: {
-                focus: (view, event: Event) => {
-                  editorDomFocused.current = true;
-                  editor.isFocused = true;
-
-                  const transaction = editor.state.tr
-                    .setMeta('focus', { event })
-                    .setMeta('addToHistory', false);
-
-                  view.dispatch(transaction);
-
-                  return false;
+            view(view) {
+              registerFocusScope(view.dom);
+              return {
+                destroy() {
+                  unregisterFocusScope(view.dom);
                 },
-                blur: (view, event: Event) => {
-                  editorDomFocused.current = false;
-
-                  if (!inspectorFocused.current) {
-                    editor.isFocused = false;
-
-                    const transaction = editor.state.tr
-                      .setMeta('blur', { event })
-                      .setMeta('addToHistory', false);
-
-                    view.dispatch(transaction);
-                  }
-
-                  return false;
-                },
-              },
+              };
             },
           }),
         );
@@ -259,7 +234,7 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
     // and so that the focus scopes are not registered/unregistered every re-render
     const handleFocus = React.useCallback(
       (event: FocusEvent) => {
-        inspectorFocused.current = true;
+        console.log('focus');
         if (editor) {
           editor.isFocused = true;
 
@@ -279,17 +254,14 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
         const stillInside = [...scopeRefs.current].some(
           (el) => nextFocus && el.contains(nextFocus),
         );
-        if (!stillInside) {
-          inspectorFocused.current = false;
-          if (!editorDomFocused.current && editor) {
-            editor.isFocused = false;
+        if (!stillInside && editor) {
+          editor.isFocused = false;
 
-            const transaction = editor.state.tr
-              .setMeta('blur', { event })
-              .setMeta('addToHistory', false);
+          const transaction = editor.state.tr
+            .setMeta('blur', { event })
+            .setMeta('addToHistory', false);
 
-            editor.view.dispatch(transaction);
-          }
+          editor.view.dispatch(transaction);
         }
       },
       [editor],
@@ -343,21 +315,15 @@ export interface FocusScopeProps {
 export function InspectorFocusScope({ children }: FocusScopeProps) {
   const { registerFocusScope, unregisterFocusScope } = useInspector();
 
-  const scopeElementRef = React.useRef<HTMLElement | null>(null);
-
-  React.useEffect(() => {
-    if (scopeElementRef.current) {
-      registerFocusScope(scopeElementRef.current);
-      return () => {
-        unregisterFocusScope(scopeElementRef.current);
-      };
-    }
-  }, [scopeElementRef.current, registerFocusScope, unregisterFocusScope]);
-
   return (
     <Slot
       ref={(element) => {
-        scopeElementRef.current = element;
+        if (element) {
+          registerFocusScope(element);
+          return () => {
+            unregisterFocusScope(element);
+          };
+        }
       }}
     >
       {children}
