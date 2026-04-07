@@ -106,6 +106,7 @@ export function FullEmailBuilder() {
     {
       extensions,
       content,
+      immediatelyRender: false,
     },
     [theme],
   );

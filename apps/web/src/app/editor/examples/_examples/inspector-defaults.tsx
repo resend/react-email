@@ -20,6 +20,7 @@ export function InspectorDefaults() {
   const editor = useEditor({
     extensions,
     content,
+    immediatelyRender: false,
   });
 
   if (!editor) return null;

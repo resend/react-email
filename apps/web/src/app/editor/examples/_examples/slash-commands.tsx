@@ -64,7 +64,11 @@ export function SlashCommands() {
       title="Slash Commands"
       description='Type / to open the command menu. Includes default commands plus a custom "Greeting" command.'
     >
-      <EditorProvider extensions={extensions} content={content}>
+      <EditorProvider
+        extensions={extensions}
+        content={content}
+        immediatelyRender={false}
+      >
         <SlashCommand.Root items={[...defaultSlashCommands, CUSTOM_COMMAND]} />
       </EditorProvider>
     </ExampleShell>

@@ -81,7 +81,11 @@ export function EmailExport() {
       title="Email Export"
       description="Edit content and export it as email-ready HTML using composeReactEmail()."
     >
-      <EditorProvider extensions={extensions} content={content}>
+      <EditorProvider
+        extensions={extensions}
+        content={content}
+        immediatelyRender={false}
+      >
         <BubbleMenu.Default />
         <ExportPanel />
       </EditorProvider>

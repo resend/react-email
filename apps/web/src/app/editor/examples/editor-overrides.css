@@ -1,0 +1,9 @@
+.example-shell-content ::selection {
+  background: highlight;
+  color: highlighttext;
+}
+
+body > div:has([data-re-slash-command]),
+body > div:has([data-re-bubble-menu]) {
+  z-index: 50 !important;
+}

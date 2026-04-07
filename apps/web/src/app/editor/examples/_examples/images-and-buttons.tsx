@@ -19,7 +19,11 @@ export function Buttons() {
       title="Buttons"
       description="Click the button to edit its link via the button bubble menu."
     >
-      <EditorProvider extensions={extensions} content={content}>
+      <EditorProvider
+        extensions={extensions}
+        content={content}
+        immediatelyRender={false}
+      >
         <BubbleMenu.ButtonDefault />
         <SlashCommand.Root items={[BUTTON]} />
       </EditorProvider>

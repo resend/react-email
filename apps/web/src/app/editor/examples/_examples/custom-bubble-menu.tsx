@@ -28,7 +28,11 @@ export function CustomBubbleMenu() {
       title="Custom Bubble Menu"
       description="Building menus from primitives instead of using BubbleMenu.Default."
     >
-      <EditorProvider extensions={extensions} content={content}>
+      <EditorProvider
+        extensions={extensions}
+        content={content}
+        immediatelyRender={false}
+      >
         <BubbleMenu.Root>
           <BubbleMenu.ItemGroup>
             <BubbleMenu.Bold />
