@@ -1,5 +1,6 @@
 import { useCurrentEditor } from '@tiptap/react';
 import React from 'react';
+import { getNodeMeta } from './config/node-meta';
 import { type FocusedNode, useInspector } from './provider';
 
 export interface InspectorBreadcrumbSegment {
@@ -8,7 +9,7 @@ export interface InspectorBreadcrumbSegment {
 }
 
 export interface InspectorBreadcrumbProps {
-  children: (segments: InspectorBreadcrumbSegment[]) => React.ReactNode;
+  children?: (segments: InspectorBreadcrumbSegment[]) => React.ReactNode;
 }
 
 export function InspectorBreadcrumb({ children }: InspectorBreadcrumbProps) {
@@ -33,5 +34,44 @@ export function InspectorBreadcrumb({ children }: InspectorBreadcrumbProps) {
     ] satisfies InspectorBreadcrumbSegment[];
   }, [pathFromRoot]);
 
-  return children(segments);
+  if (children) {
+    return children(segments);
+  }
+
+  return <BreadcrumbDefault segments={segments} />;
+}
+
+function BreadcrumbDefault({
+  segments,
+}: {
+  segments: InspectorBreadcrumbSegment[];
+}) {
+  return (
+    <nav data-re-inspector-breadcrumb="">
+      <ol data-re-inspector-breadcrumb-list="">
+        {segments.map((segment, i) => {
+          const label = segment.node
+            ? getNodeMeta(segment.node.nodeType).label
+            : 'Layout';
+          const isLast = i === segments.length - 1;
+
+          return (
+            <li key={i} data-re-inspector-breadcrumb-item="">
+              {i !== 0 && (
+                <span data-re-inspector-breadcrumb-separator="">/</span>
+              )}
+              <button
+                type="button"
+                data-re-inspector-breadcrumb-button=""
+                {...(!isLast ? { 'data-clickable': '' } : {})}
+                onClick={() => segment.focus()}
+              >
+                {label}
+              </button>
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  );
 }
