@@ -8,6 +8,7 @@ import type { ListItemOptions } from '@tiptap/extension-list-item';
 import type { OrderedListOptions } from '@tiptap/extension-ordered-list';
 import type { ParagraphOptions } from '@tiptap/extension-paragraph';
 import type { StrikeOptions } from '@tiptap/extension-strike';
+import { UndoRedo, type UndoRedoOptions } from '@tiptap/extensions';
 import TipTapStarterKit, {
   type StarterKitOptions as TipTapStarterKitOptions,
 } from '@tiptap/starter-kit';
@@ -148,6 +149,7 @@ const starterKitExtensions: Record<string, AnyExtension> = {
   StyleAttribute,
   ClassAttribute,
   MaxNesting,
+  UndoRedo,
 };
 
 export type StarterKitOptions = {
@@ -191,6 +193,7 @@ export type StarterKitOptions = {
   StyleAttribute: Partial<StyleAttributeOptions> | false;
   ClassAttribute: Partial<ClassAttributeOptions> | false;
   MaxNesting: Partial<MaxNestingOptions> | false;
+  UndoRedo: Partial<UndoRedoOptions> | false;
   TiptapStarterKit: Partial<TipTapStarterKitOptions> | false;
 };
 
@@ -340,6 +343,7 @@ export const StarterKit = Extension.create<StarterKitOptions>({
         maxDepth: 50,
         nodeTypes: ['section', 'bulletList', 'orderedList'],
       },
+      UndoRedo: {},
     };
   },
 

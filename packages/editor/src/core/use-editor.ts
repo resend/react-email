@@ -48,7 +48,9 @@ export function useEditor({
 
   const effectiveExtensions: Extensions = React.useMemo(
     () => [
-      StarterKit,
+      StarterKit.configure({
+        UndoRedo: false,
+      }),
       // Collaboration extensions handle their own undo/redo history,
       // so we only add TipTap's History extension for non-collaborative editors.
       ...(isCollaborative ? [] : [UndoRedo]),
