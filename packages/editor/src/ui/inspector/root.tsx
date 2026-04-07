@@ -128,6 +128,18 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
   function InspectorRoot({ children, asChild, ...restProps }, forwardedRef) {
     const { editor } = useCurrentEditor();
 
+    if (editor) {
+      const hasEmailTheming = editor.extensionManager.extensions.some(
+        (extension) => extension.name === 'theming',
+      );
+      if (!hasEmailTheming) {
+        throw new Error(
+          'Inspector.Provider requires the EmailTheming extension. ' +
+          'Add EmailTheming (or EmailTheming.configure({ ... })) to your editor extensions.',
+        );
+      }
+    }
+
     const target = useEditorState({
       editor,
       selector(context): InspectorTarget {
