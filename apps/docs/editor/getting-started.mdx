@@ -11,7 +11,7 @@ import EditorNextSteps from '/snippets/editor-next-steps.mdx'
 ## Prerequisites
 
 <Note>
-  The editor requires **React 18+** and a bundler that supports [package exports](https://nodejs.org/api/packages.html#exports) (Vite, Next.js, webpack 5, etc.).
+  The editor requires **React 18+** and a bundler that supports [package exports](https://nodejs.org/api/packages.html#exports) (Vite, Next.js, Webpack 5, etc.).
 </Note>
 
 ## Install
@@ -22,10 +22,10 @@ Install the editor and its peer dependencies:
 
 ## Import CSS
 
-The editor ships CSS for its UI components and a default theme. Import the styles you need:
+The editor ships CSS for its UI components, as well as a default theme. Import the styles you need:
 
 ```tsx
-// Required for bubble menu styling (covers text, link, button, and image menus)
+// Required for bubble menu styling (includes text, link, button, and image menus)
 import '@react-email/editor/styles/bubble-menu.css';
 
 // Required for slash command menu
@@ -51,7 +51,7 @@ import '@react-email/editor/themes/default.css';
 
 ## Minimal editor
 
-The simplest setup uses `StarterKit` with `EditorProvider` — no UI overlays, just a content-editable area
+The simplest setup uses `StarterKit` with `EditorProvider`—no UI overlays, just a content-editable area
 with all core extensions (paragraphs, headings, lists, tables, code blocks, and more):
 
 ```tsx

@@ -3,11 +3,13 @@ import { BubbleMenuExample } from './bubble-menu';
 import { ColumnLayouts } from './column-layouts';
 import { CustomBubbleMenu } from './custom-bubble-menu';
 import { CustomExtensions } from './custom-extensions';
-import { DocumentInspector } from './document-inspector';
 import { EmailExport } from './email-export';
 import { EmailThemingExample } from './email-theming';
 import { FullEmailBuilder } from './full-email-builder';
 import { Buttons } from './images-and-buttons';
+import { InspectorComposed } from './inspector-composed';
+import { InspectorCustom } from './inspector-custom';
+import { InspectorDefaults } from './inspector-defaults';
 import { LinkEditing } from './link-editing';
 import { OneLineEditor } from './one-line-editor';
 import { OneLineEditorFull } from './one-line-editor-full';
@@ -117,9 +119,21 @@ export const sections: ExampleSection[] = [
         docsUrl: 'https://react.email/docs/editor/advanced/custom-extensions',
       },
       {
-        id: 'document-inspector',
-        label: 'Document Inspector',
-        component: DocumentInspector,
+        id: 'inspector-defaults',
+        label: 'Inspector — Defaults',
+        component: InspectorDefaults,
+        docsUrl: 'https://react.email/docs/editor/overview',
+      },
+      {
+        id: 'inspector-composed',
+        label: 'Inspector — Composed',
+        component: InspectorComposed,
+        docsUrl: 'https://react.email/docs/editor/overview',
+      },
+      {
+        id: 'inspector-custom',
+        label: 'Inspector — Custom',
+        component: InspectorCustom,
         docsUrl: 'https://react.email/docs/editor/overview',
       },
       {

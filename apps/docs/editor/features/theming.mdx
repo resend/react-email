@@ -36,7 +36,7 @@ component.
 During [`composeReactEmail`](/editor/api-reference/compose-react-email), the `EmailTheming`
 plugin acts as a `SerializerPlugin` that resolves styles for each node based on its type and
 depth in the document tree. These styles are then **inlined directly** onto the rendered React
-Email components as `style` attributes — this is necessary because email clients don't
+Email components as `style` attributes. This is necessary because email clients don't
 reliably support `<style>` tags or external stylesheets.
 
 The resolved styles are passed to each node's `renderToReactEmail()` method via the `style`
@@ -48,7 +48,7 @@ The editor ships with two themes:
 
 | Theme | Description |
 |-------|-------------|
-| `'basic'` | Full styling — typography, spacing, borders, and visual hierarchy. This is the default. |
+| `'basic'` | Full styling: typography, spacing, borders, and visual hierarchy. This is the **default**. |
 | `'minimal'` | Essentially no styles. Gives you a blank slate to build your own look from scratch. |
 
 Select a theme with `.configure()`:
@@ -123,7 +123,7 @@ Themes define styles for the following email components:
 ## Theme-aware serialization
 
 When `EmailTheming` is in your extensions array, the `composeReactEmail` function automatically
-applies theme styles to the exported HTML. No extra configuration needed:
+applies theme styles to the exported HTML. No extra configuration is needed.
 
 ```tsx
 import { composeReactEmail } from '@react-email/editor/core';

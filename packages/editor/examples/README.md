@@ -48,7 +48,9 @@ Then open <http://localhost:5173> in your browser. Use the sidebar to navigate b
 | **Email Theming** — Basic/Minimal theme toggle | [Live](https://editor-examples.react.email/#email-theming) | [`email-theming.tsx`](src/examples/email-theming.tsx) | [Email Theming](https://react.email/docs/editor/features/theming) |
 | **Email Export** — HTML export via `composeReactEmail` | [Live](https://editor-examples.react.email/#email-export) | [`email-export.tsx`](src/examples/email-export.tsx) | [Email Export](https://react.email/docs/editor/features/email-export) |
 | **Custom Extensions** — Custom Callout node with `EmailNode.create` | [Live](https://editor-examples.react.email/#custom-extensions) | [`custom-extensions.tsx`](src/examples/custom-extensions.tsx) | [Custom Extensions](https://react.email/docs/editor/advanced/custom-extensions) |
-| **Document Inspector** — Split view with document inspector UI | [Live](https://editor-examples.react.email/#document-inspector) | [`document-inspector.tsx`](src/examples/document-inspector.tsx) | [Overview](https://react.email/docs/editor/overview) |
+| **Inspector — Defaults** — Default inspector panels | [Live](https://editor-examples.react.email/#inspector-defaults) | [`inspector-defaults.tsx`](src/examples/inspector-defaults.tsx) | [Overview](https://react.email/docs/editor/overview) |
+| **Inspector — Composed** — Composed inspector layout | [Live](https://editor-examples.react.email/#inspector-composed) | [`inspector-composed.tsx`](src/examples/inspector-composed.tsx) | [Overview](https://react.email/docs/editor/overview) |
+| **Inspector — Custom** — Custom inspector UI | [Live](https://editor-examples.react.email/#inspector-custom) | [`inspector-custom.tsx`](src/examples/inspector-custom.tsx) | [Overview](https://react.email/docs/editor/overview) |
 | **Full Email Builder** — All features combined | [Live](https://editor-examples.react.email/#full-email-builder) | [`full-email-builder.tsx`](src/examples/full-email-builder.tsx) | [Email Export](https://react.email/docs/editor/features/email-export) |
 
 ## Documentation
