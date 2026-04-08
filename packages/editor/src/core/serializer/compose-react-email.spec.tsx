@@ -65,7 +65,7 @@ function docWithGlobalContent(
 }
 
 describe('Text marks', () => {
-  it('should preserve bold wrapping order when combined with italic', async () => {
+  it('should nest bold and italic by schema mark rank (same as ProseMirror)', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -85,21 +85,23 @@ describe('Text marks', () => {
       preview: '',
     });
 
-    const strongOpen = result.html.indexOf('<strong');
-    const emOpen = result.html.indexOf('<em', strongOpen);
-    const emClose = result.html.indexOf('</em', emOpen);
+    // StarterKit registers Italic before Bold at equal priority; link/bold order follows
+    // Tiptap `sortExtensions` → italic lower `rank` than bold → italic wraps outside in DOM.
+    const emOpen = result.html.indexOf('<em');
+    const strongOpen = result.html.indexOf('<strong', emOpen);
     const strongClose = result.html.indexOf('</strong', strongOpen);
-    const textIndex = result.html.indexOf('Hello world', emOpen);
+    const emClose = result.html.indexOf('</em', strongClose);
+    const textIndex = result.html.indexOf('Hello world', strongOpen);
 
-    expect(strongOpen).toBeGreaterThan(-1);
-    expect(emOpen).toBeGreaterThan(strongOpen);
-    expect(textIndex).toBeGreaterThan(emOpen);
-    expect(textIndex).toBeLessThan(emClose);
-    expect(emClose).toBeGreaterThan(emOpen);
-    expect(strongClose).toBeGreaterThan(emClose);
+    expect(emOpen).toBeGreaterThan(-1);
+    expect(strongOpen).toBeGreaterThan(emOpen);
+    expect(textIndex).toBeGreaterThan(strongOpen);
+    expect(textIndex).toBeLessThan(strongClose);
+    expect(strongClose).toBeGreaterThan(strongOpen);
+    expect(emClose).toBeGreaterThan(strongClose);
   });
 
-  it('should keep bold outer when combined with link on text', async () => {
+  it('should nest link and bold by schema mark rank (link extension priority 1000)', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -125,16 +127,17 @@ describe('Text marks', () => {
       preview: '',
     });
 
-    const strongOpen = result.html.indexOf('<strong');
-    const linkOpen = result.html.indexOf('<a', strongOpen);
-    const linkClose = result.html.indexOf('</a', linkOpen);
+    // Link has higher extension priority than bold → lower ProseMirror rank → wraps outside.
+    const linkOpen = result.html.indexOf('<a');
+    const strongOpen = result.html.indexOf('<strong', linkOpen);
     const strongClose = result.html.indexOf('</strong', strongOpen);
+    const linkClose = result.html.indexOf('</a', linkOpen);
 
-    expect(strongOpen).toBeGreaterThan(-1);
+    expect(linkOpen).toBeGreaterThan(-1);
     expect(result.html).toContain('href="https://example.com"');
-    expect(linkOpen).toBeGreaterThan(strongOpen);
-    expect(linkClose).toBeGreaterThan(linkOpen);
-    expect(strongClose).toBeGreaterThan(linkClose);
+    expect(strongOpen).toBeGreaterThan(linkOpen);
+    expect(strongClose).toBeGreaterThan(strongOpen);
+    expect(linkClose).toBeGreaterThan(strongClose);
   });
 
   it('wraps custom email nodes with marks around the rendered node', async () => {
