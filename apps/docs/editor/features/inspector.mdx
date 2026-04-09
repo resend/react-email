@@ -136,11 +136,17 @@ active.
 </Inspector.Root>
 ```
 
-| Helper | Description |
-| -- | -- |
-| `findStyleValue(classReference, property)` | Looks up the current value for a document-level style property. |
-| `setGlobalStyle(classReference, property, value)` | Updates an existing style entry or adds a new one. |
-| `batchSetGlobalStyle(changes)` | Applies multiple document-level style updates in one call. |
+<ResponseField name="findStyleValue" type="(classReference, property) => string | number">
+  Looks up the current value for a document-level style property.
+</ResponseField>
+
+<ResponseField name="setGlobalStyle" type="(classReference, property, value) => void">
+  Updates an existing style entry or adds a new one.
+</ResponseField>
+
+<ResponseField name="batchSetGlobalStyle" type="(changes) => void">
+  Applies multiple document-level style updates in one call.
+</ResponseField>
 
 Internally, [EmailTheming](/editor/api-reference/theming-api) keeps track of the document-level styles through a
 large JSON array with entries for each selector and style property.
@@ -177,17 +183,41 @@ large JSON array with entries for each selector and style property.
 </Inspector.Root>
 ```
 
-| Context parameter | Description |
-| -- | -- |
-| `nodeType` | The currently focused node type, such as `image`, `button`, or `section`. |
-| `getStyle(prop)` | Reads a resolved style value from the active node. |
-| `setStyle(prop, value)` | Updates a single inline style on the active node. |
-| `batchSetStyle(changes)` | Applies multiple style updates in one call. |
-| `getAttr(name)` | Reads a node attribute such as `alt`, `href`, or `width`. |
-| `setAttr(name, value)` | Updates a node attribute. |
-| `themeDefaults` | The resolved theme defaults for the current node before inline overrides. |
-| `presetColors` | Colors collected from the current document that can be reused in custom controls. |
-| `nodePos` | The ProseMirror position metadata for the focused node. |
+<ResponseField name="nodeType" type="string">
+  The currently focused node type, such as `image`, `button`, or `section`.
+</ResponseField>
+
+<ResponseField name="getStyle" type="(prop) => string | number | undefined">
+  Reads a resolved style value from the active node.
+</ResponseField>
+
+<ResponseField name="setStyle" type="(prop, value) => void">
+  Updates a single inline style on the active node.
+</ResponseField>
+
+<ResponseField name="batchSetStyle" type="(changes) => void">
+  Applies multiple style updates in one call.
+</ResponseField>
+
+<ResponseField name="getAttr" type="(name) => unknown">
+  Reads a node attribute such as `alt`, `href`, or `width`.
+</ResponseField>
+
+<ResponseField name="setAttr" type="(name, value) => void">
+  Updates a node attribute.
+</ResponseField>
+
+<ResponseField name="themeDefaults" type="Record<string, string | number | undefined>">
+  The resolved theme defaults for the current node before inline overrides.
+</ResponseField>
+
+<ResponseField name="presetColors" type="string[]">
+  Colors collected from the current document that can be reused in custom controls.
+</ResponseField>
+
+<ResponseField name="nodePos" type="{ pos: number; inside: number }">
+  The ProseMirror position metadata for the focused node.
+</ResponseField>
 
 ### Inspector.Text
 
@@ -220,19 +250,49 @@ large JSON array with entries for each selector and style property.
 </Inspector.Root>
 ```
 
-| Context parameter | Description |
-| -- | -- |
-| `marks` | A map of active text marks like `bold`, `italic`, `underline`, `strike`, and `code`. |
-| `toggleMark(mark)` | Toggles a text mark on the current selection. |
-| `alignment` | The current alignment of the parent text block. |
-| `setAlignment(value)` | Updates the alignment of the parent text block. |
-| `linkHref` | The current link URL when the selection is inside a link. |
-| `linkColor` | The resolved color for the active link. |
-| `setLinkColor(color)` | Updates the color of the active link. |
-| `isLinkActive` | Whether the current text selection is inside a link. |
-| `getStyle(prop)` | Reads a resolved style value from the parent text block. |
-| `setStyle(prop, value)` | Updates a style on the parent text block. |
-| `presetColors` | Colors collected from the current document that can be reused in custom controls. |
+<ResponseField name="marks" type="Record<string, boolean>">
+  A map of active text marks like `bold`, `italic`, `underline`, `strike`, and `code`.
+</ResponseField>
+
+<ResponseField name="toggleMark" type="(mark) => void">
+  Toggles a text mark on the current selection.
+</ResponseField>
+
+<ResponseField name="alignment" type="string">
+  The current alignment of the parent text block.
+</ResponseField>
+
+<ResponseField name="setAlignment" type="(value) => void">
+  Updates the alignment of the parent text block.
+</ResponseField>
+
+<ResponseField name="linkHref" type="string">
+  The current link URL when the selection is inside a link.
+</ResponseField>
+
+<ResponseField name="linkColor" type="string">
+  The resolved color for the active link.
+</ResponseField>
+
+<ResponseField name="setLinkColor" type="(color) => void">
+  Updates the color of the active link.
+</ResponseField>
+
+<ResponseField name="isLinkActive" type="boolean">
+  Whether the current text selection is inside a link.
+</ResponseField>
+
+<ResponseField name="getStyle" type="(prop) => string | number | undefined">
+  Reads a resolved style value from the parent text block.
+</ResponseField>
+
+<ResponseField name="setStyle" type="(prop, value) => void">
+  Updates a style on the parent text block.
+</ResponseField>
+
+<ResponseField name="presetColors" type="string[]">
+  Colors collected from the current document that can be reused in custom controls.
+</ResponseField>
 
 ## Using portals without losing inspector focus
 
