@@ -1,2 +1,3 @@
-**/*.tsx
+**/*
+# Ignore all files in the emails directory except for the example.tsx file
 !example.tsx
