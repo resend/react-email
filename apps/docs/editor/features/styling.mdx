@@ -228,6 +228,61 @@ and custom commands.
 [data-re-slash-command-empty] { }
 ```
 
+### Inspector
+
+See the [Inspector](/editor/features/inspector) guide for setup, panels, and custom render props.
+
+```css
+/* Section container */
+[data-re-inspector-section] { }
+
+/* Section header with collapse toggle */
+[data-re-inspector-section-header] { }
+[data-re-inspector-section-toggle] { }
+
+/* Section body (collapsible content) */
+[data-re-inspector-section-body] { }
+
+/* Field row (label + control) */
+[data-re-inspector-field] { }
+
+/* Text / number / textarea inputs */
+[data-re-inspector-input] { }
+[data-re-inspector-input][data-type="number"] { }
+[data-re-inspector-input][data-type="textarea"] { }
+
+/* Number field wrapper (input + unit label) */
+[data-re-inspector-number] { }
+[data-re-inspector-unit] { }
+
+/* Select dropdown */
+[data-re-inspector-select] { }
+
+/* Color picker */
+[data-re-inspector-color-control] { }
+[data-re-inspector-color-trigger] { }
+[data-re-inspector-color-hex] { }
+
+/* Toggle group (e.g. alignment) */
+[data-re-inspector-toggle-group] { }
+[data-re-inspector-toggle-item] { }
+[data-re-inspector-toggle-item][data-active] { }
+
+/* Buttons */
+[data-re-inspector-button] { }
+[data-re-inspector-icon-button] { }
+
+/* Breadcrumb navigation */
+[data-re-inspector-breadcrumb-list] { }
+[data-re-inspector-breadcrumb-item] { }
+[data-re-inspector-breadcrumb-button] { }
+[data-re-inspector-breadcrumb-separator] { }
+
+/* Labels and text */
+[data-re-inspector-label] { }
+[data-re-inspector-prop-row] { }
+```
+
 ## Editor content classes
 
 The editor content area uses the `.tiptap` root class from [TipTap](https://tiptap.dev/docs/editor/getting-started/style-editor). Target content elements with `.tiptap` as a prefix.
