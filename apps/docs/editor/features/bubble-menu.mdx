@@ -28,6 +28,12 @@ export function MyEditor() {
 
 Select text to see the toolbar with formatting, alignment, node type selection, and link controls.
 
+<Tip>
+  Even though you can [compose the BubbleMenu from
+  primitives](#composing-from-primitives) and style it that way, the default
+  can also be styled using <br/> [CSS variables and `data-re-*` selectors](/editor/features/styling#bubble-menu).
+</Tip>
+
 ## Excluding items
 
 Hide specific items from the default bubble menu using `excludeItems`.
@@ -71,19 +77,21 @@ import { PluginKey } from '@tiptap/pm/state';
 
 const linkPluginKey = new PluginKey('linkBubbleMenu');
 
-{/* Hide text bubble menu on links and buttons -- their own menus handle those */}
-<BubbleMenu.Default hideWhenActiveNodes={['button']} hideWhenActiveMarks={['link']} />
+<>
+  {/* Hide text bubble menu on links and buttons -- their own menus handle those */}
+  <BubbleMenu.Default hideWhenActiveNodes={['button']} hideWhenActiveMarks={['link']} />
 
-<BubbleMenu.Root
-  trigger={bubbleMenuTriggers.nodeWithoutSelection('link')}
-  pluginKey={linkPluginKey}
->
-  <BubbleMenu.LinkToolbar>
-    <BubbleMenu.LinkEditLink />
-    <BubbleMenu.LinkOpenLink />
-    <BubbleMenu.LinkUnlink />
-  </BubbleMenu.LinkToolbar>
-</BubbleMenu.Root>
+  <BubbleMenu.Root
+    trigger={bubbleMenuTriggers.nodeWithoutSelection('link')}
+    pluginKey={linkPluginKey}
+  >
+    <BubbleMenu.LinkToolbar>
+      <BubbleMenu.LinkEditLink />
+      <BubbleMenu.LinkOpenLink />
+      <BubbleMenu.LinkUnlink />
+    </BubbleMenu.LinkToolbar>
+  </BubbleMenu.Root>
+</>
 ```
 
 ## Composing from primitives
