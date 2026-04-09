@@ -1,14 +1,10 @@
 import { Section as ReactEmailSection } from '@react-email/components';
 import { mergeAttributes } from '@tiptap/core';
-import type { Node as ProseMirrorNode } from '@tiptap/pm/model';
 import type * as React from 'react';
 import { EmailNode } from '../core/serializer/email-node';
 import { getTextAlignment } from '../utils/get-text-alignment';
+import { isSectionEmpty } from '../utils/is-section-empty';
 import { inlineCssToJs } from '../utils/styles';
-
-function isSectionEmpty(node: ProseMirrorNode): boolean {
-  return node.textContent === '' && node.content.size <= node.childCount * 2;
-}
 
 export interface SectionOptions {
   HTMLAttributes: Record<string, unknown>;
