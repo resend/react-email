@@ -22,32 +22,29 @@ Install the editor and its peer dependencies:
 
 ## Import CSS
 
-The editor ships CSS for its UI components, as well as a default theme. Import the styles you need:
+The quickest way to get started is to import the bundled default theme:
 
 ```tsx
-// Required for bubble menu styling (includes text, link, button, and image menus)
-import '@react-email/editor/styles/bubble-menu.css';
-
-// Required for slash command menu
-import '@react-email/editor/styles/slash-command.css';
-
-// Default color theme
 import '@react-email/editor/themes/default.css';
 ```
 
-<Tip>
-  **Shortcut:** `@react-email/editor/themes/default.css` bundles all of the above CSS files
-  into a single import. If you don't need to cherry-pick styles, just import this one file:
-
-  ```tsx
-  import '@react-email/editor/themes/default.css';
-  ```
-</Tip>
+This single import includes the default color theme and the built-in UI styles for bubble menus,
+slash commands, and the inspector.
 
 <Info>
-  If you prefer to keep your bundle lean, you can import only the CSS for the components you
-  use instead of the bundled theme file.
+  Start here unless you specifically want to cherry-pick styles.
 </Info>
+
+If you want to import only the pieces you use, skip the bundled theme and import the individual
+CSS files instead:
+
+```tsx
+import '@react-email/editor/styles/bubble-menu.css';
+
+import '@react-email/editor/styles/slash-command.css';
+
+import '@react-email/editor/styles/inspector.css';
+```
 
 ## Minimal editor
 
