@@ -33,13 +33,13 @@ export const sections: ExampleSection[] = [
     examples: [
       {
         id: 'one-line-editor',
-        label: 'Minimal',
+        label: 'One-Line Editor — Minimal',
         component: OneLineEditor,
         docsUrl: 'https://react.email/docs/editor/getting-started',
       },
       {
         id: 'one-line-editor-full',
-        label: 'Full Features',
+        label: 'One-Line Editor — Full Features',
         component: OneLineEditorFull,
         docsUrl: 'https://react.email/docs/editor/getting-started',
       },
@@ -132,7 +132,7 @@ export const sections: ExampleSection[] = [
       },
       {
         id: 'inspector-custom',
-        label: 'Inspector — Custom',
+        label: 'Inspector — Fully Custom',
         component: InspectorCustom,
         docsUrl: 'https://react.email/docs/editor/overview',
       },
