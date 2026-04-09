@@ -52,14 +52,14 @@ export const Button = EmailNode.create<EditorButtonOptions>({
             return false;
           }
           const element = node as HTMLElement;
-          const attrs: Record<string, string> = {};
+          const attrs = Array.from(element.attributes).reduce<
+            Record<string, string>
+          >((acc, attr) => ({ ...acc, [attr.name]: attr.value }), {});
 
-          // Preserve all attributes
-          Array.from(element.attributes).forEach((attr) => {
-            attrs[attr.name] = attr.value;
-          });
-
-          return attrs;
+          return {
+            ...attrs,
+            href: attrs['data-href'] ?? attrs.href,
+          };
         },
       },
     ];
@@ -77,6 +77,7 @@ export const Button = EmailNode.create<EditorButtonOptions>({
           class: `node-button ${HTMLAttributes?.class}`,
           style: HTMLAttributes?.style,
           'data-id': 'react-email-button',
+          href: HTMLAttributes?.href,
           'data-href': HTMLAttributes?.href,
         }),
         0,
