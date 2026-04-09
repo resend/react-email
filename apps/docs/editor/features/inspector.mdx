@@ -7,9 +7,10 @@ icon: "window"
 
 ## Quick start
 
-Add [EmailTheming](/editor/api-reference/theming-api) and render `Inspector.Root` next to the editor content.
-The inspector switches automatically between document, node, and text controls
-based on the current selection.
+Add [EmailTheming](/editor/api-reference/theming-api) and render
+`Inspector.Root` next to the editor content. The inspector switches
+automatically between document, node, and text controls based on the current
+selection.
 
 ```tsx
 import { StarterKit } from '@react-email/editor/extensions';
@@ -34,6 +35,7 @@ export function MyEditor() {
         </div>
 
         <Inspector.Root className="w-60 shrink-0 border-l p-4">
+          <Inspector.Breadcrumb />
           <Inspector.Document />
           <Inspector.Node />
           <Inspector.Text />
@@ -49,9 +51,9 @@ button to edit, or select text to switch to text controls.
 
 ## Required extension
 
-`Inspector.Root` requires the [EmailTheming](/editor/api-reference/theming-api) extension. Without it, the
-inspector cannot resolve theme defaults or apply document-level style changes,
-and it will error.
+`Inspector.Root` requires the [EmailTheming](/editor/api-reference/theming-api)
+extension. Without it, the inspector cannot resolve theme defaults or apply
+document-level style changes, and it will error.
 
 ```tsx
 import { StarterKit } from '@react-email/editor/extensions';
@@ -63,7 +65,8 @@ const extensions = [StarterKit, EmailTheming];
 ## Zero-config defaults
 
 When you render the three default panels without children, the inspector gives
-you a ready-made sidebar with sensible controls for common editing tasks.
+you a ready-made sidebar with sensible controls for common editing tasks using
+the standard HTML elements like input and select.
 
 | Component | When it appears | Default behavior |
 | -- | -- | -- |
