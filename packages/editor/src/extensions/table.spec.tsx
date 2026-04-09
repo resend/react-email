@@ -71,4 +71,50 @@ describe('Table Nodes', () => {
       ),
     ).toMatchSnapshot();
   });
+
+  it('renders nested table structure without invalid tr-inside-td nesting', async () => {
+    const TableComponent = Table.config.renderToReactEmail;
+    const RowComponent = TableRow.config.renderToReactEmail;
+    const CellComponent = TableCell.config.renderToReactEmail;
+
+    const html = await render(
+      <TableComponent
+        node={{
+          type: 'table',
+          attrs: {
+            alignment: 'center',
+            width: '600',
+          },
+        }}
+        style={tableStyle}
+        extension={Table}
+      >
+        <RowComponent
+          node={{ type: 'tableRow', attrs: {} }}
+          style={tableRowStyle}
+          extension={TableRow}
+        >
+          <CellComponent
+            node={{ type: 'tableCell', attrs: { alignment: 'left' } }}
+            style={tableCellStyle}
+            extension={TableCell}
+          >
+            Cell 1
+          </CellComponent>
+          <CellComponent
+            node={{ type: 'tableCell', attrs: { alignment: 'left' } }}
+            style={tableCellStyle}
+            extension={TableCell}
+          >
+            Cell 2
+          </CellComponent>
+        </RowComponent>
+      </TableComponent>,
+      { pretty: true },
+    );
+
+    expect(html).not.toMatch(/<td[^>]*>\s*<tr/);
+    expect(html).toMatch(/<table[^>]*>\s*<tbody>\s*<tr/);
+    expect(html).toMatchSnapshot();
+  });
 });
