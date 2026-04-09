@@ -5,6 +5,7 @@ import {
 } from '@react-email/components';
 import { mergeAttributes } from '@tiptap/core';
 import { EmailNode } from '../core/serializer/email-node';
+import { isSafeUrl } from '../utils/is-safe-url';
 import { inlineCssToJs } from '../utils/styles';
 
 export interface EditorButtonOptions {
@@ -52,13 +53,14 @@ export const Button = EmailNode.create<EditorButtonOptions>({
             return false;
           }
           const element = node as HTMLElement;
+          const href = element.getAttribute('href') ?? '';
+          if (!isSafeUrl(href)) {
+            return false;
+          }
           const attrs: Record<string, string> = {};
-
-          // Preserve all attributes
           Array.from(element.attributes).forEach((attr) => {
             attrs[attr.name] = attr.value;
           });
-
           return attrs;
         },
       },
@@ -110,12 +112,14 @@ export const Button = EmailNode.create<EditorButtonOptions>({
 
   renderToReactEmail({ children, node, style }) {
     const inlineStyles = inlineCssToJs(node.attrs?.style);
+    const rawHref = (node.attrs?.href as string) ?? '#';
+    const href = isSafeUrl(rawHref) ? rawHref : '#';
     return (
       <Row>
         <Column align={node.attrs?.align || node.attrs?.alignment}>
           <ReactEmailButton
             className={node.attrs?.class || undefined}
-            href={node.attrs?.href}
+            href={href}
             style={{
               ...style,
               ...inlineStyles,
