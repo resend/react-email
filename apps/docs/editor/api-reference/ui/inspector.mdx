@@ -12,7 +12,7 @@ import { Inspector } from '@react-email/editor/ui';
 ```
 
 `Inspector.Root` must be rendered inside the current editor context, and it
-requires the `EmailTheming` extension to be present in the editor.
+requires the [EmailTheming](/editor/api-reference/theming-api) extension to be present in the editor.
 
 ## Core components
 
@@ -52,11 +52,10 @@ export function MyEditor() {
 
 <ResponseField name="asChild" type="boolean" default="false">
   Render without the default `aside` wrapper and pass props to the child via
-  Radix `Slot`.
+  Radix UI's [Slot](https://www.radix-ui.com/primitives/docs/utilities/slot).
 </ResponseField>
 
-All standard `aside` props like `className`, `style`, and `children` are also
-supported.
+All standard props from `aside` are also supported if `asChild` is `false`.
 
 ### Inspector.Document
 
@@ -72,6 +71,15 @@ it shows the built-in document controls.
   context instead of the default UI.
 </ResponseField>
 
+#### InspectorDocumentContext
+
+| Field | Type | Description |
+| -- | -- | -- |
+| `styles` | `PanelGroup[]` | Theme-backed document style groups after merging defaults |
+| `setGlobalStyle` | `(classReference, property, value) => void` | Updates a single document-level style |
+| `batchSetGlobalStyle` | `(changes) => void` | Applies multiple document style changes at once |
+| `findStyleValue` | `(classReference, property) => string \| number` | Reads the current or default value for a document style |
+
 ### Inspector.Node
 
 Renders when a node is focused or selected. Without `children`, it shows the
@@ -86,6 +94,20 @@ default node-specific sections for the active node type.
   instead of the default UI.
 </ResponseField>
 
+#### InspectorNodeContext
+
+| Field | Type | Description |
+| -- | -- | -- |
+| `nodeType` | `string` | Active node type, such as `image`, `button`, or `section` |
+| `nodePos` | `{ pos: number; inside: number }` | ProseMirror position information for the focused node |
+| `getStyle` | `(prop) => string \| number \| undefined` | Reads a resolved style value for the node |
+| `setStyle` | `(prop, value) => void` | Updates one inline style on the focused node |
+| `batchSetStyle` | `(changes) => void` | Applies multiple inline style updates in one call |
+| `getAttr` | `(name) => unknown` | Reads a node attribute |
+| `setAttr` | `(name, value) => void` | Updates a node attribute |
+| `themeDefaults` | `Record<string, string \| number \| undefined>` | Resolved theme defaults for the current node |
+| `presetColors` | `string[]` | Colors collected from the current document |
+
 ### Inspector.Text
 
 Renders when text is selected. Without `children`, it shows typography controls
@@ -99,6 +121,22 @@ and link controls when a link mark is active.
   Optional render prop. When provided, you receive the text inspector context
   instead of the default UI.
 </ResponseField>
+
+#### InspectorTextContext
+
+| Field | Type | Description |
+| -- | -- | -- |
+| `marks` | `Record<string, boolean>` | Active text marks like `bold`, `italic`, and `underline` |
+| `toggleMark` | `(mark: string) => void` | Toggles a text mark on the current selection |
+| `alignment` | `string` | Current block alignment |
+| `setAlignment` | `(value: string) => void` | Updates the parent block alignment |
+| `linkHref` | `string` | Current link URL when a link mark is active |
+| `linkColor` | `string` | Resolved link color |
+| `setLinkColor` | `(color: string) => void` | Updates the active link color |
+| `isLinkActive` | `boolean` | Whether the current text selection is inside a link |
+| `getStyle` | `(prop) => string \| number \| undefined` | Reads the resolved parent block style |
+| `setStyle` | `(prop, value) => void` | Updates the parent block style |
+| `presetColors` | `string[]` | Colors collected from the current document |
 
 ### Inspector.Breadcrumb
 
@@ -116,53 +154,8 @@ Each segment includes:
 
 | Field | Type | Description |
 | -- | -- | -- |
-| `node` | `FocusedNode | null` | The node for this breadcrumb segment. `null` represents the root layout item. |
+| `node` | `FocusedNode \| null` | The node for this breadcrumb segment. `null` represents the root layout item. |
 | `focus` | `() => void` | Focuses the corresponding node or the document root. |
-
----
-
-## Render-prop contexts
-
-### InspectorDocumentContext
-
-| Field | Type | Description |
-| -- | -- | -- |
-| `styles` | `PanelGroup[]` | Theme-backed document style groups after merging defaults |
-| `setGlobalStyle` | `(classReference, property, value) => void` | Updates a single document-level style |
-| `batchSetGlobalStyle` | `(changes) => void` | Applies multiple document style changes at once |
-| `findStyleValue` | `(classReference, property) => string \| number` | Reads the current or default value for a document style |
-
-### InspectorNodeContext
-
-| Field | Type | Description |
-| -- | -- | -- |
-| `nodeType` | `string` | Active node type, such as `image`, `button`, or `section` |
-| `nodePos` | `{ pos: number; inside: number }` | ProseMirror position information for the focused node |
-| `getStyle` | `(prop) => string \| number \| undefined` | Reads a resolved style value for the node |
-| `setStyle` | `(prop, value) => void` | Updates one inline style on the focused node |
-| `batchSetStyle` | `(changes) => void` | Applies multiple inline style updates in one call |
-| `getAttr` | `(name) => unknown` | Reads a node attribute |
-| `setAttr` | `(name, value) => void` | Updates a node attribute |
-| `themeDefaults` | `Record<string, string \| number \| undefined>` | Resolved theme defaults for the current node |
-| `presetColors` | `string[]` | Colors collected from the current document |
-
-### InspectorTextContext
-
-| Field | Type | Description |
-| -- | -- | -- |
-| `marks` | `Record<string, boolean>` | Active text marks like `bold`, `italic`, and `underline` |
-| `toggleMark` | `(mark: string) => void` | Toggles a text mark on the current selection |
-| `alignment` | `string` | Current block alignment |
-| `setAlignment` | `(value: string) => void` | Updates the parent block alignment |
-| `linkHref` | `string` | Current link URL when a link mark is active |
-| `linkColor` | `string` | Resolved link color |
-| `setLinkColor` | `(color: string) => void` | Updates the active link color |
-| `isLinkActive` | `boolean` | Whether the current text selection is inside a link |
-| `getStyle` | `(prop) => string \| number \| undefined` | Reads the resolved parent block style |
-| `setStyle` | `(prop, value) => void` | Updates the parent block style |
-| `presetColors` | `string[]` | Colors collected from the current document |
-
----
 
 ## Built-in sections
 
@@ -193,54 +186,6 @@ Each section component accepts an `initialCollapsed?: boolean` prop.
 | `Inspector.Size` | Node | Width and height controls |
 | `Inspector.Typography` | Node or Text | Typography, formatting, and alignment controls |
 
----
-
-## Portal focus management
-
-When you render inspector controls inside a portal, focus can leave the editor's
-main DOM subtree. Without extra handling, that blur can change the active
-inspector target or clear the current text selection.
-
-Wrap the portaled content with `EditorFocusScope`:
-
-```tsx
-import { EditorFocusScope, Inspector } from '@react-email/editor/ui';
-import * as Select from '@radix-ui/react-select';
-
-<Inspector.Text>
-  {({ alignment, setAlignment }) => (
-    <Select.Root value={alignment} onValueChange={setAlignment}>
-      <Select.Trigger>
-        <Select.Value />
-      </Select.Trigger>
-
-      <Select.Portal>
-        <EditorFocusScope>
-          <Select.Content>
-            <Select.Viewport>
-              <Select.Item value="left">
-                <Select.ItemText>Left</Select.ItemText>
-              </Select.Item>
-              <Select.Item value="center">
-                <Select.ItemText>Center</Select.ItemText>
-              </Select.Item>
-              <Select.Item value="right">
-                <Select.ItemText>Right</Select.ItemText>
-              </Select.Item>
-            </Select.Viewport>
-          </Select.Content>
-        </EditorFocusScope>
-      </Select.Portal>
-    </Select.Root>
-  )}
-</Inspector.Text>
-```
-
-`Inspector.Root` already provides the underlying focus-scope provider, so custom
-inspector UIs typically only need to wrap the portaled content itself.
-
----
-
 ## Default behavior
 
 If you do not provide custom children, the inspector panels render these built-in
@@ -248,12 +193,10 @@ defaults:
 
 | Component | Default output |
 | -- | -- |
-| `Inspector.Document` | Background and container sections backed by `EmailTheming` |
+| `Inspector.Document` | Background and container sections backed by [EmailTheming](/editor/api-reference/theming-api) |
 | `Inspector.Node` | A node-specific stack of sections, such as attributes, size, padding, border, typography, or background |
 | `Inspector.Text` | Typography controls and a link section when the selection is inside a link |
 | `Inspector.Breadcrumb` | A compact breadcrumb that collapses long hierarchies |
-
----
 
 ## CSS import
 
