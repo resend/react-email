@@ -50,6 +50,14 @@ if (!hasRequiredFlags) {
       './emails',
     )
     .option('-p --port <port>', 'Port to run dev server on', '3000')
+    .option(
+      '--resend-api-key <key>',
+      'Resend API key for the preview app (overrides stored config)',
+    )
+    .option(
+      '--from <address>',
+      'Default sender address for test emails (e.g. "You <you@example.com>")',
+    )
     .action(dev);
 
   program
