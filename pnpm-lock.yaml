@@ -169,9 +169,6 @@ importers:
       '@octokit/core':
         specifier: 7.0.6
         version: 7.0.6
-      '@playwright/test':
-        specifier: 1.59.1
-        version: 1.59.1
       '@types/node':
         specifier: 'catalog:'
         version: 22.19.15
@@ -193,9 +190,6 @@ importers:
       pkg-pr-new:
         specifier: 0.0.66
         version: 0.0.66
-      playwright:
-        specifier: 1.59.1
-        version: 1.59.1
       remark:
         specifier: 15.0.1
         version: 15.0.1
@@ -11144,6 +11138,7 @@ snapshots:
   '@playwright/test@1.59.1':
     dependencies:
       playwright: 1.59.1
+    optional: true
 
   '@polka/url@1.0.0-next.29': {}
 
@@ -16324,7 +16319,8 @@ snapshots:
 
   playwright-core@1.58.2: {}
 
-  playwright-core@1.59.1: {}
+  playwright-core@1.59.1:
+    optional: true
 
   playwright@1.58.2:
     dependencies:
@@ -16337,6 +16333,7 @@ snapshots:
       playwright-core: 1.59.1
     optionalDependencies:
       fsevents: 2.3.2
+    optional: true
 
   pngjs@7.0.0: {}
 
