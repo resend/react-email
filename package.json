@@ -31,7 +31,7 @@
     "mdast-util-to-string": "4.0.0",
     "nypm": "catalog:",
     "pkg-pr-new": "0.0.66",
-    "playwright": "1.58.2",
+    "playwright": "1.59.1",
     "remark": "15.0.1",
     "rollup": "4.59.0",
     "tsconfig": "workspace:*",
