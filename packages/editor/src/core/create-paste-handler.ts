@@ -1,6 +1,6 @@
 import type { Extensions } from '@tiptap/core';
 import { generateJSON } from '@tiptap/html';
-import type { Slice } from '@tiptap/pm/model';
+import { Slice } from '@tiptap/pm/model';
 import type { EditorView } from '@tiptap/pm/view';
 import { sanitizePastedHtml } from '../utils/paste-sanitizer';
 
@@ -55,11 +55,6 @@ export function createPasteHandler({
       }
     }
 
-    /**
-     * If the coming content has a single child, we can assume
-     * it's a plain text and doesn't need to be parsed and
-     * be introduced in a new line
-     */
     if (slice.content.childCount === 1) {
       return false;
     }
@@ -68,14 +63,15 @@ export function createPasteHandler({
       event.preventDefault();
       const html = event.clipboardData.getData('text/html');
 
-      // Strip visual styles, keep semantic formatting (bold, italic, links, etc.)
       const sanitizedHtml = sanitizePastedHtml(html);
 
       const jsonContent = generateJSON(sanitizedHtml, extensions);
       const node = view.state.schema.nodeFromJSON(jsonContent);
 
-      // Insert the parsed content into the editor at the current selection
-      const transaction = view.state.tr.replaceSelectionWith(node, false);
+      const transaction =
+        node.type.name === 'doc'
+          ? view.state.tr.replaceSelection(new Slice(node.content, 0, 0))
+          : view.state.tr.replaceSelectionWith(node, false);
       view.dispatch(transaction);
 
       return true;
