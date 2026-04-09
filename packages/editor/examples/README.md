@@ -21,8 +21,8 @@ Then open <http://localhost:5173> in your browser. Use the sidebar to navigate b
 
 | Example | Demo | Source | Docs |
 |---------|------|--------|------|
-| **Minimal** — Single `EmailEditor` with default wiring | [Live](https://editor-examples.react.email/#one-line-editor) | [`one-line-editor.tsx`](src/examples/one-line-editor.tsx) | [Getting Started](https://react.email/docs/editor/getting-started) |
-| **Full Features** — Theme toggle, HTML export, JSON output | [Live](https://editor-examples.react.email/#one-line-editor-full) | [`one-line-editor-full.tsx`](src/examples/one-line-editor-full.tsx) | [Getting Started](https://react.email/docs/editor/getting-started) |
+| **One-Line Editor — Minimal** — Single `EmailEditor` with default wiring | [Live](https://editor-examples.react.email/#one-line-editor) | [`one-line-editor.tsx`](src/examples/one-line-editor.tsx) | [Getting Started](https://react.email/docs/editor/getting-started) |
+| **One-Line Editor — Full Features** — Theme toggle, HTML export, JSON output | [Live](https://editor-examples.react.email/#one-line-editor-full) | [`one-line-editor-full.tsx`](src/examples/one-line-editor-full.tsx) | [Getting Started](https://react.email/docs/editor/getting-started) |
 
 ### Getting Started
 
@@ -50,7 +50,7 @@ Then open <http://localhost:5173> in your browser. Use the sidebar to navigate b
 | **Custom Extensions** — Custom Callout node with `EmailNode.create` | [Live](https://editor-examples.react.email/#custom-extensions) | [`custom-extensions.tsx`](src/examples/custom-extensions.tsx) | [Custom Extensions](https://react.email/docs/editor/advanced/custom-extensions) |
 | **Inspector — Defaults** — Default inspector panels | [Live](https://editor-examples.react.email/#inspector-defaults) | [`inspector-defaults.tsx`](src/examples/inspector-defaults.tsx) | [Overview](https://react.email/docs/editor/overview) |
 | **Inspector — Composed** — Composed inspector layout | [Live](https://editor-examples.react.email/#inspector-composed) | [`inspector-composed.tsx`](src/examples/inspector-composed.tsx) | [Overview](https://react.email/docs/editor/overview) |
-| **Inspector — Custom** — Custom inspector UI | [Live](https://editor-examples.react.email/#inspector-custom) | [`inspector-custom.tsx`](src/examples/inspector-custom.tsx) | [Overview](https://react.email/docs/editor/overview) |
+| **Inspector — Fully Custom** — Custom inspector UI | [Live](https://editor-examples.react.email/#inspector-custom) | [`inspector-custom.tsx`](src/examples/inspector-custom.tsx) | [Overview](https://react.email/docs/editor/overview) |
 | **Full Email Builder** — All features combined | [Live](https://editor-examples.react.email/#full-email-builder) | [`full-email-builder.tsx`](src/examples/full-email-builder.tsx) | [Email Export](https://react.email/docs/editor/features/email-export) |
 
 ## Documentation
