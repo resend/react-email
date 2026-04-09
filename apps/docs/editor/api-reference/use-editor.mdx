@@ -6,26 +6,118 @@ icon: "code"
 hidden: true
 ---
 
-This page is retained for direct links only and is not shown in the sidebar.
-
-The React Email package previously exported a `useEditor` helper from `@react-email/editor/core`. That export has been removed. Use TipTap’s [`useEditor`](https://tiptap.dev/docs/editor/api/react-hooks/use-editor) from `@tiptap/react` instead, together with extensions from `@react-email/editor/extensions` (for example `StarterKit`).
+## Import
 
 ```tsx
-import { StarterKit } from '@react-email/editor/extensions';
-import { useEditor, EditorContent } from '@tiptap/react';
+import { useEditor } from '@react-email/editor/core';
+```
+
+## Parameters
+
+<ResponseField name="content" type="Content" required>
+  Initial editor content. Accepts TipTap JSON or an HTML string.
+  Ignored when collaboration extensions are detected (the collab provider manages content).
+</ResponseField>
+
+<ResponseField name="extensions" type="Extensions[]" default="[]">
+  Additional extensions to load. `StarterKit` is always included automatically,
+  so you only need to pass extra extensions (e.g., `EmailTheming`, custom nodes).
+</ResponseField>
+
+<ResponseField name="onUpdate" type="(editor: Editor, transaction: { getMeta }) => void">
+  Called on every content change. The `transaction` object provides metadata about the change.
+</ResponseField>
+
+<ResponseField name="onPaste" type="(payload: string | File, view: EditorView) => boolean">
+  Custom paste handler. Return `true` to prevent default paste behavior.
+</ResponseField>
+
+<ResponseField name="onUploadImage" type="(file: File, view: EditorView, pos: number) => void">
+  Called when an image is pasted or dropped. Use this to upload the image and insert
+  the resulting URL.
+</ResponseField>
+
+<ResponseField name="onReady" type="(editor: Editor | null) => void">
+  Called once when the editor has finished initializing.
+</ResponseField>
+
+<ResponseField name="editable" type="boolean" default="true">
+  Toggle read-only mode. When `false`, the editor content cannot be modified.
+</ResponseField>
+
+Any additional [TipTap `UseEditorOptions`](https://tiptap.dev/docs/editor/api/editor#settings)
+are also accepted and forwarded to the underlying TipTap editor.
+
+## Return value
+
+<ResponseField name="editor" type="Editor | null">
+  The TipTap editor instance. `null` until the editor is mounted.
+</ResponseField>
+
+<ResponseField name="isEditorEmpty" type="boolean">
+  Whether the document is visually empty (only contains an empty paragraph).
+  Excludes `globalContent` nodes from the calculation.
+</ResponseField>
+
+<ResponseField name="extensions" type="Extensions[]">
+  The effective extensions array, including `StarterKit` and `UndoRedo` (unless collaborative).
+</ResponseField>
+
+<ResponseField name="contentError" type="Error | null">
+  Content validation error, if the provided content is invalid for the current schema.
+  When set, the editor is automatically made read-only.
+</ResponseField>
+
+<ResponseField name="isCollaborative" type="boolean">
+  Whether collaboration extensions (Liveblocks, Y.js) were detected in the extensions array.
+</ResponseField>
+
+## Collaboration support
+
+<Note>
+  When collaboration extensions are detected (`liveblocksExtension` or `collaboration`), the
+  hook automatically:
+  - Ignores the `content` parameter (content is managed by the collab provider)
+  - Excludes the `UndoRedo` extension (collab extensions handle their own history)
+</Note>
+
+## Example
+
+Use `useEditor` directly when you need more control than `EditorProvider` offers:
+
+```tsx
+import { useEditor } from '@react-email/editor/core';
 
 export function MyEditor() {
-  const editor = useEditor({
-    extensions: [StarterKit],
-    content: '<p>Start typing.</p>',
+  const { editor, isEditorEmpty, contentError } = useEditor({
+    content: { type: 'doc', content: [] },
+    onUpdate: (editor) => {
+      console.log('Content changed:', editor.getJSON());
+    },
+    onReady: (editor) => {
+      console.log('Editor ready');
+    },
   });
 
-  if (!editor) {
-    return null;
+  if (contentError) {
+    return <div>Error: {contentError.message}</div>;
   }
 
-  return <EditorContent editor={editor} />;
+  if (!editor) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div>
+      <div ref={(el) => el && editor.setOptions({ element: el })} />
+      {isEditorEmpty && <p>Start typing...</p>}
+    </div>
+  );
 }
 ```
 
-See [Getting started](/editor/getting-started) for a full setup with `EditorProvider` and UI components.
+<Tip>
+  For most use cases, `EditorProvider` from `@tiptap/react` is simpler.
+  Use `useEditor` when you need direct access to the editor instance before rendering,
+  or when integrating with complex state management.
+</Tip>
