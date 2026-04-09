@@ -434,9 +434,7 @@ describe('inlineCssToJs', () => {
   describe('values containing colons', () => {
     it('preserves https URL in background-image', () => {
       expect(
-        inlineCssToJs(
-          'background-image: url(https://cdn.example.com/bg.png)',
-        ),
+        inlineCssToJs('background-image: url(https://cdn.example.com/bg.png)'),
       ).toEqual({
         backgroundImage: 'url(https://cdn.example.com/bg.png)',
       });
@@ -444,9 +442,7 @@ describe('inlineCssToJs', () => {
 
     it('preserves data URI in background-image', () => {
       expect(
-        inlineCssToJs(
-          'background-image: url(data:image/png;base64,abc123)',
-        ),
+        inlineCssToJs('background-image: url(data:image/png;base64,abc123)'),
       ).toEqual({
         backgroundImage: 'url(data:image/png;base64,abc123)',
       });
