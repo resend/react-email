@@ -1,0 +1,290 @@
+---
+title: "Inspector"
+sidebarTitle: "Inspector"
+description: "Add a contextual sidebar for document, node, and text editing."
+icon: "window"
+---
+
+## Quick start
+
+Add `EmailTheming` and render `Inspector.Root` next to the editor content.
+The inspector switches automatically between document, node, and text controls
+based on the current selection.
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+import { EmailTheming } from '@react-email/editor/plugins';
+import { Inspector } from '@react-email/editor/ui';
+import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
+import '@react-email/editor/themes/default.css';
+
+const extensions = [StarterKit, EmailTheming];
+
+export function MyEditor() {
+  const editor = useEditor({
+    extensions,
+    content,
+  });
+
+  return (
+    <EditorContext.Provider value={{ editor }}>
+      <div className="flex min-h-0 overflow-hidden">
+        <div className="flex-1 min-w-0 p-4">
+          <EditorContent editor={editor} />
+        </div>
+
+        <Inspector.Root className="w-60 shrink-0 border-l p-4">
+          <Inspector.Document />
+          <Inspector.Node />
+          <Inspector.Text />
+        </Inspector.Root>
+      </div>
+    </EditorContext.Provider>
+  );
+}
+```
+
+Click the editor background to edit document-level styles, click a node like a
+button to edit, or select text to switch to text controls.
+
+## Required extension
+
+`Inspector.Root` requires the `EmailTheming` extension. Without it, the
+inspector cannot resolve theme defaults or apply document-level style changes,
+and it will error.
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+import { EmailTheming } from '@react-email/editor/plugins';
+
+const extensions = [StarterKit, EmailTheming];
+```
+
+## Zero-config defaults
+
+When you render the three default panels without children, the inspector gives
+you a ready-made sidebar with sensible controls for common editing tasks.
+
+| Component | When it appears | Default behavior |
+| -- | -- | -- |
+| `Inspector.Document` | When the editor is not focused on a specific node or text selection | Controls global theme-backed styles like page background and container settings |
+| `Inspector.Node` | When a node is focused or selected | Adapts to the current node type and shows sections like attributes, size, typography, padding, border, and background |
+| `Inspector.Text` | When text is selected | Shows text formatting, alignment, typography, and link color controls |
+
+This gives you a complete inspector with no custom UI code required.
+
+## Breadcrumb navigation
+
+Use `Inspector.Breadcrumb` to show the current path from the document root down
+to the focused node, and let users jump back up the hierarchy.
+
+```tsx
+<Inspector.Root>
+  <Inspector.Breadcrumb>
+    {(segments) =>
+      segments.map((segment, index) => (
+        <button key={index} type="button" onClick={() => segment.focus()}>
+          {segment.node?.nodeType ?? 'Layout'}
+        </button>
+      ))
+    }
+  </Inspector.Breadcrumb>
+
+  <Inspector.Document />
+  <Inspector.Node />
+  <Inspector.Text />
+</Inspector.Root>
+```
+
+To use the default breadcrumb rendering:
+
+```tsx
+<Inspector.Root>
+  <Inspector.Breadcrumb/>
+  <Inspector.Document />
+  <Inspector.Node />
+  <Inspector.Text />
+</Inspector.Root>
+```
+
+## Customizing the Inspector
+
+The Inspector.Root itself keeps track of what is supposed to be inspected,
+which is either the document, a node, or a text selection. The
+`<Inspector.Document>`, `<Inspector.Node>`, and `<Inspector.Text>` components
+are convenience components that only render when their respective target is
+active.
+
+### Inspector.Document
+
+```tsx
+<Inspector.Root>
+  <Inspector.Document>
+    {({ findStyleValue, setGlobalStyle, batchSetGlobalStyle }) => (
+      <input
+        type="color"
+        value={findStyleValue('body', 'backgroundColor')}
+        onChange={(e) =>
+          setGlobalStyle('body', 'backgroundColor', e.target.value)
+        }
+      />
+    )}
+  </Inspector.Document>
+</Inspector.Root>
+```
+
+| Helper | Description |
+| -- | -- |
+| `findStyleValue(classReference, property)` | Looks up the current value for a document-level style property. |
+| `setGlobalStyle(classReference, property, value)` | Updates an existing style entry or adds a new one. |
+| `batchSetGlobalStyle(changes)` | Applies multiple document-level style updates in one call. |
+
+Internally, [EmailTheming](/editor/api-reference/theming-api) keeps track of the document-level styles through a
+large JSON array with entries for each selector and style property.
+
+### Inspector.Node
+
+```tsx
+<Inspector.Root>
+  <Inspector.Node>
+    {({ nodeType, getStyle, setStyle, getAttr, setAttr, themeDefaults, presetColors }) => (
+      <>
+        <div>{nodeType}</div>
+        <input
+          type="text"
+          value={String(getAttr('alt') ?? '')}
+          onChange={(e) => setAttr('alt', e.target.value)}
+        />
+        <input
+          type="color"
+          value={String(getStyle('backgroundColor') ?? '')}
+          onChange={(e) => setStyle('backgroundColor', e.target.value)}
+        />
+      </>
+    )}
+  </Inspector.Node>
+</Inspector.Root>
+```
+
+| Context parameter | Description |
+| -- | -- |
+| `nodeType` | The currently focused node type, such as `image`, `button`, or `section`. |
+| `getStyle(prop)` | Reads a resolved style value from the active node. |
+| `setStyle(prop, value)` | Updates a single inline style on the active node. |
+| `batchSetStyle(changes)` | Applies multiple style updates in one call. |
+| `getAttr(name)` | Reads a node attribute such as `alt`, `href`, or `width`. |
+| `setAttr(name, value)` | Updates a node attribute. |
+| `themeDefaults` | The resolved theme defaults for the current node before inline overrides. |
+| `presetColors` | Colors collected from the current document that can be reused in custom controls. |
+| `nodePos` | The ProseMirror position metadata for the focused node. |
+
+### Inspector.Text
+
+```tsx
+<Inspector.Root>
+  <Inspector.Text>
+    {({ marks, toggleMark, alignment, setAlignment }) => (
+      <>
+        <button type="button" onClick={() => toggleMark('bold')}>
+          {marks.bold ? 'Unbold' : 'Bold'}
+        </button>
+        <button type="button" onClick={() => setAlignment('center')}>
+          {alignment === 'center' ? 'Centered' : 'Center'}
+        </button>
+      </>
+    )}
+  </Inspector.Text>
+</Inspector.Root>
+```
+
+## Using portals without losing inspector focus
+
+If your custom inspector uses portaled UI like Radix `Select`, `Popover`, or
+dropdown content, moving focus into that portal can make the editor think it
+blurred. That can switch the active inspector target or clear the current text
+selection.
+
+Wrap the portaled content with `EditorFocusScope` so focus inside the portal is
+still treated as part of the editor UI.
+
+```tsx
+import { EditorFocusScope, Inspector } from '@react-email/editor/ui';
+import * as Select from '@radix-ui/react-select';
+
+<Inspector.Node>
+  {({ getAttr, setAttr }) => (
+    <Select.Root
+      value={String(getAttr('alignment') ?? 'left')}
+      onValueChange={(value) => setAttr('alignment', value)}
+    >
+      <Select.Trigger>
+        <Select.Value />
+      </Select.Trigger>
+
+      <Select.Portal>
+        <EditorFocusScope>
+          <Select.Content>
+            <Select.Viewport>
+              <Select.Item value="left">
+                <Select.ItemText>Left</Select.ItemText>
+              </Select.Item>
+              <Select.Item value="center">
+                <Select.ItemText>Center</Select.ItemText>
+              </Select.Item>
+              <Select.Item value="right">
+                <Select.ItemText>Right</Select.ItemText>
+              </Select.Item>
+            </Select.Viewport>
+          </Select.Content>
+        </EditorFocusScope>
+      </Select.Portal>
+    </Select.Root>
+  )}
+</Inspector.Node>
+```
+
+`Inspector.Root` already includes the required focus-scope provider, so inside
+a custom inspector you only need to add `EditorFocusScope` around the portaled
+content. The same pattern works for other portaled Radix components, not just
+`Select`.
+
+## Reusing built-in sections
+
+You can also mix custom layouts with the built-in section components.
+
+```tsx
+<Inspector.Node>
+  {(context) => (
+    <>
+      <Inspector.Size {...context} />
+      <Inspector.Padding {...context} initialCollapsed />
+      <Inspector.Border {...context} initialCollapsed />
+    </>
+  )}
+</Inspector.Node>
+```
+
+Available section components:
+
+| Component | Description |
+| -- | -- |
+| `Inspector.Attributes` | Editable node attributes using field types inferred from the attribute schema |
+| `Inspector.Background` | Background color control for nodes |
+| `Inspector.Border` | Border width, style, color, and radius controls |
+| `Inspector.Link` | Link URL and link color controls for active text links |
+| `Inspector.Padding` | Four-sided padding editor |
+| `Inspector.Size` | Width and height controls |
+| `Inspector.Typography` | Color, size, line height, marks, and alignment controls |
+
+## Examples
+
+See the inspector in action with runnable examples:
+
+<CardGroup cols={2}>
+  <Card title="Inspector Defaults" icon="code" href="https://editor-examples.react.email/#inspector-defaults">
+    Zero-config document, node, and text inspectors.
+  </Card>
+  <Card title="Custom Inspector" icon="code" href="https://editor-examples.react.email/#inspector-custom">
+    Fully custom inspector UI built from render props.
+  </Card>
+</CardGroup>
