@@ -17,11 +17,11 @@
 import {
   type Atrule,
   type CssNode,
+  clone,
+  List,
   type ListItem,
   type Rule,
   type StyleSheet,
-  clone,
-  List,
   walk,
 } from 'css-tree';
 
@@ -59,7 +59,7 @@ interface UnnestTransform {
 function unnestMediaQueries(styleSheet: StyleSheet): void {
   const transforms: UnnestTransform[] = [];
 
-  styleSheet.children.forEach(function (node, item, list) {
+  styleSheet.children.forEach((node, item, list) => {
     if (node.type !== 'Rule' || !node.block) return;
 
     const nestedAtrules: Atrule[] = [];
@@ -113,9 +113,7 @@ function unnestMediaQueries(styleSheet: StyleSheet): void {
         prelude: clone(parentRule.prelude) as Rule['prelude'],
         block: {
           type: 'Block',
-          children: atrule.block
-            ? atrule.block.children
-            : new List<CssNode>(),
+          children: atrule.block ? atrule.block.children : new List<CssNode>(),
         },
       };
 
