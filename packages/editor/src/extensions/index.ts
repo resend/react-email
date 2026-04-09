@@ -64,7 +64,12 @@ import type { StyleAttributeOptions } from './style-attribute';
 import { StyleAttribute } from './style-attribute';
 import type { SupOptions } from './sup';
 import { Sup } from './sup';
-import type { TableCellOptions, TableOptions, TableRowOptions } from './table';
+import type {
+  TableCellOptions,
+  TableHeaderOptions,
+  TableOptions,
+  TableRowOptions,
+} from './table';
 import { Table, TableCell, TableHeader, TableRow } from './table';
 import { Text } from './text';
 import { TrailingNode, type TrailingNodeOptions } from './trailing-node';
@@ -181,7 +186,7 @@ export type StarterKitOptions = {
   Table: Partial<TableOptions> | false;
   TableRow: Partial<TableRowOptions> | false;
   TableCell: Partial<TableCellOptions> | false;
-  TableHeader: Partial<Record<string, any>> | false;
+  TableHeader: Partial<TableHeaderOptions> | false;
   Body: Partial<BodyOptions> | false;
   Container: Partial<ContainerOptions> | false;
   Div: Partial<DivOptions> | false;

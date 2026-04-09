@@ -31,6 +31,24 @@ exports[`Table Nodes > renders TableCell React Email properly 1`] = `
 "
 `;
 
+exports[`Table Nodes > renders TableHeader React Email properly 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--$-->
+<th align="left" scope="col" style="margin:0;padding:0;font-weight:bold">
+  Header content
+</th>
+<!--/$-->
+"
+`;
+
+exports[`Table Nodes > renders TableHeader without scope when not specified 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--$-->
+<th style="margin:0;padding:0;font-weight:bold">Header content</th>
+<!--/$-->
+"
+`;
+
 exports[`Table Nodes > renders TableRow React Email properly 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--$-->
