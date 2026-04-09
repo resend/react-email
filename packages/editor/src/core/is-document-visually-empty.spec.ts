@@ -10,6 +10,7 @@ const schema = new Schema({
     globalContent: { group: 'block', atom: true },
     container: { group: 'block', content: 'block+' },
     image: { group: 'block', atom: true },
+    hardBreak: { group: 'inline', inline: true, selectable: false },
   },
 });
 
@@ -62,6 +63,25 @@ describe('isDocumentVisuallyEmpty', () => {
       expect(isDocumentVisuallyEmpty(doc)).toBe(false);
     });
 
+    it('returns false when paragraph contains only a hardBreak', () => {
+      const doc = schema.node('doc', null, [
+        schema.node('paragraph', null, [schema.node('hardBreak')]),
+      ]);
+
+      expect(isDocumentVisuallyEmpty(doc)).toBe(false);
+    });
+
+    it('returns false when paragraph contains a hardBreak alongside text', () => {
+      const doc = schema.node('doc', null, [
+        schema.node('paragraph', null, [
+          schema.text('hello'),
+          schema.node('hardBreak'),
+        ]),
+      ]);
+
+      expect(isDocumentVisuallyEmpty(doc)).toBe(false);
+    });
+
     it('considers just white spaces as not empty', () => {
       const doc = schema.node('doc', null, [
         schema.node('paragraph', null, [schema.text('                 ')]),
@@ -104,6 +124,16 @@ describe('isDocumentVisuallyEmpty', () => {
         schema.node('container', null, [
           schema.node('paragraph'),
           schema.node('paragraph'),
+        ]),
+      ]);
+
+      expect(isDocumentVisuallyEmpty(doc)).toBe(false);
+    });
+
+    it('returns false when container holds a paragraph with only a hardBreak', () => {
+      const doc = schema.node('doc', null, [
+        schema.node('container', null, [
+          schema.node('paragraph', null, [schema.node('hardBreak')]),
         ]),
       ]);
 
