@@ -21,7 +21,15 @@ export function InspectorBreadcrumb({ children }: InspectorBreadcrumbProps) {
       {
         node: null,
         focus() {
-          editor?.commands.setTextSelection(0);
+          // Ensure focus leaves the inspector scope so the inspector target becomes `doc`.
+          if (typeof document !== 'undefined') {
+            const active = document.activeElement;
+            if (active instanceof HTMLElement) {
+              active.blur();
+            }
+          }
+
+          editor?.commands.blur();
         },
       },
       ...pathFromRoot.map((focusedNode) => ({
@@ -32,7 +40,7 @@ export function InspectorBreadcrumb({ children }: InspectorBreadcrumbProps) {
         },
       })),
     ] satisfies InspectorBreadcrumbSegment[];
-  }, [pathFromRoot]);
+  }, [editor, pathFromRoot]);
 
   if (children) {
     return children(segments);
