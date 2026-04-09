@@ -19,7 +19,7 @@ packages/editor/src/
 The package exposes multiple entry points for granular imports:
 
 - `@react-email/editor` — Main editor component and top-level API
-- `@react-email/editor/core` — Core hooks (`useEditor`), serializer, types, and event bus
+- `@react-email/editor/core` — Serializer, types, and event bus
 - `@react-email/editor/extensions` — Tiptap extensions for all supported email elements
 - `@react-email/editor/ui` — UI components (bubble menus, slash command, inspector)
 - `@react-email/editor/plugins` — ProseMirror plugins

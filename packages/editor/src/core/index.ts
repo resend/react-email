@@ -4,4 +4,3 @@ export * from './serializer/compose-react-email';
 export * from './serializer/email-mark';
 export * from './serializer/email-node';
 export * from './types';
-export * from './use-editor';
