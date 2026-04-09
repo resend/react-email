@@ -1,18 +1,26 @@
 const SAFE_PROTOCOLS = new Set(['http:', 'https:', 'mailto:', 'tel:']);
 
+const UNSAFE_SCHEMES = new Set(['javascript:', 'data:', 'vbscript:']);
+
+const extractScheme = (url: string): string | undefined => {
+  const match = /^[\s]*([a-z][a-z0-9+\-.]*:)/i.exec(url);
+  return match?.[1]?.toLowerCase();
+};
+
 export const isSafeUrl = (url: string): boolean => {
   if (url === '#' || url === '') {
     return true;
   }
 
-  try {
-    const parsed = new URL(url);
-    return SAFE_PROTOCOLS.has(parsed.protocol);
-  } catch {
-    return (
-      !url.trimStart().toLowerCase().startsWith('javascript:') &&
-      !url.trimStart().toLowerCase().startsWith('data:') &&
-      !url.trimStart().toLowerCase().startsWith('vbscript:')
-    );
+  const scheme = extractScheme(url);
+
+  if (scheme === undefined) {
+    return true;
   }
+
+  if (UNSAFE_SCHEMES.has(scheme)) {
+    return false;
+  }
+
+  return SAFE_PROTOCOLS.has(scheme);
 };
