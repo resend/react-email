@@ -1,10 +1,11 @@
 import { render } from '@react-email/components';
 import { DEFAULT_STYLES } from '../utils/default-styles';
-import { Table, TableCell, TableRow } from './table';
+import { Table, TableCell, TableHeader, TableRow } from './table';
 
 const tableStyle = { ...DEFAULT_STYLES.reset };
 const tableRowStyle = { ...DEFAULT_STYLES.reset };
 const tableCellStyle = { ...DEFAULT_STYLES.reset };
+const tableHeaderStyle = { ...DEFAULT_STYLES.reset };
 
 describe('Table Nodes', () => {
   it('renders Table React Email properly', async () => {
@@ -66,6 +67,48 @@ describe('Table Nodes', () => {
           extension={TableCell}
         >
           Cell content
+        </Component>,
+        { pretty: true },
+      ),
+    ).toMatchSnapshot();
+  });
+
+  it('renders TableHeader React Email properly', async () => {
+    const Component = TableHeader.config.renderToReactEmail;
+    expect(Component).toBeDefined();
+    expect(
+      await render(
+        <Component
+          node={{
+            type: 'tableHeader',
+            attrs: {
+              alignment: 'left',
+              scope: 'col',
+            },
+          }}
+          style={tableHeaderStyle}
+          extension={TableHeader}
+        >
+          Header content
+        </Component>,
+        { pretty: true },
+      ),
+    ).toMatchSnapshot();
+  });
+
+  it('renders TableHeader without scope when not specified', async () => {
+    const Component = TableHeader.config.renderToReactEmail;
+    expect(
+      await render(
+        <Component
+          node={{
+            type: 'tableHeader',
+            attrs: {},
+          }}
+          style={tableHeaderStyle}
+          extension={TableHeader}
+        >
+          Header content
         </Component>,
         { pretty: true },
       ),
