@@ -252,18 +252,6 @@ Each section component accepts an `initialCollapsed?: boolean` prop.
 | `Inspector.Size` | Node | Width and height controls |
 | `Inspector.Typography` | Node or Text | Typography, formatting, and alignment controls |
 
-## Default behavior
-
-If you do not provide custom children, the inspector panels render these built-in
-defaults:
-
-| Component | Default output |
-| -- | -- |
-| `Inspector.Document` | Background and container sections backed by [EmailTheming](/editor/api-reference/theming-api) |
-| `Inspector.Node` | A node-specific stack of sections, such as attributes, size, padding, border, typography, or background |
-| `Inspector.Text` | Typography controls and a link section when the selection is inside a link |
-| `Inspector.Breadcrumb` | A compact breadcrumb that collapses long hierarchies |
-
 ## CSS import
 
 ```tsx
