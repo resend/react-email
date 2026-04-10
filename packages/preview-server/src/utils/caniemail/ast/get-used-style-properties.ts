@@ -1,6 +1,6 @@
 import traverse, { type Node, type NodePath } from '@babel/traverse';
-import { inlineStyles, sanitizeStyleSheet } from 'react-email';
 import type { StyleSheet } from 'css-tree';
+import { inlineStyles, sanitizeStyleSheet } from 'react-email';
 import type { AST } from '../../../actions/email-validation/check-compatibility';
 import { getTailwindMetadata } from '../tailwind/get-tailwind-metadata';
 

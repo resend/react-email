@@ -1,12 +1,12 @@
+import { mergeAttributes } from '@tiptap/core';
+import type { CodeBlockOptions } from '@tiptap/extension-code-block';
+import CodeBlock from '@tiptap/extension-code-block';
+import { TextSelection } from '@tiptap/pm/state';
 import * as ReactEmailComponents from 'react-email';
 import {
   type PrismLanguage,
   CodeBlock as ReactEmailCodeBlock,
 } from 'react-email';
-import { mergeAttributes } from '@tiptap/core';
-import type { CodeBlockOptions } from '@tiptap/extension-code-block';
-import CodeBlock from '@tiptap/extension-code-block';
-import { TextSelection } from '@tiptap/pm/state';
 import { EmailNode } from '../core/serializer/email-node';
 import { PrismPlugin } from './prism-plugin';
 

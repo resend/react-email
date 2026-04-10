@@ -1,7 +1,7 @@
-import { Container as ReactEmailContainer } from 'react-email';
 import { mergeAttributes } from '@tiptap/core';
 import type { Node as PmNode } from '@tiptap/pm/model';
 import { type EditorState, Plugin, PluginKey } from '@tiptap/pm/state';
+import { Container as ReactEmailContainer } from 'react-email';
 import { EmailNode } from '../core/serializer/email-node';
 import { hasCollaborationExtension } from '../utils/is-collaboration';
 import { inlineCssToJs } from '../utils/styles';

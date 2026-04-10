@@ -1,8 +1,8 @@
 import path from 'node:path';
 import type { Node } from '@babel/traverse';
 import traverse from '@babel/traverse';
-import type { TailwindConfig } from 'react-email';
 import * as esbuild from 'esbuild';
+import type { TailwindConfig } from 'react-email';
 import type { RawSourceMap } from 'source-map-js';
 import type { AST } from '../../../actions/email-validation/check-compatibility';
 import { convertStackWithSourceMap } from '../../convert-stack-with-sourcemap';
