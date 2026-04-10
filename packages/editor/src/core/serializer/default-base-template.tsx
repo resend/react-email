@@ -1,5 +1,5 @@
-import { Body, Head, Html, Preview } from '@react-email/components';
 import type * as React from 'react';
+import { Body, Head, Html, Preview } from 'react-email';
 
 type BaseTemplateProps = {
   children: React.ReactNode;

@@ -1,4 +1,4 @@
-import { render } from '@react-email/components';
+import { render } from 'react-email';
 import { DEFAULT_STYLES } from '../utils/default-styles';
 import { Heading } from './heading';
 

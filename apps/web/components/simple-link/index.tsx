@@ -1,4 +1,4 @@
-import { Link } from '@react-email/components';
+import { Link } from 'react-email';
 import { Layout } from '../_components/layout';
 
 export const component = <Link href="https://react.email">React Email</Link>;

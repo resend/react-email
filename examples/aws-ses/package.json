@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-ses": "^3",
-    "@react-email/components": "catalog:",
+    "react-email": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
   },

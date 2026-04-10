@@ -102,13 +102,19 @@ function oklchToRgb(oklch: { l: number; c: number; h: number }) {
 
   const r =
     255 *
-    lrgbToRgb(LSM_TO_RGB.r[0]! * l + LSM_TO_RGB.r[1]! * m + LSM_TO_RGB.r[2]! * s);
+    lrgbToRgb(
+      LSM_TO_RGB.r[0]! * l + LSM_TO_RGB.r[1]! * m + LSM_TO_RGB.r[2]! * s,
+    );
   const g =
     255 *
-    lrgbToRgb(LSM_TO_RGB.g[0]! * l + LSM_TO_RGB.g[1]! * m + LSM_TO_RGB.g[2]! * s);
+    lrgbToRgb(
+      LSM_TO_RGB.g[0]! * l + LSM_TO_RGB.g[1]! * m + LSM_TO_RGB.g[2]! * s,
+    );
   const b =
     255 *
-    lrgbToRgb(LSM_TO_RGB.b[0]! * l + LSM_TO_RGB.b[1]! * m + LSM_TO_RGB.b[2]! * s);
+    lrgbToRgb(
+      LSM_TO_RGB.b[0]! * l + LSM_TO_RGB.b[1]! * m + LSM_TO_RGB.b[2]! * s,
+    );
 
   return {
     r: clamp(r, 0, 255),

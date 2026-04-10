@@ -1,4 +1,4 @@
-import { Column, Img, Row, Section, Text } from '@react-email/components';
+import { Column, Img, Row, Section, Text } from 'react-email';
 import { Layout } from '../_components/layout';
 
 export const component = (

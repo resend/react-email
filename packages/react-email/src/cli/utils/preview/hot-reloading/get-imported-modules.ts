@@ -3,11 +3,10 @@ import { parse } from '@babel/parser';
 import traverseModule from '@babel/traverse';
 
 const traverse =
-  // we keep this check here so that this still works with the dev:preview
-  // script's use of tsx
   typeof traverseModule === 'function'
     ? traverseModule
-    : traverseModule.default;
+    : // @ts-expect-error we keep this check here so that this still works with the dev:preview script's use of tsx
+      traverseModule.default;
 
 export const getImportedModules = (contents: string) => {
   const importedPaths: string[] = [];
