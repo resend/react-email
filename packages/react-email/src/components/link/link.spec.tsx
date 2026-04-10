@@ -1,5 +1,5 @@
 import { render } from '@react-email/render';
-import { Link } from './index';
+import { Link } from './index.js';
 
 describe('<Link> component', () => {
   it('renders children correctly', async () => {

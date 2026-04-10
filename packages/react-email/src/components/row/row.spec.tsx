@@ -1,5 +1,5 @@
 import { render } from '@react-email/render';
-import { Row } from './index';
+import { Row } from './index.js';
 
 describe('<Row> component', () => {
   it('renders children correctly', async () => {
