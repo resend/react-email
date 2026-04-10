@@ -1,5 +1,6 @@
 import { useEditorState } from '@tiptap/react';
 import type * as React from 'react';
+import { isSafeUrl } from '../../utils/is-safe-url';
 import { ExternalLinkIcon } from '../icons';
 import { useBubbleMenuContext } from './context';
 
@@ -19,10 +20,12 @@ export function BubbleMenuLinkOpenLink({
       (e?.getAttributes('link').href as string) ?? '',
   });
 
+  const safeHref = isSafeUrl(linkHref ?? '') ? linkHref : '';
+
   return (
     <a
       {...rest}
-      href={linkHref ?? ''}
+      href={safeHref ?? ''}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Open link"
