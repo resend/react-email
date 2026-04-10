@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { CustomExtensions as Example } from '../_components/dynamic-examples';
-import { ExamplePageShell } from '../_components/example-page-shell';
+import { CustomExtensions as Example } from '../dynamic-imports';
+import { ExamplePageShell } from '../example-page-shell';
 
 export const metadata: Metadata = {
   title: 'Custom Extensions — Editor Examples',

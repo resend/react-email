@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { OneLineEditorFull as Example } from '../_components/dynamic-examples';
-import { ExamplePageShell } from '../_components/example-page-shell';
+import { OneLineEditorFull as Example } from '../dynamic-imports';
+import { ExamplePageShell } from '../example-page-shell';
 
 export const metadata: Metadata = {
   title: 'One-Line Editor — Full Features — Editor Examples',

@@ -2,7 +2,7 @@
 
 import { EmailEditor, type EmailEditorRef } from '@react-email/editor';
 import { useRef, useState } from 'react';
-import { ExampleShell } from '../_components/example-shell';
+import { ExampleShell } from '../example-shell';
 
 const content = {
   type: 'doc',

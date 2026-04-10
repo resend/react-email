@@ -16,7 +16,7 @@ import {
   useEditor,
 } from '@tiptap/react';
 import { useState } from 'react';
-import { ExampleShell } from '../_components/example-shell';
+import { ExampleShell } from '../example-shell';
 
 type EditorTheme = 'basic' | 'minimal';
 

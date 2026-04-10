@@ -1,7 +1,7 @@
 'use client';
 
 import { EmailEditor } from '@react-email/editor';
-import { ExampleShell } from '../_components/example-shell';
+import { ExampleShell } from '../example-shell';
 
 const content = {
   type: 'doc',

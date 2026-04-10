@@ -2,7 +2,7 @@
 
 import { StarterKit } from '@react-email/editor/extensions';
 import { EditorProvider } from '@tiptap/react';
-import { ExampleShell } from '../_components/example-shell';
+import { ExampleShell } from '../example-shell';
 
 const extensions = [StarterKit];
 

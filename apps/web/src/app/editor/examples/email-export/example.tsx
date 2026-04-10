@@ -6,7 +6,7 @@ import { EmailTheming } from '@react-email/editor/plugins';
 import { BubbleMenu } from '@react-email/editor/ui';
 import { EditorProvider, useCurrentEditor } from '@tiptap/react';
 import { useState } from 'react';
-import { ExampleShell } from '../_components/example-shell';
+import { ExampleShell } from '../example-shell';
 
 const extensions = [StarterKit, EmailTheming];
 

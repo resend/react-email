@@ -4,7 +4,7 @@ import { StarterKit } from '@react-email/editor/extensions';
 import { EmailTheming } from '@react-email/editor/plugins';
 import { Inspector } from '@react-email/editor/ui';
 import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
-import { ExampleShell } from '../_components/example-shell';
+import { ExampleShell } from '../example-shell';
 
 const extensions = [StarterKit, EmailTheming];
 
