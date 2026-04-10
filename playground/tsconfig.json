@@ -2,8 +2,9 @@
   "extends": "tsconfig/react-library.json",
   "compilerOptions": {
     "paths": {
-      "react-email": ["../packages/react-email/src/index.ts"]
-    }
+      "react-email": ["./stub.ts"]
+    },
+    "moduleResolution": "bundler"
   },
   "include": ["."]
 }

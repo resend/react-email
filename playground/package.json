@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "built-react-email": "workspace:react-email@*"
   },
   "devDependencies": {
     "email-dev": "workspace:*",
