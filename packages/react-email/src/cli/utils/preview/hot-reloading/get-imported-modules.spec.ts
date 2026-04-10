@@ -82,7 +82,7 @@ import { Component } from '../../my-component';
 import * as React from 'react';
     `;
     expect(getImportedModules(contents)).toEqual([
-      '@react-email/components',
+      'react-email',
       '@react-email/tailwind',
       '../../my-component',
       'react',

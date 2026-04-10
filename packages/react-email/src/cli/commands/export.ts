@@ -2,7 +2,7 @@ import fs, { unlinkSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import url from 'node:url';
-import type { Options } from 'react-email';
+import type { Options } from '@react-email/render';
 import { type BuildFailure, build } from 'esbuild';
 import { glob } from 'glob';
 import logSymbols from 'log-symbols';
@@ -80,6 +80,7 @@ export const exportTemplates = async (
     await build({
       bundle: true,
       entryPoints: allTemplates,
+      external: ['css-tree'],
       format: 'cjs',
       jsx: 'automatic',
       loader: { '.js': 'jsx' },
