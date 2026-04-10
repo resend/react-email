@@ -1,4 +1,4 @@
-import { Button, Heading, Text } from '@react-email/components';
+import { Button, Heading, Text } from 'react-email';
 import { Layout } from '../_components/layout';
 
 export const title = 'Article with image as background';

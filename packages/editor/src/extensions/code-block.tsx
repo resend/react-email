@@ -1,8 +1,8 @@
-import * as ReactEmailComponents from '@react-email/components';
+import * as ReactEmailComponents from 'react-email';
 import {
   type PrismLanguage,
   CodeBlock as ReactEmailCodeBlock,
-} from '@react-email/components';
+} from 'react-email';
 import { mergeAttributes } from '@tiptap/core';
 import type { CodeBlockOptions } from '@tiptap/extension-code-block';
 import CodeBlock from '@tiptap/extension-code-block';

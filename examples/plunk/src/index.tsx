@@ -1,5 +1,5 @@
 import plunkImport from '@plunk/node';
-import { render } from '@react-email/components';
+import { render } from 'react-email';
 import { Email } from './email';
 
 const Plunk = (

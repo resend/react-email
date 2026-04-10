@@ -1,4 +1,4 @@
-import { Body, Head, Html, Preview } from '@react-email/components';
+import { Body, Head, Html, Preview } from 'react-email';
 import type { Editor, JSONContent } from '@tiptap/core';
 import { Extension } from '@tiptap/core';
 import { Plugin, PluginKey } from '@tiptap/pm/state';

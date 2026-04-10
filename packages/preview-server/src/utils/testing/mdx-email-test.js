@@ -1,4 +1,4 @@
-import { Button, Html } from '@react-email/components';
+import { Button, Html } from 'react-email';
 import { useMDXComponents as _provideComponents } from 'react';
 import {
   Fragment as _Fragment,
