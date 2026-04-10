@@ -38,8 +38,8 @@ export default function PasswordReset({ resetUrl, email, expiryHours = 1 }: Pass
     <Html lang="en">
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Head />
-        <Preview>Reset your password - Action required</Preview>
         <Body className="bg-gray-100 font-sans">
+          <Preview>Reset your password - Action required</Preview>
           <Container className="mx-auto py-10 px-5 max-w-xl bg-white">
             <Heading className="text-2xl font-bold text-gray-800 mb-5">
               Reset Your Password
@@ -137,8 +137,8 @@ export default function OrderConfirmation({
     <Html lang="en">
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Head />
-        <Preview>Order #{orderNumber} confirmed - Thank you for your purchase!</Preview>
         <Body className="bg-gray-100 font-sans">
+          <Preview>Order #{orderNumber} confirmed - Thank you for your purchase!</Preview>
           <Container className="mx-auto py-10 px-5 max-w-xl">
             <Heading className="text-3xl font-bold text-gray-800 mb-2">
               Order Confirmed
@@ -337,8 +337,8 @@ export default function Notification({
     <Html lang="en">
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Head />
-        <Preview>{title} - {severity}</Preview>
         <Body className="bg-gray-100 font-mono">
+          <Preview>{title} - {severity}</Preview>
           <Container className="mx-auto max-w-xl bg-white border border-solid border-gray-200 rounded overflow-hidden">
             <Section className={`h-1 w-full ${severityColors[severity]}`} />
 
@@ -457,8 +457,8 @@ export default function Newsletter({ articles, unsubscribeUrl }: NewsletterProps
     <Html lang="en">
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Head />
-        <Preview>Your weekly roundup of the latest articles</Preview>
         <Body className="bg-white font-sans">
+          <Preview>Your weekly roundup of the latest articles</Preview>
           <Container className="mx-auto max-w-xl">
             {/* Header */}
             <Section className="pt-10 px-5 pb-5 text-center">
@@ -658,8 +658,8 @@ export default function TeamInvitation({
     <Html lang="en">
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Head />
-        <Preview>You've been invited to join {teamName}</Preview>
         <Body className="bg-gray-100 font-sans">
+          <Preview>You've been invited to join {teamName}</Preview>
           <Container className="mx-auto py-10 px-5 max-w-xl bg-white">
             <Heading className="text-3xl font-bold text-gray-800 text-center mb-6">
               You're Invited!
