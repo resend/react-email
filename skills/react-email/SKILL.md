@@ -519,6 +519,38 @@ See [references/PATTERNS.md](references/PATTERNS.md) for complete examples inclu
 - Multi-column layouts
 - Email templates with custom fonts
 
+## Email Editor
+
+React Email includes a visual editor (`@react-email/editor`) that can be embedded in your app. It's built on TipTap/ProseMirror and produces email-ready HTML.
+
+See [references/EDITOR.md](references/EDITOR.md) for complete documentation including:
+- `EmailEditor` — batteries-included component with bubble menus, slash commands, and theming
+- `StarterKit` — 35+ email-aware extensions (headings, lists, tables, columns, buttons, etc.)
+- `Inspector` — contextual sidebar for editing styles
+- `EmailTheming` — built-in themes (`basic`, `minimal`) with customizable CSS properties
+- `composeReactEmail` — export editor content to email-ready HTML and plain text
+- Custom extensions via `EmailNode` and `EmailMark`
+
+Quick example:
+
+```tsx
+import { EmailEditor, type EmailEditorRef } from '@react-email/editor';
+import '@react-email/editor/themes/default.css';
+import { useRef } from 'react';
+
+export function MyEditor() {
+  const ref = useRef<EmailEditorRef>(null);
+
+  return (
+    <EmailEditor
+      ref={ref}
+      content="<p>Start typing...</p>"
+      theme="basic"
+    />
+  );
+}
+```
+
 ## Additional Resources
 
 - [React Email Documentation](https://react.email/docs/llms.txt)
@@ -526,5 +558,6 @@ See [references/PATTERNS.md](references/PATTERNS.md) for complete examples inclu
 - [Resend Documentation](https://resend.com/docs/llms.txt)
 - [Email Client CSS Support](https://www.caniemail.com)
 - Component Reference: [references/COMPONENTS.md](references/COMPONENTS.md)
+- Email Editor: [references/EDITOR.md](references/EDITOR.md)
 - Internationalization Guide: [references/I18N.md](references/I18N.md)
 - Common Patterns: [references/PATTERNS.md](references/PATTERNS.md)
