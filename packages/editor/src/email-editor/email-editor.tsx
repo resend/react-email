@@ -14,9 +14,9 @@ import { composeReactEmail } from '../core/serializer/compose-react-email';
 import { StarterKit } from '../extensions';
 import { EmailTheming } from '../plugins/email-theming/extension';
 import { BubbleMenuButtonDefault } from '../ui/bubble-menu/button-default';
-import { BubbleMenuRoot } from '../ui/bubble-menu/root';
 import { BubbleMenuImageDefault } from '../ui/bubble-menu/image-default';
 import { BubbleMenuLinkDefault } from '../ui/bubble-menu/link-default';
+import { BubbleMenuRoot } from '../ui/bubble-menu/root';
 import { SlashCommandRoot } from '../ui/slash-command/root';
 import '../ui/themes/default.css';
 
