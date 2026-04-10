@@ -1,5 +1,5 @@
 import { render } from '@react-email/render';
-import { Button } from './index';
+import { Button } from './index.js';
 
 describe('<Button> component', () => {
   it('renders children correctly', async () => {

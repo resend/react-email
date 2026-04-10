@@ -47,6 +47,7 @@
     "tsconfig-paths": "4.2.0"
   },
   "devDependencies": {
+    "@react-email/render": "workspace:*",
     "@react-email/components": "workspace:*",
     "@types/babel__core": "catalog:",
     "@types/babel__traverse": "catalog:",
