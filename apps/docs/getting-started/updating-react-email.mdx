@@ -10,6 +10,10 @@ import NextSteps from '/snippets/next-steps.mdx';
 
 ## Update from React Email 5.0 to 6.0
 
+All components (previously in `@react-email/components` or individual packages like `@react-email/button`) and rendering utilities (previously in `@react-email/render`) are now exported directly from `react-email`. This unifies the install and import experience into a single package.
+
+To update:
+
 1. **Update your dependencies** -- remove `@react-email/components` and `@react-email/render`, keep `react-email`:
 
    ```diff
