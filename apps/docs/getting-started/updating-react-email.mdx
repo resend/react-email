@@ -10,8 +10,21 @@ import NextSteps from '/snippets/next-steps.mdx';
 
 ## Update from React Email 5.0 to 6.0
 
-1. Replace all imports of individual packages `@react-email/body`, `@react-email/render`, `@react-email/tailwind`, etc. with `react-email`.
-2. Replace all imports of `@react-email/components` with `react-email`.
+1. **Update your dependencies** -- remove `@react-email/components` and `@react-email/render`, keep `react-email`:
+
+   ```diff
+   - npm install @react-email/components react-email @react-email/preview-server
+   + npm install react-email @react-email/preview-server
+   ```
+
+2. **Update your imports**:
+
+   ```diff
+   - import { Button, Html, Head, render } from "@react-email/components";
+   + import { Button, Html, Head, render } from "react-email";
+   ```
+
+3. The `@react-email/preview-server` and `@react-email/editor` packages are unchanged and should continue to be imported separately.
 
 ## Update from React Email 4.0 to 5.0
 
