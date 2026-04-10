@@ -1,7 +1,9 @@
 import * as React from 'react';
-import type { PrismLanguage } from './languages-available';
-import { Prism } from './prism';
-import type { Theme } from './themes';
+import type { PrismLanguage } from './languages-available.js';
+import { Prism } from './prism.js';
+import type { Theme } from './themes.js';
+
+type PrismToken = InstanceType<typeof Prism.Token>;
 
 export interface CodeBlockProps extends React.ComponentPropsWithoutRef<'pre'> {
   lineNumbers?: boolean;
@@ -18,7 +20,7 @@ export interface CodeBlockProps extends React.ComponentPropsWithoutRef<'pre'> {
   code: string;
 }
 
-const stylesForToken = (token: Prism.Token, theme: Theme) => {
+const stylesForToken = (token: PrismToken, theme: Theme) => {
   let styles = { ...theme[token.type] };
 
   const aliases = Array.isArray(token.alias) ? token.alias : [token.alias];
@@ -35,7 +37,7 @@ const CodeBlockLine = ({
   theme,
   inheritedStyles,
 }: {
-  token: string | Prism.Token;
+  token: string | PrismToken;
   theme: Theme;
   inheritedStyles?: React.CSSProperties;
 }) => {

@@ -1222,6 +1222,9 @@ importers:
       ora:
         specifier: 'catalog:'
         version: 8.2.0
+      prismjs:
+        specifier: ^1.30.0
+        version: 1.30.0
       prompts:
         specifier: 2.4.2
         version: 2.4.2

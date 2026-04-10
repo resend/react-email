@@ -23,8 +23,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsdown src/index.ts --format esm,cjs --dts --external react",
-    "build:watch": "tsdown src/index.ts --format esm,cjs --dts --external react --watch",
+    "build": "tsdown ../react-email/src/components/code-block/index.ts --format esm,cjs --dts --external react --external prismjs --outDir dist",
+    "build:watch": "tsdown ../react-email/src/components/code-block/index.ts --format esm,cjs --dts --external react --external prismjs --outDir dist --watch",
     "clean": "rm -rf dist"
   },
   "repository": {

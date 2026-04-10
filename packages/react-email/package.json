@@ -28,6 +28,7 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
+    "prismjs": "^1.30.0",
     "@babel/parser": "catalog:",
     "@babel/traverse": "catalog:",
     "chokidar": "^4.0.3",
