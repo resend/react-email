@@ -1,7 +1,7 @@
-import { Column, Row } from 'react-email';
 import { type CommandProps, mergeAttributes } from '@tiptap/core';
 import type { Node as ProseMirrorNode } from '@tiptap/pm/model';
 import { TextSelection } from '@tiptap/pm/state';
+import { Column, Row } from 'react-email';
 import { EmailNode } from '../core/serializer/email-node';
 import {
   COMMON_HTML_ATTRIBUTES,

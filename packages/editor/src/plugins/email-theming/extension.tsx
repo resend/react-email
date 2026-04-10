@@ -1,9 +1,9 @@
-import { Body, Head, Html, Preview } from 'react-email';
 import type { Editor, JSONContent } from '@tiptap/core';
 import { Extension } from '@tiptap/core';
 import { Plugin, PluginKey } from '@tiptap/pm/state';
 import { useEditorState } from '@tiptap/react';
 import type * as React from 'react';
+import { Body, Head, Html, Preview } from 'react-email';
 import type { SerializerPlugin } from '../../core/serializer/serializer-plugin';
 import { getGlobalContent } from '../../extensions/global-content';
 import {

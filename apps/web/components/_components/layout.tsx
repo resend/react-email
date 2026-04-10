@@ -1,11 +1,4 @@
-import {
-  Body,
-  Container,
-  Font,
-  Head,
-  Html,
-  Tailwind,
-} from 'react-email';
+import { Body, Container, Font, Head, Html, Tailwind } from 'react-email';
 import tailwindConfig from '../tailwind.config';
 
 export const Layout = ({

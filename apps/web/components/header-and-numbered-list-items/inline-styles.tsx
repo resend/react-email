@@ -1,5 +1,5 @@
-import { Column, Hr, Row, Section, Text } from 'react-email';
 import { Fragment } from 'react/jsx-runtime';
+import { Column, Hr, Row, Section, Text } from 'react-email';
 import { Layout } from '../_components/layout';
 
 export const component = (

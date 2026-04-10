@@ -6,7 +6,7 @@ const traverse =
   typeof traverseModule === 'function'
     ? traverseModule
     : // @ts-expect-error we keep this check here so that this still works with the dev:preview script's use of tsx
-    traverseModule.default;
+      traverseModule.default;
 
 export const getImportedModules = (contents: string) => {
   const importedPaths: string[] = [];

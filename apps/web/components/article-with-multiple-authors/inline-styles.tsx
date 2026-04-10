@@ -1,3 +1,4 @@
+import { Fragment } from 'react/jsx-runtime';
 import {
   Column,
   Heading,
@@ -8,7 +9,6 @@ import {
   Section,
   Text,
 } from 'react-email';
-import { Fragment } from 'react/jsx-runtime';
 import { Layout } from '../_components/layout';
 
 export const component = (
