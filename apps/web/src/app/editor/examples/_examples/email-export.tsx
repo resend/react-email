@@ -86,7 +86,7 @@ export function EmailExport() {
         content={content}
         immediatelyRender={false}
       >
-        <BubbleMenu.Default />
+        <BubbleMenu />
         <ExportPanel />
       </EditorProvider>
     </ExampleShell>

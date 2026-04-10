@@ -26,14 +26,14 @@ export function CustomBubbleMenu() {
   return (
     <ExampleShell
       title="Custom Bubble Menu"
-      description="Building menus from primitives instead of using BubbleMenu.Default."
+      description="Building bubble menus from primitives."
     >
       <EditorProvider
         extensions={extensions}
         content={content}
         immediatelyRender={false}
       >
-        <BubbleMenu.Root>
+        <BubbleMenu>
           <BubbleMenu.ItemGroup>
             <BubbleMenu.Bold />
             <BubbleMenu.Italic />
@@ -44,7 +44,7 @@ export function CustomBubbleMenu() {
             <BubbleMenu.AlignCenter />
             <BubbleMenu.AlignRight />
           </BubbleMenu.ItemGroup>
-        </BubbleMenu.Root>
+        </BubbleMenu>
       </EditorProvider>
     </ExampleShell>
   );

@@ -112,7 +112,7 @@ export function CustomExtensions() {
         immediatelyRender={false}
         slotBefore={<Toolbar />}
       >
-        <BubbleMenu.Default />
+        <BubbleMenu />
       </EditorProvider>
     </ExampleShell>
   );
