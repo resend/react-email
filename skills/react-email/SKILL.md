@@ -146,7 +146,7 @@ See [references/COMPONENTS.md](references/COMPONENTS.md) for complete component 
 - `Tailwind` - Enables Tailwind CSS utility classes
 
 **Content:**
-- `Preview` - Inbox preview text, must be the first child inside `<Body>`
+- `Preview` - Inbox preview text, placed before `<Body>` inside `<Tailwind>`
 - `Heading` - h1-h6 headings
 - `Text` - Paragraphs
 - `Button` - Styled link buttons (always include `box-border`)
@@ -234,7 +234,7 @@ See [references/STYLING.md](references/STYLING.md) for comprehensive styling doc
 
 ### Structure Notes
 - Always define `<Head />` inside `<Tailwind>` when using Tailwind CSS
-- `<Preview>` must be the first child inside `<Body>`
+- `<Preview>` goes before `<Body>`, inside `<Tailwind>`
 - Only include props in `PreviewProps` that the component actually uses
 - Use fixed width/height for known-size elements (logos, icons); responsive sizing (`w-full`, `h-auto`) for content images
 

@@ -194,7 +194,7 @@ import { Preview } from '@react-email/components';
 **Best practices:**
 - Keep under 140 characters
 - Make it compelling and action-oriented
-- Should always be the first element inside `<Body>`
+- Place before `<Body>`, inside `<Tailwind>`
 
 ### Heading
 

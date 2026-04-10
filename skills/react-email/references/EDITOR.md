@@ -46,7 +46,7 @@ import '@react-email/editor/styles/inspector.css';
 
 ## Architecture
 
-The editor is organized into five entry points:
+The editor is organized into six entry points:
 
 | Import | Purpose |
 |--------|---------|
@@ -63,6 +63,7 @@ The `EmailEditor` component from `@react-email/editor` is a batteries-included c
 
 ```tsx
 import { EmailEditor, type EmailEditorRef } from '@react-email/editor';
+import '@react-email/editor/themes/default.css';
 import { useRef } from 'react';
 
 export function MyEditor() {
@@ -165,9 +166,9 @@ export function MyEditor() {
 | Component | Appears when... | Controls |
 |-----------|----------------|----------|
 | `BubbleMenu.Default` | Text is selected | Bold, italic, underline, strike, code, uppercase, alignment, node type, link |
-| `BubbleMenu.Link` | Cursor is on a link | Edit URL, open link, unlink |
-| `BubbleMenu.Button` | Cursor is on a button | Edit button URL, unlink |
-| `BubbleMenu.Image` | Cursor is on an image | Edit image URL |
+| `BubbleMenu.LinkDefault` | Cursor is on a link | Edit URL, open link, unlink |
+| `BubbleMenu.ButtonDefault` | Cursor is on a button | Edit button URL, unlink |
+| `BubbleMenu.ImageDefault` | Cursor is on an image | Edit image URL |
 
 Exclude specific items from the default menu:
 
@@ -299,13 +300,18 @@ function ExportPanel() {
 
   const handleExport = async () => {
     if (!editor) return;
-    const { html, text } = await composeReactEmail({ editor });
+    const { html, text } = await composeReactEmail({
+      editor,
+      preview: 'Inbox preview text', // optional
+    });
     console.log(html, text);
   };
 
   return <button onClick={handleExport}>Export HTML</button>;
 }
 ```
+
+The `preview` parameter is optional — when provided, it sets the inbox preview text in the exported HTML.
 
 The export pipeline:
 1. Reads the editor's JSON document
