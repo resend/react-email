@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Buttons as Example } from '../dynamic-imports';
+import { Buttons as Example } from './example';
 import { ExamplePageShell } from '../example-page-shell';
 
 export const metadata: Metadata = {
