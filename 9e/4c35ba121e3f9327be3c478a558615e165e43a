@@ -1,0 +1,25 @@
+apps/web/src/app/editor/examples/email-theming/example.tsx
+  7fac92edd32821cc 7
+apps/web/src/app/editor/examples/editor-overrides.css
+  7fac92edd32821cc 13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "9e4c35ba121e3f9327be3c478a558615e165e43a",
+  "prompts": {
+    "7fac92edd32821cc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2d8b0d23-31b9-4f57-bfed-630b17b3717d",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 3,
+      "total_deletions": 6,
+      "accepted_lines": 1564,
+      "overriden_lines": 0
+    }
+  }
+}
