@@ -1,4 +1,4 @@
-import { Column, Section } from '@react-email/components';
+import { Column } from '@react-email/components';
 import type { ParentConfig } from '@tiptap/core';
 import { mergeAttributes, Node } from '@tiptap/core';
 import { EmailNode } from '../core/serializer/email-node';
@@ -91,17 +91,21 @@ export const Table = EmailNode.create<TableOptions>({
       alignment === 'center' ? { marginLeft: 'auto', marginRight: 'auto' } : {};
 
     return (
-      <Section
-        className={node.attrs?.class || undefined}
+      <table
         align={alignment}
+        width={width}
+        border={0}
+        cellPadding="0"
+        cellSpacing="0"
+        role="presentation"
+        className={node.attrs?.class || undefined}
         style={resolveConflictingStyles(style, {
           ...inlineStyles,
           ...centeringStyles,
         })}
-        {...(width !== undefined ? { width } : {})}
       >
-        {children}
-      </Section>
+        <tbody>{children}</tbody>
+      </table>
     );
   },
 });
