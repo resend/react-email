@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { InspectorCustom as Example } from './example';
 import { ExamplePageShell } from '../example-page-shell';
+import { InspectorCustom as Example } from './example';
 
 export const metadata: Metadata = {
   title: 'Inspector — Fully Custom — Editor Examples',

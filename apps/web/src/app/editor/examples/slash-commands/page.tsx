@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { SlashCommands as Example } from './example';
 import { ExamplePageShell } from '../example-page-shell';
+import { SlashCommands as Example } from './example';
 
 export const metadata: Metadata = {
   title: 'Slash Commands — Editor Examples',

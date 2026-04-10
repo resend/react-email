@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { EmailExport as Example } from './example';
 import { ExamplePageShell } from '../example-page-shell';
+import { EmailExport as Example } from './example';
 
 export const metadata: Metadata = {
   title: 'Email Export — Editor Examples',

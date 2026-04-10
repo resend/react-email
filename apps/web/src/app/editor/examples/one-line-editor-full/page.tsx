@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { OneLineEditorFull as Example } from './example';
 import { ExamplePageShell } from '../example-page-shell';
+import { OneLineEditorFull as Example } from './example';
 
 export const metadata: Metadata = {
   title: 'One-Line Editor — Full Features — Editor Examples',

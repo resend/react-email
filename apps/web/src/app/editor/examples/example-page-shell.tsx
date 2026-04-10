@@ -43,9 +43,7 @@ export function ExamplePageShell({
             {title}
           </Heading>
         </div>
-        <div className="px-6 pb-10 md:px-8">
-          {children}
-        </div>
+        <div className="px-6 pb-10 md:px-8">{children}</div>
       </PageTransition>
     </PageWrapper>
   );

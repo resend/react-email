@@ -73,8 +73,7 @@ const sections: ExampleSection[] = [
       {
         slug: 'custom-bubble-menu',
         title: 'Custom Bubble Menu',
-        description:
-          'Building bubble menus from primitives.',
+        description: 'Building bubble menus from primitives.',
         section: 'Intermediate',
         docsUrl: 'https://react.email/docs/editor/features/bubble-menu',
       },
