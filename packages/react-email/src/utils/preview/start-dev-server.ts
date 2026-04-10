@@ -1,7 +1,9 @@
 import http from 'node:http';
 import os from 'node:os';
 import path from 'node:path';
+import { parse as parseQueryString } from 'node:querystring';
 import url from 'node:url';
+import type { UrlWithParsedQuery } from 'node:url';
 import { createJiti } from 'jiti';
 import logSymbols from 'log-symbols';
 import ora from 'ora';
@@ -14,6 +16,30 @@ import { getEnvVariablesForPreviewApp } from './get-env-variables-for-preview-ap
 import { serveStaticFile } from './serve-static-file.js';
 
 let devServer: http.Server | undefined;
+
+/** Parses `req.url` without `url.parse()` (deprecated DEP0169); shape matches Next's `NextUrlWithParsedQuery`. */
+const parseRequestUrl = (requestUrl: string): UrlWithParsedQuery => {
+  const u = /^[a-zA-Z][a-zA-Z\d+.-]*:/u.test(requestUrl)
+    ? new URL(requestUrl)
+    : new URL(requestUrl, 'http://localhost');
+  const search = u.search ?? '';
+  const pathname = u.pathname ?? '';
+  const path = `${pathname}${search}`;
+
+  return {
+    protocol: u.protocol,
+    slashes: true,
+    auth: null,
+    host: u.host,
+    hostname: u.hostname,
+    port: u.port === '' ? null : u.port,
+    pathname,
+    path,
+    href: u.href,
+    query: parseQueryString(search.startsWith('?') ? search.slice(1) : search),
+    hash: u.hash === '' ? null : u.hash,
+  };
+};
 
 const safeAsyncServerListen = (server: http.Server, port: number) => {
   return new Promise<{ portAlreadyInUse: boolean }>((resolve) => {
@@ -51,7 +77,7 @@ export const startDevServer = async (
       return;
     }
 
-    const parsedUrl = url.parse(req.url, true);
+    const parsedUrl = parseRequestUrl(req.url);
 
     // Never cache anything to avoid
     res.setHeader(
