@@ -136,4 +136,3 @@ export const BubbleMenu = Object.assign(BubbleMenuRoot, {
   ImageEditLink: BubbleMenuImageEditLink,
   ImageDefault: BubbleMenuImageDefault,
 } as const);
-
