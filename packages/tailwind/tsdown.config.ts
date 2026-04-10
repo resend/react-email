@@ -3,7 +3,7 @@ import url from 'node:url';
 import { defineConfig } from 'tsdown/config';
 
 export default defineConfig({
-  entry: './src/index.ts',
+  entry: '../react-email/src/components/tailwind/index.ts',
   format: ['cjs', 'esm'],
   dts: true,
   noExternal: ['css-tree'],

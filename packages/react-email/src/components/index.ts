@@ -16,3 +16,4 @@ export * from './preview/index.js';
 export * from './row/index.js';
 export * from './section/index.js';
 export * from './text/index.js';
+export * from './tailwind/index.js';
