@@ -1,5 +1,5 @@
-import { convertToPx, parsePadding } from './parse-padding';
-import { pxToPt } from './px-to-pt';
+import { convertToPx, parsePadding } from './parse-padding.js';
+import { pxToPt } from './px-to-pt.js';
 
 describe('convertToPx', () => {
   it('converts "10px" to 10', () => {
