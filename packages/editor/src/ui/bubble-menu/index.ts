@@ -101,7 +101,7 @@ export { bubbleMenuTriggers } from './triggers';
 export { BubbleMenuUnderline } from './underline';
 export { BubbleMenuUppercase } from './uppercase';
 
-export const BubbleMenu = {
+export const BubbleMenu = Object.assign(BubbleMenuRoot, {
   Root: BubbleMenuRoot,
   ItemGroup: BubbleMenuItemGroup,
   Separator: BubbleMenuSeparator,
@@ -135,4 +135,5 @@ export const BubbleMenu = {
   ImageToolbar: BubbleMenuImageToolbar,
   ImageEditLink: BubbleMenuImageEditLink,
   ImageDefault: BubbleMenuImageDefault,
-} as const;
+} as const);
+

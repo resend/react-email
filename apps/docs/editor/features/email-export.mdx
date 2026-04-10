@@ -53,7 +53,7 @@ function ExportPanel() {
 export function MyEditor() {
   return (
     <EditorProvider extensions={extensions} content={content}>
-      <BubbleMenu.Root />
+      <BubbleMenu />
       <ExportPanel />
     </EditorProvider>
   );
@@ -175,7 +175,7 @@ export function FullEmailBuilder() {
         <button onClick={() => setTheme('minimal')}>Minimal Theme</button>
       </div>
       <EditorProvider key={theme} extensions={extensions} content={content}>
-        <BubbleMenu.Root hideWhenActiveNodes={['button']} hideWhenActiveMarks={['link']} />
+        <BubbleMenu hideWhenActiveNodes={['button']} hideWhenActiveMarks={['link']} />
         <BubbleMenu.LinkDefault />
         <BubbleMenu.ButtonDefault />
         <SlashCommand.Root items={defaultSlashCommands} />

@@ -96,7 +96,7 @@ to prevent overlapping menus:
 import { BubbleMenu } from '@react-email/editor/ui';
 
 <EditorProvider extensions={extensions} content={content}>
-  <BubbleMenu.Root
+  <BubbleMenu
     hideWhenActiveNodes={['image', 'button']}
     hideWhenActiveMarks={['link']}
   />
@@ -112,7 +112,7 @@ import { BubbleMenu } from '@react-email/editor/ui';
 
 Build fully custom menus using the compound API.
 
-### BubbleMenu.Root
+### BubbleMenu
 
 Base container for all custom bubble menus. Provides editor context to children.
 When rendered without children, it automatically renders the default text formatting toolbar.
@@ -123,13 +123,13 @@ import { PluginKey } from '@tiptap/pm/state';
 
 const myPluginKey = new PluginKey('myCustomMenu');
 
-<BubbleMenu.Root
+<BubbleMenu
   trigger={bubbleMenuTriggers.node('image')}
   pluginKey={myPluginKey}
   placement="top"
 >
   {/* your custom menu content */}
-</BubbleMenu.Root>
+</BubbleMenu>
 ```
 
 <ResponseField name="trigger" type="TriggerFn">
@@ -139,7 +139,7 @@ const myPluginKey = new PluginKey('myCustomMenu');
 
 <ResponseField name="pluginKey" type="PluginKey">
   Unique key for the ProseMirror plugin backing this menu. Required when
-  rendering multiple `BubbleMenu.Root` instances to avoid collisions.
+  rendering multiple `BubbleMenu` instances to avoid collisions.
   Import `PluginKey` from `@tiptap/pm/state`.
 </ResponseField>
 
@@ -231,7 +231,7 @@ const linkKey = new PluginKey('myLinkMenu');
 
 function MyLinkMenu() {
   return (
-    <BubbleMenu.Root
+    <BubbleMenu
       trigger={bubbleMenuTriggers.nodeWithoutSelection('link')}
       pluginKey={linkKey}
       placement="top"
@@ -242,7 +242,7 @@ function MyLinkMenu() {
         <BubbleMenu.LinkUnlink />
       </BubbleMenu.LinkToolbar>
       <BubbleMenu.LinkForm />
-    </BubbleMenu.Root>
+    </BubbleMenu>
   );
 }
 ```
@@ -254,7 +254,7 @@ appears in its place. When the user submits or cancels, the toolbar reappears.
 
 ## Context
 
-Use `useBubbleMenuContext()` inside any child of `BubbleMenu.Root` to access the editor and editing state:
+Use `useBubbleMenuContext()` inside any child of `BubbleMenu` to access the editor and editing state:
 
 ```tsx
 import { useBubbleMenuContext } from '@react-email/editor/ui';
