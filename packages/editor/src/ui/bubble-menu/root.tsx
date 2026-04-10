@@ -30,7 +30,7 @@ export interface BubbleMenuRootProps
   onHide?: () => void;
 }
 
-function BubbleMenuRoot({
+function Root({
   trigger,
   pluginKey = defaultPluginKey,
   hideWhenActiveNodes = [],
@@ -88,7 +88,7 @@ export interface BubbleMenuDefaultProps
   onHide?: () => void;
 }
 
-function BubbleMenuDefault({
+function Default({
   hideWhenActiveNodes,
   hideWhenActiveMarks,
   placement,
@@ -121,7 +121,7 @@ function BubbleMenuDefault({
   }, [onHide]);
 
   return (
-    <BubbleMenuRoot
+    <Root
       pluginKey={textPluginKey}
       hideWhenActiveNodes={hideWhenActiveNodes}
       hideWhenActiveMarks={hideWhenActiveMarks}
@@ -152,16 +152,16 @@ function BubbleMenuDefault({
         <BubbleMenuAlignCenter />
         <BubbleMenuAlignRight />
       </BubbleMenuItemGroup>
-    </BubbleMenuRoot>
+    </Root>
   );
 }
 
-function BubbleMenuRootWithDefault({ children, ...rest }: BubbleMenuRootProps) {
+function RootWithDefault({ children, ...rest }: BubbleMenuRootProps) {
   if (children) {
-    return <BubbleMenuRoot {...rest}>{children}</BubbleMenuRoot>;
+    return <Root {...rest}>{children}</Root>;
   }
 
-  return <BubbleMenuDefault {...rest} />;
+  return <Default {...rest} />;
 }
 
-export { BubbleMenuRootWithDefault as BubbleMenuRoot };
+export { RootWithDefault as BubbleMenuRoot };
