@@ -4,11 +4,7 @@ import { StarterKit } from '@react-email/editor/extensions';
 import { EmailTheming } from '@react-email/editor/plugins';
 import { BubbleMenu } from '@react-email/editor/ui';
 import type { JSONContent } from '@tiptap/react';
-import {
-  EditorContent,
-  EditorContext,
-  useEditor,
-} from '@tiptap/react';
+import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
 import { useRef, useState } from 'react';
 import { ExampleShell } from '../example-shell';
 
