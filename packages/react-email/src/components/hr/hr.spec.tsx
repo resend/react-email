@@ -1,5 +1,5 @@
 import { render } from '@react-email/render';
-import { Hr } from './index';
+import { Hr } from './index.js';
 
 describe('<Hr> component', () => {
   it('passes styles and other props correctly', async () => {

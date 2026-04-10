@@ -1,5 +1,5 @@
 import { render } from '@react-email/render';
-import { Container } from './index';
+import { Container } from './index.js';
 
 describe('<Container> component', () => {
   it('renders children correctly', async () => {
