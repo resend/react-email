@@ -710,6 +710,10 @@ const RESET_MINIMAL: ResetTheme = {
   reset: RESET_BASIC.reset,
   button: RESET_BASIC.button,
   image: RESET_BASIC.image,
+  list: RESET_BASIC.list,
+  nestedList: RESET_BASIC.nestedList,
+  listItem: RESET_BASIC.listItem,
+  listParagraph: RESET_BASIC.listParagraph,
 };
 
 export const RESET_THEMES: Record<EditorTheme, ResetTheme> = {
