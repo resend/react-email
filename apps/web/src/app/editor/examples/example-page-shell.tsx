@@ -3,7 +3,6 @@ import { Heading } from '@/components/heading';
 import { IconArrowLeft } from '@/components/icons/icon-arrow-left';
 import { PageTransition } from '@/components/page-transition';
 import { PageWrapper } from '@/components/page-wrapper';
-import { EditorThemeProvider } from './editor-theme-provider';
 
 interface ExamplePageShellProps {
   slug: string;
@@ -45,7 +44,7 @@ export function ExamplePageShell({
           </Heading>
         </div>
         <div className="px-6 pb-10 md:px-8">
-          <EditorThemeProvider>{children}</EditorThemeProvider>
+          {children}
         </div>
       </PageTransition>
     </PageWrapper>

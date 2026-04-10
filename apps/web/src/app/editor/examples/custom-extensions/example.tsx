@@ -6,7 +6,7 @@ import { BubbleMenu } from '@react-email/editor/ui';
 import { mergeAttributes } from '@tiptap/core';
 import { EditorProvider, useCurrentEditor } from '@tiptap/react';
 import { Info } from 'lucide-react';
-import { ExampleShell } from '../_components/example-shell';
+import { ExampleShell } from '../example-shell';
 
 const Callout = EmailNode.create({
   name: 'callout',

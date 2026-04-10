@@ -3,7 +3,7 @@
 import { StarterKit } from '@react-email/editor/extensions';
 import { EditorProvider, useCurrentEditor } from '@tiptap/react';
 import { Columns2, Columns3, Columns4 } from 'lucide-react';
-import { ExampleShell } from '../_components/example-shell';
+import { ExampleShell } from '../example-shell';
 
 const extensions = [StarterKit];
 

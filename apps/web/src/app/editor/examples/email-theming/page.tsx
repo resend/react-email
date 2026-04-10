@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { EmailThemingExample as Example } from '../_components/dynamic-examples';
-import { ExamplePageShell } from '../_components/example-page-shell';
+import { EmailThemingExample as Example } from '../dynamic-imports';
+import { ExamplePageShell } from '../example-page-shell';
 
 export const metadata: Metadata = {
   title: 'Email Theming — Editor Examples',

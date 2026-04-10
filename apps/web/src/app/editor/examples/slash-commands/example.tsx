@@ -14,7 +14,7 @@ import {
 } from '@react-email/editor/ui';
 import { EditorProvider } from '@tiptap/react';
 import { Star } from 'lucide-react';
-import { ExampleShell } from '../_components/example-shell';
+import { ExampleShell } from '../example-shell';
 
 const CUSTOM_COMMAND: SlashCommandItem = {
   title: 'Greeting',

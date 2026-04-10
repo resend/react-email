@@ -10,7 +10,7 @@ import {
   useEditor,
 } from '@tiptap/react';
 import { useRef, useState } from 'react';
-import { ExampleShell } from '../_components/example-shell';
+import { ExampleShell } from '../example-shell';
 
 const initialContent = {
   type: 'doc',
