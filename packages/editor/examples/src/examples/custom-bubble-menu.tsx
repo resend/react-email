@@ -27,7 +27,7 @@ export function CustomBubbleMenu() {
       description="Building bubble menus from primitives."
     >
       <EditorProvider extensions={extensions} content={content}>
-        <BubbleMenu.Root>
+        <BubbleMenu>
           <BubbleMenu.ItemGroup>
             <BubbleMenu.Bold />
             <BubbleMenu.Italic />
@@ -38,7 +38,7 @@ export function CustomBubbleMenu() {
             <BubbleMenu.AlignCenter />
             <BubbleMenu.AlignRight />
           </BubbleMenu.ItemGroup>
-        </BubbleMenu.Root>
+        </BubbleMenu>
       </EditorProvider>
     </ExampleShell>
   );

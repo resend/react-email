@@ -109,7 +109,7 @@ export function CustomExtensions() {
         content={content}
         slotBefore={<Toolbar />}
       >
-        <BubbleMenu.Root />
+        <BubbleMenu />
       </EditorProvider>
     </ExampleShell>
   );

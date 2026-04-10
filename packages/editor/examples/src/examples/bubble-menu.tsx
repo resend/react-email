@@ -31,7 +31,7 @@ export function BubbleMenuExample() {
       description="Select text to see the default bubble menu with formatting options."
     >
       <EditorProvider extensions={extensions} content={content}>
-        <BubbleMenu.Root />
+        <BubbleMenu />
       </EditorProvider>
     </ExampleShell>
   );
