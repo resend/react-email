@@ -1,0 +1,23 @@
+packages/editor/src/plugins/email-theming/themes.ts
+  16fb96da47ef9720 713-716
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "70bee23d24a70fe322f05fecef54576eca64c5fc",
+  "prompts": {
+    "16fb96da47ef9720": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "23e3d52d-df0f-4ff7-8dc7-11012fdd8337",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 4,
+      "total_deletions": 0,
+      "accepted_lines": 4,
+      "overriden_lines": 0
+    }
+  }
+}
