@@ -1,9 +1,5 @@
-import {
-  Column,
-  Button as ReactEmailButton,
-  Row,
-} from 'react-email';
 import { mergeAttributes } from '@tiptap/core';
+import { Column, Button as ReactEmailButton, Row } from 'react-email';
 import { EmailNode } from '../core/serializer/email-node';
 import { inlineCssToJs } from '../utils/styles';
 

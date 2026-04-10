@@ -1,12 +1,4 @@
-import {
-  Button,
-  Column,
-  Hr,
-  Img,
-  Row,
-  Section,
-  Text,
-} from 'react-email';
+import { Button, Column, Hr, Img, Row, Section, Text } from 'react-email';
 import { Layout } from '../_components/layout';
 
 export const component = (

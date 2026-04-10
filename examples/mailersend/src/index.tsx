@@ -1,5 +1,5 @@
-import { render } from 'react-email';
 import { EmailParams, MailerSend, Recipient, Sender } from 'mailersend';
+import { render } from 'react-email';
 import { Email } from './email';
 
 const mailerSend = new MailerSend({

@@ -1,5 +1,5 @@
-import { render } from 'react-email';
 import { createClient, TransactionalEmail } from '@scaleway/sdk';
+import { render } from 'react-email';
 import { Email } from './email.js';
 
 const client = createClient({

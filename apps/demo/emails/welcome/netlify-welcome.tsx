@@ -1,3 +1,4 @@
+import type * as React from 'react';
 import {
   Body,
   Button,
@@ -15,7 +16,6 @@ import {
   Tailwind,
   Text,
 } from 'react-email';
-import type * as React from 'react';
 
 interface NetlifyWelcomeEmailProps {
   steps: {
