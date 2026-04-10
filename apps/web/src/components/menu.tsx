@@ -67,6 +67,13 @@ function MenuItems({ onItemClick }: { onItemClick: () => void }) {
       </MenuItem>
       <MenuItem
         className="w-full px-2 md:w-fit"
+        href="/editor/examples"
+        onClick={onItemClick}
+      >
+        Editor
+      </MenuItem>
+      <MenuItem
+        className="w-full px-2 md:w-fit"
         href="/docs"
         onClick={onItemClick}
       >
