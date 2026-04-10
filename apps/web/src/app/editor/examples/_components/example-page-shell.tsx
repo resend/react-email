@@ -1,49 +1,23 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
 import { Heading } from '@/components/heading';
 import { IconArrowLeft } from '@/components/icons/icon-arrow-left';
 import { PageTransition } from '@/components/page-transition';
 import { PageWrapper } from '@/components/page-wrapper';
-import { EditorThemeProvider } from '../_components/editor-theme-provider';
-import { ExampleLoader } from '../_components/example-loader';
-import { allExamples } from '../_components/examples-registry';
+import { EditorThemeProvider } from './editor-theme-provider';
 
-interface ExamplePageParams {
-  params: Promise<{ slug: string }>;
+interface ExamplePageShellProps {
+  slug: string;
+  title: string;
+  docsUrl?: string;
+  children: React.ReactNode;
 }
 
-export const generateStaticParams = async () => {
-  return allExamples.map((example) => ({ slug: example.slug }));
-};
-
-export const generateMetadata = async ({
-  params,
-}: ExamplePageParams): Promise<Metadata> => {
-  const { slug } = await params;
-  const example = allExamples.find((e) => e.slug === slug);
-
-  if (!example) {
-    return { title: 'Example Not Found' };
-  }
-
-  return {
-    title: `${example.title} — Editor Examples`,
-    description: example.description,
-    alternates: {
-      canonical: `/editor/examples/${slug}`,
-    },
-  };
-};
-
-export default async function ExamplePage({ params }: ExamplePageParams) {
-  const { slug } = await params;
-  const example = allExamples.find((e) => e.slug === slug);
-
-  if (!example) {
-    notFound();
-  }
-
+export function ExamplePageShell({
+  slug,
+  title,
+  docsUrl,
+  children,
+}: ExamplePageShellProps) {
   return (
     <PageWrapper>
       <PageTransition className="pb-10" key={slug} tag="main">
@@ -56,10 +30,10 @@ export default async function ExamplePage({ params }: ExamplePageParams) {
               <IconArrowLeft className="mt-[.0625rem]" size={14} />
               <span>Back</span>
             </Link>
-            {example.docsUrl && (
+            {docsUrl && (
               <Link
                 className="ml-auto text-sm text-slate-11 transition-colors hover:text-slate-12"
-                href={example.docsUrl}
+                href={docsUrl}
                 target="_blank"
               >
                 Docs
@@ -67,13 +41,11 @@ export default async function ExamplePage({ params }: ExamplePageParams) {
             )}
           </div>
           <Heading size="6" weight="medium" className="text-slate-12">
-            {example.title}
+            {title}
           </Heading>
         </div>
         <div className="px-6 pb-10 md:px-8">
-          <EditorThemeProvider>
-            <ExampleLoader slug={slug} />
-          </EditorThemeProvider>
+          <EditorThemeProvider>{children}</EditorThemeProvider>
         </div>
       </PageTransition>
     </PageWrapper>
