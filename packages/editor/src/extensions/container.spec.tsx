@@ -277,8 +277,7 @@ describe('Container Node', () => {
             name="format-detection" />
           <!--$-->
         </head>
-        <body
-          style="background-color:#ffffff;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0">
+        <body style="background-color:#ffffff">
           <table
             border="0"
             width="100%"
@@ -289,7 +288,7 @@ describe('Container Node', () => {
             <tbody>
               <tr>
                 <td
-                  style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%;background-color:#ffffff;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px">
+                  style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%;background-color:#ffffff">
                   <table
                     align="left"
                     width="100%"
@@ -1579,8 +1578,7 @@ describe('Container Node', () => {
             name="format-detection" />
           <!--$-->
         </head>
-        <body
-          style="background-color:#ffffff;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0">
+        <body style="background-color:#ffffff">
           <table
             border="0"
             width="100%"
@@ -1591,7 +1589,7 @@ describe('Container Node', () => {
             <tbody>
               <tr>
                 <td
-                  style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%;background-color:#ffffff;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px">
+                  style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%;background-color:#ffffff">
                   <table
                     align="left"
                     width="100%"
