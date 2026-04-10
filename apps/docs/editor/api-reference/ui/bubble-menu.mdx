@@ -15,40 +15,6 @@ import { BubbleMenu, bubbleMenuTriggers, useBubbleMenuContext } from '@react-ema
 
 Drop-in menus for common use cases. Each one handles its own trigger logic and plugin key.
 
-### BubbleMenu.Default
-
-Text formatting toolbar that appears on text selection.
-
-```tsx
-<BubbleMenu.Default />
-```
-
-<ResponseField name="excludeItems" type="ExcludableItem[]" default="[]">
-  Items to hide. Options: `'bold'`, `'italic'`, `'underline'`,
-  `'strike'`, `'code'`, `'uppercase'`, `'align-left'`, `'align-center'`,
-  `'align-right'`, `'node-selector'`, `'link-selector'`.
-</ResponseField>
-
-<ResponseField name="hideWhenActiveNodes" type="string[]" default="[]">
-  Node types that prevent the menu from showing (e.g., `'codeBlock'`, `'button'`).
-</ResponseField>
-
-<ResponseField name="hideWhenActiveMarks" type="string[]" default="[]">
-  Mark types that prevent the menu from showing (e.g., `'link'`).
-</ResponseField>
-
-<ResponseField name="placement" type="'top' | 'bottom'" default="'bottom'">
-  Position relative to the selection.
-</ResponseField>
-
-<ResponseField name="offset" type="number" default="8">
-  Distance from the selection in pixels.
-</ResponseField>
-
-<ResponseField name="onHide" type="() => void">
-  Called when the bubble menu is hidden.
-</ResponseField>
-
 ### BubbleMenu.LinkDefault
 
 Link editing menu that appears when clicking a link.
@@ -130,7 +96,7 @@ to prevent overlapping menus:
 import { BubbleMenu } from '@react-email/editor/ui';
 
 <EditorProvider extensions={extensions} content={content}>
-  <BubbleMenu.Default
+  <BubbleMenu.Root
     hideWhenActiveNodes={['image', 'button']}
     hideWhenActiveMarks={['link']}
   />
@@ -149,6 +115,7 @@ Build fully custom menus using the compound API.
 ### BubbleMenu.Root
 
 Base container for all custom bubble menus. Provides editor context to children.
+When rendered without children, it automatically renders the default text formatting toolbar.
 
 ```tsx
 import { BubbleMenu, bubbleMenuTriggers } from '@react-email/editor/ui';

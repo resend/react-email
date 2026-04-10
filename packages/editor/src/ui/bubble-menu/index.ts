@@ -8,7 +8,6 @@ import { BubbleMenuButtonForm } from './button-form';
 import { BubbleMenuButtonToolbar } from './button-toolbar';
 import { BubbleMenuButtonUnlink } from './button-unlink';
 import { BubbleMenuCode } from './code';
-import { BubbleMenuDefault } from './default';
 import { BubbleMenuItemGroup } from './group';
 import { BubbleMenuImageDefault } from './image-default';
 import { BubbleMenuImageEditLink } from './image-edit-link';
@@ -53,8 +52,6 @@ export { BubbleMenuCode } from './code';
 export type { BubbleMenuContextValue } from './context';
 export { useBubbleMenuContext } from './context';
 export type { PreWiredItemProps } from './create-mark-bubble-item';
-export type { BubbleMenuDefaultProps } from './default';
-export { BubbleMenuDefault } from './default';
 export type { BubbleMenuItemGroupProps } from './group';
 export { BubbleMenuItemGroup } from './group';
 export type { BubbleMenuImageDefaultProps } from './image-default';
@@ -124,7 +121,6 @@ export const BubbleMenu = {
     Content: NodeSelectorContent,
   }),
   LinkSelector: BubbleMenuLinkSelector,
-  Default: BubbleMenuDefault,
   ButtonToolbar: BubbleMenuButtonToolbar,
   ButtonEditLink: BubbleMenuButtonEditLink,
   ButtonUnlink: BubbleMenuButtonUnlink,

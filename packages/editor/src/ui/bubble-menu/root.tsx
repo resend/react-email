@@ -79,7 +79,7 @@ function Root({
 
 const textPluginKey = new PluginKey('textBubbleMenu');
 
-export interface BubbleMenuDefaultProps
+interface BubbleMenuDefaultProps
   extends Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> {
   hideWhenActiveNodes?: string[];
   hideWhenActiveMarks?: string[];

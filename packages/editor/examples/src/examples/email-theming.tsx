@@ -70,7 +70,7 @@ export function EmailThemingExample() {
         </button>
       </div>
       <EditorProvider key={theme} extensions={extensions} content={content}>
-        <BubbleMenu.Default />
+        <BubbleMenu.Root />
       </EditorProvider>
     </ExampleShell>
   );

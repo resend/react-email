@@ -7,7 +7,7 @@ icon: "message-lines"
 
 ## Quick start
 
-Add `BubbleMenu.Default` as a child of `EditorProvider` to get a fully-featured formatting toolbar.
+Add `BubbleMenu.Root` as a child of `EditorProvider` to get a fully-featured formatting toolbar.
 
 ```tsx
 import { StarterKit } from '@react-email/editor/extensions';
@@ -20,7 +20,7 @@ const extensions = [StarterKit];
 export function MyEditor() {
   return (
     <EditorProvider extensions={extensions} content={content}>
-      <BubbleMenu.Default />
+      <BubbleMenu.Root />
     </EditorProvider>
   );
 }
@@ -28,42 +28,20 @@ export function MyEditor() {
 
 Select text to see the toolbar with formatting, alignment, node type selection, and link controls.
 
+When `BubbleMenu.Root` has no children, it renders the default text formatting toolbar automatically.
+
 <Tip>
   Even though you can [compose the BubbleMenu from
   primitives](#composing-from-primitives) and style it that way, the default
   can also be styled using <br/> [CSS variables and `data-re-*` selectors](/editor/features/styling#bubble-menu).
 </Tip>
 
-## Excluding items
-
-Hide specific items from the default bubble menu using `excludeItems`.
-
-```tsx
-<BubbleMenu.Default excludeItems={['strike', 'code', 'uppercase']} />
-```
-
-All excludable item keys:
-
-| Key | Description |
-| -- | -- |
-| `bold` | Bold toggle |
-| `italic` | Italic toggle |
-| `underline` | Underline toggle |
-| `strike` | Strikethrough toggle |
-| `code` | Inline code toggle |
-| `uppercase` | Uppercase toggle |
-| `align-left` | Left alignment |
-| `align-center` | Center alignment |
-| `align-right` | Right alignment |
-| `node-selector` | Block type selector (paragraph, headings, etc.) |
-| `link-selector` | Link add/edit control |
-
 ## Hiding on specific nodes or marks
 
 Prevent the bubble menu from appearing on certain node types or when certain marks are active.
 
 ```tsx
-<BubbleMenu.Default
+<BubbleMenu.Root
   hideWhenActiveNodes={['codeBlock', 'button']}
   hideWhenActiveMarks={['link']}
 />
@@ -79,7 +57,7 @@ const linkPluginKey = new PluginKey('linkBubbleMenu');
 
 <>
   {/* Hide text bubble menu on links and buttons -- their own menus handle those */}
-  <BubbleMenu.Default hideWhenActiveNodes={['button']} hideWhenActiveMarks={['link']} />
+  <BubbleMenu.Root hideWhenActiveNodes={['button']} hideWhenActiveMarks={['link']} />
 
   <BubbleMenu.Root
     trigger={bubbleMenuTriggers.nodeWithoutSelection('link')}

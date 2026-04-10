@@ -75,7 +75,7 @@ export function MyEditor() {
 
 ## Adding a bubble menu
 
-To add a floating formatting toolbar that appears when you select text, add `BubbleMenu.Default`
+To add a floating formatting toolbar that appears when you select text, add `BubbleMenu.Root`
 as a child of `EditorProvider`:
 
 ```tsx
@@ -105,7 +105,7 @@ const content = {
 export function MyEditor() {
   return (
     <EditorProvider extensions={extensions} content={content}>
-      <BubbleMenu.Default />
+      <BubbleMenu.Root />
     </EditorProvider>
   );
 }
