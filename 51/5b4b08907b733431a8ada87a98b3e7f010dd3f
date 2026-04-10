@@ -1,0 +1,57 @@
+apps/web/src/app/editor/examples/buttons/page.tsx
+  7fac92edd32821cc 1-22
+apps/web/src/app/editor/examples/email-theming/page.tsx
+  7fac92edd32821cc 1-22
+apps/web/src/app/editor/examples/one-line-editor/page.tsx
+  7fac92edd32821cc 1-21
+apps/web/src/app/editor/examples/email-export/page.tsx
+  7fac92edd32821cc 1-22
+apps/web/src/app/editor/examples/one-line-editor-full/page.tsx
+  7fac92edd32821cc 1-22
+apps/web/src/app/editor/examples/link-editing/page.tsx
+  7fac92edd32821cc 1-22
+apps/web/src/app/editor/examples/_components/dynamic-examples.tsx
+  7fac92edd32821cc 5-78
+apps/web/src/app/editor/examples/inspector-custom/page.tsx
+  7fac92edd32821cc 1-22
+apps/web/src/app/editor/examples/basic-editor/page.tsx
+  7fac92edd32821cc 1-21
+apps/web/src/app/editor/examples/inspector-composed/page.tsx
+  7fac92edd32821cc 1-22
+apps/web/src/app/editor/examples/bubble-menu/page.tsx
+  7fac92edd32821cc 1-22
+apps/web/src/app/editor/examples/custom-bubble-menu/page.tsx
+  7fac92edd32821cc 1-21
+apps/web/src/app/editor/examples/slash-commands/page.tsx
+  7fac92edd32821cc 1-22
+apps/web/src/app/editor/examples/_components/example-page-shell.tsx
+  7fac92edd32821cc 6,8-12,15-20,33,36,44,48
+apps/web/src/app/editor/examples/inspector-defaults/page.tsx
+  7fac92edd32821cc 1-22
+apps/web/src/app/editor/examples/full-email-builder/page.tsx
+  7fac92edd32821cc 1-22
+apps/web/src/app/editor/examples/custom-extensions/page.tsx
+  7fac92edd32821cc 1-22
+apps/web/src/app/editor/examples/column-layouts/page.tsx
+  7fac92edd32821cc 1-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "515b4b08907b733431a8ada87a98b3e7f010dd3f",
+  "prompts": {
+    "7fac92edd32821cc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2d8b0d23-31b9-4f57-bfed-630b17b3717d",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 17,
+      "total_deletions": 136,
+      "accepted_lines": 497,
+      "overriden_lines": 0
+    }
+  }
+}
