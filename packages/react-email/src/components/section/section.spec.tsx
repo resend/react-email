@@ -1,5 +1,5 @@
 import { render } from '@react-email/render';
-import { Section } from './index';
+import { Section } from './index.js';
 
 describe('<Section> component', () => {
   it('renders correctly', async () => {

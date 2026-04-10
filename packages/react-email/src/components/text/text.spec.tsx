@@ -1,5 +1,5 @@
 import { render } from '@react-email/render';
-import { Text } from './index';
+import { Text } from './index.js';
 
 describe('<Text> component', () => {
   it('renders children correctly', async () => {

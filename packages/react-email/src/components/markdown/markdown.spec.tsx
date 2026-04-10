@@ -1,5 +1,5 @@
 import { render } from '@react-email/render';
-import { Markdown } from './markdown';
+import { Markdown } from './markdown.js';
 
 describe('<Markdown> component renders correctly', () => {
   it('renders the markdown in the correct format for browsers', async () => {
