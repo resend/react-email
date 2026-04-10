@@ -1,4 +1,4 @@
-import { computeMargins } from './compute-margins';
+import { computeMargins } from './compute-margins.js';
 
 describe('parseMargins()', () => {
   it('works with numeric and text margins', () => {

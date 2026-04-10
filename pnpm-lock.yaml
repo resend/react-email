@@ -1210,6 +1210,9 @@ importers:
       log-symbols:
         specifier: 'catalog:'
         version: 7.0.1
+      marked:
+        specifier: ^15.0.12
+        version: 15.0.12
       mime-types:
         specifier: ^3.0.0
         version: 3.0.2

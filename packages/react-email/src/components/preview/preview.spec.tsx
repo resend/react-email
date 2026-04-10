@@ -1,5 +1,5 @@
 import { render } from '@react-email/render';
-import { Preview, renderWhiteSpace } from './index';
+import { Preview, renderWhiteSpace } from './index.js';
 
 describe('<Preview> component', () => {
   it('renders correctly', async () => {

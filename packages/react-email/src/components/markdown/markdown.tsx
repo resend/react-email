@@ -1,7 +1,7 @@
 import { marked, Renderer } from 'marked';
 import * as React from 'react';
-import { type StylesType, styles } from './styles';
-import { parseCssInJsToInlineCss } from './utils/parse-css-in-js-to-inline-css';
+import { type StylesType, styles } from './styles.js';
+import { parseCssInJsToInlineCss } from './utils/parse-css-in-js-to-inline-css.js';
 
 export type MarkdownProps = Readonly<{
   children: string;

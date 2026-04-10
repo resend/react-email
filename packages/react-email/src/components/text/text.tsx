@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { computeMargins } from './utils/compute-margins';
+import { computeMargins } from './utils/compute-margins.js';
 
 export type TextProps = Readonly<React.ComponentPropsWithoutRef<'p'>>;
 
