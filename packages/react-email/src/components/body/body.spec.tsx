@@ -1,6 +1,6 @@
 import { render } from '@react-email/render';
-import { Body } from './index';
-import { marginProperties, paddingProperties } from './margin-properties';
+import { Body } from './index.js';
+import { marginProperties, paddingProperties } from './margin-properties.js';
 
 describe('<Body> component', () => {
   it('renders children correctly', async () => {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { marginProperties, paddingProperties } from './margin-properties';
+import { marginProperties, paddingProperties } from './margin-properties.js';
 
 export type BodyProps = Readonly<React.HtmlHTMLAttributes<HTMLBodyElement>>;
 
