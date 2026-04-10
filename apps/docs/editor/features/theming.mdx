@@ -21,7 +21,7 @@ const extensions = [StarterKit, EmailTheming];
 export function MyEditor() {
   return (
     <EditorProvider extensions={extensions} content={content}>
-      <BubbleMenu.Default />
+      <BubbleMenu />
     </EditorProvider>
   );
 }
@@ -81,7 +81,7 @@ export function MyEditor() {
         <button onClick={() => setTheme('minimal')}>Minimal</button>
       </div>
       <EditorProvider key={theme} extensions={extensions} content={content}>
-        <BubbleMenu.Default />
+        <BubbleMenu />
       </EditorProvider>
     </div>
   );

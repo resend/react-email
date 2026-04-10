@@ -14,7 +14,7 @@ export function useBubbleMenuContext(): BubbleMenuContextValue {
   const context = React.useContext(BubbleMenuContext);
   if (!context) {
     throw new Error(
-      'BubbleMenu compound components must be used within <BubbleMenu.Root>',
+      'BubbleMenu compound components must be used within <BubbleMenu>',
     );
   }
   return context;
