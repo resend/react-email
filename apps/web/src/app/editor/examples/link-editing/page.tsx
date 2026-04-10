@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { LinkEditing as Example } from './example';
 import { ExamplePageShell } from '../example-page-shell';
+import { LinkEditing as Example } from './example';
 
 export const metadata: Metadata = {
   title: 'Link Editing — Editor Examples',

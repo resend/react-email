@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { BubbleMenuExample as Example } from './example';
 import { ExamplePageShell } from '../example-page-shell';
+import { BubbleMenuExample as Example } from './example';
 
 export const metadata: Metadata = {
   title: 'Bubble Menu — Editor Examples',
