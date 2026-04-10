@@ -7,4 +7,10 @@ export default defineConfig([
     format: ['esm'],
     outDir: 'dist/cli',
   },
+  {
+    dts: true,
+    entry: ['./src/index.ts'],
+    format: ['esm', 'cjs'],
+    outDir: 'dist',
+  },
 ]);
