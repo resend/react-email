@@ -3,7 +3,7 @@ packages:
   - apps/*
   - benchmarks/*
   - packages/*
-  - packages/editor/examples
+
   - packages/react-email/dev
   - playground
 
