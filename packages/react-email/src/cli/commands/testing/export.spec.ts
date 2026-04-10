@@ -27,7 +27,7 @@ test('email export', { retry: 3 }, async () => {
         <!--$-->
       </head>
       <body
-        style='margin-right:auto;margin-left:auto;margin-bottom:auto;margin-top:auto;padding-right:8px;padding-left:8px;font-family:ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"'>
+        style="background-color:rgb(255,255,255);margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-right:0;padding-left:0">
         <table
           border="0"
           width="100%"
@@ -37,7 +37,8 @@ test('email export', { retry: 3 }, async () => {
           align="center">
           <tbody>
             <tr>
-              <td>
+              <td
+                style='margin-right:auto;margin-left:auto;margin-bottom:auto;margin-top:auto;background-color:rgb(255,255,255);padding-right:8px;padding-left:8px;font-family:ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"'>
                 <div
                   style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0"
                   data-skip-in-text="true">
@@ -53,7 +54,7 @@ test('email export', { retry: 3 }, async () => {
                   cellpadding="0"
                   cellspacing="0"
                   role="presentation"
-                  style="margin-right:auto;margin-left:auto;margin-bottom:40px;margin-top:40px;max-width:37.5em;border-radius:0.25rem;border-style:solid;border-width:1px;border-color:rgb(234,234,234);padding:20px">
+                  style="max-width:465px;margin-right:auto;margin-left:auto;margin-bottom:40px;margin-top:40px;border-radius:0.25rem;border-style:solid;border-width:1px;border-color:rgb(234,234,234);padding:20px">
                   <tbody>
                     <tr style="width:100%">
                       <td>
@@ -72,7 +73,7 @@ test('email export', { retry: 3 }, async () => {
                                   alt="Vercel Logo"
                                   height="37"
                                   src="/static/vercel-logo.png"
-                                  style="margin-right:auto;margin-left:auto;margin-bottom:0;margin-top:0;display:block;outline:none;border:none;text-decoration:none"
+                                  style="display:block;outline:none;border:none;text-decoration:none;margin-right:auto;margin-left:auto;margin-bottom:0;margin-top:0"
                                   width="40" />
                               </td>
                             </tr>
@@ -83,15 +84,15 @@ test('email export', { retry: 3 }, async () => {
                           Join <strong></strong> on <strong>Vercel</strong>
                         </h1>
                         <p
-                          style="font-size:14px;color:rgb(0,0,0);line-height:24px;margin-top:16px;margin-bottom:16px">
+                          style="font-size:14px;line-height:24px;color:rgb(0,0,0);margin-top:16px;margin-bottom:16px">
                           Hello
                           <!-- -->,
                         </p>
                         <p
-                          style="font-size:14px;color:rgb(0,0,0);line-height:24px;margin-top:16px;margin-bottom:16px">
+                          style="font-size:14px;line-height:24px;color:rgb(0,0,0);margin-top:16px;margin-bottom:16px">
                           <strong></strong> (<a
                             href="mailto:undefined"
-                            style="color:#067df7;text-decoration-line:none"
+                            style="color:rgb(21,93,252);text-decoration-line:none"
                             target="_blank"></a
                           >) has invited you to the <strong></strong> team on<!-- -->
                           <strong>Vercel</strong>.
@@ -121,7 +122,7 @@ test('email export', { retry: 3 }, async () => {
                                         <img
                                           alt="undefined&#x27;s profile picture"
                                           height="64"
-                                          style="border-radius:9999px;display:block;outline:none;border:none;text-decoration:none"
+                                          style="display:block;outline:none;border:none;text-decoration:none;border-radius:9999px"
                                           width="64" />
                                       </td>
                                       <td
@@ -140,7 +141,7 @@ test('email export', { retry: 3 }, async () => {
                                         <img
                                           alt="undefined team logo"
                                           height="64"
-                                          style="border-radius:9999px;display:block;outline:none;border:none;text-decoration:none"
+                                          style="display:block;outline:none;border:none;text-decoration:none;border-radius:9999px"
                                           width="64" />
                                       </td>
                                     </tr>
@@ -162,15 +163,15 @@ test('email export', { retry: 3 }, async () => {
                             <tr>
                               <td>
                                 <a
-                                  style="border-radius:0.25rem;background-color:rgb(0,0,0);text-align:center;font-weight:600;font-size:12px;color:rgb(255,255,255);text-decoration-line:none;line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px"
+                                  style="line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;border-radius:0.25rem;background-color:rgb(0,0,0);padding-right:20px;padding-left:20px;padding-bottom:12px;padding-top:12px;text-align:center;font-weight:600;font-size:12px;color:rgb(255,255,255);text-decoration-line:none"
                                   target="_blank"
                                   ><span
-                                    ><!--[if mso]><i style="mso-font-width:0%;mso-text-raise:0" hidden></i><![endif]--></span
+                                    ><!--[if mso]><i style="mso-font-width:500%;mso-text-raise:18" hidden>&#8202;&#8202;</i><![endif]--></span
                                   ><span
-                                    style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px"
+                                    style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:9px"
                                     >Join the team</span
                                   ><span
-                                    ><!--[if mso]><i style="mso-font-width:0%" hidden>&#8203;</i><![endif]--></span
+                                    ><!--[if mso]><i style="mso-font-width:500%" hidden>&#8202;&#8202;&#8203;</i><![endif]--></span
                                   ></a
                                 >
                               </td>
@@ -178,16 +179,16 @@ test('email export', { retry: 3 }, async () => {
                           </tbody>
                         </table>
                         <p
-                          style="font-size:14px;color:rgb(0,0,0);line-height:24px;margin-top:16px;margin-bottom:16px">
+                          style="font-size:14px;line-height:24px;color:rgb(0,0,0);margin-top:16px;margin-bottom:16px">
                           or copy and paste this URL into your browser:<!-- -->
                           <a
-                            style="color:#067df7;text-decoration-line:none"
+                            style="color:rgb(21,93,252);text-decoration-line:none"
                             target="_blank"></a>
                         </p>
                         <hr
-                          style="margin-right:0;margin-left:0;margin-bottom:26px;margin-top:26px;width:100%;border-style:solid;border-width:1px;border-color:rgb(234,234,234);border:none;border-top:1px solid #eaeaea" />
+                          style="width:100%;border:none;border-top:1px solid #eaeaea;margin-right:0;margin-left:0;margin-bottom:26px;margin-top:26px;border-style:solid;border-width:1px;border-color:rgb(234,234,234)" />
                         <p
-                          style="color:rgb(102,102,102);font-size:14px;line-height:24px;margin-top:16px;margin-bottom:16px">
+                          style="font-size:12px;line-height:24px;color:rgb(102,102,102);margin-top:16px;margin-bottom:16px">
                           This invitation was intended for<!-- -->
                           <span style="color:rgb(0,0,0)"></span>. This invite was
                           sent from <span style="color:rgb(0,0,0)"></span>
