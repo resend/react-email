@@ -822,6 +822,9 @@ importers:
       '@babel/traverse':
         specifier: 'catalog:'
         version: 7.27.0
+      '@react-email/render':
+        specifier: workspace:>=0
+        version: link:../render
       chokidar:
         specifier: ^4.0.3
         version: 4.0.3
@@ -880,9 +883,6 @@ importers:
         specifier: 4.2.0
         version: 4.2.0
     devDependencies:
-      '@react-email/render':
-        specifier: workspace:*
-        version: link:../render
       '@responsive-email/react-email':
         specifier: 'catalog:'
         version: 0.0.4(react@19.0.0)
