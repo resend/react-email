@@ -56,7 +56,7 @@ export default function PasswordReset({ resetUrl, email, expiryHours = 1 }: Pass
             >
               Reset Password
             </Button>
-            <Hr className="border-gray-200 my-6" />
+            <Hr className="border-solid border-gray-200 my-6" />
             <Text className="text-sm text-gray-500 leading-5 my-2">
               If you didn't request this, please ignore this email. Your password will remain unchanged.
             </Text>
@@ -158,7 +158,7 @@ export default function OrderConfirmation({
               </Row>
             </Section>
 
-            <Hr className="border-gray-200 my-6" />
+            <Hr className="border-solid border-gray-200 my-6" />
 
             <Heading as="h2" className="text-xl font-bold text-gray-800 my-4">
               Order Items
@@ -173,7 +173,7 @@ export default function OrderConfirmation({
                       alt={item.name}
                       width="80"
                       height="80"
-                      className="rounded border border-gray-200"
+                      className="rounded border border-solid border-gray-200"
                     />
                   </Column>
                   <Column className="align-top pl-4">
@@ -192,7 +192,7 @@ export default function OrderConfirmation({
               </Section>
             ))}
 
-            <Hr className="border-gray-200 my-6" />
+            <Hr className="border-solid border-gray-200 my-6" />
 
             <Section className="mt-6">
               <Row>
@@ -213,7 +213,7 @@ export default function OrderConfirmation({
                   <Text className="text-sm text-gray-800 my-2">${tax.toFixed(2)}</Text>
                 </Column>
               </Row>
-              <Hr className="border-gray-200 my-3" />
+              <Hr className="border-solid border-gray-200 my-3" />
               <Row>
                 <Column><Text className="text-lg font-bold text-gray-800 my-2">Total</Text></Column>
                 <Column className="text-right">
@@ -222,7 +222,7 @@ export default function OrderConfirmation({
               </Row>
             </Section>
 
-            <Hr className="border-gray-200 my-6" />
+            <Hr className="border-solid border-gray-200 my-6" />
 
             <Heading as="h2" className="text-xl font-bold text-gray-800 my-4">
               Shipping Address
@@ -339,7 +339,7 @@ export default function Notification({
         <Head />
         <Preview>{title} - {severity}</Preview>
         <Body className="bg-gray-100 font-mono">
-          <Container className="mx-auto max-w-xl bg-white border border-gray-200 rounded overflow-hidden">
+          <Container className="mx-auto max-w-xl bg-white border border-solid border-gray-200 rounded overflow-hidden">
             <Section className={`h-1 w-full ${severityColors[severity]}`} />
 
             <Heading className="text-2xl font-bold text-gray-800 mx-6 mt-6 mb-4">
@@ -363,24 +363,23 @@ export default function Notification({
 
             {logData && (
               <>
-                <Hr className="border-gray-200 my-6" />
+                <Hr className="border-solid border-gray-200 my-6" />
                 <Heading as="h2" className="text-lg font-bold text-gray-800 mx-6 my-4">
                   Log Details
                 </Heading>
-                <Section className="mx-6">
+                <div className="overflow-auto mx-6">
                   <CodeBlock
                     code={logData}
                     language="json"
                     theme={dracula}
-                    lineNumbers
                   />
-                </Section>
+                </div>
               </>
             )}
 
             {actionUrl && (
               <>
-                <Hr className="border-gray-200 my-6" />
+                <Hr className="border-solid border-gray-200 my-6" />
                 <Link
                   href={actionUrl}
                   className={`inline-block px-6 py-3 text-base font-bold text-white rounded no-underline mx-6 mb-6 ${severityBtnColors[severity]}`}
@@ -390,7 +389,7 @@ export default function Notification({
               </>
             )}
 
-            <Hr className="border-gray-200 my-6" />
+            <Hr className="border-solid border-gray-200 my-6" />
             <Text className="text-xs text-gray-500 mx-6 mb-6">
               This is an automated notification. Please do not reply to this email.
             </Text>
@@ -478,7 +477,7 @@ export default function Newsletter({ articles, unsubscribeUrl }: NewsletterProps
               Here are the top articles from this week. Enjoy your reading!
             </Text>
 
-            <Hr className="border-gray-200 mx-5 my-8" />
+            <Hr className="border-solid border-gray-200 mx-5 my-8" />
 
             {/* Featured Article */}
             {articles[0] && (
@@ -507,7 +506,7 @@ export default function Newsletter({ articles, unsubscribeUrl }: NewsletterProps
               </Section>
             )}
 
-            <Hr className="border-gray-200 mx-5 my-8" />
+            <Hr className="border-solid border-gray-200 mx-5 my-8" />
 
             {/* Two-Column Articles */}
             {articles.slice(1, 5).length > 0 && (
@@ -568,7 +567,7 @@ export default function Newsletter({ articles, unsubscribeUrl }: NewsletterProps
               </>
             )}
 
-            <Hr className="border-gray-200 mx-5 my-8" />
+            <Hr className="border-solid border-gray-200 mx-5 my-8" />
 
             {/* Footer */}
             <Section className="bg-gray-50 p-8 mt-8 text-center">
@@ -671,7 +670,7 @@ export default function TeamInvitation({
               <strong>{teamName}</strong> team.
             </Text>
 
-            <Section className="bg-gray-50 p-5 rounded border border-gray-200 my-6">
+            <Section className="bg-gray-50 p-5 rounded border border-solid border-gray-200 my-6">
               <Text className="text-xs text-gray-500 uppercase font-bold mb-2">Role</Text>
               <Text className="text-lg font-bold text-gray-800 m-0">{role}</Text>
             </Section>
@@ -687,7 +686,7 @@ export default function TeamInvitation({
               Accept Invitation
             </Button>
 
-            <Hr className="border-gray-200 my-6" />
+            <Hr className="border-solid border-gray-200 my-6" />
 
             <Text className="text-sm text-gray-500 leading-5 my-2">
               This invitation will expire in {expiryDays} day{expiryDays > 1 ? 's' : ''}.

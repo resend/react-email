@@ -303,7 +303,7 @@ Display a divider that separates content areas in your email.
 ```tsx
 import { Hr } from '@react-email/components';
 
-<Hr className="border-gray-200 my-5" />
+<Hr className="border-solid border-gray-200 my-5" />
 ```
 
 ## Specialized Components
