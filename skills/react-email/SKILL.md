@@ -140,8 +140,8 @@ See [references/COMPONENTS.md](references/COMPONENTS.md) for complete component 
 - `Html` - Root wrapper with `lang` attribute
 - `Head` - Meta elements, styles, fonts
 - `Body` - Main content wrapper
-- `Container` - Centers content (max-width layout)
-- `Section` - Layout sections
+- `Container` - Outermost centering wrapper (has built-in `max-width: 37.5em`). Use only once per email.
+- `Section` - Interior content blocks (no built-in max-width). Use for grouping content inside `Container`.
 - `Row` & `Column` - Multi-column layouts
 - `Tailwind` - Enables Tailwind CSS utility classes
 
