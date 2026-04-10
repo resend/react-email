@@ -957,22 +957,19 @@ importers:
 
   playground:
     dependencies:
-      '@react-email/render':
-        specifier: workspace:*
-        version: link:../packages/render
       react:
         specifier: 19.0.0
         version: 19.0.0
       react-dom:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
-      react-email:
-        specifier: workspace:*
-        version: link:../packages/react-email
     devDependencies:
       '@react-email/preview-server':
         specifier: workspace:*
         version: link:../packages/preview-server
+      email-dev:
+        specifier: workspace:*
+        version: link:../packages/react-email/dev
       tsconfig:
         specifier: workspace:*
         version: link:../packages/tsconfig
