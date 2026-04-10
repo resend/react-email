@@ -1,5 +1,5 @@
 import { render } from '@react-email/render';
-import { Img } from './index';
+import { Img } from './index.js';
 
 describe('<Img> component', () => {
   it('passes style and other props correctly', async () => {

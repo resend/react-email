@@ -1,5 +1,5 @@
 import { render } from '@react-email/render';
-import { Html } from './index';
+import { Html } from './index.js';
 
 describe('<Html> component', () => {
   it('renders children correctly', async () => {

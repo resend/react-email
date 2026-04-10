@@ -1,5 +1,5 @@
 import { render } from '@react-email/render';
-import { Font } from './index';
+import { Font } from './index.js';
 
 describe('<Font> component', () => {
   it('renders with default props', async () => {

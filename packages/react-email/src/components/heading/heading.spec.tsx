@@ -1,5 +1,5 @@
 import { render } from '@react-email/render';
-import { Heading } from './index';
+import { Heading } from './index.js';
 
 describe('render', () => {
   it('renders children correctly', async () => {
