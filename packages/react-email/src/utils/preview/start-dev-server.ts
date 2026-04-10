@@ -19,9 +19,8 @@ let devServer: http.Server | undefined;
 
 /** Parses `req.url` without `url.parse()` (deprecated DEP0169); shape matches Next's `NextUrlWithParsedQuery`. */
 const parseRequestUrl = (requestUrl: string): UrlWithParsedQuery => {
-  const u = /^[a-zA-Z][a-zA-Z\d+.-]*:/u.test(requestUrl)
-    ? new URL(requestUrl)
-    : new URL(requestUrl, 'http://localhost');
+  // Absolute URLs ignore the base; path-only values (typical for IncomingMessage) resolve against it.
+  const u = new URL(requestUrl, 'http://localhost');
   const search = u.search ?? '';
   const pathname = u.pathname ?? '';
   const path = `${pathname}${search}`;
