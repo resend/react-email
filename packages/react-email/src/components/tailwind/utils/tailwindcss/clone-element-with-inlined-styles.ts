@@ -1,0 +1,61 @@
+import type { Rule } from 'css-tree';
+import React from 'react';
+import type { EmailElementProps } from '../../tailwind.js';
+import { sanitizeClassName } from '../compatibility/sanitize-class-name.js';
+import type { CustomProperties } from '../css/get-custom-properties.js';
+import { makeInlineStylesFor } from '../css/make-inline-styles-for.js';
+import { isComponent } from '../react/is-component.js';
+
+export function cloneElementWithInlinedStyles(
+  element: React.ReactElement<EmailElementProps>,
+  inlinableRules: Map<string, Rule>,
+  nonInlinableRules: Map<string, Rule>,
+  customProperties: CustomProperties,
+) {
+  const propsToOverwrite: Partial<EmailElementProps> = {};
+
+  if (element.props.className && !isComponent(element)) {
+    const classes = element.props.className.trim().split(/\s+/);
+
+    const residualClasses: string[] = [];
+
+    const rules: Rule[] = [];
+    for (const className of classes) {
+      const rule = inlinableRules.get(className);
+      if (rule) {
+        rules.push(rule);
+      }
+      if (nonInlinableRules.has(className)) {
+        residualClasses.push(className);
+      } else if (!rule) {
+        residualClasses.push(className);
+      }
+    }
+
+    const styles = makeInlineStylesFor(rules, customProperties);
+    propsToOverwrite.style = {
+      ...styles,
+      ...element.props.style,
+    };
+
+    if (residualClasses.length > 0) {
+      propsToOverwrite.className = residualClasses
+        .map((className) => {
+          if (nonInlinableRules.has(className)) {
+            return sanitizeClassName(className);
+          }
+          return className;
+        })
+        .join(' ');
+    } else {
+      propsToOverwrite.className = undefined;
+    }
+  }
+
+  const newProps = {
+    ...element.props,
+    ...propsToOverwrite,
+  };
+
+  return React.cloneElement(element, newProps, newProps.children);
+}

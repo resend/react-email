@@ -5,6 +5,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'happy-dom',
+    include: ['../react-email/src/components/tailwind/**/*.spec.{ts,tsx}'],
   },
   server: {
     watch: {
