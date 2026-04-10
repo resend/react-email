@@ -7,7 +7,7 @@ interface TemplateProps {
 export const Template: React.FC<Readonly<TemplateProps>> = ({ firstName }) => (
   <>
     <h1>Welcome, {firstName}!</h1>
-    <img alt="test" src="img/test.png" />
+    <img alt="test" fetchPriority="low" src="img/test.png" />
     <p>Thanks for trying our product. We're thrilled to have you on board!</p>
   </>
 );

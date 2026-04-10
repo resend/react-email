@@ -7,6 +7,10 @@ export const Img = React.forwardRef<HTMLImageElement, ImgProps>(
     <img
       {...props}
       alt={alt}
+      // Setting fetchPriority to "low" prevents React 19's SSR from
+      // auto-injecting <link rel="preload"> tags for every image, which are
+      // unnecessary noise in email HTML. Email clients ignore this attribute.
+      fetchPriority="low"
       height={height}
       ref={ref}
       src={src}
