@@ -1,4 +1,4 @@
-export * from '@react-email/tailwind';
+export * from 'react-email';
 export * from '../packages/body/src';
 export * from '../packages/button/src';
 export * from '../packages/code-block/src';

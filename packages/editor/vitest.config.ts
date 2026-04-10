@@ -32,7 +32,7 @@ export default defineConfig({
         resolve: {
           alias: {
             '@react-email/render': stubModule,
-            '@react-email/markdown': stubModule,
+            'react-email': stubModule,
           },
         },
         test: {
