@@ -44,7 +44,7 @@ export default function PasswordReset({ resetUrl, email, expiryHours = 1 }: Pass
             </Text>
             <Button
               href={resetUrl}
-              className="bg-red-600 text-white px-7 py-3.5 rounded block text-center font-bold my-6 no-underline"
+              className="bg-red-600 text-white px-7 py-3.5 rounded block text-center font-bold my-6 no-underline box-border"
             >
               Reset Password
             </Button>
@@ -492,7 +492,7 @@ export default function Newsletter({ articles, unsubscribeUrl }: NewsletterProps
                 </Text>
                 <Button
                   href={articles[0].url}
-                  className="bg-blue-600 text-white px-6 py-3 rounded font-bold inline-block no-underline"
+                  className="bg-blue-600 text-white px-6 py-3 rounded font-bold inline-block no-underline box-border"
                 >
                   Read More
                 </Button>
@@ -674,7 +674,7 @@ export default function TeamInvitation({
 
             <Button
               href={inviteUrl}
-              className="bg-green-600 text-white px-7 py-3.5 rounded block text-center font-bold text-base my-6 no-underline"
+              className="bg-green-600 text-white px-7 py-3.5 rounded block text-center font-bold text-base my-6 no-underline box-border"
             >
               Accept Invitation
             </Button>

@@ -199,7 +199,7 @@ See [references/COMPONENTS.md](references/COMPONENTS.md) for complete component 
 - `Tailwind` - Enables Tailwind CSS utility classes
 
 **Content:**
-- `Preview` - Inbox preview text, always first in `Body`
+- `Preview` - Inbox preview text, must be the first child inside `<Body>`
 - `Heading` - h1-h6 headings
 - `Text` - Paragraphs
 - `Button` - Styled link buttons
@@ -313,7 +313,7 @@ Use the Tailwind component for styling if the user is actively using Tailwind CS
 ### Email Client Limitations
 - Never use SVG or WEBP - warn users about rendering issues
 - Never use flexbox - use Row/Column components or tables for layouts
-- Never use CSS/Tailwind media queries (sm:, md:, lg:, xl:) - not supported
+- Avoid CSS/Tailwind media queries (sm:, md:, lg:, xl:) - limited email client support, not reliable across major clients
 - Never use theme selectors (dark:, light:) - not supported
 - Always specify border type (border-solid, border-dashed, etc.)
 - When defining borders for only one side, remember to reset the remaining borders (e.g., border-none border-l)
@@ -359,7 +359,8 @@ Email.PreviewProps = {
 
 ### Images
 - Only include if user requests
-- Never use fixed width/height - use responsive units (w-full, h-auto)
+- Use fixed width/height for known-size elements (logos, icons) to prevent layout shift
+- Use responsive sizing (w-full, h-auto) for content images
 - Never distort user-provided images
 - Never create SVG images - only use provided or web images
 
@@ -466,7 +467,7 @@ export default async function WelcomeEmail({ name, locale }: EmailProps) {
           <Container className="max-w-xl mx-auto p-5">
             <Text className="text-base text-gray-800">{t('greeting')} {name},</Text>
             <Text className="text-base text-gray-800">{t('body')}</Text>
-            <Button href="https://example.com" className="bg-blue-600 text-white px-5 py-3 rounded">
+            <Button href="https://example.com" className="bg-blue-600 text-white px-5 py-3 rounded box-border">
               {t('cta')}
             </Button>
           </Container>
