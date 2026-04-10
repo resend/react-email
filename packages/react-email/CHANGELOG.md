@@ -1,5 +1,11 @@
 # react-email
 
+## 5.2.11
+
+### Patch Changes
+
+- a3a15ea: replace deprecated `url.parse()` with WHATWG URL API in the preview dev server.
+
 ## 5.2.10
 
 ## 5.2.9

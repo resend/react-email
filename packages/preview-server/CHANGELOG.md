@@ -1,5 +1,7 @@
 # @react-email/preview-server
 
+## 5.2.11
+
 ## 5.2.10
 
 ### Patch Changes
