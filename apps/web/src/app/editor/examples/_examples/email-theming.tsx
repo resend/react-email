@@ -77,7 +77,7 @@ export function EmailThemingExample() {
         content={content}
         immediatelyRender={false}
       >
-        <BubbleMenu.Default />
+        <BubbleMenu />
       </EditorProvider>
     </ExampleShell>
   );

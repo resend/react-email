@@ -37,7 +37,7 @@ export function BubbleMenuExample() {
         content={content}
         immediatelyRender={false}
       >
-        <BubbleMenu.Default />
+        <BubbleMenu />
       </EditorProvider>
     </ExampleShell>
   );

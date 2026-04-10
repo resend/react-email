@@ -17,7 +17,7 @@ export const sections: ExampleSection[] = [
     examples: [
       {
         slug: 'one-line-editor',
-        title: 'Minimal',
+        title: 'One-Line Editor — Minimal',
         description:
           'The simplest setup — one component with everything included.',
         section: 'One-Line Editor',
@@ -25,7 +25,7 @@ export const sections: ExampleSection[] = [
       },
       {
         slug: 'one-line-editor-full',
-        title: 'Full Features',
+        title: 'One-Line Editor — Full Features',
         description:
           'Theme switching, ref methods (export, getJSON), and callbacks — all with a single component.',
         section: 'One-Line Editor',
@@ -68,7 +68,7 @@ export const sections: ExampleSection[] = [
         slug: 'custom-bubble-menu',
         title: 'Custom Bubble Menu',
         description:
-          'Building menus from primitives instead of using BubbleMenu.Default.',
+          'Building bubble menus from primitives.',
         section: 'Intermediate',
         docsUrl: 'https://react.email/docs/editor/features/bubble-menu',
       },
@@ -142,7 +142,7 @@ export const sections: ExampleSection[] = [
       },
       {
         slug: 'inspector-custom',
-        title: 'Inspector — Custom',
+        title: 'Inspector — Fully Custom',
         description:
           'Build the entire inspector UI from scratch using only render-props data and plain HTML.',
         section: 'Advanced',
