@@ -9,7 +9,7 @@
     "export": "email-dev export"
   },
   "dependencies": {
-    "@react-email/components": "workspace:*",
+    "react-email": "workspace:*",
     "email-dev": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:"

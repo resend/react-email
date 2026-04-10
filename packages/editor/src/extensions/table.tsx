@@ -1,4 +1,4 @@
-import { Column, Section } from '@react-email/components';
+import { Column, Section } from 'react-email';
 import type { ParentConfig } from '@tiptap/core';
 import { mergeAttributes, Node } from '@tiptap/core';
 import { EmailNode } from '../core/serializer/email-node';

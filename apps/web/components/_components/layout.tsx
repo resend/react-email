@@ -5,7 +5,7 @@ import {
   Head,
   Html,
   Tailwind,
-} from '@react-email/components';
+} from 'react-email';
 import tailwindConfig from '../tailwind.config';
 
 export const Layout = ({

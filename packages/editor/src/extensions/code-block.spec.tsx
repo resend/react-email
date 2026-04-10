@@ -1,4 +1,4 @@
-import { dracula, render } from '@react-email/components';
+import { dracula, render } from 'react-email';
 import { describe, expect, it } from 'vitest';
 import { DEFAULT_STYLES } from '../utils/default-styles';
 import { CodeBlockPrism } from './code-block';

@@ -10,7 +10,7 @@ import {
   Tailwind,
   Text,
   vesper,
-} from '@react-email/components';
+} from 'react-email';
 
 interface WebhooksFailedProps {
   date: string;

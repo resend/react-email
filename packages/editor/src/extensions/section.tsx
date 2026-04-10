@@ -1,4 +1,4 @@
-import { Section as ReactEmailSection } from '@react-email/components';
+import { Section as ReactEmailSection } from 'react-email';
 import { mergeAttributes } from '@tiptap/core';
 import type { Node as ProseMirrorNode } from '@tiptap/pm/model';
 import type * as React from 'react';

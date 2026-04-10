@@ -1,4 +1,4 @@
-import { Column, Row } from '@react-email/components';
+import { Column, Row } from 'react-email';
 import { type CommandProps, mergeAttributes } from '@tiptap/core';
 import type { Node as ProseMirrorNode } from '@tiptap/pm/model';
 import { TextSelection } from '@tiptap/pm/state';

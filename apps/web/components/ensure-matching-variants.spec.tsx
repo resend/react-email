@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
 import path from 'node:path';
-import { pretty, render } from '@react-email/components';
+import { pretty, render } from 'react-email';
 import { parse, stringify } from 'html-to-ast';
 import type { Attr, IDoc as Doc } from 'html-to-ast/dist/types';
 import postcss from 'postcss';

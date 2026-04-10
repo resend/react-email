@@ -14,7 +14,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@react-email/components": "catalog:",
+    "react-email": "catalog:",
     "nodemailer": "^8.0.0",
     "react": "catalog:",
     "react-dom": "catalog:"

@@ -1,7 +1,7 @@
 import {
   Container as ReactEmailContainer,
   render,
-} from '@react-email/components';
+} from 'react-email';
 import type { JSONContent } from '@tiptap/core';
 import { Editor, Extension } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';

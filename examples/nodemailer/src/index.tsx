@@ -1,4 +1,4 @@
-import { render } from '@react-email/components';
+import { render } from 'react-email';
 import nodemailer from 'nodemailer';
 import { Email } from './email';
 

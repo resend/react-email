@@ -54,7 +54,6 @@
     "@responsive-email/react-email": "catalog:",
     "@types/css-tree": "catalog:",
     "@react-email/render": "workspace:*",
-    "@react-email/components": "workspace:*",
     "@types/babel__core": "catalog:",
     "@types/babel__traverse": "catalog:",
     "@types/mime-types": "catalog:",

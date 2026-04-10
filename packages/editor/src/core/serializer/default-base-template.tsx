@@ -1,4 +1,4 @@
-import { Body, Head, Html, Preview } from '@react-email/components';
+import { Body, Head, Html, Preview } from 'react-email';
 import type * as React from 'react';
 
 type BaseTemplateProps = {

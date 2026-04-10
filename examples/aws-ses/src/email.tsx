@@ -1,4 +1,4 @@
-import { Button, Html } from '@react-email/components';
+import { Button, Html } from 'react-email';
 import type * as React from 'react';
 
 interface EmailProps {

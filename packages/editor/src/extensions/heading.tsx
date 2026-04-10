@@ -1,4 +1,4 @@
-import { Heading as EmailHeading } from '@react-email/components';
+import { Heading as EmailHeading } from 'react-email';
 import type { HeadingOptions as TipTapHeadingOptions } from '@tiptap/extension-heading';
 import { Heading as TipTapHeading } from '@tiptap/extension-heading';
 
