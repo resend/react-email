@@ -1,8 +1,6 @@
 import http from 'node:http';
 import os from 'node:os';
 import path from 'node:path';
-import { parse as parseQueryString } from 'node:querystring';
-import type { UrlWithParsedQuery } from 'node:url';
 import url from 'node:url';
 import { createJiti } from 'jiti';
 import logSymbols from 'log-symbols';
@@ -16,29 +14,6 @@ import { getEnvVariablesForPreviewApp } from './get-env-variables-for-preview-ap
 import { serveStaticFile } from './serve-static-file.js';
 
 let devServer: http.Server | undefined;
-
-/** Parses `req.url` without `url.parse()` (deprecated DEP0169); shape matches Next's `NextUrlWithParsedQuery`. */
-const parseRequestUrl = (requestUrl: string): UrlWithParsedQuery => {
-  // Absolute URLs ignore the base; path-only values (typical for IncomingMessage) resolve against it.
-  const u = new URL(requestUrl, 'http://localhost');
-  const search = u.search ?? '';
-  const pathname = u.pathname ?? '';
-  const path = `${pathname}${search}`;
-
-  return {
-    protocol: u.protocol,
-    slashes: true,
-    auth: null,
-    host: u.host,
-    hostname: u.hostname,
-    port: u.port === '' ? null : u.port,
-    pathname,
-    path,
-    href: u.href,
-    query: parseQueryString(search.startsWith('?') ? search.slice(1) : search),
-    hash: u.hash === '' ? null : u.hash,
-  };
-};
 
 const safeAsyncServerListen = (server: http.Server, port: number) => {
   return new Promise<{ portAlreadyInUse: boolean }>((resolve) => {
@@ -76,7 +51,7 @@ export const startDevServer = async (
       return;
     }
 
-    const parsedUrl = parseRequestUrl(req.url);
+    const parsedUrl = new URL(req.url, 'http://localhost');
 
     // Never cache anything to avoid
     res.setHeader(
@@ -88,16 +63,18 @@ export const startDevServer = async (
 
     try {
       if (
-        parsedUrl.path?.includes('static/') &&
-        !parsedUrl.path.includes('_next/static/')
+        parsedUrl.pathname.includes('static/') &&
+        !parsedUrl.pathname.includes('_next/static/')
       ) {
-        void serveStaticFile(res, parsedUrl, staticBaseDirRelativePath);
-      } else if (!isNextReady) {
-        void nextReadyPromise.then(() =>
-          nextHandleRequest?.(req, res, parsedUrl),
+        void serveStaticFile(
+          res,
+          parsedUrl.pathname,
+          staticBaseDirRelativePath,
         );
+      } else if (!isNextReady) {
+        void nextReadyPromise.then(() => nextHandleRequest?.(req, res));
       } else {
-        void nextHandleRequest?.(req, res, parsedUrl);
+        void nextHandleRequest?.(req, res);
       }
     } catch (e) {
       console.error('caught error', e);

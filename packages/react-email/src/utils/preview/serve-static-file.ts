@@ -1,19 +1,18 @@
 import { existsSync, promises as fs } from 'node:fs';
 import type http from 'node:http';
 import path from 'node:path';
-import type url from 'node:url';
 import { lookup } from 'mime-types';
 
 export const serveStaticFile = async (
   res: http.ServerResponse,
-  parsedUrl: url.UrlWithParsedQuery,
+  pathname: string,
   staticDirRelativePath: string,
 ) => {
-  const pathname = parsedUrl.pathname!.replace('/static', './static');
-  const ext = path.parse(pathname).ext;
+  const pathname_ = pathname.replace('/static', './static');
+  const ext = path.parse(pathname_).ext;
 
   const staticBaseDir = path.resolve(process.cwd(), staticDirRelativePath);
-  const fileAbsolutePath = path.resolve(staticBaseDir, pathname);
+  const fileAbsolutePath = path.resolve(staticBaseDir, pathname_);
   if (!fileAbsolutePath.startsWith(staticBaseDir)) {
     res.statusCode = 403;
     res.end();
