@@ -1,0 +1,21 @@
+import type { Metadata } from 'next';
+import { OneLineEditor as Example } from '../_components/dynamic-examples';
+import { ExamplePageShell } from '../_components/example-page-shell';
+
+export const metadata: Metadata = {
+  title: 'One-Line Editor — Minimal — Editor Examples',
+  description: 'The simplest setup — one component with everything included.',
+  alternates: { canonical: '/editor/examples/one-line-editor' },
+};
+
+export default function Page() {
+  return (
+    <ExamplePageShell
+      slug="one-line-editor"
+      title="One-Line Editor — Minimal"
+      docsUrl="https://react.email/docs/editor/getting-started"
+    >
+      <Example />
+    </ExamplePageShell>
+  );
+}

@@ -160,4 +160,3 @@ export const sections: ExampleSection[] = [
   },
 ];
 
-export const allExamples: ExampleMeta[] = sections.flatMap((s) => s.examples);
