@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@scaleway/sdk": "catalog:",
-    "@react-email/components": "catalog:",
+    "react-email": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
   },

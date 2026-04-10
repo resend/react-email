@@ -1,6 +1,6 @@
 import * as Select from '@radix-ui/react-select';
 import * as Tabs from '@radix-ui/react-tabs';
-import * as allReactEmailComponents from '@react-email/components';
+import * as allReactEmailComponents from 'react-email';
 import * as allReactResponsiveComponents from '@responsive-email/react-email';
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 import type {

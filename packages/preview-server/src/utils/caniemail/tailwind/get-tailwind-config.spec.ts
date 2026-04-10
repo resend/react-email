@@ -1,7 +1,7 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { parse } from '@babel/parser';
-import { pixelBasedPreset } from '@react-email/components';
+import { pixelBasedPreset } from 'react-email';
 import { getTailwindConfig } from './get-tailwind-config';
 
 describe('getTailwindConfig()', () => {

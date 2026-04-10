@@ -107,7 +107,7 @@
   },
   "dependencies": {
     "@floating-ui/react-dom": "^2.1.8",
-    "@react-email/components": "workspace:*",
+    "react-email": "workspace:*",
     "@radix-ui/react-popover": "^1.0.0",
     "@radix-ui/react-slot": "^1.2.3",
     "@tiptap/core": "^3.17.1",

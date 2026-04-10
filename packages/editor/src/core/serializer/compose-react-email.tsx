@@ -1,4 +1,4 @@
-import { pretty, render, toPlainText } from '@react-email/components';
+import { pretty, render, toPlainText } from 'react-email';
 import type { Editor, JSONContent } from '@tiptap/core';
 import type { MarkType, Schema } from '@tiptap/pm/model';
 import { inlineCssToJs } from '../../utils/styles';

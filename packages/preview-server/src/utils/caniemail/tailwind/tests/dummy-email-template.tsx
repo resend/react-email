@@ -1,4 +1,4 @@
-import { Tailwind } from '@react-email/components';
+import { Tailwind } from 'react-email';
 import tailwindConfig from './tailwind.config';
 
 export default function EmailTemplate() {

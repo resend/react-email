@@ -16,7 +16,7 @@
     "@babel/preset-typescript": "7.27.0",
     "@babel/traverse": "catalog:",
     "@radix-ui/react-popover": "catalog:",
-    "@react-email/components": "workspace:*",
+    "react-email": "workspace:*",
     "@react-email/render": "workspace:*",
     "@react-three/drei": "9.122.0",
     "@react-three/fiber": "9.5.0",

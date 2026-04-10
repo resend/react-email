@@ -1,4 +1,4 @@
-import { Button, Img, Row, Section, Text } from '@react-email/components';
+import { Button, Img, Row, Section, Text } from 'react-email';
 import { ResponsiveColumn, ResponsiveRow } from '@responsive-email/react-email';
 import { Layout } from '../_components/layout';
 
