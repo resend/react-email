@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { InspectorComposed as Example } from '../dynamic-imports';
+import { InspectorComposed as Example } from './example';
 import { ExamplePageShell } from '../example-page-shell';
 
 export const metadata: Metadata = {

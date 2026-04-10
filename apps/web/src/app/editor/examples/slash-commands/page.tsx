@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { SlashCommands as Example } from '../dynamic-imports';
+import { SlashCommands as Example } from './example';
 import { ExamplePageShell } from '../example-page-shell';
 
 export const metadata: Metadata = {
