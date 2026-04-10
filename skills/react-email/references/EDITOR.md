@@ -21,7 +21,7 @@ A visual rich-text editor for building email templates, built on [TipTap](https:
 Install the editor and its peer dependencies:
 
 ```sh
-npm install @react-email/editor @tiptap/react @tiptap/core @tiptap/pm
+npm install @react-email/editor
 ```
 
 Requires **React 18+** and a bundler that supports [package exports](https://nodejs.org/api/packages.html#exports) (Vite, Next.js, Webpack 5, etc.).
@@ -155,7 +155,7 @@ const extensions = [StarterKit];
 export function MyEditor() {
   return (
     <EditorProvider extensions={extensions} content={content}>
-      <BubbleMenu.Default />
+      <BubbleMenu />
     </EditorProvider>
   );
 }
@@ -165,7 +165,7 @@ export function MyEditor() {
 
 | Component | Appears when... | Controls |
 |-----------|----------------|----------|
-| `BubbleMenu.Default` | Text is selected | Bold, italic, underline, strike, code, uppercase, alignment, node type, link |
+| `BubbleMenu` | Text is selected | Bold, italic, underline, strike, code, uppercase, alignment, node type, link |
 | `BubbleMenu.LinkDefault` | Cursor is on a link | Edit URL, open link, unlink |
 | `BubbleMenu.ButtonDefault` | Cursor is on a button | Edit button URL, unlink |
 | `BubbleMenu.ImageDefault` | Cursor is on an image | Edit image URL |
@@ -173,7 +173,7 @@ export function MyEditor() {
 Exclude specific items from the default menu:
 
 ```tsx
-<BubbleMenu.Default excludeItems={['strike', 'code', 'uppercase']} />
+<BubbleMenu excludeItems={['strike', 'code', 'uppercase']} />
 ```
 
 ## Slash Commands

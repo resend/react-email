@@ -367,13 +367,13 @@ export default function Notification({
                 <Heading as="h2" className="text-lg font-bold text-gray-800 mx-6 my-4">
                   Log Details
                 </Heading>
-                <div className="overflow-auto mx-6">
+                <Section className="overflow-auto mx-6">
                   <CodeBlock
                     code={logData}
                     language="json"
                     theme={dracula}
                   />
-                </div>
+                </Section>
               </>
             )}
 
