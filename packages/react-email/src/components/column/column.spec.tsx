@@ -1,5 +1,5 @@
 import { render } from '@react-email/render';
-import { Column } from './index';
+import { Column } from './index.js';
 
 describe('<Column> component', () => {
   it('renders children correctly', async () => {
