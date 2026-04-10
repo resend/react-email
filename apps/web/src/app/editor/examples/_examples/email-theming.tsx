@@ -3,11 +3,16 @@
 import { StarterKit } from '@react-email/editor/extensions';
 import { EmailTheming } from '@react-email/editor/plugins';
 import { BubbleMenu } from '@react-email/editor/ui';
-import { EditorProvider } from '@tiptap/react';
-import { useState } from 'react';
+import type { JSONContent } from '@tiptap/react';
+import {
+  EditorContent,
+  EditorContext,
+  useEditor,
+} from '@tiptap/react';
+import { useRef, useState } from 'react';
 import { ExampleShell } from '../_components/example-shell';
 
-const content = {
+const initialContent = {
   type: 'doc',
   content: [
     {
@@ -40,7 +45,19 @@ type EditorTheme = 'basic' | 'minimal';
 
 export function EmailThemingExample() {
   const [theme, setTheme] = useState<EditorTheme>('basic');
-  const extensions = [StarterKit, EmailTheming.configure({ theme })];
+  const contentRef = useRef<JSONContent>(initialContent);
+
+  const editor = useEditor(
+    {
+      extensions: [StarterKit, EmailTheming.configure({ theme })],
+      content: contentRef.current,
+      immediatelyRender: false,
+      onUpdate: ({ editor: e }) => {
+        contentRef.current = e.getJSON();
+      },
+    },
+    [theme],
+  );
 
   return (
     <ExampleShell
@@ -71,14 +88,10 @@ export function EmailThemingExample() {
           Minimal
         </button>
       </div>
-      <EditorProvider
-        key={theme}
-        extensions={extensions}
-        content={content}
-        immediatelyRender={false}
-      >
+      <EditorContext.Provider value={{ editor }}>
+        <EditorContent editor={editor} />
         <BubbleMenu />
-      </EditorProvider>
+      </EditorContext.Provider>
     </ExampleShell>
   );
 }
