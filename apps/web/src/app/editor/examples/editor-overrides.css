@@ -10,5 +10,6 @@
 
 body > div:has([data-re-slash-command]),
 body > div:has([data-re-bubble-menu]) {
+  /* biome-ignore lint/complexity/noImportantStyles: portal z-index must override inline styles */
   z-index: 50 !important;
 }
