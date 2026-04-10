@@ -85,7 +85,7 @@ export default function Email() {
 **Important:**
 - Always use `pixelBasedPreset` - email clients don't support `rem` units
 - Custom config is optional - defaults work well
-- Avoid responsive classes (sm:, md:, lg:) — limited email client support, not reliable across major clients
+- Avoid responsive classes (sm:, md:, lg:). These have limited email client support, and are not reliable across major clients
 
 ## Structural Components
 

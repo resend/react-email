@@ -36,7 +36,7 @@ import '@react-email/editor/themes/default.css';
 
 This includes the default color theme and built-in UI styles for bubble menus, slash commands, and the inspector.
 
-To import only what you use:
+To import only what you need:
 
 ```tsx
 import '@react-email/editor/styles/bubble-menu.css';
@@ -50,7 +50,7 @@ The editor is organized into six entry points:
 
 | Import | Purpose |
 |--------|---------|
-| `@react-email/editor` | `EmailEditor` — the all-in-one component |
+| `@react-email/editor` | `EmailEditor`: the all-in-one component |
 | `@react-email/editor/core` | `composeReactEmail` serialization, `EmailNode`, `EmailMark`, event bus, types |
 | `@react-email/editor/extensions` | `StarterKit` and 35+ email-aware extensions |
 | `@react-email/editor/ui` | `BubbleMenu`, `SlashCommand`, `Inspector` |
@@ -175,6 +175,8 @@ Exclude specific items from the default menu:
 ```tsx
 <BubbleMenu excludeItems={['strike', 'code', 'uppercase']} />
 ```
+
+When combining the text bubble menu with contextual menus for links, images, or buttons, use `hideWhenActiveMarks` on `BubbleMenu` to prevent it from appearing when a link is focused.
 
 ## Slash Commands
 

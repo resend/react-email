@@ -1,6 +1,6 @@
 ---
 name: react-email
-description: Use when building HTML email templates with React components, using the React Email visual editor, rendering emails to HTML, or sending emails with Resend. Covers welcome emails, password resets, notifications, order confirmations, newsletters, transactional emails, and the embeddable email editor component.
+description: Use when building HTML email templates with React components, adding a visual email editor to an application using the React Email visual editor, rendering emails to HTML, or sending emails with Resend. Covers welcome emails, password resets, notifications, order confirmations, newsletters, transactional emails, and the embeddable email editor component.
 license: MIT
 metadata:
   author: Resend
@@ -112,7 +112,7 @@ export { WelcomeEmail };
 
 ## Behavioral Guidelines
 
-- When re-iterating over the code, only update what the user asked for — keep the rest intact.
+- When iterating over the code, only update what the user asked for. Keep the rest intact.
 - If the user asks to use media queries, inform them that most email clients don't support them and suggest a different approach.
 - Never use template variables (like `{{name}}`) directly in TypeScript code. Instead, reference the underlying properties directly. If the user explicitly asks for `{{variableName}}`, place the mustache string only in PreviewProps, never in the component JSX:
 
@@ -277,7 +277,7 @@ const { data, error } = await resend.emails.send({
 });
 ```
 
-The Node SDK automatically handles both HTML and plain-text rendering.
+The Resend Node SDK automatically handles both HTML and plain-text rendering.
 
 ## CLI Commands
 

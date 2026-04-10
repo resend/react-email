@@ -22,7 +22,7 @@ skills/
 Agent Skills are a standardized format for giving AI agents specialized knowledge and workflows. This skill teaches agents how to:
 
 - Build HTML email templates using React Email components
-- Use the visual email editor (`@react-email/editor`)
+- Add a visual drag-and-drop email editor to a React application (using `@react-email/editor`)
 - Send emails through Resend and other providers
 - Implement internationalization for multi-language support
 - Follow email development best practices
