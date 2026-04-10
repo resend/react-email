@@ -22,17 +22,17 @@ npx create-email@latest
 
 Using yarn:
 ```sh
-yarn create email
+yarn create-email
 ```
 
 Using pnpm:
 ```sh
-pnpm create email
+pnpm create-email
 ```
 
 Using bun:
 ```sh
-bun create email
+bun create-email
 ```
 
 ## Navigate to Project Directory
