@@ -11,7 +11,8 @@
     "build:watch": "tsdown --watch src",
     "clean": "rm -rf dist",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
   },
   "license": "MIT",
   "repository": {
