@@ -52,9 +52,10 @@ export const Button = EmailNode.create<EditorButtonOptions>({
             return false;
           }
           const element = node as HTMLElement;
-          const attrs = Array.from(element.attributes).reduce<
-            Record<string, string>
-          >((acc, attr) => ({ ...acc, [attr.name]: attr.value }), {});
+          const attrs: Record<string, string> = {};
+          Array.from(element.attributes).forEach((attr) => {
+            attrs[attr.name] = attr.value;
+          });
 
           return {
             ...attrs,

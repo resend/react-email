@@ -69,8 +69,7 @@ describe('EditorButton Node', () => {
     const findButton = (nodes: typeof json.content): typeof json | undefined =>
       nodes?.reduce<typeof json | undefined>(
         (found, n) =>
-          found ??
-          (n.type === 'button' ? n : findButton(n.content ?? [])),
+          found ?? (n.type === 'button' ? n : findButton(n.content ?? [])),
         undefined,
       );
     const buttonNode = findButton(json.content ?? []);
@@ -89,8 +88,7 @@ describe('EditorButton Node', () => {
     const findButton = (nodes: typeof json.content): typeof json | undefined =>
       nodes?.reduce<typeof json | undefined>(
         (found, n) =>
-          found ??
-          (n.type === 'button' ? n : findButton(n.content ?? [])),
+          found ?? (n.type === 'button' ? n : findButton(n.content ?? [])),
         undefined,
       );
     const buttonNode = findButton(json.content ?? []);
