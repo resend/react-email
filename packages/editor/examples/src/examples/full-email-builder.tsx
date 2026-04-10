@@ -141,7 +141,7 @@ export function FullEmailBuilder() {
         >
           <div className="flex-1 min-w-0 p-4 overflow-y-auto">
             <EditorContent editor={editor} />
-            <BubbleMenu.Default
+            <BubbleMenu
               hideWhenActiveNodes={['button']}
               hideWhenActiveMarks={['link']}
             />
