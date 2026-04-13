@@ -38,7 +38,7 @@ export const getTailwindMetadata = async (
   }
 
   const config = await getTailwindConfig(sourceCode, ast, sourcePath);
-  const tailwindSetup = await setupTailwind(config);
+  const tailwindSetup = await setupTailwind({ config });
 
   return {
     hasTailwind: true,

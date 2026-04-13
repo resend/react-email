@@ -1,11 +1,11 @@
-import { generate } from "css-tree";
-import { setupTailwind } from "../tailwindcss/setup-tailwind";
-import { sanitizeNonInlinableRules } from "./sanitize-non-inlinable-rules";
+import { generate } from 'css-tree';
+import { setupTailwind } from '../tailwindcss/setup-tailwind';
+import { sanitizeNonInlinableRules } from './sanitize-non-inlinable-rules';
 
-describe("sanitizeNonInlinableRules()", () => {
-  it("inlines rules that can be inlined", async () => {
+describe('sanitizeNonInlinableRules()', () => {
+  it('inlines rules that can be inlined', async () => {
     const tailwind = await setupTailwind({});
-    tailwind.addUtilities(["bg-gray-900", "text-red-300", "text-lg"]);
+    tailwind.addUtilities(['bg-gray-900', 'text-red-300', 'text-lg']);
     const stylesheet = tailwind.getStyleSheet();
 
     sanitizeNonInlinableRules(stylesheet);
@@ -14,13 +14,13 @@ describe("sanitizeNonInlinableRules()", () => {
     );
   });
 
-  it("handles CSS nesting in hover pseudo styles", async () => {
+  it('handles CSS nesting in hover pseudo styles', async () => {
     const tailwind = await setupTailwind({});
     tailwind.addUtilities([
-      "hover:text-sky-600",
-      "sm:focus:outline-none",
-      "md:hover:bg-gray-100",
-      "lg:focus:underline",
+      'hover:text-sky-600',
+      'sm:focus:outline-none',
+      'md:hover:bg-gray-100',
+      'lg:focus:underline',
     ]);
 
     const stylesheet = tailwind.getStyleSheet();
@@ -31,14 +31,14 @@ describe("sanitizeNonInlinableRules()", () => {
     );
   });
 
-  it("supports basic media query rules", async () => {
+  it('supports basic media query rules', async () => {
     const tailwind = await setupTailwind({});
     tailwind.addUtilities([
-      "sm:mx-auto",
-      "sm:max-w-lg",
-      "sm:rounded-lg",
-      "md:px-10",
-      "md:py-12",
+      'sm:mx-auto',
+      'sm:max-w-lg',
+      'sm:rounded-lg',
+      'md:px-10',
+      'md:py-12',
     ]);
     const stylesheet = tailwind.getStyleSheet();
 
