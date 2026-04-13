@@ -1,0 +1,23 @@
+apps/web/src/app/editor/examples/column-layouts/example.tsx
+  7fac92edd32821cc 46-66,76-78,83-85,90-92
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "c49e67bb0b3ef8ad0104d2d704ba2be0597d3b9a",
+  "prompts": {
+    "7fac92edd32821cc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2d8b0d23-31b9-4f57-bfed-630b17b3717d",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 30,
+      "total_deletions": 3,
+      "accepted_lines": 30,
+      "overriden_lines": 0
+    }
+  }
+}
