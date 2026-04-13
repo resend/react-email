@@ -4,7 +4,7 @@ import {
   type UseEditorOptions,
   useCurrentEditor,
 } from '@tiptap/react';
-import { forwardRef, type Ref, useImperativeHandle, useMemo } from 'react';
+import { forwardRef, type Ref, useImperativeHandle, useMemo, type ReactNode } from 'react';
 import { createDropHandler } from '../core/create-drop-handler';
 import {
   createPasteHandler,
@@ -38,6 +38,7 @@ export interface EmailEditorProps {
   };
   extensions?: Extensions;
   className?: string;
+  children?: ReactNode;
 }
 
 function RefBridge({ editorRef }: { editorRef: Ref<EmailEditorRef> }) {
@@ -75,6 +76,7 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
       bubbleMenu,
       extensions: extensionsProp,
       className,
+      children,
     },
     ref,
   ) => {
@@ -125,6 +127,7 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
         <BubbleMenu.ButtonDefault />
         <BubbleMenu.ImageDefault />
         <SlashCommandRoot />
+        {children}
       </EditorProvider>
     );
   },
