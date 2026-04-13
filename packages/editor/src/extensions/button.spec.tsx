@@ -1,5 +1,5 @@
-import { render } from 'react-email';
 import { Editor } from '@tiptap/core';
+import { render } from 'react-email';
 import { afterEach, describe, expect, it } from 'vitest';
 import { DEFAULT_STYLES } from '../utils/default-styles';
 import { Button } from './button';
