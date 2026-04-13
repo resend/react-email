@@ -105,7 +105,7 @@ export type SupportedCssProperties = {
 export interface PanelInputProperty {
   label: string;
   type: InputType;
-  value: string | number;
+  value?: string | number;
   prop: KnownCssProperties;
   classReference?: KnownThemeComponents;
   unit?: InputUnit;

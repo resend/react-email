@@ -1,5 +1,4 @@
 import type { Content, Editor, Extensions, JSONContent } from '@tiptap/core';
-import { UndoRedo } from '@tiptap/extensions';
 import {
   EditorProvider,
   type UseEditorOptions,
@@ -14,10 +13,7 @@ import {
 import { composeReactEmail } from '../core/serializer/compose-react-email';
 import { StarterKit } from '../extensions';
 import { EmailTheming } from '../plugins/email-theming/extension';
-import { BubbleMenuButtonDefault } from '../ui/bubble-menu/button-default';
-import { BubbleMenuDefault } from '../ui/bubble-menu/default';
-import { BubbleMenuImageDefault } from '../ui/bubble-menu/image-default';
-import { BubbleMenuLinkDefault } from '../ui/bubble-menu/link-default';
+import { BubbleMenu } from '../ui/bubble-menu';
 import { SlashCommandRoot } from '../ui/slash-command/root';
 import '../ui/themes/default.css';
 
@@ -91,7 +87,6 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
         StarterKit.configure({
           Placeholder: placeholder ? { placeholder } : undefined,
         }),
-        UndoRedo,
         EmailTheming.configure({ theme }),
       ];
     }, [extensionsProp, theme, placeholder]);
@@ -122,13 +117,13 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
         onUpdate={({ editor }) => onChange?.(editor)}
       >
         <RefBridge editorRef={ref} />
-        <BubbleMenuDefault
+        <BubbleMenu
           hideWhenActiveNodes={bubbleMenu?.hideWhenActiveNodes ?? ['button']}
           hideWhenActiveMarks={bubbleMenu?.hideWhenActiveMarks ?? ['link']}
         />
-        <BubbleMenuLinkDefault />
-        <BubbleMenuButtonDefault />
-        <BubbleMenuImageDefault />
+        <BubbleMenu.LinkDefault />
+        <BubbleMenu.ButtonDefault />
+        <BubbleMenu.ImageDefault />
         <SlashCommandRoot />
       </EditorProvider>
     );

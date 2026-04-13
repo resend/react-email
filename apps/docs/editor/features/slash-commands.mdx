@@ -28,6 +28,11 @@ export function MyEditor() {
 
 Type `/` in the editor to open the command menu. Use arrow keys to navigate and Enter to select.
 
+<Tip>
+  Even though you can [add custom commands](#adding-custom-commands) and style
+  them that way, the default can also be styled using <br/> [CSS variables and `data-re-*` selectors](/editor/features/styling#slash-command).
+</Tip>
+
 ## Default commands
 
 The `defaultSlashCommands` array includes these built-in commands:
@@ -135,7 +140,7 @@ import { BUTTON, SlashCommand } from '@react-email/editor/ui';
 <SlashCommand.Root items={[BUTTON]} />
 ```
 
-This is useful when you want a minimal command palette — for example, only allowing button insertion.
+This is useful when you want a minimal command palette. For example, only allowing button insertion.
 
 ## Controlling visibility
 
@@ -154,3 +159,13 @@ This is useful when you want a minimal command palette — for example, only all
   allow={({ editor }) => !editor.isActive('codeBlock')}
 />
 ```
+
+## Examples
+
+See slash commands in action with a runnable example:
+
+<CardGroup cols={2}>
+  <Card title="Slash Commands" icon="code" href="https://editor-examples.react.email/#slash-commands">
+    Default commands plus a custom Greeting command.
+  </Card>
+</CardGroup>

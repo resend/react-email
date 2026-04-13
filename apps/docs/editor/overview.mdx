@@ -1,18 +1,20 @@
 ---
 title: "Editor"
 sidebarTitle: "Overview"
-description: "A visual email template editor for React, built on TipTap."
+description: "An embeddable visual editor for building React Email templates."
 icon: "pen-nib"
 ---
 
-The React Email Editor is a visual WYSIWYG editor for composing email templates in React. It produces email-safe HTML through React Email components and is built on top of [TipTap](https://tiptap.dev/) and [ProseMirror](https://prosemirror.net/).
+The React Email Editor is a visual editor that you can embed in your app. It's made specifically for composing React Email templates. 
+
+Using the power of React Email, it produces email-ready HTML, and is built on top of [TipTap](https://tiptap.dev/) and [ProseMirror](https://prosemirror.net/).
 
 ## Key features
 
 - **Rich text editing** — Paragraphs, headings, lists, code blocks, tables, and more
 - **Bubble menus** — Floating formatting toolbars that appear on text selection
 - **Slash commands** — Insert content blocks by typing `/`
-- **Multi-column layouts** — Two, three, and four column email layouts
+- **Multi-column layouts** — Two, three, and four-column email layouts
 - **Email theming** — Built-in themes with customizable CSS properties
 - **HTML export** — Convert editor content to email-ready HTML and plain text
 - **Custom extensions** — Create your own email-compatible nodes and marks
@@ -23,7 +25,7 @@ The editor is organized into five entry points:
 
 | Import | Purpose |
 |--------|---------|
-| `@react-email/editor/core` | `useEditor` hook, `composeReactEmail` serialization, event bus |
+| `@react-email/editor/core` | `composeReactEmail` serialization, event bus, types |
 | `@react-email/editor/extensions` | `StarterKit` and 35+ email-aware extensions |
 | `@react-email/editor/ui` | Bubble menus, slash commands |
 | `@react-email/editor/plugins` | Email theming plugin |
@@ -57,5 +59,18 @@ The editor is organized into five entry points:
   </Card>
   <Card title="Custom Extensions" icon="wrench" href="/editor/advanced/custom-extensions">
     Create your own email-compatible nodes.
+  </Card>
+</CardGroup>
+
+## Examples
+
+Runnable examples are available at [editor-examples.react.email](https://editor-examples.react.email). Each example demonstrates a specific feature in isolation:
+
+<CardGroup cols={2}>
+  <Card title="Full Email Builder" icon="code" href="https://editor-examples.react.email/#full-email-builder">
+    All features combined — theming, bubble menus, slash commands, and HTML export.
+  </Card>
+  <Card title="All Examples" icon="folder-open" href="https://editor-examples.react.email">
+    Browse the complete set of interactive examples.
   </Card>
 </CardGroup>

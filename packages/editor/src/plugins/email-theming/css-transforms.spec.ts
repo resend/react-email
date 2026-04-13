@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import { injectThemeCss, transformToCssJs } from './css-transforms';
 import { DEFAULT_INBOX_FONT_SIZE_PX } from './themes';
-import type { PanelGroup } from './types';
+import type { CssJs, PanelGroup } from './types';
 
 describe('transformToCssJs', () => {
   it('returns empty object for non-array input', () => {
@@ -363,7 +363,7 @@ describe('injectThemeCss', () => {
       {
         body: { backgroundColor: '#f0f0f0' },
         container: { width: '600px' },
-      },
+      } as CssJs,
       { styleId: STYLE_ID, scopeSelector: '.editor-scope' },
     );
 

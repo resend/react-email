@@ -4,12 +4,7 @@
  */
 
 import type { Attrs } from '@tiptap/pm/model';
-
-export type NodeClickedEvent = {
-  nodeType: string;
-  nodeAttrs: Attrs;
-  nodePos: { pos: number; inside: number };
-};
+import type { EditorEventMap, EditorEventName } from './event-bus';
 
 /**
  * A single placeholder item with all metadata needed for rendering.
@@ -42,17 +37,11 @@ export type CustomPlaceholder = {
   fallback_value?: string | null;
 };
 
-/**
- * Event map for the editor event bus.
- */
-export interface EditorEventMap {
-  'node-clicked': NodeClickedEvent;
+declare module './event-bus' {
+  export interface EditorEventMap {
+    'node-clicked': NodeClickedEvent;
+  }
 }
-
-/**
- * Available event names in the editor event bus.
- */
-export type EditorEventName = keyof EditorEventMap;
 
 /**
  * Event handler function type.

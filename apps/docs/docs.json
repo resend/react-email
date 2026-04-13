@@ -139,6 +139,7 @@
             "group": "Features",
             "pages": [
               "editor/features/bubble-menu",
+              "editor/features/inspector",
               "editor/features/slash-commands",
               "editor/features/theming",
               "editor/features/styling",
@@ -159,7 +160,6 @@
           {
             "group": "API Reference",
             "pages": [
-              "editor/api-reference/use-editor",
               "editor/api-reference/compose-react-email",
               "editor/api-reference/email-node",
               "editor/api-reference/email-mark",
@@ -170,6 +170,7 @@
                 "icon": "window",
                 "pages": [
                   "editor/api-reference/ui/bubble-menu",
+                  "editor/api-reference/ui/inspector",
                   "editor/api-reference/ui/slash-command"
                 ]
               }

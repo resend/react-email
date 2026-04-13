@@ -10,6 +10,7 @@ const schema = new Schema({
     globalContent: { group: 'block', atom: true },
     container: { group: 'block', content: 'block+' },
     image: { group: 'block', atom: true },
+    variable: { group: 'inline', inline: true, atom: true },
   },
 });
 
@@ -69,6 +70,25 @@ describe('isDocumentVisuallyEmpty', () => {
 
       expect(isDocumentVisuallyEmpty(doc)).toBe(false);
     });
+
+    it('returns false when paragraph contains only an inline atom node', () => {
+      const doc = schema.node('doc', null, [
+        schema.node('paragraph', null, [schema.node('variable')]),
+      ]);
+
+      expect(isDocumentVisuallyEmpty(doc)).toBe(false);
+    });
+
+    it('returns false when paragraph contains an inline atom node and text', () => {
+      const doc = schema.node('doc', null, [
+        schema.node('paragraph', null, [
+          schema.node('variable'),
+          schema.text(' '),
+        ]),
+      ]);
+
+      expect(isDocumentVisuallyEmpty(doc)).toBe(false);
+    });
   });
 
   describe('with container', () => {
@@ -113,6 +133,16 @@ describe('isDocumentVisuallyEmpty', () => {
     it('returns false when container holds an image node', () => {
       const doc = schema.node('doc', null, [
         schema.node('container', null, [schema.node('image')]),
+      ]);
+
+      expect(isDocumentVisuallyEmpty(doc)).toBe(false);
+    });
+
+    it('returns false when container paragraph contains only an inline atom node', () => {
+      const doc = schema.node('doc', null, [
+        schema.node('container', null, [
+          schema.node('paragraph', null, [schema.node('variable')]),
+        ]),
       ]);
 
       expect(isDocumentVisuallyEmpty(doc)).toBe(false);

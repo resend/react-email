@@ -1,4 +1,5 @@
-import { editorEventBus } from './event-bus';
+import { renderHook } from '@testing-library/react';
+import { editorEventBus, useEditorEvent } from './event-bus';
 
 // Augment EditorEventMap with test-only events
 declare module './event-bus' {
@@ -79,6 +80,22 @@ describe('EditorEventBus', () => {
 
     expect(handler).toHaveBeenCalledOnce();
     sub.unsubscribe();
+  });
+
+  it('useEditorEvent subscribes on mount and unsubscribes on unmount', () => {
+    const handler = vi.fn();
+    const { unmount } = renderHook(() =>
+      useEditorEvent('test:with-payload', handler),
+    );
+
+    editorEventBus.dispatch('test:with-payload', { message: 'mounted' });
+    expect(handler).toHaveBeenCalledOnce();
+    expect(handler).toHaveBeenCalledWith({ message: 'mounted' });
+
+    unmount();
+
+    editorEventBus.dispatch('test:with-payload', { message: 'unmounted' });
+    expect(handler).toHaveBeenCalledOnce();
   });
 
   it('handles async error in handler without throwing', () => {

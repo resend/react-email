@@ -7,7 +7,7 @@ icon: "columns-3"
 
 ## Quick start
 
-Column extensions are included in `StarterKit` by default — no extra imports needed:
+Column extensions are included in `StarterKit` by default; no extra imports are needed.
 
 ```tsx
 import { StarterKit } from '@react-email/editor/extensions';
@@ -22,7 +22,7 @@ export function MyEditor() {
 
 ## Inserting columns programmatically
 
-Use the `insertColumns` command to add a column layout:
+Use the `insertColumns` command to add a column layout.
 
 ```tsx
 // Insert a 2-column layout
@@ -37,8 +37,8 @@ editor.chain().focus().insertColumns(4).run();
 
 ## Building a toolbar
 
-Here's a complete example with a toolbar for inserting column layouts, using the `slotBefore`
-prop to position it above the editor:
+Here's a complete example with a toolbar for inserting column layouts. It uses the `slotBefore`
+prop to position the toolbar above the editor.
 
 ```tsx
 import { StarterKit } from '@react-email/editor/extensions';
@@ -105,12 +105,22 @@ export function MyEditor() {
   the editor instance from child components.
 </Tip>
 
-## Via slash commands
+## Slash commands
 
-The default slash commands already include column layouts. Type `/` and search for "columns":
+The default slash commands include column layouts. Type `/` and search for "columns":
 
-- **Two Columns** — `TWO_COLUMNS`
-- **Three Columns** — `THREE_COLUMNS`
-- **Four Columns** — `FOUR_COLUMNS`
+- **Two Columns**: `TWO_COLUMNS`
+- **Three Columns**: `THREE_COLUMNS`
+- **Four Columns**: `FOUR_COLUMNS`
 
 See [Slash Commands](/editor/features/slash-commands) for setup details.
+
+## Examples
+
+See column layouts in action with a runnable example:
+
+<CardGroup cols={2}>
+  <Card title="Column Layouts" icon="code" href="https://editor-examples.react.email/#column-layouts">
+    Toolbar-driven 2/3/4 column insertion.
+  </Card>
+</CardGroup>
