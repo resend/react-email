@@ -17,6 +17,7 @@ jobs:
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
         with:
           fetch-depth: 1
+          persist-credentials: false
       - run: git config --global --add safe.directory $GITHUB_WORKSPACE
       - name: pnpm setup
         uses: pnpm/action-setup@738f428026a1f5a72398de22aeed83d859c4a660
