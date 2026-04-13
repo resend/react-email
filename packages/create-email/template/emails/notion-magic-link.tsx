@@ -8,7 +8,7 @@ import {
   Link,
   Preview,
   Text,
-} from 'react-email';
+} from '@react-email/components';
 
 interface NotionMagicLinkEmailProps {
   loginCode?: string;
