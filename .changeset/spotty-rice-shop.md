@@ -10,15 +10,15 @@ We're going to deprecate all packages except `@react-email/render` and `@react-e
 
 ### Breaking change
 
-Imports from `@react-email/components`, `@react-email/render`, or individual component packages (e.g. `@react-email/button`) are no longer the recommended path and they will all be deprecated with the exception of `@react-email/render`, but it will remain exported from `react-email`. Consumers should import everything from `react-email`.
+Imports from `@react-email/components`, `@react-email/render`, or individual component packages (e.g. `@react-email/button`) are no longer the recommended path and they will all be deprecated with the exception of `@react-email/render` and `@react-email/editor`, and `render` will remain exported from `react-email`. Consumers should import everything from `react-email`.
 
 ### Why
 
-Having separate packages for components (`@react-email/components`), rendering (`@react-email/render`), and the CLI (`react-email`) created unnecessary confusion, and a maintenance burden for us.
+Having separate packages for components (`@react-email/components`), and the CLI (`react-email`) created unnecessary confusion, and a maintenance burden for us.
 
 ### How to migrate
 
-1. **Update your dependencies** -- remove `@react-email/components` and `@react-email/render`, keep `react-email`:
+1. **Update your dependencies** -- remove `@react-email/components`, keep `react-email`:
 
    ```diff
    - npm install @react-email/components @react-email/render react-email @react-email/preview-server
@@ -32,4 +32,4 @@ Having separate packages for components (`@react-email/components`), rendering (
    + import { Button, Html, Head, render } from "react-email";
    ```
 
-3. The `@react-email/preview-server` and `@react-email/editor` packages are unchanged and should continue to be imported separately.
+3. The `@react-email/preview-server` and `@react-email/editor` packages are not included in `react-email`
