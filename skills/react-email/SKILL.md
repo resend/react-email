@@ -4,7 +4,7 @@ description: Use when building HTML email templates with React components, addin
 license: MIT
 metadata:
   author: Resend
-  version: "2.0.0"
+  version: "2.1.0"
 ---
 
 # React Email
@@ -13,7 +13,11 @@ Build and send HTML emails using React components - a modern, component-based ap
 
 ## Installation
 
-Scaffold a new React Email project, install dependencies, and start the dev server:
+```sh
+npm i react-email
+```
+
+Or scaffold a new project:
 
 ```sh
 npx create-email@latest
@@ -56,7 +60,7 @@ import {
   Button,
   Tailwind,
   pixelBasedPreset
-} from '@react-email/components';
+} from 'react-email';
 
 interface WelcomeEmailProps {
   name: string;
@@ -216,7 +220,7 @@ See [references/STYLING.md](references/STYLING.md) for comprehensive styling doc
 
 ### Key Rules
 
-- Use `Tailwind` with `pixelBasedPreset` (email clients don't support `rem`). Import `pixelBasedPreset` from `@react-email/components`.
+- Use `Tailwind` with `pixelBasedPreset` (email clients don't support `rem`). Import `pixelBasedPreset` from `react-email`.
 - Never use flexbox or grid — use `Row`/`Column` components or tables for layouts.
 - Avoid CSS/Tailwind media queries (`sm:`, `md:`, `lg:`, `xl:`) — limited email client support.
 - Never use theme selectors (`dark:`, `light:`) — not supported.
@@ -243,7 +247,7 @@ See [references/STYLING.md](references/STYLING.md) for comprehensive styling doc
 ### Convert to HTML
 
 ```tsx
-import { render } from '@react-email/components';
+import { render } from 'react-email';
 import { WelcomeEmail } from './emails/welcome';
 
 const html = await render(
