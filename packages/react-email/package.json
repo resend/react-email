@@ -28,6 +28,10 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
+    "css-tree": "3.1.0",
+    "marked": "^15.0.12",
+    "prismjs": "^1.30.0",
+    "tailwindcss": "catalog:",
     "@babel/parser": "catalog:",
     "@babel/traverse": "catalog:",
     "chokidar": "^4.0.3",
@@ -47,6 +51,9 @@
     "tsconfig-paths": "4.2.0"
   },
   "devDependencies": {
+    "@responsive-email/react-email": "catalog:",
+    "@types/css-tree": "catalog:",
+    "@react-email/render": "workspace:*",
     "@react-email/components": "workspace:*",
     "@types/babel__core": "catalog:",
     "@types/babel__traverse": "catalog:",
