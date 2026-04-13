@@ -1,0 +1,23 @@
+packages/editor/src/plugins/image/slash-command.tsx
+  af48ffadecea1198 1-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "a70db5f986d794f5f26b3f1716a083d56d9e3713",
+  "prompts": {
+    "af48ffadecea1198": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "71ef8f9f-5dc5-4fa7-bf89-4311ed071b81",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 84,
+      "total_deletions": 17,
+      "accepted_lines": 84,
+      "overriden_lines": 0
+    }
+  }
+}
