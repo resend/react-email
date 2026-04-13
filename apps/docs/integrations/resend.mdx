@@ -10,20 +10,20 @@ description: 'Learn how to send an email and set up Templates using React Email 
 
 ### 1. Install dependencies
 
-Get the [react-email](https://www.npmjs.com/package/react-email) package and the [Resend Node.js SDK](https://www.npmjs.com/package/resend).
+Get the [@react-email/components](https://www.npmjs.com/package/@react-email/components) package and the [Resend Node.js SDK](https://www.npmjs.com/package/resend).
 
 <CodeGroup>
 
 ```sh npm
-npm install resend react-email
+npm install resend @react-email/components
 ```
 
 ```sh yarn
-yarn add resend react-email
+yarn add resend @react-email/components
 ```
 
 ```sh pnpm
-pnpm add resend react-email
+pnpm add resend @react-email/components
 ```
 
 </CodeGroup>
@@ -34,7 +34,7 @@ Start by building your email template in a `.jsx` or `.tsx` file.
 
 ```tsx email.tsx
 import * as React from 'react';
-import { Html, Button } from "react-email";
+import { Html, Button } from "@react-email/components";
 
 export function Email(props) {
   const { url } = props;
