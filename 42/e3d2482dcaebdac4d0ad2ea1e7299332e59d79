@@ -1,0 +1,27 @@
+packages/editor/src/core/create-drop-handler.ts
+  af48ffadecea1198 2
+packages/editor/src/core/paste-drop-handlers.spec.ts
+  af48ffadecea1198 6,8,16-20,31,33,39,43,46-47,53
+packages/editor/src/email-editor/email-editor.tsx
+  af48ffadecea1198 14,102
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "42e3d2482dcaebdac4d0ad2ea1e7299332e59d79",
+  "prompts": {
+    "af48ffadecea1198": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "71ef8f9f-5dc5-4fa7-bf89-4311ed071b81",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 17,
+      "total_deletions": 77,
+      "accepted_lines": 17,
+      "overriden_lines": 0
+    }
+  }
+}
