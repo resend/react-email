@@ -197,6 +197,7 @@ export default function EditorExamplesPage() {
             <a
               className="text-slate-11 transition-colors hover:text-slate-12"
               href="https://react.email/docs/editor/overview"
+              rel="noopener"
               target="_blank"
             >
               Overview
@@ -205,6 +206,7 @@ export default function EditorExamplesPage() {
             <a
               className="text-slate-11 transition-colors hover:text-slate-12"
               href="https://react.email/docs/editor/getting-started"
+              rel="noopener"
               target="_blank"
             >
               Getting Started
@@ -213,6 +215,7 @@ export default function EditorExamplesPage() {
             <a
               className="text-slate-11 transition-colors hover:text-slate-12"
               href="https://react.email/docs/editor/api-reference"
+              rel="noopener"
               target="_blank"
             >
               API Reference
