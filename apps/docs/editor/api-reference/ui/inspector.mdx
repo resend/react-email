@@ -50,6 +50,12 @@ export function MyEditor() {
 }
 ```
 
+<Tip>
+  If you use the one-line `EmailEditor` component, pass the inspector as a
+  child — no `EditorContext.Provider` needed. See the
+  [Inspector feature guide](/editor/features/inspector#using-with-emaileditor).
+</Tip>
+
 <ResponseField name="asChild" type="boolean" default="false">
   Render without the default `aside` wrapper and pass props to the child via
   Radix UI's [Slot](https://www.radix-ui.com/primitives/docs/utilities/slot).
