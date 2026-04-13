@@ -54,6 +54,43 @@ button to edit, or select text to switch to text controls.
   render props, the default panels can also be styled using <br/> [CSS variables and `data-re-*` selectors](/editor/features/styling#inspector).
 </Tip>
 
+## Using with EmailEditor
+
+If you use the one-line [`EmailEditor`](/editor/api-reference/email-editor) component, pass the inspector as a child instead of setting up `EditorProvider` manually.
+
+```tsx
+import { EmailEditor } from '@react-email/editor';
+import { Inspector } from '@react-email/editor/ui';
+
+export function MyEditor() {
+  return (
+    <div className="flex" style={{ height: '600px' }}>
+      <EmailEditor
+        content="<h1>Hello</h1><p>Click any element to inspect it.</p>"
+        className="flex-1 min-w-0 overflow-y-auto p-4"
+      >
+        <aside className="w-60 shrink-0 border-l p-4 overflow-y-auto">
+          <Inspector.Root>
+            <Inspector.Breadcrumb />
+            <Inspector.Document />
+            <Inspector.Node />
+            <Inspector.Text />
+          </Inspector.Root>
+        </aside>
+      </EmailEditor>
+    </div>
+  );
+}
+```
+
+`EmailEditor` includes `EmailTheming` in its default extensions, so the
+[required extension](#required-extension) is already covered.
+
+<Tip>
+  Children of `EmailEditor` render inside the Tiptap `EditorProvider` as DOM
+  siblings of the editor content area, so flex layouts work naturally.
+</Tip>
+
 ## Required extension
 
 `Inspector.Root` requires the [EmailTheming](/editor/api-reference/theming-api)
@@ -391,5 +428,8 @@ See the inspector in action with runnable examples:
   </Card>
   <Card title="Inspector — Fully Custom" icon="code" href="https://react.email/editor/examples/inspector-custom">
     Fully custom inspector UI built from render props.
+  </Card>
+  <Card title="One-Line Editor — Inspector" icon="code" href="https://editor-examples.react.email/#one-line-editor-inspector">
+    Inspector sidebar with the one-line EmailEditor component.
   </Card>
 </CardGroup>
