@@ -11,11 +11,7 @@ import {
   useImperativeHandle,
   useMemo,
 } from 'react';
-import { createDropHandler } from '../core/create-drop-handler';
-import {
-  createPasteHandler,
-  type UploadImageHandler,
-} from '../core/create-paste-handler';
+import { createPasteHandler } from '../core/create-paste-handler';
 import { composeReactEmail } from '../core/serializer/compose-react-email';
 import { StarterKit } from '../extensions';
 import { EmailTheming } from '../plugins/email-theming/extension';
@@ -33,7 +29,6 @@ export interface EmailEditorRef {
 export interface EmailEditorProps {
   content?: Content;
   onChange?: (editor: Editor) => void;
-  onUploadImage?: UploadImageHandler;
   onReady?: (editor: Editor) => void;
   theme?: 'basic' | 'minimal';
   editable?: boolean;
@@ -74,7 +69,6 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
     {
       content,
       onChange,
-      onUploadImage,
       onReady,
       theme = 'basic',
       editable = true,
@@ -102,14 +96,10 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
     const editorProps: UseEditorOptions['editorProps'] = useMemo(
       () => ({
         handlePaste: createPasteHandler({
-          onUploadImage,
           extensions,
         }),
-        handleDrop: createDropHandler({
-          onUploadImage,
-        }),
       }),
-      [onUploadImage, extensions],
+      [extensions],
     );
 
     return (
