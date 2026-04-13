@@ -19,7 +19,7 @@ const content = {
 export function OneLineEditor() {
   return (
     <ExampleShell
-      title="One-Line Editor"
+      title="One-Line Editor — Minimal"
       description="The simplest setup — one component with everything included."
     >
       <EmailEditor content={content} />

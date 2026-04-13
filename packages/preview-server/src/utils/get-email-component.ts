@@ -17,6 +17,24 @@ const EmailComponentModule = z.object({
   reactEmailCreateReactElement: z.function(),
 });
 
+function describeBundledModuleExports(value: unknown): string {
+  if (value === null || value === undefined) {
+    return `module value is ${String(value)}`;
+  }
+  if (typeof value !== 'object') {
+    return `module value has typeof ${typeof value}`;
+  }
+  const record = value as Record<string, unknown>;
+  const keys = Object.keys(record);
+  if (keys.length === 0) {
+    return 'module value is an object with no own enumerable keys';
+  }
+  const keyTypes = keys
+    .map((key) => `${JSON.stringify(key)}: ${typeof record[key]}`)
+    .join(', ');
+  return `Object.keys: [${keys.map((k) => JSON.stringify(k)).join(', ')}]; ${keyTypes}`;
+}
+
 export const getEmailComponent = async (
   emailPath: string,
   jsxRuntimePath: string,
@@ -125,10 +143,17 @@ export const getEmailComponent = async (
   const parseResult = EmailComponentModule.safeParse(runningResult.value);
 
   if (parseResult.error) {
+    const zodIssueSummary = parseResult.error.issues
+      .map(
+        (issue) =>
+          `${issue.path.length ? issue.path.join('.') : '(root)'}: ${issue.message} (${issue.code})`,
+      )
+      .join('; ');
+    const actualExports = describeBundledModuleExports(runningResult.value);
     return {
       error: {
         name: 'Error',
-        message: `The email component at ${emailPath} does not contain the expected exports`,
+        message: `The email component at ${emailPath} does not contain the expected exports. Zod: ${zodIssueSummary}. Actual: ${actualExports}`,
         stack: new Error().stack,
         cause: parseResult.error,
       },

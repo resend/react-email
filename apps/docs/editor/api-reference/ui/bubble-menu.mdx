@@ -15,40 +15,6 @@ import { BubbleMenu, bubbleMenuTriggers, useBubbleMenuContext } from '@react-ema
 
 Drop-in menus for common use cases. Each one handles its own trigger logic and plugin key.
 
-### BubbleMenu.Default
-
-Text formatting toolbar that appears on text selection.
-
-```tsx
-<BubbleMenu.Default />
-```
-
-<ResponseField name="excludeItems" type="ExcludableItem[]" default="[]">
-  Items to hide. Options: `'bold'`, `'italic'`, `'underline'`,
-  `'strike'`, `'code'`, `'uppercase'`, `'align-left'`, `'align-center'`,
-  `'align-right'`, `'node-selector'`, `'link-selector'`.
-</ResponseField>
-
-<ResponseField name="hideWhenActiveNodes" type="string[]" default="[]">
-  Node types that prevent the menu from showing (e.g., `'codeBlock'`, `'button'`).
-</ResponseField>
-
-<ResponseField name="hideWhenActiveMarks" type="string[]" default="[]">
-  Mark types that prevent the menu from showing (e.g., `'link'`).
-</ResponseField>
-
-<ResponseField name="placement" type="'top' | 'bottom'" default="'bottom'">
-  Position relative to the selection.
-</ResponseField>
-
-<ResponseField name="offset" type="number" default="8">
-  Distance from the selection in pixels.
-</ResponseField>
-
-<ResponseField name="onHide" type="() => void">
-  Called when the bubble menu is hidden.
-</ResponseField>
-
 ### BubbleMenu.LinkDefault
 
 Link editing menu that appears when clicking a link.
@@ -130,7 +96,7 @@ to prevent overlapping menus:
 import { BubbleMenu } from '@react-email/editor/ui';
 
 <EditorProvider extensions={extensions} content={content}>
-  <BubbleMenu.Default
+  <BubbleMenu
     hideWhenActiveNodes={['image', 'button']}
     hideWhenActiveMarks={['link']}
   />
@@ -146,9 +112,10 @@ import { BubbleMenu } from '@react-email/editor/ui';
 
 Build fully custom menus using the compound API.
 
-### BubbleMenu.Root
+### BubbleMenu
 
 Base container for all custom bubble menus. Provides editor context to children.
+When rendered without children, it automatically renders the default text formatting toolbar.
 
 ```tsx
 import { BubbleMenu, bubbleMenuTriggers } from '@react-email/editor/ui';
@@ -156,13 +123,13 @@ import { PluginKey } from '@tiptap/pm/state';
 
 const myPluginKey = new PluginKey('myCustomMenu');
 
-<BubbleMenu.Root
+<BubbleMenu
   trigger={bubbleMenuTriggers.node('image')}
   pluginKey={myPluginKey}
   placement="top"
 >
   {/* your custom menu content */}
-</BubbleMenu.Root>
+</BubbleMenu>
 ```
 
 <ResponseField name="trigger" type="TriggerFn">
@@ -172,7 +139,7 @@ const myPluginKey = new PluginKey('myCustomMenu');
 
 <ResponseField name="pluginKey" type="PluginKey">
   Unique key for the ProseMirror plugin backing this menu. Required when
-  rendering multiple `BubbleMenu.Root` instances to avoid collisions.
+  rendering multiple `BubbleMenu` instances to avoid collisions.
   Import `PluginKey` from `@tiptap/pm/state`.
 </ResponseField>
 
@@ -264,7 +231,7 @@ const linkKey = new PluginKey('myLinkMenu');
 
 function MyLinkMenu() {
   return (
-    <BubbleMenu.Root
+    <BubbleMenu
       trigger={bubbleMenuTriggers.nodeWithoutSelection('link')}
       pluginKey={linkKey}
       placement="top"
@@ -275,7 +242,7 @@ function MyLinkMenu() {
         <BubbleMenu.LinkUnlink />
       </BubbleMenu.LinkToolbar>
       <BubbleMenu.LinkForm />
-    </BubbleMenu.Root>
+    </BubbleMenu>
   );
 }
 ```
@@ -287,7 +254,7 @@ appears in its place. When the user submits or cancels, the toolbar reappears.
 
 ## Context
 
-Use `useBubbleMenuContext()` inside any child of `BubbleMenu.Root` to access the editor and editing state:
+Use `useBubbleMenuContext()` inside any child of `BubbleMenu` to access the editor and editing state:
 
 ```tsx
 import { useBubbleMenuContext } from '@react-email/editor/ui';

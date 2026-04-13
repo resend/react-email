@@ -43,14 +43,14 @@ To **add a new link**, select text and press `Cmd+K` (or `Ctrl+K` on Windows/Lin
 
 ## Bubble menu
 
-When combining the link bubble menu with `BubbleMenu.Default`, use `hideWhenActiveMarks` to prevent
+When combining the link bubble menu with `BubbleMenu`, use `hideWhenActiveMarks` to prevent
 the text bubble menu from appearing when a link is focused.
 
 ```tsx
 import { BubbleMenu } from '@react-email/editor/ui';
 
 <EditorProvider extensions={extensions} content={content}>
-  <BubbleMenu.Default hideWhenActiveMarks={['link']} />
+  <BubbleMenu hideWhenActiveMarks={['link']} />
   <BubbleMenu.LinkDefault />
 </EditorProvider>
 ```

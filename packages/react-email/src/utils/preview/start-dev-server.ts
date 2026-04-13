@@ -51,7 +51,7 @@ export const startDevServer = async (
       return;
     }
 
-    const parsedUrl = url.parse(req.url, true);
+    const parsedUrl = new URL(req.url, 'http://localhost');
 
     // Never cache anything to avoid
     res.setHeader(
@@ -63,16 +63,18 @@ export const startDevServer = async (
 
     try {
       if (
-        parsedUrl.path?.includes('static/') &&
-        !parsedUrl.path.includes('_next/static/')
+        parsedUrl.pathname.includes('static/') &&
+        !parsedUrl.pathname.includes('_next/static/')
       ) {
-        void serveStaticFile(res, parsedUrl, staticBaseDirRelativePath);
-      } else if (!isNextReady) {
-        void nextReadyPromise.then(() =>
-          nextHandleRequest?.(req, res, parsedUrl),
+        void serveStaticFile(
+          res,
+          parsedUrl.pathname,
+          staticBaseDirRelativePath,
         );
+      } else if (!isNextReady) {
+        void nextReadyPromise.then(() => nextHandleRequest?.(req, res));
       } else {
-        void nextHandleRequest?.(req, res, parsedUrl);
+        void nextHandleRequest?.(req, res);
       }
     } catch (e) {
       console.error('caught error', e);

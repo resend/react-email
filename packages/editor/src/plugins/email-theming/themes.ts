@@ -53,7 +53,7 @@ const THEME_BASIC: PanelGroup[] = [
       {
         label: 'Padding Top',
         type: 'number',
-        value: 0,
+        value: undefined,
         unit: 'px',
         prop: 'paddingTop',
         classReference: 'body',
@@ -61,7 +61,7 @@ const THEME_BASIC: PanelGroup[] = [
       {
         label: 'Padding Right',
         type: 'number',
-        value: 0,
+        value: undefined,
         unit: 'px',
         prop: 'paddingRight',
         classReference: 'body',
@@ -69,7 +69,7 @@ const THEME_BASIC: PanelGroup[] = [
       {
         label: 'Padding Bottom',
         type: 'number',
-        value: 0,
+        value: undefined,
         unit: 'px',
         prop: 'paddingBottom',
         classReference: 'body',
@@ -77,7 +77,7 @@ const THEME_BASIC: PanelGroup[] = [
       {
         label: 'Padding Left',
         type: 'number',
-        value: 0,
+        value: undefined,
         unit: 'px',
         prop: 'paddingLeft',
         classReference: 'body',
@@ -418,7 +418,7 @@ const THEME_MINIMAL: PanelGroup[] = [
       {
         label: 'Padding Top',
         type: 'number',
-        value: 0,
+        value: undefined,
         unit: 'px',
         prop: 'paddingTop',
         classReference: 'body',
@@ -426,7 +426,7 @@ const THEME_MINIMAL: PanelGroup[] = [
       {
         label: 'Padding Right',
         type: 'number',
-        value: 0,
+        value: undefined,
         unit: 'px',
         prop: 'paddingRight',
         classReference: 'body',
@@ -434,7 +434,7 @@ const THEME_MINIMAL: PanelGroup[] = [
       {
         label: 'Padding Bottom',
         type: 'number',
-        value: 0,
+        value: undefined,
         unit: 'px',
         prop: 'paddingBottom',
         classReference: 'body',
@@ -442,7 +442,7 @@ const THEME_MINIMAL: PanelGroup[] = [
       {
         label: 'Padding Left',
         type: 'number',
-        value: 0,
+        value: undefined,
         unit: 'px',
         prop: 'paddingLeft',
         classReference: 'body',
@@ -710,6 +710,10 @@ const RESET_MINIMAL: ResetTheme = {
   reset: RESET_BASIC.reset,
   button: RESET_BASIC.button,
   image: RESET_BASIC.image,
+  list: RESET_BASIC.list,
+  nestedList: RESET_BASIC.nestedList,
+  listItem: RESET_BASIC.listItem,
+  listParagraph: RESET_BASIC.listParagraph,
 };
 
 export const RESET_THEMES: Record<EditorTheme, ResetTheme> = {

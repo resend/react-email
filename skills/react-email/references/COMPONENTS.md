@@ -61,7 +61,7 @@ export default function Email() {
             </Text>
             <Button
               href="https://example.com"
-              className="bg-brand text-white px-6 py-3 rounded-lg block text-center"
+              className="bg-brand text-white px-6 py-3 rounded-lg block text-center box-border"
             >
               Get Started
             </Button>
@@ -85,7 +85,7 @@ export default function Email() {
 **Important:**
 - Always use `pixelBasedPreset` - email clients don't support `rem` units
 - Custom config is optional - defaults work well
-- Responsive classes (sm:, md:, lg:) work via media queries, but should be used with caution due to limited email client support
+- Avoid responsive classes (sm:, md:, lg:). These have limited email client support, and are not reliable across major clients
 
 ## Structural Components
 
@@ -237,7 +237,7 @@ import { Button } from '@react-email/components';
 <Button
   href="https://example.com/verify"
   target="_blank"
-  className="bg-blue-600 text-white px-5 py-3 rounded block text-center no-underline font-medium"
+  className="bg-blue-600 text-white px-5 py-3 rounded block text-center no-underline font-medium box-border"
 >
   Verify Email Address
 </Button>
@@ -303,7 +303,7 @@ Display a divider that separates content areas in your email.
 ```tsx
 import { Hr } from '@react-email/components';
 
-<Hr className="border-gray-200 my-5" />
+<Hr className="border-solid border-gray-200 my-5" />
 ```
 
 ## Specialized Components
@@ -318,8 +318,8 @@ import { CodeBlock, dracula } from '@react-email/components';
 const Email = () => {
   const code = `export default async (req, res) => {
   try {
-    const html = await renderAsync(
-      EmailTemplate({ firstName: 'John' })
+    const html = await render(
+      <EmailTemplate firstName="John" />
     );
     return NextResponse.json({ html });
   } catch (error) {
