@@ -7,7 +7,7 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: depot-ubuntu-22.04-32
     permissions: 
       id-token: write
       contents: write
