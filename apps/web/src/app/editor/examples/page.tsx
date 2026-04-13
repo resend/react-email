@@ -193,6 +193,31 @@ export default function EditorExamplesPage() {
             Interactive examples showing how to build email editors with
             @react-email/editor.
           </p>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+            <a
+              className="text-slate-11 transition-colors hover:text-slate-12"
+              href="https://react.email/docs/editor/overview"
+              target="_blank"
+            >
+              Overview
+            </a>
+            <span className="text-slate-6">·</span>
+            <a
+              className="text-slate-11 transition-colors hover:text-slate-12"
+              href="https://react.email/docs/editor/getting-started"
+              target="_blank"
+            >
+              Getting Started
+            </a>
+            <span className="text-slate-6">·</span>
+            <a
+              className="text-slate-11 transition-colors hover:text-slate-12"
+              href="https://react.email/docs/editor/api-reference"
+              target="_blank"
+            >
+              API Reference
+            </a>
+          </div>
         </div>
 
         <div className="flex flex-col gap-12 px-6 pb-10 md:px-8">
