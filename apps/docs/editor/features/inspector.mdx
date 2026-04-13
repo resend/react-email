@@ -69,14 +69,12 @@ export function MyEditor() {
         content="<h1>Hello</h1><p>Click any element to inspect it.</p>"
         className="flex-1 min-w-0 overflow-y-auto p-4"
       >
-        <aside className="w-60 shrink-0 border-l p-4 overflow-y-auto">
-          <Inspector.Root>
-            <Inspector.Breadcrumb />
-            <Inspector.Document />
-            <Inspector.Node />
-            <Inspector.Text />
-          </Inspector.Root>
-        </aside>
+        <Inspector.Root className="w-60 shrink-0 border-l p-4 overflow-y-auto">
+          <Inspector.Breadcrumb />
+          <Inspector.Document />
+          <Inspector.Node />
+          <Inspector.Text />
+        </Inspector.Root>
       </EmailEditor>
     </div>
   );

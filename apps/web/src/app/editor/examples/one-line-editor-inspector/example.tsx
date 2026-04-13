@@ -35,14 +35,12 @@ export function OneLineEditorInspector() {
 
 function Sidebar() {
   return (
-    <aside className="w-60 shrink-0 border-l border-(--re-border) p-4 flex flex-col gap-4 overflow-y-auto text-xs">
-      <Inspector.Root>
-        <Breadcrumb />
-        <Inspector.Document />
-        <Inspector.Node />
-        <Inspector.Text />
-      </Inspector.Root>
-    </aside>
+    <Inspector.Root className="w-60 shrink-0 border-l border-(--re-border) p-4 flex flex-col gap-4 overflow-y-auto text-xs">
+      <Breadcrumb />
+      <Inspector.Document />
+      <Inspector.Node />
+      <Inspector.Text />
+    </Inspector.Root>
   );
 }
 
