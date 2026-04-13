@@ -1,0 +1,23 @@
+apps/docs/editor/features/inspector.mdx
+  7c532ca62542a02a 59
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "137d04dc4947463db55a21c4f0b3d9077025b0a4",
+  "prompts": {
+    "7c532ca62542a02a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3b921cd-6f11-4143-8575-9be3b563df4b",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}
