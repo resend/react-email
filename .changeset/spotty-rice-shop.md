@@ -21,7 +21,7 @@ Having separate packages for components (`@react-email/components`), and the CLI
 1. **Update your dependencies** -- remove `@react-email/components`, keep `react-email`:
 
    ```diff
-   - npm install @react-email/components @react-email/render react-email @react-email/preview-server
+   - npm install @react-email/components react-email @react-email/preview-server
    + npm install react-email @react-email/preview-server
    ```
 

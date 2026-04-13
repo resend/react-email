@@ -14,7 +14,7 @@ All components (previously in `@react-email/components` or individual packages l
 
 To update:
 
-1. **Update your dependencies** -- remove `@react-email/components` and `@react-email/render`, keep `react-email`:
+1. **Update your dependencies** -- remove `@react-email/components`, keep `react-email`:
 
    ```diff
    - npm install @react-email/components react-email @react-email/preview-server
@@ -28,7 +28,7 @@ To update:
    + import { Button, Html, Head, render } from "react-email";
    ```
 
-3. The `@react-email/preview-server` and `@react-email/editor` packages are unchanged and should continue to be imported separately.
+3. The `@react-email/preview-server` and `@react-email/editor` packages are not included in `react-email`
 
 ## Update from React Email 4.0 to 5.0
 
