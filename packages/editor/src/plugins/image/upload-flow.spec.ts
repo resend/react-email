@@ -63,7 +63,11 @@ describe('executeUploadFlow', () => {
       expect.objectContaining({ src: 'blob:mock-url' }),
     );
     expect(uploadImage).toHaveBeenCalledWith(file);
-    expect(editor.state.tr.setNodeMarkup).toHaveBeenCalled();
+    expect(editor.state.tr.setNodeMarkup).toHaveBeenCalledWith(
+      0,
+      undefined,
+      expect.objectContaining({ src: 'https://cdn.example.com/test.png' }),
+    );
     expect(editor.view.dispatch).toHaveBeenCalled();
     expect(globalThis.URL.revokeObjectURL).toHaveBeenCalledWith('blob:mock-url');
   });

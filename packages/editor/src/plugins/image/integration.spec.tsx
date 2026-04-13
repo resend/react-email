@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createImageExtension } from './extension';
 
-describe('useEditorImage integration', () => {
+describe('createImageExtension', () => {
   it('createImageExtension returns an extension with image node config', () => {
     const extension = createImageExtension({
       uploadImage: vi.fn().mockResolvedValue({ url: '' }),
