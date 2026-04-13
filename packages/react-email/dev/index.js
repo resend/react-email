@@ -6,7 +6,7 @@ import { join } from 'shlex';
 const filename = url.fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
-const root = path.resolve(dirname, '../src/index.ts');
+const root = path.resolve(dirname, '../src/cli/index.ts');
 
 const tsx = child_process.spawn(
   `pnpm tsx ${root} ${join(process.argv.slice(2))}`,
