@@ -740,9 +740,6 @@ const RESET_MINIMAL: ResetTheme = {
     textDecoration: 'none',
   },
   image: RESET_BASIC.image,
-  list: RESET_BASIC.list,
-  nestedList: RESET_BASIC.nestedList,
-  listItem: RESET_BASIC.listItem,
   listParagraph: RESET_BASIC.listParagraph,
 };
 
