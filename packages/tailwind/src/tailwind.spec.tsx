@@ -877,7 +877,7 @@ describe('Tailwind component', () => {
     });
   });
 
-  describe('with theme', () => {
+  describe('with css configuration', () => {
     it('handles empty theme string', async () => {
       const actualOutput = await render(
         <Tailwind theme="">

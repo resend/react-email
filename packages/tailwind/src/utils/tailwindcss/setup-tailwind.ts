@@ -1,6 +1,6 @@
 import { parse, type StyleSheet } from 'css-tree';
 import { compile } from 'tailwindcss';
-import type { CSSString, TailwindConfig } from '../../tailwind';
+import type { TailwindConfig } from '../../tailwind';
 import indexCss from './tailwind-stylesheets/index';
 import preflightCss from './tailwind-stylesheets/preflight';
 import themeCss from './tailwind-stylesheets/theme';
@@ -9,8 +9,8 @@ import utilitiesCss from './tailwind-stylesheets/utilities';
 export type TailwindSetup = Awaited<ReturnType<typeof setupTailwind>>;
 
 interface CSSConfigs {
-  theme?: CSSString;
-  utility?: CSSString;
+  theme?: string;
+  utility?: string;
 }
 
 interface SetupTailwindProps {
