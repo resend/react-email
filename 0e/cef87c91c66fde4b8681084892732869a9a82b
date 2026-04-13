@@ -1,0 +1,25 @@
+packages/editor/src/plugins/image/index.ts
+  af48ffadecea1198 1-13
+packages/editor/src/plugins/index.ts
+  af48ffadecea1198 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "0ecef87c91c66fde4b8681084892732869a9a82b",
+  "prompts": {
+    "af48ffadecea1198": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "71ef8f9f-5dc5-4fa7-bf89-4311ed071b81",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 14,
+      "total_deletions": 0,
+      "accepted_lines": 14,
+      "overriden_lines": 0
+    }
+  }
+}
