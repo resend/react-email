@@ -9,7 +9,7 @@ import {
   Section,
   Tailwind,
   Text,
-} from '@react-email/components';
+} from 'react-email';
 import tailwindConfig from '../tailwind.config';
 
 interface PlaidVerifyIdentityEmailProps {

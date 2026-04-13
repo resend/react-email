@@ -11,7 +11,7 @@ import {
   Row,
   Tailwind,
   Text,
-} from '@react-email/components';
+} from 'react-email';
 
 interface AccountConfirmationProps {
   confirmLink: string;

@@ -1,9 +1,9 @@
-import { Button, Html } from '@react-email/components';
 import { useMDXComponents as _provideComponents } from 'react';
 import {
   Fragment as _Fragment,
   jsxDEV as _jsxDEV,
 } from 'react/jsx-dev-runtime';
+import { Button, Html } from 'react-email';
 
 const MDXLayout = function Email2() {
   return _jsxDEV(

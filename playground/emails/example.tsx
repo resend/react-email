@@ -7,7 +7,7 @@ import {
   Section,
   Tailwind,
   Text,
-} from '@react-email/components';
+} from 'react-email';
 
 export default function Example() {
   return (
