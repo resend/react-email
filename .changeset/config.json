@@ -8,7 +8,6 @@
   "ignore": [
     "@benchmarks/preview-server",
     "@benchmarks/tailwind-component",
-    "editor-examples",
     "playground",
     "demo",
     "email-dev",
