@@ -1,0 +1,23 @@
+docs/superpowers/specs/2026-04-13-image-upload-plugin-design.md
+  af48ffadecea1198 1-149
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "8de83a4381a4c8e08fbba8cfed19da64209303a4",
+  "prompts": {
+    "af48ffadecea1198": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "71ef8f9f-5dc5-4fa7-bf89-4311ed071b81",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 153,
+      "total_deletions": 4,
+      "accepted_lines": 149,
+      "overriden_lines": 0
+    }
+  }
+}
