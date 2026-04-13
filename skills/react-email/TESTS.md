@@ -173,7 +173,7 @@ Create a simple welcome email with Tailwind styling.
 ✅ WITH skill: Agent included `presets: [pixelBasedPreset]` in Tailwind config.
 
 **Regression Result (2026-02-12):**
-✅ WITH skill: Agent included `presets: [pixelBasedPreset]`, imported from `@react-email/components`. Also included `box-border` on Button and `border-solid` on Hr.
+✅ WITH skill: Agent included `presets: [pixelBasedPreset]`, imported from `react-email`. Also included `box-border` on Button and `border-solid` on Hr.
 
 **Pass Criteria:**
 ```tsx
@@ -247,18 +247,18 @@ Create a welcome email with Tailwind styling and a call-to-action button.
 ```
 
 **Expected Behavior:**
-- Import `pixelBasedPreset` from `@react-email/components`
+- Import `pixelBasedPreset` from `react-email`
 - Do NOT import from `@react-email/tailwind` or `@react-email/tailwind/presets`
-- All React Email imports should come from `@react-email/components`
+- All React Email imports should come from `react-email`
 
 **Baseline Result (2026-02-12):**
 ❌ WITHOUT explicit rule: Agents imported from `@react-email/tailwind` or `@react-email/tailwind/presets` in 2/5 tests.
 
 **Verified Result (2026-02-12):**
-✅ WITH explicit rule: 4/5 agents imported from `@react-email/components`. Pressure test (D1) still used wrong import path.
+✅ WITH explicit rule: 4/5 agents imported from `react-email`. Pressure test (D1) still used wrong import path.
 
 **Regression Result (2026-02-12):**
-✅ WITH explicit rule + reference example: All agents (including pressure test D1) imported from `@react-email/components`.
+✅ WITH explicit rule + reference example: All agents (including pressure test D1) imported from `react-email`.
 
 **Pass Criteria:**
 ```tsx
@@ -268,7 +268,7 @@ import {
   Head,
   Tailwind,
   pixelBasedPreset,  // Same package as other components
-} from '@react-email/components';
+} from 'react-email';
 
 // WRONG - separate import from wrong package
 import { pixelBasedPreset } from '@react-email/tailwind';
@@ -424,7 +424,7 @@ Agent should:
 ✅ WITH skill: Agent explained all limitations, provided correct alternatives, did not comply.
 
 **Regression Result (2026-02-12):**
-✅ WITH skill: Agent refused all 5 forbidden patterns, explained each limitation with specific email clients, provided correct alternatives. Included `box-border` on Button, `border-solid` on Hr, and imported `pixelBasedPreset` from `@react-email/components`.
+✅ WITH skill: Agent refused all 5 forbidden patterns, explained each limitation with specific email clients, provided correct alternatives. Included `box-border` on Button, `border-solid` on Hr, and imported `pixelBasedPreset` from `react-email`.
 
 **Pass Criteria:**
 Agent maintains ALL rules even under pressure. Provides professional explanations.
@@ -558,7 +558,7 @@ Create a welcome email with custom meta tags in the head.
 ✅ WITH skill: Agent placed `<Head>` inside `<Tailwind>` correctly.
 
 **Regression Result (2026-02-12):**
-✅ WITH skill: Agent placed `<Head>` inside `<Tailwind>`. Imported `pixelBasedPreset` from `@react-email/components`. Included `box-border` on Button and `border-solid` on Hr.
+✅ WITH skill: Agent placed `<Head>` inside `<Tailwind>`. Imported `pixelBasedPreset` from `react-email`. Included `box-border` on Button and `border-solid` on Hr.
 
 **Pass Criteria:**
 ```tsx
@@ -714,7 +714,7 @@ import {
   Text,
   Tailwind,
   pixelBasedPreset
-} from '@react-email/components';
+} from 'react-email';
 
 // WRONG - imports unused components
 import {
@@ -730,7 +730,7 @@ import {
   Column,      // Not used
   Tailwind,
   pixelBasedPreset
-} from '@react-email/components';
+} from 'react-email';
 ```
 
 ---

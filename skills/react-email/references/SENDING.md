@@ -9,7 +9,7 @@ Important: Use verified domains in `from` addresses. Ask the user for the verifi
 When you have access to the Resend MCP tool:
 
 ```typescript
-import { render } from '@react-email/components';
+import { render } from 'react-email';
 import { WelcomeEmail } from './emails/welcome';
 
 // Render to HTML
@@ -79,7 +79,7 @@ await resend.emails.send({
 **Nodemailer:**
 
 ```tsx
-import { render } from '@react-email/components';
+import { render } from 'react-email';
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
@@ -101,7 +101,7 @@ await transporter.sendMail({
 **SendGrid:**
 
 ```tsx
-import { render } from '@react-email/components';
+import { render } from 'react-email';
 import sgMail from '@sendgrid/mail';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
