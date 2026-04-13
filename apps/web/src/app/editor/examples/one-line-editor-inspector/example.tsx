@@ -2,7 +2,6 @@
 
 import { EmailEditor } from '@react-email/editor';
 import { Inspector } from '@react-email/editor/ui';
-import '@react-email/editor/styles/inspector.css';
 import { ExampleShell } from '../example-shell';
 
 const content = `
