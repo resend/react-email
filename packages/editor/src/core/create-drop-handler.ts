@@ -1,11 +1,7 @@
 import type { EditorView } from '@tiptap/pm/view';
 import type { PasteHandler } from './create-paste-handler';
 
-export function createDropHandler({
-  onPaste,
-}: {
-  onPaste?: PasteHandler;
-}) {
+export function createDropHandler({ onPaste }: { onPaste?: PasteHandler }) {
   return (
     view: EditorView,
     event: DragEvent,

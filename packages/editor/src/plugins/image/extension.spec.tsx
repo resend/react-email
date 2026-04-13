@@ -5,8 +5,9 @@ import { createImageExtension } from './extension';
 describe('Image extension', () => {
   const uploadImage = async () => ({ url: '' });
   const extension = createImageExtension({ uploadImage });
-  const renderToReactEmail = (extension.options as any).renderToReactEmail
-    ?? extension.config.renderToReactEmail;
+  const renderToReactEmail =
+    (extension.options as any).renderToReactEmail ??
+    extension.config.renderToReactEmail;
 
   it('renders basic image', async () => {
     const Component = () =>

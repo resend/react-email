@@ -11,9 +11,9 @@ export function createImagePastePlugin(
   return new Plugin({
     key: new PluginKey('imagePaste'),
     props: {
-      handlePaste(view, event) {
+      handlePaste(_view, event) {
         const file = event.clipboardData?.files?.[0];
-        if (!file || !file.type.includes('image/')) {
+        if (!file?.type.includes('image/')) {
           return false;
         }
 

@@ -11,7 +11,7 @@ export function createImageDropPlugin(
   return new Plugin({
     key: new PluginKey('imageDrop'),
     props: {
-      handleDrop(view, event, _slice, moved) {
+      handleDrop(_view, event, _slice, moved) {
         if (moved || !event.dataTransfer?.files?.[0]) {
           return false;
         }

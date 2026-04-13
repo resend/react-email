@@ -1,9 +1,9 @@
 import { Img, Link } from 'react-email';
 import { EmailNode } from '../../core/serializer/email-node';
+import { createImageDropPlugin } from './drop-handler';
+import { createImagePastePlugin } from './paste-handler';
 import type { UseEditorImageOptions } from './types';
 import { executeUploadFlow } from './upload-flow';
-import { createImagePastePlugin } from './paste-handler';
-import { createImageDropPlugin } from './drop-handler';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -95,7 +95,9 @@ export function createImageExtension(options: UseEditorImageOptions) {
       const img = (
         <Img
           alt={node.attrs?.alt ?? ''}
-          height={node.attrs?.height === 'auto' ? undefined : node.attrs?.height}
+          height={
+            node.attrs?.height === 'auto' ? undefined : node.attrs?.height
+          }
           src={node.attrs?.src ?? ''}
           style={style}
           width={node.attrs?.width === 'auto' ? undefined : node.attrs?.width}
@@ -110,4 +112,3 @@ export function createImageExtension(options: UseEditorImageOptions) {
     },
   });
 }
-

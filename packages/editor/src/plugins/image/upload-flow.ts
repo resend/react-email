@@ -23,7 +23,10 @@ export async function executeUploadFlow({
     swapImageSrc(editor, blobUrl, url);
   } catch (error) {
     removeImageBySrc(editor, blobUrl);
-    onUploadError?.(error instanceof Error ? error : new Error(String(error)), file);
+    onUploadError?.(
+      error instanceof Error ? error : new Error(String(error)),
+      file,
+    );
   } finally {
     URL.revokeObjectURL(blobUrl);
   }
