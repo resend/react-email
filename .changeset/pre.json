@@ -1,0 +1,21 @@
+{
+  "mode": "pre",
+  "tag": "canary",
+  "initialVersions": {
+    "demo": "0.0.0",
+    "docs": "0.0.0",
+    "web": "0.0.0",
+    "@benchmarks/preview-server": "0.0.0",
+    "@benchmarks/tailwind-component": "0.0.0",
+    "create-email": "1.2.3",
+    "@react-email/editor": "0.0.0-experimental.48",
+    "editor-examples": "0.0.0",
+    "@react-email/preview-server": "5.2.10",
+    "react-email": "5.2.10",
+    "email-dev": "0.0.6",
+    "@react-email/render": "2.0.6",
+    "tsconfig": "0.0.0",
+    "playground": "0.0.20"
+  },
+  "changesets": []
+}
