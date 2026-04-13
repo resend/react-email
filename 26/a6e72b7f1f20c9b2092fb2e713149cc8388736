@@ -1,0 +1,23 @@
+pnpm-workspace.yaml
+  7fac92edd32821cc 6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "26a6e72b7f1f20c9b2092fb2e713149cc8388736",
+  "prompts": {
+    "7fac92edd32821cc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2d8b0d23-31b9-4f57-bfed-630b17b3717d",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 2133,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}

@@ -1,0 +1,57 @@
+apps/web/src/app/editor/examples/email-theming/page.tsx
+  7fac92edd32821cc 1,4-22
+apps/web/src/app/editor/examples/slash-commands/page.tsx
+  7fac92edd32821cc 1,4-22
+apps/web/src/app/editor/examples/email-export/page.tsx
+  7fac92edd32821cc 1,4-22
+apps/web/src/app/editor/examples/one-line-editor/page.tsx
+  7fac92edd32821cc 1,4-21
+apps/web/src/app/editor/examples/inspector-defaults/page.tsx
+  7fac92edd32821cc 1,4-22
+apps/web/src/app/editor/examples/bubble-menu/page.tsx
+  7fac92edd32821cc 1,4-22
+apps/web/src/app/editor/examples/inspector-composed/page.tsx
+  7fac92edd32821cc 1,4-22
+apps/web/src/app/editor/examples/custom-extensions/page.tsx
+  7fac92edd32821cc 1,4-22
+apps/web/src/app/editor/examples/one-line-editor-full/page.tsx
+  7fac92edd32821cc 1,4-22
+apps/web/src/app/editor/examples/link-editing/page.tsx
+  7fac92edd32821cc 1,4-22
+apps/web/src/app/editor/examples/buttons/page.tsx
+  7fac92edd32821cc 1,4-6,8-21
+apps/web/src/app/editor/examples/page.tsx
+  7fac92edd32821cc 6-75,77-166
+apps/web/src/app/editor/examples/custom-bubble-menu/page.tsx
+  7fac92edd32821cc 1,4-21
+apps/web/src/app/editor/examples/example-page-shell.tsx
+  7fac92edd32821cc 46
+apps/web/src/app/editor/examples/inspector-custom/page.tsx
+  7fac92edd32821cc 1,4-22
+apps/web/src/app/editor/examples/basic-editor/page.tsx
+  7fac92edd32821cc 1,4-21
+apps/web/src/app/editor/examples/column-layouts/page.tsx
+  7fac92edd32821cc 1,4-21
+apps/web/src/app/editor/examples/full-email-builder/page.tsx
+  7fac92edd32821cc 1,4-22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "3dfed93553e9e09038345919b59afe3ca59be9c6",
+  "prompts": {
+    "7fac92edd32821cc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2d8b0d23-31b9-4f57-bfed-630b17b3717d",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 19,
+      "total_deletions": 23,
+      "accepted_lines": 19,
+      "overriden_lines": 0
+    }
+  }
+}
