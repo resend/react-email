@@ -1,0 +1,15 @@
+.example-shell-content ::selection {
+  background: highlight;
+  color: highlighttext;
+}
+
+.tiptap .node-button {
+  background-color: #fff;
+  color: #000;
+}
+
+body > div:has([data-re-slash-command]),
+body > div:has([data-re-bubble-menu]) {
+  /* biome-ignore lint/complexity/noImportantStyles: portal z-index must override inline styles */
+  z-index: 50 !important;
+}
