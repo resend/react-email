@@ -708,38 +708,11 @@ const RESET_MINIMAL: ResetTheme = {
     return acc;
   }, {} as ResetTheme),
   reset: RESET_BASIC.reset,
-  h1: { fontSize: 'inherit', fontWeight: 'normal', margin: '0.25em 0' },
-  h2: { fontSize: 'inherit', fontWeight: 'normal', margin: '0.25em 0' },
-  h3: { fontSize: 'inherit', fontWeight: 'normal', margin: '0.25em 0' },
-  link: { color: 'inherit', textDecoration: 'none' },
-  blockquote: {
-    borderLeft: 'none',
-    color: 'inherit',
-    margin: '0.25em 0',
-    paddingLeft: '0',
-  },
-  inlineCode: {
-    background: 'none',
-    borderRadius: '0',
-    padding: '0',
-    fontSize: 'inherit',
-  },
-  codeBlock: {
-    background: 'none',
-    borderRadius: '0',
-    padding: '0',
-  },
-  button: {
-    display: 'inline-block',
-    padding: '0',
-    background: 'transparent',
-    color: 'inherit',
-    borderRadius: '0',
-    fontWeight: 'inherit',
-    fontSize: 'inherit',
-    textDecoration: 'none',
-  },
+  button: RESET_BASIC.button,
   image: RESET_BASIC.image,
+  list: RESET_BASIC.list,
+  nestedList: RESET_BASIC.nestedList,
+  listItem: RESET_BASIC.listItem,
   listParagraph: RESET_BASIC.listParagraph,
 };
 
