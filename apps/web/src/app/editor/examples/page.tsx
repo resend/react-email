@@ -37,6 +37,14 @@ const sections: ExampleSection[] = [
         section: 'One-Line Editor',
         docsUrl: 'https://react.email/docs/editor/getting-started',
       },
+      {
+        slug: 'one-line-editor-inspector',
+        title: 'One-Line Editor — Inspector',
+        description:
+          'Add an inspector sidebar alongside the one-line EmailEditor — no manual EditorProvider setup needed.',
+        section: 'One-Line Editor',
+        docsUrl: 'https://react.email/docs/editor/features/inspector',
+      },
     ],
   },
   {
