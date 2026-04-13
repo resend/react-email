@@ -23,8 +23,8 @@ in there setup a new `package.json` and do not forget to add this to your `pnpm-
 Install React Email in the `transactional` workspace.
 
 ```sh packages/transactional
-pnpm add @react-email/preview-server -D -E
-pnpm add react-email react react-dom -E
+pnpm add react-email @react-email/preview-server -D -E
+pnpm add @react-email/components react react-dom -E
 ```
 
 ## 3. Add scripts
@@ -46,7 +46,7 @@ Include the following script in your `package.json` file.
 Create a new folder called `emails`, create a file inside called `email.tsx` and add the following example code:
 
 ```jsx packages/transactional/emails/email.tsx
-import { Button, Html, Head, Body } from "react-email";
+import { Button, Html, Head, Body } from "@react-email/components";
 import * as React from "react";
 
 export default function Email() {

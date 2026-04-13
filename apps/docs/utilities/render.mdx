@@ -12,15 +12,15 @@ Install package from your command line.
 <CodeGroup>
 
 ```sh npm
-npm install react-email -E
+npm install @react-email/render -E
 ```
 
 ```sh yarn
-yarn add react-email -E
+yarn add @react-email/render -E
 ```
 
 ```sh pnpm
-pnpm add react-email -E
+pnpm add @react-email/render -E
 ```
 
 </CodeGroup>
@@ -31,7 +31,7 @@ Start by building your email template in a `.jsx` or `.tsx` file.
 
 ```jsx email.jsx
 import * as React from 'react';
-import { Html, Button, Hr, Text } from "react-email";
+import { Html, Button, Hr, Text } from "@react-email/components";
 
 export function MyTemplate(props) {
   return (
@@ -54,7 +54,7 @@ Import an existing React component and convert into a HTML string.
 
 ```jsx
 import { MyTemplate } from './email';
-import { render, pretty } from 'react-email';
+import { render, pretty } from '@react-email/render';
 
 const html = await pretty(await render(<MyTemplate />));
 
@@ -105,7 +105,7 @@ Here's how to convert a React component into plain text.
 
 ```jsx
 import { MyTemplate } from './email';
-import { toPlainText, render } from 'react-email';
+import { toPlainText, render } from '@react-email/render';
 
 const html = await render(<MyTemplate />);
 const text = toPlainText(html);
