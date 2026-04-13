@@ -5,6 +5,16 @@ license: MIT
 metadata:
   author: Resend
   version: "2.1.0"
+  homepage: https://react.email
+  source: https://github.com/resend/react-email
+  openclaw:
+    install:
+      - kind: node
+        package: react-email
+        label: React Email
+    links:
+      repository: https://github.com/resend/react-email
+      documentation: https://resend.com/docs/react-email-skill
 ---
 
 # React Email
