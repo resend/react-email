@@ -1,9 +1,9 @@
-import { Plugin, PluginKey } from '@tiptap/pm/state';
-import type { Editor } from '@tiptap/core';
 import { Img, Link } from 'react-email';
 import { EmailNode } from '../../core/serializer/email-node';
 import type { UseEditorImageOptions } from './types';
 import { executeUploadFlow } from './upload-flow';
+import { createImagePastePlugin } from './paste-handler';
+import { createImageDropPlugin } from './drop-handler';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -111,18 +111,3 @@ export function createImageExtension(options: UseEditorImageOptions) {
   });
 }
 
-function createImagePastePlugin(
-  _editor: Editor,
-  _uploadImage: UseEditorImageOptions['uploadImage'],
-  _onUploadError?: UseEditorImageOptions['onUploadError'],
-) {
-  return new Plugin({ key: new PluginKey('imagePaste') });
-}
-
-function createImageDropPlugin(
-  _editor: Editor,
-  _uploadImage: UseEditorImageOptions['uploadImage'],
-  _onUploadError?: UseEditorImageOptions['onUploadError'],
-) {
-  return new Plugin({ key: new PluginKey('imageDrop') });
-}
