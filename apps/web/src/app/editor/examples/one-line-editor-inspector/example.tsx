@@ -56,9 +56,7 @@ function Breadcrumb() {
               const label = segment.node?.nodeType ?? 'Layout';
               return (
                 <li key={i} className="flex items-center gap-1">
-                  {i !== 0 && (
-                    <span className="text-(--re-text-muted)">/</span>
-                  )}
+                  {i !== 0 && <span className="text-(--re-text-muted)">/</span>}
                   <button
                     type="button"
                     className="bg-transparent border-0 cursor-pointer text-(--re-text) p-0 text-xs hover:underline"

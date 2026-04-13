@@ -4,7 +4,13 @@ import {
   type UseEditorOptions,
   useCurrentEditor,
 } from '@tiptap/react';
-import { forwardRef, type Ref, useImperativeHandle, useMemo, type ReactNode } from 'react';
+import {
+  forwardRef,
+  type ReactNode,
+  type Ref,
+  useImperativeHandle,
+  useMemo,
+} from 'react';
 import { createDropHandler } from '../core/create-drop-handler';
 import {
   createPasteHandler,
