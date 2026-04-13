@@ -1,0 +1,27 @@
+packages/editor/src/plugins/image/drop-handler.ts
+  af48ffadecea1198 1-36
+packages/editor/src/plugins/image/paste-handler.ts
+  af48ffadecea1198 1-32
+packages/editor/src/plugins/image/extension.tsx
+  af48ffadecea1198 5-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "e669ae4d89838a3099566ecc8749f09be3568463",
+  "prompts": {
+    "af48ffadecea1198": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "71ef8f9f-5dc5-4fa7-bf89-4311ed071b81",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 70,
+      "overriden_lines": 0
+    }
+  }
+}
