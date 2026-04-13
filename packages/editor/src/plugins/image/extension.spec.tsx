@@ -1,5 +1,5 @@
 import { render } from 'react-email';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { createImageExtension } from './extension';
 
 describe('Image extension', () => {
@@ -62,5 +62,26 @@ describe('Image extension', () => {
     expect(attrs).toHaveProperty('height');
     expect(attrs).toHaveProperty('alignment');
     expect(attrs).toHaveProperty('href');
+  });
+
+  it('returns correct node config', () => {
+    const ext = createImageExtension({
+      uploadImage: vi.fn().mockResolvedValue({ url: '' }),
+    });
+
+    expect(ext.name).toBe('image');
+    expect(ext.config.atom).toBe(true);
+    expect(ext.config.draggable).toBe(true);
+    expect(ext.config.group).toBe('block');
+  });
+
+  it('has setImage and uploadImage commands', () => {
+    const commands = extension.config.addCommands?.call(extension);
+    expect(commands).toHaveProperty('setImage');
+    expect(commands).toHaveProperty('uploadImage');
+  });
+
+  it('registers paste and drop ProseMirror plugins', () => {
+    expect(extension.config.addProseMirrorPlugins).toBeDefined();
   });
 });
