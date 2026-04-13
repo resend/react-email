@@ -1,0 +1,35 @@
+packages/editor/src/plugins/image/drop-handler.ts
+  af48ffadecea1198 14
+packages/editor/src/plugins/image/index.ts
+  af48ffadecea1198 6
+packages/editor/src/core/create-drop-handler.ts
+  af48ffadecea1198 4
+packages/editor/src/plugins/image/paste-handler.ts
+  af48ffadecea1198 14,16
+packages/editor/src/plugins/image/upload-flow.ts
+  af48ffadecea1198 26-29
+packages/editor/src/plugins/image/extension.spec.tsx
+  af48ffadecea1198 8-10
+packages/editor/src/plugins/image/extension.tsx
+  af48ffadecea1198 3-4,98-100
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "6e94150f175867a6ae6d8ab304e5bed895cb39b1",
+  "prompts": {
+    "af48ffadecea1198": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "71ef8f9f-5dc5-4fa7-bf89-4311ed071b81",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 17,
+      "total_deletions": 16,
+      "accepted_lines": 17,
+      "overriden_lines": 0
+    }
+  }
+}
