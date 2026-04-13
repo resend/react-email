@@ -1,0 +1,25 @@
+apps/web/src/app/editor/examples/one-line-editor-inspector/page.tsx
+  7c532ca62542a02a 1-22
+apps/web/src/app/editor/examples/one-line-editor-inspector/example.tsx
+  7c532ca62542a02a 1-78
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "f410c2239e1cd28c4d2e32dd2f21fc4f2e209426",
+  "prompts": {
+    "7c532ca62542a02a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3b921cd-6f11-4143-8575-9be3b563df4b",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 100,
+      "total_deletions": 0,
+      "accepted_lines": 100,
+      "overriden_lines": 0
+    }
+  }
+}
