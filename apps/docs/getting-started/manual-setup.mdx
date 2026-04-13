@@ -12,28 +12,28 @@ import NextSteps from '/snippets/next-steps.mdx'
 
 ## 1. Install dependencies
 
-Install the React Email package locally and a few components.
+Install the React Email packages locally.
 
 <CodeGroup>
 
 ```sh npm
-npm install react-email @react-email/preview-server -D -E
-npm install @react-email/components react react-dom -E
+npm install @react-email/preview-server -D -E
+npm install react-email react react-dom -E
 ```
 
 ```sh yarn
-yarn add react-email @react-email/preview-server -D -E
-yarn add @react-email/components react react-dom -E
+yarn add @react-email/preview-server -D -E
+yarn add react-email react react-dom -E
 ```
 
 ```sh pnpm
-pnpm add react-email @react-email/preview-server -D -E
-pnpm add @react-email/components react react-dom -E
+pnpm add @react-email/preview-server -D -E
+pnpm add react-email react react-dom -E
 ```
 
 ```sh bun
-bun add react-email @react-email/preview-server -D -E
-bun add @react-email/components react react-dom -E
+bun add @react-email/preview-server -D -E
+bun add react-email react react-dom -E
 ```
 
 </CodeGroup>
@@ -55,7 +55,7 @@ Include the following script in your `package.json` file.
 Create a new folder called `emails`, create a file inside called `email.tsx`, and add the following code:
 
 ```jsx emails/email.tsx
-import { Button, Html, Head, Body } from "@react-email/components";
+import { Button, Html, Head, Body } from "react-email";
 import * as React from "react";
 
 export default function Email() {
