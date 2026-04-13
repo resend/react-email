@@ -1,0 +1,25 @@
+packages/editor/src/plugins/image/upload-flow.spec.ts
+  af48ffadecea1198 1-98
+packages/editor/src/plugins/image/upload-flow.ts
+  af48ffadecea1198 1-68
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "97f606aa6d1c629e5bc8ac5b7c6ec4ca0059e84f",
+  "prompts": {
+    "af48ffadecea1198": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "71ef8f9f-5dc5-4fa7-bf89-4311ed071b81",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 166,
+      "total_deletions": 0,
+      "accepted_lines": 166,
+      "overriden_lines": 0
+    }
+  }
+}
