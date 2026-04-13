@@ -3,18 +3,19 @@
   "version": "0.0.20",
   "private": true,
   "scripts": {
-    "dev": "email dev",
-    "export": "email export"
+    "build": "email-dev build",
+    "dev": "email-dev dev",
+    "export": "email-dev export",
+    "start": "email-dev start"
   },
   "dependencies": {
-    "@react-email/render": "workspace:*",
-    "@react-email/tailwind": "workspace:*",
     "react": "catalog:",
-    "react-dom": "catalog:"
+    "react-dom": "catalog:",
+    "built-react-email": "workspace:react-email@*"
   },
   "devDependencies": {
+    "email-dev": "workspace:*",
     "@react-email/preview-server": "workspace:*",
-    "react-email": "workspace:*",
     "tsconfig": "workspace:*"
   }
 }

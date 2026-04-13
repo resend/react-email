@@ -1,4 +1,4 @@
-import { render } from '@react-email/components';
+import { render } from 'react-email';
 import { checkSpam } from './check-spam';
 import { StripeWelcomeEmail } from './testing/stripe-welcome-email';
 
