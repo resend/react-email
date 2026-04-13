@@ -10,7 +10,7 @@ We're going to deprecate all packages except `@react-email/render` and `@react-e
 
 ### Breaking change
 
-Imports from `@react-email/components`, `@react-email/render`, or individual component packages (e.g. `@react-email/button`) are no longer the recommended path and they will all be deprecated with the exception of `@react-email/render`, but it will remain exported from `react-email`. Users should import everything from `react-email`.
+Imports from `@react-email/components`, `@react-email/render`, or individual component packages (e.g. `@react-email/button`) are no longer the recommended path and they will all be deprecated with the exception of `@react-email/render`, but it will remain exported from `react-email`. Consumers should import everything from `react-email`.
 
 ### Why
 
