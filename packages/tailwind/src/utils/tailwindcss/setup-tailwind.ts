@@ -25,8 +25,8 @@ export async function setupTailwind({
 @layer theme, base, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
-@import "custom-theme.css" layer(theme);
-@import "custom-utilities.css" layer(utilities);
+${cssConfigs?.theme ? '@import "custom-theme.css" layer(theme);' : ''}
+${cssConfigs?.utility ? '@import "custom-utilities.css" layer(utilities);' : ''}
 @config;
 `;
 
