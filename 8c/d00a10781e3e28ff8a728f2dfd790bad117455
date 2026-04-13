@@ -1,0 +1,25 @@
+packages/editor/src/plugins/image/extension.spec.tsx
+  af48ffadecea1198 1-66
+packages/editor/src/plugins/image/extension.tsx
+  af48ffadecea1198 1-128
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "8cd00a10781e3e28ff8a728f2dfd790bad117455",
+  "prompts": {
+    "af48ffadecea1198": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "71ef8f9f-5dc5-4fa7-bf89-4311ed071b81",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 194,
+      "total_deletions": 0,
+      "accepted_lines": 194,
+      "overriden_lines": 0
+    }
+  }
+}
