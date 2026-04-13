@@ -8,20 +8,35 @@ import utilitiesCss from './tailwind-stylesheets/utilities';
 
 export type TailwindSetup = Awaited<ReturnType<typeof setupTailwind>>;
 
-export async function setupTailwind(config: TailwindConfig) {
+interface CSSConfigs {
+  theme?: string;
+  utility?: string;
+}
+
+interface SetupTailwindProps {
+  config?: TailwindConfig;
+  cssConfigs?: CSSConfigs;
+}
+export async function setupTailwind({
+  config,
+  cssConfigs,
+}: SetupTailwindProps) {
   const baseCss = `
 @layer theme, base, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
+${cssConfigs?.theme ? '@import "custom-theme.css" layer(theme);' : ''}
+${cssConfigs?.utility ? '@import "custom-utilities.css" layer(utilities);' : ''}
 @config;
 `;
+
   const compiler = await compile(baseCss, {
     async loadModule(id, base, resourceHint) {
       if (resourceHint === 'config') {
         return {
           path: id,
           base: base,
-          module: config,
+          module: config ?? {},
         };
       }
 
@@ -60,6 +75,22 @@ export async function setupTailwind(config: TailwindConfig) {
           base,
           path: id,
           content: utilitiesCss,
+        };
+      }
+
+      if (id === 'custom-theme.css') {
+        return {
+          base,
+          path: id,
+          content: cssConfigs?.theme ?? '',
+        };
+      }
+
+      if (id === 'custom-utilities.css') {
+        return {
+          base,
+          path: id,
+          content: cssConfigs?.utility ?? '',
         };
       }
 

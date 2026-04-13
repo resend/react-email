@@ -12,11 +12,6 @@ import { setupTailwind } from './utils/tailwindcss/setup-tailwind';
 
 export type TailwindConfig = Omit<Config, 'content'>;
 
-export interface TailwindProps {
-  children: React.ReactNode;
-  config?: TailwindConfig;
-}
-
 export interface EmailElementProps {
   children?: React.ReactNode;
   className?: string;
@@ -82,15 +77,31 @@ export const pixelBasedPreset: TailwindConfig = {
   },
 };
 
-export function Tailwind({ children, config }: TailwindProps) {
+export interface TailwindProps {
+  children: React.ReactNode;
+  config?: TailwindConfig;
+  /** Tailwind theme in CSS. Used in Tailwind v4. */
+  theme?: string;
+  /** Tailwind utilities in CSS. Used in Tailwind v4. */
+  utility?: string;
+}
+
+export function Tailwind({ children, config, theme, utility }: TailwindProps) {
+  const twConfigData = {
+    config,
+    cssConfigs: {
+      theme,
+      utility,
+    },
+  };
   const tailwindSetup = useSuspensedPromise(
-    () => setupTailwind(config ?? {}),
-    JSON.stringify(config, (_key, value) =>
+    () => setupTailwind(twConfigData),
+    JSON.stringify(twConfigData, (_key, value) =>
       typeof value === 'function' ? value.toString() : value,
     ),
   );
-  let classesUsed: string[] = [];
 
+  let classesUsed: string[] = [];
   let mappedChildren: React.ReactNode = mapReactTree(children, (node) => {
     if (React.isValidElement<EmailElementProps>(node)) {
       if (node.props.className) {
