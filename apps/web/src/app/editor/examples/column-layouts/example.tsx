@@ -43,27 +43,6 @@ function ToolbarButton({
   );
 }
 
-function makeColumns(count: number) {
-  const labels = ['First', 'Second', 'Third', 'Fourth'];
-  const types: Record<number, string> = {
-    2: 'twoColumns',
-    3: 'threeColumns',
-    4: 'fourColumns',
-  };
-  return {
-    type: types[count],
-    content: Array.from({ length: count }, (_, i) => ({
-      type: 'columnsColumn',
-      content: [
-        {
-          type: 'paragraph',
-          content: [{ type: 'text', text: `${labels[i]} column` }],
-        },
-      ],
-    })),
-  };
-}
-
 function Toolbar() {
   const { editor } = useCurrentEditor();
   if (!editor) return null;
@@ -73,23 +52,17 @@ function Toolbar() {
       <ToolbarButton
         label="2 columns"
         icon={<Columns2 size={16} />}
-        onClick={() =>
-          editor.chain().focus().insertContent(makeColumns(2)).run()
-        }
+        onClick={() => editor.chain().focus().insertColumns(2).run()}
       />
       <ToolbarButton
         label="3 columns"
         icon={<Columns3 size={16} />}
-        onClick={() =>
-          editor.chain().focus().insertContent(makeColumns(3)).run()
-        }
+        onClick={() => editor.chain().focus().insertColumns(3).run()}
       />
       <ToolbarButton
         label="4 columns"
         icon={<Columns4 size={16} />}
-        onClick={() =>
-          editor.chain().focus().insertContent(makeColumns(4)).run()
-        }
+        onClick={() => editor.chain().focus().insertColumns(4).run()}
       />
     </div>
   );

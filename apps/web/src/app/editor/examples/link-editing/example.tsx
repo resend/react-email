@@ -8,7 +8,7 @@ import { ExampleShell } from '../example-shell';
 const extensions = [StarterKit];
 
 const content = `
-  <p>Click on <a href="https://react.email" target="_blank">this link</a> to see the link bubble menu. You can edit the URL, open the link, or unlink it.</p>
+  <p>Click on <a href="https://react.email" target="_blank" rel="noopener noreferrer">this link</a> to see the link bubble menu. You can edit the URL, open the link, or unlink it.</p>
   <p>Try adding more links by selecting text and pressing Cmd+K.</p>
 `;
 
