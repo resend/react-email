@@ -9,7 +9,6 @@
     "@benchmarks/tailwind-component": "0.0.0",
     "create-email": "1.2.3",
     "@react-email/editor": "0.0.0-experimental.48",
-    "editor-examples": "0.0.0",
     "@react-email/preview-server": "5.2.10",
     "react-email": "5.2.10",
     "email-dev": "0.0.6",
