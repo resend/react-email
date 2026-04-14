@@ -41,6 +41,33 @@ const extensions = [
 ];
 ```
 
+## Structural defaults
+
+`StarterKit` includes two structural extensions that shape how email content is edited
+and exported:
+
+- `Container` keeps top-level content inside a dedicated email content wrapper and
+  serializes it with React Email's `Container` component.
+- `TrailingNode` keeps an empty paragraph at the end of each container by default, so
+  the caret can move below the last block and users can keep typing naturally.
+
+This is the default `StarterKit` behavior:
+
+```tsx
+const extensions = [
+  StarterKit.configure({
+    Container: {},
+    TrailingNode: {
+      node: 'paragraph',
+      appendTo: 'container',
+    },
+  }),
+];
+```
+
+You can reconfigure either extension if your document model needs a different wrapper
+or different trailing-node behavior.
+
 ## Using individual extensions
 
 For maximum control, import and compose extensions manually instead of using StarterKit:
@@ -74,6 +101,7 @@ const extensions = [Body, Paragraph, Heading, Bold, Italic, Link];
   |-----------|-------------|
   | `Body` | Email body wrapper |
   | `Section` | Content section |
+  | `Container` | Main email content wrapper |
   | `Div` | Generic div container |
   | `Paragraph` | Text paragraph |
   | `Heading` | Heading levels 1–6 |
@@ -148,6 +176,7 @@ const extensions = [Body, Paragraph, Heading, Bold, Italic, Link];
   | Extension | Description |
   |-----------|-------------|
   | `Placeholder` | Placeholder text when content is empty |
+  | `TrailingNode` | Keeps a trailing empty block inside the target node |
   | `PreservedStyle` | Preserves formatting when unlinking |
   | `GlobalContent` | Stores metadata for serialization (CSS, etc.) |
   | `MaxNesting` | Enforces maximum nesting depth |
