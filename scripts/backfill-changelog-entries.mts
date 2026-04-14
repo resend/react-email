@@ -8,7 +8,6 @@ const execFile = promisify(execFileCb);
 
 const REPO_OWNER = 'resend';
 const REPO_NAME = 'react-email';
-const CUTOFF = new Date('2025-11-08T00:00:00Z');
 
 const CHANGELOG_PATH = path.resolve(
   import.meta.dirname,
@@ -20,6 +19,21 @@ if (!token) {
   console.error('Set GITHUB_TOKEN env var.');
   process.exit(1);
 }
+
+let sinceDate: string | undefined;
+const args = process.argv.slice(2);
+for (let i = 0; i < args.length; i++) {
+  if (args[i] === '--since' && args[i + 1]) {
+    sinceDate = args[++i];
+  }
+}
+
+if (!sinceDate) {
+  console.error('Missing --since flag. Usage: --since YYYY-MM-DD');
+  process.exit(1);
+}
+
+const CUTOFF = new Date(`${sinceDate}T00:00:00Z`);
 
 function toDisplayName(packageName: string): string {
   const name = packageName.replace('@react-email/', '');
@@ -251,7 +265,7 @@ while (!done) {
 }
 
 if (byDate.size === 0) {
-  console.error('No releases found after November 7, 2025.');
+  console.error(`No releases found since ${sinceDate}.`);
   process.exit(0);
 }
 
