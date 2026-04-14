@@ -3,8 +3,8 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import * as React from 'react';
 import { toast } from 'sonner';
-import type { CompatibilityCheckingResult } from '../../actions/email-validation/check-compatibility';
 import { nicenames } from '../../actions/email-validation/caniemail-data';
+import type { CompatibilityCheckingResult } from '../../actions/email-validation/check-compatibility';
 import { cn, sanitize } from '../../utils';
 import { IconArrowUpRight } from '../icons/icon-arrow-up-right';
 import { IconClipboard } from '../icons/icon-clipboard';
@@ -322,14 +322,9 @@ export const CopyForAI = ({
                 <span className="text-sm font-medium text-white">
                   Open in Cursor
                 </span>
-                <span className="text-xs text-white/40">
-                  {linkDescription}
-                </span>
+                <span className="text-xs text-white/40">{linkDescription}</span>
               </div>
-              <IconArrowUpRight
-                size={16}
-                className="shrink-0 text-white/30"
-              />
+              <IconArrowUpRight size={16} className="shrink-0 text-white/30" />
             </a>
           </DropdownMenu.Item>
 
@@ -350,14 +345,9 @@ export const CopyForAI = ({
                 <span className="text-sm font-medium text-white">
                   Open in Claude
                 </span>
-                <span className="text-xs text-white/40">
-                  {linkDescription}
-                </span>
+                <span className="text-xs text-white/40">{linkDescription}</span>
               </div>
-              <IconArrowUpRight
-                size={16}
-                className="shrink-0 text-white/30"
-              />
+              <IconArrowUpRight size={16} className="shrink-0 text-white/30" />
             </a>
           </DropdownMenu.Item>
 
@@ -378,14 +368,9 @@ export const CopyForAI = ({
                 <span className="text-sm font-medium text-white">
                   Open in ChatGPT
                 </span>
-                <span className="text-xs text-white/40">
-                  {linkDescription}
-                </span>
+                <span className="text-xs text-white/40">{linkDescription}</span>
               </div>
-              <IconArrowUpRight
-                size={16}
-                className="shrink-0 text-white/30"
-              />
+              <IconArrowUpRight size={16} className="shrink-0 text-white/30" />
             </a>
           </DropdownMenu.Item>
         </DropdownMenu.Content>
