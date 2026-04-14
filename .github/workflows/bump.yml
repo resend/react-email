@@ -6,7 +6,7 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   bump:
-    runs-on: depot-ubuntu-22.04-32
+    runs-on: depot-ubuntu-22.04-2
     permissions: 
       contents: write
       pull-requests: write
