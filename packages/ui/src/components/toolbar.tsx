@@ -16,6 +16,7 @@ import { IconCheck } from './icons/icon-check';
 import { IconInfo } from './icons/icon-info';
 import { IconReload } from './icons/icon-reload';
 import { Compatibility, useCompatibility } from './toolbar/compatibility';
+import { CopyForAI } from './toolbar/copy-for-ai';
 import { Linter, type LintingRow, useLinter } from './toolbar/linter';
 import { ResendIntegration } from './toolbar/resend';
 import {
@@ -172,7 +173,14 @@ const ToolbarInner = ({
                 </ToolbarButton>
               </Tabs.Trigger>
             </LayoutGroup>
-            <div className="flex gap-0.5 ml-auto">
+            <div className="flex items-center gap-1 ml-auto">
+              <CopyForAI
+                lintingRows={lintingRows}
+                compatibilityResults={compatibilityCheckingResults}
+                spamResult={spamCheckingResult}
+                reactMarkup={reactMarkup}
+                activeTab={activeTab}
+              />
               <ToolbarButton
                 delayDuration={0}
                 tooltip={
