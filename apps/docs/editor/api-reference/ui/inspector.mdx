@@ -5,6 +5,10 @@ description: "Contextual sidebar components for document, node, and text editing
 icon: "sidebar"
 ---
 
+The Inspector is a sidebar that provides a way to inspect and edit the email's properties. From the Inspector, you can edit document, node, and text properties such as colors, fonts, and padding.
+
+View a minimal example of the Inspector at the [One Line Editor Inspector](https://react.email/editor/examples/one-line-editor-inspector) demo page.
+
 Everything is accessed through a single import:
 
 ```tsx
@@ -52,7 +56,7 @@ export function MyEditor() {
 
 <Tip>
   If you use the one-line `EmailEditor` component, pass the inspector as a
-  child — no `EditorContext.Provider` needed. See the
+  child. No `EditorContext.Provider` is needed. See the
   [Inspector feature guide](/editor/features/inspector#using-with-emaileditor).
 </Tip>
 
@@ -65,7 +69,7 @@ All standard props from `aside` are also supported if `asChild` is `false`.
 
 ### Inspector.Document
 
-Meant for inspecting and changing things related to the entire editor's content. That is, [EmailTheming](/editor/api-reference/theming-api), page-level settings, and other document-wide concerns.
+This is meant for inspecting and changing properties related to the entire editor's content. That is, [EmailTheming](/editor/api-reference/theming-api), page-level settings, and other document-wide concerns.
 
 It shows up when the editor is not focused on a specific node or text selection, or when the editor is unfocused.
 

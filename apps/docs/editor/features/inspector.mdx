@@ -5,6 +5,10 @@ description: "Add a contextual sidebar for document, node, and text editing."
 icon: "sidebar"
 ---
 
+The Inspector is a sidebar that provides a way to inspect and edit the email's properties. From the Inspector, you can edit document, node, and text properties such as colors, fonts, and padding.
+
+View a minimal example of the Inspector at the [One Line Editor Inspector](https://react.email/editor/examples/one-line-editor-inspector) demo page.
+
 ## Quick start
 
 Add [EmailTheming](/editor/api-reference/theming-api) and render
@@ -46,12 +50,10 @@ export function MyEditor() {
 }
 ```
 
-Click the editor background to edit document-level styles, click a node like a
-button to edit, or select text to switch to text controls.
+Click the editor background to edit document-level styles. Click a node, such as a button, to edit its properties. Select text to switch to text controls.
 
 <Tip>
-  Even though you can [customize the inspector](#customizing-the-inspector) with
-  render props, the default panels can also be styled using <br/> [CSS variables and `data-re-*` selectors](/editor/features/styling#inspector).
+  You can [customize the inspector](#customizing-the-inspector) with render props. The default panels can also be styled using [CSS variables and `data-re-*` selectors](/editor/features/styling#inspector).
 </Tip>
 
 ## Using with EmailEditor
@@ -152,11 +154,10 @@ To use the default breadcrumb rendering:
 
 ## Customizing the Inspector
 
-The Inspector.Root itself keeps track of what is supposed to be inspected,
-which is either the document, a node, or a text selection. The
-`<Inspector.Document>`, `<Inspector.Node>`, and `<Inspector.Text>` components
-are convenience components that only render when their respective target is
-active.
+The Inspector.Root itself keeps track of what is meant to be inspected. This can either be the document, a node, or a text selection. 
+
+The `<Inspector.Document>`, `<Inspector.Node>`, and `<Inspector.Text>` components
+are convenience components that only render when their respective target is active.
 
 ### Inspector.Document
 
@@ -291,7 +292,7 @@ large JSON array with entries for each selector and style property.
 ```
 
 <ResponseField name="marks" type="Record<string, boolean>">
-  A map of active text marks like `bold`, `italic`, `underline`, `strike`, and `code`.
+  A map of active text marks. These include `bold`, `italic`, `underline`, `strike`, and `code`.
 </ResponseField>
 
 <ResponseField name="toggleMark" type="(mark) => void">
