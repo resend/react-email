@@ -43,29 +43,6 @@ function toDisplayName(packageName: string): string {
     .join(' ');
 }
 
-function extractChanges(body: string): string[] {
-  const lines = body.split('\n');
-  const changes: string[] = [];
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-
-    if (/^-\s+/.test(trimmed)) {
-      const text = trimmed.replace(/^-\s+/, '').trim();
-      if (text.length > 0) {
-        changes.push(text);
-      }
-    } else if (/^\s+-\s+/.test(line) && changes.length > 0) {
-      const text = line.replace(/^\s+-\s+/, '').trim();
-      if (text.length > 0) {
-        changes.push(`    - ${text}`);
-      }
-    }
-  }
-
-  return changes;
-}
-
 function toDateKey(date: Date): string {
   return date.toISOString().slice(0, 10);
 }
@@ -80,30 +57,26 @@ function formatDateHeading(dateKey: string): string {
   });
 }
 
+interface ReleaseEntry {
+  displayName: string;
+  version: string;
+  body: string;
+}
+
 function buildRawEntry(dateKey: string, entries: ReleaseEntry[]): string {
   const lines: string[] = [`## ${formatDateHeading(dateKey)}`, ''];
 
   for (const entry of entries) {
     lines.push(`**${entry.displayName} ${entry.version}**`, '');
-
-    if (entry.changes.length > 0) {
-      for (const change of entry.changes) {
-        if (change.startsWith('    -')) {
-          lines.push(change);
-        } else {
-          lines.push(`- ${change}`);
-        }
-      }
-      lines.push('');
-    }
+    lines.push('GitHub release body:', '```', entry.body, '```', '');
   }
 
   return lines.join('\n');
 }
 
 async function polishWithClaude(rawEntry: string): Promise<string> {
-  const prompt = `You are editing a changelog file. Below is a raw changelog entry generated from GitHub releases.
-Rewrite the raw entry to match the style conventions shown in the examples below.
+  const prompt = `You are editing a changelog file. Below is a raw changelog entry with GitHub release bodies included verbatim.
+Extract the meaningful changes from each release body and rewrite the entry to match the style conventions shown in the examples below.
 
 ## Style examples
 
@@ -167,6 +140,11 @@ Use indented sub-items under an "Updated dependencies" bullet:
 
 - Keep the ## date heading exactly as-is
 - Keep **Package Name X.Y.Z** bold headings
+- Extract changes from the release bodies — they may use different formats (changeset markdown, GitHub auto-generated, etc.)
+- Strip commit hashes (e.g. "698f962: fix something" → "fix something")
+- Strip conventional commit scopes (e.g. "fix(render): description" → "fix description")
+- Strip "by @author in https://..." suffixes
+- Strip "**Full Changelog**" links
 - Keep bullet points concise, lowercase start unless proper noun
 - Do NOT invent changes, only rephrase or reorder what is given
 - Do NOT add migration guide links unless one was in the raw entry
@@ -205,15 +183,11 @@ async function commitWithDate(dateKey: string) {
   await execFile('git', ['add', CHANGELOG_PATH]);
   await execFile('git', [
     'commit',
-    '--date', commitDate,
-    '-m', `docs: add changelog entry for ${heading}`,
+    '--date',
+    commitDate,
+    '-m',
+    `docs: add changelog entry for ${heading}`,
   ]);
-}
-
-interface ReleaseEntry {
-  displayName: string;
-  version: string;
-  changes: string[];
 }
 
 const octokit = new Octokit({ auth: token });
@@ -222,15 +196,12 @@ let page = 1;
 let done = false;
 
 while (!done) {
-  const { data } = await octokit.request(
-    'GET /repos/{owner}/{repo}/releases',
-    {
-      owner: REPO_OWNER,
-      repo: REPO_NAME,
-      per_page: 100,
-      page,
-    },
-  );
+  const { data } = await octokit.request('GET /repos/{owner}/{repo}/releases', {
+    owner: REPO_OWNER,
+    repo: REPO_NAME,
+    per_page: 100,
+    page,
+  });
 
   if (data.length === 0) break;
 
@@ -256,7 +227,7 @@ while (!done) {
     entries.push({
       displayName: toDisplayName(packageName),
       version,
-      changes: extractChanges(release.body || ''),
+      body: release.body || '',
     });
     byDate.set(dateKey, entries);
   }
@@ -284,10 +255,10 @@ for (const dateKey of sortedDates) {
   console.error(polished);
   console.error('--- end ---\n');
 
-  console.error(`Inserting into changelog...`);
+  console.error('Inserting into changelog...');
   await insertEntry(polished);
 
-  console.error(`Committing...`);
+  console.error('Committing...');
   await commitWithDate(dateKey);
 
   console.error(`Done: ${formatDateHeading(dateKey)}\n`);
