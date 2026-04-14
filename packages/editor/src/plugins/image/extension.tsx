@@ -84,9 +84,7 @@ export function createImageExtension(options: UseEditorImageOptions) {
       const { editor } = this;
       const { uploadImage, onUploadError } = options;
 
-      return [
-        createImageFileHandlerPlugin(editor, uploadImage, onUploadError),
-      ];
+      return [createImageFileHandlerPlugin(editor, uploadImage, onUploadError)];
     },
 
     renderToReactEmail: ({ node, style }) => {
