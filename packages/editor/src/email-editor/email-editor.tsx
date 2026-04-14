@@ -15,6 +15,7 @@ import { createPasteHandler } from '../core/create-paste-handler';
 import { composeReactEmail } from '../core/serializer/compose-react-email';
 import { StarterKit } from '../extensions';
 import { EmailTheming } from '../plugins/email-theming/extension';
+import { createImageExtension } from '../plugins/image/extension';
 import { BubbleMenu } from '../ui/bubble-menu';
 import { SlashCommandRoot } from '../ui/slash-command/root';
 import '../ui/themes/default.css';
@@ -38,6 +39,8 @@ export interface EmailEditorProps {
     hideWhenActiveMarks?: string[];
   };
   extensions?: Extensions;
+  onUploadImage?: (file: File) => Promise<{ url: string }>;
+  onUploadImageError?: (error: Error, file: File) => void;
   className?: string;
   children?: ReactNode;
 }
@@ -75,23 +78,31 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
       placeholder,
       bubbleMenu,
       extensions: extensionsProp,
+      onUploadImage,
+      onUploadImageError,
       className,
       children,
     },
     ref,
   ) => {
-    const extensions = useMemo(() => {
-      if (extensionsProp) {
-        return extensionsProp;
-      }
+    const imageExtension = useMemo(() => {
+      if (!onUploadImage) return null;
+      return createImageExtension({
+        uploadImage: onUploadImage,
+        onUploadError: onUploadImageError,
+      });
+    }, [onUploadImage, onUploadImageError]);
 
-      return [
+    const extensions = useMemo(() => {
+      const base = extensionsProp ?? [
         StarterKit.configure({
           Placeholder: placeholder ? { placeholder } : undefined,
         }),
         EmailTheming.configure({ theme }),
       ];
-    }, [extensionsProp, theme, placeholder]);
+
+      return imageExtension ? [...base, imageExtension] : base;
+    }, [extensionsProp, theme, placeholder, imageExtension]);
 
     const editorProps: UseEditorOptions['editorProps'] = useMemo(
       () => ({

@@ -1,3 +1,4 @@
+import type { Editor } from '@tiptap/core';
 import { render } from 'react-email';
 import { describe, expect, it, vi } from 'vitest';
 import { createImageExtension } from './extension';
@@ -82,7 +83,14 @@ describe('Image extension', () => {
     expect(commands).toHaveProperty('uploadImage');
   });
 
-  it('registers paste and drop ProseMirror plugins', () => {
-    expect(extension.config.addProseMirrorPlugins).toBeDefined();
+  it('registers the image file handler plugin', () => {
+    const context = {
+      ...extension,
+      editor: {} as Editor,
+      options: extension.options,
+      storage: extension.storage,
+    };
+    const plugins = extension.config.addProseMirrorPlugins?.call(context);
+    expect(plugins).toHaveLength(1);
   });
 });

@@ -1,7 +1,6 @@
 import { Img, Link } from 'react-email';
 import { EmailNode } from '../../core/serializer/email-node';
-import { createImageDropPlugin } from './drop-handler';
-import { createImagePastePlugin } from './paste-handler';
+import { createImageFileHandlerPlugin } from './file-handler';
 import type { UseEditorImageOptions } from './types';
 import { executeUploadFlow } from './upload-flow';
 
@@ -86,8 +85,7 @@ export function createImageExtension(options: UseEditorImageOptions) {
       const { uploadImage, onUploadError } = options;
 
       return [
-        createImagePastePlugin(editor, uploadImage, onUploadError),
-        createImageDropPlugin(editor, uploadImage, onUploadError),
+        createImageFileHandlerPlugin(editor, uploadImage, onUploadError),
       ];
     },
 
