@@ -34,6 +34,10 @@ if (!sinceDate) {
 }
 
 const CUTOFF = new Date(`${sinceDate}T00:00:00Z`);
+if (Number.isNaN(CUTOFF.getTime())) {
+  console.error(`Invalid date: ${sinceDate}. Use YYYY-MM-DD format.`);
+  process.exit(1);
+}
 
 function toDisplayName(packageName: string): string {
   const name = packageName.replace('@react-email/', '');
