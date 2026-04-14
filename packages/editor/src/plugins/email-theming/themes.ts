@@ -770,7 +770,6 @@ export const INBOX_EMAIL_DEFAULTS: Partial<ResetTheme> = {
     fontFamily:
       "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
     fontSize: `${DEFAULT_INBOX_FONT_SIZE_PX}px`,
-    lineHeight: '155%',
   },
   container: {
     width: 600,
