@@ -1,0 +1,31 @@
+packages/editor/src/plugins/image/extension.tsx
+  de5d4a0e6903a76f 3,88
+packages/editor/src/email-editor/email-editor.tsx
+  de5d4a0e6903a76f 18,42-43,81-82,88-94,96-97,103-105
+packages/editor/src/plugins/image/file-handler.ts
+  de5d4a0e6903a76f 6,12,14-24,36
+.changeset/image-upload-plugin.md
+  de5d4a0e6903a76f 1-5
+packages/editor/src/plugins/image/extension.spec.tsx
+  de5d4a0e6903a76f 1,86-94
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "8efd874120ae6be65c1934254d142985ddceafbc",
+  "prompts": {
+    "de5d4a0e6903a76f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ccfe5b47-f0c0-4862-9e50-2003d44f3c70",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 91,
+      "total_deletions": 53,
+      "accepted_lines": 90,
+      "overriden_lines": 0
+    }
+  }
+}
