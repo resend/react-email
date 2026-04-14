@@ -211,7 +211,11 @@ export const StarterKit = Extension.create<StarterKitOptions>({
       },
       TrailingNode: {
         node: 'paragraph',
-        appendTo: 'container',
+        appendTo: [
+          'container',
+          'section',
+          'columnsColumn',
+        ],
       },
       Code: {
         HTMLAttributes: {
