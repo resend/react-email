@@ -1,0 +1,79 @@
+---
+title: "EditorFocusScope"
+sidebarTitle: "EditorFocusScope"
+description: "Register portaled UI as part of the editor's focus scope."
+icon: "crosshair"
+---
+
+Everything is accessed through a single import:
+
+```tsx
+import { EditorFocusScope } from '@react-email/editor/ui';
+```
+
+Use `EditorFocusScope` around portaled UI like Radix `Select.Content`,
+`Popover.Content`, or dialog content so moving focus into that portal is still
+treated as staying inside the editor UI.
+
+`EditorFocusScope` must be used inside
+[EditorFocusScopeProvider](/editor/api-reference/ui/editor-focus-scope-provider),
+which tracks registered focus scopes and updates the editor's focus state for
+them.
+
+<Tip>
+  `Inspector.Root` already renders
+  [EditorFocusScopeProvider](/editor/api-reference/ui/editor-focus-scope-provider)
+  and wraps itself in `EditorFocusScope` by default, so the Inspector handles
+  the editor's focus idiomatically and reliably. Inside a custom inspector, you
+  usually only add `EditorFocusScope` around extra portaled content.
+</Tip>
+
+## Example
+
+```tsx
+import { EditorFocusScope, Inspector } from '@react-email/editor/ui';
+import * as Select from '@radix-ui/react-select';
+
+<Inspector.Node>
+  {({ getAttr, setAttr }) => (
+    <Select.Root
+      value={String(getAttr('alignment') ?? 'left')}
+      onValueChange={(value) => setAttr('alignment', value)}
+    >
+      <Select.Trigger>
+        <Select.Value />
+      </Select.Trigger>
+
+      <Select.Portal>
+        <EditorFocusScope>
+          <Select.Content>
+            <Select.Viewport>
+              <Select.Item value="left">
+                <Select.ItemText>Left</Select.ItemText>
+              </Select.Item>
+              <Select.Item value="center">
+                <Select.ItemText>Center</Select.ItemText>
+              </Select.Item>
+              <Select.Item value="right">
+                <Select.ItemText>Right</Select.ItemText>
+              </Select.Item>
+            </Select.Viewport>
+          </Select.Content>
+        </EditorFocusScope>
+      </Select.Portal>
+    </Select.Root>
+  )}
+</Inspector.Node>
+```
+
+If you are building a focus-aware editor shell outside `Inspector.Root`, wrap
+the editor with
+[EditorFocusScopeProvider](/editor/api-reference/ui/editor-focus-scope-provider)
+and then use `EditorFocusScope` for each portaled surface.
+
+## Props
+
+<ResponseField name="children" type="ReactNode">
+  The element or subtree to register as an additional editor focus scope. Wrap
+  the portaled container that receives focus.
+</ResponseField>

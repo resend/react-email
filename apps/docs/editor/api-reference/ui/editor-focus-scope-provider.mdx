@@ -1,0 +1,81 @@
+---
+title: "EditorFocusScopeProvider"
+sidebarTitle: "EditorFocusScopeProvider"
+description: "Provide editor focus tracking across registered focus scopes."
+icon: "panel-right-open"
+---
+
+Everything is accessed through a single import:
+
+```tsx
+import { EditorFocusScopeProvider } from '@react-email/editor/ui';
+```
+
+Wrap your editor UI with `EditorFocusScopeProvider` when you need focus-aware
+portals outside the built-in Inspector. The provider tracks registered scopes
+from [EditorFocusScope](/editor/api-reference/ui/editor-focus-scope) and keeps
+the editor's focus and blur behavior in sync across them.
+
+`EditorFocusScopeProvider` must be rendered inside the current editor context so
+it can access the active editor instance.
+
+<Tip>
+  `Inspector.Root` already renders `EditorFocusScopeProvider` and
+  [EditorFocusScope](/editor/api-reference/ui/editor-focus-scope) by default,
+  so the Inspector handles the editor's focus idiomatically and reliably. If
+  you are only using the Inspector, you usually do not need to render this
+  provider manually.
+</Tip>
+
+## Example
+
+```tsx
+import {
+  EditorFocusScope,
+  EditorFocusScopeProvider,
+} from '@react-email/editor/ui';
+import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
+import * as Popover from '@radix-ui/react-popover';
+
+export function MyEditor() {
+  const editor = useEditor({
+    extensions,
+    content,
+  });
+
+  return (
+    <EditorContext.Provider value={{ editor }}>
+      <EditorFocusScopeProvider clearSelectionOnBlur={false}>
+        <EditorContent editor={editor} />
+
+        <Popover.Root>
+          <Popover.Trigger type="button">Theme presets</Popover.Trigger>
+
+          <Popover.Portal>
+            <EditorFocusScope>
+              <Popover.Content sideOffset={8}>
+                <button type="button">Apply preset</button>
+              </Popover.Content>
+            </EditorFocusScope>
+          </Popover.Portal>
+        </Popover.Root>
+      </EditorFocusScopeProvider>
+    </EditorContext.Provider>
+  );
+}
+```
+
+Use [EditorFocusScope](/editor/api-reference/ui/editor-focus-scope) for each
+portaled surface that should still count as being inside the editor UI.
+
+## Props
+
+<ResponseField name="children" type="ReactNode">
+  The editor UI subtree that should share focus tracking.
+</ResponseField>
+
+<ResponseField name="clearSelectionOnBlur" type="boolean" default="true">
+  When focus leaves every registered scope, clear the current selection as part
+  of blur handling. Set this to `false` if you want to preserve the selection
+  when the editor truly loses focus.
+</ResponseField>
