@@ -211,14 +211,14 @@ while (!done) {
   if (data.length === 0) break;
 
   for (const release of data) {
+    if (release.draft || release.prerelease) continue;
+
     const publishedAt = new Date(release.published_at || release.created_at);
 
     if (publishedAt < CUTOFF) {
       done = true;
       break;
     }
-
-    if (release.prerelease) continue;
 
     const tagName = release.tag_name;
     const atIndex = tagName.lastIndexOf('@');
