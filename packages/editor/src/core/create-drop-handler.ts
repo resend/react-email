@@ -1,13 +1,7 @@
 import type { EditorView } from '@tiptap/pm/view';
-import type { PasteHandler, UploadImageHandler } from './create-paste-handler';
+import type { PasteHandler } from './create-paste-handler';
 
-export function createDropHandler({
-  onPaste,
-  onUploadImage,
-}: {
-  onPaste?: PasteHandler;
-  onUploadImage?: UploadImageHandler;
-}) {
+export function createDropHandler({ onPaste }: { onPaste?: PasteHandler }) {
   return (
     view: EditorView,
     event: DragEvent,
@@ -24,18 +18,6 @@ export function createDropHandler({
       const file = event.dataTransfer.files[0];
 
       if (onPaste?.(file, view)) {
-        return true;
-      }
-
-      if (file.type.includes('image/') && onUploadImage) {
-        const coordinates = view.posAtCoords({
-          left: event.clientX,
-          top: event.clientY,
-        });
-
-        // here we deduct 1 from the pos or else the image will create an extra node
-        void onUploadImage(file, view, (coordinates?.pos || 0) - 1);
-
         return true;
       }
     }
