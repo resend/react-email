@@ -82,7 +82,7 @@ Extract the meaningful changes from each release body and rewrite the entry to m
 
 ### Grouping packages with the same changes
 
-When React Email and Preview Server (or any packages) share the same version number, and maybe even changes,
+When React Email and Preview Server (or any packages) share the same version number and same changes,
 stack their bold headings together with a single shared bullet list:
 
 **React Email 4.3.0**
@@ -145,7 +145,7 @@ Use indented sub-items under an "Updated dependencies" bullet:
 - Strip conventional commit scopes (e.g. "fix(render): description" → "fix description")
 - Strip "by @author in https://..." suffixes
 - Strip "**Full Changelog**" links
-- React Email and Preview Server always come in pairs — if only one is present, add the other with the same version and changes
+- React Email and Preview Server always come in pairs — if only one is present, add the other with the same version and, if the other was not present, also changes
 - Keep bullet points concise, lowercase start unless proper noun
 - Do NOT invent changes, only rephrase or reorder what is given
 - Do NOT add migration guide links unless one was in the raw entry
