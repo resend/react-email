@@ -7,12 +7,12 @@ icon: "terminal"
 
 Command menu triggered by typing a character (default: `/`).
 
-## SlashCommand.Root
+## SlashCommand
 
 ```tsx
 import { defaultSlashCommands, SlashCommand } from '@react-email/editor/ui';
 
-<SlashCommand.Root items={defaultSlashCommands} />
+<SlashCommand items={defaultSlashCommands} />
 ```
 
 <ResponseField name="items" type="SlashCommandItem[]" default="defaultSlashCommands">
@@ -44,7 +44,7 @@ and a callback to select an item:
 ```tsx
 import { defaultSlashCommands, SlashCommand } from '@react-email/editor/ui';
 
-<SlashCommand.Root items={defaultSlashCommands}>
+<SlashCommand items={defaultSlashCommands}>
   {({ items, query, selectedIndex, onSelect }) => (
     <div className="my-command-list">
       {items.map((item, index) => (
@@ -68,7 +68,7 @@ import { defaultSlashCommands, SlashCommand } from '@react-email/editor/ui';
       )}
     </div>
   )}
-</SlashCommand.Root>
+</SlashCommand>
 ```
 
 ### Custom commands
@@ -93,7 +93,7 @@ const customCommands = [
   },
 ];
 
-<SlashCommand.Root items={customCommands} />
+<SlashCommand items={customCommands} />
 ```
 
 ---

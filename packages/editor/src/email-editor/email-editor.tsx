@@ -11,14 +11,11 @@ import {
   useImperativeHandle,
   useMemo,
 } from 'react';
-import { createDropHandler } from '../core/create-drop-handler';
-import {
-  createPasteHandler,
-  type UploadImageHandler,
-} from '../core/create-paste-handler';
+import { createPasteHandler } from '../core/create-paste-handler';
 import { composeReactEmail } from '../core/serializer/compose-react-email';
 import { StarterKit } from '../extensions';
 import { EmailTheming } from '../plugins/email-theming/extension';
+import { createImageExtension } from '../plugins/image/extension';
 import { BubbleMenu } from '../ui/bubble-menu';
 import { SlashCommandRoot } from '../ui/slash-command/root';
 import '../ui/themes/default.css';
@@ -33,7 +30,6 @@ export interface EmailEditorRef {
 export interface EmailEditorProps {
   content?: Content;
   onChange?: (editor: Editor) => void;
-  onUploadImage?: UploadImageHandler;
   onReady?: (editor: Editor) => void;
   theme?: 'basic' | 'minimal';
   editable?: boolean;
@@ -43,6 +39,7 @@ export interface EmailEditorProps {
     hideWhenActiveMarks?: string[];
   };
   extensions?: Extensions;
+  onUploadImage?: (file: File) => Promise<{ url: string }>;
   className?: string;
   children?: ReactNode;
 }
@@ -74,42 +71,41 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
     {
       content,
       onChange,
-      onUploadImage,
       onReady,
       theme = 'basic',
       editable = true,
       placeholder,
       bubbleMenu,
       extensions: extensionsProp,
+      onUploadImage,
       className,
       children,
     },
     ref,
   ) => {
-    const extensions = useMemo(() => {
-      if (extensionsProp) {
-        return extensionsProp;
-      }
+    const imageExtension = useMemo(() => {
+      if (!onUploadImage) return null;
+      return createImageExtension({ uploadImage: onUploadImage });
+    }, [onUploadImage]);
 
-      return [
+    const extensions = useMemo(() => {
+      const base = extensionsProp ?? [
         StarterKit.configure({
           Placeholder: placeholder ? { placeholder } : undefined,
         }),
         EmailTheming.configure({ theme }),
       ];
-    }, [extensionsProp, theme, placeholder]);
+
+      return imageExtension ? [...base, imageExtension] : base;
+    }, [extensionsProp, theme, placeholder, imageExtension]);
 
     const editorProps: UseEditorOptions['editorProps'] = useMemo(
       () => ({
         handlePaste: createPasteHandler({
-          onUploadImage,
           extensions,
         }),
-        handleDrop: createDropHandler({
-          onUploadImage,
-        }),
       }),
-      [onUploadImage, extensions],
+      [extensions],
     );
 
     return (

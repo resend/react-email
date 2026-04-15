@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "email-dev": "workspace:*",
-    "@react-email/preview-server": "workspace:*",
+    "@react-email/ui": "workspace:*",
     "tsconfig": "workspace:*"
   }
 }
