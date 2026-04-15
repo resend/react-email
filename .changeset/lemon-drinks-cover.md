@@ -1,5 +1,5 @@
 ---
-"@react-email/preview-server": patch
+"@react-email/ui": patch
 ---
 
-feat: copy to ai
+copy toolbar insights for AI
