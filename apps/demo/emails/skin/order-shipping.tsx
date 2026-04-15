@@ -129,7 +129,7 @@ export const OrderShippingEmail = ({
 
                 <Section className="mt-[48px]">
                   <Link
-                    href="https://example.com/"
+                    href={url}
                     className="font-16 text-fg font-sans"
                   >
                     {'View order \u2192'}
