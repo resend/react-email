@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Heading } from '@/components/heading';
 import { PageTransition } from '@/components/page-transition';
 import { PageWrapper } from '@/components/page-wrapper';
+import { SmartLink } from '@/components/smart-link';
 
 interface ExampleMeta {
   slug: string;
@@ -210,32 +211,26 @@ export default function EditorExamplesPage() {
             @react-email/editor.
           </p>
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-            <a
+            <SmartLink
               className="text-slate-11 transition-colors hover:text-slate-12"
-              href="https://react.email/docs/editor/overview"
-              rel="noopener"
-              target="_blank"
+              href="/docs/editor/overview"
             >
               Overview
-            </a>
+            </SmartLink>
             <span className="text-slate-6">·</span>
-            <a
+            <SmartLink
               className="text-slate-11 transition-colors hover:text-slate-12"
-              href="https://react.email/docs/editor/getting-started"
-              rel="noopener"
-              target="_blank"
+              href="/docs/editor/getting-started"
             >
               Getting Started
-            </a>
+            </SmartLink>
             <span className="text-slate-6">·</span>
-            <a
+            <SmartLink
               className="text-slate-11 transition-colors hover:text-slate-12"
-              href="https://react.email/docs/editor/api-reference"
-              rel="noopener"
-              target="_blank"
+              href="/docs/editor/api-reference"
             >
               API Reference
-            </a>
+            </SmartLink>
           </div>
         </div>
 
