@@ -7,7 +7,7 @@ import { ExampleShell } from '../example-shell';
 const content = `
   <h1>Newsletter Preview</h1>
   <p>Click any element to inspect it in the sidebar. Select text to see text controls, or click the background for document-level styles.</p>
-  <div class="align-left"><a class="node-button button" data-id="react-email-button" href="https://react.email">Read More</a></div>
+  <a class="button" data-id="react-email-button" href="https://react.email">Read More</a>
   <p>The inspector sidebar is rendered as a child of EmailEditor.</p>
   <img src="https://placehold.co/600x200" alt="Placeholder" />
 `;
