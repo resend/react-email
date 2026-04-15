@@ -21,6 +21,7 @@ interface NodeMeta {
 }
 
 const NODE_META: Record<string, NodeMeta> = {
+  body: { icon: LayoutIcon, label: 'Layout' },
   paragraph: { icon: TypeIcon, label: 'Text' },
   heading: { icon: Heading1Icon, label: 'Heading' },
   image: { icon: ImageIcon, label: 'Image' },

@@ -51,7 +51,7 @@ function Breadcrumb() {
         <Inspector.Breadcrumb>
           {(segments) =>
             segments.map((segment, i) => {
-              const label = segment.node?.nodeType ?? 'Layout';
+              const label = segment.node.nodeType;
               return (
                 <li key={i} className="flex items-center gap-1">
                   {i !== 0 && <span className="text-(--re-text-muted)">/</span>}

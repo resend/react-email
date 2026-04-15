@@ -44,15 +44,18 @@ export interface InspectorNodeProps {
 export function InspectorNode({ children }: InspectorNodeProps) {
   const { editor } = useCurrentEditor();
   const theming = useEmailTheming(editor);
-  const { target } = useInspector();
+  const inspector = useInspector();
   const documentColors = useDocumentColors(editor);
 
   const [localAttr, setLocalAttr] = React.useState<
     FocusedNode['nodeAttrs'] | null
   >(null);
 
+  const target = inspector.ready ? inspector.target : null;
   const focusedNode =
-    typeof target === 'object' && target !== null ? target : null;
+    typeof target === 'object' && target !== null && target.nodeType !== 'body'
+      ? target
+      : null;
 
   React.useEffect(() => {
     if (focusedNode) {

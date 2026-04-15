@@ -226,12 +226,12 @@ Renders the current path from the document root to the focused node.
 
 Each segment includes:
 
-<ResponseField name="node" type="FocusedNode | null">
-  The node for this breadcrumb segment. `null` represents the root layout item.
+<ResponseField name="node" type="FocusedNode">
+  The node for this breadcrumb segment. The root segment is the `body` node.
 </ResponseField>
 
 <ResponseField name="focus" type="() => void">
-  Focuses the corresponding node or the document root.
+  Focuses the corresponding node.
 </ResponseField>
 
 ## Built-in sections

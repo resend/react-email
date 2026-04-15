@@ -100,16 +100,15 @@ export interface FocusedNode {
   nodePos: { pos: number; inside: number };
 }
 
-type InspectorTarget = 'doc' | 'text' | FocusedNode | null;
+export type InspectorTarget = FocusedNode | 'text';
 
 export interface RootProps extends React.ComponentPropsWithRef<'aside'> {
   asChild?: boolean;
 }
 
-export interface InspectorContextValue {
-  target: InspectorTarget;
-  pathFromRoot: FocusedNode[];
-}
+export type InspectorContextValue =
+  | { ready: false }
+  | { ready: true; target: InspectorTarget; pathFromRoot: FocusedNode[] };
 
 export const InspectorContext =
   React.createContext<InspectorContextValue | null>(null);
@@ -142,13 +141,24 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
 
     const target = useEditorState({
       editor,
-      selector(context): InspectorTarget {
+      selector(context): InspectorTarget | null {
         if (!context.editor) {
           return null;
         }
 
+        const bodyNode = context.editor.state.doc.firstChild;
+        if (!bodyNode || bodyNode.type.name !== 'body') {
+          return null;
+        }
+
+        const bodyFocused: FocusedNode = {
+          nodeType: 'body',
+          nodeAttrs: { ...bodyNode.attrs },
+          nodePos: { pos: 0, inside: 0 },
+        };
+
         if (!context.editor.isFocused) {
-          return 'doc';
+          return bodyFocused;
         }
 
         const { selection } = context.editor.state;
@@ -180,6 +190,9 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
 
         if (hierarchy.length > 0) {
           const innermost = hierarchy[0];
+          if (innermost.nodeType === 'body') {
+            return bodyFocused;
+          }
           const columnEntry = hierarchy.find(
             (h) => h.nodeType === 'columnsColumn',
           );
@@ -188,35 +201,32 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
           return preferColumn ? columnEntry : innermost;
         }
 
-        return 'doc';
+        return bodyFocused;
       },
     });
 
     const pathFromRoot = React.useMemo(() => {
-      if (!editor) {
+      if (!editor || target === null) {
         return [];
       }
-      if (typeof target === 'object' && target) {
+      if (typeof target === 'object') {
         const atPos = getHierarchyAtPosition(editor, target.nodePos.pos);
         const path = [...atPos].reverse();
         return path.length > 0 ? path : [target];
       }
-      if (target === 'text') {
-        const hierarchy = getNodeHierarchy(editor);
-        return [...hierarchy].reverse();
-      }
-      return [];
+      const hierarchy = getNodeHierarchy(editor);
+      return [...hierarchy].reverse();
     }, [editor, target]);
+
+    const contextValue: InspectorContextValue =
+      target === null
+        ? { ready: false }
+        : { ready: true, target, pathFromRoot };
 
     const Component = asChild ? Slot : 'aside';
 
     return (
-      <InspectorContext.Provider
-        value={{
-          target,
-          pathFromRoot,
-        }}
-      >
+      <InspectorContext.Provider value={contextValue}>
         <EditorFocusScopeProvider>
           <EditorFocusScope>
             <Component ref={forwardedRef} {...restProps} tabIndex={-1}>

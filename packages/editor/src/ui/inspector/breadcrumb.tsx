@@ -4,7 +4,7 @@ import { getNodeMeta } from './config/node-meta';
 import { type FocusedNode, useInspector } from './root';
 
 export interface InspectorBreadcrumbSegment {
-  node: FocusedNode | null;
+  node: FocusedNode;
   focus: () => void;
 }
 
@@ -14,33 +14,26 @@ export interface InspectorBreadcrumbProps {
 
 export function InspectorBreadcrumb({ children }: InspectorBreadcrumbProps) {
   const { editor } = useCurrentEditor();
-  const { pathFromRoot } = useInspector();
+  const inspector = useInspector();
+
+  const pathFromRoot = inspector.ready ? inspector.pathFromRoot : null;
 
   const segments = React.useMemo(() => {
-    return [
-      {
-        node: null,
-        focus() {
-          // Ensure focus leaves the inspector scope so the inspector target becomes `doc`.
-          if (typeof document !== 'undefined') {
-            const active = document.activeElement;
-            if (active instanceof HTMLElement) {
-              active.blur();
-            }
-          }
-
-          editor?.commands.blur();
-        },
+    if (!editor || !pathFromRoot) {
+      return [];
+    }
+    return pathFromRoot.map((focusedNode) => ({
+      node: focusedNode,
+      focus() {
+        editor.commands.setNodeSelection(focusedNode.nodePos.pos);
+        editor.commands.focus();
       },
-      ...pathFromRoot.map((focusedNode) => ({
-        node: focusedNode,
-        focus() {
-          editor?.commands.setNodeSelection(focusedNode.nodePos.pos);
-          editor?.commands.focus();
-        },
-      })),
-    ] satisfies InspectorBreadcrumbSegment[];
+    })) satisfies InspectorBreadcrumbSegment[];
   }, [editor, pathFromRoot]);
+
+  if (!inspector.ready) {
+    return null;
+  }
 
   if (children) {
     return children(segments);
@@ -79,9 +72,7 @@ function BreadcrumbDefault({
     <nav data-re-inspector-breadcrumb="">
       <ol data-re-inspector-breadcrumb-list="">
         {items.map(({ segment, index }, i) => {
-          const label = segment.node
-            ? getNodeMeta(segment.node.nodeType).label
-            : 'Layout';
+          const label = getNodeMeta(segment.node.nodeType).label;
           const isLast = index === segments.length - 1;
 
           return (
