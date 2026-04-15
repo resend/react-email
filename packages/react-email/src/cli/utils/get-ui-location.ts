@@ -25,7 +25,7 @@ const ensurePreviewServerInstalled = async (
   }
 };
 
-export const getPreviewServerLocation = async () => {
+export const getUiLocation = async () => {
   const usersProject = createJiti(process.cwd());
   let previewServerLocation!: string;
   try {
