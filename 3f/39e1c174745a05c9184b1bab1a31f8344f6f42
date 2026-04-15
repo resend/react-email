@@ -1,0 +1,25 @@
+packages/editor/src/ui/inspector/breadcrumb.tsx
+  bf9385a2124245ed 28-40
+packages/editor/src/ui/inspector/root.tsx
+  bf9385a2124245ed 15-27,164,218-221,223-225,228,231
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "3f39e1c174745a05c9184b1bab1a31f8344f6f42",
+  "prompts": {
+    "bf9385a2124245ed": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "924a2a0f-1622-42b4-ac85-5ecd42b4e8c8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 36,
+      "total_deletions": 12,
+      "accepted_lines": 816,
+      "overriden_lines": 0
+    }
+  }
+}
