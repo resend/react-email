@@ -157,7 +157,7 @@ const communityItems: TemplateItem[] = [
 export function TemplateList() {
   return (
     <>
-      <section className="mb-24w">
+      <section className="mb-24">
         <Heading
           as="h2"
           className="px-6 text-slate-12 md:px-8"
