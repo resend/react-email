@@ -16,12 +16,12 @@ import {
   inferThemeFromPanelStyles,
   normalizeThemePanelStyles,
 } from './normalization';
+import { isThemeConfig, themeStylesToPanelOverrides } from './theme-config';
 import {
   DEFAULT_INBOX_FONT_SIZE_PX,
   EDITOR_THEMES,
   RESET_THEMES,
 } from './themes';
-import { isThemeConfig, themeStylesToPanelOverrides } from './theme-config';
 import type {
   CssJs,
   EditorTheme,

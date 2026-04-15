@@ -328,10 +328,7 @@ describe('EmailTheming with ThemeConfig', () => {
     };
 
     editor = new Editor({
-      extensions: [
-        StarterKit,
-        EmailTheming.configure({ theme: customTheme }),
-      ],
+      extensions: [StarterKit, EmailTheming.configure({ theme: customTheme })],
       content: BUTTON_DOC,
     });
 
@@ -351,10 +348,7 @@ describe('EmailTheming with ThemeConfig', () => {
     };
 
     editor = new Editor({
-      extensions: [
-        StarterKit,
-        EmailTheming.configure({ theme: customTheme }),
-      ],
+      extensions: [StarterKit, EmailTheming.configure({ theme: customTheme })],
       content: BUTTON_DOC,
     });
 

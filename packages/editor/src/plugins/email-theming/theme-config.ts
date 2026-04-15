@@ -1,3 +1,4 @@
+import { SUPPORTED_CSS_PROPERTIES } from './themes';
 import type {
   EditorTheme,
   EditorThemeInput,
@@ -7,9 +8,10 @@ import type {
   ThemeComponentStyles,
   ThemeConfig,
 } from './types';
-import { SUPPORTED_CSS_PROPERTIES } from './themes';
 
-const CLASS_REFERENCE_TO_PANEL_ID: Partial<Record<KnownThemeComponents, string>> = {
+const CLASS_REFERENCE_TO_PANEL_ID: Partial<
+  Record<KnownThemeComponents, string>
+> = {
   body: 'body',
   container: 'container',
   h1: 'h1',
@@ -22,7 +24,10 @@ const CLASS_REFERENCE_TO_PANEL_ID: Partial<Record<KnownThemeComponents, string>>
   inlineCode: 'inline-code',
 };
 
-export function parseCssValue(value: string | number): { value: string | number; unit?: 'px' | '%' } {
+export function parseCssValue(value: string | number): {
+  value: string | number;
+  unit?: 'px' | '%';
+} {
   if (typeof value === 'number') {
     return { value };
   }
@@ -37,17 +42,25 @@ export function parseCssValue(value: string | number): { value: string | number;
   return { value };
 }
 
-export function isThemeConfig(theme: EditorThemeInput | undefined): theme is ThemeConfig {
+export function isThemeConfig(
+  theme: EditorThemeInput | undefined,
+): theme is ThemeConfig {
   return typeof theme === 'object' && theme !== null && 'styles' in theme;
 }
 
-export function themeStylesToPanelOverrides(styles: ThemeComponentStyles, basePanels: PanelGroup[]): PanelGroup[] {
+export function themeStylesToPanelOverrides(
+  styles: ThemeComponentStyles,
+  basePanels: PanelGroup[],
+): PanelGroup[] {
   const result: PanelGroup[] = basePanels.map((group) => ({
     ...group,
     inputs: group.inputs.map((input) => ({ ...input })),
   }));
 
-  for (const [component, cssProps] of Object.entries(styles) as [KnownThemeComponents, React.CSSProperties][]) {
+  for (const [component, cssProps] of Object.entries(styles) as [
+    KnownThemeComponents,
+    React.CSSProperties,
+  ][]) {
     if (!cssProps) continue;
     const panelId = CLASS_REFERENCE_TO_PANEL_ID[component];
     if (!panelId) continue;
@@ -55,7 +68,10 @@ export function themeStylesToPanelOverrides(styles: ThemeComponentStyles, basePa
     const group = result.find((g) => g.id === panelId);
     if (!group) continue;
 
-    for (const [cssProp, cssValue] of Object.entries(cssProps) as [KnownCssProperties, string | number][]) {
+    for (const [cssProp, cssValue] of Object.entries(cssProps) as [
+      KnownCssProperties,
+      string | number,
+    ][]) {
       if (cssValue === undefined) continue;
 
       const existingInput = group.inputs.find(
@@ -91,6 +107,9 @@ export function createTheme(styles: ThemeComponentStyles): ThemeConfig {
   return { styles };
 }
 
-export function extendTheme(base: EditorTheme, overrides: ThemeComponentStyles): ThemeConfig {
+export function extendTheme(
+  base: EditorTheme,
+  overrides: ThemeComponentStyles,
+): ThemeConfig {
   return { extends: base, styles: overrides };
 }
