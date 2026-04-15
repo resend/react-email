@@ -400,22 +400,6 @@ importers:
         specifier: 'catalog:'
         version: 4.1.12
 
-  benchmarks/preview-server:
-    dependencies:
-      react-email:
-        specifier: workspace:*
-        version: link:../../packages/react-email
-      tinybench:
-        specifier: 'catalog:'
-        version: 3.1.0
-    devDependencies:
-      tsconfig:
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-
   benchmarks/tailwind:
     dependencies:
       '@react-email/render':
@@ -440,6 +424,22 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../../packages/tsconfig
+
+  benchmarks/ui:
+    dependencies:
+      react-email:
+        specifier: workspace:*
+        version: link:../../packages/react-email
+      tinybench:
+        specifier: 'catalog:'
+        version: 3.1.0
+    devDependencies:
+      tsconfig:
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
 
   packages/create-email:
     dependencies:
