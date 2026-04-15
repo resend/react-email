@@ -15,7 +15,7 @@
     "react-dom": "catalog:"
   },
   "devDependencies": {
-    "@react-email/preview-server": "workspace:*",
+    "@react-email/ui": "workspace:*",
     "next": "catalog:"
   }
 }

@@ -1,12 +1,3 @@
-import { CommandList } from './command-list';
-import { SlashCommandRoot } from './root';
-
-export const SlashCommand = {
-  Root: SlashCommandRoot,
-  CommandList,
-} as const;
-
-export { CommandList } from './command-list';
 export {
   BULLET_LIST,
   BUTTON,
@@ -24,9 +15,9 @@ export {
   THREE_COLUMNS,
   TWO_COLUMNS,
 } from './commands';
+export { SlashCommandRoot as SlashCommand } from './root';
 export { filterAndRankItems, scoreItem } from './search';
 export type {
-  CommandListProps,
   SearchableItem,
   SlashCommandItem,
   SlashCommandProps,

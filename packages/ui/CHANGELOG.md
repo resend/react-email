@@ -1,4 +1,4 @@
-# @react-email/preview-server
+# @react-email/ui
 
 ## 6.0.0-canary.0
 

@@ -145,7 +145,8 @@
               "editor/features/buttons",
               "editor/features/column-layouts",
               "editor/features/link-editing",
-              "editor/features/email-export"
+              "editor/features/email-export",
+              "editor/features/image-upload"
             ]
           },
           {

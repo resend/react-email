@@ -5,14 +5,12 @@ interface ExecuteUploadFlowParams {
   editor: Editor;
   file: File;
   uploadImage: UseEditorImageOptions['uploadImage'];
-  onUploadError?: UseEditorImageOptions['onUploadError'];
 }
 
 export async function executeUploadFlow({
   editor,
   file,
   uploadImage,
-  onUploadError,
 }: ExecuteUploadFlowParams): Promise<void> {
   const blobUrl = URL.createObjectURL(file);
 
@@ -23,9 +21,9 @@ export async function executeUploadFlow({
     swapImageSrc(editor, blobUrl, url);
   } catch (error) {
     removeImageBySrc(editor, blobUrl);
-    onUploadError?.(
+    console.error(
+      `Failed to upload image "${file.name}":`,
       error instanceof Error ? error : new Error(String(error)),
-      file,
     );
   } finally {
     URL.revokeObjectURL(blobUrl);

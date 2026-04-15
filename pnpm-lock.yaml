@@ -230,9 +230,9 @@ importers:
         specifier: workspace:*
         version: link:../../packages/react-email
     devDependencies:
-      '@react-email/preview-server':
+      '@react-email/ui':
         specifier: workspace:*
-        version: link:../../packages/preview-server
+        version: link:../../packages/ui
       next:
         specifier: 'catalog:'
         version: 16.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -354,9 +354,9 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: 'catalog:'
         version: 1.2.8(@types/react-dom@19.2.3(@types/react@19.2.13))(@types/react@19.2.13)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@react-email/preview-server':
+      '@react-email/ui':
         specifier: workspace:*
-        version: link:../../packages/preview-server
+        version: link:../../packages/ui
       '@tailwindcss/postcss':
         specifier: 'catalog:'
         version: 4.1.18
@@ -400,22 +400,6 @@ importers:
         specifier: 'catalog:'
         version: 4.1.12
 
-  benchmarks/preview-server:
-    dependencies:
-      react-email:
-        specifier: workspace:*
-        version: link:../../packages/react-email
-      tinybench:
-        specifier: 'catalog:'
-        version: 3.1.0
-    devDependencies:
-      tsconfig:
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-
   benchmarks/tailwind:
     dependencies:
       '@react-email/render':
@@ -440,6 +424,22 @@ importers:
       tsconfig:
         specifier: workspace:*
         version: link:../../packages/tsconfig
+
+  benchmarks/ui:
+    dependencies:
+      react-email:
+        specifier: workspace:*
+        version: link:../../packages/react-email
+      tinybench:
+        specifier: 'catalog:'
+        version: 3.1.0
+    devDependencies:
+      tsconfig:
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
 
   packages/create-email:
     dependencies:
@@ -611,7 +611,148 @@ importers:
         specifier: 2.1.0
         version: 2.1.0(@types/react-dom@19.2.3(@types/react@19.2.13))(@types/react@19.2.13)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vitest@4.0.17)
 
-  packages/preview-server:
+  packages/react-email:
+    dependencies:
+      '@babel/parser':
+        specifier: 'catalog:'
+        version: 7.27.0
+      '@babel/traverse':
+        specifier: 'catalog:'
+        version: 7.27.0
+      '@react-email/render':
+        specifier: workspace:>=0
+        version: link:../render
+      chokidar:
+        specifier: ^4.0.3
+        version: 4.0.3
+      commander:
+        specifier: 'catalog:'
+        version: 13.1.0
+      conf:
+        specifier: ^15.0.2
+        version: 15.0.2
+      css-tree:
+        specifier: 3.1.0
+        version: 3.1.0
+      debounce:
+        specifier: ^2.0.0
+        version: 2.2.0
+      esbuild:
+        specifier: 'catalog:'
+        version: 0.27.4
+      glob:
+        specifier: ^13.0.6
+        version: 13.0.6
+      jiti:
+        specifier: 2.4.2
+        version: 2.4.2
+      log-symbols:
+        specifier: 'catalog:'
+        version: 7.0.1
+      marked:
+        specifier: ^15.0.12
+        version: 15.0.12
+      mime-types:
+        specifier: ^3.0.0
+        version: 3.0.2
+      normalize-path:
+        specifier: ^3.0.0
+        version: 3.0.0
+      nypm:
+        specifier: 'catalog:'
+        version: 0.6.5
+      ora:
+        specifier: 'catalog:'
+        version: 8.2.0
+      prismjs:
+        specifier: ^1.30.0
+        version: 1.30.0
+      prompts:
+        specifier: 2.4.2
+        version: 2.4.2
+      socket.io:
+        specifier: ^4.8.1
+        version: 4.8.3
+      tailwindcss:
+        specifier: 'catalog:'
+        version: 4.1.18
+      tsconfig-paths:
+        specifier: 4.2.0
+        version: 4.2.0
+    devDependencies:
+      '@responsive-email/react-email':
+        specifier: 'catalog:'
+        version: 0.0.4(react@19.0.0)
+      '@types/babel__core':
+        specifier: 'catalog:'
+        version: 7.20.5
+      '@types/babel__traverse':
+        specifier: 'catalog:'
+        version: 7.20.7
+      '@types/css-tree':
+        specifier: 'catalog:'
+        version: 2.3.11
+      '@types/mime-types':
+        specifier: 'catalog:'
+        version: 2.1.4
+      '@types/prompts':
+        specifier: 2.4.9
+        version: 2.4.9
+      next:
+        specifier: 'catalog:'
+        version: 16.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+      shlex:
+        specifier: 3.0.0
+        version: 3.0.0
+      tsx:
+        specifier: 'catalog:'
+        version: 4.21.0
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+
+  packages/react-email/dev: {}
+
+  packages/render:
+    dependencies:
+      html-to-text:
+        specifier: ^9.0.5
+        version: 9.0.5
+      prettier:
+        specifier: ^3.5.3
+        version: 3.8.1
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: 19.0.0
+        version: 19.0.0(react@19.0.0)
+    devDependencies:
+      '@edge-runtime/vm':
+        specifier: 5.0.0
+        version: 5.0.0
+      '@types/html-to-text':
+        specifier: 9.0.4
+        version: 9.0.4
+      jsdom:
+        specifier: 26.1.0
+        version: 26.1.0
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+
+  packages/tsconfig: {}
+
+  packages/ui:
     dependencies:
       esbuild:
         specifier: 'catalog:'
@@ -774,147 +915,6 @@ importers:
         specifier: 'catalog:'
         version: 4.1.12
 
-  packages/react-email:
-    dependencies:
-      '@babel/parser':
-        specifier: 'catalog:'
-        version: 7.27.0
-      '@babel/traverse':
-        specifier: 'catalog:'
-        version: 7.27.0
-      '@react-email/render':
-        specifier: workspace:>=0
-        version: link:../render
-      chokidar:
-        specifier: ^4.0.3
-        version: 4.0.3
-      commander:
-        specifier: 'catalog:'
-        version: 13.1.0
-      conf:
-        specifier: ^15.0.2
-        version: 15.0.2
-      css-tree:
-        specifier: 3.1.0
-        version: 3.1.0
-      debounce:
-        specifier: ^2.0.0
-        version: 2.2.0
-      esbuild:
-        specifier: 'catalog:'
-        version: 0.27.4
-      glob:
-        specifier: ^13.0.6
-        version: 13.0.6
-      jiti:
-        specifier: 2.4.2
-        version: 2.4.2
-      log-symbols:
-        specifier: 'catalog:'
-        version: 7.0.1
-      marked:
-        specifier: ^15.0.12
-        version: 15.0.12
-      mime-types:
-        specifier: ^3.0.0
-        version: 3.0.2
-      normalize-path:
-        specifier: ^3.0.0
-        version: 3.0.0
-      nypm:
-        specifier: 'catalog:'
-        version: 0.6.5
-      ora:
-        specifier: 'catalog:'
-        version: 8.2.0
-      prismjs:
-        specifier: ^1.30.0
-        version: 1.30.0
-      prompts:
-        specifier: 2.4.2
-        version: 2.4.2
-      socket.io:
-        specifier: ^4.8.1
-        version: 4.8.3
-      tailwindcss:
-        specifier: 'catalog:'
-        version: 4.1.18
-      tsconfig-paths:
-        specifier: 4.2.0
-        version: 4.2.0
-    devDependencies:
-      '@responsive-email/react-email':
-        specifier: 'catalog:'
-        version: 0.0.4(react@19.0.0)
-      '@types/babel__core':
-        specifier: 'catalog:'
-        version: 7.20.5
-      '@types/babel__traverse':
-        specifier: 'catalog:'
-        version: 7.20.7
-      '@types/css-tree':
-        specifier: 'catalog:'
-        version: 2.3.11
-      '@types/mime-types':
-        specifier: 'catalog:'
-        version: 2.1.4
-      '@types/prompts':
-        specifier: 2.4.9
-        version: 2.4.9
-      next:
-        specifier: 'catalog:'
-        version: 16.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      react:
-        specifier: 19.0.0
-        version: 19.0.0
-      react-dom:
-        specifier: 19.0.0
-        version: 19.0.0(react@19.0.0)
-      shlex:
-        specifier: 3.0.0
-        version: 3.0.0
-      tsx:
-        specifier: 'catalog:'
-        version: 4.21.0
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-
-  packages/react-email/dev: {}
-
-  packages/render:
-    dependencies:
-      html-to-text:
-        specifier: ^9.0.5
-        version: 9.0.5
-      prettier:
-        specifier: ^3.5.3
-        version: 3.8.1
-      react:
-        specifier: 19.0.0
-        version: 19.0.0
-      react-dom:
-        specifier: 19.0.0
-        version: 19.0.0(react@19.0.0)
-    devDependencies:
-      '@edge-runtime/vm':
-        specifier: 5.0.0
-        version: 5.0.0
-      '@types/html-to-text':
-        specifier: 9.0.4
-        version: 9.0.4
-      jsdom:
-        specifier: 26.1.0
-        version: 26.1.0
-      tsconfig:
-        specifier: workspace:*
-        version: link:../tsconfig
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-
-  packages/tsconfig: {}
-
   playground:
     dependencies:
       built-react-email:
@@ -927,9 +927,9 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
     devDependencies:
-      '@react-email/preview-server':
+      '@react-email/ui':
         specifier: workspace:*
-        version: link:../packages/preview-server
+        version: link:../packages/ui
       email-dev:
         specifier: workspace:*
         version: link:../packages/react-email/dev
@@ -984,16 +984,8 @@ packages:
   '@asyncapi/specs@6.8.1':
     resolution: {integrity: sha512-czHoAk3PeXTLR+X8IUaD+IpT+g+zUvkcgMDJVothBsan+oHN3jfcFcFUNdOPAAFoUCQN1hXF1dWuphWy05THlA==}
 
-  '@babel/code-frame@7.27.1':
-    resolution: {integrity: sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg==}
-    engines: {node: '>=6.9.0'}
-
   '@babel/code-frame@7.29.0':
     resolution: {integrity: sha512-9NhCeYjq9+3uxgdtp20LSiJXJvN0FeCtNGpJxuMFZ1Kv3cWUNb6DOhJwUvcVCzKGR66cw4njwM6hrJLqgOwbcw==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/compat-data@7.26.8':
-    resolution: {integrity: sha512-oH5UPLMWR3L2wEFLnFJ1TZXqHufiTKAiLfqw5zkhS4dKXLJ10yVztfil/twG8EDTA4F/tvVNw9nOl4ZMslB8rQ==}
     engines: {node: '>=6.9.0'}
 
   '@babel/compat-data@7.29.0':
@@ -1008,20 +1000,12 @@ packages:
     resolution: {integrity: sha512-CGOfOJqWjg2qW/Mb6zNsDm+u5vFQ8DxXfbM09z69p5Z6+mE1ikP2jUXw+j42Pf1XTYED2Rni5f95npYeuwMDQA==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/generator@7.27.1':
-    resolution: {integrity: sha512-UnJfnIpc/+JO0/+KRVQNGU+y5taA5vCbwN8+azkX6beii/ZF+enZJSOKo11ZSzGJjlNfJHfQtmQT8H+9TXPG2w==}
-    engines: {node: '>=6.9.0'}
-
   '@babel/generator@7.29.1':
     resolution: {integrity: sha512-qsaF+9Qcm2Qv8SRIMMscAvG4O3lJ0F1GuMo5HR/Bp02LopNgnZBC/EkbevHFeGs4ls/oPz9v+Bsmzbkbe+0dUw==}
     engines: {node: '>=6.9.0'}
 
   '@babel/helper-annotate-as-pure@7.25.9':
     resolution: {integrity: sha512-gv7320KBUFJz1RnylIg5WWYPRXKZ884AGkYpgpWW02TH66Dl+HaC1t1CKd0z3R4b6hdYEcmrNZHUmfCP+1u3/g==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/helper-compilation-targets@7.26.5':
-    resolution: {integrity: sha512-IXuyn5EkouFJscIDuFF5EsiSolseme1s0CZB+QxVugqJLYmKdxI1VfIBOst0SUu4rnk2Z7kqTwmoO1lp3HIfnA==}
     engines: {node: '>=6.9.0'}
 
   '@babel/helper-compilation-targets@7.28.6':
@@ -1100,10 +1084,6 @@ packages:
     resolution: {integrity: sha512-YvjJow9FxbhFFKDSuFnVCe2WxXk1zWc22fFePVNEaWJEu8IrZVlda6N0uHwzZrUM1il7NC9Mlp4MaJYbYd9JSg==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/helpers@7.26.10':
-    resolution: {integrity: sha512-UPYc3SauzZ3JGgj87GgZ89JVdC5dj0AoetR5Bw6wj4niittNyFh6+eOGonYvJ1ao6B8lEa3Q3klS7ADZ53bc5g==}
-    engines: {node: '>=6.9.0'}
-
   '@babel/helpers@7.28.6':
     resolution: {integrity: sha512-xOBvwq86HHdB7WUDTfKfT/Vuxh7gElQ+Sfti2Cy6yIWNW05P8iUslOVcZ4/sKbE+/jQaukQAdz/gf3724kYdqw==}
     engines: {node: '>=6.9.0'}
@@ -1168,10 +1148,6 @@ packages:
     resolution: {integrity: sha512-JiDShH45zKHWyGe4ZNVRrCjBz8Nh9TMmZG1kh4QTK8hCBTWBi8Da+i7s1fJw7/lYpM4ccepSNfqzZ/QvABBi5g==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/template@7.27.1':
-    resolution: {integrity: sha512-Fyo3ghWMqkHHpHQCoBs2VnYjR4iWFFjguTDEqA5WgZDOrFesVjMhMM2FSqTKSoUSDO1VQtavj8NFpdRBEvJTtg==}
-    engines: {node: '>=6.9.0'}
-
   '@babel/template@7.28.6':
     resolution: {integrity: sha512-YA6Ma2KsCdGb+WC6UpBVFJGXL58MDA6oyONbjyF/+5sBgxY/dwkhLogbMT2GXXyU84/IhRw/2D1Os1B/giz+BQ==}
     engines: {node: '>=6.9.0'}
@@ -1182,10 +1158,6 @@ packages:
 
   '@babel/traverse@7.29.0':
     resolution: {integrity: sha512-4HPiQr0X7+waHfyXPZpWPfWL/J7dcN1mx9gL6WdQVMbPnF3+ZhSMs8tCxN7oHddJE9fhNE7+lxdnlyemKfJRuA==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/types@7.27.1':
-    resolution: {integrity: sha512-+EzkxvLNfiUeKMgy/3luqfsCWFRXLb7U6wNQTk60tovuckwB15B191tJWvpp4HjiQWdJkCxO3Wbvc6jlk3Xb2Q==}
     engines: {node: '>=6.9.0'}
 
   '@babel/types@7.28.5':
@@ -4663,15 +4635,6 @@ packages:
       supports-color:
         optional: true
 
-  debug@4.4.0:
-    resolution: {integrity: sha512-6WTZ/IxCY/T6BALoZHaE4ctp9xm+Z5kY/pzYaCHRFeyVhojxlrm+46y68HA6hr0TcwEssoxNiDEUJQjfPZ/RYA==}
-    engines: {node: '>=6.0'}
-    peerDependencies:
-      supports-color: '*'
-    peerDependenciesMeta:
-      supports-color:
-        optional: true
-
   debug@4.4.3:
     resolution: {integrity: sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==}
     engines: {node: '>=6.0'}
@@ -7767,10 +7730,6 @@ packages:
   tailwindcss@4.1.18:
     resolution: {integrity: sha512-4+Z+0yiYyEtUVCScyfHCxOYP06L5Ne+JiHhY2IjR2KWMIWhJOYZKLSGZaP5HkZ8+bY0cxfzwDE5uOmzFXyIwxw==}
 
-  tapable@2.2.1:
-    resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
-    engines: {node: '>=6'}
-
   tapable@2.3.0:
     resolution: {integrity: sha512-g9ljZiwki/LfxmQADO3dEY1CbpmXT5Hm2fJ+QaGKwSXUylMybePR7/67YW7jOrrvjEgL1Fmz5kzyAjWVWLlucg==}
     engines: {node: '>=6'}
@@ -8733,36 +8692,28 @@ snapshots:
     dependencies:
       '@types/json-schema': 7.0.15
 
-  '@babel/code-frame@7.27.1':
-    dependencies:
-      '@babel/helper-validator-identifier': 7.28.5
-      js-tokens: 4.0.0
-      picocolors: 1.1.1
-
   '@babel/code-frame@7.29.0':
     dependencies:
       '@babel/helper-validator-identifier': 7.28.5
       js-tokens: 4.0.0
       picocolors: 1.1.1
 
-  '@babel/compat-data@7.26.8': {}
-
   '@babel/compat-data@7.29.0': {}
 
   '@babel/core@7.26.10':
     dependencies:
       '@ampproject/remapping': 2.3.0
-      '@babel/code-frame': 7.27.1
-      '@babel/generator': 7.27.1
-      '@babel/helper-compilation-targets': 7.26.5
-      '@babel/helper-module-transforms': 7.26.0(@babel/core@7.26.10)
-      '@babel/helpers': 7.26.10
+      '@babel/code-frame': 7.29.0
+      '@babel/generator': 7.29.1
+      '@babel/helper-compilation-targets': 7.28.6
+      '@babel/helper-module-transforms': 7.28.6(@babel/core@7.26.10)
+      '@babel/helpers': 7.28.6
       '@babel/parser': 7.29.0
-      '@babel/template': 7.27.1
+      '@babel/template': 7.28.6
       '@babel/traverse': 7.29.0
-      '@babel/types': 7.27.1
+      '@babel/types': 7.29.0
       convert-source-map: 2.0.0
-      debug: 4.4.0
+      debug: 4.4.3
       gensync: 1.0.0-beta.2
       json5: 2.2.3
       semver: 6.3.1
@@ -8789,14 +8740,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/generator@7.27.1':
-    dependencies:
-      '@babel/parser': 7.29.0
-      '@babel/types': 7.29.0
-      '@jridgewell/gen-mapping': 0.3.13
-      '@jridgewell/trace-mapping': 0.3.31
-      jsesc: 3.1.0
-
   '@babel/generator@7.29.1':
     dependencies:
       '@babel/parser': 7.29.0
@@ -8808,14 +8751,6 @@ snapshots:
   '@babel/helper-annotate-as-pure@7.25.9':
     dependencies:
       '@babel/types': 7.28.5
-
-  '@babel/helper-compilation-targets@7.26.5':
-    dependencies:
-      '@babel/compat-data': 7.26.8
-      '@babel/helper-validator-option': 7.25.9
-      browserslist: 4.28.1
-      lru-cache: 5.1.1
-      semver: 6.3.1
 
   '@babel/helper-compilation-targets@7.28.6':
     dependencies:
@@ -8861,19 +8796,19 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/helper-module-transforms@7.26.0(@babel/core@7.26.10)':
+  '@babel/helper-module-transforms@7.26.0(@babel/core@7.29.0)':
     dependencies:
-      '@babel/core': 7.26.10
+      '@babel/core': 7.29.0
       '@babel/helper-module-imports': 7.25.9
       '@babel/helper-validator-identifier': 7.28.5
       '@babel/traverse': 7.29.0
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/helper-module-transforms@7.26.0(@babel/core@7.29.0)':
+  '@babel/helper-module-transforms@7.28.6(@babel/core@7.26.10)':
     dependencies:
-      '@babel/core': 7.29.0
-      '@babel/helper-module-imports': 7.25.9
+      '@babel/core': 7.26.10
+      '@babel/helper-module-imports': 7.28.6
       '@babel/helper-validator-identifier': 7.28.5
       '@babel/traverse': 7.29.0
     transitivePeerDependencies:
@@ -8919,11 +8854,6 @@ snapshots:
   '@babel/helper-validator-option@7.25.9': {}
 
   '@babel/helper-validator-option@7.27.1': {}
-
-  '@babel/helpers@7.26.10':
-    dependencies:
-      '@babel/template': 7.28.6
-      '@babel/types': 7.29.0
 
   '@babel/helpers@7.28.6':
     dependencies:
@@ -8994,12 +8924,6 @@ snapshots:
 
   '@babel/runtime@7.29.2': {}
 
-  '@babel/template@7.27.1':
-    dependencies:
-      '@babel/code-frame': 7.29.0
-      '@babel/parser': 7.29.0
-      '@babel/types': 7.29.0
-
   '@babel/template@7.28.6':
     dependencies:
       '@babel/code-frame': 7.29.0
@@ -9029,11 +8953,6 @@ snapshots:
       debug: 4.4.3
     transitivePeerDependencies:
       - supports-color
-
-  '@babel/types@7.27.1':
-    dependencies:
-      '@babel/helper-string-parser': 7.27.1
-      '@babel/helper-validator-identifier': 7.28.5
 
   '@babel/types@7.28.5':
     dependencies:
@@ -11984,7 +11903,7 @@ snapshots:
   '@types/webpack@5.28.5(esbuild@0.27.4)':
     dependencies:
       '@types/node': 25.5.0
-      tapable: 2.2.1
+      tapable: 2.3.0
       webpack: 5.105.4(esbuild@0.27.4)
     transitivePeerDependencies:
       - '@swc/core'
@@ -12801,10 +12720,6 @@ snapshots:
       ms: 2.0.0
 
   debug@4.3.7:
-    dependencies:
-      ms: 2.1.3
-
-  debug@4.4.0:
     dependencies:
       ms: 2.1.3
 
@@ -16865,8 +16780,6 @@ snapshots:
       - ts-node
 
   tailwindcss@4.1.18: {}
-
-  tapable@2.2.1: {}
 
   tapable@2.3.0: {}
 

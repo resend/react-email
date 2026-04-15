@@ -4,11 +4,10 @@
   "baseBranch": "main",
   "changelog": "@changesets/cli/changelog",
   "commit": false,
-  "fixed": [["react-email", "@react-email/preview-server"]],
+  "fixed": [["react-email", "@react-email/ui"]],
   "ignore": [
-    "@benchmarks/preview-server",
+    "@benchmarks/ui",
     "@benchmarks/tailwind-component",
-    "tsconfig",
     "playground",
     "demo",
     "email-dev",

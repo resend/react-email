@@ -24,7 +24,7 @@ const content = {
   ],
 };
 
-export function OneLineEditorFull() {
+export function StandaloneEditorFull() {
   const editorRef = useRef<EmailEditorRef>(null);
   const [theme, setTheme] = useState<'basic' | 'minimal'>('basic');
   const [output, setOutput] = useState('');
@@ -42,7 +42,7 @@ export function OneLineEditorFull() {
 
   return (
     <ExampleShell
-      title="One-Line Editor — Full Features"
+      title="Standalone Editor — Full Features"
       description="Theme switching, ref methods (export, getJSON), and callbacks — all with a single component."
     >
       <div className="flex gap-2 mb-4">

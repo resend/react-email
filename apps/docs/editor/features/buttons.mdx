@@ -27,7 +27,7 @@ export function MyEditor() {
   return (
     <EditorProvider extensions={extensions} content={content}>
       <BubbleMenu.ButtonDefault />
-      <SlashCommand.Root items={[BUTTON]} />
+      <SlashCommand items={[BUTTON]} />
     </EditorProvider>
   );
 }

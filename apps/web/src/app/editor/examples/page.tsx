@@ -19,30 +19,30 @@ interface ExampleSection {
 
 const sections: ExampleSection[] = [
   {
-    title: 'One-Line Editor',
+    title: 'Standalone Editor',
     examples: [
       {
-        slug: 'one-line-editor',
-        title: 'One-Line Editor — Minimal',
+        slug: 'standalone-editor',
+        title: 'Standalone Editor — Minimal',
         description:
           'The simplest setup — one component with everything included.',
-        section: 'One-Line Editor',
+        section: 'Standalone Editor',
         docsUrl: 'https://react.email/docs/editor/getting-started',
       },
       {
-        slug: 'one-line-editor-full',
-        title: 'One-Line Editor — Full Features',
+        slug: 'standalone-editor-full',
+        title: 'Standalone Editor — Full Features',
         description:
           'Theme switching, ref methods (export, getJSON), and callbacks — all with a single component.',
-        section: 'One-Line Editor',
+        section: 'Standalone Editor',
         docsUrl: 'https://react.email/docs/editor/getting-started',
       },
       {
-        slug: 'one-line-editor-inspector',
-        title: 'One-Line Editor — Inspector',
+        slug: 'standalone-editor-inspector',
+        title: 'Standalone Editor — Inspector',
         description:
-          'Add an inspector sidebar alongside the one-line EmailEditor — no manual EditorProvider setup needed.',
-        section: 'One-Line Editor',
+          'Add an inspector sidebar alongside the standalone EmailEditor — no manual EditorProvider setup needed.',
+        section: 'Standalone Editor',
         docsUrl: 'https://react.email/docs/editor/features/inspector',
       },
     ],
@@ -107,6 +107,14 @@ const sections: ExampleSection[] = [
           'Click the button to edit its link via the button bubble menu.',
         section: 'Intermediate',
         docsUrl: 'https://react.email/docs/editor/features/buttons',
+      },
+      {
+        slug: 'image-upload',
+        title: 'Image Upload',
+        description:
+          'Upload images via paste, drop, or the slash command — with a stubbed uploader and an error-path toggle.',
+        section: 'Intermediate',
+        docsUrl: 'https://react.email/docs/editor/features/image-upload',
       },
     ],
   },
@@ -183,7 +191,7 @@ export const metadata: Metadata = {
 };
 
 const sectionStyles: Record<string, string> = {
-  'One-Line Editor': 'bg-cyan-3 text-cyan-11',
+  'Standalone Editor': 'bg-cyan-3 text-cyan-11',
   'Getting Started': 'bg-green-3 text-green-11',
   Intermediate: 'bg-amber-3 text-amber-11',
   Advanced: 'bg-purple-3 text-purple-11',
@@ -229,6 +237,27 @@ export default function EditorExamplesPage() {
               API Reference
             </a>
           </div>
+        </div>
+
+        <div className="mx-6 mb-10 flex items-start gap-3 rounded-lg border border-cyan-4 bg-cyan-2 p-4 md:mx-8">
+          <svg
+            className="mt-0.5 shrink-0 text-cyan-11"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM8 5a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 8 5Zm0 8a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z"
+              fill="currentColor"
+            />
+          </svg>
+          <p className="text-sm text-cyan-11">
+            You are viewing the{' '}
+            <span className="font-medium text-cyan-12">canary</span> version of
+            the editor. APIs and features may change without notice.
+          </p>
         </div>
 
         <div className="flex flex-col gap-12 px-6 pb-10 md:px-8">

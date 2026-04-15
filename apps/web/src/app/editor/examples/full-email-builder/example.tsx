@@ -155,7 +155,7 @@ export function FullEmailBuilder() {
             />
             <BubbleMenu.LinkDefault />
             <BubbleMenu.ButtonDefault />
-            <SlashCommand.Root items={defaultSlashCommands} />
+            <SlashCommand items={defaultSlashCommands} />
             <ExportPanel />
           </div>
           <Sidebar />
