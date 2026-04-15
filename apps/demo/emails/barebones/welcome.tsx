@@ -18,14 +18,11 @@ import { barebonesBoxedTailwindConfig } from './theme';
 import { BarebonesFonts } from './theme-fonts';
 
 interface WelcomeEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
-export const WelcomeEmail = ({
-  companyName = 'Barebones',
-  url = 'https://example.com/',
-}: WelcomeEmailProps) => (
+export const WelcomeEmail = ({ companyName, url }: WelcomeEmailProps) => (
   <Tailwind config={barebonesBoxedTailwindConfig}>
     <Html>
       <Head>
@@ -292,5 +289,10 @@ function WelcomeBulletCell({ isLast }: { isLast?: boolean }) {
     </Column>
   );
 }
+
+WelcomeEmail.PreviewProps = {
+  companyName: 'Barebones',
+  url: 'https://example.com/',
+} satisfies WelcomeEmailProps;
 
 export default WelcomeEmail;

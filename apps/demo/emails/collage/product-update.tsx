@@ -29,13 +29,13 @@ type UpdateItem = {
 };
 
 interface ProductUpdateEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
 export const ProductUpdateEmail = ({
-  companyName = 'Collage',
-  url = 'https://example.com/',
+  companyName,
+  url,
 }: ProductUpdateEmailProps) => {
   const brand = companyName;
 
@@ -125,10 +125,11 @@ export const ProductUpdateEmail = ({
                     {cards.slice(0, 2).map((card, idx) => (
                       <Column
                         key={idx}
-                        className={`w-1/2 align-top mobile:!block mobile:!w-full mobile:!max-w-full ${idx === 0
+                        className={`w-1/2 align-top mobile:!block mobile:!w-full mobile:!max-w-full ${
+                          idx === 0
                             ? 'pr-4 mobile:pr-0 mobile:pb-10'
                             : 'mobile:pl-0'
-                          }`}
+                        }`}
                       >
                         <Section
                           className={idx === 0 ? 'pl-0' : 'pl-4 mobile:pl-0'}
@@ -329,5 +330,10 @@ export const ProductUpdateEmail = ({
     </Tailwind>
   );
 };
+
+ProductUpdateEmail.PreviewProps = {
+  companyName: 'Collage',
+  url: 'https://example.com/',
+} satisfies ProductUpdateEmailProps;
 
 export default ProductUpdateEmail;

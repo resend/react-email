@@ -17,8 +17,8 @@ import { TechFonts } from './tech-fonts';
 import { techTailwindConfig } from './theme';
 
 interface TechPromoEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
 type BenefitItem = {
@@ -32,10 +32,7 @@ const techPromoBenefits: BenefitItem[] = [
 ];
 
 /** Figma Email-Templates `2743:1053` — Tech promo (hero, code + redeem, features, join). */
-export const TechPromoEmail = ({
-  companyName = 'Halo',
-  url = 'https://example.com/',
-}: TechPromoEmailProps) => {
+export const TechPromoEmail = ({ companyName, url }: TechPromoEmailProps) => {
   return (
     <Tailwind config={techTailwindConfig}>
       <Html>
@@ -219,5 +216,10 @@ export const TechPromoEmail = ({
     </Tailwind>
   );
 };
+
+TechPromoEmail.PreviewProps = {
+  companyName: 'Halo',
+  url: 'https://example.com/',
+} satisfies TechPromoEmailProps;
 
 export default TechPromoEmail;

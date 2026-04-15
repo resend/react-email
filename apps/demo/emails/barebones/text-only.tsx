@@ -25,14 +25,11 @@ const textOnlyParagraphs = [
 ];
 
 interface TextOnlyEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
-export const TextOnlyEmail = ({
-  companyName = 'Barebones',
-  url = 'https://example.com/',
-}: TextOnlyEmailProps) => (
+export const TextOnlyEmail = ({ companyName, url }: TextOnlyEmailProps) => (
   <Tailwind config={barebonesBoxedTailwindConfig}>
     <Html>
       <Head>
@@ -176,5 +173,10 @@ export const TextOnlyEmail = ({
     </Html>
   </Tailwind>
 );
+
+TextOnlyEmail.PreviewProps = {
+  companyName: 'Barebones',
+  url: 'https://example.com/',
+} satisfies TextOnlyEmailProps;
 
 export default TextOnlyEmail;

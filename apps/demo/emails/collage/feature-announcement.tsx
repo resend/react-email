@@ -29,13 +29,13 @@ type HighlightItem = {
 };
 
 interface FeatureAnnouncementEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
 export const FeatureAnnouncementEmail = ({
-  companyName = 'Collage',
-  url = 'https://example.com/',
+  companyName,
+  url,
 }: FeatureAnnouncementEmailProps) => {
   const brand = companyName;
 
@@ -327,5 +327,10 @@ export const FeatureAnnouncementEmail = ({
     </Tailwind>
   );
 };
+
+FeatureAnnouncementEmail.PreviewProps = {
+  companyName: 'Collage',
+  url: 'https://example.com/',
+} satisfies FeatureAnnouncementEmailProps;
 
 export default FeatureAnnouncementEmail;

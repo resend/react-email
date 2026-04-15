@@ -23,8 +23,8 @@ type PromoFeature = {
   imagePosition: 'left' | 'right';
 };
 interface PromoEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 const promoFeatures: PromoFeature[] = [
   {
@@ -42,10 +42,7 @@ const promoFeatures: PromoFeature[] = [
     imagePosition: 'right',
   },
 ];
-export const PromoEmail = ({
-  companyName = 'Skin',
-  url = 'https://example.com/',
-}: PromoEmailProps) => {
+export const PromoEmail = ({ companyName, url }: PromoEmailProps) => {
   return (
     <Tailwind config={skinTailwindConfig}>
       <Html>
@@ -97,8 +94,9 @@ export const PromoEmail = ({
                     const imgBlock = (
                       <Column
                         key="img"
-                        className={`mobile:!block mobile:!w-full mobile:!max-w-full w-[280px] max-w-[280px] align-middle${isImgLeft ? '' : 'mobile:pt-8'
-                          }`}
+                        className={`mobile:!block mobile:!w-full mobile:!max-w-full w-[280px] max-w-[280px] align-middle${
+                          isImgLeft ? '' : 'mobile:pt-8'
+                        }`}
                       >
                         <Img
                           src={feature.imageSrc}
@@ -111,8 +109,9 @@ export const PromoEmail = ({
                     const textBlock = (
                       <Column
                         key="txt"
-                        className={`mobile:!block mobile:!w-full mobile:!max-w-full align-top${isImgLeft ? 'mobile:pt-8' : ''
-                          }`}
+                        className={`mobile:!block mobile:!w-full mobile:!max-w-full align-top${
+                          isImgLeft ? 'mobile:pt-8' : ''
+                        }`}
                       >
                         <Section className="mobile:py-6 py-[40px]">
                           <Text className="mobile:pr-0 mobile:!max-w-full font-15 text-fg m-0 pr-[32px] font-sans">
@@ -277,4 +276,10 @@ export const PromoEmail = ({
     </Tailwind>
   );
 };
+
+PromoEmail.PreviewProps = {
+  companyName: 'Skin',
+  url: 'https://example.com/',
+} satisfies PromoEmailProps;
+
 export default PromoEmail;

@@ -18,13 +18,13 @@ import { barebonesBoxedTailwindConfig } from './theme';
 import { BarebonesFonts } from './theme-fonts';
 
 interface ProductUpdateEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
 export const ProductUpdateEmail = ({
-  companyName = 'Barebones',
-  url = 'https://example.com/',
+  companyName,
+  url,
 }: ProductUpdateEmailProps) => (
   <Tailwind config={barebonesBoxedTailwindConfig}>
     <Html>
@@ -458,5 +458,10 @@ function BulletCell({ isLast }: { isLast?: boolean }) {
     </Column>
   );
 }
+
+ProductUpdateEmail.PreviewProps = {
+  companyName: 'Barebones',
+  url: 'https://example.com/',
+} satisfies ProductUpdateEmailProps;
 
 export default ProductUpdateEmail;

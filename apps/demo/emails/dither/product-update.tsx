@@ -27,13 +27,13 @@ type ProductUpdateFeature = {
 const productUpdateHeadline = 'THE WORK BEHIND THE WORK';
 
 interface ProductUpdateEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
 export const ProductUpdateEmail = ({
-  companyName = 'Dither',
-  url = 'https://example.com/',
+  companyName,
+  url,
 }: ProductUpdateEmailProps) => {
   const featureRows: ProductUpdateFeature[] = [
     {
@@ -313,5 +313,10 @@ export const ProductUpdateEmail = ({
     </Tailwind>
   );
 };
+
+ProductUpdateEmail.PreviewProps = {
+  companyName: 'Dither',
+  url: 'https://example.com/',
+} satisfies ProductUpdateEmailProps;
 
 export default ProductUpdateEmail;

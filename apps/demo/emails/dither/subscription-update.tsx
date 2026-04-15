@@ -17,17 +17,20 @@ import { DitherFonts } from './dither-fonts';
 import { ditherTailwindConfig } from './theme';
 
 interface SubscriptionUpdateProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
+  userName: string;
+  planName: string;
+  nextBillingDate: string;
 }
 
 export const SubscriptionUpdate = ({
-  companyName = 'Dither',
-  url = 'https://example.com/',
+  companyName,
+  url,
+  userName,
+  planName,
+  nextBillingDate,
 }: SubscriptionUpdateProps) => {
-  const userName = 'Name Surname';
-  const planName = 'Pro';
-  const nextBillingDate = 'Jun 15, 2026';
   return (
     <Tailwind config={ditherTailwindConfig}>
       <Html>
@@ -171,5 +174,13 @@ export const SubscriptionUpdate = ({
     </Tailwind>
   );
 };
+
+SubscriptionUpdate.PreviewProps = {
+  companyName: 'Dither',
+  url: 'https://example.com/',
+  userName: 'Name Surname',
+  planName: 'Pro',
+  nextBillingDate: 'Jun 15, 2026',
+} satisfies SubscriptionUpdateProps;
 
 export default SubscriptionUpdate;

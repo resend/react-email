@@ -17,13 +17,13 @@ import { CollageFonts } from './collage-fonts';
 import { collageTailwindConfig } from './theme';
 
 interface PasswordResetEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
 export const PasswordResetEmail = ({
-  companyName = 'Collage',
-  url = 'https://example.com/',
+  companyName,
+  url,
 }: PasswordResetEmailProps) => (
   <Tailwind config={collageTailwindConfig}>
     <Html>
@@ -171,5 +171,10 @@ export const PasswordResetEmail = ({
     </Html>
   </Tailwind>
 );
+
+PasswordResetEmail.PreviewProps = {
+  companyName: 'Collage',
+  url: 'https://example.com/',
+} satisfies PasswordResetEmailProps;
 
 export default PasswordResetEmail;

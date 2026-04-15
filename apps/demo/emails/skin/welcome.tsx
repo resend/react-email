@@ -23,8 +23,7 @@ type WelcomeFeature = {
   imagePosition: 'left' | 'right';
 };
 interface WelcomeEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
 }
 const welcomeFeatures: WelcomeFeature[] = [
   {
@@ -42,7 +41,7 @@ const welcomeFeatures: WelcomeFeature[] = [
     imagePosition: 'right',
   },
 ];
-export const WelcomeEmail = ({ companyName = 'Skin' }: WelcomeEmailProps) => {
+export const WelcomeEmail = ({ companyName }: WelcomeEmailProps) => {
   return (
     <Tailwind config={skinTailwindConfig}>
       <Html>
@@ -100,8 +99,9 @@ export const WelcomeEmail = ({ companyName = 'Skin' }: WelcomeEmailProps) => {
                     const imgBlock = (
                       <Column
                         key="img"
-                        className={`mobile:!block mobile:!w-full w-[280px] max-w-[280px] align-top mobile:!max-w-full${isImgLeft ? '' : 'mobile:pt-8'
-                          }`}
+                        className={`mobile:!block mobile:!w-full w-[280px] max-w-[280px] align-top mobile:!max-w-full${
+                          isImgLeft ? '' : 'mobile:pt-8'
+                        }`}
                       >
                         <Img
                           src={feature.imageSrc}
@@ -114,8 +114,9 @@ export const WelcomeEmail = ({ companyName = 'Skin' }: WelcomeEmailProps) => {
                     const textBlock = (
                       <Column
                         key="txt"
-                        className={`mobile:!block mobile:!w-full align-top mobile:!max-w-full${isImgLeft ? 'mobile:pt-8' : ''
-                          }`}
+                        className={`mobile:!block mobile:!w-full align-top mobile:!max-w-full${
+                          isImgLeft ? 'mobile:pt-8' : ''
+                        }`}
                       >
                         <Section className="mobile:py-6 py-[40px]">
                           <Text className="mobile:pr-0 mobile:!max-w-full font-15 text-fg m-0 pr-[32px] font-sans">
@@ -280,4 +281,9 @@ export const WelcomeEmail = ({ companyName = 'Skin' }: WelcomeEmailProps) => {
     </Tailwind>
   );
 };
+
+WelcomeEmail.PreviewProps = {
+  companyName: 'Skin',
+} satisfies WelcomeEmailProps;
+
 export default WelcomeEmail;

@@ -16,14 +16,11 @@ import { DitherFonts } from './dither-fonts';
 import { ditherTailwindConfig } from './theme';
 
 interface WelcomeEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
-export const WelcomeEmail = ({
-  companyName = 'Dither',
-  url = 'https://example.com/',
-}: WelcomeEmailProps) => (
+export const WelcomeEmail = ({ companyName, url }: WelcomeEmailProps) => (
   <Tailwind config={ditherTailwindConfig}>
     <Html>
       <Head>
@@ -213,5 +210,10 @@ export const WelcomeEmail = ({
     </Html>
   </Tailwind>
 );
+
+WelcomeEmail.PreviewProps = {
+  companyName: 'Dither',
+  url: 'https://example.com/',
+} satisfies WelcomeEmailProps;
 
 export default WelcomeEmail;

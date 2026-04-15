@@ -16,10 +16,10 @@ import {
 import tailwindConfig from '../tailwind.config';
 
 interface AmazonReviewEmailProps {
-  titleText?: string;
-  reviewText?: string;
-  reviwStars?: string[];
-  socialMediaIcons?: string[];
+  titleText: string;
+  reviewText: string;
+  reviwStars: string[];
+  socialMediaIcons: string[];
 }
 
 const baseUrl = process.env.VERCEL_URL
@@ -27,14 +27,10 @@ const baseUrl = process.env.VERCEL_URL
   : '';
 
 export const AmazonReviewEmail = ({
-  titleText = 'Your opinion is important!',
-  reviewText = 'Alan Turing, do you have a moment? We would like to know if everything went well for you. Take a moment to review your most recent purchases.',
-  reviwStars = Array(5).fill(`${baseUrl}/static/amazon-rating.gif`),
-  socialMediaIcons = [
-    `${baseUrl}/static/amazon-instagram.jpg`,
-    `${baseUrl}/static/amazon-facebook.jpg`,
-    `${baseUrl}/static/amazon-twitter.jpg`,
-  ],
+  titleText,
+  reviewText,
+  reviwStars,
+  socialMediaIcons,
 }: AmazonReviewEmailProps) => {
   return (
     <Html>
@@ -191,6 +187,18 @@ export const AmazonReviewEmail = ({
     </Html>
   );
 };
+
+AmazonReviewEmail.PreviewProps = {
+  titleText: 'Your opinion is important!',
+  reviewText:
+    'Alan Turing, do you have a moment? We would like to know if everything went well for you. Take a moment to review your most recent purchases.',
+  reviwStars: Array(5).fill(`${baseUrl}/static/amazon-rating.gif`),
+  socialMediaIcons: [
+    `${baseUrl}/static/amazon-instagram.jpg`,
+    `${baseUrl}/static/amazon-facebook.jpg`,
+    `${baseUrl}/static/amazon-twitter.jpg`,
+  ],
+} satisfies AmazonReviewEmailProps;
 
 AmazonReviewEmail.tailwindConfig = tailwindConfig;
 

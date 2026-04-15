@@ -18,20 +18,24 @@ import { barebonesBoxedTailwindConfig } from './theme';
 import { BarebonesFonts } from './theme-fonts';
 
 interface SubscriptionConfirmationProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
+  userName: string;
+  planName: string;
+  planPrice: string;
+  cycleLabel: string;
+  nextBillingDate: string;
 }
 
 export const SubscriptionConfirmation = ({
-  companyName = 'Barebones',
-  url = 'https://example.com/',
+  companyName,
+  url,
+  userName,
+  planName,
+  planPrice,
+  cycleLabel,
+  nextBillingDate,
 }: SubscriptionConfirmationProps) => {
-  const userName = 'Alex';
-  const planName = 'Pro';
-  const planPrice = '$29';
-  const cycleLabel = 'month';
-  const nextBillingDate = 'April 22, 2026';
-
   return (
     <Tailwind config={barebonesBoxedTailwindConfig}>
       <Html>
@@ -194,5 +198,15 @@ export const SubscriptionConfirmation = ({
     </Tailwind>
   );
 };
+
+SubscriptionConfirmation.PreviewProps = {
+  companyName: 'Barebones',
+  url: 'https://example.com/',
+  userName: 'Alex',
+  planName: 'Pro',
+  planPrice: '$29',
+  cycleLabel: 'month',
+  nextBillingDate: 'April 22, 2026',
+} satisfies SubscriptionConfirmationProps;
 
 export default SubscriptionConfirmation;

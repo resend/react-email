@@ -23,14 +23,14 @@ export type OrderLine = {
 };
 
 interface TechOrderConfirmationEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
 /** Figma Email-Templates `2681:2383` — Tech “order placed” card (Geist headline, line items, summary). */
 export const TechOrderConfirmationEmail = ({
-  companyName = 'Halo',
-  url = 'https://example.com/',
+  companyName,
+  url,
 }: TechOrderConfirmationEmailProps) => {
   return (
     <Tailwind config={techTailwindConfig}>
@@ -245,5 +245,10 @@ export const TechOrderConfirmationEmail = ({
     </Tailwind>
   );
 };
+
+TechOrderConfirmationEmail.PreviewProps = {
+  companyName: 'Halo',
+  url: 'https://example.com/',
+} satisfies TechOrderConfirmationEmailProps;
 
 export default TechOrderConfirmationEmail;

@@ -25,7 +25,7 @@ interface PapermarkYearInReviewEmailProps {
   mostActiveMonth?: string;
   mostActiveMonthViews?: number;
   sharerPercentile?: number;
-  viewingLocations?: string[];
+  viewingLocations: string[];
 }
 
 export default function PapermarkYearInReviewEmail({
@@ -39,7 +39,7 @@ export default function PapermarkYearInReviewEmail({
   mostActiveMonth,
   mostActiveMonthViews,
   sharerPercentile,
-  viewingLocations = [],
+  viewingLocations,
 }: PapermarkYearInReviewEmailProps) {
   return (
     <Html>

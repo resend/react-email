@@ -22,14 +22,11 @@ type WelcomeTip = {
 };
 
 interface WelcomeEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
-export const WelcomeEmail = ({
-  companyName = 'Collage',
-  url = 'https://example.com/',
-}: WelcomeEmailProps) => {
+export const WelcomeEmail = ({ companyName, url }: WelcomeEmailProps) => {
   const brand = companyName;
   const welcomeTitle = `Welcome to ${brand}`;
 
@@ -250,5 +247,10 @@ export const WelcomeEmail = ({
     </Tailwind>
   );
 };
+
+WelcomeEmail.PreviewProps = {
+  companyName: 'Collage',
+  url: 'https://example.com/',
+} satisfies WelcomeEmailProps;
 
 export default WelcomeEmail;

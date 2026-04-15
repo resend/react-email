@@ -17,8 +17,8 @@ import { TechFonts } from './tech-fonts';
 import { techTailwindConfig } from './theme';
 
 interface TechAbandonedCartEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
 type BenefitItem = {
@@ -32,8 +32,8 @@ const techAbandonedCartBenefits: BenefitItem[] = [
 ];
 
 export const TechAbandonedCartEmail = ({
-  companyName = 'Halo',
-  url = 'https://example.com/',
+  companyName,
+  url,
 }: TechAbandonedCartEmailProps) => (
   <Tailwind config={techTailwindConfig}>
     <Html>
@@ -214,5 +214,10 @@ export const TechAbandonedCartEmail = ({
     </Html>
   </Tailwind>
 );
+
+TechAbandonedCartEmail.PreviewProps = {
+  companyName: 'Halo',
+  url: 'https://example.com/',
+} satisfies TechAbandonedCartEmailProps;
 
 export default TechAbandonedCartEmail;

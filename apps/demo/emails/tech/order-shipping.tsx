@@ -22,8 +22,8 @@ type ShippingFaqItem = {
 };
 
 interface TechOrderShippingEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
 const techOrderShippingFaqItems: ShippingFaqItem[] = [
@@ -47,8 +47,8 @@ const techOrderShippingFaqItems: ShippingFaqItem[] = [
 
 /** Figma Email-Templates `2738:4169` — Tech shipping notification (track CTA, line items, FAQ strip). */
 export const TechOrderShippingEmail = ({
-  companyName = 'Halo',
-  url = 'https://example.com/',
+  companyName,
+  url,
 }: TechOrderShippingEmailProps) => {
   return (
     <Tailwind config={techTailwindConfig}>
@@ -241,5 +241,10 @@ export const TechOrderShippingEmail = ({
     </Tailwind>
   );
 };
+
+TechOrderShippingEmail.PreviewProps = {
+  companyName: 'Halo',
+  url: 'https://example.com/',
+} satisfies TechOrderShippingEmailProps;
 
 export default TechOrderShippingEmail;

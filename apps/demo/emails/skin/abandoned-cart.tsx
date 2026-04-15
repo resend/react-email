@@ -22,8 +22,8 @@ type CartLine = {
   imageSrc: string;
 };
 interface AbandonedCartEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 const abandonedCartLines: CartLine[] = [
   {
@@ -42,8 +42,8 @@ const abandonedCartLines: CartLine[] = [
   },
 ];
 export const AbandonedCartEmail = ({
-  companyName = 'Skin',
-  url = 'https://example.com/',
+  companyName,
+  url,
 }: AbandonedCartEmailProps) => {
   return (
     <Tailwind config={skinTailwindConfig}>
@@ -235,4 +235,10 @@ export const AbandonedCartEmail = ({
     </Tailwind>
   );
 };
+
+AbandonedCartEmail.PreviewProps = {
+  companyName: 'Skin',
+  url: 'https://example.com/',
+} satisfies AbandonedCartEmailProps;
+
 export default AbandonedCartEmail;

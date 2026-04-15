@@ -16,13 +16,10 @@ import { SkinFonts } from './skin-fonts';
 import { skinTailwindConfig } from './theme';
 
 interface ActivationEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
-export const ActivationEmail = ({
-  companyName = 'Skin',
-  url = 'https://example.com/',
-}: ActivationEmailProps) => (
+export const ActivationEmail = ({ companyName, url }: ActivationEmailProps) => (
   <Tailwind config={skinTailwindConfig}>
     <Html>
       <Head>
@@ -172,4 +169,10 @@ export const ActivationEmail = ({
     </Html>
   </Tailwind>
 );
+
+ActivationEmail.PreviewProps = {
+  companyName: 'Skin',
+  url: 'https://example.com/',
+} satisfies ActivationEmailProps;
+
 export default ActivationEmail;

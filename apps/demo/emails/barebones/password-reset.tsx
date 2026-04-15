@@ -18,13 +18,13 @@ import { barebonesBoxedTailwindConfig } from './theme';
 import { BarebonesFonts } from './theme-fonts';
 
 interface PasswordResetEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
 export const PasswordResetEmail = ({
-  companyName = 'Barebones',
-  url = 'https://example.com/',
+  companyName,
+  url,
 }: PasswordResetEmailProps) => (
   <Tailwind config={barebonesBoxedTailwindConfig}>
     <Html>
@@ -171,5 +171,10 @@ export const PasswordResetEmail = ({
     </Html>
   </Tailwind>
 );
+
+PasswordResetEmail.PreviewProps = {
+  companyName: 'Barebones',
+  url: 'https://example.com/',
+} satisfies PasswordResetEmailProps;
 
 export default PasswordResetEmail;

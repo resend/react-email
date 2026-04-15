@@ -17,13 +17,13 @@ import { DitherFonts } from './dither-fonts';
 import { ditherTailwindConfig } from './theme';
 
 interface FeatureAnnouncementEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
 export const FeatureAnnouncementEmail = ({
-  companyName = 'Dither',
-  url = 'https://example.com/',
+  companyName,
+  url,
 }: FeatureAnnouncementEmailProps) => {
   const featureName = 'Smart Tasks';
   const heroImageSrc = '/static/dither/dither-image-2.png';
@@ -292,5 +292,10 @@ export const FeatureAnnouncementEmail = ({
     </Tailwind>
   );
 };
+
+FeatureAnnouncementEmail.PreviewProps = {
+  companyName: 'Dither',
+  url: 'https://example.com/',
+} satisfies FeatureAnnouncementEmailProps;
 
 export default FeatureAnnouncementEmail;

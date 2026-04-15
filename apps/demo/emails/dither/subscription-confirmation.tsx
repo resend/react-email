@@ -17,17 +17,20 @@ import { DitherFonts } from './dither-fonts';
 import { ditherTailwindConfig } from './theme';
 
 interface SubscriptionConfirmationProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
+  planName: string;
+  userName: string;
+  nextBillingDate: string;
 }
 
 export const SubscriptionConfirmation = ({
-  companyName = 'Dither',
-  url = 'https://example.com/',
+  companyName,
+  url,
+  planName,
+  userName,
+  nextBillingDate,
 }: SubscriptionConfirmationProps) => {
-  const planName = 'Pro';
-  const userName = 'Alex';
-  const nextBillingDate = 'April 22, 2026';
   return (
     <Tailwind config={ditherTailwindConfig}>
       <Html>
@@ -240,5 +243,13 @@ export const SubscriptionConfirmation = ({
     </Tailwind>
   );
 };
+
+SubscriptionConfirmation.PreviewProps = {
+  companyName: 'Dither',
+  url: 'https://example.com/',
+  planName: 'Pro',
+  userName: 'Alex',
+  nextBillingDate: 'April 22, 2026',
+} satisfies SubscriptionConfirmationProps;
 
 export default SubscriptionConfirmation;

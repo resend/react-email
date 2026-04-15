@@ -16,14 +16,11 @@ import { DitherFonts } from './dither-fonts';
 import { ditherTailwindConfig } from './theme';
 
 interface TextOnlyEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
-export const TextOnlyEmail = ({
-  companyName = 'Dither',
-  url = 'https://example.com/',
-}: TextOnlyEmailProps) => {
+export const TextOnlyEmail = ({ companyName, url }: TextOnlyEmailProps) => {
   return (
     <Tailwind config={ditherTailwindConfig}>
       <Html>
@@ -176,5 +173,10 @@ export const TextOnlyEmail = ({
     </Tailwind>
   );
 };
+
+TextOnlyEmail.PreviewProps = {
+  companyName: 'Dither',
+  url: 'https://example.com/',
+} satisfies TextOnlyEmailProps;
 
 export default TextOnlyEmail;

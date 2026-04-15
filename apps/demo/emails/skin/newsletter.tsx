@@ -28,8 +28,8 @@ type NewsletterCommunity = {
   ctaLabel: string;
 };
 interface NewsletterEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 const newsletterLetterParagraphs = [
   "We're glad you're here. This is where we share routine notes, ingredient spotlights, and first word on drops—plus the occasional restock alert before shelves clear.",
@@ -63,10 +63,7 @@ const newsletterCommunity: NewsletterCommunity = {
   body: 'Peek behind the formulas—short guides, founder notes, and community answers so you shop for your skin, not the algorithm.',
   ctaLabel: 'See what\u2019s new \u2192',
 };
-export const NewsletterEmail = ({
-  companyName = 'Skin',
-  url = 'https://example.com/',
-}: NewsletterEmailProps) => {
+export const NewsletterEmail = ({ companyName, url }: NewsletterEmailProps) => {
   const quoteText =
     'Shopping with ' +
     companyName +
@@ -309,4 +306,10 @@ export const NewsletterEmail = ({
     </Tailwind>
   );
 };
+
+NewsletterEmail.PreviewProps = {
+  companyName: 'Skin',
+  url: 'https://example.com/',
+} satisfies NewsletterEmailProps;
+
 export default NewsletterEmail;

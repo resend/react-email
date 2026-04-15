@@ -17,13 +17,13 @@ import { TechFonts } from './tech-fonts';
 import { techTailwindConfig } from './theme';
 
 interface TechActivationEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
 export const TechActivationEmail = ({
-  companyName = 'Halo',
-  url = 'https://example.com/',
+  companyName,
+  url,
 }: TechActivationEmailProps) => (
   <Tailwind config={techTailwindConfig}>
     <Html>
@@ -139,5 +139,10 @@ export const TechActivationEmail = ({
     </Html>
   </Tailwind>
 );
+
+TechActivationEmail.PreviewProps = {
+  companyName: 'Halo',
+  url: 'https://example.com/',
+} satisfies TechActivationEmailProps;
 
 export default TechActivationEmail;

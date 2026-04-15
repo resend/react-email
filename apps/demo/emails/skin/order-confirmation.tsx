@@ -16,8 +16,8 @@ import { SkinFonts } from './skin-fonts';
 import { skinTailwindConfig } from './theme';
 export type OrderLine = { name: string; quantity: string; imageSrc: string };
 interface OrderConfirmationEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 const orderConfirmationLines: OrderLine[] = [
   {
@@ -32,8 +32,8 @@ const orderConfirmationLines: OrderLine[] = [
   },
 ];
 export const OrderConfirmationEmail = ({
-  companyName = 'Skin',
-  url = 'https://example.com/',
+  companyName,
+  url,
 }: OrderConfirmationEmailProps) => {
   return (
     <Tailwind config={skinTailwindConfig}>
@@ -257,4 +257,10 @@ export const OrderConfirmationEmail = ({
     </Tailwind>
   );
 };
+
+OrderConfirmationEmail.PreviewProps = {
+  companyName: 'Skin',
+  url: 'https://example.com/',
+} satisfies OrderConfirmationEmailProps;
+
 export default OrderConfirmationEmail;

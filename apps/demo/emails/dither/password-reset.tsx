@@ -17,13 +17,13 @@ import { DitherFonts } from './dither-fonts';
 import { ditherTailwindConfig } from './theme';
 
 interface PasswordResetEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
 export const PasswordResetEmail = ({
-  companyName = 'Dither',
-  url = 'https://example.com/',
+  companyName,
+  url,
 }: PasswordResetEmailProps) => (
   <Tailwind config={ditherTailwindConfig}>
     <Html>
@@ -161,5 +161,10 @@ export const PasswordResetEmail = ({
     </Html>
   </Tailwind>
 );
+
+PasswordResetEmail.PreviewProps = {
+  companyName: 'Dither',
+  url: 'https://example.com/',
+} satisfies PasswordResetEmailProps;
 
 export default PasswordResetEmail;

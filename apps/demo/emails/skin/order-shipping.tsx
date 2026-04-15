@@ -24,8 +24,8 @@ type ShippingFaqItem = {
 };
 
 interface OrderShippingEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
 const orderShippingLines: OrderLine[] = [
@@ -57,8 +57,8 @@ const orderShippingFaqItems: ShippingFaqItem[] = [
 ];
 
 export const OrderShippingEmail = ({
-  companyName = 'Skin',
-  url = 'https://example.com/',
+  companyName,
+  url,
 }: OrderShippingEmailProps) => {
   return (
     <Tailwind config={skinTailwindConfig}>
@@ -264,5 +264,10 @@ export const OrderShippingEmail = ({
     </Tailwind>
   );
 };
+
+OrderShippingEmail.PreviewProps = {
+  companyName: 'Skin',
+  url: 'https://example.com/',
+} satisfies OrderShippingEmailProps;
 
 export default OrderShippingEmail;

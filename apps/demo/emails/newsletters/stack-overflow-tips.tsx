@@ -17,35 +17,15 @@ import {
 import tailwindConfig from '../tailwind.config';
 
 interface StackOverflowTipsEmailProps {
-  tips?: { id: number; description: string }[];
+  tips: { id: number; description: string }[];
 }
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-const PropDefaults: StackOverflowTipsEmailProps = {
-  tips: [
-    {
-      id: 1,
-      description:
-        'To find a specific phrase, enter it in quotes: "local storage"',
-    },
-    {
-      id: 1,
-      description:
-        'To search within specific tag(s), enter them in square brackets: [javascript]',
-    },
-    {
-      id: 1,
-      description:
-        'Combine them to get even more precise results - [javascript] "local storage" searches for the phrase “local storage” in questions that have the [javascript] tag',
-    },
-  ],
-};
-
 export const StackOverflowTipsEmail = ({
-  tips = [],
+  tips,
 }: StackOverflowTipsEmailProps) => (
   <Html>
     <Head />
@@ -190,7 +170,23 @@ export const StackOverflowTipsEmail = ({
 );
 
 StackOverflowTipsEmail.PreviewProps = {
-  tips: PropDefaults.tips,
-} as StackOverflowTipsEmailProps;
+  tips: [
+    {
+      id: 1,
+      description:
+        'To find a specific phrase, enter it in quotes: "local storage"',
+    },
+    {
+      id: 1,
+      description:
+        'To search within specific tag(s), enter them in square brackets: [javascript]',
+    },
+    {
+      id: 1,
+      description:
+        'Combine them to get even more precise results - [javascript] "local storage" searches for the phrase “local storage” in questions that have the [javascript] tag',
+    },
+  ],
+} satisfies StackOverflowTipsEmailProps;
 
 export default StackOverflowTipsEmail;

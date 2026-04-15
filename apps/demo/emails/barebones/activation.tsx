@@ -18,14 +18,11 @@ import { barebonesBoxedTailwindConfig } from './theme';
 import { BarebonesFonts } from './theme-fonts';
 
 interface ConfirmEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
-export const ConfirmEmail = ({
-  companyName = 'Barebones',
-  url = 'https://example.com/',
-}: ConfirmEmailProps) => (
+export const ConfirmEmail = ({ companyName, url }: ConfirmEmailProps) => (
   <Tailwind config={barebonesBoxedTailwindConfig}>
     <Html>
       <Head>
@@ -173,5 +170,10 @@ export const ConfirmEmail = ({
     </Html>
   </Tailwind>
 );
+
+ConfirmEmail.PreviewProps = {
+  companyName: 'Barebones',
+  url: 'https://example.com/',
+} satisfies ConfirmEmailProps;
 
 export default ConfirmEmail;

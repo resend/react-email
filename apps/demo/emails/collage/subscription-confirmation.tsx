@@ -17,23 +17,30 @@ import { CollageFonts } from './collage-fonts';
 import { collageTailwindConfig } from './theme';
 
 interface SubscriptionConfirmationProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
+  userName: string;
+  planName: string;
+  planPrice: string;
+  cycleLabel: string;
+  nextBillingDate: string;
+  subtotal: string;
+  tax: string;
+  total: string;
 }
 
 export const SubscriptionConfirmation = ({
-  companyName = 'Collage',
-  url = 'https://example.com/',
+  companyName,
+  url,
+  userName,
+  planName,
+  planPrice,
+  cycleLabel,
+  nextBillingDate,
+  subtotal,
+  tax,
+  total,
 }: SubscriptionConfirmationProps) => {
-  const userName = 'Alex';
-  const planName = 'Pro';
-  const planPrice = '$29';
-  const cycleLabel = 'month';
-  const nextBillingDate = 'April 22, 2026';
-  const subtotal = '$29.00';
-  const tax = '$0.00';
-  const total = '$29.00';
-
   return (
     <Tailwind config={collageTailwindConfig}>
       <Html>
@@ -286,5 +293,18 @@ export const SubscriptionConfirmation = ({
     </Tailwind>
   );
 };
+
+SubscriptionConfirmation.PreviewProps = {
+  companyName: 'Collage',
+  url: 'https://example.com/',
+  userName: 'Alex',
+  planName: 'Pro',
+  planPrice: '$29',
+  cycleLabel: 'month',
+  nextBillingDate: 'April 22, 2026',
+  subtotal: '$29.00',
+  tax: '$0.00',
+  total: '$29.00',
+} satisfies SubscriptionConfirmationProps;
 
 export default SubscriptionConfirmation;

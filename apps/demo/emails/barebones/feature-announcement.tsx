@@ -18,13 +18,13 @@ import { barebonesBoxedTailwindConfig } from './theme';
 import { BarebonesFonts } from './theme-fonts';
 
 interface FeatureAnnouncementEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
 export const FeatureAnnouncementEmail = ({
-  companyName = 'Barebones',
-  url = 'https://example.com/',
+  companyName,
+  url,
 }: FeatureAnnouncementEmailProps) => (
   <Tailwind config={barebonesBoxedTailwindConfig}>
     <Html>
@@ -303,5 +303,10 @@ function FeatureBlock({
     </Section>
   );
 }
+
+FeatureAnnouncementEmail.PreviewProps = {
+  companyName: 'Barebones',
+  url: 'https://example.com/',
+} satisfies FeatureAnnouncementEmailProps;
 
 export default FeatureAnnouncementEmail;

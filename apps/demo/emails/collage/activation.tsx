@@ -17,14 +17,11 @@ import { CollageFonts } from './collage-fonts';
 import { collageTailwindConfig } from './theme';
 
 interface ActivationEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
-export const ActivationEmail = ({
-  companyName = 'Collage',
-  url = 'https://example.com/',
-}: ActivationEmailProps) => (
+export const ActivationEmail = ({ companyName, url }: ActivationEmailProps) => (
   <Tailwind config={collageTailwindConfig}>
     <Html>
       <Head>
@@ -173,5 +170,10 @@ export const ActivationEmail = ({
     </Html>
   </Tailwind>
 );
+
+ActivationEmail.PreviewProps = {
+  companyName: 'Collage',
+  url: 'https://example.com/',
+} satisfies ActivationEmailProps;
 
 export default ActivationEmail;

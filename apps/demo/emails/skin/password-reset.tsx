@@ -16,12 +16,12 @@ import { SkinFonts } from './skin-fonts';
 import { skinTailwindConfig } from './theme';
 
 interface PasswordResetEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 export const PasswordResetEmail = ({
-  companyName = 'Skin',
-  url = 'https://example.com/',
+  companyName,
+  url,
 }: PasswordResetEmailProps) => (
   <Tailwind config={skinTailwindConfig}>
     <Html>
@@ -160,4 +160,10 @@ export const PasswordResetEmail = ({
     </Html>
   </Tailwind>
 );
+
+PasswordResetEmail.PreviewProps = {
+  companyName: 'Skin',
+  url: 'https://example.com/',
+} satisfies PasswordResetEmailProps;
+
 export default PasswordResetEmail;

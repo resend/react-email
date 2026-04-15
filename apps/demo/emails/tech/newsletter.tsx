@@ -40,8 +40,8 @@ type TechNewsletterCommunity = {
 };
 
 interface TechNewsletterEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
 const techNewsletterLetterParagraphs = [
@@ -80,8 +80,8 @@ const techNewsletterCommunity: TechNewsletterCommunity = {
 
 /** Tech newsletter — same content blocks as Skin `newsletter.tsx`, light card layout (Figma Email-Templates family). */
 export const TechNewsletterEmail = ({
-  companyName = 'Halo',
-  url = 'https://example.com/',
+  companyName,
+  url,
 }: TechNewsletterEmailProps) => {
   return (
     <Tailwind config={techTailwindConfig}>
@@ -296,5 +296,10 @@ export const TechNewsletterEmail = ({
     </Tailwind>
   );
 };
+
+TechNewsletterEmail.PreviewProps = {
+  companyName: 'Halo',
+  url: 'https://example.com/',
+} satisfies TechNewsletterEmailProps;
 
 export default TechNewsletterEmail;

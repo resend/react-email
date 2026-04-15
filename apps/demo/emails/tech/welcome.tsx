@@ -17,14 +17,14 @@ import { TechFonts } from './tech-fonts';
 import { techTailwindConfig } from './theme';
 
 interface TechWelcomeEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
 /** Figma Email-Templates `2692:1907` — Tech welcome (hero, feature rows, join panel). */
 export const TechWelcomeEmail = ({
-  companyName = 'Halo',
-  url = 'https://example.com/',
+  companyName,
+  url,
 }: TechWelcomeEmailProps) => {
   return (
     <Tailwind config={techTailwindConfig}>
@@ -199,5 +199,10 @@ export const TechWelcomeEmail = ({
     </Tailwind>
   );
 };
+
+TechWelcomeEmail.PreviewProps = {
+  companyName: 'Halo',
+  url: 'https://example.com/',
+} satisfies TechWelcomeEmailProps;
 
 export default TechWelcomeEmail;

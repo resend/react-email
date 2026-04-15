@@ -17,13 +17,13 @@ import { TechFonts } from './tech-fonts';
 import { techTailwindConfig } from './theme';
 
 interface TechPasswordResetEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
 export const TechPasswordResetEmail = ({
-  companyName = 'Halo',
-  url = 'https://example.com/',
+  companyName,
+  url,
 }: TechPasswordResetEmailProps) => (
   <Tailwind config={techTailwindConfig}>
     <Html>
@@ -139,5 +139,10 @@ export const TechPasswordResetEmail = ({
     </Html>
   </Tailwind>
 );
+
+TechPasswordResetEmail.PreviewProps = {
+  companyName: 'Halo',
+  url: 'https://example.com/',
+} satisfies TechPasswordResetEmailProps;
 
 export default TechPasswordResetEmail;

@@ -17,14 +17,11 @@ import { DitherFonts } from './dither-fonts';
 import { ditherTailwindConfig } from './theme';
 
 interface ActivationEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
-export const ActivationEmail = ({
-  companyName = 'Dither',
-  url = 'https://example.com/',
-}: ActivationEmailProps) => (
+export const ActivationEmail = ({ companyName, url }: ActivationEmailProps) => (
   <Tailwind config={ditherTailwindConfig}>
     <Html>
       <Head>
@@ -171,5 +168,10 @@ export const ActivationEmail = ({
     </Html>
   </Tailwind>
 );
+
+ActivationEmail.PreviewProps = {
+  companyName: 'Dither',
+  url: 'https://example.com/',
+} satisfies ActivationEmailProps;
 
 export default ActivationEmail;

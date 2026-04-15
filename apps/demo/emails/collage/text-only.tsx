@@ -16,14 +16,11 @@ import { CollageFonts } from './collage-fonts';
 import { collageTailwindConfig } from './theme';
 
 interface TextOnlyEmailProps {
-  companyName?: string;
-  url?: string;
+  companyName: string;
+  url: string;
 }
 
-export const TextOnlyEmail = ({
-  companyName = 'Collage',
-  url = 'https://example.com/',
-}: TextOnlyEmailProps) => {
+export const TextOnlyEmail = ({ companyName, url }: TextOnlyEmailProps) => {
   return (
     <Tailwind config={collageTailwindConfig}>
       <Html>
@@ -171,5 +168,10 @@ export const TextOnlyEmail = ({
     </Tailwind>
   );
 };
+
+TextOnlyEmail.PreviewProps = {
+  companyName: 'Collage',
+  url: 'https://example.com/',
+} satisfies TextOnlyEmailProps;
 
 export default TextOnlyEmail;
