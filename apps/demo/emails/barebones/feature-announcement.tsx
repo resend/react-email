@@ -115,10 +115,7 @@ export const FeatureAnnouncementEmail = ({
                       Bring your workflows into one place, cut manual handoffs,
                       and give everyone the same source of truth.
                     </Text>
-                    <Link
-                      href="https://example.com/"
-                      className="font-16 font-sans text-fg"
-                    >
+                    <Link href={url} className="font-16 font-sans text-fg">
                       Read more
                     </Link>
                   </Column>
@@ -140,10 +137,7 @@ export const FeatureAnnouncementEmail = ({
                       Bring your workflows into one place, cut manual handoffs,
                       and give everyone the same source of truth.
                     </Text>
-                    <Link
-                      href="https://example.com/"
-                      className="font-16 font-sans text-fg"
-                    >
+                    <Link href={url} className="font-16 font-sans text-fg">
                       Read more
                     </Link>
                   </Column>
@@ -196,7 +190,7 @@ export const FeatureAnnouncementEmail = ({
 
                     <Section className="mb-8">
                       <Link
-                        href="https://example.com/"
+                        href={url}
                         className="inline-block px-2 align-middle"
                       >
                         <Img
@@ -207,7 +201,7 @@ export const FeatureAnnouncementEmail = ({
                         />
                       </Link>
                       <Link
-                        href="https://example.com/"
+                        href={url}
                         className="inline-block px-2 align-middle"
                       >
                         <Img
@@ -218,7 +212,7 @@ export const FeatureAnnouncementEmail = ({
                         />
                       </Link>
                       <Link
-                        href="https://example.com/"
+                        href={url}
                         className="inline-block px-2 align-middle"
                       >
                         <Img
@@ -229,7 +223,7 @@ export const FeatureAnnouncementEmail = ({
                         />
                       </Link>
                       <Link
-                        href="https://example.com/"
+                        href={url}
                         className="inline-block px-2 align-middle"
                       >
                         <Img
@@ -247,7 +241,7 @@ export const FeatureAnnouncementEmail = ({
                       Tech City, CA, 94102
                     </Text>
                     <Text className="m-0 font-11 font-sans text-fg-3 text-center">
-                      <Link href="https://example.com/" className="text-fg-3">
+                      <Link href={url} className="text-fg-3">
                         Unsubscribe
                       </Link>{' '}
                       from {companyName} marketing emails.

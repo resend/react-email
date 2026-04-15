@@ -136,6 +136,11 @@ export const TechNewsletterEmail = ({
                   <Text className="m-0 mt-6 font-14 font-sans text-fg-2 text-center">
                     {techNewsletterSpotlight.body}
                   </Text>
+                  <Section className="mt-6 text-center">
+                    <Link href={url} className="font-14 font-sans text-fg-3">
+                      {techNewsletterSpotlight.buttonLabel}
+                    </Link>
+                  </Section>
                 </Section>
               </Section>
 
@@ -174,7 +179,7 @@ export const TechNewsletterEmail = ({
                           </Text>
                           <Section className="mt-4">
                             <Link
-                              href="https://example.com/"
+                              href={url}
                               className="font-14 font-sans text-fg-3"
                             >
                               {tip.ctaLabel}
@@ -218,10 +223,7 @@ export const TechNewsletterEmail = ({
                   <Section className="mx-auto mt-2 mb-8 w-fit">
                     <Row>
                       <Column className="pr-[20px] w-[20px]">
-                        <Link
-                          href="https://example.com/"
-                          className="inline-block"
-                        >
+                        <Link href={url} className="inline-block">
                           <Img
                             src="/static/shared/social-x-black.png"
                             alt="X"
@@ -232,10 +234,7 @@ export const TechNewsletterEmail = ({
                         </Link>
                       </Column>
                       <Column className="pr-[20px] w-[20px]">
-                        <Link
-                          href="https://example.com/"
-                          className="inline-block"
-                        >
+                        <Link href={url} className="inline-block">
                           <Img
                             src="/static/shared/social-in-black.png"
                             alt="LinkedIn"
@@ -246,10 +245,7 @@ export const TechNewsletterEmail = ({
                         </Link>
                       </Column>
                       <Column className="pr-[20px] w-[20px]">
-                        <Link
-                          href="https://example.com/"
-                          className="inline-block"
-                        >
+                        <Link href={url} className="inline-block">
                           <Img
                             src="/static/shared/social-yt-black.png"
                             alt="YouTube"
@@ -260,10 +256,7 @@ export const TechNewsletterEmail = ({
                         </Link>
                       </Column>
                       <Column className="w-[20px]">
-                        <Link
-                          href="https://example.com/"
-                          className="inline-block"
-                        >
+                        <Link href={url} className="inline-block">
                           <Img
                             src="/static/shared/social-gh-black.png"
                             alt="GitHub"
@@ -282,7 +275,7 @@ export const TechNewsletterEmail = ({
                     Tech City, CA, 94102
                   </Text>
                   <Text className="m-0 mt-5 font-11 font-sans text-fg-3">
-                    <Link href="https://example.com/" className="text-fg-2">
+                    <Link href={url} className="text-fg-2">
                       Unsubscribe
                     </Link>{' '}
                     from {companyName} marketing emails.

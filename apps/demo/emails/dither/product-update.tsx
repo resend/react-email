@@ -21,7 +21,6 @@ type ProductUpdateFeature = {
   linkText: string;
   linkHref: string;
   imageSrc: string;
-  imageLeft: boolean;
 };
 
 const productUpdateHeadline = 'THE WORK BEHIND THE WORK';
@@ -42,23 +41,20 @@ export const ProductUpdateEmail = ({
       linkText: 'Explore Smart Tasks',
       linkHref: url,
       imageSrc: '/static/dither/dither-image-7.png',
-      imageLeft: true,
     },
     {
       title: 'Less manual work',
       body: 'Fewer status updates, more automated work.',
       linkText: 'Read more',
-      linkHref: 'https://example.com/',
+      linkHref: url,
       imageSrc: '/static/dither/dither-image-4.png',
-      imageLeft: false,
     },
     {
       title: 'Less manual work',
       body: 'Fewer status updates, more automated work.',
       linkText: 'Read more',
-      linkHref: 'https://example.com/',
+      linkHref: url,
       imageSrc: '/static/dither/dither-image-5.png',
-      imageLeft: true,
     },
   ];
 
@@ -186,6 +182,12 @@ export const ProductUpdateEmail = ({
                       <Text className="font-14 text-fg-2 m-0 mt-2">
                         {featureRows[1].body}
                       </Text>
+                      <Link
+                        href={featureRows[1].linkHref}
+                        className="font-15 text-fg-2 mt-3 inline-block"
+                      >
+                        {featureRows[1].linkText}
+                      </Link>
                     </Section>
                   </Column>
                   <Column className="mobile:!block mobile:pl-0 mobile:!w-full mobile:!max-w-full w-[50%] pl-2.5 align-top">
@@ -202,6 +204,12 @@ export const ProductUpdateEmail = ({
                       <Text className="font-14 text-fg-2 m-0 mt-2">
                         {featureRows[2].body}
                       </Text>
+                      <Link
+                        href={featureRows[2].linkHref}
+                        className="font-15 text-fg-2 mt-3 inline-block"
+                      >
+                        {featureRows[2].linkText}
+                      </Link>
                     </Section>
                   </Column>
                 </Row>
@@ -227,10 +235,7 @@ export const ProductUpdateEmail = ({
                   <Section align="left" className="mt-8 w-[152px]">
                     <Row align="left">
                       <Column className="w-[20px] pr-6">
-                        <Link
-                          href="https://example.com/"
-                          className="inline-block"
-                        >
+                        <Link href={url} className="inline-block">
                           <Img
                             src="/static/shared/social-x-white.png"
                             alt="X"
@@ -241,10 +246,7 @@ export const ProductUpdateEmail = ({
                         </Link>
                       </Column>
                       <Column className="w-[20px] pr-6">
-                        <Link
-                          href="https://example.com/"
-                          className="inline-block"
-                        >
+                        <Link href={url} className="inline-block">
                           <Img
                             src="/static/shared/social-li-white.png"
                             alt="LinkedIn"
@@ -255,10 +257,7 @@ export const ProductUpdateEmail = ({
                         </Link>
                       </Column>
                       <Column className="w-[20px] pr-6">
-                        <Link
-                          href="https://example.com/"
-                          className="inline-block"
-                        >
+                        <Link href={url} className="inline-block">
                           <Img
                             src="/static/shared/social-yt-white.png"
                             alt="YouTube"
@@ -269,10 +268,7 @@ export const ProductUpdateEmail = ({
                         </Link>
                       </Column>
                       <Column className="w-[20px]">
-                        <Link
-                          href="https://example.com/"
-                          className="inline-block"
-                        >
+                        <Link href={url} className="inline-block">
                           <Img
                             src="/static/shared/social-gh-white.png"
                             alt="GitHub"
@@ -298,7 +294,7 @@ export const ProductUpdateEmail = ({
               <Row align="left">
                 <Column className="w-full pt-5 align-top">
                   <Text className="font-11 text-fg-2 m-0 max-w-[160px] font-sans">
-                    <Link href="https://example.com/" className="text-fg-2">
+                    <Link href={url} className="text-fg-2">
                       Unsubscribe
                     </Link>{' '}
                     from {companyName} marketing emails.

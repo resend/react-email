@@ -28,7 +28,7 @@ const fontTokens = {
     fontWeight: '400',
   },
   14: {
-    fontSize: '15px',
+    fontSize: '14px',
     lineHeight: '1.6',
     letterSpacing: '-0.042px',
     fontWeight: '450',

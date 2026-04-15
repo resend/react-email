@@ -94,10 +94,7 @@ export const WelcomeEmail = ({ companyName, url }: WelcomeEmailProps) => (
               <Text className="font-14 text-fg-2 m-0 my-3 font-sans">
                 Collaboration works best when everyone&apos;s in.
               </Text>
-              <Link
-                href="https://example.com/"
-                className="font-15 text-fg font-sans"
-              >
+              <Link href={url} className="font-15 text-fg font-sans">
                 Invite Teammates
               </Link>
             </Section>
@@ -106,7 +103,7 @@ export const WelcomeEmail = ({ companyName, url }: WelcomeEmailProps) => (
               <Text className="font-15 text-fg m-0 font-sans">Need help?</Text>
               <Text className="mobile:!max-w-full font-13 text-fg-2 m-0 mt-0.5 max-w-[490px] font-sans">
                 Find guides, tips, and best practices anytime, visit our{' '}
-                <Link href="https://example.com/" className="text-fg-2">
+                <Link href={url} className="text-fg-2">
                   Help Center
                 </Link>
                 .

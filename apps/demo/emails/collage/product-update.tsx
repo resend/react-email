@@ -145,9 +145,12 @@ export const ProductUpdateEmail = ({
                             <Text className="font-14 font-inter text-fg-2 m-0 mt-2">
                               {card.description}
                             </Text>
-                            <Text className="font-14 font-inter text-fg-2 m-0 mt-2">
+                            <Link
+                              href={url}
+                              className="font-14 font-inter text-fg-2 m-0 mt-2 inline-block"
+                            >
                               {card.cta}
-                            </Text>
+                            </Link>
                           </Section>
                         </Section>
                       </Column>
@@ -214,7 +217,7 @@ export const ProductUpdateEmail = ({
                       href={url}
                       className="bg-brand font-15 font-inter text-fg-inverted inline-block border-none px-5 py-3.5 text-center"
                     >
-                      Open Collage
+                      Open {brand}
                     </Button>
                   </Section>
                   <Section className="pt-16">
@@ -238,10 +241,7 @@ export const ProductUpdateEmail = ({
                       <Section align="left" className="mt-8 w-[152px]">
                         <Row align="left">
                           <Column className="w-[20px] pr-8">
-                            <Link
-                              href="https://example.com/"
-                              className="inline-block"
-                            >
+                            <Link href={url} className="inline-block">
                               <Img
                                 src="/static/shared/social-x-black.png"
                                 alt="X"
@@ -252,10 +252,7 @@ export const ProductUpdateEmail = ({
                             </Link>
                           </Column>
                           <Column className="w-[20px] pr-8">
-                            <Link
-                              href="https://example.com/"
-                              className="inline-block"
-                            >
+                            <Link href={url} className="inline-block">
                               <Img
                                 src="/static/shared/social-in-black.png"
                                 alt="LinkedIn"
@@ -266,10 +263,7 @@ export const ProductUpdateEmail = ({
                             </Link>
                           </Column>
                           <Column className="w-[20px] pr-8">
-                            <Link
-                              href="https://example.com/"
-                              className="inline-block"
-                            >
+                            <Link href={url} className="inline-block">
                               <Img
                                 src="/static/shared/social-yt-black.png"
                                 alt="YouTube"
@@ -280,10 +274,7 @@ export const ProductUpdateEmail = ({
                             </Link>
                           </Column>
                           <Column className="w-[20px]">
-                            <Link
-                              href="https://example.com/"
-                              className="inline-block"
-                            >
+                            <Link href={url} className="inline-block">
                               <Img
                                 src="/static/shared/social-gh-black.png"
                                 alt="GitHub"
@@ -311,7 +302,7 @@ export const ProductUpdateEmail = ({
                   <Row align="left">
                     <Column className="w-full pt-5 align-top">
                       <Text className="font-11 font-inter text-fg-2 m-0 max-w-[169px]">
-                        <Link href="https://example.com/" className="text-fg-2">
+                        <Link href={url} className="text-fg-2">
                           Unsubscribe
                         </Link>{' '}
                         from {companyName} marketing emails.

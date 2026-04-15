@@ -92,8 +92,6 @@ export const TechPromoEmail = ({ companyName, url }: TechPromoEmailProps) => {
             </Section>
 
             <Section className="px-8 pt-8 pb-20">
-              <Section />
-
               <Section className="bg-bg-4 mt-10 px-12 mobile:px-4 py-20 rounded-[10px] text-center">
                 <Text className="m-0 font-20 font-sans text-fg-2">★★★★★</Text>
                 <Text className="m-0 mt-5 font-22 font-sans text-fg">

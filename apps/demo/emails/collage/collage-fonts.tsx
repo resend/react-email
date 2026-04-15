@@ -17,8 +17,8 @@ export function CollageFonts() {
         fontFamily="Inter"
         fallbackFontFamily={['Arial', 'sans-serif']}
         webFont={{
-          url: 'https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuOKfMZg.ttf',
-          format: 'truetype',
+          url: 'https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2',
+          format: 'woff2',
         }}
         fontWeight={400}
         fontStyle="normal"

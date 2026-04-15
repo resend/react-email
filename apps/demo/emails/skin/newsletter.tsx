@@ -153,7 +153,7 @@ export const NewsletterEmail = ({ companyName, url }: NewsletterEmailProps) => {
                         </Text>
                         <Section className="mt-[8px]">
                           <Link
-                            href="https://example.com/"
+                            href={url}
                             className="font-15 text-fg font-sans"
                           >
                             {tip.ctaLabel}
@@ -215,10 +215,7 @@ export const NewsletterEmail = ({ companyName, url }: NewsletterEmailProps) => {
                     <Section align="left" className="mt-8 w-[152px]">
                       <Row align="left">
                         <Column className="w-[20px] pr-6">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
                               src="/static/skin/social-x.png"
                               alt="X"
@@ -229,10 +226,7 @@ export const NewsletterEmail = ({ companyName, url }: NewsletterEmailProps) => {
                           </Link>
                         </Column>
                         <Column className="w-[20px] pr-6">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
                               src="/static/skin/social-li.png"
                               alt="LinkedIn"
@@ -243,10 +237,7 @@ export const NewsletterEmail = ({ companyName, url }: NewsletterEmailProps) => {
                           </Link>
                         </Column>
                         <Column className="w-[20px] pr-6">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
                               src="/static/skin/social-yt.png"
                               alt="YouTube"
@@ -257,10 +248,7 @@ export const NewsletterEmail = ({ companyName, url }: NewsletterEmailProps) => {
                           </Link>
                         </Column>
                         <Column className="w-[20px]">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
                               src="/static/skin/social-gh.png"
                               alt="GitHub"
@@ -286,7 +274,7 @@ export const NewsletterEmail = ({ companyName, url }: NewsletterEmailProps) => {
                 <Row align="left">
                   <Column className="w-full pt-5 align-top">
                     <Text className="font-11 text-fg-3 m-0 max-w-[169px] font-sans">
-                      <Link href="https://example.com/" className="text-fg-2">
+                      <Link href={url} className="text-fg-2">
                         Unsubscribe
                       </Link>{' '}
                       from {companyName} marketing emails.

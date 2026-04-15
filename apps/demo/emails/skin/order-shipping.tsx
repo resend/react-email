@@ -20,7 +20,6 @@ type ShippingFaqItem = {
   title: string;
   linkLabel: string;
   linkHref: string;
-  imageSrc: string;
 };
 
 interface OrderShippingEmailProps {
@@ -41,18 +40,16 @@ const orderShippingLines: OrderLine[] = [
   },
 ];
 
-const orderShippingFaqItems: ShippingFaqItem[] = [
+const getOrderShippingFaqItems = (url: string): ShippingFaqItem[] => [
   {
     title: 'Need to change ship date?',
     linkLabel: 'See how \u2192',
-    linkHref: 'https://example.com/',
-    imageSrc: '/static/skin/skin-image-4.png',
+    linkHref: url,
   },
   {
     title: 'Sending to a new address?',
     linkLabel: 'See how \u2192',
-    linkHref: 'https://example.com/',
-    imageSrc: '/static/skin/skin-image-5.png',
+    linkHref: url,
   },
 ];
 
@@ -141,7 +138,7 @@ export const OrderShippingEmail = ({
                   Common questions
                 </Text>
                 <Section className="mt-[32px]">
-                  {orderShippingFaqItems.map((item, idx) => (
+                  {getOrderShippingFaqItems(url).map((item, idx) => (
                     <Section key={idx}>
                       <Row>
                         <Column className="px-2 py-8">
@@ -175,10 +172,7 @@ export const OrderShippingEmail = ({
                     <Section align="left" className="mt-8 w-[152px]">
                       <Row align="left">
                         <Column className="w-[20px] pr-6">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
                               src="/static/skin/social-x.png"
                               alt="X"
@@ -189,10 +183,7 @@ export const OrderShippingEmail = ({
                           </Link>
                         </Column>
                         <Column className="w-[20px] pr-6">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
                               src="/static/skin/social-li.png"
                               alt="LinkedIn"
@@ -203,10 +194,7 @@ export const OrderShippingEmail = ({
                           </Link>
                         </Column>
                         <Column className="w-[20px] pr-6">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
                               src="/static/skin/social-yt.png"
                               alt="YouTube"
@@ -217,10 +205,7 @@ export const OrderShippingEmail = ({
                           </Link>
                         </Column>
                         <Column className="w-[20px]">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
                               src="/static/skin/social-gh.png"
                               alt="GitHub"
@@ -246,7 +231,7 @@ export const OrderShippingEmail = ({
                 <Row align="left">
                   <Column className="w-full pt-5 align-top">
                     <Text className="font-11 text-fg-3 m-0 max-w-[169px] font-sans">
-                      <Link href="https://example.com/" className="text-fg-2">
+                      <Link href={url} className="text-fg-2">
                         Unsubscribe
                       </Link>{' '}
                       from {companyName} marketing emails.

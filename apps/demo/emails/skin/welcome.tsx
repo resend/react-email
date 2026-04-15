@@ -24,6 +24,7 @@ type WelcomeFeature = {
 };
 interface WelcomeEmailProps {
   companyName: string;
+  url: string;
 }
 const welcomeFeatures: WelcomeFeature[] = [
   {
@@ -41,7 +42,7 @@ const welcomeFeatures: WelcomeFeature[] = [
     imagePosition: 'right',
   },
 ];
-export const WelcomeEmail = ({ companyName }: WelcomeEmailProps) => {
+export const WelcomeEmail = ({ companyName, url }: WelcomeEmailProps) => {
   return (
     <Tailwind config={skinTailwindConfig}>
       <Html>
@@ -96,7 +97,7 @@ export const WelcomeEmail = ({ companyName }: WelcomeEmailProps) => {
                       <Column
                         key="img"
                         className={`mobile:!block mobile:!w-full w-[280px] max-w-[280px] align-top mobile:!max-w-full${
-                          isImgLeft ? '' : 'mobile:pt-8'
+                          isImgLeft ? '' : ' mobile:pt-8'
                         }`}
                       >
                         <Img
@@ -111,7 +112,7 @@ export const WelcomeEmail = ({ companyName }: WelcomeEmailProps) => {
                       <Column
                         key="txt"
                         className={`mobile:!block mobile:!w-full align-top mobile:!max-w-full${
-                          isImgLeft ? 'mobile:pt-8' : ''
+                          isImgLeft ? ' mobile:pt-8' : ''
                         }`}
                       >
                         <Section className="mobile:py-6 py-[40px]">
@@ -123,7 +124,7 @@ export const WelcomeEmail = ({ companyName }: WelcomeEmailProps) => {
                           </Text>
                           <Section className="mt-[16px]">
                             <Link
-                              href="https://example.com/"
+                              href={url}
                               className="font-15 text-fg font-sans"
                             >
                               {feature.ctaLabel}
@@ -169,7 +170,7 @@ export const WelcomeEmail = ({ companyName }: WelcomeEmailProps) => {
                   </Text>
                   <Section className="mt-[40px] text-center">
                     <Link
-                      href="https://example.com/"
+                      href={url}
                       className="font-16 text-fg-inverted font-sans"
                     >
                       {'Start Exploring \u2192'}
@@ -190,10 +191,7 @@ export const WelcomeEmail = ({ companyName }: WelcomeEmailProps) => {
                     <Section align="left" className="mt-8 w-[152px]">
                       <Row align="left">
                         <Column className="w-[20px] pr-6">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
                               src="/static/skin/social-x.png"
                               alt="X"
@@ -204,10 +202,7 @@ export const WelcomeEmail = ({ companyName }: WelcomeEmailProps) => {
                           </Link>
                         </Column>
                         <Column className="w-[20px] pr-6">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
                               src="/static/skin/social-li.png"
                               alt="LinkedIn"
@@ -218,10 +213,7 @@ export const WelcomeEmail = ({ companyName }: WelcomeEmailProps) => {
                           </Link>
                         </Column>
                         <Column className="w-[20px] pr-6">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
                               src="/static/skin/social-yt.png"
                               alt="YouTube"
@@ -232,10 +224,7 @@ export const WelcomeEmail = ({ companyName }: WelcomeEmailProps) => {
                           </Link>
                         </Column>
                         <Column className="w-[20px]">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
                               src="/static/skin/social-gh.png"
                               alt="GitHub"
@@ -261,7 +250,7 @@ export const WelcomeEmail = ({ companyName }: WelcomeEmailProps) => {
                 <Row align="left">
                   <Column className="w-full pt-5 align-top">
                     <Text className="font-11 text-fg-3 m-0 max-w-[169px] font-sans">
-                      <Link href="https://example.com/" className="text-fg-2">
+                      <Link href={url} className="text-fg-2">
                         Unsubscribe
                       </Link>{' '}
                       from {companyName} marketing emails.
@@ -279,6 +268,7 @@ export const WelcomeEmail = ({ companyName }: WelcomeEmailProps) => {
 
 WelcomeEmail.PreviewProps = {
   companyName: 'Skin',
+  url: 'https://example.com/',
 } satisfies WelcomeEmailProps;
 
 export default WelcomeEmail;

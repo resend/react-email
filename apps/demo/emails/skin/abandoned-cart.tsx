@@ -124,7 +124,7 @@ export const AbandonedCartEmail = ({
                   </Text>
                   <Section className="mt-[40px] text-center">
                     <Link
-                      href="https://example.com/"
+                      href={url}
                       className="font-16 font-sans text-fg-inverted"
                     >
                       {'Start Exploring \u2192'}
@@ -145,10 +145,7 @@ export const AbandonedCartEmail = ({
                     <Section align="left" className="mt-8 w-[152px]">
                       <Row align="left">
                         <Column className="pr-6 w-[20px]">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
                               src="/static/skin/social-x.png"
                               alt="X"
@@ -159,10 +156,7 @@ export const AbandonedCartEmail = ({
                           </Link>
                         </Column>
                         <Column className="pr-6 w-[20px]">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
                               src="/static/skin/social-li.png"
                               alt="LinkedIn"
@@ -173,10 +167,7 @@ export const AbandonedCartEmail = ({
                           </Link>
                         </Column>
                         <Column className="pr-6 w-[20px]">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
                               src="/static/skin/social-yt.png"
                               alt="YouTube"
@@ -187,10 +178,7 @@ export const AbandonedCartEmail = ({
                           </Link>
                         </Column>
                         <Column className="w-[20px]">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
                               src="/static/skin/social-gh.png"
                               alt="GitHub"
@@ -216,7 +204,7 @@ export const AbandonedCartEmail = ({
                 <Row align="left">
                   <Column className="pt-5 w-full align-top">
                     <Text className="m-0 max-w-[169px] font-11 font-sans text-fg-3">
-                      <Link href="https://example.com/" className="text-fg-2">
+                      <Link href={url} className="text-fg-2">
                         Unsubscribe
                       </Link>{' '}
                       from {companyName} marketing emails.

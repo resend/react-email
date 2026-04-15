@@ -16,6 +16,10 @@ import {
 import { CollageFonts } from './collage-fonts';
 import { collageTailwindConfig } from './theme';
 
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : '';
+
 interface ActivationEmailProps {
   companyName: string;
   url: string;
@@ -34,7 +38,7 @@ export const ActivationEmail = ({ companyName, url }: ActivationEmailProps) => (
             <Section className="bg-bg border-stroke rounded-[8px] border">
               <Section className="px-10 pt-16">
                 <Img
-                  src="/static/collage/collage-image-1.png"
+                  src={`${baseUrl}/static/collage/collage-image-1.png`}
                   alt=""
                   width={148}
                   height={111}
@@ -82,12 +86,9 @@ export const ActivationEmail = ({ companyName, url }: ActivationEmailProps) => (
                     <Section align="left" className="mt-8 w-[152px]">
                       <Row align="left">
                         <Column className="w-[20px] pr-8">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
-                              src="/static/shared/social-x-black.png"
+                              src={`${baseUrl}/static/shared/social-x-black.png`}
                               alt="X"
                               width={20}
                               height={20}
@@ -96,12 +97,9 @@ export const ActivationEmail = ({ companyName, url }: ActivationEmailProps) => (
                           </Link>
                         </Column>
                         <Column className="w-[20px] pr-8">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
-                              src="/static/shared/social-in-black.png"
+                              src={`${baseUrl}/static/shared/social-in-black.png`}
                               alt="LinkedIn"
                               width={20}
                               height={20}
@@ -110,12 +108,9 @@ export const ActivationEmail = ({ companyName, url }: ActivationEmailProps) => (
                           </Link>
                         </Column>
                         <Column className="w-[20px] pr-8">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
-                              src="/static/shared/social-yt-black.png"
+                              src={`${baseUrl}/static/shared/social-yt-black.png`}
                               alt="YouTube"
                               width={20}
                               height={20}
@@ -124,12 +119,9 @@ export const ActivationEmail = ({ companyName, url }: ActivationEmailProps) => (
                           </Link>
                         </Column>
                         <Column className="w-[20px]">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
-                              src="/static/shared/social-gh-black.png"
+                              src={`${baseUrl}/static/shared/social-gh-black.png`}
                               alt="GitHub"
                               width={20}
                               height={20}
@@ -155,7 +147,7 @@ export const ActivationEmail = ({ companyName, url }: ActivationEmailProps) => (
                 <Row align="left">
                   <Column className="w-full pt-5 align-top">
                     <Text className="font-11 font-inter text-fg-2 m-0 max-w-[169px]">
-                      <Link href="https://example.com/" className="text-fg-2">
+                      <Link href={url} className="text-fg-2">
                         Unsubscribe
                       </Link>{' '}
                       from {companyName} marketing emails.

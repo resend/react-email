@@ -94,7 +94,7 @@ export const PromoEmail = ({ companyName, url }: PromoEmailProps) => {
                       <Column
                         key="img"
                         className={`mobile:!block mobile:!w-full mobile:!max-w-full w-[280px] max-w-[280px] align-middle${
-                          isImgLeft ? '' : 'mobile:pt-8'
+                          isImgLeft ? '' : ' mobile:pt-8'
                         }`}
                       >
                         <Img
@@ -109,7 +109,7 @@ export const PromoEmail = ({ companyName, url }: PromoEmailProps) => {
                       <Column
                         key="txt"
                         className={`mobile:!block mobile:!w-full mobile:!max-w-full align-top${
-                          isImgLeft ? 'mobile:pt-8' : ''
+                          isImgLeft ? ' mobile:pt-8' : ''
                         }`}
                       >
                         <Section className="mobile:py-6 py-[40px]">
@@ -121,7 +121,7 @@ export const PromoEmail = ({ companyName, url }: PromoEmailProps) => {
                           </Text>
                           <Section className="mt-[16px]">
                             <Link
-                              href="https://example.com/"
+                              href={url}
                               className="font-15 text-fg font-sans"
                             >
                               {feature.ctaLabel}
@@ -167,7 +167,7 @@ export const PromoEmail = ({ companyName, url }: PromoEmailProps) => {
                   </Text>
                   <Section className="mt-[40px] text-center">
                     <Link
-                      href="https://example.com/"
+                      href={url}
                       className="font-16 text-fg-inverted font-sans"
                     >
                       {'Start Exploring \u2192'}
@@ -188,10 +188,7 @@ export const PromoEmail = ({ companyName, url }: PromoEmailProps) => {
                     <Section align="left" className="mt-8 w-[152px]">
                       <Row align="left">
                         <Column className="w-[20px] pr-6">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
                               src="/static/skin/social-x.png"
                               alt="X"
@@ -202,10 +199,7 @@ export const PromoEmail = ({ companyName, url }: PromoEmailProps) => {
                           </Link>
                         </Column>
                         <Column className="w-[20px] pr-6">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
                               src="/static/skin/social-li.png"
                               alt="LinkedIn"
@@ -216,10 +210,7 @@ export const PromoEmail = ({ companyName, url }: PromoEmailProps) => {
                           </Link>
                         </Column>
                         <Column className="w-[20px] pr-6">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
                               src="/static/skin/social-yt.png"
                               alt="YouTube"
@@ -230,10 +221,7 @@ export const PromoEmail = ({ companyName, url }: PromoEmailProps) => {
                           </Link>
                         </Column>
                         <Column className="w-[20px]">
-                          <Link
-                            href="https://example.com/"
-                            className="inline-block"
-                          >
+                          <Link href={url} className="inline-block">
                             <Img
                               src="/static/skin/social-gh.png"
                               alt="GitHub"
@@ -259,7 +247,7 @@ export const PromoEmail = ({ companyName, url }: PromoEmailProps) => {
                 <Row align="left">
                   <Column className="w-full pt-5 align-top">
                     <Text className="font-11 text-fg-3 m-0 max-w-[169px] font-sans">
-                      <Link href="https://example.com/" className="text-fg-2">
+                      <Link href={url} className="text-fg-2">
                         Unsubscribe
                       </Link>{' '}
                       from {companyName} marketing emails.

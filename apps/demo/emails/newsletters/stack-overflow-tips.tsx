@@ -177,12 +177,12 @@ StackOverflowTipsEmail.PreviewProps = {
         'To find a specific phrase, enter it in quotes: "local storage"',
     },
     {
-      id: 1,
+      id: 2,
       description:
         'To search within specific tag(s), enter them in square brackets: [javascript]',
     },
     {
-      id: 1,
+      id: 3,
       description:
         'Combine them to get even more precise results - [javascript] "local storage" searches for the phrase “local storage” in questions that have the [javascript] tag',
     },

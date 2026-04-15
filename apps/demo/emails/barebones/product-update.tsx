@@ -306,7 +306,7 @@ export const ProductUpdateEmail = ({
                   <Row>
                     <Column className="pr-2 w-1/2 text-right align-middle">
                       <Button
-                        href="https://example.com/"
+                        href={url}
                         className="inline-block bg-fg px-7 py-4 rounded-lg font-16 font-sans text-fg-inverted text-center leading-6"
                       >
                         App Store
@@ -314,7 +314,7 @@ export const ProductUpdateEmail = ({
                     </Column>
                     <Column className="pl-2 w-1/2 text-left align-middle">
                       <Button
-                        href="https://example.com/"
+                        href={url}
                         className="inline-block bg-fg px-7 py-4 rounded-lg font-16 font-sans text-fg-inverted text-center leading-6"
                       >
                         Google Play
@@ -437,7 +437,7 @@ function NumberedStep({
 function BulletCell({ isLast }: { isLast?: boolean }) {
   return (
     <Column
-      className={`mobile:!block mobile:!w-full mobile:!max-w-full w-1/2 pr-8 align-top mobile:pr-0${isLast ? '' : 'mobile:mb-8'}`}
+      className={`mobile:!block mobile:!w-full mobile:!max-w-full w-1/2 pr-8 align-top mobile:pr-0${isLast ? '' : ' mobile:mb-8'}`}
     >
       <Text className="mt-0 mb-5">
         <span className="inline-block border-stroke-strong border border-solid rounded-lg size-6 text-[1px] align-middle leading-6">

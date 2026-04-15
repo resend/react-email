@@ -272,7 +272,7 @@ export const WelcomeEmail = ({ companyName, url }: WelcomeEmailProps) => (
 function WelcomeBulletCell({ isLast }: { isLast?: boolean }) {
   return (
     <Column
-      className={`mobile:!block mobile:!w-full mobile:!max-w-full w-1/2 pr-8 align-top mobile:pr-0${isLast ? '' : 'mobile:mb-8'}`}
+      className={`mobile:!block mobile:!w-full mobile:!max-w-full w-1/2 pr-8 align-top mobile:pr-0${isLast ? '' : ' mobile:mb-8'}`}
     >
       <Text className="mt-0 mb-5">
         <span className="inline-block border-stroke-strong border border-solid rounded-full size-6 align-middle" />
