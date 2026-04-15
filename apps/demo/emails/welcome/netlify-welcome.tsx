@@ -57,8 +57,8 @@ export const NetlifyWelcomeEmail = ({
           },
         }}
       >
-        <Preview>Netlify Welcome</Preview>
         <Body className="bg-offwhite font-sans text-base">
+          <Preview>Netlify Welcome</Preview>
           <Img
             src={`${baseUrl}/static/netlify-logo.png`}
             width="184"
