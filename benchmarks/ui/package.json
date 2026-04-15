@@ -1,5 +1,5 @@
 {
-  "name": "@benchmarks/preview-server",
+  "name": "@benchmarks/ui",
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -10,7 +10,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/resend/react-email.git",
-    "directory": "benchmarks/preview-server"
+    "directory": "benchmarks/ui"
   },
   "dependencies": {
     "react-email": "workspace:*",

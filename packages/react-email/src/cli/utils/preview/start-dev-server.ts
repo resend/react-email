@@ -7,7 +7,7 @@ import logSymbols from 'log-symbols';
 import ora from 'ora';
 import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping.js';
 import { conf } from '../conf.js';
-import { getPreviewServerLocation } from '../get-preview-server-location.js';
+import { getUiLocation } from '../get-ui-location.js';
 import { packageJson } from '../packageJson.js';
 import { styleText } from '../style-text.js';
 import { getEnvVariablesForPreviewApp } from './get-env-variables-for-preview-app.js';
@@ -42,7 +42,7 @@ export const startDevServer = async (
     process.exit(1);
   }
 
-  const previewServerLocation = await getPreviewServerLocation();
+  const previewServerLocation = await getUiLocation();
   const previewServer = createJiti(previewServerLocation);
 
   devServer = http.createServer((req, res) => {

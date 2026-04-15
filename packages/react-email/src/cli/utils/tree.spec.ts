@@ -18,7 +18,7 @@ test('tree(__dirname, 2)', async () => {
     ├── conf.ts
     ├── get-emails-directory-metadata.spec.ts
     ├── get-emails-directory-metadata.ts
-    ├── get-preview-server-location.ts
+    ├── get-ui-location.ts
     ├── index.ts
     ├── packageJson.ts
     ├── register-spinner-autostopping.ts

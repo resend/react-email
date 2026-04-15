@@ -1,4 +1,4 @@
-<div align="center"><strong>@react-email/preview-server</strong></div>
+<div align="center"><strong>@react-email/ui</strong></div>
 <div align="center">A live preview of your emails right in your browser.</div>
 <br />
 <div align="center">

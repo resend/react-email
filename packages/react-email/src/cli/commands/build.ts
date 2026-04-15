@@ -9,7 +9,7 @@ import {
   type EmailsDirectory,
   getEmailsDirectoryMetadata,
 } from '../utils/get-emails-directory-metadata.js';
-import { getPreviewServerLocation } from '../utils/get-preview-server-location.js';
+import { getUiLocation } from '../utils/get-ui-location.js';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping.js';
 
 interface Args {
@@ -138,8 +138,8 @@ export function generateStaticParams() {
   );
 };
 
-const updatePackageJson = async (builtPreviewAppPath: string) => {
-  const packageJsonPath = path.resolve(builtPreviewAppPath, './package.json');
+const updatePackageJson = async (builtUiPath: string) => {
+  const packageJsonPath = path.resolve(builtUiPath, './package.json');
   const packageJson = JSON.parse(
     await fs.promises.readFile(packageJsonPath, 'utf8'),
   ) as {
@@ -155,16 +155,13 @@ const updatePackageJson = async (builtPreviewAppPath: string) => {
     'cross-env NODE_OPTIONS="--experimental-vm-modules --disable-warning=ExperimentalWarning" next start';
   delete packageJson.scripts.postbuild;
 
-  packageJson.name = 'preview-server';
+  packageJson.name = 'ui';
 
   for (const [dependency, version] of Object.entries(
     packageJson.devDependencies,
   )) {
     packageJson.devDependencies[dependency] = version.replace('workspace:', '');
   }
-
-  delete packageJson.devDependencies['@react-email/components'];
-  delete packageJson.scripts.prepare;
 
   await fs.promises.writeFile(
     packageJsonPath,
@@ -179,7 +176,7 @@ export const build = async ({
 }: Args) => {
   try {
     const usersProjectLocation = process.cwd();
-    const previewServerLocation = await getPreviewServerLocation();
+    const previewServerLocation = await getUiLocation();
 
     const spinner = ora({
       text: 'Starting build process...',
