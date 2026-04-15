@@ -1,0 +1,39 @@
+apps/web/src/app/editor/examples/inspector-defaults/example.tsx
+  bf9385a2124245ed 5,60
+apps/docs/editor/features/inspector.mdx
+  bf9385a2124245ed 132
+apps/web/src/app/editor/examples/full-email-builder/example.tsx
+  bf9385a2124245ed 9,50
+apps/web/src/app/editor/examples/inspector-composed/example.tsx
+  bf9385a2124245ed 5,140
+apps/web/src/app/editor/examples/standalone-editor-inspector/example.tsx
+  bf9385a2124245ed 4,54
+.changeset/root-focused-node-inspector.md
+  bf9385a2124245ed 5
+packages/editor/src/ui/inspector/config/node-meta.ts
+  bf9385a2124245ed 18,24
+packages/editor/src/ui/inspector/index.tsx
+  bf9385a2124245ed 31-32
+apps/docs/editor/api-reference/ui/inspector.mdx
+  bf9385a2124245ed 237-256
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "6141775bbbe953110f1cf64920b21ecb00b26a39",
+  "prompts": {
+    "bf9385a2124245ed": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "924a2a0f-1622-42b4-ac85-5ecd42b4e8c8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 35,
+      "total_deletions": 23,
+      "accepted_lines": 814,
+      "overriden_lines": 0
+    }
+  }
+}
