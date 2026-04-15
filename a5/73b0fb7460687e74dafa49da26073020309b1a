@@ -1,0 +1,23 @@
+.changeset/get-email-html.md
+  ce5a38cf61f89f61 1-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "a573b0fb7460687e74dafa49da26073020309b1a",
+  "prompts": {
+    "ce5a38cf61f89f61": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "513608c1-a5f1-4828-b55b-4790e6becc54",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 6,
+      "total_deletions": 1,
+      "accepted_lines": 5,
+      "overriden_lines": 0
+    }
+  }
+}
