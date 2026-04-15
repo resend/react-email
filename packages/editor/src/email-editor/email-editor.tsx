@@ -23,7 +23,7 @@ import { SlashCommandRoot } from '../ui/slash-command/root';
 import '../ui/themes/default.css';
 
 export interface EmailEditorRef {
-  export: () => Promise<{ html: string; text: string }>;
+  getEmail: () => Promise<{ html: string; text: string }>;
   getEmailHTML: () => Promise<string>;
   getEmailText: () => Promise<string>;
   getJSON: () => JSONContent;
@@ -49,7 +49,7 @@ export interface EmailEditorProps {
 
 function buildRef(editor: Editor | null): EmailEditorRef {
   return {
-    export: async () => {
+    getEmail: async () => {
       if (!editor) return { html: '', text: '' };
       return composeReactEmail({ editor });
     },
