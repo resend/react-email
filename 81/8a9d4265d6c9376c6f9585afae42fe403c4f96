@@ -1,0 +1,27 @@
+packages/editor/src/ui/inspector/root.tsx
+  bf9385a2124245ed 10,130,230-237,240-244
+.changeset/puny-sloths-decide.md
+  bf9385a2124245ed 1-5
+packages/editor/src/ui/editor-focus-scope.tsx
+  bf9385a2124245ed 14-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "818a9d4265d6c9376c6f9585afae42fe403c4f96",
+  "prompts": {
+    "bf9385a2124245ed": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "924a2a0f-1622-42b4-ac85-5ecd42b4e8c8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 33,
+      "total_deletions": 3,
+      "accepted_lines": 802,
+      "overriden_lines": 0
+    }
+  }
+}
