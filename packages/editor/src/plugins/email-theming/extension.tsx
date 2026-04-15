@@ -21,9 +21,11 @@ import {
   EDITOR_THEMES,
   RESET_THEMES,
 } from './themes';
+import { isThemeConfig, themeStylesToPanelOverrides } from './theme-config';
 import type {
   CssJs,
   EditorTheme,
+  EditorThemeInput,
   KnownThemeComponents,
   PanelGroup,
 } from './types';
@@ -159,6 +161,19 @@ export function stylesToCss(
   return mergeCssJs(RESET_THEMES[theme], parsed);
 }
 
+function resolveThemeConfig(config: EditorThemeInput): {
+  baseTheme: EditorTheme;
+  panels: PanelGroup[] | undefined;
+} {
+  if (!isThemeConfig(config)) {
+    return { baseTheme: config, panels: undefined };
+  }
+  const baseTheme: EditorTheme = config.extends ?? 'minimal';
+  const basePanels = EDITOR_THEMES[baseTheme];
+  const panels = themeStylesToPanelOverrides(config.styles, basePanels);
+  return { baseTheme, panels };
+}
+
 function getEmailTheming(editor: Editor) {
   const theme = getEmailTheme(editor);
   const normalizedStyles =
@@ -212,14 +227,19 @@ export function setGlobalCssInjected(editor: Editor, css: string): boolean {
   return editor.commands.setGlobalContent('css', css);
 }
 
-function getEmailTheme(editor: Editor) {
-  const extensionTheme = (
+function getEmailTheme(editor: Editor): EditorTheme {
+  const extensionOptions = (
     editor.extensionManager.extensions.find(
       (extension) => extension.name === 'theming',
-    ) as { options?: { theme?: EditorTheme } }
+    ) as { options?: { theme?: EditorThemeInput } }
   )?.options?.theme;
-  if (extensionTheme === 'basic' || extensionTheme === 'minimal') {
-    return extensionTheme;
+
+  if (isThemeConfig(extensionOptions)) {
+    return extensionOptions.extends ?? 'minimal';
+  }
+
+  if (extensionOptions === 'basic' || extensionOptions === 'minimal') {
+    return extensionOptions;
   }
 
   const globalTheme = getGlobalContent('theme', editor) as EditorTheme | null;
@@ -240,14 +260,14 @@ function getEmailCss(editor: Editor) {
 }
 
 export const EmailTheming = Extension.create<{
-  theme?: EditorTheme;
+  theme?: EditorThemeInput;
   serializerPlugin: SerializerPlugin;
 }>({
   name: 'theming',
 
   addOptions() {
     return {
-      theme: undefined as EditorTheme | undefined,
+      theme: undefined as EditorThemeInput | undefined,
       serializerPlugin: {
         getNodeStyles(node, depth, editor): React.CSSProperties {
           const theming = getEmailTheming(editor);
@@ -302,10 +322,29 @@ export const EmailTheming = Extension.create<{
           let prevStyles: PanelGroup[] | null = null;
           let prevTheme: EditorTheme | null = null;
           let prevCss: string | null = null;
+          let seededFromConfig = false;
 
           view.dom.setAttribute(scopeAttribute, scopeId);
 
           const sync = () => {
+            if (!seededFromConfig) {
+              seededFromConfig = true;
+              const extensionTheme = (
+                editor.extensionManager.extensions.find(
+                  (ext) => ext.name === 'theming',
+                ) as { options?: { theme?: EditorThemeInput } }
+              )?.options?.theme;
+
+              if (isThemeConfig(extensionTheme)) {
+                const { baseTheme, panels } =
+                  resolveThemeConfig(extensionTheme);
+                if (panels) {
+                  editor.commands.setGlobalContent('styles', panels);
+                }
+                editor.commands.setGlobalContent('theme', baseTheme);
+              }
+            }
+
             const theme = getEmailTheme(editor);
             const styles = getEmailStyles(editor);
             const resolvedStyles = styles ?? EDITOR_THEMES[theme];
