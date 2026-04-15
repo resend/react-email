@@ -15,16 +15,6 @@ interface MenuItemProps {
 
 const GITHUB_URL = 'https://github.com/resend/react-email';
 
-async function getRepoStarCount() {
-  const res = await fetch('https://api.github.com/repos/resend/react-email');
-  const data = await res.json();
-  const starCount = data.stargazers_count;
-  if (starCount > 999) {
-    return `${(starCount / 1000).toFixed(1)}K`;
-  }
-  return starCount;
-}
-
 function MenuItem({ className, children, href, onClick }: MenuItemProps) {
   const pathname = usePathname();
   const [, activeItem] = pathname?.split('/') ?? [];
@@ -93,13 +83,13 @@ function MenuIcon() {
   );
 }
 
-function SocialIcons({ onItemClick }: { onItemClick: () => void }) {
-  const [starCount, setStarCount] = React.useState<string | number>('');
-
-  React.useEffect(() => {
-    getRepoStarCount().then(setStarCount);
-  }, []);
-
+function SocialIcons({
+  onItemClick,
+  starCount,
+}: {
+  onItemClick: () => void;
+  starCount: string;
+}) {
   return (
     <MenuItem
       className="w-fit gap-1.5 justify-center px-2"
@@ -117,12 +107,12 @@ function SocialIcons({ onItemClick }: { onItemClick: () => void }) {
           fill="currentColor"
         />
       </svg>
-      {starCount && <span>{starCount}</span>}
+      <span>{starCount}</span>
     </MenuItem>
   );
 }
 
-export function Menu() {
+export function Menu({ starCount }: { starCount: string }) {
   const [isDrawerOpen, setDrawerOpen] = React.useState(false);
 
   const handleItemClick = () => {
@@ -140,11 +130,11 @@ export function Menu() {
           className="sm:inline-block! mx-2 hidden h-5 w-px bg-slate-6"
         />
         <ul className="flex gap-2">
-          <SocialIcons onItemClick={handleItemClick} />
+          <SocialIcons onItemClick={handleItemClick} starCount={starCount} />
         </ul>
       </nav>
       <nav className="relative flex items-center gap-1 md:hidden">
-        <SocialIcons onItemClick={handleItemClick} />
+        <SocialIcons onItemClick={handleItemClick} starCount={starCount} />
         <ul className="flex gap-2">
           <Drawer.Root
             onOpenChange={setDrawerOpen}

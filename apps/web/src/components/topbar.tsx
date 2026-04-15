@@ -4,10 +4,24 @@ import type * as React from 'react';
 import { Logo } from './logo';
 import { Menu } from './menu';
 
-export function Topbar({
+async function getRepoStarCount() {
+  const res = await fetch('https://api.github.com/repos/resend/react-email', {
+    next: { revalidate: 3600, tags: ['github-repo-stars'] },
+  });
+  const data = await res.json();
+  const starCount = data.stargazers_count as number;
+  if (starCount > 999) {
+    return `${(starCount / 1000).toFixed(1)}K`;
+  }
+  return `${starCount}`;
+}
+
+export async function Topbar({
   className,
   ...props
 }: Omit<React.ComponentProps<'header'>, 'children'>) {
+  const starCount = await getRepoStarCount();
+
   return (
     <header
       className={classNames(
@@ -23,7 +37,7 @@ export function Topbar({
         <Logo />
         <span className="sr-only">Home</span>
       </Link>
-      <Menu />
+      <Menu starCount={starCount} />
     </header>
   );
 }
