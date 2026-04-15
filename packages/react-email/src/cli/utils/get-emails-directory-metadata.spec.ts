@@ -99,7 +99,11 @@ test('getEmailsDirectoryMetadata on demo emails', async () => {
         emailFilenames: [],
         subDirectories: [
           {
-            absolutePath: path.join(emailsDirectoryPath, 'Community', 'magic-links'),
+            absolutePath: path.join(
+              emailsDirectoryPath,
+              'Community',
+              'magic-links',
+            ),
             directoryName: 'magic-links',
             relativePath: path.join('Community', 'magic-links'),
             emailFilenames: [
@@ -113,7 +117,11 @@ test('getEmailsDirectoryMetadata on demo emails', async () => {
             subDirectories: [],
           },
           {
-            absolutePath: path.join(emailsDirectoryPath, 'Community', 'newsletters'),
+            absolutePath: path.join(
+              emailsDirectoryPath,
+              'Community',
+              'newsletters',
+            ),
             directoryName: 'newsletters',
             relativePath: path.join('Community', 'newsletters'),
             emailFilenames: [
@@ -124,7 +132,11 @@ test('getEmailsDirectoryMetadata on demo emails', async () => {
             subDirectories: [],
           },
           {
-            absolutePath: path.join(emailsDirectoryPath, 'Community', 'notifications'),
+            absolutePath: path.join(
+              emailsDirectoryPath,
+              'Community',
+              'notifications',
+            ),
             directoryName: 'notifications',
             relativePath: path.join('Community', 'notifications'),
             emailFilenames: [
@@ -136,31 +148,51 @@ test('getEmailsDirectoryMetadata on demo emails', async () => {
             subDirectories: [],
           },
           {
-            absolutePath: path.join(emailsDirectoryPath, 'Community', 'receipts'),
+            absolutePath: path.join(
+              emailsDirectoryPath,
+              'Community',
+              'receipts',
+            ),
             directoryName: 'receipts',
             relativePath: path.join('Community', 'receipts'),
             emailFilenames: ['apple-receipt', 'nike-receipt'],
             subDirectories: [],
           },
           {
-            absolutePath: path.join(emailsDirectoryPath, 'Community', 'reset-password'),
+            absolutePath: path.join(
+              emailsDirectoryPath,
+              'Community',
+              'reset-password',
+            ),
             directoryName: 'reset-password',
             relativePath: path.join('Community', 'reset-password'),
             emailFilenames: ['dropbox-reset-password', 'twitch-reset-password'],
             subDirectories: [],
           },
           {
-            absolutePath: path.join(emailsDirectoryPath, 'Community', 'reviews'),
+            absolutePath: path.join(
+              emailsDirectoryPath,
+              'Community',
+              'reviews',
+            ),
             directoryName: 'reviews',
             relativePath: path.join('Community', 'reviews'),
             emailFilenames: ['airbnb-review', 'amazon-review'],
             subDirectories: [],
           },
           {
-            absolutePath: path.join(emailsDirectoryPath, 'Community', 'welcome'),
+            absolutePath: path.join(
+              emailsDirectoryPath,
+              'Community',
+              'welcome',
+            ),
             directoryName: 'welcome',
             relativePath: path.join('Community', 'welcome'),
-            emailFilenames: ['koala-welcome', 'netlify-welcome', 'stripe-welcome'],
+            emailFilenames: [
+              'koala-welcome',
+              'netlify-welcome',
+              'stripe-welcome',
+            ],
             subDirectories: [],
           },
         ],
