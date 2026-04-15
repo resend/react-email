@@ -1,0 +1,33 @@
+apps/web/src/app/editor/examples/inspector-defaults/example.tsx
+  bf9385a2124245ed 14
+apps/web/src/app/editor/examples/inspector-composed/example.tsx
+  bf9385a2124245ed 14
+apps/web/src/app/editor/examples/standalone-editor-inspector/example.tsx
+  bf9385a2124245ed 10
+apps/web/src/app/editor/examples/full-email-builder/example.tsx
+  bf9385a2124245ed 29
+apps/web/src/app/editor/examples/buttons/example.tsx
+  bf9385a2124245ed 12
+apps/web/src/app/editor/examples/inspector-custom/example.tsx
+  bf9385a2124245ed 14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "856cf1a3da19b03b5f371d460c57517a7ec6f0a6",
+  "prompts": {
+    "bf9385a2124245ed": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "924a2a0f-1622-42b4-ac85-5ecd42b4e8c8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 76,
+      "total_deletions": 126,
+      "accepted_lines": 786,
+      "overriden_lines": 0
+    }
+  }
+}
