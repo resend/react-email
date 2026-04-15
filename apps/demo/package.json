@@ -15,6 +15,7 @@
     "react-dom": "catalog:"
   },
   "devDependencies": {
+    "tsconfig": "workspace:*",
     "@react-email/ui": "workspace:*",
     "next": "catalog:"
   }
