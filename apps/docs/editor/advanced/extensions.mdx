@@ -48,7 +48,7 @@ and exported:
 
 - `Container` keeps top-level content inside a dedicated email content wrapper and
   serializes it with React Email's `Container` component.
-- `TrailingNode` keeps an empty paragraph at the end of each container by default, so
+- `TrailingNode` appends an empty paragraph when a container does not already end in one, so
   the caret can move below the last block and users can keep typing naturally.
 
 This is the default `StarterKit` behavior:
