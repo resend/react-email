@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef } from 'react';
-import type { CommandListProps, SlashCommandItem } from './types';
+import type { SlashCommandItem, SlashCommandRenderProps } from './types';
 import { updateScrollView } from './utils';
 
 const CATEGORY_ORDER = ['Text', 'Media', 'Layout', 'Utility'];
@@ -58,7 +58,7 @@ export function CommandList({
   query,
   selectedIndex,
   onSelect,
-}: CommandListProps) {
+}: SlashCommandRenderProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
