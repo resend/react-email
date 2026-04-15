@@ -246,8 +246,9 @@ export default function EditorExamplesPage() {
             />
           </svg>
           <p className="text-sm text-cyan-11">
-            You are viewing the <span className="font-medium text-cyan-12">canary</span> version
-            of the editor. APIs and features may change without notice.
+            You are viewing the{' '}
+            <span className="font-medium text-cyan-12">canary</span> version of
+            the editor. APIs and features may change without notice.
           </p>
         </div>
 
