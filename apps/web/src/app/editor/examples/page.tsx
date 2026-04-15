@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { Heading } from '@/components/heading';
 import { PageTransition } from '@/components/page-transition';
 import { PageWrapper } from '@/components/page-wrapper';
+import { SmartLink } from '@/components/smart-link';
+import { TabButton } from '@/components/tab-button';
 
 interface ExampleMeta {
   slug: string;
@@ -108,6 +110,14 @@ const sections: ExampleSection[] = [
         section: 'Intermediate',
         docsUrl: 'https://react.email/docs/editor/features/buttons',
       },
+      {
+        slug: 'image-upload',
+        title: 'Image Upload',
+        description:
+          'Upload images via paste, drop, or the slash command — with a stubbed uploader and an error-path toggle.',
+        section: 'Intermediate',
+        docsUrl: 'https://react.email/docs/editor/features/image-upload',
+      },
     ],
   },
   {
@@ -202,33 +212,41 @@ export default function EditorExamplesPage() {
             @react-email/editor.
           </p>
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-            <a
-              className="text-slate-11 transition-colors hover:text-slate-12"
-              href="https://react.email/docs/editor/overview"
-              rel="noopener"
-              target="_blank"
-            >
-              Overview
-            </a>
-            <span className="text-slate-6">·</span>
-            <a
-              className="text-slate-11 transition-colors hover:text-slate-12"
-              href="https://react.email/docs/editor/getting-started"
-              rel="noopener"
-              target="_blank"
-            >
-              Getting Started
-            </a>
-            <span className="text-slate-6">·</span>
-            <a
-              className="text-slate-11 transition-colors hover:text-slate-12"
-              href="https://react.email/docs/editor/api-reference"
-              rel="noopener"
-              target="_blank"
-            >
-              API Reference
-            </a>
+            <TabButton asChild>
+              <SmartLink href="/docs/editor/overview">Overview</SmartLink>
+            </TabButton>
+            <TabButton asChild>
+              <SmartLink href="/docs/editor/getting-started">
+                Getting Started
+              </SmartLink>
+            </TabButton>
+            <TabButton asChild>
+              <SmartLink href="/docs/editor/getting-started">
+                API Reference
+              </SmartLink>
+            </TabButton>
           </div>
+        </div>
+
+        <div className="mx-6 mb-10 flex items-start gap-3 rounded-lg border border-cyan-4 bg-cyan-2 p-4 md:mx-8">
+          <svg
+            className="mt-0.5 shrink-0 text-cyan-11"
+            fill="none"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM8 5a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 8 5Zm0 8a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z"
+              fill="currentColor"
+            />
+          </svg>
+          <p className="text-sm text-cyan-11">
+            You are viewing the{' '}
+            <span className="font-medium text-cyan-12">canary</span> version of
+            the editor. APIs and features may change without notice.
+          </p>
         </div>
 
         <div className="flex flex-col gap-12 px-6 pb-10 md:px-8">

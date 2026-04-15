@@ -11,9 +11,8 @@ interface FocusScopeContextValue {
   unregisterScope: (el: HTMLElement | null) => void;
 }
 
-const FocusScopeContext = React.createContext<FocusScopeContextValue | null>(
-  null,
-);
+export const FocusScopeContext =
+  React.createContext<FocusScopeContextValue | null>(null);
 
 export function useEditorFocusScope() {
   const context = React.useContext(FocusScopeContext);

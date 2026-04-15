@@ -236,6 +236,12 @@ importers:
       next:
         specifier: 'catalog:'
         version: 16.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      tailwindcss:
+        specifier: 'catalog:'
+        version: 4.1.18
+      tsconfig:
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
 
   apps/docs:
     dependencies:
@@ -620,7 +626,7 @@ importers:
         specifier: 'catalog:'
         version: 7.27.0
       '@react-email/render':
-        specifier: workspace:>=0
+        specifier: workspace:>=2.0.7-canary.0
         version: link:../render
       chokidar:
         specifier: ^4.0.3

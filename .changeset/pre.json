@@ -14,11 +14,22 @@
     "email-dev": "0.0.6",
     "@react-email/render": "2.0.6",
     "tsconfig": "0.0.0",
-    "playground": "0.0.20"
+    "playground": "0.0.20",
+    "@benchmarks/ui": "0.0.0"
   },
   "changesets": [
+    "bitter-boxes-fetch",
+    "eleven-doors-matter",
     "email-editor-children-prop",
     "fix-preview-url-parse",
-    "spotty-rice-shop"
+    "image-upload-plugin",
+    "lemon-drinks-cover",
+    "public-corners-carry",
+    "puny-sloths-decide",
+    "slash-command-api-cleanup",
+    "spotty-rice-shop",
+    "tender-toes-try",
+    "vast-bushes-post",
+    "whole-tires-follow"
   ]
 }

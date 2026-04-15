@@ -1,0 +1,133 @@
+---
+title: "Image Upload"
+sidebarTitle: "Image Upload"
+description: "Upload images via paste, drop, or slash command with the useEditorImage plugin."
+icon: "image"
+---
+
+## Quick start
+
+Add the image extension with `useEditorImage`, register `imageSlashCommand`,
+and render `BubbleMenu.ImageDefault` for inline editing.
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+import { imageSlashCommand, useEditorImage } from '@react-email/editor/plugins';
+import {
+  BubbleMenu,
+  defaultSlashCommands,
+  SlashCommand,
+} from '@react-email/editor/ui';
+import { EditorProvider } from '@tiptap/react';
+import { useCallback } from 'react';
+import '@react-email/editor/themes/default.css';
+
+export function MyEditor() {
+  const uploadImage = useCallback(async (file: File) => {
+    const url = await uploadToStorage(file);
+    return { url };
+  }, []);
+
+  const imageExtension = useEditorImage({ uploadImage });
+
+  return (
+    <EditorProvider extensions={[StarterKit, imageExtension]}>
+      <BubbleMenu.ImageDefault />
+      <SlashCommand.Root items={[...defaultSlashCommands, imageSlashCommand]} />
+    </EditorProvider>
+  );
+}
+```
+
+`uploadImage` receives a `File` and must resolve with `{ url }`. The returned
+URL is written to the image node once the promise resolves.
+
+## One-line setup
+
+`EmailEditor` wraps the same extension behind a single prop — use this when
+you don't need direct access to the extension or slash command list.
+
+```tsx
+import { EmailEditor } from '@react-email/editor';
+
+export function MyEditor() {
+  return (
+    <EmailEditor
+      onUploadImage={async (file) => ({ url: await uploadToStorage(file) })}
+    />
+  );
+}
+```
+
+## Combining with the text bubble menu
+
+When pairing `BubbleMenu.ImageDefault` with the default `BubbleMenu`, pass
+`hideWhenActiveNodes={['image']}` so the text menu steps aside when an image
+is focused.
+
+```tsx
+<EditorProvider extensions={[StarterKit, imageExtension]}>
+  <BubbleMenu hideWhenActiveNodes={['image']} />
+  <BubbleMenu.ImageDefault />
+</EditorProvider>
+```
+
+## Upload triggers
+
+Once the extension is registered, three input paths upload automatically:
+
+- **Paste** — paste an image from the clipboard
+- **Drop** — drag an image file onto the editor
+- **Slash command** — type `/` and pick **Image** (from `imageSlashCommand`)
+
+All three run the same flow: a temporary blob URL renders while `uploadImage`
+runs, and the node swaps to the resolved URL on success.
+
+## Error handling
+
+If `uploadImage` throws, the plugin removes the temporary node for you and
+logs the failure via `console.error`. Handle the error inside your own
+function when you need custom UI or telemetry:
+
+```tsx
+const uploadImage = useCallback(async (file: File) => {
+  try {
+    const url = await uploadToStorage(file);
+    return { url };
+  } catch (error) {
+    toast.error(`Couldn't upload ${file.name}`);
+    throw error;
+  }
+}, []);
+```
+
+## Inserting programmatically
+
+The extension adds two commands to the editor:
+
+```tsx
+editor.commands.uploadImage();
+
+editor.commands.setImage({
+  src: 'https://example.com/hero.png',
+  alt: 'Hero image',
+  alignment: 'center',
+});
+```
+
+`uploadImage()` opens a file picker and runs the upload flow. `setImage()`
+inserts a node directly — useful when you already have a URL.
+
+Available `setImage` attributes: `src`, `alt`, `width`, `height`, `alignment`
+(`'left' | 'center' | 'right'`), and `href` (wraps the image in a link on
+export).
+
+## Examples
+
+See image upload in action with a runnable example:
+
+<CardGroup cols={2}>
+  <Card title="Image Upload" icon="code" href="https://react.email/editor/examples/image-upload">
+    Paste, drop, and slash-command image upload with a stubbed uploader.
+  </Card>
+</CardGroup>

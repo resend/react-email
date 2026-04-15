@@ -38,10 +38,3 @@ export interface SlashCommandRootProps {
   allow?: (props: { editor: Editor }) => boolean;
   children?: (props: SlashCommandRenderProps) => ReactNode;
 }
-
-export interface CommandListProps {
-  items: SlashCommandItem[];
-  query: string;
-  selectedIndex: number;
-  onSelect: (index: number) => void;
-}
