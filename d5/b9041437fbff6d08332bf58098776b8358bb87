@@ -1,0 +1,47 @@
+packages/editor/src/ui/inspector/document.tsx
+  bf9385a2124245ed 187,189,193,252
+apps/web/src/app/editor/examples/inspector-defaults/example.tsx
+  bf9385a2124245ed 60
+packages/editor/src/ui/inspector/config/node-meta.ts
+  bf9385a2124245ed 24
+.changeset/root-focused-node-inspector.md
+  bf9385a2124245ed 1-5
+apps/web/src/app/editor/examples/one-line-editor-inspector/example.tsx
+  bf9385a2124245ed 54
+apps/docs/editor/api-reference/ui/inspector.mdx
+  bf9385a2124245ed 229-230,234
+packages/editor/src/ui/inspector/node.tsx
+  bf9385a2124245ed 47,54,56-58
+apps/docs/editor/features/inspector.mdx
+  bf9385a2124245ed 132
+apps/web/src/app/editor/examples/inspector-composed/example.tsx
+  bf9385a2124245ed 140
+apps/web/src/app/editor/examples/full-email-builder/example.tsx
+  bf9385a2124245ed 49
+packages/editor/src/ui/inspector/breadcrumb.tsx
+  bf9385a2124245ed 7,17,19,21-29,31,34-36,75
+packages/editor/src/ui/inspector/text.tsx
+  bf9385a2124245ed 49,53
+packages/editor/src/ui/inspector/root.tsx
+  bf9385a2124245ed 103,109-111,144,149-150,154-159,161,193-195,204,209,212,217-218,221-224,229
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "d5b9041437fbff6d08332bf58098776b8358bb87",
+  "prompts": {
+    "bf9385a2124245ed": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "924a2a0f-1622-42b4-ac85-5ecd42b4e8c8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 80,
+      "total_deletions": 1207,
+      "accepted_lines": 77,
+      "overriden_lines": 0
+    }
+  }
+}
