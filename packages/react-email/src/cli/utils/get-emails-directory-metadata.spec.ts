@@ -6,7 +6,9 @@ test('getEmailsDirectoryMetadata on demo emails', async () => {
     __dirname,
     '../../../../../apps/demo/emails',
   );
-  expect(await getEmailsDirectoryMetadata(emailsDirectoryPath)).toMatchInlineSnapshot(`
+  expect(
+    await getEmailsDirectoryMetadata(emailsDirectoryPath),
+  ).toMatchInlineSnapshot(`
     {
       "absolutePath": "/home/gabriel/programming/resend/open-source/react-email/apps/demo/emails",
       "directoryName": "emails",
