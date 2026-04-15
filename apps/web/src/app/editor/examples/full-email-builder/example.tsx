@@ -46,7 +46,9 @@ function Sidebar() {
                       className="bg-transparent border-0 cursor-pointer text-(--re-text) p-0 text-xs hover:underline"
                       onClick={() => segment.focus()}
                     >
-                      {segment.node.nodeType}
+                      {segment.node.nodeType === 'body'
+                        ? 'Layout'
+                        : segment.node.nodeType}
                     </button>
                   </li>
                 ))
