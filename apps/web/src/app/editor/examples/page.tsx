@@ -4,6 +4,7 @@ import { Heading } from '@/components/heading';
 import { PageTransition } from '@/components/page-transition';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SmartLink } from '@/components/smart-link';
+import { TabButton } from '@/components/tab-button';
 
 interface ExampleMeta {
   slug: string;
@@ -211,26 +212,19 @@ export default function EditorExamplesPage() {
             @react-email/editor.
           </p>
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-            <SmartLink
-              className="text-slate-11 transition-colors hover:text-slate-12"
-              href="/docs/editor/overview"
-            >
-              Overview
-            </SmartLink>
-            <span className="text-slate-6">·</span>
-            <SmartLink
-              className="text-slate-11 transition-colors hover:text-slate-12"
-              href="/docs/editor/getting-started"
-            >
-              Getting Started
-            </SmartLink>
-            <span className="text-slate-6">·</span>
-            <SmartLink
-              className="text-slate-11 transition-colors hover:text-slate-12"
-              href="/docs/editor/api-reference"
-            >
-              API Reference
-            </SmartLink>
+            <TabButton asChild>
+              <SmartLink href="/docs/editor/overview">Overview</SmartLink>
+            </TabButton>
+            <TabButton asChild>
+              <SmartLink href="/docs/editor/getting-started">
+                Getting Started
+              </SmartLink>
+            </TabButton>
+            <TabButton asChild>
+              <SmartLink href="/docs/editor/getting-started">
+                API Reference
+              </SmartLink>
+            </TabButton>
           </div>
         </div>
 

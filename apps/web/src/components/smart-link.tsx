@@ -5,6 +5,10 @@ const EXTERNAL_REWRITE_PATHS = ['/docs'];
 
 type SmartLinkProps = ComponentProps<typeof Link>;
 
+export function isExternalRewrite(href: string): boolean {
+  return EXTERNAL_REWRITE_PATHS.some((path) => href.startsWith(path));
+}
+
 /**
  * We'll temporarily use <a> to redirect to external domains -- apparently Next.js 16 has a router regression
  * where <Link> components try to do client-side navigation for rewritten paths (e.g., /docs -> mintlify.com)
