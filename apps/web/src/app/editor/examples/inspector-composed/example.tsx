@@ -2,7 +2,7 @@
 
 import { StarterKit } from '@react-email/editor/extensions';
 import { EmailTheming } from '@react-email/editor/plugins';
-import { Inspector } from '@react-email/editor/ui';
+import { getNodeMeta, Inspector } from '@react-email/editor/ui';
 import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
 import { ExampleShell } from '../example-shell';
 
@@ -137,10 +137,7 @@ function Breadcrumb() {
         <Inspector.Breadcrumb>
           {(segments) =>
             segments.map((segment, i) => {
-              const label =
-                segment.node.nodeType === 'body'
-                  ? 'Layout'
-                  : segment.node.nodeType;
+              const label = getNodeMeta(segment.node.nodeType).label;
               return (
                 <li key={i} className="flex items-center gap-1">
                   {i !== 0 && <span className="text-(--re-text-muted)">/</span>}

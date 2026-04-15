@@ -6,6 +6,7 @@ import { EmailTheming } from '@react-email/editor/plugins';
 import {
   BubbleMenu,
   defaultSlashCommands,
+  getNodeMeta,
   Inspector,
   SlashCommand,
 } from '@react-email/editor/ui';
@@ -46,9 +47,7 @@ function Sidebar() {
                       className="bg-transparent border-0 cursor-pointer text-(--re-text) p-0 text-xs hover:underline"
                       onClick={() => segment.focus()}
                     >
-                      {segment.node.nodeType === 'body'
-                        ? 'Layout'
-                        : segment.node.nodeType}
+                      {getNodeMeta(segment.node.nodeType).label}
                     </button>
                   </li>
                 ))

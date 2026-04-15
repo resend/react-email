@@ -129,7 +129,7 @@ to the focused node, and let users jump back up the hierarchy.
     {(segments) =>
       segments.map((segment, index) => (
         <button key={index} type="button" onClick={() => segment.focus()}>
-          {segment.node.nodeType === 'body' ? 'Layout' : segment.node.nodeType}
+          {getNodeMeta(segment.node.nodeType).label}
         </button>
       ))
     }
