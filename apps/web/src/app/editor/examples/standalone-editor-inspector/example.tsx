@@ -12,11 +12,11 @@ const content = `
   <img src="https://placehold.co/600x200" alt="Placeholder" />
 `;
 
-export function OneLineEditorInspector() {
+export function StandaloneEditorInspector() {
   return (
     <ExampleShell
-      title="One-Line Editor — Inspector"
-      description="Add an inspector sidebar alongside the one-line EmailEditor — no manual EditorProvider setup needed."
+      title="Standalone Editor — Inspector"
+      description="Add an inspector sidebar alongside the standalone EmailEditor — no manual EditorProvider setup needed."
     >
       <div
         className="flex flex-1 min-h-0 overflow-hidden -m-4 border-t border-(--re-border)"
