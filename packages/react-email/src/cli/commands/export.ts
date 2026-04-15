@@ -65,6 +65,8 @@ export const exportTemplates = async (
         symbol: logSymbols.error,
         text: `Could not find the directory at ${emailsDirectoryPath}`,
       });
+    } else {
+      console.error(`Could not find the directory at ${emailsDirectoryPath}`);
     }
     process.exit(1);
   }
