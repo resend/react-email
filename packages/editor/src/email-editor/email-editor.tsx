@@ -15,6 +15,7 @@ import { createPasteHandler } from '../core/create-paste-handler';
 import { composeReactEmail } from '../core/serializer/compose-react-email';
 import { StarterKit } from '../extensions';
 import { EmailTheming } from '../plugins/email-theming/extension';
+import type { EditorThemeInput } from '../plugins/email-theming/types';
 import { createImageExtension } from '../plugins/image/extension';
 import { BubbleMenu } from '../ui/bubble-menu';
 import { SlashCommandRoot } from '../ui/slash-command/root';
@@ -31,7 +32,7 @@ export interface EmailEditorProps {
   content?: Content;
   onChange?: (editor: Editor) => void;
   onReady?: (editor: Editor) => void;
-  theme?: 'basic' | 'minimal';
+  theme?: EditorThemeInput;
   editable?: boolean;
   placeholder?: string;
   bubbleMenu?: {
@@ -110,7 +111,7 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
 
     return (
       <EditorProvider
-        key={theme}
+        key={typeof theme === 'string' ? theme : JSON.stringify(theme)}
         extensions={extensions}
         content={content}
         editable={editable}
