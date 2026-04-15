@@ -31,8 +31,8 @@ export function StandaloneEditorFull() {
 
   const handleExportHtml = async () => {
     if (!editorRef.current) return;
-    const result = await editorRef.current.export();
-    setOutput(result.html);
+    const html = await editorRef.current.getEmailHTML();
+    setOutput(html);
   };
 
   const handleGetJson = () => {
