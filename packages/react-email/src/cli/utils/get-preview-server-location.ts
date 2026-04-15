@@ -15,9 +15,9 @@ const ensurePreviewServerInstalled = async (
     initial: true,
   });
   if (response.installPreviewServer) {
-    console.log('Installing "@react-email/preview-server"');
+    console.log('Installing "@react-email/ui"');
     await addDevDependency(
-      `@react-email/preview-server@${packageJson.version}`,
+      `@react-email/ui@${packageJson.version}`,
     );
     process.exit(0);
   } else {
@@ -30,19 +30,19 @@ export const getPreviewServerLocation = async () => {
   let previewServerLocation!: string;
   try {
     previewServerLocation = path.dirname(
-      url.fileURLToPath(usersProject.esmResolve('@react-email/preview-server')),
+      url.fileURLToPath(usersProject.esmResolve('@react-email/ui')),
     );
   } catch (_exception) {
     await ensurePreviewServerInstalled(
-      'To run the preview server, the package "@react-email/preview-server" must be installed. Would you like to install it?',
+      'To run the preview server, the package "@react-email/ui" must be installed. Would you like to install it?',
     );
   }
   const { version } = await usersProject.import<{
     version: string;
-  }>('@react-email/preview-server');
+  }>('@react-email/ui');
   if (version !== packageJson.version) {
     await ensurePreviewServerInstalled(
-      `To run the preview server, the version of "@react-email/preview-server" must match the version of "react-email" (${packageJson.version}). Would you like to install it?`,
+      `To run the preview server, the version of "@react-email/ui" must match the version of "react-email" (${packageJson.version}). Would you like to install it?`,
     );
   }
 

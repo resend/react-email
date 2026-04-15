@@ -49,7 +49,7 @@
     "@radix-ui/react-slot": "catalog:",
     "@radix-ui/react-tabs": "catalog:",
     "@radix-ui/react-tooltip": "catalog:",
-    "@react-email/preview-server": "workspace:*",
+    "@react-email/ui": "workspace:*",
     "@tailwindcss/postcss": "catalog:",
     "@types/babel__core": "catalog:",
     "@types/babel__traverse": "catalog:",
