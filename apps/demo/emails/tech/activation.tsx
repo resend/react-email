@@ -12,7 +12,7 @@ import {
   Section,
   Tailwind,
   Text,
-} from '@react-email/components';
+} from 'react-email';
 import { TechFonts } from './tech-fonts';
 import { techTailwindConfig } from './theme';
 

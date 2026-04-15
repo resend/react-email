@@ -12,7 +12,7 @@ import {
   Section,
   Tailwind,
   Text,
-} from '@react-email/components';
+} from 'react-email';
 import { CollageFonts } from './collage-fonts';
 import { collageTailwindConfig } from './theme';
 
@@ -125,11 +125,10 @@ export const ProductUpdateEmail = ({
                     {cards.slice(0, 2).map((card, idx) => (
                       <Column
                         key={idx}
-                        className={`w-1/2 align-top mobile:!block mobile:!w-full mobile:!max-w-full ${
-                          idx === 0
+                        className={`w-1/2 align-top mobile:!block mobile:!w-full mobile:!max-w-full ${idx === 0
                             ? 'pr-4 mobile:pr-0 mobile:pb-10'
                             : 'mobile:pl-0'
-                        }`}
+                          }`}
                       >
                         <Section
                           className={idx === 0 ? 'pl-0' : 'pl-4 mobile:pl-0'}

@@ -12,7 +12,7 @@ import {
   Section,
   Tailwind,
   Text,
-} from '@react-email/components';
+} from 'react-email';
 import { DitherFonts } from './dither-fonts';
 import { ditherTailwindConfig } from './theme';
 

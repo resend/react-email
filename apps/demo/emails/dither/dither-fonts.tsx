@@ -1,4 +1,4 @@
-import { Font } from '@react-email/components';
+import { Font } from 'react-email';
 
 export function DitherFonts() {
   return (

@@ -11,7 +11,7 @@ import {
   Section,
   Tailwind,
   Text,
-} from '@react-email/components';
+} from 'react-email';
 import { SkinFonts } from './skin-fonts';
 import { skinTailwindConfig } from './theme';
 
@@ -100,9 +100,8 @@ export const WelcomeEmail = ({ companyName = 'Skin' }: WelcomeEmailProps) => {
                     const imgBlock = (
                       <Column
                         key="img"
-                        className={`mobile:!block mobile:!w-full w-[280px] max-w-[280px] align-top mobile:!max-w-full${
-                          isImgLeft ? '' : 'mobile:pt-8'
-                        }`}
+                        className={`mobile:!block mobile:!w-full w-[280px] max-w-[280px] align-top mobile:!max-w-full${isImgLeft ? '' : 'mobile:pt-8'
+                          }`}
                       >
                         <Img
                           src={feature.imageSrc}
@@ -115,9 +114,8 @@ export const WelcomeEmail = ({ companyName = 'Skin' }: WelcomeEmailProps) => {
                     const textBlock = (
                       <Column
                         key="txt"
-                        className={`mobile:!block mobile:!w-full align-top mobile:!max-w-full${
-                          isImgLeft ? 'mobile:pt-8' : ''
-                        }`}
+                        className={`mobile:!block mobile:!w-full align-top mobile:!max-w-full${isImgLeft ? 'mobile:pt-8' : ''
+                          }`}
                       >
                         <Section className="mobile:py-6 py-[40px]">
                           <Text className="mobile:pr-0 mobile:!max-w-full font-15 text-fg m-0 pr-[32px] font-sans">

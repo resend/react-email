@@ -11,7 +11,7 @@ import {
   Section,
   Tailwind,
   Text,
-} from '@react-email/components';
+} from 'react-email';
 import type { OrderLine } from './order-confirmation';
 import { SkinFonts } from './skin-fonts';
 import { skinTailwindConfig } from './theme';
@@ -22,10 +22,12 @@ type ShippingFaqItem = {
   linkHref: string;
   imageSrc: string;
 };
+
 interface OrderShippingEmailProps {
   companyName?: string;
   url?: string;
 }
+
 const orderShippingLines: OrderLine[] = [
   {
     name: 'Daily C Serum',
@@ -38,6 +40,7 @@ const orderShippingLines: OrderLine[] = [
     imageSrc: '/static/skin/skin-image-3.png',
   },
 ];
+
 const orderShippingFaqItems: ShippingFaqItem[] = [
   {
     title: 'Need to change ship date?',
@@ -52,6 +55,7 @@ const orderShippingFaqItems: ShippingFaqItem[] = [
     imageSrc: '/static/skin/skin-image-5.png',
   },
 ];
+
 export const OrderShippingEmail = ({
   companyName = 'Skin',
   url = 'https://example.com/',
@@ -128,10 +132,7 @@ export const OrderShippingEmail = ({
                 </Section>
 
                 <Section className="mt-[48px]">
-                  <Link
-                    href={url}
-                    className="font-16 text-fg font-sans"
-                  >
+                  <Link href={url} className="font-16 text-fg font-sans">
                     {'View order \u2192'}
                   </Link>
                 </Section>
@@ -263,4 +264,5 @@ export const OrderShippingEmail = ({
     </Tailwind>
   );
 };
+
 export default OrderShippingEmail;

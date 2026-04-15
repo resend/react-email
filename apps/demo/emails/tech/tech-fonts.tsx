@@ -1,9 +1,9 @@
-import { Font } from '@react-email/components';
+import { Font } from 'react-email';
 
 const geistLatinWoff2 =
   'https://fonts.gstatic.com/s/geist/v4/gyByhwUxId8gMEwcGFU.woff2';
 
-/** Geist + Inter via `@react-email/components` (avoids `<style>` + `@import`, which Gmail strips). */
+/** Geist + Inter via `react-email` (avoids `<style>` + `@import`, which Gmail strips). */
 export function TechFonts() {
   return (
     <>

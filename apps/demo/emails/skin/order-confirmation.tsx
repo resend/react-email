@@ -11,7 +11,7 @@ import {
   Section,
   Tailwind,
   Text,
-} from '@react-email/components';
+} from 'react-email';
 import { SkinFonts } from './skin-fonts';
 import { skinTailwindConfig } from './theme';
 export type OrderLine = { name: string; quantity: string; imageSrc: string };

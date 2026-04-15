@@ -1,4 +1,4 @@
-import { Font } from '@react-email/components';
+import { Font } from 'react-email';
 
 /**
  * Inter variable family (weights 100–900) via Google CSS `@import`.

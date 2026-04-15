@@ -11,7 +11,7 @@ import {
   Section,
   Tailwind,
   Text,
-} from '@react-email/components';
+} from 'react-email';
 import { CollageFonts } from './collage-fonts';
 import { collageTailwindConfig } from './theme';
 
