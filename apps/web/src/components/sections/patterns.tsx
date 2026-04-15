@@ -11,7 +11,7 @@ import { slugify } from '../../utils/slugify';
 
 const PatternsSection = () => {
   return (
-    <section className="relative py-20 my-24 md:my-40">
+    <section className="relative py-20 my-24">
       <div className="flex flex-col gap-4 max-md:px-6">
         <Content component="Heading" />
         <Content component="Text" />
