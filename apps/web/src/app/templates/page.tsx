@@ -5,8 +5,7 @@ import { Anchor } from '../../components/anchor';
 import { PageTransition } from '../../components/page-transition';
 import { TemplateList } from '../../components/template-list';
 
-const description =
-  'Open source templates built with React Email';
+const description = 'Open source templates built with React Email';
 
 export const metadata: Metadata = {
   title: 'Templates — React Email',

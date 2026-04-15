@@ -73,7 +73,12 @@ export const PromoEmail = ({ companyName, url }: PromoEmailProps) => {
                 />
               </Section>
 
-              <Section className="bg-bg-2 border-stroke w-full border-b bg-cover bg-top bg-no-repeat align-top" style={{ backgroundImage: `url('${baseUrl}/static/skin/skin-image-10.png')` }}>
+              <Section
+                className="bg-bg-2 border-stroke w-full border-b bg-cover bg-top bg-no-repeat align-top"
+                style={{
+                  backgroundImage: `url('${baseUrl}/static/skin/skin-image-10.png')`,
+                }}
+              >
                 <Row>
                   <Column className="mobile:px-6 w-full px-[32px] pt-12 pb-[240px] align-top">
                     <Text className="font-64 text-fg m-0 font-serif capitalize">
