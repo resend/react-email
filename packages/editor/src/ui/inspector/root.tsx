@@ -240,7 +240,9 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
         {existingFocusScope ? (
           inspectorContent
         ) : (
-          <EditorFocusScopeProvider>{inspectorContent}</EditorFocusScopeProvider>
+          <EditorFocusScopeProvider>
+            {inspectorContent}
+          </EditorFocusScopeProvider>
         )}
       </InspectorContext.Provider>
     );
