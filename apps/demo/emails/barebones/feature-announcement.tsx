@@ -276,13 +276,11 @@ function FeatureBlock({
   ctaUrl,
   title,
   bodyP1,
-  bodyP2,
 }: {
   imageUrl: string;
   ctaUrl: string;
   title: string;
   bodyP1: string;
-  bodyP2: string;
 }) {
   return (
     <Section className="text-left">

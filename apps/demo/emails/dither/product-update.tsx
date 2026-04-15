@@ -25,8 +25,6 @@ type ProductUpdateFeature = {
 };
 
 const productUpdateHeadline = 'THE WORK BEHIND THE WORK';
-const productUpdateSubtitle =
-  "A monthly update on what we're building, learning, and improving";
 
 interface ProductUpdateEmailProps {
   companyName?: string;

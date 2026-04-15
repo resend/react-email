@@ -16,34 +16,10 @@ import {
 import { TechFonts } from './tech-fonts';
 import { techTailwindConfig } from './theme';
 
-type TechWelcomeFeature = {
-  title: string;
-  body: string;
-};
-
 interface TechWelcomeEmailProps {
   companyName?: string;
   url?: string;
 }
-
-const techWelcomeFeatures: TechWelcomeFeature[] = [
-  {
-    title: 'Always present',
-    body: 'The ring stays on your finger—AI help at a glance, silent when you need focus.',
-  },
-  {
-    title: 'Learns your rhythm',
-    body: 'From workouts to wind-down, Halo learns your habits and keeps nudges relevant.',
-  },
-  {
-    title: 'Private by design',
-    body: 'Your wellness signals stay protected—on-device smarts with minimal cloud by default.',
-  },
-  {
-    title: 'Simple interactions',
-    body: 'Double-tap the ring, trace the edge, or speak softly—Halo answers without a screen.',
-  },
-];
 
 /** Figma Email-Templates `2692:1907` — Tech welcome (hero, feature rows, join panel). */
 export const TechWelcomeEmail = ({

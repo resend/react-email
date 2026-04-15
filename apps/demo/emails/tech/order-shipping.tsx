@@ -13,7 +13,6 @@ import {
   Tailwind,
   Text,
 } from '@react-email/components';
-import type { OrderLine } from './order-confirmation';
 import { TechFonts } from './tech-fonts';
 import { techTailwindConfig } from './theme';
 
@@ -26,14 +25,6 @@ interface TechOrderShippingEmailProps {
   companyName?: string;
   url?: string;
 }
-
-const techOrderShippingLines: OrderLine[] = [
-  {
-    name: 'Halo Ring 1',
-    quantity: 'x1',
-    imageSrc: '/static/tech/tech-image-2.png',
-  },
-];
 
 const techOrderShippingFaqItems: ShippingFaqItem[] = [
   {

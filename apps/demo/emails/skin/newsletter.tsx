@@ -1,6 +1,5 @@
 import {
   Body,
-  Button,
   Column,
   Container,
   Head,
@@ -21,12 +20,6 @@ type NewsletterTip = {
   title: string;
   body: string;
   ctaLabel: string;
-};
-type NewsletterSpotlight = {
-  title: string;
-  body: string;
-  imageSrc: string;
-  buttonLabel: string;
 };
 type NewsletterCommunity = {
   imageSrc: string;

@@ -16,13 +16,6 @@ import {
 import { CollageFonts } from './collage-fonts';
 import { collageTailwindConfig } from './theme';
 
-type WelcomeCard = {
-  title: string;
-  description: string;
-  cta: string;
-  imageSrc: string;
-};
-
 type WelcomeTip = {
   title: string;
   description: string;
@@ -39,23 +32,6 @@ export const WelcomeEmail = ({
 }: WelcomeEmailProps) => {
   const brand = companyName;
   const welcomeTitle = `Welcome to ${brand}`;
-
-  const cards: WelcomeCard[] = [
-    {
-      title: 'Start your first project',
-      description:
-        'Outline a goal, drop in files, and invite collaborators—templates are there when you want a head start.',
-      cta: 'Create a project \u2192',
-      imageSrc: '/static/collage/collage-image-6.png',
-    },
-    {
-      title: 'Invite your team',
-      description:
-        'Share a link or add collaborators so feedback and drafts stay in one place from day one.',
-      cta: 'Invite people \u2192',
-      imageSrc: '/static/collage/collage-image-7.png',
-    },
-  ];
 
   const tips: WelcomeTip[] = [
     {
