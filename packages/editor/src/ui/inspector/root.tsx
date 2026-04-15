@@ -214,16 +214,22 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
       if (!editor || target === null) {
         return [];
       }
+      // Prepend the synthetic body root unless the hierarchy already starts
+      // with a real body node (only possible when source HTML had an explicit
+      // <body> tag).
+      const withBody = (path: FocusedNode[]) =>
+        path[0]?.nodeType === 'body' ? path : [BODY_FOCUSED, ...path];
+
       if (typeof target === 'object') {
         if (target.nodeType === 'body') {
           return [BODY_FOCUSED];
         }
         const atPos = getHierarchyAtPosition(editor, target.nodePos.pos);
         const path = [...atPos].reverse();
-        return [BODY_FOCUSED, ...(path.length > 0 ? path : [target])];
+        return withBody(path.length > 0 ? path : [target]);
       }
       const hierarchy = getNodeHierarchy(editor);
-      return [BODY_FOCUSED, ...hierarchy.reverse()];
+      return withBody(hierarchy.reverse());
     }, [editor, target]);
 
     const contextValue: InspectorContextValue =
