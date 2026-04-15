@@ -251,11 +251,11 @@ export default function EditorExamplesPage() {
                       <div
                         className={`relative flex aspect-2/1 items-center justify-center overflow-hidden rounded-xs ${
                           {
-                            amber: 'text-amber-11/35',
-                            cyan: 'text-cyan-11/35',
-                            green: 'text-green-11/35',
-                            purple: 'text-purple-11/35',
-                            slate: 'text-slate-11/35',
+                            amber: 'text-amber-11',
+                            cyan: 'text-cyan-11',
+                            green: 'text-green-11',
+                            purple: 'text-purple-11',
+                            slate: 'text-slate-11',
                           }[tone]
                         }`}
                       >
