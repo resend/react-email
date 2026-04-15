@@ -12,18 +12,22 @@ import {
 
 const IGNORED_NODES = ['doc', 'text'];
 
-function getBodyFocusedNode(
-  editor: NonNullable<ReturnType<typeof useCurrentEditor>['editor']>,
-): FocusedNode {
-  const firstChild = editor.state.doc.firstChild;
-  const nodeAttrs =
-    firstChild?.type.name === 'body' ? { ...firstChild.attrs } : {};
-  return {
-    nodeType: 'body',
-    nodeAttrs,
-    nodePos: { pos: 0, inside: 0 },
-  };
+function isHiddenFromHierarchy(node: {
+  type: { name: string; spec: { selectable?: boolean } };
+}) {
+  // Skip structural/auto-wrapped nodes: doc/text wrappers plus anything the
+  // schema marks as non-selectable (container, globalContent, previewText).
+  return (
+    IGNORED_NODES.includes(node.type.name) ||
+    node.type.spec.selectable === false
+  );
 }
+
+const BODY_FOCUSED: FocusedNode = {
+  nodeType: 'body',
+  nodeAttrs: {},
+  nodePos: { pos: 0, inside: 0 },
+};
 
 function getHierarchyAtPosition(
   editor: ReturnType<typeof useCurrentEditor>['editor'],
@@ -37,7 +41,7 @@ function getHierarchyAtPosition(
   const hierarchy: NodeClickedEvent[] = [];
 
   const nodeAtPos = doc.nodeAt(pos);
-  if (nodeAtPos && !IGNORED_NODES.includes(nodeAtPos.type.name)) {
+  if (nodeAtPos && !isHiddenFromHierarchy(nodeAtPos)) {
     hierarchy.push({
       nodeType: nodeAtPos.type.name,
       nodeAttrs: { ...nodeAtPos.attrs },
@@ -50,7 +54,7 @@ function getHierarchyAtPosition(
     const node = resolvedPos.node(depth);
     const nodePos = resolvedPos.before(depth);
 
-    if (node && !IGNORED_NODES.includes(node.type.name)) {
+    if (node && !isHiddenFromHierarchy(node)) {
       const isDuplicate = hierarchy.some((h) => h.nodePos.pos === nodePos);
       if (!isDuplicate) {
         hierarchy.push({
@@ -77,7 +81,7 @@ function getNodeHierarchy(
 
   if (selection instanceof NodeSelection) {
     const node = selection.node;
-    if (node && !IGNORED_NODES.includes(node.type.name)) {
+    if (node && !isHiddenFromHierarchy(node)) {
       hierarchy.push({
         nodeType: node.type.name,
         nodeAttrs: { ...node.attrs },
@@ -93,7 +97,7 @@ function getNodeHierarchy(
     const node = resolvedPos.node(depth);
     const pos = resolvedPos.before(depth);
 
-    if (node && !IGNORED_NODES.includes(node.type.name)) {
+    if (node && !isHiddenFromHierarchy(node)) {
       const isDuplicate = hierarchy.some((h) => h.nodePos.pos === pos);
       if (!isDuplicate) {
         hierarchy.push({
@@ -161,10 +165,8 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
           return null;
         }
 
-        const bodyFocused = getBodyFocusedNode(context.editor);
-
         if (!context.editor.isFocused) {
-          return bodyFocused;
+          return BODY_FOCUSED;
         }
 
         const { selection } = context.editor.state;
@@ -196,9 +198,6 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
 
         if (hierarchy.length > 0) {
           const innermost = hierarchy[0];
-          if (innermost.nodeType === 'body') {
-            return bodyFocused;
-          }
           const columnEntry = hierarchy.find(
             (h) => h.nodeType === 'columnsColumn',
           );
@@ -207,7 +206,7 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
           return preferColumn ? columnEntry : innermost;
         }
 
-        return bodyFocused;
+        return BODY_FOCUSED;
       },
     });
 
@@ -215,20 +214,16 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
       if (!editor || target === null) {
         return [];
       }
-      const bodyFocused = getBodyFocusedNode(editor);
-      const withBody = (path: FocusedNode[]) =>
-        path[0]?.nodeType === 'body' ? path : [bodyFocused, ...path];
-
       if (typeof target === 'object') {
         if (target.nodeType === 'body') {
-          return [bodyFocused];
+          return [BODY_FOCUSED];
         }
         const atPos = getHierarchyAtPosition(editor, target.nodePos.pos);
         const path = [...atPos].reverse();
-        return withBody(path.length > 0 ? path : [target]);
+        return [BODY_FOCUSED, ...(path.length > 0 ? path : [target])];
       }
       const hierarchy = getNodeHierarchy(editor);
-      return withBody([...hierarchy].reverse());
+      return [BODY_FOCUSED, ...hierarchy.reverse()];
     }, [editor, target]);
 
     const contextValue: InspectorContextValue =
