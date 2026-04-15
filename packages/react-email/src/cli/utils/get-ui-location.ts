@@ -16,9 +16,7 @@ const ensurePreviewServerInstalled = async (
   });
   if (response.installPreviewServer) {
     console.log('Installing "@react-email/ui"');
-    await addDevDependency(
-      `@react-email/ui@${packageJson.version}`,
-    );
+    await addDevDependency(`@react-email/ui@${packageJson.version}`);
     process.exit(0);
   } else {
     process.exit(0);
