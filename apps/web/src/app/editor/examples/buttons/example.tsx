@@ -25,7 +25,7 @@ export function Buttons() {
         immediatelyRender={false}
       >
         <BubbleMenu.ButtonDefault />
-        <SlashCommand.Root items={[BUTTON]} />
+        <SlashCommand items={[BUTTON]} />
       </EditorProvider>
     </ExampleShell>
   );
