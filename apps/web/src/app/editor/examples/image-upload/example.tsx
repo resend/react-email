@@ -163,9 +163,7 @@ export function ImageUpload() {
         />
         <BubbleMenu hideWhenActiveNodes={['image']} />
         <BubbleMenu.ImageDefault />
-        <SlashCommand.Root
-          items={[...defaultSlashCommands, imageSlashCommand]}
-        />
+        <SlashCommand items={[...defaultSlashCommands, imageSlashCommand]} />
       </EditorProvider>
     </ExampleShell>
   );
