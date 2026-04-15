@@ -122,3 +122,16 @@ export interface PanelGroup {
   classReference?: KnownThemeComponents;
   inputs: Omit<PanelInputProperty, 'category'>[];
 }
+
+export type ThemeComponentStyles = {
+  [K in KnownThemeComponents]?: React.CSSProperties & {
+    align?: 'center' | 'left' | 'right';
+  };
+};
+
+export interface ThemeConfig {
+  extends?: EditorTheme;
+  styles: ThemeComponentStyles;
+}
+
+export type EditorThemeInput = EditorTheme | ThemeConfig;
