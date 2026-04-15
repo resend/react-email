@@ -40,7 +40,6 @@ export interface EmailEditorProps {
   };
   extensions?: Extensions;
   onUploadImage?: (file: File) => Promise<{ url: string }>;
-  onUploadImageError?: (error: Error, file: File) => void;
   className?: string;
   children?: ReactNode;
 }
@@ -79,7 +78,6 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
       bubbleMenu,
       extensions: extensionsProp,
       onUploadImage,
-      onUploadImageError,
       className,
       children,
     },
@@ -87,11 +85,8 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
   ) => {
     const imageExtension = useMemo(() => {
       if (!onUploadImage) return null;
-      return createImageExtension({
-        uploadImage: onUploadImage,
-        onUploadError: onUploadImageError,
-      });
-    }, [onUploadImage, onUploadImageError]);
+      return createImageExtension({ uploadImage: onUploadImage });
+    }, [onUploadImage]);
 
     const extensions = useMemo(() => {
       const base = extensionsProp ?? [

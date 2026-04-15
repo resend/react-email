@@ -108,6 +108,14 @@ const sections: ExampleSection[] = [
         section: 'Intermediate',
         docsUrl: 'https://react.email/docs/editor/features/buttons',
       },
+      {
+        slug: 'image-upload',
+        title: 'Image Upload',
+        description:
+          'Upload images via paste, drop, or the slash command — with a stubbed uploader and an error-path toggle.',
+        section: 'Intermediate',
+        docsUrl: 'https://react.email/docs/editor/features/image-upload',
+      },
     ],
   },
   {
