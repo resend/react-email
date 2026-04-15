@@ -29,6 +29,31 @@ const BODY_FOCUSED: FocusedNode = {
   nodePos: { pos: 0, inside: 0 },
 };
 
+export function computePathFromRoot(
+  editor: ReturnType<typeof useCurrentEditor>['editor'],
+  target: InspectorTarget | null,
+): FocusedNode[] {
+  if (!editor || target === null) {
+    return [];
+  }
+  // Prepend the synthetic body root unless the hierarchy already starts
+  // with a real body node (only possible when source HTML had an explicit
+  // <body> tag).
+  const withBody = (path: FocusedNode[]) =>
+    path[0]?.nodeType === 'body' ? path : [BODY_FOCUSED, ...path];
+
+  if (typeof target === 'object') {
+    if (target.nodeType === 'body') {
+      return [BODY_FOCUSED];
+    }
+    const atPos = getHierarchyAtPosition(editor, target.nodePos.pos);
+    const path = [...atPos].reverse();
+    return withBody(path.length > 0 ? path : [target]);
+  }
+  const hierarchy = getNodeHierarchy(editor);
+  return withBody(hierarchy.reverse());
+}
+
 function getHierarchyAtPosition(
   editor: ReturnType<typeof useCurrentEditor>['editor'],
   pos: number,
@@ -210,27 +235,10 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
       },
     });
 
-    const pathFromRoot = React.useMemo(() => {
-      if (!editor || target === null) {
-        return [];
-      }
-      // Prepend the synthetic body root unless the hierarchy already starts
-      // with a real body node (only possible when source HTML had an explicit
-      // <body> tag).
-      const withBody = (path: FocusedNode[]) =>
-        path[0]?.nodeType === 'body' ? path : [BODY_FOCUSED, ...path];
-
-      if (typeof target === 'object') {
-        if (target.nodeType === 'body') {
-          return [BODY_FOCUSED];
-        }
-        const atPos = getHierarchyAtPosition(editor, target.nodePos.pos);
-        const path = [...atPos].reverse();
-        return withBody(path.length > 0 ? path : [target]);
-      }
-      const hierarchy = getNodeHierarchy(editor);
-      return withBody(hierarchy.reverse());
-    }, [editor, target]);
+    const pathFromRoot = React.useMemo(
+      () => computePathFromRoot(editor, target),
+      [editor, target],
+    );
 
     const contextValue: InspectorContextValue =
       target === null
