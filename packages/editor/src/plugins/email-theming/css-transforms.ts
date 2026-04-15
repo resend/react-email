@@ -94,6 +94,10 @@ export function injectThemeCss(
     const cssString = Object.entries(value).reduce((acc, [prop, val]) => {
       const normalizeProp = prop.replace(/([A-Z])/g, '-$1').toLowerCase();
 
+      if (val === undefined) {
+        return acc;
+      }
+
       return `${acc}${normalizeProp}:${val};`;
     }, '');
 
