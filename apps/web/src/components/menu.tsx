@@ -1,72 +1,49 @@
 'use client';
 
-import classnames from 'classnames';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
 import { Drawer } from 'vaul';
 import { SmartLink } from './smart-link';
+import { TabButton } from './tab-button';
 
 interface MenuItemProps {
-  className?: string;
   children: React.ReactNode;
+  className?: string;
   href: string;
   onClick?: () => void;
 }
 
 const GITHUB_URL = 'https://github.com/resend/react-email';
 
-function MenuItem({ className, children, href, onClick }: MenuItemProps) {
+function MenuItem({ children, className, href, onClick }: MenuItemProps) {
   const pathname = usePathname();
-  const [, activeItem] = pathname?.split('/') ?? [];
 
   return (
-    <li className="inline-flex w-full items-center justify-center md:w-fit">
-      <SmartLink
-        className={classnames(
-          'inline-flex h-8 scroll-m-2 items-center rounded-md text-slate-11 text-sm transition-colors hover:bg-slate-6 hover:text-slate-12 focus:bg-slate-6 focus:outline-hidden focus:ring-3 focus:ring-slate-3 md:justify-center',
-          'data-[active=true]:bg-slate-6 data-[active=true]:text-slate-12',
-          className,
-        )}
-        href={href}
-        onClick={onClick}
-        tabIndex={0}
-        data-active={activeItem === href.replace('/', '')}
-      >
-        {children}
-      </SmartLink>
-    </li>
+    <TabButton
+      asChild
+      className={className}
+      onClick={onClick}
+      tabIndex={0}
+      data-active={pathname?.replace(/\/$/, '') === href.replace(/\/$/, '')}
+    >
+      <SmartLink href={href}>{children}</SmartLink>
+    </TabButton>
   );
 }
 
 function MenuItems({ onItemClick }: { onItemClick: () => void }) {
   return (
     <>
-      <MenuItem
-        className="w-full px-2 md:w-fit"
-        href="/components"
-        onClick={onItemClick}
-      >
+      <MenuItem href="/components" onClick={onItemClick}>
         Components
       </MenuItem>
-      <MenuItem
-        className="w-full px-2 md:w-fit"
-        href="/templates"
-        onClick={onItemClick}
-      >
+      <MenuItem href="/templates" onClick={onItemClick}>
         Templates
       </MenuItem>
-      <MenuItem
-        className="w-full px-2 md:w-fit"
-        href="/editor/examples"
-        onClick={onItemClick}
-      >
+      <MenuItem href="/editor/examples" onClick={onItemClick}>
         Editor
       </MenuItem>
-      <MenuItem
-        className="w-full px-2 md:w-fit"
-        href="/docs"
-        onClick={onItemClick}
-      >
+      <MenuItem href="/docs" onClick={onItemClick}>
         Docs
       </MenuItem>
     </>
