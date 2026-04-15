@@ -124,7 +124,14 @@ const sections: Section[] = [
         slug: 'email-theming',
         title: 'Email theming',
         description:
-          'Switch between Basic and Minimal themes to see how email styles change.',
+          'Switch between Basic, Minimal, and Custom themes to see how email styles change.',
+        docsUrl: 'https://react.email/docs/editor/features/theming',
+      },
+      {
+        slug: 'custom-theme',
+        title: 'Custom themes',
+        description:
+          'Define custom themes with createTheme and extendTheme helpers.',
         docsUrl: 'https://react.email/docs/editor/features/theming',
       },
       {

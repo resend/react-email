@@ -16,8 +16,9 @@ import { EmailTheming } from '@react-email/editor/plugins';
 const extensions = [StarterKit, EmailTheming.configure({ theme: 'basic' })];
 ```
 
-<ResponseField name="theme" type="EditorTheme" default="'basic'">
-  The active theme. Built-in options: `'basic'` or `'minimal'`.
+<ResponseField name="theme" type="EditorThemeInput" default="'basic'">
+  The active theme. Accepts a built-in preset (`'basic'` or `'minimal'`) or a `ThemeConfig`
+  object for custom themes.
 </ResponseField>
 
 ## Types
@@ -27,6 +28,51 @@ const extensions = [StarterKit, EmailTheming.configure({ theme: 'basic' })];
 ```tsx
 type EditorTheme = 'basic' | 'minimal';
 ```
+
+---
+
+### EditorThemeInput
+
+The widened theme type accepted by the `theme` prop and `EmailTheming.configure()`:
+
+```tsx
+type EditorThemeInput = EditorTheme | ThemeConfig;
+```
+
+---
+
+### ThemeComponentStyles
+
+CSS-in-JS styles keyed by component name:
+
+```tsx
+type ThemeComponentStyles = {
+  [K in KnownThemeComponents]?: React.CSSProperties & {
+    align?: 'center' | 'left' | 'right';
+  };
+};
+```
+
+---
+
+### ThemeConfig
+
+A custom theme configuration object:
+
+```tsx
+interface ThemeConfig {
+  extends?: EditorTheme;
+  styles: ThemeComponentStyles;
+}
+```
+
+<ResponseField name="extends" type="EditorTheme">
+  The built-in theme to inherit from. If omitted, uses `'minimal'` reset styles as a base.
+</ResponseField>
+
+<ResponseField name="styles" type="ThemeComponentStyles" required>
+  CSS-in-JS styles keyed by component name. Values are merged on top of the base theme.
+</ResponseField>
 
 ---
 
@@ -119,6 +165,54 @@ interface PanelInputProperty {
   category?: string;
 }
 ```
+
+## Theme helpers
+
+### createTheme
+
+Creates a custom theme from scratch (uses `minimal` reset as base):
+
+```tsx
+import { createTheme } from '@react-email/editor/plugins';
+
+const theme = createTheme({
+  body: { backgroundColor: '#1a1a2e', color: '#e2e8f0' },
+  button: { backgroundColor: '#3b82f6', color: '#fff' },
+});
+```
+
+<ResponseField name="styles" type="ThemeComponentStyles" required>
+  CSS-in-JS styles keyed by component name.
+</ResponseField>
+
+Returns a `ThemeConfig` object.
+
+---
+
+### extendTheme
+
+Extends a built-in theme with style overrides:
+
+```tsx
+import { extendTheme } from '@react-email/editor/plugins';
+
+const theme = extendTheme('basic', {
+  body: { backgroundColor: '#eff6ff' },
+  button: { backgroundColor: '#2563eb', borderRadius: '6px' },
+});
+```
+
+<ResponseField name="base" type="EditorTheme" required>
+  The built-in theme to extend (`'basic'` or `'minimal'`).
+</ResponseField>
+
+<ResponseField name="overrides" type="ThemeComponentStyles" required>
+  CSS-in-JS styles to merge on top of the base theme.
+</ResponseField>
+
+Returns a `ThemeConfig` object.
+
+---
 
 ## Utility functions
 
