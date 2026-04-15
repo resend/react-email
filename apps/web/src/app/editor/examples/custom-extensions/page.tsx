@@ -14,7 +14,7 @@ export default function Page() {
     <ExamplePageShell
       slug="custom-extensions"
       title="Custom Extensions"
-      docsUrl="https://react.email/docs/editor/advanced/custom-extensions"
+      docsUrl="/docs/editor/advanced/custom-extensions"
     >
       <Example />
     </ExamplePageShell>

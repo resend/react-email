@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Heading } from '@/components/heading';
 import { PageTransition } from '@/components/page-transition';
 import { PageWrapper } from '@/components/page-wrapper';
+import { SmartLink } from '@/components/smart-link';
 
 interface ExampleMeta {
   slug: string;
@@ -27,7 +28,7 @@ const sections: ExampleSection[] = [
         description:
           'The simplest setup — one component with everything included.',
         section: 'Standalone Editor',
-        docsUrl: 'https://react.email/docs/editor/getting-started',
+        docsUrl: '/docs/editor/getting-started',
       },
       {
         slug: 'standalone-editor-full',
@@ -35,7 +36,7 @@ const sections: ExampleSection[] = [
         description:
           'Theme switching, ref methods (export, getJSON), and callbacks — all with a single component.',
         section: 'Standalone Editor',
-        docsUrl: 'https://react.email/docs/editor/getting-started',
+        docsUrl: '/docs/editor/getting-started',
       },
       {
         slug: 'standalone-editor-inspector',
@@ -43,7 +44,7 @@ const sections: ExampleSection[] = [
         description:
           'Add an inspector sidebar alongside the standalone EmailEditor — no manual EditorProvider setup needed.',
         section: 'Standalone Editor',
-        docsUrl: 'https://react.email/docs/editor/features/inspector',
+        docsUrl: '/docs/editor/features/inspector',
       },
     ],
   },
@@ -55,7 +56,7 @@ const sections: ExampleSection[] = [
         title: 'Basic Editor',
         description: 'Minimal setup with StarterKit and no UI overlays.',
         section: 'Getting Started',
-        docsUrl: 'https://react.email/docs/editor/getting-started',
+        docsUrl: '/docs/editor/getting-started',
       },
       {
         slug: 'bubble-menu',
@@ -63,7 +64,7 @@ const sections: ExampleSection[] = [
         description:
           'Select text to see the default bubble menu with formatting options.',
         section: 'Getting Started',
-        docsUrl: 'https://react.email/docs/editor/features/bubble-menu',
+        docsUrl: '/docs/editor/features/bubble-menu',
       },
       {
         slug: 'slash-commands',
@@ -71,7 +72,7 @@ const sections: ExampleSection[] = [
         description:
           'Type / to open the command menu. Includes default commands plus a custom "Greeting" command.',
         section: 'Getting Started',
-        docsUrl: 'https://react.email/docs/editor/features/slash-commands',
+        docsUrl: '/docs/editor/features/slash-commands',
       },
     ],
   },
@@ -83,7 +84,7 @@ const sections: ExampleSection[] = [
         title: 'Custom Bubble Menu',
         description: 'Building bubble menus from primitives.',
         section: 'Intermediate',
-        docsUrl: 'https://react.email/docs/editor/features/bubble-menu',
+        docsUrl: '/docs/editor/features/bubble-menu',
       },
       {
         slug: 'link-editing',
@@ -91,14 +92,14 @@ const sections: ExampleSection[] = [
         description:
           'Click a link to see the link bubble menu. Select text and press Cmd+K to add links.',
         section: 'Intermediate',
-        docsUrl: 'https://react.email/docs/editor/features/link-editing',
+        docsUrl: '/docs/editor/features/link-editing',
       },
       {
         slug: 'column-layouts',
         title: 'Column Layouts',
         description: 'Insert multi-column layouts using the toolbar buttons.',
         section: 'Intermediate',
-        docsUrl: 'https://react.email/docs/editor/features/column-layouts',
+        docsUrl: '/docs/editor/features/column-layouts',
       },
       {
         slug: 'buttons',
@@ -106,7 +107,7 @@ const sections: ExampleSection[] = [
         description:
           'Click the button to edit its link via the button bubble menu.',
         section: 'Intermediate',
-        docsUrl: 'https://react.email/docs/editor/features/buttons',
+        docsUrl: '/docs/editor/features/buttons',
       },
       {
         slug: 'image-upload',
@@ -127,7 +128,7 @@ const sections: ExampleSection[] = [
         description:
           'Switch between Basic and Minimal themes to see how email styles change.',
         section: 'Advanced',
-        docsUrl: 'https://react.email/docs/editor/features/theming',
+        docsUrl: '/docs/editor/features/theming',
       },
       {
         slug: 'email-export',
@@ -135,7 +136,7 @@ const sections: ExampleSection[] = [
         description:
           'Edit content and export it as email-ready HTML using composeReactEmail().',
         section: 'Advanced',
-        docsUrl: 'https://react.email/docs/editor/features/email-export',
+        docsUrl: '/docs/editor/features/email-export',
       },
       {
         slug: 'custom-extensions',
@@ -143,7 +144,7 @@ const sections: ExampleSection[] = [
         description:
           'A custom Callout node created with EmailNode.create — showing how to extend the editor with email-compatible nodes.',
         section: 'Advanced',
-        docsUrl: 'https://react.email/docs/editor/advanced/custom-extensions',
+        docsUrl: '/docs/editor/advanced/custom-extensions',
       },
       {
         slug: 'inspector-defaults',
@@ -151,7 +152,7 @@ const sections: ExampleSection[] = [
         description:
           'Zero-config inspector sidebar. All three inspectors render sensible defaults when no children are passed.',
         section: 'Advanced',
-        docsUrl: 'https://react.email/docs/editor/overview',
+        docsUrl: '/docs/editor/overview',
       },
       {
         slug: 'inspector-composed',
@@ -159,7 +160,7 @@ const sections: ExampleSection[] = [
         description:
           'Cherry-pick which sections render, control collapse state, and mix in custom sections alongside built-in ones.',
         section: 'Advanced',
-        docsUrl: 'https://react.email/docs/editor/overview',
+        docsUrl: '/docs/editor/overview',
       },
       {
         slug: 'inspector-custom',
@@ -167,7 +168,7 @@ const sections: ExampleSection[] = [
         description:
           'Build the entire inspector UI from scratch using only render-props data and plain HTML.',
         section: 'Advanced',
-        docsUrl: 'https://react.email/docs/editor/overview',
+        docsUrl: '/docs/editor/overview',
       },
       {
         slug: 'full-email-builder',
@@ -175,7 +176,7 @@ const sections: ExampleSection[] = [
         description:
           'All components combined: bubble menus, slash commands, theming, inspector sidebar, and export.',
         section: 'Advanced',
-        docsUrl: 'https://react.email/docs/editor/features/email-export',
+        docsUrl: '/docs/editor/features/email-export',
       },
     ],
   },
@@ -210,32 +211,26 @@ export default function EditorExamplesPage() {
             @react-email/editor.
           </p>
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-            <a
+            <SmartLink
               className="text-slate-11 transition-colors hover:text-slate-12"
-              href="https://react.email/docs/editor/overview"
-              rel="noopener"
-              target="_blank"
+              href="/docs/editor/overview"
             >
               Overview
-            </a>
+            </SmartLink>
             <span className="text-slate-6">·</span>
-            <a
+            <SmartLink
               className="text-slate-11 transition-colors hover:text-slate-12"
-              href="https://react.email/docs/editor/getting-started"
-              rel="noopener"
-              target="_blank"
+              href="/docs/editor/getting-started"
             >
               Getting Started
-            </a>
+            </SmartLink>
             <span className="text-slate-6">·</span>
-            <a
+            <SmartLink
               className="text-slate-11 transition-colors hover:text-slate-12"
-              href="https://react.email/docs/editor/api-reference"
-              rel="noopener"
-              target="_blank"
+              href="/docs/editor/api-reference"
             >
               API Reference
-            </a>
+            </SmartLink>
           </div>
         </div>
 

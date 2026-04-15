@@ -14,7 +14,7 @@ export default function Page() {
     <ExamplePageShell
       slug="slash-commands"
       title="Slash Commands"
-      docsUrl="https://react.email/docs/editor/features/slash-commands"
+      docsUrl="/docs/editor/features/slash-commands"
     >
       <Example />
     </ExamplePageShell>

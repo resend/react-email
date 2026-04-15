@@ -14,7 +14,7 @@ export default function Page() {
     <ExamplePageShell
       slug="email-export"
       title="Email Export"
-      docsUrl="https://react.email/docs/editor/features/email-export"
+      docsUrl="/docs/editor/features/email-export"
     >
       <Example />
     </ExamplePageShell>

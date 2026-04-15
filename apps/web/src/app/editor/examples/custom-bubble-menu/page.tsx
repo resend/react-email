@@ -13,7 +13,7 @@ export default function Page() {
     <ExamplePageShell
       slug="custom-bubble-menu"
       title="Custom Bubble Menu"
-      docsUrl="https://react.email/docs/editor/features/bubble-menu"
+      docsUrl="/docs/editor/features/bubble-menu"
     >
       <Example />
     </ExamplePageShell>
