@@ -1,14 +1,14 @@
-"use server";
+'use server';
 
-import { Resend } from "resend";
-import { z } from "zod";
-import { resendApiKey } from "../app/env";
-import { upsertResendTemplate } from "../utils/resend-template-upsert";
-import { baseActionClient } from "./safe-action";
+import { Resend } from 'resend';
+import { z } from 'zod';
+import { resendApiKey } from '../app/env';
+import { upsertResendTemplate } from '../utils/resend-template-upsert';
+import { baseActionClient } from './safe-action';
 
 export const exportSingleTemplate = baseActionClient
   .metadata({
-    actionName: "exportSingleTemplate",
+    actionName: 'exportSingleTemplate',
   })
   .inputSchema(
     z.object({
@@ -27,14 +27,14 @@ export const exportSingleTemplate = baseActionClient
       html: parsedInput.html,
     });
 
-    if ("error" in response) {
-      console.error("Error syncing single template", response.error);
-      return { name: parsedInput.name, status: "failed" as const };
+    if ('error' in response) {
+      console.error('Error syncing single template', response.error);
+      return { name: parsedInput.name, status: 'failed' as const };
     }
 
     return {
       name: parsedInput.name,
-      status: "succeeded" as const,
+      status: 'succeeded' as const,
       id: response.id,
       operation: response.operation,
     };
