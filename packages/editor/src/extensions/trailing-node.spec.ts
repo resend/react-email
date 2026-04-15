@@ -195,6 +195,42 @@ describe('TrailingNode', () => {
     expect(json.content![0].type).toBe('heading');
   });
 
+  it('appends trailing nodes to multiple node types when appendTo is an array', () => {
+    editor = createEditor(
+      [
+        StarterKit.configure({ TrailingNode: false }),
+        TrailingNode.configure({ appendTo: ['container', 'section'] }),
+      ],
+      {
+        type: 'doc',
+        content: [
+          {
+            type: 'container',
+            content: [
+              {
+                type: 'section',
+                content: [
+                  {
+                    type: 'heading',
+                    attrs: { level: 1 },
+                    content: [{ type: 'text', text: 'In Section' }],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    );
+
+    const json = editor.getJSON();
+    const container = json.content!.find((n) => n.type === 'container')!;
+    const section = container.content!.find((n) => n.type === 'section')!;
+
+    expect(section.content!.at(-1)!.type).toBe('paragraph');
+    expect(container.content!.at(-1)!.type).toBe('paragraph');
+  });
+
   it('does not treat notAfter string as a substring match', () => {
     // "table" is a substring of "tableRow"; with the old bug,
     // `"tableRow".concat("paragraph")` produced the string
