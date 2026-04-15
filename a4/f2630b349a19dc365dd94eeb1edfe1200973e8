@@ -1,0 +1,23 @@
+apps/web/.gitignore
+  bf9385a2124245ed 35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "a4f2630b349a19dc365dd94eeb1edfe1200973e8",
+  "prompts": {
+    "bf9385a2124245ed": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "924a2a0f-1622-42b4-ac85-5ecd42b4e8c8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 882,
+      "overriden_lines": 0
+    }
+  }
+}
