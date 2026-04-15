@@ -12,6 +12,19 @@ import {
 
 const IGNORED_NODES = ['doc', 'text'];
 
+function getBodyFocusedNode(
+  editor: NonNullable<ReturnType<typeof useCurrentEditor>['editor']>,
+): FocusedNode {
+  const firstChild = editor.state.doc.firstChild;
+  const nodeAttrs =
+    firstChild?.type.name === 'body' ? { ...firstChild.attrs } : {};
+  return {
+    nodeType: 'body',
+    nodeAttrs,
+    nodePos: { pos: 0, inside: 0 },
+  };
+}
+
 function getHierarchyAtPosition(
   editor: ReturnType<typeof useCurrentEditor>['editor'],
   pos: number,
@@ -148,16 +161,7 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
           return null;
         }
 
-        const bodyNode = context.editor.state.doc.firstChild;
-        if (!bodyNode || bodyNode.type.name !== 'body') {
-          return null;
-        }
-
-        const bodyFocused: FocusedNode = {
-          nodeType: 'body',
-          nodeAttrs: { ...bodyNode.attrs },
-          nodePos: { pos: 0, inside: 0 },
-        };
+        const bodyFocused = getBodyFocusedNode(context.editor);
 
         if (!context.editor.isFocused) {
           return bodyFocused;
@@ -211,13 +215,20 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
       if (!editor || target === null) {
         return [];
       }
+      const bodyFocused = getBodyFocusedNode(editor);
+      const withBody = (path: FocusedNode[]) =>
+        path[0]?.nodeType === 'body' ? path : [bodyFocused, ...path];
+
       if (typeof target === 'object') {
+        if (target.nodeType === 'body') {
+          return [bodyFocused];
+        }
         const atPos = getHierarchyAtPosition(editor, target.nodePos.pos);
         const path = [...atPos].reverse();
-        return path.length > 0 ? path : [target];
+        return withBody(path.length > 0 ? path : [target]);
       }
       const hierarchy = getNodeHierarchy(editor);
-      return [...hierarchy].reverse();
+      return withBody([...hierarchy].reverse());
     }, [editor, target]);
 
     const contextValue: InspectorContextValue =

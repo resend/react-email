@@ -25,6 +25,19 @@ export function InspectorBreadcrumb({ children }: InspectorBreadcrumbProps) {
     return pathFromRoot.map((focusedNode) => ({
       node: focusedNode,
       focus() {
+        if (focusedNode.nodeType === 'body') {
+          // Body is a logical root, not always a concrete ProseMirror node —
+          // blur to surface the document-level inspector rather than risk
+          // selecting whatever is at pos 0.
+          if (typeof document !== 'undefined') {
+            const active = document.activeElement;
+            if (active instanceof HTMLElement) {
+              active.blur();
+            }
+          }
+          editor.commands.blur();
+          return;
+        }
         editor.commands.setNodeSelection(focusedNode.nodePos.pos);
         editor.commands.focus();
       },
