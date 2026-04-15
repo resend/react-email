@@ -32,8 +32,9 @@ export const TechWelcomeEmail = ({
         <Head>
           <TechFonts />
         </Head>
-        <Preview>Welcome to {companyName}</Preview>
+
         <Body className="bg-bg-3 m-0 p-0">
+          <Preview>Welcome to {companyName}</Preview>
           <Container className="mx-auto max-w-[640px]">
             <Section className="bg-fg px-2 py-4 text-center">
               <Text className="m-0 font-14 font-sans text-bg">

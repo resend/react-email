@@ -89,8 +89,9 @@ export const TechNewsletterEmail = ({
         <Head>
           <TechFonts />
         </Head>
-        <Preview>The latest from {companyName}</Preview>
+
         <Body className="bg-bg-3 m-0 p-0">
+          <Preview>The latest from {companyName}</Preview>
           <Container className="mx-auto max-w-[640px]">
             <Section className="rounded-[10px] bg-bg-2">
               <Section className="bg-bg-3">

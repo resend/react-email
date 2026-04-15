@@ -56,8 +56,11 @@ export const TechOrderShippingEmail = ({
         <Head>
           <TechFonts />
         </Head>
-        <Preview>Your {companyName} ring order #1234567890 has shipped</Preview>
+
         <Body className="bg-bg-2 m-0 p-0">
+          <Preview>
+            Your {companyName} ring order #1234567890 has shipped
+          </Preview>
           <Container className="mx-auto w-full max-w-[640px]">
             <Section className="bg-bg-3 px-0 pt-14 text-center">
               <Section className="px-6 pb-[56px]">

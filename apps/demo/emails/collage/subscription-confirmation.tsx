@@ -47,10 +47,11 @@ export const SubscriptionConfirmation = ({
         <Head>
           <CollageFonts />
         </Head>
-        <Preview>
-          You&apos;re subscribed to {companyName} {planName}
-        </Preview>
+
         <Body className="bg-canvas font-14 text-fg m-0 p-0 font-sans">
+          <Preview>
+            You&apos;re subscribed to {companyName} {planName}
+          </Preview>
           <Container className="mx-auto max-w-[640px] px-4 pt-16 pb-6">
             <Section className="shadow-collage-card rounded-[8px]">
               <Section className="bg-bg border-stroke rounded-[8px] border">

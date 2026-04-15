@@ -35,8 +35,9 @@ export const TextOnlyEmail = ({ companyName, url }: TextOnlyEmailProps) => (
       <Head>
         <BarebonesFonts />
       </Head>
-      <Preview>A note from {companyName}</Preview>
+
       <Body className="bg-bg-2 m-0 text-center font-sans">
+        <Preview>A note from {companyName}</Preview>
         <Container className="mobile:mt-0 mx-auto mt-8 w-full max-w-[640px]">
           <Section>
             <Section className="bg-bg mobile:px-2 px-6 py-4">

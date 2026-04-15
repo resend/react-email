@@ -44,9 +44,10 @@ export default function PapermarkYearInReviewEmail({
   return (
     <Html>
       <Head />
-      <Preview>See your stats from 2024</Preview>
+
       <Tailwind>
         <Body className="bg-white font-sans">
+          <Preview>See your stats from 2024</Preview>
           <Container className="mx-auto w-full max-w-[600px] p-0">
             <Section className="p-8 text-center">
               <Text className="mx-0 mt-4 mb-8 p-0 text-center font-normal text-2xl">

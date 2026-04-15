@@ -40,8 +40,9 @@ export const TechAbandonedCartEmail = ({
       <Head>
         <TechFonts />
       </Head>
-      <Preview>Your Halo ring cart is waiting</Preview>
+
       <Body className="bg-bg-2 m-0 p-0">
+        <Preview>Your Halo ring cart is waiting</Preview>
         <Container className="mx-auto w-full max-w-[640px]">
           <Section className="bg-bg-3 px-0 pt-14 text-center">
             <Section className="mb-10">

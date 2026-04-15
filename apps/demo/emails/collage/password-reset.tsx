@@ -30,8 +30,9 @@ export const PasswordResetEmail = ({
       <Head>
         <CollageFonts />
       </Head>
-      <Preview>Reset your password</Preview>
+
       <Body className="bg-canvas font-14 font-inter text-fg m-0 p-0">
+        <Preview>Reset your password</Preview>
         <Container className="mx-auto max-w-[640px] px-4 pt-16 pb-6">
           <Section className="rounded-[8px] shadow-collage-card">
             <Section className="bg-bg border-stroke rounded-[8px] border">

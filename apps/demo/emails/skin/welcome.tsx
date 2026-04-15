@@ -49,8 +49,9 @@ export const WelcomeEmail = ({ companyName, url }: WelcomeEmailProps) => {
         <Head>
           <SkinFonts />
         </Head>
-        <Preview>Welcome to {companyName}</Preview>
+
         <Body className="m-0 bg-white p-0 font-15 font-sans">
+          <Preview>Welcome to {companyName}</Preview>
           <Section className="m-0 bg-white p-0 pt-[92px] mobile:pt-0">
             <Container className="bg-bg mx-auto w-full max-w-[640px]">
               <Section className="bg-bg mobile:px-6 px-[40px] pt-[40px] pb-[24px]">

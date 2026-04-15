@@ -27,8 +27,9 @@ export const ActivationEmail = ({ companyName, url }: ActivationEmailProps) => (
       <Head>
         <DitherFonts />
       </Head>
-      <Preview>Confirm your email address</Preview>
+
       <Body className="bg-bg-2 font-14 m-0 p-0 font-sans">
+        <Preview>Confirm your email address</Preview>
         <Container className="bg-bg mx-auto max-w-[640px]">
           <Section className="mobile:px-4 px-6 py-6">
             <Img

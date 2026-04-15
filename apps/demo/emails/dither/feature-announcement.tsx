@@ -34,8 +34,9 @@ export const FeatureAnnouncementEmail = ({
         <Head>
           <DitherFonts />
         </Head>
-        <Preview>Meet {featureName}</Preview>
+
         <Body className="bg-bg-2 font-14 m-0 p-0 font-sans">
+          <Preview>Meet {featureName}</Preview>
           <Container className="bg-bg mx-auto max-w-[640px]">
             <Section className="mobile:px-4 px-6 py-6">
               <Img

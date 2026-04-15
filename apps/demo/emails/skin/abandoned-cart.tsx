@@ -51,8 +51,9 @@ export const AbandonedCartEmail = ({
         <Head>
           <SkinFonts />
         </Head>
-        <Preview>Your {companyName} cart is waiting</Preview>
+
         <Body className="bg-white m-0 p-0 font-15 font-sans">
+          <Preview>Your {companyName} cart is waiting</Preview>
           <Section className="bg-white m-0 p-0 pt-[92px] mobile:pt-0">
             <Container className="bg-bg mx-auto w-full max-w-[640px]">
               <Section className="bg-bg px-[40px] pt-[40px] pb-[24px]">

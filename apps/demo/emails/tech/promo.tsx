@@ -39,8 +39,9 @@ export const TechPromoEmail = ({ companyName, url }: TechPromoEmailProps) => {
         <Head>
           <TechFonts />
         </Head>
-        <Preview>Your {companyName} promo code</Preview>
+
         <Body className="bg-bg-3 m-0 p-0">
+          <Preview>Your {companyName} promo code</Preview>
           <Container className="mx-auto max-w-[640px]">
             <Section className="bg-fg px-2 py-4 text-center">
               <Text className="m-0 font-14 font-sans text-bg">

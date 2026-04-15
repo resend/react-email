@@ -30,8 +30,9 @@ export const TechActivationEmail = ({
       <Head>
         <TechFonts />
       </Head>
-      <Preview>Confirm your email address</Preview>
+
       <Body className="bg-bg-2 m-0 p-0">
+        <Preview>Confirm your email address</Preview>
         <Container className="mx-auto w-full max-w-[640px]">
           <Section className="bg-bg-3 px-0 pt-14 text-center">
             <Section className="px-6 pb-[72px]">

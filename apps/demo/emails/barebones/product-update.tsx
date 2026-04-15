@@ -31,8 +31,9 @@ export const ProductUpdateEmail = ({
       <Head>
         <BarebonesFonts />
       </Head>
-      <Preview>Product update: what&apos;s new at {companyName}</Preview>
+
       <Body className="bg-bg-2 m-0 font-sans text-center">
+        <Preview>Product update: what&apos;s new at {companyName}</Preview>
         <Container className="mx-auto mt-8 mobile:mt-0 w-full max-w-[640px]">
           <Section>
             <Section className="bg-bg px-6 mobile:px-2 py-4">

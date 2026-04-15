@@ -42,10 +42,11 @@ export const SubscriptionUpdate = ({
         <Head>
           <BarebonesFonts />
         </Head>
-        <Preview>
-          Your {companyName} {planName} subscription was updated
-        </Preview>
+
         <Body className="bg-bg-2 m-0 text-center font-sans">
+          <Preview>
+            Your {companyName} {planName} subscription was updated
+          </Preview>
           <Container className="mobile:mt-0 mx-auto mt-8 w-full max-w-[640px]">
             <Section>
               <Section className="bg-bg mobile:px-2 px-6 py-4">

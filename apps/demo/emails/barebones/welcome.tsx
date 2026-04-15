@@ -28,8 +28,9 @@ export const WelcomeEmail = ({ companyName, url }: WelcomeEmailProps) => (
       <Head>
         <BarebonesFonts />
       </Head>
-      <Preview>Welcome aboard—{companyName}</Preview>
+
       <Body className="bg-bg-2 m-0 font-sans text-center">
+        <Preview>Welcome aboard—{companyName}</Preview>
         <Container className="mx-auto mt-8 mobile:mt-0 w-full max-w-[640px]">
           <Section>
             <Section className="bg-bg px-6 mobile:px-2 py-4">

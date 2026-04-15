@@ -30,8 +30,9 @@ export const TechPasswordResetEmail = ({
       <Head>
         <TechFonts />
       </Head>
-      <Preview>Reset your password</Preview>
+
       <Body className="bg-bg-2 m-0 p-0">
+        <Preview>Reset your password</Preview>
         <Container className="mx-auto w-full max-w-[640px]">
           <Section className="bg-bg-3 px-0 pt-14 text-center">
             <Section className="px-6 pb-[72px]">

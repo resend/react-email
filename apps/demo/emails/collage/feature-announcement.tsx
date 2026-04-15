@@ -86,8 +86,9 @@ export const FeatureAnnouncementEmail = ({
         <Head>
           <CollageFonts />
         </Head>
-        <Preview>Something new is live in {brand}</Preview>
+
         <Body className="bg-canvas font-14 font-inter text-fg m-0 p-0">
+          <Preview>Something new is live in {brand}</Preview>
           <Container className="mx-auto max-w-[640px] px-4 pt-16 pb-6">
             <Section className="shadow-collage-card rounded-[8px]">
               <Section className="bg-bg border-stroke rounded-[8px] border">

@@ -28,8 +28,9 @@ export const ConfirmEmail = ({ companyName, url }: ConfirmEmailProps) => (
       <Head>
         <BarebonesFonts />
       </Head>
-      <Preview>Confirm your email address</Preview>
+
       <Body className="bg-bg-2 m-0 text-center font-sans">
+        <Preview>Confirm your email address</Preview>
         <Container className="mobile:mt-0 mx-auto mt-8 w-full max-w-[640px]">
           <Section>
             <Section className="bg-bg mobile:px-2 px-6 py-4">
