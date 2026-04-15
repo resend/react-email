@@ -5,7 +5,7 @@ import { StandaloneEditorFull as Example } from './example';
 export const metadata: Metadata = {
   title: 'Standalone Editor — Full Features — Editor Examples',
   description:
-    'Theme switching, ref methods (export, getJSON), and callbacks — all with a single component.',
+    'Theme switching, ref methods (getEmailHTML, getJSON), and callbacks — all with a single component.',
   alternates: { canonical: '/editor/examples/standalone-editor-full' },
 };
 

@@ -22,14 +22,15 @@ import '../ui/themes/default.css';
 
 export interface EmailEditorRef {
   export: () => Promise<{ html: string; text: string }>;
+  getEmailHTML: () => Promise<string>;
+  getEmailText: () => Promise<string>;
   getJSON: () => JSONContent;
-  getHTML: () => string;
   editor: Editor | null;
 }
 
 export interface EmailEditorProps {
   content?: Content;
-  onChange?: (editor: Editor) => void;
+  onUpdate?: (editor: Editor) => void;
   onReady?: (editor: Editor) => void;
   theme?: 'basic' | 'minimal';
   editable?: boolean;
@@ -56,8 +57,17 @@ function RefBridge({ editorRef }: { editorRef: Ref<EmailEditorRef> }) {
         }
         return composeReactEmail({ editor });
       },
+      getEmailHTML: async () => {
+        if (!editor) return '';
+        const result = await composeReactEmail({ editor });
+        return result.html;
+      },
+      getEmailText: async () => {
+        if (!editor) return '';
+        const result = await composeReactEmail({ editor });
+        return result.text;
+      },
       getJSON: () => editor?.getJSON() ?? { type: 'doc', content: [] },
-      getHTML: () => editor?.getHTML() ?? '',
       editor,
     }),
     [editor],
@@ -70,7 +80,7 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
   (
     {
       content,
-      onChange,
+      onUpdate,
       onReady,
       theme = 'basic',
       editable = true,
@@ -118,7 +128,7 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
         editorProps={editorProps}
         editorContainerProps={{ className }}
         onCreate={({ editor }) => onReady?.(editor)}
-        onUpdate={({ editor }) => onChange?.(editor)}
+        onUpdate={({ editor }) => onUpdate?.(editor)}
       >
         <RefBridge editorRef={ref} />
         <BubbleMenu
