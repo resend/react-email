@@ -1,10 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const plugin = require('tailwindcss/plugin') as (
-  cb: (api: {
-    addVariant: (name: string, definition: string) => void;
-    addUtilities: (utils: Record<string, Record<string, string>>) => void;
-  }) => void,
-) => unknown;
+import type { TailwindConfig } from 'react-email';
+import plugin from 'tailwindcss/plugin';
 
 export const techTheme = {
   bg: '#DCE1E4',
@@ -111,7 +106,7 @@ const fontSizeThemeFromTokens = Object.fromEntries(
   ]),
 );
 
-export const techTailwindConfig = {
+export const techTailwindConfig: TailwindConfig = {
   theme: {
     extend: {
       fontSize: fontSizeThemeFromTokens,
@@ -138,23 +133,15 @@ export const techTailwindConfig = {
     },
   },
   plugins: [
-    plugin(
-      ({
-        addVariant,
-        addUtilities,
-      }: {
-        addVariant: (name: string, definition: string) => void;
-        addUtilities: (u: Record<string, Record<string, string>>) => void;
-      }) => {
-        addVariant('mobile', '@media (max-width: 600px)');
-        const numericFontUtilities = Object.fromEntries(
-          Object.entries(fontTokens).map(([step, token]) => [
-            `.font-${step}`,
-            token,
-          ]),
-        );
-        addUtilities(numericFontUtilities);
-      },
-    ),
+    plugin(({ addVariant, addUtilities }) => {
+      addVariant('mobile', '@media (max-width: 600px)');
+      const numericFontUtilities = Object.fromEntries(
+        Object.entries(fontTokens).map(([step, token]) => [
+          `.font-${step}`,
+          token,
+        ]),
+      );
+      addUtilities(numericFontUtilities);
+    }),
   ],
 };

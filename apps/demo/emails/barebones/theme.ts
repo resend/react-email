@@ -1,9 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const plugin = require('tailwindcss/plugin') as (
-  cb: (api: {
-    addUtilities: (utils: Record<string, Record<string, string>>) => void;
-  }) => void,
-) => unknown;
+import type { TailwindConfig } from 'react-email';
+import plugin from 'tailwindcss/plugin';
 
 export const barebonesBoxedTheme = {
   bg: '#FFFFFF',
@@ -68,24 +64,16 @@ const fontTokens = {
   },
 } as const;
 
-const barebonesFontPlugin = plugin((({
-  addUtilities,
-  addVariant,
-}: {
-  addUtilities: (u: Record<string, Record<string, string>>) => void;
-  addVariant: (name: string, definition: string) => void;
-}) => {
+const barebonesFontPlugin = plugin(({ addUtilities, addVariant }) => {
   addVariant('mobile', '@media (max-width: 600px)');
   const utilities: Record<string, Record<string, string>> = {};
   for (const [step, token] of Object.entries(fontTokens)) {
     utilities[`.font-${step}`] = token;
   }
   addUtilities(utilities);
-}) as (api: {
-  addUtilities: (utils: Record<string, Record<string, string>>) => void;
-}) => void);
+});
 
-export const barebonesBoxedTailwindConfig = {
+export const barebonesBoxedTailwindConfig: TailwindConfig = {
   plugins: [barebonesFontPlugin],
   theme: {
     extend: {

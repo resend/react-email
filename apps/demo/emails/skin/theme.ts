@@ -1,9 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const plugin = require('tailwindcss/plugin') as (
-  cb: (api: {
-    addUtilities: (utils: Record<string, Record<string, string>>) => void;
-  }) => void,
-) => unknown;
+import type { TailwindConfig } from 'react-email';
+import plugin from 'tailwindcss/plugin';
 
 export const skinTheme = {
   bg: '#300610',
@@ -104,7 +100,7 @@ const fontTokens = {
   },
 } as const;
 
-export const skinTailwindConfig = {
+export const skinTailwindConfig: TailwindConfig = {
   theme: {
     extend: {
       colors: {
@@ -125,13 +121,7 @@ export const skinTailwindConfig = {
     },
   },
   plugins: [
-    plugin((({
-      addUtilities,
-      addVariant,
-    }: {
-      addUtilities: (u: Record<string, Record<string, string>>) => void;
-      addVariant: (name: string, definition: string) => void;
-    }) => {
+    plugin(({ addUtilities, addVariant }) => {
       addVariant('mobile', '@media (max-width: 600px)');
       const numericFontUtilities = Object.fromEntries(
         Object.entries(fontTokens).map(([step, token]) => [
@@ -141,8 +131,6 @@ export const skinTailwindConfig = {
       );
 
       addUtilities(numericFontUtilities);
-    }) as (api: {
-      addUtilities: (utils: Record<string, Record<string, string>>) => void;
-    }) => void),
+    }),
   ],
 };

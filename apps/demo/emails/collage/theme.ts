@@ -1,10 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const plugin = require('tailwindcss/plugin') as (
-  cb: (api: {
-    addUtilities: (utils: Record<string, Record<string, string>>) => void;
-    addVariant: (name: string, definition: string) => void;
-  }) => void,
-) => unknown;
+import type { TailwindConfig } from 'react-email';
+import plugin from 'tailwindcss/plugin';
 
 export const collageTheme = {
   canvas: '#FBFCFB',
@@ -77,24 +72,16 @@ const fontTokens = {
   },
 } as const;
 
-const collageFontPlugin = plugin(
-  ({
-    addUtilities,
-    addVariant,
-  }: {
-    addUtilities: (u: Record<string, Record<string, string>>) => void;
-    addVariant: (name: string, definition: string) => void;
-  }) => {
-    addVariant('mobile', '@media (max-width: 600px)');
-    const utilities: Record<string, Record<string, string>> = {};
-    for (const [step, token] of Object.entries(fontTokens)) {
-      utilities[`.font-${step}`] = token;
-    }
-    addUtilities(utilities);
-  },
-);
+const collageFontPlugin = plugin(({ addUtilities, addVariant }) => {
+  addVariant('mobile', '@media (max-width: 600px)');
+  const utilities: Record<string, Record<string, string>> = {};
+  for (const [step, token] of Object.entries(fontTokens)) {
+    utilities[`.font-${step}`] = token;
+  }
+  addUtilities(utilities);
+});
 
-export const collageTailwindConfig = {
+export const collageTailwindConfig: TailwindConfig = {
   plugins: [collageFontPlugin],
   theme: {
     extend: {

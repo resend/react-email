@@ -26,6 +26,7 @@ interface PromoEmailProps {
   companyName: string;
   url: string;
 }
+
 const promoFeatures: PromoFeature[] = [
   {
     title: 'Bright morning serum',
@@ -42,6 +43,7 @@ const promoFeatures: PromoFeature[] = [
     imagePosition: 'right',
   },
 ];
+
 export const PromoEmail = ({ companyName, url }: PromoEmailProps) => {
   return (
     <Tailwind config={skinTailwindConfig}>

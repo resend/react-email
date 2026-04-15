@@ -236,6 +236,9 @@ importers:
       next:
         specifier: 'catalog:'
         version: 16.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      tailwindcss:
+        specifier: 'catalog:'
+        version: 4.1.18
       tsconfig:
         specifier: workspace:*
         version: link:../../packages/tsconfig
