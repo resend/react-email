@@ -7,6 +7,7 @@ import type { NodeClickedEvent } from '../../core';
 import {
   EditorFocusScope,
   EditorFocusScopeProvider,
+  FocusScopeContext,
 } from '../editor-focus-scope';
 
 const IGNORED_NODES = ['doc', 'text'];
@@ -127,6 +128,7 @@ export function useInspector() {
 export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
   function InspectorRoot({ children, asChild, ...restProps }, forwardedRef) {
     const { editor } = useCurrentEditor();
+    const existingFocusScope = React.useContext(FocusScopeContext);
 
     if (editor) {
       const hasEmailTheming = editor.extensionManager.extensions.some(
@@ -210,6 +212,14 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
 
     const Component = asChild ? Slot : 'aside';
 
+    const inspectorContent = (
+      <EditorFocusScope>
+        <Component ref={forwardedRef} {...restProps} tabIndex={-1}>
+          {children}
+        </Component>
+      </EditorFocusScope>
+    );
+
     return (
       <InspectorContext.Provider
         value={{
@@ -217,13 +227,13 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
           pathFromRoot,
         }}
       >
-        <EditorFocusScopeProvider>
-          <EditorFocusScope>
-            <Component ref={forwardedRef} {...restProps} tabIndex={-1}>
-              {children}
-            </Component>
-          </EditorFocusScope>
-        </EditorFocusScopeProvider>
+        {existingFocusScope ? (
+          inspectorContent
+        ) : (
+          <EditorFocusScopeProvider>
+            {inspectorContent}
+          </EditorFocusScopeProvider>
+        )}
       </InspectorContext.Provider>
     );
   },

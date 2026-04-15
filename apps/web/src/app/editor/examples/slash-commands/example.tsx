@@ -69,7 +69,7 @@ export function SlashCommands() {
         content={content}
         immediatelyRender={false}
       >
-        <SlashCommand.Root items={[...defaultSlashCommands, CUSTOM_COMMAND]} />
+        <SlashCommand items={[...defaultSlashCommands, CUSTOM_COMMAND]} />
       </EditorProvider>
     </ExampleShell>
   );

@@ -3,7 +3,6 @@
  * These types are used across the core module and can be imported by plugins and UI.
  */
 
-import type { Attrs } from '@tiptap/pm/model';
 import type { EditorEventMap, EditorEventName } from './event-bus';
 
 /**

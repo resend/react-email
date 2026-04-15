@@ -48,11 +48,6 @@ export const exportTemplates = async (
   emailsDirectoryPath: string,
   options: ExportTemplatesOptions,
 ) => {
-  /* Delete the out directory if it already exists */
-  if (fs.existsSync(pathToWhereEmailMarkupShouldBeDumped)) {
-    fs.rmSync(pathToWhereEmailMarkupShouldBeDumped, { recursive: true });
-  }
-
   let spinner: Ora | undefined;
   if (!options.silent) {
     spinner = ora('Preparing files...\n').start();
@@ -70,8 +65,14 @@ export const exportTemplates = async (
         symbol: logSymbols.error,
         text: `Could not find the directory at ${emailsDirectoryPath}`,
       });
+    } else {
+      console.error(`Could not find the directory at ${emailsDirectoryPath}`);
     }
-    return;
+    process.exit(1);
+  }
+
+  if (fs.existsSync(pathToWhereEmailMarkupShouldBeDumped)) {
+    fs.rmSync(pathToWhereEmailMarkupShouldBeDumped, { recursive: true });
   }
 
   const allTemplates = getEmailTemplatesFromDirectory(emailsDirectoryMetadata);

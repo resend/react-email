@@ -5,6 +5,10 @@ description: "Add a contextual sidebar for document, node, and text editing."
 icon: "sidebar"
 ---
 
+The Inspector is a sidebar that provides a way to inspect and edit the email's properties. From the Inspector, you can edit document, node, and text properties such as colors, fonts, and padding.
+
+View a minimal example of the Inspector at the [Standalone Editor Inspector](https://react.email/editor/examples/standalone-editor-inspector) demo page.
+
 ## Quick start
 
 Add [EmailTheming](/editor/api-reference/theming-api) and render
@@ -46,17 +50,15 @@ export function MyEditor() {
 }
 ```
 
-Click the editor background to edit document-level styles, click a node like a
-button to edit, or select text to switch to text controls.
+Click the editor background to edit document-level styles. Click a node, such as a button, to edit its properties. Select text to switch to text controls.
 
 <Tip>
-  Even though you can [customize the inspector](#customizing-the-inspector) with
-  render props, the default panels can also be styled using <br/> [CSS variables and `data-re-*` selectors](/editor/features/styling#inspector).
+  You can [customize the inspector](#customizing-the-inspector) with render props. The default panels can also be styled using [CSS variables and `data-re-*` selectors](/editor/features/styling#inspector).
 </Tip>
 
 ## Using with EmailEditor
 
-If you use the one-line `EmailEditor` component, pass the inspector as a child instead of setting up `EditorProvider` manually.
+If you use the standalone `EmailEditor` component, pass the inspector as a child instead of setting up `EditorProvider` manually.
 
 ```tsx
 import { EmailEditor } from '@react-email/editor';
@@ -152,11 +154,10 @@ To use the default breadcrumb rendering:
 
 ## Customizing the Inspector
 
-The Inspector.Root itself keeps track of what is supposed to be inspected,
-which is either the document, a node, or a text selection. The
-`<Inspector.Document>`, `<Inspector.Node>`, and `<Inspector.Text>` components
-are convenience components that only render when their respective target is
-active.
+The Inspector.Root itself keeps track of what is meant to be inspected. This can either be the document, a node, or a text selection. 
+
+The `<Inspector.Document>`, `<Inspector.Node>`, and `<Inspector.Text>` components
+are convenience components that only render when their respective target is active.
 
 ### Inspector.Document
 
@@ -291,7 +292,7 @@ large JSON array with entries for each selector and style property.
 ```
 
 <ResponseField name="marks" type="Record<string, boolean>">
-  A map of active text marks like `bold`, `italic`, `underline`, `strike`, and `code`.
+  A map of active text marks. These include `bold`, `italic`, `underline`, `strike`, and `code`.
 </ResponseField>
 
 <ResponseField name="toggleMark" type="(mark) => void">
@@ -341,8 +342,9 @@ dropdown content, moving focus into that portal can make the editor think it
 blurred. That can switch the active inspector target or clear the current text
 selection.
 
-Wrap the portaled content with `EditorFocusScope` so focus inside the portal is
-still treated as part of the editor UI.
+Wrap the portaled content with
+[`EditorFocusScope`](/editor/api-reference/ui/editor-focus-scope) so focus
+inside the portal is still treated as part of the editor UI.
 
 ```tsx
 import { EditorFocusScope, Inspector } from '@react-email/editor/ui';
@@ -380,10 +382,13 @@ import * as Select from '@radix-ui/react-select';
 </Inspector.Node>
 ```
 
-`Inspector.Root` already includes the required focus-scope provider, so inside
-a custom inspector you only need to add `EditorFocusScope` around the portaled
-content. The same pattern works for other portaled Radix components, not just
-`Select`.
+`Inspector.Root` already includes
+[`EditorFocusScopeProvider`](/editor/api-reference/ui/editor-focus-scope-provider),
+and it uses both focus-scope components by default to handle the editor's focus
+idiomatically and reliably. Inside a custom inspector you usually only need to
+add [`EditorFocusScope`](/editor/api-reference/ui/editor-focus-scope) around
+the portaled content. The same pattern works for other portaled Radix
+components, not just `Select`.
 
 ## Reusing built-in sections
 
@@ -427,7 +432,7 @@ See the inspector in action with runnable examples:
   <Card title="Inspector — Fully Custom" icon="code" href="https://react.email/editor/examples/inspector-custom">
     Fully custom inspector UI built from render props.
   </Card>
-  <Card title="One-Line Editor — Inspector" icon="code" href="https://react.email/editor/examples/one-line-editor-inspector">
-    Inspector sidebar with the one-line EmailEditor component.
+  <Card title="Standalone Editor — Inspector" icon="code" href="https://react.email/editor/examples/standalone-editor-inspector">
+    Inspector sidebar with the standalone EmailEditor component.
   </Card>
 </CardGroup>
