@@ -4,7 +4,9 @@ import { exportSingleTemplate } from '../../actions/export-single-template';
 import { getEmailPathFromSlug } from '../../actions/get-email-path-from-slug';
 import { renderEmailByPath } from '../../actions/render-email-by-path';
 import { useEmails } from '../../contexts/emails';
+import { removeFilenameExtension } from '../../utils/contains-email-template';
 import type { EmailsDirectory } from '../../utils/get-emails-directory-metadata';
+import type { ResendTemplateSyncOperation } from '../../utils/resend-template-upsert';
 import { sleep } from '../../utils/sleep';
 import { Button } from '../button';
 import { IconCloudAlert } from '../icons/icon-cloud-alert';
@@ -18,6 +20,7 @@ export interface ResendStatus {
 }
 
 interface ResendItem {
+  operation?: ResendTemplateSyncOperation;
   status: 'uploading' | 'failed' | 'succeeded';
   name: string;
   id?: string;
@@ -54,6 +57,7 @@ export function ResendIntegration({
   };
 
   const loading = isExportSinglePending || isBulkProcessing;
+  const templateName = removeFilenameExtension(emailSlug);
 
   if (items.length === 0 && !loading) {
     return (
@@ -70,12 +74,13 @@ export function ResendIntegration({
               setItems([
                 {
                   status: 'uploading',
-                  name: emailSlug,
+                  name: templateName,
                 },
               ]);
 
               exportSingle({
-                name: emailSlug,
+                name: templateName,
+                legacyName: emailSlug,
                 html: htmlMarkup,
               });
             }}
@@ -108,7 +113,7 @@ export function ResendIntegration({
 
                 const emailSlug = emailItem.name;
                 // Remove file extension, keeping the directory structure
-                const templateName = emailSlug.replace(/\.[^/.]+$/, '');
+                const templateName = removeFilenameExtension(emailSlug);
 
                 try {
                   const emailPath = await getEmailPathFromSlug(emailSlug);
@@ -132,6 +137,7 @@ export function ResendIntegration({
 
                   const exportResult = await exportSingleAsync({
                     name: templateName,
+                    legacyName: emailSlug,
                     html: renderResult.markup,
                   });
 
@@ -143,6 +149,7 @@ export function ResendIntegration({
                               ...item,
                               status: 'succeeded',
                               id: exportResult.data!.id,
+                              operation: exportResult.data!.operation,
                             }
                           : item,
                       ),
@@ -210,7 +217,9 @@ export function ResendIntegration({
               ? 'Uploading...'
               : item.status === 'failed'
                 ? 'Failed to upload. Try again.'
-                : 'Template uploaded successfully.'}
+                : item.operation === 'updated'
+                  ? 'Template updated successfully.'
+                  : 'Template created successfully.'}
           </Results.Column>
           <Results.Column>
             {item.status === 'succeeded' && (
