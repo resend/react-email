@@ -13,7 +13,7 @@ export default function Page() {
     <ExamplePageShell
       slug="buttons"
       title="Buttons"
-      docsUrl="/docs/editor/features/buttons"
+      docsUrl="https://react.email/docs/editor/features/buttons"
     >
       <Example />
     </ExamplePageShell>

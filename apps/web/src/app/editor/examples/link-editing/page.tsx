@@ -14,7 +14,7 @@ export default function Page() {
     <ExamplePageShell
       slug="link-editing"
       title="Link Editing"
-      docsUrl="/docs/editor/features/link-editing"
+      docsUrl="https://react.email/docs/editor/features/link-editing"
     >
       <Example />
     </ExamplePageShell>

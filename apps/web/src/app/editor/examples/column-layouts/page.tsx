@@ -13,7 +13,7 @@ export default function Page() {
     <ExamplePageShell
       slug="column-layouts"
       title="Column Layouts"
-      docsUrl="/docs/editor/features/column-layouts"
+      docsUrl="https://react.email/docs/editor/features/column-layouts"
     >
       <Example />
     </ExamplePageShell>

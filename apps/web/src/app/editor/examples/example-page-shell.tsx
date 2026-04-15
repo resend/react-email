@@ -3,7 +3,6 @@ import { Heading } from '@/components/heading';
 import { IconArrowLeft } from '@/components/icons/icon-arrow-left';
 import { PageTransition } from '@/components/page-transition';
 import { PageWrapper } from '@/components/page-wrapper';
-import { SmartLink } from '@/components/smart-link';
 
 interface ExamplePageShellProps {
   slug: string;
@@ -31,12 +30,13 @@ export function ExamplePageShell({
               <span>Back</span>
             </Link>
             {docsUrl && (
-              <SmartLink
+              <Link
                 className="ml-auto text-sm text-slate-11 transition-colors hover:text-slate-12"
                 href={docsUrl}
+                target="_blank"
               >
                 Docs
-              </SmartLink>
+              </Link>
             )}
           </div>
           <Heading size="6" weight="medium" className="text-slate-12">

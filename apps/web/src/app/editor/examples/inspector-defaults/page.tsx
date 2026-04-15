@@ -14,7 +14,7 @@ export default function Page() {
     <ExamplePageShell
       slug="inspector-defaults"
       title="Inspector — Defaults"
-      docsUrl="/docs/editor/overview"
+      docsUrl="https://react.email/docs/editor/overview"
     >
       <Example />
     </ExamplePageShell>

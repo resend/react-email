@@ -14,7 +14,7 @@ export default function Page() {
     <ExamplePageShell
       slug="full-email-builder"
       title="Full Email Builder"
-      docsUrl="/docs/editor/features/email-export"
+      docsUrl="https://react.email/docs/editor/features/email-export"
     >
       <Example />
     </ExamplePageShell>

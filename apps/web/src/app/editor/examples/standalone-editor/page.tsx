@@ -13,7 +13,7 @@ export default function Page() {
     <ExamplePageShell
       slug="standalone-editor"
       title="Standalone Editor — Minimal"
-      docsUrl="/docs/editor/getting-started"
+      docsUrl="https://react.email/docs/editor/getting-started"
     >
       <Example />
     </ExamplePageShell>
