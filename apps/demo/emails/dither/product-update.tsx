@@ -11,9 +11,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { DitherFonts } from "./dither-fonts";
-import { ditherTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { DitherFonts } from './dither-fonts';
+import { ditherTailwindConfig } from './theme';
 
 type ProductUpdateFeature = {
   title: string;
@@ -24,7 +24,7 @@ type ProductUpdateFeature = {
   imageLeft: boolean;
 };
 
-const productUpdateHeadline = "THE WORK BEHIND THE WORK";
+const productUpdateHeadline = 'THE WORK BEHIND THE WORK';
 const productUpdateSubtitle =
   "A monthly update on what we're building, learning, and improving";
 
@@ -34,32 +34,32 @@ interface ProductUpdateEmailProps {
 }
 
 export const ProductUpdateEmail = ({
-  companyName = "Dither",
-  url = "https://example.com/",
+  companyName = 'Dither',
+  url = 'https://example.com/',
 }: ProductUpdateEmailProps) => {
   const featureRows: ProductUpdateFeature[] = [
     {
-      title: "Auto-prioritization",
-      body: "All your tasks for the week are surfaced based on urgency and impact.",
-      linkText: "Explore Smart Tasks",
+      title: 'Auto-prioritization',
+      body: 'All your tasks for the week are surfaced based on urgency and impact.',
+      linkText: 'Explore Smart Tasks',
       linkHref: url,
-      imageSrc: "/static/dither/dither-image-7.png",
+      imageSrc: '/static/dither/dither-image-7.png',
       imageLeft: true,
     },
     {
-      title: "Less manual work",
-      body: "Fewer status updates, more automated work.",
-      linkText: "Read more",
-      linkHref: "https://example.com/",
-      imageSrc: "/static/dither/dither-image-4.png",
+      title: 'Less manual work',
+      body: 'Fewer status updates, more automated work.',
+      linkText: 'Read more',
+      linkHref: 'https://example.com/',
+      imageSrc: '/static/dither/dither-image-4.png',
       imageLeft: false,
     },
     {
-      title: "Less manual work",
-      body: "Fewer status updates, more automated work.",
-      linkText: "Read more",
-      linkHref: "https://example.com/",
-      imageSrc: "/static/dither/dither-image-5.png",
+      title: 'Less manual work',
+      body: 'Fewer status updates, more automated work.',
+      linkText: 'Read more',
+      linkHref: 'https://example.com/',
+      imageSrc: '/static/dither/dither-image-5.png',
       imageLeft: true,
     },
   ];
@@ -160,7 +160,7 @@ export const ProductUpdateEmail = ({
               <Text className="mobile:!max-w-full font-20 m-0 mt-12 max-w-[456px]">
                 <span className="text-fg">
                   Smart Tasks analyzes your projects in real time and helps
-                  organize{" "}
+                  organize{' '}
                 </span>
                 <span className="text-fg-3">
                   your workload automatically. As things change, your task list
@@ -303,7 +303,7 @@ export const ProductUpdateEmail = ({
                   <Text className="font-11 text-fg-2 m-0 max-w-[160px] font-sans">
                     <Link href="https://example.com/" className="text-fg-2">
                       Unsubscribe
-                    </Link>{" "}
+                    </Link>{' '}
                     from {companyName} marketing emails.
                   </Text>
                 </Column>

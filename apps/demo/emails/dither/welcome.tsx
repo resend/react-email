@@ -11,9 +11,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { DitherFonts } from "./dither-fonts";
-import { ditherTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { DitherFonts } from './dither-fonts';
+import { ditherTailwindConfig } from './theme';
 
 interface WelcomeEmailProps {
   companyName?: string;
@@ -21,8 +21,8 @@ interface WelcomeEmailProps {
 }
 
 export const WelcomeEmail = ({
-  companyName = "Dither",
-  url = "https://example.com/",
+  companyName = 'Dither',
+  url = 'https://example.com/',
 }: WelcomeEmailProps) => (
   <Tailwind config={ditherTailwindConfig}>
     <Html>
@@ -66,7 +66,7 @@ export const WelcomeEmail = ({
           <Section className="mobile:px-4 mobile:pt-10 mobile:pb-8 px-6 pt-16 pb-12">
             <Text className="mobile:!max-w-full font-11 text-muted m-0 max-w-[310px] font-sans">
               If you need help getting started, we&apos;ve got you covered. Find
-              guides, tips, and best practices anytime, visit our{" "}
+              guides, tips, and best practices anytime, visit our{' '}
               <Link href="https://example.com/" className="text-muted">
                 Help Center
               </Link>
@@ -109,7 +109,7 @@ export const WelcomeEmail = ({
             <Section className="mobile:pt-10 pt-14">
               <Text className="font-15 text-fg m-0 font-sans">Need help?</Text>
               <Text className="mobile:!max-w-full font-13 text-fg-2 m-0 mt-0.5 max-w-[490px] font-sans">
-                Find guides, tips, and best practices anytime, visit our{" "}
+                Find guides, tips, and best practices anytime, visit our{' '}
                 <Link href="https://example.com/" className="text-fg-2">
                   Help Center
                 </Link>
@@ -202,7 +202,7 @@ export const WelcomeEmail = ({
                 <Text className="font-11 text-fg-2 m-0 max-w-[160px] font-sans">
                   <Link href="https://example.com/" className="text-fg-2">
                     Unsubscribe
-                  </Link>{" "}
+                  </Link>{' '}
                   from {companyName} marketing emails.
                 </Text>
               </Column>

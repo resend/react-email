@@ -13,9 +13,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { BarebonesFonts } from "./theme-fonts";
-import { barebonesBoxedTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { barebonesBoxedTailwindConfig } from './theme';
+import { BarebonesFonts } from './theme-fonts';
 
 interface SubscriptionUpdateProps {
   companyName?: string;
@@ -23,14 +23,14 @@ interface SubscriptionUpdateProps {
 }
 
 export const SubscriptionUpdate = ({
-  companyName = "Barebones",
-  url = "https://example.com/",
+  companyName = 'Barebones',
+  url = 'https://example.com/',
 }: SubscriptionUpdateProps) => {
-  const userName = "Alex";
-  const planName = "Pro";
-  const planPrice = "$29";
-  const cycleLabel = "month";
-  const nextBillingDate = "April 22, 2026";
+  const userName = 'Alex';
+  const planName = 'Pro';
+  const planPrice = '$29';
+  const cycleLabel = 'month';
+  const nextBillingDate = 'April 22, 2026';
 
   return (
     <Tailwind config={barebonesBoxedTailwindConfig}>
@@ -94,7 +94,7 @@ export const SubscriptionUpdate = ({
                   </Text>
 
                   <Text className="font-16 text-fg-2 mx-auto mt-0 mb-8 max-w-[380px] text-center font-sans">
-                    You&apos;re on {companyName} {planName} at {planPrice} per{" "}
+                    You&apos;re on {companyName} {planName} at {planPrice} per{' '}
                     {cycleLabel}. Your next charge is on {nextBillingDate}. You
                     can review invoices, update payment details, or change your
                     plan from your account settings.
@@ -180,7 +180,7 @@ export const SubscriptionUpdate = ({
                       <Text className="font-11 text-fg-3 m-0 text-center font-sans">
                         <Link href="https://example.com/" className="text-fg-3">
                           Unsubscribe
-                        </Link>{" "}
+                        </Link>{' '}
                         from {companyName} marketing emails.
                       </Text>
                     </Column>

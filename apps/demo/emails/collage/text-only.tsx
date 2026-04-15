@@ -11,9 +11,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { CollageFonts } from "./collage-fonts";
-import { collageTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { CollageFonts } from './collage-fonts';
+import { collageTailwindConfig } from './theme';
 
 interface TextOnlyEmailProps {
   companyName?: string;
@@ -21,8 +21,8 @@ interface TextOnlyEmailProps {
 }
 
 export const TextOnlyEmail = ({
-  companyName = "Collage",
-  url = "https://example.com/",
+  companyName = 'Collage',
+  url = 'https://example.com/',
 }: TextOnlyEmailProps) => {
   return (
     <Tailwind config={collageTailwindConfig}>
@@ -157,7 +157,7 @@ export const TextOnlyEmail = ({
                       <Text className="font-11 font-inter text-fg-2 m-0 max-w-[169px]">
                         <Link href="https://example.com/" className="text-fg-2">
                           Unsubscribe
-                        </Link>{" "}
+                        </Link>{' '}
                         from {companyName} marketing emails.
                       </Text>
                     </Column>

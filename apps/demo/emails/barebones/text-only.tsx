@@ -12,16 +12,16 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { BarebonesFonts } from "./theme-fonts";
-import { barebonesBoxedTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { barebonesBoxedTailwindConfig } from './theme';
+import { BarebonesFonts } from './theme-fonts';
 
-const textOnlyTitle = "A quick note from Barebones";
+const textOnlyTitle = 'A quick note from Barebones';
 
 const textOnlyParagraphs = [
-  "This is the text-only layout: no hero image and no primary call-to-action. Use it for concise product notes, receipts, account updates, and other plain-language emails where the message should stay front and center.",
-  "Keep paragraphs short and focused so the content is easy to scan on mobile. If you need richer visuals or a conversion button, switch to another collage template.",
-  "Replace this placeholder copy by editing this template file directly.",
+  'This is the text-only layout: no hero image and no primary call-to-action. Use it for concise product notes, receipts, account updates, and other plain-language emails where the message should stay front and center.',
+  'Keep paragraphs short and focused so the content is easy to scan on mobile. If you need richer visuals or a conversion button, switch to another collage template.',
+  'Replace this placeholder copy by editing this template file directly.',
 ];
 
 interface TextOnlyEmailProps {
@@ -30,8 +30,8 @@ interface TextOnlyEmailProps {
 }
 
 export const TextOnlyEmail = ({
-  companyName = "Barebones",
-  url = "https://example.com/",
+  companyName = 'Barebones',
+  url = 'https://example.com/',
 }: TextOnlyEmailProps) => (
   <Tailwind config={barebonesBoxedTailwindConfig}>
     <Html>
@@ -163,7 +163,7 @@ export const TextOnlyEmail = ({
                     <Text className="font-11 text-fg-3 m-0 text-center font-sans">
                       <Link href="https://example.com/" className="text-fg-3">
                         Unsubscribe
-                      </Link>{" "}
+                      </Link>{' '}
                       from {companyName} marketing emails.
                     </Text>
                   </Column>

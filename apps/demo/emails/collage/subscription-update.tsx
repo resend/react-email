@@ -12,9 +12,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { CollageFonts } from "./collage-fonts";
-import { collageTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { CollageFonts } from './collage-fonts';
+import { collageTailwindConfig } from './theme';
 
 interface SubscriptionUpdateProps {
   companyName?: string;
@@ -22,14 +22,14 @@ interface SubscriptionUpdateProps {
 }
 
 export const SubscriptionUpdate = ({
-  companyName = "Collage",
-  url = "https://example.com/",
+  companyName = 'Collage',
+  url = 'https://example.com/',
 }: SubscriptionUpdateProps) => {
-  const userName = "Alex";
-  const planName = "Pro";
-  const planPrice = "$29";
-  const cycleLabel = "month";
-  const nextBillingDate = "April 22, 2026";
+  const userName = 'Alex';
+  const planName = 'Pro';
+  const planPrice = '$29';
+  const cycleLabel = 'month';
+  const nextBillingDate = 'April 22, 2026';
 
   return (
     <Tailwind config={collageTailwindConfig}>
@@ -68,7 +68,7 @@ export const SubscriptionUpdate = ({
                       plan and billing.
                     </Text>
                     <Text className="font-14 font-inter text-fg-2 m-0 mt-[18px]">
-                      You&apos;re on the {planName} plan at {planPrice} per{" "}
+                      You&apos;re on the {planName} plan at {planPrice} per{' '}
                       {cycleLabel}. Your next charge is on {nextBillingDate}.
                       Review invoices, update payment details, or change plans
                       anytime in your account.
@@ -173,7 +173,7 @@ export const SubscriptionUpdate = ({
                       <Text className="font-11 font-inter text-fg-2 m-0 max-w-[169px]">
                         <Link href="https://example.com/" className="text-fg-2">
                           Unsubscribe
-                        </Link>{" "}
+                        </Link>{' '}
                         from {companyName} marketing emails.
                       </Text>
                     </Column>

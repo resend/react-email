@@ -12,9 +12,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { TechFonts } from "./tech-fonts";
-import { techTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { TechFonts } from './tech-fonts';
+import { techTailwindConfig } from './theme';
 
 interface TechPromoEmailProps {
   companyName?: string;
@@ -26,15 +26,15 @@ type BenefitItem = {
 };
 
 const techPromoBenefits: BenefitItem[] = [
-  { title: "Try your ring risk-free 30 days" },
-  { title: "Free shipping and easy returns" },
-  { title: "Two-year ring warranty included" },
+  { title: 'Try your ring risk-free 30 days' },
+  { title: 'Free shipping and easy returns' },
+  { title: 'Two-year ring warranty included' },
 ];
 
 /** Figma Email-Templates `2743:1053` — Tech promo (hero, code + redeem, features, join). */
 export const TechPromoEmail = ({
-  companyName = "Halo",
-  url = "https://example.com/",
+  companyName = 'Halo',
+  url = 'https://example.com/',
 }: TechPromoEmailProps) => {
   return (
     <Tailwind config={techTailwindConfig}>
@@ -96,7 +96,7 @@ export const TechPromoEmail = ({
 
             {/* Don't take it from us */}
             <Section className="px-8 pt-8 pb-20">
-              <Section></Section>
+              <Section />
 
               <Section className="bg-bg-4 mt-10 px-12 mobile:px-4 py-20 rounded-[10px] text-center">
                 <Text className="m-0 font-20 font-sans text-fg-2">★★★★★</Text>
@@ -208,7 +208,7 @@ export const TechPromoEmail = ({
                 <Text className="m-0 mt-5 font-11 font-sans text-fg-2">
                   <Link href="https://example.com/" className="text-fg-2">
                     Unsubscribe
-                  </Link>{" "}
+                  </Link>{' '}
                   from {companyName} marketing emails.
                 </Text>
               </Section>

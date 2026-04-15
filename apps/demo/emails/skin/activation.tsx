@@ -11,16 +11,17 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { SkinFonts } from "./skin-fonts";
-import { skinTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { SkinFonts } from './skin-fonts';
+import { skinTailwindConfig } from './theme';
+
 interface ActivationEmailProps {
   companyName?: string;
   url?: string;
 }
 export const ActivationEmail = ({
-  companyName = "Skin",
-  url = "https://example.com/",
+  companyName = 'Skin',
+  url = 'https://example.com/',
 }: ActivationEmailProps) => (
   <Tailwind config={skinTailwindConfig}>
     <Html>
@@ -64,7 +65,7 @@ export const ActivationEmail = ({
               </Section>
               <Section className="text-left">
                 <Link href={url} className="font-16 font-sans text-fg">
-                  {`Confirm email \u2192`}
+                  {'Confirm email \u2192'}
                 </Link>
               </Section>
             </Section>
@@ -159,7 +160,7 @@ export const ActivationEmail = ({
                   <Text className="m-0 max-w-[169px] font-11 font-sans text-fg-3">
                     <Link href="https://example.com/" className="text-fg-2">
                       Unsubscribe
-                    </Link>{" "}
+                    </Link>{' '}
                     from {companyName} marketing emails.
                   </Text>
                 </Column>

@@ -13,9 +13,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { BarebonesFonts } from "./theme-fonts";
-import { barebonesBoxedTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { barebonesBoxedTailwindConfig } from './theme';
+import { BarebonesFonts } from './theme-fonts';
 
 interface SubscriptionConfirmationProps {
   companyName?: string;
@@ -23,14 +23,14 @@ interface SubscriptionConfirmationProps {
 }
 
 export const SubscriptionConfirmation = ({
-  companyName = "Barebones",
-  url = "https://example.com/",
+  companyName = 'Barebones',
+  url = 'https://example.com/',
 }: SubscriptionConfirmationProps) => {
-  const userName = "Alex";
-  const planName = "Pro";
-  const planPrice = "$29";
-  const cycleLabel = "month";
-  const nextBillingDate = "April 22, 2026";
+  const userName = 'Alex';
+  const planName = 'Pro';
+  const planPrice = '$29';
+  const cycleLabel = 'month';
+  const nextBillingDate = 'April 22, 2026';
 
   return (
     <Tailwind config={barebonesBoxedTailwindConfig}>
@@ -180,7 +180,7 @@ export const SubscriptionConfirmation = ({
                       <Text className="font-11 text-fg-3 m-0 text-center font-sans">
                         <Link href="https://example.com/" className="text-fg-3">
                           Unsubscribe
-                        </Link>{" "}
+                        </Link>{' '}
                         from {companyName} marketing emails.
                       </Text>
                     </Column>

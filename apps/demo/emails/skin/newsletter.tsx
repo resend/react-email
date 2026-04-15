@@ -12,9 +12,10 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { SkinFonts } from "./skin-fonts";
-import { skinTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { SkinFonts } from './skin-fonts';
+import { skinTailwindConfig } from './theme';
+
 type NewsletterTip = {
   step: number;
   title: string;
@@ -39,44 +40,44 @@ interface NewsletterEmailProps {
 }
 const newsletterLetterParagraphs = [
   "We're glad you're here. This is where we share routine notes, ingredient spotlights, and first word on drops—plus the occasional restock alert before shelves clear.",
-  "No inbox clutter—just emails when we have something worth your time. Thanks for letting us sit next to your morning serum and your evening wind-down.",
+  'No inbox clutter—just emails when we have something worth your time. Thanks for letting us sit next to your morning serum and your evening wind-down.',
 ];
 const newsletterTips: NewsletterTip[] = [
   {
     step: 1,
-    title: "Start with a patch test",
+    title: 'Start with a patch test',
     body: "Try new textures on a small area first, especially if you're rotating in actives or seasonal formulas.",
-    ctaLabel: "Learn more \u2192",
+    ctaLabel: 'Learn more \u2192',
   },
   {
     step: 2,
-    title: "Layer for your climate",
+    title: 'Layer for your climate',
     body: "Humidity, cold snaps, and travel all change how skin drinks product layers in heat, richer barriers when it's dry.",
-    ctaLabel: "Learn more \u2192",
+    ctaLabel: 'Learn more \u2192',
   },
   {
     step: 3,
-    title: "Track what works",
-    body: "Note how your skin feels after AM and PM routines so you can double down on what actually moves the needle.",
-    ctaLabel: "Learn more \u2192",
+    title: 'Track what works',
+    body: 'Note how your skin feels after AM and PM routines so you can double down on what actually moves the needle.',
+    ctaLabel: 'Learn more \u2192',
   },
 ];
 
 const newsletterCommunity: NewsletterCommunity = {
-  imageSrc: "/static/skin/skin-image-5.png",
+  imageSrc: '/static/skin/skin-image-5.png',
   headline:
-    "Most members say one or two routine swaps moved the needle more than a dozen impulse buys.",
-  body: "Peek behind the formulas—short guides, founder notes, and community answers so you shop for your skin, not the algorithm.",
-  ctaLabel: "See what\u2019s new \u2192",
+    'Most members say one or two routine swaps moved the needle more than a dozen impulse buys.',
+  body: 'Peek behind the formulas—short guides, founder notes, and community answers so you shop for your skin, not the algorithm.',
+  ctaLabel: 'See what\u2019s new \u2192',
 };
 export const NewsletterEmail = ({
-  companyName = "Skin",
-  url = "https://example.com/",
+  companyName = 'Skin',
+  url = 'https://example.com/',
 }: NewsletterEmailProps) => {
   const quoteText =
-    "Shopping with " +
+    'Shopping with ' +
     companyName +
-    " finally made my counter feel calm—every product earns its spot, and my skin stays predictable through travel and stress.";
+    ' finally made my counter feel calm—every product earns its spot, and my skin stays predictable through travel and stress.';
   return (
     <Tailwind config={skinTailwindConfig}>
       <Html>
@@ -136,8 +137,8 @@ export const NewsletterEmail = ({
                     key={idx}
                     className={
                       idx === 0
-                        ? "mobile:mt-12 mt-[88px]"
-                        : "mobile:mt-10 mt-[80px]"
+                        ? 'mobile:mt-12 mt-[88px]'
+                        : 'mobile:mt-10 mt-[80px]'
                     }
                   >
                     <Row>
@@ -220,8 +221,9 @@ export const NewsletterEmail = ({
               {/* Footer */}
               <Section className="mobile:px-6 border-stroke mt-8 border-t px-[40px] pt-[80px] pb-[64px]">
                 <Text className="font-13 text-fg-3 m-0 max-w-[320px] font-sans">
-                  {companyName} crafts thoughtful skincare—barrier-first formulas,
-                  honest labels, and routines you&apos;ll actually keep.
+                  {companyName} crafts thoughtful skincare—barrier-first
+                  formulas, honest labels, and routines you&apos;ll actually
+                  keep.
                 </Text>
                 <Row align="left">
                   <Column className="w-full align-top">
@@ -301,7 +303,7 @@ export const NewsletterEmail = ({
                     <Text className="font-11 text-fg-3 m-0 max-w-[169px] font-sans">
                       <Link href="https://example.com/" className="text-fg-2">
                         Unsubscribe
-                      </Link>{" "}
+                      </Link>{' '}
                       from {companyName} marketing emails.
                     </Text>
                   </Column>

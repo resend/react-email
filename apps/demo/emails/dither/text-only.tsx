@@ -11,9 +11,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { DitherFonts } from "./dither-fonts";
-import { ditherTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { DitherFonts } from './dither-fonts';
+import { ditherTailwindConfig } from './theme';
 
 interface TextOnlyEmailProps {
   companyName?: string;
@@ -21,8 +21,8 @@ interface TextOnlyEmailProps {
 }
 
 export const TextOnlyEmail = ({
-  companyName = "Dither",
-  url = "https://example.com/",
+  companyName = 'Dither',
+  url = 'https://example.com/',
 }: TextOnlyEmailProps) => {
   return (
     <Tailwind config={ditherTailwindConfig}>
@@ -164,7 +164,7 @@ export const TextOnlyEmail = ({
                   <Text className="font-11 text-fg-2 m-0 max-w-[160px] font-sans">
                     <Link href="https://example.com/" className="text-fg-2">
                       Unsubscribe
-                    </Link>{" "}
+                    </Link>{' '}
                     from {companyName} marketing emails.
                   </Text>
                 </Column>

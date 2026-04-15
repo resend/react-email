@@ -12,9 +12,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { CollageFonts } from "./collage-fonts";
-import { collageTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { CollageFonts } from './collage-fonts';
+import { collageTailwindConfig } from './theme';
 
 interface ActivationEmailProps {
   companyName?: string;
@@ -22,8 +22,8 @@ interface ActivationEmailProps {
 }
 
 export const ActivationEmail = ({
-  companyName = "Collage",
-  url = "https://example.com/",
+  companyName = 'Collage',
+  url = 'https://example.com/',
 }: ActivationEmailProps) => (
   <Tailwind config={collageTailwindConfig}>
     <Html>
@@ -160,7 +160,7 @@ export const ActivationEmail = ({
                     <Text className="font-11 font-inter text-fg-2 m-0 max-w-[169px]">
                       <Link href="https://example.com/" className="text-fg-2">
                         Unsubscribe
-                      </Link>{" "}
+                      </Link>{' '}
                       from {companyName} marketing emails.
                     </Text>
                   </Column>

@@ -13,9 +13,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { BarebonesFonts } from "./theme-fonts";
-import { barebonesBoxedTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { barebonesBoxedTailwindConfig } from './theme';
+import { BarebonesFonts } from './theme-fonts';
 
 interface ProductUpdateEmailProps {
   companyName?: string;
@@ -23,8 +23,8 @@ interface ProductUpdateEmailProps {
 }
 
 export const ProductUpdateEmail = ({
-  companyName = "Barebones",
-  url = "https://example.com/",
+  companyName = 'Barebones',
+  url = 'https://example.com/',
 }: ProductUpdateEmailProps) => (
   <Tailwind config={barebonesBoxedTailwindConfig}>
     <Html>
@@ -395,7 +395,7 @@ export const ProductUpdateEmail = ({
                     <Text className="m-0 font-11 font-sans text-fg-3 text-center">
                       <Link href="https://example.com/" className="text-fg-3">
                         Unsubscribe
-                      </Link>{" "}
+                      </Link>{' '}
                       from {companyName} marketing emails.
                     </Text>
                   </Column>
@@ -421,7 +421,7 @@ function NumberedStep({
   last?: boolean;
 }) {
   return (
-    <Row className={last ? undefined : "mb-9"}>
+    <Row className={last ? undefined : 'mb-9'}>
       <Column className="pr-3 w-10 align-top">
         <Section className="border-stroke-strong py-1 border border-solid rounded-[10px] w-7 text-center">
           <Text className="m-0 font-sans font-normal text-fg text-sm leading-5">
@@ -444,7 +444,7 @@ function NumberedStep({
 function BulletCell({ isLast }: { isLast?: boolean }) {
   return (
     <Column
-      className={`mobile:!block mobile:!w-full mobile:!max-w-full w-1/2 pr-8 align-top mobile:pr-0${isLast ? "" : "mobile:mb-8"}`}
+      className={`mobile:!block mobile:!w-full mobile:!max-w-full w-1/2 pr-8 align-top mobile:pr-0${isLast ? '' : 'mobile:mb-8'}`}
     >
       <Text className="mt-0 mb-5">
         <span className="inline-block border-stroke-strong border border-solid rounded-lg size-6 text-[1px] align-middle leading-6">

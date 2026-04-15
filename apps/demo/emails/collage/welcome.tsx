@@ -12,9 +12,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { CollageFonts } from "./collage-fonts";
-import { collageTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { CollageFonts } from './collage-fonts';
+import { collageTailwindConfig } from './theme';
 
 type WelcomeCard = {
   title: string;
@@ -34,44 +34,44 @@ interface WelcomeEmailProps {
 }
 
 export const WelcomeEmail = ({
-  companyName = "Collage",
-  url = "https://example.com/",
+  companyName = 'Collage',
+  url = 'https://example.com/',
 }: WelcomeEmailProps) => {
   const brand = companyName;
   const welcomeTitle = `Welcome to ${brand}`;
 
   const cards: WelcomeCard[] = [
     {
-      title: "Start your first project",
+      title: 'Start your first project',
       description:
-        "Outline a goal, drop in files, and invite collaborators—templates are there when you want a head start.",
-      cta: "Create a project \u2192",
-      imageSrc: "/static/collage/collage-image-6.png",
+        'Outline a goal, drop in files, and invite collaborators—templates are there when you want a head start.',
+      cta: 'Create a project \u2192',
+      imageSrc: '/static/collage/collage-image-6.png',
     },
     {
-      title: "Invite your team",
+      title: 'Invite your team',
       description:
-        "Share a link or add collaborators so feedback and drafts stay in one place from day one.",
-      cta: "Invite people \u2192",
-      imageSrc: "/static/collage/collage-image-7.png",
+        'Share a link or add collaborators so feedback and drafts stay in one place from day one.',
+      cta: 'Invite people \u2192',
+      imageSrc: '/static/collage/collage-image-7.png',
     },
   ];
 
   const tips: WelcomeTip[] = [
     {
-      title: "Complete your profile",
+      title: 'Complete your profile',
       description:
-        "Add a photo and a short bio so teammates recognize you in comments and mentions.",
+        'Add a photo and a short bio so teammates recognize you in comments and mentions.',
     },
     {
-      title: "Turn on notifications",
+      title: 'Turn on notifications',
       description:
-        "Choose email or in-app alerts so you never miss a review request or deadline.",
+        'Choose email or in-app alerts so you never miss a review request or deadline.',
     },
     {
-      title: "Browse templates",
+      title: 'Browse templates',
       description:
-        "Starter layouts and snippets help your team ship polished work without reinventing the wheel.",
+        'Starter layouts and snippets help your team ship polished work without reinventing the wheel.',
     },
   ];
 
@@ -260,7 +260,7 @@ export const WelcomeEmail = ({
                       <Text className="font-11 font-inter text-fg-2 m-0 max-w-[169px]">
                         <Link href="https://example.com/" className="text-fg-2">
                           Unsubscribe
-                        </Link>{" "}
+                        </Link>{' '}
                         from {companyName} marketing emails.
                       </Text>
                     </Column>

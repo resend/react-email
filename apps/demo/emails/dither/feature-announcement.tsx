@@ -12,9 +12,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { DitherFonts } from "./dither-fonts";
-import { ditherTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { DitherFonts } from './dither-fonts';
+import { ditherTailwindConfig } from './theme';
 
 interface FeatureAnnouncementEmailProps {
   companyName?: string;
@@ -22,11 +22,11 @@ interface FeatureAnnouncementEmailProps {
 }
 
 export const FeatureAnnouncementEmail = ({
-  companyName = "Dither",
-  url = "https://example.com/",
+  companyName = 'Dither',
+  url = 'https://example.com/',
 }: FeatureAnnouncementEmailProps) => {
-  const featureName = "Smart Tasks";
-  const heroImageSrc = "/static/dither/dither-image-2.png";
+  const featureName = 'Smart Tasks';
+  const heroImageSrc = '/static/dither/dither-image-2.png';
 
   return (
     <Tailwind config={ditherTailwindConfig}>
@@ -99,12 +99,12 @@ export const FeatureAnnouncementEmail = ({
                 </Link>
               </Section>
 
-              {["Less manual work", "Clear focus", "Better alignment"].map(
+              {['Less manual work', 'Clear focus', 'Better alignment'].map(
                 (title, idx) => (
                   <Section
                     key={title}
                     className={
-                      idx === 0 ? "mobile:pt-10 pt-16" : "mobile:pt-8 pt-12"
+                      idx === 0 ? 'mobile:pt-10 pt-16' : 'mobile:pt-8 pt-12'
                     }
                   >
                     <Row className="align-top">
@@ -122,10 +122,10 @@ export const FeatureAnnouncementEmail = ({
                         </Text>
                         <Text className="font-14 text-fg-2 m-0 mt-3 font-sans">
                           {idx === 0
-                            ? "Fewer status updates, more automated work."
+                            ? 'Fewer status updates, more automated work.'
                             : idx === 1
-                              ? "Always know what to do next—less thrash, more momentum."
-                              : "Your team stays in sync automatically."}
+                              ? 'Always know what to do next—less thrash, more momentum.'
+                              : 'Your team stays in sync automatically.'}
                         </Text>
                       </Column>
                     </Row>
@@ -136,7 +136,7 @@ export const FeatureAnnouncementEmail = ({
               <Text className="mobile:!max-w-full font-20 m-0 mt-12 max-w-[456px]">
                 <span className="text-fg">
                   Smart Tasks analyzes your projects in real time and helps
-                  organize{" "}
+                  organize{' '}
                 </span>
                 <span className="text-fg-3">
                   your workload automatically. As things change, your task list
@@ -187,7 +187,7 @@ export const FeatureAnnouncementEmail = ({
                   Need help?
                 </Text>
                 <Text className="mobile:!max-w-full font-13 text-fg-2 m-0 mt-0.5 max-w-[490px] font-sans">
-                  Find guides, tips, and best practices anytime, visit our{" "}
+                  Find guides, tips, and best practices anytime, visit our{' '}
                   <Link href="https://example.com/" className="text-fg-2">
                     Help Center
                   </Link>
@@ -280,7 +280,7 @@ export const FeatureAnnouncementEmail = ({
                   <Text className="font-11 text-fg-2 m-0 max-w-[160px] font-sans">
                     <Link href="https://example.com/" className="text-fg-2">
                       Unsubscribe
-                    </Link>{" "}
+                    </Link>{' '}
                     from {companyName} marketing emails.
                   </Text>
                 </Column>

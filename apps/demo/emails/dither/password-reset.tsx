@@ -12,9 +12,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { DitherFonts } from "./dither-fonts";
-import { ditherTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { DitherFonts } from './dither-fonts';
+import { ditherTailwindConfig } from './theme';
 
 interface PasswordResetEmailProps {
   companyName?: string;
@@ -22,8 +22,8 @@ interface PasswordResetEmailProps {
 }
 
 export const PasswordResetEmail = ({
-  companyName = "Dither",
-  url = "https://example.com/",
+  companyName = 'Dither',
+  url = 'https://example.com/',
 }: PasswordResetEmailProps) => (
   <Tailwind config={ditherTailwindConfig}>
     <Html>
@@ -150,7 +150,7 @@ export const PasswordResetEmail = ({
                 <Text className="font-11 text-fg-2 m-0 max-w-[160px] font-sans">
                   <Link href="https://example.com/" className="text-fg-2">
                     Unsubscribe
-                  </Link>{" "}
+                  </Link>{' '}
                   from {companyName} marketing emails.
                 </Text>
               </Column>

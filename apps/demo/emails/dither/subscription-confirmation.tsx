@@ -12,9 +12,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { DitherFonts } from "./dither-fonts";
-import { ditherTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { DitherFonts } from './dither-fonts';
+import { ditherTailwindConfig } from './theme';
 
 interface SubscriptionConfirmationProps {
   companyName?: string;
@@ -22,12 +22,12 @@ interface SubscriptionConfirmationProps {
 }
 
 export const SubscriptionConfirmation = ({
-  companyName = "Dither",
-  url = "https://example.com/",
+  companyName = 'Dither',
+  url = 'https://example.com/',
 }: SubscriptionConfirmationProps) => {
-  const planName = "Pro";
-  const userName = "Alex";
-  const nextBillingDate = "April 22, 2026";
+  const planName = 'Pro';
+  const userName = 'Alex';
+  const nextBillingDate = 'April 22, 2026';
   return (
     <Tailwind config={ditherTailwindConfig}>
       <Html>
@@ -73,17 +73,17 @@ export const SubscriptionConfirmation = ({
                 </Text>
                 <Text className="font-14 text-fg-2 m-0 mt-[18px] font-sans">
                   Your payment method has been charged. The next charge will be
-                  on{" "}
+                  on{' '}
                   <span className="text-fg font-semibold">
                     {nextBillingDate}.
                   </span>
                 </Text>
                 <Text className="font-14 text-fg-2 m-0 mt-[18px] font-sans">
                   You can modify your payment method or cancel your subscription
-                  anytime by visiting the {companyName}{" "}
+                  anytime by visiting the {companyName}{' '}
                   <Link href={url} className="text-fg-2">
                     billing settings
-                  </Link>{" "}
+                  </Link>{' '}
                   page.
                 </Text>
               </Section>
@@ -135,7 +135,7 @@ export const SubscriptionConfirmation = ({
                   Need help?
                 </Text>
                 <Text className="mobile:!max-w-full font-13 text-fg-2 m-0 mt-0.5 max-w-[490px] font-sans">
-                  Find guides, tips, and best practices anytime, visit our{" "}
+                  Find guides, tips, and best practices anytime, visit our{' '}
                   <Link href="https://example.com/" className="text-fg-2">
                     Help Center
                   </Link>
@@ -228,7 +228,7 @@ export const SubscriptionConfirmation = ({
                   <Text className="font-11 text-fg-2 m-0 max-w-[160px] font-sans">
                     <Link href="https://example.com/" className="text-fg-2">
                       Unsubscribe
-                    </Link>{" "}
+                    </Link>{' '}
                     from {companyName} marketing emails.
                   </Text>
                 </Column>

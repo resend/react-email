@@ -12,9 +12,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { CollageFonts } from "./collage-fonts";
-import { collageTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { CollageFonts } from './collage-fonts';
+import { collageTailwindConfig } from './theme';
 
 type FeatureCard = {
   title: string;
@@ -34,43 +34,43 @@ interface ProductUpdateEmailProps {
 }
 
 export const ProductUpdateEmail = ({
-  companyName = "Collage",
-  url = "https://example.com/",
+  companyName = 'Collage',
+  url = 'https://example.com/',
 }: ProductUpdateEmailProps) => {
   const brand = companyName;
 
   const cards: FeatureCard[] = [
     {
-      title: "Smarter Search",
+      title: 'Smarter Search',
       description:
-        "Search results are now grouped by intent and ranked by relevance, so teams find the right content faster.",
-      cta: "Read the update \u2192",
-      imageSrc: "/static/collage/collage-image-6.png",
+        'Search results are now grouped by intent and ranked by relevance, so teams find the right content faster.',
+      cta: 'Read the update \u2192',
+      imageSrc: '/static/collage/collage-image-6.png',
     },
     {
-      title: "Shared Workspaces",
+      title: 'Shared Workspaces',
       description:
-        "You can now organize projects into shared workspaces with clearer ownership and cleaner handoffs.",
-      cta: "See what changed \u2192",
-      imageSrc: "/static/collage/collage-image-7.png",
+        'You can now organize projects into shared workspaces with clearer ownership and cleaner handoffs.',
+      cta: 'See what changed \u2192',
+      imageSrc: '/static/collage/collage-image-7.png',
     },
   ];
 
   const items: UpdateItem[] = [
     {
-      title: "New Help Center",
+      title: 'New Help Center',
       description:
-        "A faster docs experience with guided setup, troubleshooting paths, and deeper API references.",
+        'A faster docs experience with guided setup, troubleshooting paths, and deeper API references.',
     },
     {
-      title: "Permissions",
+      title: 'Permissions',
       description:
-        "Granular role controls let admins manage access by workspace, project, and action.",
+        'Granular role controls let admins manage access by workspace, project, and action.',
     },
     {
-      title: "New Discovery Tools",
+      title: 'New Discovery Tools',
       description:
-        "Saved views and smart filters make it easier to surface new ideas and high-signal activity.",
+        'Saved views and smart filters make it easier to surface new ideas and high-signal activity.',
     },
   ];
 
@@ -127,12 +127,12 @@ export const ProductUpdateEmail = ({
                         key={idx}
                         className={`w-1/2 align-top mobile:!block mobile:!w-full mobile:!max-w-full ${
                           idx === 0
-                            ? "pr-4 mobile:pr-0 mobile:pb-10"
-                            : "mobile:pl-0"
+                            ? 'pr-4 mobile:pr-0 mobile:pb-10'
+                            : 'mobile:pl-0'
                         }`}
                       >
                         <Section
-                          className={idx === 0 ? "pl-0" : "pl-4 mobile:pl-0"}
+                          className={idx === 0 ? 'pl-0' : 'pl-4 mobile:pl-0'}
                         >
                           <Img
                             src={card.imageSrc}
@@ -165,7 +165,7 @@ export const ProductUpdateEmail = ({
                     </Text>
                     <Text className="font-14 font-inter text-fg-2 m-0 mt-[18px] max-w-[479px]">
                       From quality-of-life fixes to major workflow improvements,
-                      this release is built around feedback from teams using{" "}
+                      this release is built around feedback from teams using{' '}
                       {brand} every day.
                     </Text>
                   </Section>
@@ -316,7 +316,7 @@ export const ProductUpdateEmail = ({
                       <Text className="font-11 font-inter text-fg-2 m-0 max-w-[169px]">
                         <Link href="https://example.com/" className="text-fg-2">
                           Unsubscribe
-                        </Link>{" "}
+                        </Link>{' '}
                         from {companyName} marketing emails.
                       </Text>
                     </Column>

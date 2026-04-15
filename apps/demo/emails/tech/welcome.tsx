@@ -12,9 +12,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { TechFonts } from "./tech-fonts";
-import { techTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { TechFonts } from './tech-fonts';
+import { techTailwindConfig } from './theme';
 
 type TechWelcomeFeature = {
   title: string;
@@ -28,27 +28,27 @@ interface TechWelcomeEmailProps {
 
 const techWelcomeFeatures: TechWelcomeFeature[] = [
   {
-    title: "Always present",
-    body: "The ring stays on your finger—AI help at a glance, silent when you need focus.",
+    title: 'Always present',
+    body: 'The ring stays on your finger—AI help at a glance, silent when you need focus.',
   },
   {
-    title: "Learns your rhythm",
-    body: "From workouts to wind-down, Halo learns your habits and keeps nudges relevant.",
+    title: 'Learns your rhythm',
+    body: 'From workouts to wind-down, Halo learns your habits and keeps nudges relevant.',
   },
   {
-    title: "Private by design",
-    body: "Your wellness signals stay protected—on-device smarts with minimal cloud by default.",
+    title: 'Private by design',
+    body: 'Your wellness signals stay protected—on-device smarts with minimal cloud by default.',
   },
   {
-    title: "Simple interactions",
-    body: "Double-tap the ring, trace the edge, or speak softly—Halo answers without a screen.",
+    title: 'Simple interactions',
+    body: 'Double-tap the ring, trace the edge, or speak softly—Halo answers without a screen.',
   },
 ];
 
 /** Figma Email-Templates `2692:1907` — Tech welcome (hero, feature rows, join panel). */
 export const TechWelcomeEmail = ({
-  companyName = "Halo",
-  url = "https://example.com/",
+  companyName = 'Halo',
+  url = 'https://example.com/',
 }: TechWelcomeEmailProps) => {
   return (
     <Tailwind config={techTailwindConfig}>
@@ -106,7 +106,6 @@ export const TechWelcomeEmail = ({
                   className="block w-full"
                 />
               </Section>
-
             </Section>
 
             <Section className="px-8 pt-8 pb-24">
@@ -213,7 +212,7 @@ export const TechWelcomeEmail = ({
                 <Text className="m-0 mt-5 font-11 font-sans text-fg-2">
                   <Link href="https://example.com/" className="text-fg-2">
                     Unsubscribe
-                  </Link>{" "}
+                  </Link>{' '}
                   from {companyName} marketing emails.
                 </Text>
               </Section>

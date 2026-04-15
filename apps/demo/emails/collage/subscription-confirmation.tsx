@@ -12,9 +12,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { CollageFonts } from "./collage-fonts";
-import { collageTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { CollageFonts } from './collage-fonts';
+import { collageTailwindConfig } from './theme';
 
 interface SubscriptionConfirmationProps {
   companyName?: string;
@@ -22,17 +22,17 @@ interface SubscriptionConfirmationProps {
 }
 
 export const SubscriptionConfirmation = ({
-  companyName = "Collage",
-  url = "https://example.com/",
+  companyName = 'Collage',
+  url = 'https://example.com/',
 }: SubscriptionConfirmationProps) => {
-  const userName = "Alex";
-  const planName = "Pro";
-  const planPrice = "$29";
-  const cycleLabel = "month";
-  const nextBillingDate = "April 22, 2026";
-  const subtotal = "$29.00";
-  const tax = "$0.00";
-  const total = "$29.00";
+  const userName = 'Alex';
+  const planName = 'Pro';
+  const planPrice = '$29';
+  const cycleLabel = 'month';
+  const nextBillingDate = 'April 22, 2026';
+  const subtotal = '$29.00';
+  const tax = '$0.00';
+  const total = '$29.00';
 
   return (
     <Tailwind config={collageTailwindConfig}>
@@ -67,7 +67,7 @@ export const SubscriptionConfirmation = ({
                       Subscription confirmed
                     </Text>
                     <Text className="font-14 text-fg-2 m-0 mt-[18px] font-sans">
-                      Hi {userName}, thanks for subscribing to the {planName}{" "}
+                      Hi {userName}, thanks for subscribing to the {planName}{' '}
                       plan with {companyName}. Your subscription is active and
                       you have access to everything included in your plan.
                     </Text>
@@ -176,7 +176,7 @@ export const SubscriptionConfirmation = ({
                         Need help?
                       </Text>
                       <Text className="font-14 text-fg-2 m-0 mt-0.5 font-sans">
-                        Find guides, tips, and best practices anytime, visit our{" "}
+                        Find guides, tips, and best practices anytime, visit our{' '}
                         <Link href="https://example.com/" className="text-fg-2">
                           Help Center
                         </Link>
@@ -272,7 +272,7 @@ export const SubscriptionConfirmation = ({
                       <Text className="font-11 text-fg-2 m-0 max-w-[169px] font-sans">
                         <Link href="https://example.com/" className="text-fg-2">
                           Unsubscribe
-                        </Link>{" "}
+                        </Link>{' '}
                         from {companyName} marketing emails.
                       </Text>
                     </Column>

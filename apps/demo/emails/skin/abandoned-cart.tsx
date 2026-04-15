@@ -12,9 +12,10 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { SkinFonts } from "./skin-fonts";
-import { skinTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { SkinFonts } from './skin-fonts';
+import { skinTailwindConfig } from './theme';
+
 type CartLine = {
   name: string;
   description: string;
@@ -27,23 +28,23 @@ interface AbandonedCartEmailProps {
 }
 const abandonedCartLines: CartLine[] = [
   {
-    name: "Daily C Serum",
+    name: 'Daily C Serum',
     description:
-      "Brightening daytime serum—still in your cart. Finish checkout before we release the inventory hold.",
-    price: "$99",
-    imageSrc: "/static/skin/skin-image-2.png",
+      'Brightening daytime serum—still in your cart. Finish checkout before we release the inventory hold.',
+    price: '$99',
+    imageSrc: '/static/skin/skin-image-2.png',
   },
   {
-    name: "Overnight Repair Cream",
+    name: 'Overnight Repair Cream',
     description:
-      "Pairs with your morning serum for AM/PM balance. Limited batches move fast on restocks.",
-    price: "$99",
-    imageSrc: "/static/skin/skin-image-3.png",
+      'Pairs with your morning serum for AM/PM balance. Limited batches move fast on restocks.',
+    price: '$99',
+    imageSrc: '/static/skin/skin-image-3.png',
   },
 ];
 export const AbandonedCartEmail = ({
-  companyName = "Skin",
-  url = "https://example.com/",
+  companyName = 'Skin',
+  url = 'https://example.com/',
 }: AbandonedCartEmailProps) => {
   return (
     <Tailwind config={skinTailwindConfig}>
@@ -79,7 +80,7 @@ export const AbandonedCartEmail = ({
                     </Text>
                   </Section>
                   {abandonedCartLines.slice(0, 2).map((line, idx) => (
-                    <Section key={idx} className={idx === 0 ? "mb-[36px]" : ""}>
+                    <Section key={idx} className={idx === 0 ? 'mb-[36px]' : ''}>
                       <Row>
                         <Column className="mobile:!block w-[178px] mobile:!w-full max-w-[178px] mobile:!max-w-full align-middle">
                           <Img
@@ -106,7 +107,7 @@ export const AbandonedCartEmail = ({
                   ))}
                 </Section>
                 <Link href={url} className="font-16 font-sans text-fg">
-                  {`Return to cart \u2192`}
+                  {'Return to cart \u2192'}
                 </Link>
               </Section>
 
@@ -131,7 +132,7 @@ export const AbandonedCartEmail = ({
                       href="https://example.com/"
                       className="font-16 font-sans text-fg-inverted"
                     >
-                      {`Start Exploring \u2192`}
+                      {'Start Exploring \u2192'}
                     </Link>
                   </Section>
                 </Section>
@@ -222,7 +223,7 @@ export const AbandonedCartEmail = ({
                     <Text className="m-0 max-w-[169px] font-11 font-sans text-fg-3">
                       <Link href="https://example.com/" className="text-fg-2">
                         Unsubscribe
-                      </Link>{" "}
+                      </Link>{' '}
                       from {companyName} marketing emails.
                     </Text>
                   </Column>

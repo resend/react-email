@@ -12,9 +12,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { TechFonts } from "./tech-fonts";
-import { techTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { TechFonts } from './tech-fonts';
+import { techTailwindConfig } from './theme';
 
 export type OrderLine = {
   name: string;
@@ -29,8 +29,8 @@ interface TechOrderConfirmationEmailProps {
 
 /** Figma Email-Templates `2681:2383` — Tech “order placed” card (Geist headline, line items, summary). */
 export const TechOrderConfirmationEmail = ({
-  companyName = "Halo",
-  url = "https://example.com/",
+  companyName = 'Halo',
+  url = 'https://example.com/',
 }: TechOrderConfirmationEmailProps) => {
   return (
     <Tailwind config={techTailwindConfig}>
@@ -74,7 +74,7 @@ export const TechOrderConfirmationEmail = ({
                         href={url}
                         className="inline-block border border-button-border bg-white px-[20px] py-[12px] font-15 font-sans text-[#1F2222] rounded-[8px]"
                       >
-                        {`Track your order \u2192`}
+                        {'Track your order \u2192'}
                       </Button>
                     </Section>
                   </Section>
@@ -234,7 +234,7 @@ export const TechOrderConfirmationEmail = ({
                 <Text className="m-0 mt-5 font-11 font-sans text-fg-2">
                   <Link href="https://example.com/" className="text-fg-2">
                     Unsubscribe
-                  </Link>{" "}
+                  </Link>{' '}
                   from {companyName} marketing emails.
                 </Text>
               </Section>

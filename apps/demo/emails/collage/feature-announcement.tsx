@@ -12,9 +12,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { CollageFonts } from "./collage-fonts";
-import { collageTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { CollageFonts } from './collage-fonts';
+import { collageTailwindConfig } from './theme';
 
 type FeatureRow = {
   title: string;
@@ -34,49 +34,49 @@ interface FeatureAnnouncementEmailProps {
 }
 
 export const FeatureAnnouncementEmail = ({
-  companyName = "Collage",
-  url = "https://example.com/",
+  companyName = 'Collage',
+  url = 'https://example.com/',
 }: FeatureAnnouncementEmailProps) => {
   const brand = companyName;
 
   const featureLead = {
-    title: "One workspace for the whole picture",
+    title: 'One workspace for the whole picture',
     description: `Bring briefs, files, feedback, and status into ${brand} so your team spends less time chasing context across tools.`,
     ctaLabel: "See what's new \u2192",
   };
 
   const featureRows: FeatureRow[] = [
     {
-      title: "Faster by default",
+      title: 'Faster by default',
       description:
-        "The new flow cuts steps in half so your team can publish changes without bouncing between screens.",
-      ctaLabel: "See how it works \u2192",
-      imageSrc: "/static/collage/collage-image-6.png",
+        'The new flow cuts steps in half so your team can publish changes without bouncing between screens.',
+      ctaLabel: 'See how it works \u2192',
+      imageSrc: '/static/collage/collage-image-6.png',
     },
     {
-      title: "Clearer for everyone",
+      title: 'Clearer for everyone',
       description:
-        "Permissions and activity are easier to read, so admins spend less time answering who changed this.",
-      ctaLabel: "View the details \u2192",
-      imageSrc: "/static/collage/collage-image-7.png",
+        'Permissions and activity are easier to read, so admins spend less time answering who changed this.',
+      ctaLabel: 'View the details \u2192',
+      imageSrc: '/static/collage/collage-image-7.png',
     },
   ];
 
   const highlights: HighlightItem[] = [
     {
-      title: "One place to review",
+      title: 'One place to review',
       description:
-        "A single summary screen shows status, owners, and next steps for each release.",
+        'A single summary screen shows status, owners, and next steps for each release.',
     },
     {
-      title: "Smarter notifications",
+      title: 'Smarter notifications',
       description:
-        "You only get pinged when something needs your attention—not on every edit.",
+        'You only get pinged when something needs your attention—not on every edit.',
     },
     {
-      title: "Works with your stack",
+      title: 'Works with your stack',
       description:
-        "Connects to the tools you already use so context stays in sync across teams.",
+        'Connects to the tools you already use so context stays in sync across teams.',
     },
   ];
 
@@ -106,7 +106,7 @@ export const FeatureAnnouncementEmail = ({
                       Meet your next favorite feature
                     </Text>
                     <Text className="font-14 font-inter text-fg-2 m-0 mt-[18px]">
-                      We&apos;re rolling out an update that makes {brand}{" "}
+                      We&apos;re rolling out an update that makes {brand}{' '}
                       faster, clearer, and easier to use every day.
                     </Text>
                     <Text className="font-14 font-inter text-fg-2 m-0">
@@ -141,7 +141,7 @@ export const FeatureAnnouncementEmail = ({
                   </Section>
 
                   {featureRows.map((row, idx) => (
-                    <Section key={idx} className={idx > 0 ? "mt-12" : ""}>
+                    <Section key={idx} className={idx > 0 ? 'mt-12' : ''}>
                       <Row className="align-top">
                         <Column className="mobile:!block mobile:pb-6 mobile:!w-full mobile:!max-w-full w-[48%] align-top">
                           <Img
@@ -313,7 +313,7 @@ export const FeatureAnnouncementEmail = ({
                       <Text className="font-11 font-inter text-fg-2 m-0 max-w-[169px]">
                         <Link href="https://example.com/" className="text-fg-2">
                           Unsubscribe
-                        </Link>{" "}
+                        </Link>{' '}
                         from {companyName} marketing emails.
                       </Text>
                     </Column>

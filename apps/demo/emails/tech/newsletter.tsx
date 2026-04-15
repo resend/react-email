@@ -12,11 +12,11 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { TechFonts } from "./tech-fonts";
-import { techTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { TechFonts } from './tech-fonts';
+import { techTailwindConfig } from './theme';
 
-const letterMaxWidthClass = "max-w-[430px]";
+const letterMaxWidthClass = 'max-w-[430px]';
 
 type TechNewsletterTip = {
   title: string;
@@ -51,37 +51,37 @@ const techNewsletterLetterParagraphs = [
 
 const techNewsletterTips: TechNewsletterTip[] = [
   {
-    title: "Pick the right ring size online",
-    body: "Use our printable sizer or visit a partner store so your Halo sits snug—returns are easier when the first fit is close.",
-    ctaLabel: "Read More \u2192",
-    imageSrc: "/static/tech/tech-image-4.png",
+    title: 'Pick the right ring size online',
+    body: 'Use our printable sizer or visit a partner store so your Halo sits snug—returns are easier when the first fit is close.',
+    ctaLabel: 'Read More \u2192',
+    imageSrc: '/static/tech/tech-image-4.png',
   },
   {
-    title: "Keep your AI assistant subtle",
-    body: "Toggle haptics and voice replies in the app so meetings stay quiet while you still get the nudges that matter.",
-    ctaLabel: "Read More \u2192",
-    imageSrc: "/static/tech/tech-image-4.png",
+    title: 'Keep your AI assistant subtle',
+    body: 'Toggle haptics and voice replies in the app so meetings stay quiet while you still get the nudges that matter.',
+    ctaLabel: 'Read More \u2192',
+    imageSrc: '/static/tech/tech-image-4.png',
   },
 ];
 
 const techNewsletterSpotlight: TechNewsletterSpotlight = {
-  title: "Your personal AI companion, wrapped around your finger.",
-  body: "Halo learns how you shop, move, and focus—then surfaces gentle prompts, order updates, and wellness cues without another screen.",
-  imageSrc: "/static/tech/tech-image-3.png",
-  buttonLabel: "Read More \u2192",
+  title: 'Your personal AI companion, wrapped around your finger.',
+  body: 'Halo learns how you shop, move, and focus—then surfaces gentle prompts, order updates, and wellness cues without another screen.',
+  imageSrc: '/static/tech/tech-image-3.png',
+  buttonLabel: 'Read More \u2192',
 };
 
 const techNewsletterCommunity: TechNewsletterCommunity = {
-  imageSrc: "/static/tech/tech-image-2.png",
+  imageSrc: '/static/tech/tech-image-2.png',
   headline: "Intelligence that doesn't demand attention.",
   body: "Shop your finish and size—we'll confirm inventory and ship fast.",
-  ctaLabel: "Shop Halo",
+  ctaLabel: 'Shop Halo',
 };
 
 /** Tech newsletter — same content blocks as Skin `newsletter.tsx`, light card layout (Figma Email-Templates family). */
 export const TechNewsletterEmail = ({
-  companyName = "Halo",
-  url = "https://example.com/",
+  companyName = 'Halo',
+  url = 'https://example.com/',
 }: TechNewsletterEmailProps) => {
   return (
     <Tailwind config={techTailwindConfig}>
@@ -153,8 +153,8 @@ export const TechNewsletterEmail = ({
                         key={idx}
                         className={
                           idx === 0
-                            ? "w-1/2 pr-2 align-top"
-                            : "w-1/2 pl-2 align-top"
+                            ? 'w-1/2 pr-2 align-top'
+                            : 'w-1/2 pl-2 align-top'
                         }
                       >
                         <Section className="px-2 py-4 rounded-[10px]">
@@ -284,7 +284,7 @@ export const TechNewsletterEmail = ({
                   <Text className="m-0 mt-5 font-11 font-sans text-fg-3">
                     <Link href="https://example.com/" className="text-fg-2">
                       Unsubscribe
-                    </Link>{" "}
+                    </Link>{' '}
                     from {companyName} marketing emails.
                   </Text>
                 </Section>

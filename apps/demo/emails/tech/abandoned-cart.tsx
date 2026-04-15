@@ -12,9 +12,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { TechFonts } from "./tech-fonts";
-import { techTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { TechFonts } from './tech-fonts';
+import { techTailwindConfig } from './theme';
 
 interface TechAbandonedCartEmailProps {
   companyName?: string;
@@ -26,14 +26,14 @@ type BenefitItem = {
 };
 
 const techAbandonedCartBenefits: BenefitItem[] = [
-  { title: "Try your ring risk-free 30 days" },
-  { title: "Free shipping and easy returns" },
-  { title: "Two-year ring warranty included" },
+  { title: 'Try your ring risk-free 30 days' },
+  { title: 'Free shipping and easy returns' },
+  { title: 'Two-year ring warranty included' },
 ];
 
 export const TechAbandonedCartEmail = ({
-  companyName = "Halo",
-  url = "https://example.com/",
+  companyName = 'Halo',
+  url = 'https://example.com/',
 }: TechAbandonedCartEmailProps) => (
   <Tailwind config={techTailwindConfig}>
     <Html>
@@ -204,7 +204,7 @@ export const TechAbandonedCartEmail = ({
               <Text className="m-0 mt-5 font-11 font-sans text-fg-2">
                 <Link href="https://example.com/" className="text-fg-2">
                   Unsubscribe
-                </Link>{" "}
+                </Link>{' '}
                 from {companyName} marketing emails.
               </Text>
             </Section>

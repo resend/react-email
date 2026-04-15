@@ -13,9 +13,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { BarebonesFonts } from "./theme-fonts";
-import { barebonesBoxedTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { barebonesBoxedTailwindConfig } from './theme';
+import { BarebonesFonts } from './theme-fonts';
 
 interface FeatureAnnouncementEmailProps {
   companyName?: string;
@@ -23,8 +23,8 @@ interface FeatureAnnouncementEmailProps {
 }
 
 export const FeatureAnnouncementEmail = ({
-  companyName = "Barebones",
-  url = "https://example.com/",
+  companyName = 'Barebones',
+  url = 'https://example.com/',
 }: FeatureAnnouncementEmailProps) => (
   <Tailwind config={barebonesBoxedTailwindConfig}>
     <Html>
@@ -72,7 +72,7 @@ export const FeatureAnnouncementEmail = ({
                     Release Notes
                   </Heading>
                   <Text className="m-0 font-16 font-sans text-fg-2">
-                    Learn what&apos;s shipping this month, plus other{" "}
+                    Learn what&apos;s shipping this month, plus other{' '}
                     {companyName} updates below.
                   </Text>
                 </Section>
@@ -257,7 +257,7 @@ export const FeatureAnnouncementEmail = ({
                     <Text className="m-0 font-11 font-sans text-fg-3 text-center">
                       <Link href="https://example.com/" className="text-fg-3">
                         Unsubscribe
-                      </Link>{" "}
+                      </Link>{' '}
                       from {companyName} marketing emails.
                     </Text>
                   </Column>

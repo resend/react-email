@@ -12,9 +12,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { CollageFonts } from "./collage-fonts";
-import { collageTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { CollageFonts } from './collage-fonts';
+import { collageTailwindConfig } from './theme';
 
 interface PasswordResetEmailProps {
   companyName?: string;
@@ -22,8 +22,8 @@ interface PasswordResetEmailProps {
 }
 
 export const PasswordResetEmail = ({
-  companyName = "Collage",
-  url = "https://example.com/",
+  companyName = 'Collage',
+  url = 'https://example.com/',
 }: PasswordResetEmailProps) => (
   <Tailwind config={collageTailwindConfig}>
     <Html>
@@ -51,7 +51,7 @@ export const PasswordResetEmail = ({
                     Reset your password
                   </Text>
                   <Text className="font-14 font-inter text-fg-2 m-0 mt-[18px]">
-                    Someone requested a password reset for your {companyName}{" "}
+                    Someone requested a password reset for your {companyName}{' '}
                     account. Use the button below to choose a new password.
                   </Text>
                 </Section>
@@ -158,7 +158,7 @@ export const PasswordResetEmail = ({
                     <Text className="font-11 font-inter text-fg-2 m-0 max-w-[169px]">
                       <Link href="https://example.com/" className="text-fg-2">
                         Unsubscribe
-                      </Link>{" "}
+                      </Link>{' '}
                       from {companyName} marketing emails.
                     </Text>
                   </Column>

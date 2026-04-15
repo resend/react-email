@@ -12,9 +12,9 @@ import {
   Section,
   Tailwind,
   Text,
-} from "@react-email/components";
-import { TechFonts } from "./tech-fonts";
-import { techTailwindConfig } from "./theme";
+} from '@react-email/components';
+import { TechFonts } from './tech-fonts';
+import { techTailwindConfig } from './theme';
 
 interface TechActivationEmailProps {
   companyName?: string;
@@ -22,8 +22,8 @@ interface TechActivationEmailProps {
 }
 
 export const TechActivationEmail = ({
-  companyName = "Halo",
-  url = "https://example.com/",
+  companyName = 'Halo',
+  url = 'https://example.com/',
 }: TechActivationEmailProps) => (
   <Tailwind config={techTailwindConfig}>
     <Html>
@@ -129,7 +129,7 @@ export const TechActivationEmail = ({
               <Text className="m-0 mt-5 font-11 font-sans text-fg-2">
                 <Link href="https://example.com/" className="text-fg-2">
                   Unsubscribe
-                </Link>{" "}
+                </Link>{' '}
                 from {companyName} marketing emails.
               </Text>
             </Section>
