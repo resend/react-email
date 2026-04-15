@@ -58,7 +58,7 @@ export function Template({
   return (
     <div
       className={classNames(
-        'mt-7',
+        'group/card relative mt-7',
         index !== undefined && {
           'lg:ml-6': index % 3 === 0,
           'lg:mx-3': index % 3 === 1,
@@ -67,12 +67,7 @@ export function Template({
         className,
       )}
     >
-      <Link
-        className="flex w-full flex-col rounded-md border border-slate-4 p-4 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] hover:border-slate-6 focus:border-slate-6 focus:outline-hidden focus:ring-2 focus:ring-white/20"
-        href={linkHref}
-        target="_blank"
-        {...props}
-      >
+      <div className="flex w-full flex-col rounded-md border border-slate-4 p-4 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover/card:border-slate-6">
         <Image
           alt={name}
           className="rounded-xs"
@@ -89,14 +84,11 @@ export function Template({
               {name}
             </Heading>
             {github || figma ? (
-              <div className="flex items-center gap-3">
+              <div className="relative z-10 flex items-center gap-3">
                 {github ? (
                   <a
                     className="text-slate-11 transition-colors hover:text-white"
                     href={github}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                    }}
                     rel="noopener noreferrer"
                     target="_blank"
                     title="View on GitHub"
@@ -108,9 +100,6 @@ export function Template({
                   <a
                     className="text-slate-11 transition-colors hover:text-white"
                     href={figma}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                    }}
                     rel="noopener noreferrer"
                     target="_blank"
                     title="View on Figma"
@@ -134,7 +123,14 @@ export function Template({
             </div>
           ) : null}
         </div>
-      </Link>
+        <Link
+          aria-label={name}
+          className="absolute inset-0 rounded-md focus:outline-hidden focus:ring-2 focus:ring-white/20"
+          href={linkHref}
+          target="_blank"
+          {...props}
+        />
+      </div>
     </div>
   );
 }
