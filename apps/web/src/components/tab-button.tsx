@@ -1,6 +1,6 @@
-import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import classNames from 'classnames';
+import * as React from 'react';
 
 type TabButtonOwnProps<T extends React.ElementType> = {
   active?: boolean;
@@ -10,10 +10,7 @@ type TabButtonOwnProps<T extends React.ElementType> = {
 
 type TabButtonProps<T extends React.ElementType = 'button'> =
   TabButtonOwnProps<T> &
-    Omit<
-      React.ComponentPropsWithRef<T>,
-      keyof TabButtonOwnProps<T>
-    >;
+    Omit<React.ComponentPropsWithRef<T>, keyof TabButtonOwnProps<T>>;
 
 export function TabButton<T extends React.ElementType = 'button'>({
   as,
@@ -23,7 +20,7 @@ export function TabButton<T extends React.ElementType = 'button'>({
   children,
   ...rest
 }: TabButtonProps<T>) {
-  const Comp = (asChild ? Slot : as ?? 'button') as React.ElementType;
+  const Comp = (asChild ? Slot : (as ?? 'button')) as React.ElementType;
   const defaultButtonProps =
     !asChild && !as ? ({ type: 'button' } as const) : undefined;
 
