@@ -1,0 +1,29 @@
+apps/web/src/app/editor/examples/standalone-editor-full/page.tsx
+  ce5a38cf61f89f61 8
+apps/docs/editor/features/email-export.mdx
+  ce5a38cf61f89f61 63-100
+packages/editor/src/email-editor/email-editor.tsx
+  ce5a38cf61f89f61 25-26,33,60-69,83,131
+apps/web/src/app/editor/examples/standalone-editor-full/example.tsx
+  ce5a38cf61f89f61 34-35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "8ae803464e27ae3f36261929fa62ca6184be65ff",
+  "prompts": {
+    "ce5a38cf61f89f61": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "513608c1-a5f1-4828-b55b-4790e6becc54",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 56,
+      "total_deletions": 8,
+      "accepted_lines": 56,
+      "overriden_lines": 0
+    }
+  }
+}
