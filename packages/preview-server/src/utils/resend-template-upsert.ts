@@ -157,6 +157,19 @@ const isMissingTemplateError = (error: ResendError | null) => {
   return error?.statusCode === 404 || error?.name === 'not_found';
 };
 
+type ExistingTemplateLookupResult =
+  | {
+      error: ResendError;
+      status: 'error';
+    }
+  | {
+      status: 'found';
+      template: ResendTemplateSummary;
+    }
+  | {
+      status: 'missing';
+    };
+
 const findExistingTemplate = async ({
   alias,
   legacyName,
@@ -167,7 +180,7 @@ const findExistingTemplate = async ({
   legacyName?: string;
   name: string;
   resend: ResendApi;
-}) => {
+}): Promise<ExistingTemplateLookupResult> => {
   let after: string | undefined;
 
   while (true) {
@@ -183,6 +196,7 @@ const findExistingTemplate = async ({
           createMissingTemplateResponse(
             `Failed listing templates before syncing ${name}.`,
           ),
+        status: 'error',
       };
     }
 
@@ -194,13 +208,14 @@ const findExistingTemplate = async ({
 
     if (templateToUpdate) {
       return {
+        status: 'found',
         template: templateToUpdate,
       };
     }
 
     if (!listResponse.data.has_more || listResponse.data.data.length === 0) {
       return {
-        template: undefined,
+        status: 'missing',
       };
     }
 
@@ -211,6 +226,7 @@ const findExistingTemplate = async ({
         error: createMissingTemplateResponse(
           `Failed paginating templates before syncing ${name}.`,
         ),
+        status: 'error',
       };
     }
   }
@@ -264,11 +280,13 @@ export const upsertResendTemplate = async ({
     resend,
   });
 
-  if ('error' in existingTemplateLookup) {
-    return existingTemplateLookup;
+  if (existingTemplateLookup.status === 'error') {
+    return {
+      error: existingTemplateLookup.error,
+    };
   }
 
-  if (existingTemplateLookup.template) {
+  if (existingTemplateLookup.status === 'found') {
     const updateResponse = await resend.templates.update(
       existingTemplateLookup.template.id,
       {
