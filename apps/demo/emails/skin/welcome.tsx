@@ -42,10 +42,7 @@ const welcomeFeatures: WelcomeFeature[] = [
     imagePosition: 'right',
   },
 ];
-export const WelcomeEmail = ({
-  companyName = 'Skin',
-  url = 'https://example.com/',
-}: WelcomeEmailProps) => {
+export const WelcomeEmail = ({ companyName = 'Skin' }: WelcomeEmailProps) => {
   return (
     <Tailwind config={skinTailwindConfig}>
       <Html>
