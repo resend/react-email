@@ -1,0 +1,27 @@
+apps/web/tsconfig.tsbuildinfo
+  bf9385a2124245ed 1
+packages/editor/src/ui/inspector/path-from-root.spec.ts
+  bf9385a2124245ed 1-101
+packages/editor/src/ui/inspector/root.tsx
+  bf9385a2124245ed 32-56,238-241
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "af56a1fdb0eddd6e63010efac23182afe2bffbcf",
+  "prompts": {
+    "bf9385a2124245ed": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "924a2a0f-1622-42b4-ac85-5ecd42b4e8c8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 131,
+      "total_deletions": 21,
+      "accepted_lines": 911,
+      "overriden_lines": 0
+    }
+  }
+}
