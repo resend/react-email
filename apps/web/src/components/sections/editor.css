@@ -1,0 +1,8 @@
+.node-container {
+  width: auto !important;
+}
+
+.tiptap ::selection {
+  background-color: highlight;
+  color: highlighttext;
+}
