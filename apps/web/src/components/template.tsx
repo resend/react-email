@@ -12,7 +12,8 @@ interface TemplateProps {
   path: string;
   name: string;
   className?: string;
-  author: string;
+  author?: string;
+  href?: string;
 }
 
 const DEMO_EMAIL_PREVIEW_BASE_URL = 'https://demo.react.email/preview';
@@ -27,6 +28,7 @@ export function Template({
   path,
   name,
   author,
+  href,
   ...props
 }: TemplateProps) {
   const emailName = path.split('/').pop();
@@ -40,6 +42,8 @@ export function Template({
     setImageSrc(DEFAULT_IMAGE);
   };
 
+  const linkHref = href ?? `${DEMO_EMAIL_PREVIEW_BASE_URL}/${path}`;
+
   return (
     <Link
       className={classNames(
@@ -48,7 +52,7 @@ export function Template({
         'focus:bg-gradientHover focus:ring-white/20',
         className,
       )}
-      href={`${DEMO_EMAIL_PREVIEW_BASE_URL}/${path}`}
+      href={linkHref}
       target="_blank"
       {...props}
     >
@@ -66,16 +70,18 @@ export function Template({
         <Heading as="h2" size="2" weight="medium">
           {name}
         </Heading>
-        <div className="mt-2 flex flex-row gap-2">
-          <Image
-            alt={author}
-            className="rounded-full text-ellipsis overflow-hidden"
-            height="24"
-            src={`/examples/authors/${author}.png`}
-            width="24"
-          />
-          <Text>{author}</Text>
-        </div>
+        {author ? (
+          <div className="mt-2 flex flex-row gap-2">
+            <Image
+              alt={author}
+              className="rounded-full text-ellipsis overflow-hidden"
+              height="24"
+              src={`/examples/authors/${author}.png`}
+              width="24"
+            />
+            <Text>{author}</Text>
+          </div>
+        ) : null}
       </div>
     </Link>
   );
