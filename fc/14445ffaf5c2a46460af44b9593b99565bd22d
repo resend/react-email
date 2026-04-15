@@ -1,0 +1,43 @@
+packages/editor/src/ui/slash-command/command-list.tsx
+  bd8dd55c8d968d1a 2,61
+apps/docs/editor/features/slash-commands.mdx
+  bd8dd55c8d968d1a 10,23,62,99,140,156
+apps/docs/editor/features/buttons.mdx
+  bd8dd55c8d968d1a 30
+packages/editor/src/ui/slash-command/index.ts
+  bd8dd55c8d968d1a 18
+apps/web/src/app/editor/examples/slash-commands/example.tsx
+  bd8dd55c8d968d1a 72
+apps/web/src/app/editor/examples/buttons/example.tsx
+  bd8dd55c8d968d1a 28
+apps/web/src/app/editor/examples/full-email-builder/example.tsx
+  bd8dd55c8d968d1a 158
+apps/docs/editor/features/email-export.mdx
+  bd8dd55c8d968d1a 181
+.changeset/slash-command-api-cleanup.md
+  bd8dd55c8d968d1a 1-5
+skills/react-email/references/EDITOR.md
+  bd8dd55c8d968d1a 189,215
+apps/docs/editor/api-reference/ui/slash-command.mdx
+  bd8dd55c8d968d1a 10,15,47,71,96
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "fc14445ffaf5c2a46460af44b9593b99565bd22d",
+  "prompts": {
+    "bd8dd55c8d968d1a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ab775c9b-638b-49ae-9fd1-2169dfdcf2d8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 394,
+      "total_deletions": 38,
+      "accepted_lines": 393,
+      "overriden_lines": 0
+    }
+  }
+}
