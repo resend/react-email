@@ -78,7 +78,6 @@ export const NewsletterEmail = ({ companyName, url }: NewsletterEmailProps) => {
         <Body className="m-0 bg-white p-0 font-15 font-sans">
           <Section className="bg-white m-0 w-full p-0 pt-[92px] mobile:pt-0">
             <Container className="bg-bg mx-auto w-full max-w-[640px]">
-              {/* Header */}
               <Section className="bg-bg mobile:px-6 px-[40px] pt-[40px] pb-[24px]">
                 <Img
                   src="/static/shared/logo-white.png"
@@ -108,7 +107,6 @@ export const NewsletterEmail = ({ companyName, url }: NewsletterEmailProps) => {
                 </Text>
               </Section>
 
-              {/* Hero image */}
               <Section className="bg-bg-2">
                 <Img
                   src="/static/skin/skin-image-4.png"
@@ -117,7 +115,6 @@ export const NewsletterEmail = ({ companyName, url }: NewsletterEmailProps) => {
                   className="block w-full max-w-[640px]"
                 />
               </Section>
-              {/* Tips */}
               <Section className="mobile:px-6 mobile:pt-12 px-[40px] pt-[88px]">
                 <Text className="mobile:mt-10 font-72 text-fg m-0 mt-[64px] font-serif capitalize">
                   Tips and resources
@@ -168,7 +165,6 @@ export const NewsletterEmail = ({ companyName, url }: NewsletterEmailProps) => {
                 ))}
               </Section>
 
-              {/* Pull quote */}
               <Section className="mobile:px-6 px-[40px] pt-[104px]">
                 <Text className="font-48 text-fg m-0 font-serif">
                   &ldquo;{quoteText}&rdquo;
@@ -183,7 +179,6 @@ export const NewsletterEmail = ({ companyName, url }: NewsletterEmailProps) => {
                 </Section>
               </Section>
 
-              {/* Community */}
               <Section className="mobile:px-6 px-[40px] pt-[48px] pb-[56px]">
                 <Section className="bg-bg-2 rounded-[2px]">
                   <Img

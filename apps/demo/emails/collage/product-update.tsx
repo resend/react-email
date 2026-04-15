@@ -94,7 +94,6 @@ export const ProductUpdateEmail = ({
                   />
                 </Section>
 
-                {/* Card */}
                 <Section className="px-10 pt-20 pb-14 text-left">
                   <Section className="mb-9 text-left">
                     <Text className="font-48 text-fg m-0 font-sans">
@@ -119,7 +118,6 @@ export const ProductUpdateEmail = ({
                   </Section>
                 </Section>
 
-                {/* Card */}
                 <Section className="px-10 pt-4 pb-16">
                   <Row>
                     {cards.slice(0, 2).map((card, idx) => (
@@ -157,7 +155,6 @@ export const ProductUpdateEmail = ({
                   </Row>
                 </Section>
 
-                {/* Card Colored */}
                 <Section className="bg-bg-2 px-6 py-20">
                   <Section className="px-6">
                     <Text className="font-48 text-fg m-0 max-w-[400px] font-sans">

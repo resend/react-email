@@ -52,7 +52,6 @@ export const WelcomeEmail = ({ companyName }: WelcomeEmailProps) => {
         <Body className="m-0 bg-white p-0 font-15 font-sans">
           <Section className="m-0 bg-white p-0 pt-[92px] mobile:pt-0">
             <Container className="bg-bg mx-auto w-full max-w-[640px]">
-              {/* Header */}
               <Section className="bg-bg mobile:px-6 px-[40px] pt-[40px] pb-[24px]">
                 <Img
                   src="/static/shared/logo-white.png"
@@ -63,7 +62,6 @@ export const WelcomeEmail = ({ companyName }: WelcomeEmailProps) => {
                 />
               </Section>
 
-              {/* Welcome + intro */}
               <Section className="mobile:px-6 mobile:pt-12 px-[40px] pt-[64px]">
                 <Text className="mobile:!max-w-full font-72 mobile:font-56 text-fg m-0 font-serif capitalize">
                   Welcome
@@ -78,7 +76,6 @@ export const WelcomeEmail = ({ companyName }: WelcomeEmailProps) => {
                 </Text>
               </Section>
 
-              {/* Full-bleed hero image */}
               <Section className="bg-bg-2 mobile:mt-10 mt-[64px]">
                 <Img
                   src="/static/skin/skin-image-1.png"
@@ -88,7 +85,6 @@ export const WelcomeEmail = ({ companyName }: WelcomeEmailProps) => {
                 />
               </Section>
 
-              {/* Some new things */}
               <Section className="mobile:px-6 mobile:pt-12 px-[40px] pt-[88px]">
                 <Text className="mobile:!max-w-full font-72 mobile:font-56 text-fg m-0 max-w-[560px] font-serif capitalize">
                   Some new things
@@ -161,7 +157,6 @@ export const WelcomeEmail = ({ companyName }: WelcomeEmailProps) => {
                 </Section>
               </Section>
 
-              {/* Card Join us */}
               <Section className="mobile:px-6 mobile:pt-12 mobile:pb-10 mt-[80px] px-[40px]">
                 <Section className="bg-bg-3 px-[40px] py-[80px] text-center">
                   <Text className="font-22 text-fg-inverted text-center font-sans">

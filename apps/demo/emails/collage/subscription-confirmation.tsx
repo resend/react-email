@@ -64,7 +64,6 @@ export const SubscriptionConfirmation = ({
                   />
                 </Section>
 
-                {/* Content */}
                 <Section className="px-10 pt-8 pb-14">
                   <Section
                     align="left"
@@ -89,7 +88,6 @@ export const SubscriptionConfirmation = ({
                     </Text>
                   </Section>
 
-                  {/* Table */}
                   <Section className="mb-10">
                     <Section className="mb-[3px] bg-[#EDF0E9] p-3">
                       <Row>
@@ -142,7 +140,6 @@ export const SubscriptionConfirmation = ({
                     Manage subscription
                   </Button>
 
-                  {/* Get started */}
                   <Section align="left" className="max-w-[490px] pt-16">
                     <Text className="font-32 text-fg m-0 font-sans font-normal">
                       Get started

@@ -29,7 +29,6 @@ export const ActivationEmail = ({ companyName, url }: ActivationEmailProps) => (
       <Body className="bg-white m-0 p-0 font-15 font-sans">
         <Section className="bg-white m-0 p-0 pt-[92px] mobile:pt-0">
           <Container className="bg-bg mx-auto w-full max-w-[640px]">
-            {/* Header */}
             <Section className="bg-bg pt-[40px] pr-[32px] pb-[24px] pl-[40px]">
               <Img
                 src="/static/shared/logo-white.png"
@@ -39,7 +38,6 @@ export const ActivationEmail = ({ companyName, url }: ActivationEmailProps) => (
                 className="block"
               />
             </Section>
-            {/* Content */}
             <Section className="px-[16px]">
               <Img
                 src="/static/skin/skin-image-1.png"

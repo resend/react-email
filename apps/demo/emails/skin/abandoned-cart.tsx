@@ -55,7 +55,6 @@ export const AbandonedCartEmail = ({
         <Body className="bg-white m-0 p-0 font-15 font-sans">
           <Section className="bg-white m-0 p-0 pt-[92px] mobile:pt-0">
             <Container className="bg-bg mx-auto w-full max-w-[640px]">
-              {/* Header */}
               <Section className="bg-bg px-[40px] pt-[40px] pb-[24px]">
                 <Img
                   src="/static/shared/logo-white.png"
@@ -66,7 +65,6 @@ export const AbandonedCartEmail = ({
                 />
               </Section>
 
-              {/* Cart items */}
               <Section className="px-[40px] mobile:px-6 pt-[80px] mobile:pt-12 pb-[56px] mobile:pb-10">
                 <Section className="mb-[48px] mobile:mb-10">
                   <Section className="mb-[56px] mobile:mb-10">
@@ -109,8 +107,6 @@ export const AbandonedCartEmail = ({
                   {'Return to cart \u2192'}
                 </Link>
               </Section>
-
-              {/* Card Join us */}
 
               <Section className="mt-[72px] px-[40px] mobile:px-6 mobile:pt-12 mobile:pb-10">
                 <Text className="m-0 mb-12 max-w-[480px] font-64 font-serif text-fg">

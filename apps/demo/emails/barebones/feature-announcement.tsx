@@ -36,7 +36,6 @@ export const FeatureAnnouncementEmail = ({
         <Container className="mx-auto mt-8 mobile:mt-0 w-full max-w-[640px]">
           <Section>
             <Section className="bg-bg px-6 mobile:px-2 py-4">
-              {/* Header */}
               <Section className="mb-3 px-6">
                 <Row>
                   <Column className="py-[7px] w-1/2 align-middle">
@@ -59,7 +58,6 @@ export const FeatureAnnouncementEmail = ({
                 </Row>
               </Section>
 
-              {/* Content - Card 1 */}
               <Section className="bg-bg-2 mb-6 mobile:mb-2 px-6 mobile:px-4 py-20 mobile:py-12 pb-16 mobile:pb-10 rounded-[10px]">
                 <Section className="mx-auto mb-16 max-w-[422px] text-center">
                   <Text className="mt-0 mb-4 font-13 font-sans text-fg-3">
@@ -83,7 +81,6 @@ export const FeatureAnnouncementEmail = ({
                     ctaUrl={url}
                     title="Hello feature. Goodbye old feature."
                     bodyP1="Ship updates in smaller, safer steps: clearer defaults, fewer clicks, and less context switching for your team."
-                    bodyP2="Want to go deeper? Check the dashboard for live sessions, docs, and what's coming next."
                   />
                 </Section>
                 <FeatureBlock
@@ -91,11 +88,9 @@ export const FeatureAnnouncementEmail = ({
                   ctaUrl={url}
                   title="Hello feature. Goodbye old feature."
                   bodyP1="Ship updates in smaller, safer steps: clearer defaults, fewer clicks, and less context switching for your team."
-                  bodyP2="Want to go deeper? Check the dashboard for live sessions, docs, and what's coming next."
                 />
               </Section>
 
-              {/* Content - Card 2 */}
               <Section className="bg-bg-2 mb-6 mobile:mb-2 px-8 mobile:px-4 py-14 mobile:py-10 rounded-[10px] text-left">
                 <Heading
                   as="h2"
@@ -155,18 +150,15 @@ export const FeatureAnnouncementEmail = ({
                 </Row>
               </Section>
 
-              {/* Content - Card 3 */}
               <Section className="bg-bg-2 mb-6 mobile:mb-2 px-6 mobile:px-4 pt-8 mobile:pt-6 pb-16 mobile:pb-10 rounded-[10px]">
                 <FeatureBlock
                   imageUrl="/static/barebones/barebones-image.png"
                   ctaUrl={url}
                   title="Hello feature. Goodbye old feature."
                   bodyP1="Ship updates in smaller, safer steps: clearer defaults, fewer clicks, and less context switching for your team."
-                  bodyP2="Want to go deeper? Check the dashboard for live sessions, docs, and what's coming next."
                 />
               </Section>
 
-              {/* Card 4 - Start */}
               <Section className="bg-bg-2 mb-6 mobile:mb-2 px-6 mobile:px-4 py-14 mobile:py-10 rounded-[10px]">
                 <Section className="mb-8 text-center">
                   <Section className="bg-black mx-auto p-3 rounded-xl w-14 text-center">

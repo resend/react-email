@@ -91,7 +91,6 @@ export const TechPromoEmail = ({ companyName, url }: TechPromoEmailProps) => {
               </Section>
             </Section>
 
-            {/* Don't take it from us */}
             <Section className="px-8 pt-8 pb-20">
               <Section />
 

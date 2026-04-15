@@ -33,7 +33,6 @@ export const ConfirmEmail = ({ companyName, url }: ConfirmEmailProps) => (
         <Container className="mobile:mt-0 mx-auto mt-8 w-full max-w-[640px]">
           <Section>
             <Section className="bg-bg mobile:px-2 px-6 py-4">
-              {/* Header */}
               <Section className="mb-3 px-6">
                 <Row>
                   <Column className="w-1/2 py-[7px] align-middle">
@@ -56,7 +55,6 @@ export const ConfirmEmail = ({ companyName, url }: ConfirmEmailProps) => (
                 </Row>
               </Section>
 
-              {/* Content */}
               <Section className="bg-bg-2 mobile:px-6 mobile:py-12 rounded-[8px] px-[40px] py-[64px] text-center">
                 <Section className="mb-3">
                   <Img

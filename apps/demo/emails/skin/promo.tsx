@@ -55,7 +55,6 @@ export const PromoEmail = ({ companyName, url }: PromoEmailProps) => {
         <Body className="m-0 bg-white p-0 font-15 font-sans">
           <Section className="m-0 bg-white p-0 pt-[92px] mobile:pt-0">
             <Container className="bg-bg mx-auto w-full max-w-[640px]">
-              {/* Header */}
               <Section className="bg-bg-2 mobile:px-6 px-[40px] pt-[40px] pb-[24px]">
                 <Img
                   src="/static/shared/logo-white.png"
@@ -66,7 +65,6 @@ export const PromoEmail = ({ companyName, url }: PromoEmailProps) => {
                 />
               </Section>
 
-              {/* Hero */}
               <Section className="bg-bg-2 border-stroke w-full border-b bg-[url('/static/skin/skin-image-10.png')] bg-cover bg-top bg-no-repeat align-top">
                 <Row>
                   <Column className="mobile:px-6 w-full px-[32px] pt-12 pb-[240px] align-top">
@@ -85,7 +83,6 @@ export const PromoEmail = ({ companyName, url }: PromoEmailProps) => {
                 </Row>
               </Section>
 
-              {/* Some new things */}
               <Section className="mobile:px-6 mobile:pt-12 px-[40px] pt-[88px]">
                 <Text className="mobile:!max-w-full font-64 mobile:font-56 text-fg m-0 max-w-[560px] font-serif capitalize">
                   Some new things
@@ -158,7 +155,6 @@ export const PromoEmail = ({ companyName, url }: PromoEmailProps) => {
                 </Section>
               </Section>
 
-              {/* Card Join us */}
               <Section className="mobile:px-6 mobile:pt-12 mobile:pb-10 mt-[80px] px-[40px]">
                 <Section className="bg-bg-3 px-[40px] py-[80px] text-center">
                   <Text className="font-22 text-fg-inverted text-center font-sans">

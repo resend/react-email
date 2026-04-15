@@ -96,7 +96,6 @@ export const TechAbandonedCartEmail = ({
               </Section>
             </Section>
 
-            {/* Don't take it from us */}
             <Section className="px-8 mobile:px-4 pt-8 pb-20">
               <Section>
                 <Text className="m-0 font-24 font-geist text-fg">

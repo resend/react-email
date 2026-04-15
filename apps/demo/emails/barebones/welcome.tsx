@@ -33,7 +33,6 @@ export const WelcomeEmail = ({ companyName, url }: WelcomeEmailProps) => (
         <Container className="mx-auto mt-8 mobile:mt-0 w-full max-w-[640px]">
           <Section>
             <Section className="bg-bg px-6 mobile:px-2 py-4">
-              {/* Header */}
               <Section className="mb-3 px-6">
                 <Row>
                   <Column className="py-[7px] w-1/2 align-middle">
@@ -56,7 +55,6 @@ export const WelcomeEmail = ({ companyName, url }: WelcomeEmailProps) => (
                 </Row>
               </Section>
 
-              {/* Card 1 */}
               <Section className="bg-bg-2 mb-6 mobile:mb-2 px-5 mobile:px-4 pt-5 mobile:pt-4 pb-14 mobile:pb-10 rounded-[10px]">
                 <Section className="mb-10">
                   <Img
@@ -84,7 +82,6 @@ export const WelcomeEmail = ({ companyName, url }: WelcomeEmailProps) => (
                 </Section>
               </Section>
 
-              {/* Card - 4 Bullets */}
               <Section className="bg-bg-2 mb-6 mobile:mb-2 px-5 mobile:px-4 pt-5 mobile:pt-4 pb-14 mobile:pb-10 rounded-[10px]">
                 <Section className="mb-10">
                   <Img
@@ -122,7 +119,6 @@ export const WelcomeEmail = ({ companyName, url }: WelcomeEmailProps) => (
                 </Section>
               </Section>
 
-              {/* Card - 2 Column */}
               <Section className="bg-bg-2 mb-6 mobile:mb-2 px-5 mobile:px-4 py-14 mobile:py-10 rounded-[10px]">
                 <Text className="mt-0 mb-16 mobile:mb-10 font-32 font-sans text-fg text-center">
                   Some new things
@@ -169,7 +165,6 @@ export const WelcomeEmail = ({ companyName, url }: WelcomeEmailProps) => (
                 </Section>
               </Section>
 
-              {/* Card 4 — centered badge + primary CTA */}
               <Section className="bg-bg-2 mb-6 mobile:mb-2 px-6 mobile:px-4 py-14 mobile:py-10 rounded-[10px]">
                 <Section className="mb-8 text-center">
                   <Section className="bg-black mx-auto p-3 rounded-xl w-14 text-center">

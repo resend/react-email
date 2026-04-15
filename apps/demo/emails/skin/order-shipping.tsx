@@ -70,7 +70,6 @@ export const OrderShippingEmail = ({
         <Body className="m-0 bg-white p-0 font-15 font-sans">
           <Section className="m-0 bg-white p-0 pt-[92px] mobile:pt-0">
             <Container className="bg-bg mx-auto w-full max-w-[640px]">
-              {/* Header */}
               <Section className="bg-bg mobile:px-6 px-[40px] pt-[40px] pb-[24px]">
                 <Img
                   src="/static/shared/logo-white.png"
@@ -97,7 +96,6 @@ export const OrderShippingEmail = ({
                   {'Track your order \u2192'}
                 </Link>
 
-                {/* Card */}
                 <Section className="mt-[64px]">
                   <Section className="mb-[24px]">
                     {orderShippingLines.map((line, idx) => (
@@ -138,7 +136,6 @@ export const OrderShippingEmail = ({
                 </Section>
               </Section>
 
-              {/* Card */}
               <Section className="mobile:px-6 px-[40px] py-[48px]">
                 <Text className="font-56 text-fg m-0 font-serif">
                   Common questions

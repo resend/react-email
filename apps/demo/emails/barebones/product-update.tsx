@@ -36,7 +36,6 @@ export const ProductUpdateEmail = ({
         <Container className="mx-auto mt-8 mobile:mt-0 w-full max-w-[640px]">
           <Section>
             <Section className="bg-bg px-6 mobile:px-2 py-4">
-              {/* Header */}
               <Section className="mb-3 px-6">
                 <Row>
                   <Column className="py-[7px] w-1/2 align-middle">
@@ -59,7 +58,6 @@ export const ProductUpdateEmail = ({
                 </Row>
               </Section>
 
-              {/* Card 1 */}
               <Section className="bg-bg-2 mb-6 mobile:mb-2 px-5 mobile:px-4 py-14 mobile:py-10 pb-5 mobile:pb-4 rounded-[10px]">
                 <Section className="mx-auto mb-10 max-w-[422px] text-center">
                   <Text className="mt-0 mb-6 font-13 font-sans text-fg-3">
@@ -93,7 +91,6 @@ export const ProductUpdateEmail = ({
                 />
               </Section>
 
-              {/* Card 1 // 1 2 3 Steps */}
               <Section className="bg-bg-2 mb-6 mobile:mb-2 px-5 mobile:px-4 py-14 mobile:py-10 rounded-[10px]">
                 <Section className="px-6">
                   <Heading
@@ -131,7 +128,6 @@ export const ProductUpdateEmail = ({
                 </Section>
               </Section>
 
-              {/* Card - 2 Columns */}
               <Section className="bg-bg-2 mb-6 mobile:mb-2 px-5 mobile:px-4 py-14 mobile:py-10 rounded-[10px]">
                 <Text className="mt-0 mb-16 mobile:mb-10 font-32 font-sans text-fg text-center">
                   Some new things
@@ -180,7 +176,6 @@ export const ProductUpdateEmail = ({
                 </Section>
               </Section>
 
-              {/* Card - Alternating rows */}
               <Section className="bg-bg-2 mb-6 mobile:mb-2 px-5 mobile:px-4 py-14 mobile:py-10 rounded-[10px]">
                 <Section className="px-6">
                   <Heading
@@ -262,7 +257,6 @@ export const ProductUpdateEmail = ({
                 </Section>
               </Section>
 
-              {/* Card — 4 Bullet */}
               <Section className="bg-bg-2 mb-6 mobile:mb-2 px-5 mobile:px-4 py-14 mobile:py-10 rounded-[10px]">
                 <Section className="px-6">
                   <Heading
@@ -292,7 +286,6 @@ export const ProductUpdateEmail = ({
                 </Section>
               </Section>
 
-              {/* Card — app download CTAs */}
               <Section className="bg-bg-2 mb-12 px-6 mobile:px-4 py-14 mobile:py-10 rounded-[10px]">
                 <Section className="mb-8 text-center">
                   <Section className="bg-black mx-auto p-3 rounded-xl w-14 text-center">
