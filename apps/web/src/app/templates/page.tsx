@@ -1,43 +1,37 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
+import { Heading } from '@/components/heading';
 import { PageWrapper } from '@/components/page-wrapper';
 import { Anchor } from '../../components/anchor';
-import { Heading } from '../../components/heading';
 import { PageTransition } from '../../components/page-transition';
 import { TemplateList } from '../../components/template-list';
-import { Text } from '../../components/text';
 
-const description = 'Open source templates built with React Email';
+const description =
+  'Open source templates built with React Email';
 
 export const metadata: Metadata = {
   title: 'Templates — React Email',
   description,
+  alternates: {
+    canonical: '/templates',
+  },
 };
 
 export default function Templates() {
   return (
     <PageWrapper>
-      <Image
-        alt=""
-        className="pointer-events-none absolute inset-0 z-3 select-none mix-blend-lighten"
-        fill
-        priority
-        src="/static/bg.png"
-      />
-      <PageTransition
-        className="mx-auto flex w-full max-w-6xl flex-col justify-center px-1 py-10 md:px-0"
-        key="about"
-        tag="main"
-      >
-        <div className="mb-12 text-pretty px-6 md:max-w-184 md:px-0">
-          <Heading className="text-white" weight="medium" size="6">
+      <div className="pointer-events-none absolute inset-0 flex justify-center mask-[linear-gradient(to_bottom,transparent_0%,black_4%,black_96%,transparent_100%)]">
+        <div className="hidden h-full w-full max-w-7xl grid-cols-2 gap-4 px-4 lg:grid">
+          <div className="border-r-slate-3 border-l border-l-slate-4" />
+          <div className="border-r border-r-slate-4" />
+        </div>
+      </div>
+      <PageTransition className="pb-10" key="templates" tag="main">
+        <div className="flex w-full flex-col gap-2 px-6 pt-16 pb-10 md:px-8">
+          <Heading size="6" weight="medium" className="text-slate-12">
             Templates
           </Heading>
-          <Text as="p" className="mt-4 text-slate-11" size="2">
-            {description}.
-          </Text>
-          <Text as="p" className="mt-2 text-slate-11" size="2">
-            Recreate an existing email or submit a{' '}
+          <p>
+            {description}. Recreate an existing email or submit a{' '}
             <Anchor
               href="https://github.com/resend/react-email/tree/main/apps/demo/emails"
               target="_blank"
@@ -45,7 +39,7 @@ export default function Templates() {
               pull request
             </Anchor>{' '}
             to add your template here.
-          </Text>
+          </p>
         </div>
         <TemplateList />
       </PageTransition>
