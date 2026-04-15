@@ -35,6 +35,12 @@ describe('upsertResendTemplate()', () => {
     };
   };
 
+  const notFoundError = {
+    message: 'Template not found',
+    name: 'not_found',
+    statusCode: 404,
+  } as const;
+
   it('updates the template directly when the alias already exists', async () => {
     const resend = createResendMock();
     const alias = getResendTemplateAlias('welcome');
@@ -73,11 +79,7 @@ describe('upsertResendTemplate()', () => {
 
     resend.templates.get.mockResolvedValue({
       data: null,
-      error: {
-        message: 'Template not found',
-        name: 'not_found',
-        statusCode: 404,
-      },
+      error: notFoundError,
     });
     resend.templates.list.mockResolvedValue({
       data: {
@@ -95,6 +97,7 @@ describe('upsertResendTemplate()', () => {
             name: 'welcome',
           },
         ],
+        has_more: false,
       },
       error: null,
     });
@@ -127,11 +130,7 @@ describe('upsertResendTemplate()', () => {
 
     resend.templates.get.mockResolvedValue({
       data: null,
-      error: {
-        message: 'Template not found',
-        name: 'not_found',
-        statusCode: 404,
-      },
+      error: notFoundError,
     });
     resend.templates.list.mockResolvedValue({
       data: {
@@ -143,6 +142,7 @@ describe('upsertResendTemplate()', () => {
             name: 'welcome.tsx',
           },
         ],
+        has_more: false,
       },
       error: null,
     });
@@ -169,20 +169,114 @@ describe('upsertResendTemplate()', () => {
     });
   });
 
+  it('keeps searching later template pages before creating a new template', async () => {
+    const resend = createResendMock();
+    const alias = getResendTemplateAlias('welcome');
+
+    resend.templates.get.mockResolvedValue({
+      data: null,
+      error: notFoundError,
+    });
+    resend.templates.list
+      .mockResolvedValueOnce({
+        data: {
+          data: [
+            {
+              alias: null,
+              created_at: '2026-04-01T00:00:00.000Z',
+              id: 'tmpl_page_1',
+              name: 'other-template',
+            },
+          ],
+          has_more: true,
+        },
+        error: null,
+      })
+      .mockResolvedValueOnce({
+        data: {
+          data: [
+            {
+              alias: null,
+              created_at: '2026-04-02T00:00:00.000Z',
+              id: 'tmpl_page_2',
+              name: 'welcome',
+            },
+          ],
+          has_more: false,
+        },
+        error: null,
+      });
+    resend.templates.update.mockResolvedValue({
+      data: { id: 'tmpl_page_2' },
+      error: null,
+    });
+
+    const result = await upsertResendTemplate({
+      resend,
+      name: 'welcome',
+      html: '<p>Hello</p>',
+    });
+
+    expect(result).toEqual({
+      id: 'tmpl_page_2',
+      operation: 'updated',
+    });
+    expect(resend.templates.list).toHaveBeenNthCalledWith(1, {
+      after: undefined,
+      limit: 100,
+    });
+    expect(resend.templates.list).toHaveBeenNthCalledWith(2, {
+      after: 'tmpl_page_1',
+      limit: 100,
+    });
+    expect(resend.templates.update).toHaveBeenCalledWith('tmpl_page_2', {
+      alias,
+      html: '<p>Hello</p>',
+      name: 'welcome',
+    });
+    expect(resend.templates.create).not.toHaveBeenCalled();
+  });
+
+  it('returns the lookup error when fetching an existing alias fails unexpectedly', async () => {
+    const resend = createResendMock();
+    const permissionError = {
+      message: 'Missing permissions',
+      name: 'invalid_access',
+      statusCode: 403,
+    } as const;
+
+    resend.templates.get.mockResolvedValue({
+      data: null,
+      error: permissionError,
+    });
+
+    const result = await upsertResendTemplate({
+      resend,
+      name: 'welcome',
+      html: '<p>Hello</p>',
+    });
+
+    expect(result).toEqual({
+      error: permissionError,
+    });
+    expect(resend.templates.list).not.toHaveBeenCalled();
+    expect(resend.templates.update).not.toHaveBeenCalled();
+    expect(resend.templates.create).not.toHaveBeenCalled();
+  });
+
   it('creates a new template when no existing match is found', async () => {
     const resend = createResendMock();
     const alias = getResendTemplateAlias('welcome');
 
     resend.templates.get.mockResolvedValue({
       data: null,
-      error: {
-        message: 'Template not found',
-        name: 'not_found',
-        statusCode: 404,
-      },
+      error: notFoundError,
     });
     resend.templates.list.mockResolvedValue({
-      data: { data: [] },
+      data: {
+        data: [],
+        has_more: false,
+      },
       error: null,
     });
     resend.templates.create.mockResolvedValue({

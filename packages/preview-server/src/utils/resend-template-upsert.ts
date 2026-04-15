@@ -34,9 +34,10 @@ interface ResendTemplatesApi {
     name: string;
   }): PromiseLike<ResendResponse<ResendTemplateIdentifier>>;
   get(identifier: string): Promise<ResendResponse<ResendTemplateIdentifier>>;
-  list(options: { limit: number }): Promise<
+  list(options: { after?: string; limit: number }): Promise<
     ResendResponse<{
       data: ResendTemplateSummary[];
+      has_more: boolean;
     }>
   >;
   update(
@@ -152,6 +153,69 @@ const createMissingTemplateResponse = (message: string): ResendError => ({
   statusCode: null,
 });
 
+const isMissingTemplateError = (error: ResendError | null) => {
+  return error?.statusCode === 404 || error?.name === 'not_found';
+};
+
+const findExistingTemplate = async ({
+  alias,
+  legacyName,
+  name,
+  resend,
+}: {
+  alias: string;
+  legacyName?: string;
+  name: string;
+  resend: ResendApi;
+}) => {
+  let after: string | undefined;
+
+  while (true) {
+    const listResponse = await resend.templates.list({
+      after,
+      limit: RESEND_TEMPLATE_SEARCH_LIMIT,
+    });
+
+    if (listResponse.error || !listResponse.data?.data) {
+      return {
+        error:
+          listResponse.error ??
+          createMissingTemplateResponse(
+            `Failed listing templates before syncing ${name}.`,
+          ),
+      };
+    }
+
+    const templateToUpdate = getTemplateToUpdate(listResponse.data.data, {
+      alias,
+      legacyName,
+      name,
+    });
+
+    if (templateToUpdate) {
+      return {
+        template: templateToUpdate,
+      };
+    }
+
+    if (!listResponse.data.has_more || listResponse.data.data.length === 0) {
+      return {
+        template: undefined,
+      };
+    }
+
+    after = listResponse.data.data.at(-1)?.id;
+
+    if (!after) {
+      return {
+        error: createMissingTemplateResponse(
+          `Failed paginating templates before syncing ${name}.`,
+        ),
+      };
+    }
+  }
+};
+
 export const upsertResendTemplate = async ({
   html,
   legacyName,
@@ -184,32 +248,35 @@ export const upsertResendTemplate = async ({
     };
   }
 
-  const listResponse = await resend.templates.list({
-    limit: RESEND_TEMPLATE_SEARCH_LIMIT,
-  });
-
-  if (listResponse.error || !listResponse.data?.data) {
+  if (
+    existingTemplateResponse.error &&
+    !isMissingTemplateError(existingTemplateResponse.error)
+  ) {
     return {
-      error:
-        listResponse.error ??
-        createMissingTemplateResponse(
-          `Failed listing templates before syncing ${name}.`,
-        ),
+      error: existingTemplateResponse.error,
     };
   }
 
-  const templateToUpdate = getTemplateToUpdate(listResponse.data.data, {
+  const existingTemplateLookup = await findExistingTemplate({
     alias,
     legacyName,
     name,
+    resend,
   });
 
-  if (templateToUpdate) {
-    const updateResponse = await resend.templates.update(templateToUpdate.id, {
-      alias,
-      html,
-      name,
-    });
+  if ('error' in existingTemplateLookup) {
+    return existingTemplateLookup;
+  }
+
+  if (existingTemplateLookup.template) {
+    const updateResponse = await resend.templates.update(
+      existingTemplateLookup.template.id,
+      {
+        alias,
+        html,
+        name,
+      },
+    );
 
     if (updateResponse.error || !updateResponse.data?.id) {
       return {
