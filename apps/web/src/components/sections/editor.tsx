@@ -87,8 +87,8 @@ export const EditorHomepage = () => {
             const { html } = await composeReactEmail({ editor });
             setHtml(html);
           }}
-          onChange={async (editor) => {
-            const { html } = await composeReactEmail({ editor });
+          onUpdate={async (editor) => {
+            const html = await editor.getEmailHTML();
             setHtml(html);
           }}
         >
