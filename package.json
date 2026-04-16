@@ -68,7 +68,7 @@
       "engine.io>cookie": "^0.7.0",
       "express>body-parser": "^1.20.3",
       "express>cookie": "^0.7.0",
-      "express>path-to-regexp": "^0.1.13",
+      "express>path-to-regexp": "^0.2.0",
       "express>qs": "^6.14.2",
       "express>send": "^0.19.0",
       "express>serve-static": "^1.16.0",
