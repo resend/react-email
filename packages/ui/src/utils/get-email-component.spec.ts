@@ -34,10 +34,10 @@ describe('getEmailComponent()', () => {
             <link rel="preload" as="image" href="/static/vercel-team.png" />
             <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
             <meta name="x-apple-disable-message-reformatting" />
-            <!--$-->
           </head>
           <body
             style="background-color:rgb(255,255,255);margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-right:0;padding-left:0">
+            <!--$--><!--html--><!--head--><!--body-->
             <table
               border="0"
               width="100%"

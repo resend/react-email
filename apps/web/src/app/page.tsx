@@ -1,4 +1,5 @@
 import { Footer } from '@/components/footer';
+import { EditorHomepage } from '@/components/sections/editor';
 import HeroSection from '@/components/sections/hero';
 import IntegrationSection from '@/components/sections/integration';
 import PatternsSection from '@/components/sections/patterns';
@@ -16,6 +17,7 @@ const Home = () => (
       <PatternsSection />
       <PrimitivesSection />
       <ToolsSection />
+      <EditorHomepage />
       <IntegrationSection />
       <Footer />
     </div>

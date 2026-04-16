@@ -129,7 +129,7 @@ to the focused node, and let users jump back up the hierarchy.
     {(segments) =>
       segments.map((segment, index) => (
         <button key={index} type="button" onClick={() => segment.focus()}>
-          {segment.node?.nodeType ?? 'Layout'}
+          {segment.node.nodeType}
         </button>
       ))
     }
@@ -399,8 +399,8 @@ You can also mix custom layouts with the built-in section components.
   {(context) => (
     <>
       <Inspector.Size {...context} />
-      <Inspector.Padding {...context} initialCollapsed />
-      <Inspector.Border {...context} initialCollapsed />
+      <Inspector.Padding {...context} />
+      <Inspector.Border {...context} />
     </>
   )}
 </Inspector.Node>

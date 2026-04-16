@@ -8,9 +8,7 @@ import { Label } from '../primitives';
 
 const SIZE_AS_ATTRIBUTES = ['image'];
 
-type InspectorSizeProps = InspectorNodeContext & {
-  initialCollapsed?: boolean;
-};
+type InspectorSizeProps = InspectorNodeContext;
 
 export function SizeSection({
   nodeType,
@@ -18,7 +16,6 @@ export function SizeSection({
   setStyle,
   getAttr,
   setAttr,
-  initialCollapsed = false,
 }: InspectorSizeProps) {
   const useAttrs = SIZE_AS_ATTRIBUTES.includes(nodeType);
 
@@ -46,7 +43,7 @@ export function SizeSection({
   };
 
   return (
-    <Section title="Size" initialCollapsed={initialCollapsed}>
+    <Section title="Size">
       <PropRow>
         <Label>Width</Label>
         <NumberInput

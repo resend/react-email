@@ -47,8 +47,10 @@ export default defineConfig([
     entry: ['./src/index.ts'],
     format: ['esm', 'cjs'],
     outDir: 'dist',
-    noExternal: ['css-tree'],
-    external: [/^react($|\/)/, /^react-dom($|\/)/],
+    deps: {
+      alwaysBundle: ['css-tree'],
+      neverBundle: [/^react($|\/)/, /^react-dom($|\/)/],
+    },
     plugins: [hoistCreateRequireImports],
   },
 ]);

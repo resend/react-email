@@ -21,7 +21,7 @@ const content = {
 export function StandaloneEditor() {
   return (
     <ExampleShell
-      title="Standalone Editor — Minimal"
+      title="Standalone editor — minimal"
       description="The simplest setup — one component with everything included."
     >
       <EmailEditor content={content} />

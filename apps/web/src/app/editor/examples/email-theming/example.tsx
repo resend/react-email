@@ -1,7 +1,11 @@
 'use client';
 
 import { StarterKit } from '@react-email/editor/extensions';
-import { EmailTheming } from '@react-email/editor/plugins';
+import {
+  type EditorThemeInput,
+  EmailTheming,
+  extendTheme,
+} from '@react-email/editor/plugins';
 import { BubbleMenu } from '@react-email/editor/ui';
 import type { JSONContent } from '@tiptap/react';
 import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
@@ -21,7 +25,7 @@ const initialContent = {
       content: [
         {
           type: 'text',
-          text: 'This is a themed email editor. Toggle between Basic and Minimal themes to see how styles change.',
+          text: 'This is a themed email editor. Toggle between Basic, Minimal, and Custom themes to see how styles change.',
         },
       ],
     },
@@ -37,11 +41,32 @@ const initialContent = {
   ],
 };
 
-type EditorTheme = 'basic' | 'minimal';
+const customTheme = extendTheme('basic', {
+  body: { backgroundColor: '#f8f4ff' },
+  container: { backgroundColor: '#ffffff', borderRadius: '8px' },
+  h1: { color: '#6d28d9' },
+  h2: { color: '#7c3aed' },
+  h3: { color: '#8b5cf6' },
+  link: { color: '#7c3aed' },
+  button: {
+    backgroundColor: '#7c3aed',
+    color: '#ffffff',
+    borderRadius: '6px',
+  },
+});
+
+type ThemeOption = 'basic' | 'minimal' | 'custom';
+
+const themeMap: Record<ThemeOption, EditorThemeInput> = {
+  basic: 'basic',
+  minimal: 'minimal',
+  custom: customTheme,
+};
 
 export function EmailThemingExample() {
-  const [theme, setTheme] = useState<EditorTheme>('basic');
+  const [selected, setSelected] = useState<ThemeOption>('basic');
   const contentRef = useRef<JSONContent>(initialContent);
+  const theme = themeMap[selected];
 
   const editor = useEditor(
     {
@@ -52,37 +77,29 @@ export function EmailThemingExample() {
         contentRef.current = e.getJSON();
       },
     },
-    [theme],
+    [selected],
   );
 
   return (
     <ExampleShell
-      title="Email Theming"
-      description="Switch between Basic and Minimal themes to see how email styles change."
+      title="Email theming"
+      description="Switch between Basic, Minimal, and Custom themes to see how email styles change."
     >
       <div className="flex gap-2 mb-4">
-        <button
-          type="button"
-          onClick={() => setTheme('basic')}
-          className={`px-3 py-1.5 border border-(--re-border) rounded-lg cursor-pointer text-[0.8125rem] ${
-            theme === 'basic'
-              ? 'bg-(--re-text) text-(--re-bg) font-medium'
-              : 'bg-(--re-bg) text-(--re-text) hover:bg-(--re-hover)'
-          }`}
-        >
-          Basic
-        </button>
-        <button
-          type="button"
-          onClick={() => setTheme('minimal')}
-          className={`px-3 py-1.5 border border-(--re-border) rounded-lg cursor-pointer text-[0.8125rem] ${
-            theme === 'minimal'
-              ? 'bg-(--re-text) text-(--re-bg) font-medium'
-              : 'bg-(--re-bg) text-(--re-text) hover:bg-(--re-hover)'
-          }`}
-        >
-          Minimal
-        </button>
+        {(['basic', 'minimal', 'custom'] as const).map((option) => (
+          <button
+            key={option}
+            type="button"
+            onClick={() => setSelected(option)}
+            className={`px-3 py-1.5 border border-(--re-border) rounded-lg cursor-pointer text-[0.8125rem] capitalize ${
+              selected === option
+                ? 'bg-(--re-text) text-(--re-bg) font-medium'
+                : 'bg-(--re-bg) text-(--re-text) hover:bg-(--re-hover)'
+            }`}
+          >
+            {option}
+          </button>
+        ))}
       </div>
       <EditorContext.Provider value={{ editor }}>
         <EditorContent editor={editor} />

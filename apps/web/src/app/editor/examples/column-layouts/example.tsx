@@ -98,7 +98,7 @@ function Toolbar() {
 export function ColumnLayouts() {
   return (
     <ExampleShell
-      title="Column Layouts"
+      title="Column layouts"
       description="Insert multi-column layouts using the toolbar buttons."
     >
       <EditorProvider

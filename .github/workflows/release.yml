@@ -7,7 +7,6 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   release:
-    # npm trusted publishing (OIDC) is only supported on GitHub-hosted `ubuntu-latest` runners.
     runs-on: ubuntu-latest
     permissions: 
       id-token: write

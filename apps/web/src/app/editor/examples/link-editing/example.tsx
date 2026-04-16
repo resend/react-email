@@ -15,7 +15,7 @@ const content = `
 export function LinkEditing() {
   return (
     <ExampleShell
-      title="Link Editing"
+      title="Link editing"
       description="Click a link to see the link bubble menu. Select text and press Cmd+K to add links."
     >
       <EditorProvider

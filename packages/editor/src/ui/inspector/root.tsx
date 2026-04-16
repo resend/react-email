@@ -12,6 +12,48 @@ import {
 
 const IGNORED_NODES = ['doc', 'text'];
 
+function isHiddenFromHierarchy(node: {
+  type: { name: string; spec: { selectable?: boolean } };
+}) {
+  // Skip structural/auto-wrapped nodes: doc/text wrappers plus anything the
+  // schema marks as non-selectable (container, globalContent, previewText).
+  return (
+    IGNORED_NODES.includes(node.type.name) ||
+    node.type.spec.selectable === false
+  );
+}
+
+const BODY_FOCUSED: FocusedNode = {
+  nodeType: 'body',
+  nodeAttrs: {},
+  nodePos: { pos: 0, inside: 0 },
+};
+
+export function computePathFromRoot(
+  editor: ReturnType<typeof useCurrentEditor>['editor'],
+  target: InspectorTarget,
+): FocusedNode[] {
+  if (!editor) {
+    return [];
+  }
+  // Prepend the synthetic body root unless the hierarchy already starts
+  // with a real body node (only possible when source HTML had an explicit
+  // <body> tag).
+  const withBody = (path: FocusedNode[]) =>
+    path[0]?.nodeType === 'body' ? path : [BODY_FOCUSED, ...path];
+
+  if (typeof target === 'object') {
+    if (target.nodeType === 'body') {
+      return [BODY_FOCUSED];
+    }
+    const atPos = getHierarchyAtPosition(editor, target.nodePos.pos);
+    const path = [...atPos].reverse();
+    return withBody(path.length > 0 ? path : [target]);
+  }
+  const hierarchy = getNodeHierarchy(editor);
+  return withBody(hierarchy.reverse());
+}
+
 function getHierarchyAtPosition(
   editor: ReturnType<typeof useCurrentEditor>['editor'],
   pos: number,
@@ -24,7 +66,7 @@ function getHierarchyAtPosition(
   const hierarchy: NodeClickedEvent[] = [];
 
   const nodeAtPos = doc.nodeAt(pos);
-  if (nodeAtPos && !IGNORED_NODES.includes(nodeAtPos.type.name)) {
+  if (nodeAtPos && !isHiddenFromHierarchy(nodeAtPos)) {
     hierarchy.push({
       nodeType: nodeAtPos.type.name,
       nodeAttrs: { ...nodeAtPos.attrs },
@@ -37,7 +79,7 @@ function getHierarchyAtPosition(
     const node = resolvedPos.node(depth);
     const nodePos = resolvedPos.before(depth);
 
-    if (node && !IGNORED_NODES.includes(node.type.name)) {
+    if (node && !isHiddenFromHierarchy(node)) {
       const isDuplicate = hierarchy.some((h) => h.nodePos.pos === nodePos);
       if (!isDuplicate) {
         hierarchy.push({
@@ -64,7 +106,7 @@ function getNodeHierarchy(
 
   if (selection instanceof NodeSelection) {
     const node = selection.node;
-    if (node && !IGNORED_NODES.includes(node.type.name)) {
+    if (node && !isHiddenFromHierarchy(node)) {
       hierarchy.push({
         nodeType: node.type.name,
         nodeAttrs: { ...node.attrs },
@@ -80,7 +122,7 @@ function getNodeHierarchy(
     const node = resolvedPos.node(depth);
     const pos = resolvedPos.before(depth);
 
-    if (node && !IGNORED_NODES.includes(node.type.name)) {
+    if (node && !isHiddenFromHierarchy(node)) {
       const isDuplicate = hierarchy.some((h) => h.nodePos.pos === pos);
       if (!isDuplicate) {
         hierarchy.push({
@@ -101,7 +143,7 @@ export interface FocusedNode {
   nodePos: { pos: number; inside: number };
 }
 
-type InspectorTarget = 'doc' | 'text' | FocusedNode | null;
+export type InspectorTarget = FocusedNode | 'text';
 
 export interface RootProps extends React.ComponentPropsWithRef<'aside'> {
   asChild?: boolean;
@@ -142,73 +184,65 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
       }
     }
 
-    const target = useEditorState({
-      editor,
-      selector(context): InspectorTarget {
-        if (!context.editor) {
-          return null;
-        }
-
-        if (!context.editor.isFocused) {
-          return 'doc';
-        }
-
-        const { selection } = context.editor.state;
-
-        if (
-          selection.content().size > 0 &&
-          selection instanceof TextSelection
-        ) {
-          const { $from } = selection;
-          for (let depth = $from.depth; depth > 0; depth--) {
-            if ($from.node(depth).type.name === 'button') {
-              const pos = $from.before(depth);
-              const node = context.editor.state.doc.nodeAt(pos);
-              if (node) {
-                return {
-                  nodeType: 'button',
-                  nodeAttrs: { ...node.attrs },
-                  nodePos: { pos, inside: pos },
-                };
-              }
-              break;
-            }
+    const target =
+      useEditorState({
+        editor,
+        selector(context): InspectorTarget {
+          if (!context.editor) {
+            return BODY_FOCUSED;
           }
 
-          return 'text';
-        }
+          if (!context.editor.isFocused) {
+            return BODY_FOCUSED;
+          }
 
-        const hierarchy = getNodeHierarchy(context.editor);
+          const { selection } = context.editor.state;
 
-        if (hierarchy.length > 0) {
-          const innermost = hierarchy[0];
-          const columnEntry = hierarchy.find(
-            (h) => h.nodeType === 'columnsColumn',
-          );
-          const preferColumn =
-            columnEntry && innermost.nodeType === 'paragraph';
-          return preferColumn ? columnEntry : innermost;
-        }
+          if (
+            selection.content().size > 0 &&
+            selection instanceof TextSelection
+          ) {
+            const { $from } = selection;
+            for (let depth = $from.depth; depth > 0; depth--) {
+              if ($from.node(depth).type.name === 'button') {
+                const pos = $from.before(depth);
+                const node = context.editor.state.doc.nodeAt(pos);
+                if (node) {
+                  return {
+                    nodeType: 'button',
+                    nodeAttrs: { ...node.attrs },
+                    nodePos: { pos, inside: pos },
+                  };
+                }
+                break;
+              }
+            }
 
-        return 'doc';
-      },
-    });
+            return 'text';
+          }
 
-    const pathFromRoot = React.useMemo(() => {
-      if (!editor) {
-        return [];
-      }
-      if (typeof target === 'object' && target) {
-        const atPos = getHierarchyAtPosition(editor, target.nodePos.pos);
-        const path = [...atPos].reverse();
-        return path.length > 0 ? path : [target];
-      }
-      if (target === 'text') {
-        const hierarchy = getNodeHierarchy(editor);
-        return [...hierarchy].reverse();
-      }
-      return [];
-    }, [editor, target]);
+          const hierarchy = getNodeHierarchy(context.editor);
+
+          if (hierarchy.length > 0) {
+            const innermost = hierarchy[0];
+            const columnEntry = hierarchy.find(
+              (h) => h.nodeType === 'columnsColumn',
+            );
+            const preferColumn =
+              columnEntry && innermost.nodeType === 'paragraph';
+            return preferColumn ? columnEntry : innermost;
+          }
+
+          return BODY_FOCUSED;
+        },
+      }) ?? BODY_FOCUSED;
+
+    const pathFromRoot = React.useMemo(
+      () => computePathFromRoot(editor, target),
+      [editor, target],
+    );
+
+    const contextValue: InspectorContextValue = { target, pathFromRoot };
 
     const Component = asChild ? Slot : 'aside';
 
@@ -221,12 +255,7 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
     );
 
     return (
-      <InspectorContext.Provider
-        value={{
-          target,
-          pathFromRoot,
-        }}
-      >
+      <InspectorContext.Provider value={contextValue}>
         {existingFocusScope ? (
           inspectorContent
         ) : (

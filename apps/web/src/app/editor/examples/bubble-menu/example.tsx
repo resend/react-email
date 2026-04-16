@@ -29,7 +29,7 @@ const content = {
 export function BubbleMenuExample() {
   return (
     <ExampleShell
-      title="Bubble Menu"
+      title="Bubble menu"
       description="Select text to see the default bubble menu with formatting options."
     >
       <EditorProvider

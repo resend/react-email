@@ -1,6 +1,6 @@
 {
   "name": "@react-email/editor",
-  "version": "0.0.0-canary.50",
+  "version": "1.0.0",
   "description": "A rich text editor for editing and building email templates",
   "sideEffects": [
     "**/*.css"
@@ -146,7 +146,7 @@
     "@vitejs/plugin-react": "catalog:",
     "@vitest/browser-playwright": "4.0.17",
     "playwright": "1.58.2",
-    "postcss": "8.5.8",
+    "postcss": "8.5.10",
     "postcss-import": "16.1.1",
     "tsconfig": "workspace:*",
     "tsx": "catalog:",
