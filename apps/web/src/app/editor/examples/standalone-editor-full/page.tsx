@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { ExamplePageShell } from '../example-page-shell';
+import { getExampleGitHubUrl, getExampleSource } from '../get-example-source';
 import { StandaloneEditorFull as Example } from './example';
 
 export const metadata: Metadata = {
@@ -9,12 +10,16 @@ export const metadata: Metadata = {
   alternates: { canonical: '/editor/examples/standalone-editor-full' },
 };
 
-export default function Page() {
+export default async function Page() {
+  const sourceCode = await getExampleSource('standalone-editor-full');
+
   return (
     <ExamplePageShell
       slug="standalone-editor-full"
       title="Standalone Editor — Full Features"
       docsUrl="https://react.email/docs/editor/getting-started"
+      sourceCode={sourceCode}
+      githubUrl={getExampleGitHubUrl('standalone-editor-full')}
     >
       <Example />
     </ExamplePageShell>

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { ExamplePageShell } from '../example-page-shell';
+import { getExampleGitHubUrl, getExampleSource } from '../get-example-source';
 import { EmailExport as Example } from './example';
 
 export const metadata: Metadata = {
@@ -9,12 +10,16 @@ export const metadata: Metadata = {
   alternates: { canonical: '/editor/examples/email-export' },
 };
 
-export default function Page() {
+export default async function Page() {
+  const sourceCode = await getExampleSource('email-export');
+
   return (
     <ExamplePageShell
       slug="email-export"
       title="Email Export"
       docsUrl="https://react.email/docs/editor/features/email-export"
+      sourceCode={sourceCode}
+      githubUrl={getExampleGitHubUrl('email-export')}
     >
       <Example />
     </ExamplePageShell>

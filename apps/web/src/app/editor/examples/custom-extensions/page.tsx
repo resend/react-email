@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { ExamplePageShell } from '../example-page-shell';
+import { getExampleGitHubUrl, getExampleSource } from '../get-example-source';
 import { CustomExtensions as Example } from './example';
 
 export const metadata: Metadata = {
@@ -9,12 +10,16 @@ export const metadata: Metadata = {
   alternates: { canonical: '/editor/examples/custom-extensions' },
 };
 
-export default function Page() {
+export default async function Page() {
+  const sourceCode = await getExampleSource('custom-extensions');
+
   return (
     <ExamplePageShell
       slug="custom-extensions"
       title="Custom Extensions"
       docsUrl="https://react.email/docs/editor/advanced/custom-extensions"
+      sourceCode={sourceCode}
+      githubUrl={getExampleGitHubUrl('custom-extensions')}
     >
       <Example />
     </ExamplePageShell>

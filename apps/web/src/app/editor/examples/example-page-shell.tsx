@@ -3,11 +3,14 @@ import { Heading } from '@/components/heading';
 import { IconArrowLeft } from '@/components/icons/icon-arrow-left';
 import { PageTransition } from '@/components/page-transition';
 import { PageWrapper } from '@/components/page-wrapper';
+import { ExampleTabbedContent } from './example-tabbed-content';
 
 interface ExamplePageShellProps {
   slug: string;
   title: string;
   docsUrl?: string;
+  sourceCode?: string;
+  githubUrl?: string;
   children: React.ReactNode;
 }
 
@@ -15,6 +18,8 @@ export function ExamplePageShell({
   slug,
   title,
   docsUrl,
+  sourceCode,
+  githubUrl,
   children,
 }: ExamplePageShellProps) {
   return (
@@ -43,7 +48,15 @@ export function ExamplePageShell({
             {title}
           </Heading>
         </div>
-        <div className="px-6 pb-10 md:px-8">{children}</div>
+        <div className="px-6 pb-10 md:px-8">
+          {sourceCode && githubUrl ? (
+            <ExampleTabbedContent sourceCode={sourceCode} githubUrl={githubUrl}>
+              {children}
+            </ExampleTabbedContent>
+          ) : (
+            children
+          )}
+        </div>
       </PageTransition>
     </PageWrapper>
   );
