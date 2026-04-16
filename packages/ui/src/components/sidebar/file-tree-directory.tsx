@@ -51,7 +51,7 @@ export const FileTreeDirectory = ({
     >
       <Collapsible.Trigger
         className={cn(
-          'mt-1 mb-1.5 flex w-full items-center text-start justify-between gap-2 font-medium text-[14px]',
+          'flex h-8 w-full items-center text-start justify-between gap-2 font-medium text-[14px]',
           {
             'cursor-pointer': !isEmpty,
           },

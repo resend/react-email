@@ -1,6 +1,6 @@
 {
   "name": "@react-email/ui",
-  "version": "6.0.0-canary.0",
+  "version": "6.0.0-canary.2",
   "description": "A live preview of your emails right in your browser.",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --disable-warning=ExperimentalWarning\" tsx ./scripts/build.mts",
@@ -33,7 +33,7 @@
     "@babel/core": "7.26.10",
     "@babel/parser": "catalog:",
     "@babel/traverse": "catalog:",
-    "@lottiefiles/dotlottie-react": "0.18.9",
+    "@lottiefiles/dotlottie-react": "0.18.10",
     "@radix-ui/colors": "catalog:",
     "@radix-ui/react-collapsible": "1.1.12",
     "@radix-ui/react-dropdown-menu": "2.1.16",

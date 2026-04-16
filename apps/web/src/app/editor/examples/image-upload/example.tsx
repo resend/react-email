@@ -148,7 +148,7 @@ export function ImageUpload() {
 
   return (
     <ExampleShell
-      title="Image Upload"
+      title="Image upload"
       description="Upload images via paste, drop, or the slash command. Uses a stubbed uploader (FileReader → data URL) with a toggle to exercise the error path."
     >
       <EditorProvider

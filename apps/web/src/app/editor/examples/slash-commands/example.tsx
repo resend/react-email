@@ -61,7 +61,7 @@ const content = {
 export function SlashCommands() {
   return (
     <ExampleShell
-      title="Slash Commands"
+      title="Slash commands"
       description='Type / to open the command menu. Includes default commands plus a custom "Greeting" command.'
     >
       <EditorProvider

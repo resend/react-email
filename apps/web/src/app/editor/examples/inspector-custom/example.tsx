@@ -11,7 +11,7 @@ const extensions = [StarterKit, EmailTheming];
 const content = `
   <h1>Custom Inspector</h1>
   <p>This inspector is built entirely from scratch — no pre-built sections or primitives. Just render-props data and plain HTML inputs.</p>
-  <div class="align-left"><a class="node-button button" data-id="react-email-button" href="https://react.email">Click me</a></div>
+  <a class="button" data-id="react-email-button" href="https://react.email">Click me</a>
   <img src="https://placehold.co/600x200" alt="Placeholder" />
 `;
 
@@ -26,7 +26,7 @@ export function InspectorCustom() {
 
   return (
     <ExampleShell
-      title="Inspector — Fully Custom"
+      title="Inspector — fully custom"
       description="Build the entire inspector UI from scratch using only render-props data and plain HTML. No primitives or section components."
     >
       <EditorContext.Provider value={{ editor }}>

@@ -25,7 +25,7 @@ const content = {
 export function CustomBubbleMenu() {
   return (
     <ExampleShell
-      title="Custom Bubble Menu"
+      title="Custom bubble menu"
       description="Building bubble menus from primitives."
     >
       <EditorProvider

@@ -25,7 +25,7 @@ const content = `
   <p>This is a full-featured email editor combining all available components. Try selecting text, inserting columns, adding buttons, and switching themes.</p>
   <h2>Featured Article</h2>
   <p>Check out our latest post on <a href="https://react.email" target="_blank">React Email</a> for building better email templates.</p>
-  <div class="align-left"><a class="node-button button" data-id="react-email-button" href="https://react.email">Read More</a></div>
+  <a class="button" data-id="react-email-button" href="https://react.email">Read More</a>
 `;
 
 function Sidebar() {
@@ -46,7 +46,7 @@ function Sidebar() {
                       className="bg-transparent border-0 cursor-pointer text-(--re-text) p-0 text-xs hover:underline"
                       onClick={() => segment.focus()}
                     >
-                      {segment.node?.nodeType ?? 'Layout'}
+                      {segment.node.nodeType}
                     </button>
                   </li>
                 ))
@@ -115,7 +115,7 @@ export function FullEmailBuilder() {
 
   return (
     <ExampleShell
-      title="Full Email Builder"
+      title="Full email builder"
       description="All components combined: bubble menus, slash commands, theming, inspector sidebar, and export."
     >
       <div className="flex gap-2 mb-4">

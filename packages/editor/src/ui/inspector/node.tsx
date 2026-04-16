@@ -52,7 +52,7 @@ export function InspectorNode({ children }: InspectorNodeProps) {
   >(null);
 
   const focusedNode =
-    typeof target === 'object' && target !== null ? target : null;
+    typeof target === 'object' && target.nodeType !== 'body' ? target : null;
 
   React.useEffect(() => {
     if (focusedNode) {

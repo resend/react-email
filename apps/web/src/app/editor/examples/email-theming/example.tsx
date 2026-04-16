@@ -57,7 +57,7 @@ export function EmailThemingExample() {
 
   return (
     <ExampleShell
-      title="Email Theming"
+      title="Email theming"
       description="Switch between Basic and Minimal themes to see how email styles change."
     >
       <div className="flex gap-2 mb-4">
