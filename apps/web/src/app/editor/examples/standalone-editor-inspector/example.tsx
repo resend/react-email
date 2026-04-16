@@ -35,7 +35,7 @@ export function StandaloneEditorInspector() {
 
 function Sidebar() {
   return (
-    <Inspector.Root className="w-60 shrink-0 border-l border-(--re-border) p-4 flex flex-col gap-4 overflow-y-auto text-xs">
+    <Inspector.Root className="w-60 shrink-0 border-l border-(--re-border) pt-8 p-4 flex flex-col overflow-y-auto text-xs">
       <Breadcrumb />
       <Inspector.Document />
       <Inspector.Node />
@@ -47,17 +47,29 @@ function Sidebar() {
 function Breadcrumb() {
   return (
     <nav>
-      <ol className="flex items-center gap-1 list-none m-0 p-0">
+      <ol className="flex items-center gap-1 list-none m-0 p-0 mb-4">
         <Inspector.Breadcrumb>
           {(segments) =>
             segments.map((segment, i) => {
-              const label = segment.node.nodeType;
+              const label = segment.node?.nodeType ?? 'Layout';
+              if (i === segments.length - 1) {
+                return (
+                  <li key={i} className="flex items-center gap-1">
+                    {i !== 0 && (
+                      <span className="text-(--re-text-muted)">/</span>
+                    )}
+                    <span className="text-(--re-text) p-0 text-xs capitalize">
+                      {label}
+                    </span>
+                  </li>
+                );
+              }
               return (
                 <li key={i} className="flex items-center gap-1">
                   {i !== 0 && <span className="text-(--re-text-muted)">/</span>}
                   <button
                     type="button"
-                    className="bg-transparent border-0 cursor-pointer text-(--re-text) p-0 text-xs hover:underline"
+                    className="bg-transparent border-0 cursor-pointer text-(--re-text-muted) p-0 text-xs hover:text-(--re-text) capitalize"
                     onClick={() => segment.focus()}
                   >
                     {label}

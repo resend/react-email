@@ -94,7 +94,7 @@ export function InspectorComposed() {
                     <Inspector.Background {...ctx} />
                     <Inspector.Padding {...ctx} />
                     {ctx.nodeType === 'image' && <Inspector.Size {...ctx} />}
-                    <Inspector.Border {...ctx} initialCollapsed />
+                    <Inspector.Border {...ctx} />
 
                     <fieldset className="border border-(--re-border) rounded p-2 m-0">
                       <legend className="text-xs font-bold px-1">Data</legend>
@@ -133,17 +133,29 @@ export function InspectorComposed() {
 function Breadcrumb() {
   return (
     <nav>
-      <ol className="flex items-center gap-1 list-none m-0 p-0">
+      <ol className="flex items-center gap-1 list-none m-0 p-0 mb-4">
         <Inspector.Breadcrumb>
           {(segments) =>
             segments.map((segment, i) => {
-              const label = segment.node.nodeType;
+              const label = segment.node?.nodeType ?? 'Layout';
+              if (i === segments.length - 1) {
+                return (
+                  <li key={i} className="flex items-center gap-1">
+                    {i !== 0 && (
+                      <span className="text-(--re-text-muted)">/</span>
+                    )}
+                    <span className="text-(--re-text) p-0 text-xs capitalize">
+                      {label}
+                    </span>
+                  </li>
+                );
+              }
               return (
                 <li key={i} className="flex items-center gap-1">
                   {i !== 0 && <span className="text-(--re-text-muted)">/</span>}
                   <button
                     type="button"
-                    className="bg-transparent border-0 cursor-pointer text-(--re-text) p-0 text-xs hover:underline"
+                    className="bg-transparent border-0 cursor-pointer text-(--re-text-muted) p-0 text-xs hover:text-(--re-text) capitalize"
                     onClick={() => segment.focus()}
                   >
                     {label}

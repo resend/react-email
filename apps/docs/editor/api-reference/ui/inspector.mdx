@@ -276,14 +276,12 @@ reuse the default section UIs in your own layout.
   {(context) => (
     <>
       <Inspector.Size {...context} />
-      <Inspector.Padding {...context} initialCollapsed />
-      <Inspector.Border {...context} initialCollapsed />
+      <Inspector.Padding {...context} />
+      <Inspector.Border {...context} />
     </>
   )}
 </Inspector.Node>
 ```
-
-Each section component accepts an `initialCollapsed?: boolean` prop.
 
 | Component | Context | Description |
 | -- | -- | -- |
