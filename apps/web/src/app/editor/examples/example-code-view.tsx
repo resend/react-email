@@ -11,9 +11,9 @@ interface ExampleCodeViewProps {
 
 export function ExampleCodeView({ code, githubUrl }: ExampleCodeViewProps) {
   return (
-    <div className="flex h-full w-full flex-col rounded-xl border border-slate-4 bg-slate-3">
-      <div className="flex w-full items-center justify-between border-slate-4 border-b p-4">
-        <span className="font-mono text-xs text-slate-11">example.tsx</span>
+    <div className="flex h-full w-full flex-col bg-slate-3">
+      <div className="relative flex w-full items-center justify-between border-slate-4 border-b border-solid p-4 text-xs">
+        <span className="font-mono text-slate-11">example.tsx</span>
         <div className="flex items-center gap-2">
           <a
             href={githubUrl}
@@ -26,7 +26,7 @@ export function ExampleCodeView({ code, githubUrl }: ExampleCodeViewProps) {
           <CopyCode className="shadow-none p-2 h-8 w-8" code={code} />
         </div>
       </div>
-      <div className="w-full overflow-auto">
+      <div className="h-full w-full overflow-auto">
         <CodeBlock language="tsx" isGradientLine={false}>
           {code}
         </CodeBlock>
