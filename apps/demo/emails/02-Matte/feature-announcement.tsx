@@ -108,7 +108,7 @@ export const FeatureAnnouncementEmail = ({
                   />
                 </Section>
 
-                <Section className="px-10 pt-20 pb-14 text-left">
+                <Section className="mobile:px-6! mobile:pt-10 px-10 pt-20 pb-14 text-left">
                   <Section className="mb-9 text-left">
                     <Text className="font-48 text-fg m-0 font-sans">
                       Meet your next favorite feature
@@ -133,7 +133,7 @@ export const FeatureAnnouncementEmail = ({
                   </Section>
                 </Section>
 
-                <Section className="px-10 pt-4 pb-16 text-left">
+                <Section className="mobile:px-6! px-10 pt-4 pb-16 text-left">
                   <Section className="mb-12 text-left">
                     <Text className="font-15 font-inter text-fg m-0">
                       {featureLead.title}
@@ -180,7 +180,7 @@ export const FeatureAnnouncementEmail = ({
                   ))}
                 </Section>
 
-                <Section className="bg-bg-2 px-6 py-20">
+                <Section className="bg-bg-2 mobile:px-0! px-4 mobile:py-16! py-20">
                   <Section className="px-6">
                     <Text className="font-48 text-fg m-0 max-w-[400px] font-sans">
                       Built from real feedback

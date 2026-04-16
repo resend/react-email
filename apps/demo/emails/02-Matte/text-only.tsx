@@ -39,7 +39,7 @@ export const TextOnlyEmail = ({ companyName, url }: TextOnlyEmailProps) => {
           <Container className="mx-auto max-w-[640px] px-4 pt-16 pb-6">
             <Section className="rounded-[8px] shadow-collage-card">
               <Section className="bg-bg border-stroke rounded-[8px] border">
-                <Section className="px-10 pb-14 pt-16">
+                <Section className="mobile:px-6! px-10 pb-14 pt-16">
                   <Text className="font-48 text-fg m-0 font-sans">
                     A note from us
                   </Text>
