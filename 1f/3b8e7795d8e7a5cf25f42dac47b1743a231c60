@@ -1,0 +1,97 @@
+apps/web/src/app/editor/examples/email-export/example.tsx
+  0897733fcad27620 81
+apps/web/src/app/editor/examples/column-layouts/example.tsx
+  0897733fcad27620 101
+apps/web/src/app/editor/examples/inspector-composed/example.tsx
+  0897733fcad27620 29
+apps/web/src/app/editor/examples/email-theming/page.tsx
+  0897733fcad27620 7,19
+apps/web/src/app/editor/examples/email-export/page.tsx
+  0897733fcad27620 7,19
+apps/web/src/app/editor/examples/column-layouts/page.tsx
+  0897733fcad27620 7,18
+apps/web/src/app/editor/examples/email-theming/example.tsx
+  0897733fcad27620 60
+apps/web/src/app/editor/examples/standalone-editor-full/page.tsx
+  0897733fcad27620 7,19
+apps/web/src/app/editor/examples/full-email-builder/page.tsx
+  0897733fcad27620 7,19
+apps/web/src/app/editor/examples/image-upload/example.tsx
+  0897733fcad27620 151
+apps/web/src/app/editor/examples/inspector-custom/example.tsx
+  0897733fcad27620 29
+apps/web/src/app/editor/examples/standalone-editor/page.tsx
+  0897733fcad27620 7,18
+apps/web/src/app/editor/examples/standalone-editor/example.tsx
+  0897733fcad27620 24
+apps/web/src/app/editor/examples/standalone-editor-inspector/page.tsx
+  0897733fcad27620 7,18
+apps/web/src/app/editor/examples/buttons/page.tsx
+  0897733fcad27620 7
+apps/web/src/app/editor/examples/inspector-custom/page.tsx
+  0897733fcad27620 7,19
+apps/web/src/app/editor/examples/example-page-shell.tsx
+  0897733fcad27620 25-30,33-38,60,63-69,72-75
+apps/web/src/app/editor/examples/full-email-builder/example.tsx
+  0897733fcad27620 118
+apps/web/src/app/editor/examples/slash-commands/page.tsx
+  0897733fcad27620 7,19
+apps/web/src/app/editor/examples/slash-commands/example.tsx
+  0897733fcad27620 64
+apps/web/src/app/editor/examples/custom-bubble-menu/example.tsx
+  0897733fcad27620 28
+apps/web/src/app/editor/examples/custom-extensions/example.tsx
+  0897733fcad27620 106
+apps/web/src/app/editor/examples/image-upload/page.tsx
+  0897733fcad27620 7,19
+apps/web/src/app/editor/examples/custom-extensions/page.tsx
+  0897733fcad27620 7,19
+apps/web/src/app/editor/examples/inspector-defaults/page.tsx
+  0897733fcad27620 7,19
+apps/web/src/app/editor/examples/link-editing/example.tsx
+  0897733fcad27620 18
+apps/web/src/app/editor/examples/bubble-menu/example.tsx
+  0897733fcad27620 32
+apps/web/src/app/editor/examples/standalone-editor-inspector/example.tsx
+  0897733fcad27620 18
+apps/web/src/app/editor/examples/example-tabbed-content.tsx
+  0897733fcad27620 8,11,20,31,33-38,56-72
+apps/web/src/app/editor/examples/basic-editor/example.tsx
+  0897733fcad27620 36
+apps/web/src/app/editor/examples/standalone-editor-full/example.tsx
+  0897733fcad27620 45
+apps/web/src/app/editor/examples/bubble-menu/page.tsx
+  0897733fcad27620 7,19
+apps/web/src/app/editor/examples/inspector-defaults/example.tsx
+  0897733fcad27620 30
+apps/web/src/app/editor/examples/example-shell.tsx
+  0897733fcad27620 3-6,18-19,22-27
+apps/web/src/app/editor/examples/link-editing/page.tsx
+  0897733fcad27620 7,19
+apps/web/src/app/editor/examples/custom-bubble-menu/page.tsx
+  0897733fcad27620 7,18
+apps/web/src/app/editor/examples/basic-editor/page.tsx
+  0897733fcad27620 7,18
+apps/web/src/app/editor/examples/inspector-composed/page.tsx
+  0897733fcad27620 7,19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "1f3b8e7795d8e7a5cf25f42dac47b1743a231c60",
+  "prompts": {
+    "0897733fcad27620": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7bf0a8a8-ab75-4f2c-9738-d0702f42e297",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 2939,
+      "total_deletions": 2901,
+      "accepted_lines": 117,
+      "overriden_lines": 0
+    }
+  }
+}
