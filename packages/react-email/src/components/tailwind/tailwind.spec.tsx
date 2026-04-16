@@ -49,13 +49,15 @@ describe('Tailwind component', () => {
       <head>
         <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
         <meta name="x-apple-disable-message-reformatting" />
-        <!--$-->
         <style>
           .md_p-4{@media (width>=48rem){padding:1rem!important}}
         </style>
       </head>
       <body>
-        <button type="button" class="bg-blue-600 md_p-4">Click me</button
+        <!--$--><!--head--><!--body--><button
+          type="button"
+          class="bg-blue-600 md_p-4">
+          Click me</button
         ><!--/$-->
       </body>
       "
@@ -138,7 +140,7 @@ describe('Tailwind component', () => {
       </Html>,
     );
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head></head><!--$--><body><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a class="other" href="https://react.email" style="color:rgb(21,93,252);text-decoration-line:none" target="_blank">https://react.email</a></p><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a href="https://react.email" style="color:rgb(21,93,252);text-decoration-line:none" target="_blank">https://react.email</a></p><!--/$--></body></html>"`,
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head></head><body><!--$--><!--html--><!--body--><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a class="other" href="https://react.email" style="color:rgb(21,93,252);text-decoration-line:none" target="_blank">https://react.email</a></p><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a href="https://react.email" style="color:rgb(21,93,252);text-decoration-line:none" target="_blank">https://react.email</a></p><!--/$--></body></html>"`,
     );
   });
 
@@ -350,11 +352,10 @@ describe('Tailwind component', () => {
         <head>
           <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
           <meta name="x-apple-disable-message-reformatting" />
-          <!--$-->
           <style>
             .sm_bg-red-50{@media (width>=40rem){background-color:rgb(254,242,242)!important}}.sm_text-sm{@media (width>=40rem){font-size:0.875rem!important;line-height:1.4285714285714286!important}}.md_text-lg{@media (width>=48rem){font-size:1.125rem!important;line-height:1.5555555555555556!important}}
           </style></head
-        ><span
+        ><!--$--><!--html--><!--head--><span
           ><!--[if mso]><i style="letter-spacing: 10px;mso-font-width:-100%;" hidden>&nbsp;</i><![endif]--></span
         >
         <div
@@ -390,7 +391,7 @@ describe('Tailwind component', () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><!--$--><style>.text-body{@media (prefers-color-scheme:dark){color:orange!important}}</style></head><body class="text-body"><table border="0" width="100%" cellPadding="0" cellSpacing="0" role="presentation" align="center"><tbody><tr><td style="color:green">this is the body</td></tr></tbody></table><!--/$--></body></html>"`,
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><style>.text-body{@media (prefers-color-scheme:dark){color:orange!important}}</style></head><body class="text-body"><!--$--><!--html--><!--head--><!--body--><table border="0" width="100%" cellPadding="0" cellSpacing="0" role="presentation" align="center"><tbody><tr><td style="color:green">this is the body</td></tr></tbody></table><!--/$--></body></html>"`,
     );
   });
 
@@ -423,11 +424,10 @@ describe('Tailwind component', () => {
         <head>
           <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
           <meta name="x-apple-disable-message-reformatting" />
-          <!--$-->
           <style>
             .xl_bg-green-500{@media (width>=1280px){background-color:rgb(0,201,80)!important}}.twoxl_bg-blue-500{@media (width>=1536px){background-color:rgb(43,127,255)!important}}
-          </style>
-        </head>
+          </style></head
+        ><!--$--><!--html--><!--head-->
         <div class="xl_bg-green-500" style="background-color:rgb(255,226,226)">
           Test
         </div>
@@ -451,11 +451,10 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchInlineSnapshot(`
       "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <head>
-        <!--$-->
         <style>
           .lg_max-h-calc50pxplus5rem{@media (width>=64rem){max-height:calc(50px + 5rem)!important}}
-        </style>
-      </head>
+        </style></head
+      ><!--$--><!--head-->
       <div
         class="lg_max-h-calc50pxplus5rem"
         style="max-height:calc(50px + 3rem);background-color:rgb(255,226,226)">
@@ -494,12 +493,12 @@ describe('Tailwind component', () => {
         "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <html lang="en">
           <head>
-            <!--$-->
             <style>
               .sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,162,162)!important}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,100,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(251,44,54)!important}}
             </style>
           </head>
           <body>
+            <!--$--><!--html--><!--head--><!--body-->
             <div
               class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500"
               style="background-color:rgb(255,201,201)"></div>
@@ -525,7 +524,7 @@ describe('Tailwind component', () => {
           </Tailwind>,
         ),
       ).toMatchInlineSnapshot(
-        `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><!--$--><style>.sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,162,162)!important}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,100,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(251,44,54)!important}}</style></head><body><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(255,201,201)"></div><!--/$--></body></html>"`,
+        `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><style>.sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,162,162)!important}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,100,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(251,44,54)!important}}</style></head><body><!--$--><!--html--><!--head--><!--body--><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(255,201,201)"></div><!--/$--></body></html>"`,
       );
     });
 
@@ -558,12 +557,12 @@ describe('Tailwind component', () => {
         "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <html lang="en">
           <head>
-            <!--$-->
             <style>
               .text-body{@media (width>=40rem){color:darkgreen!important}}
             </style>
           </head>
           <body>
+            <!--$--><!--html--><!--head--><!--body-->
             <div class="text-body" style="color:green"></div>
             <!--/$-->
           </body>
@@ -588,12 +587,12 @@ describe('Tailwind component', () => {
         "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <html lang="en">
           <head>
-            <!--$-->
             <style>
               .hover_bg-red-600{&:hover{@media (hover:hover){background-color:rgb(231,0,11)!important}}}.focus_bg-red-700{&:focus{background-color:rgb(193,0,7)!important}}.sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,162,162)!important}}.sm_hover_bg-red-200{@media (width>=40rem){&:hover{@media (hover:hover){background-color:rgb(255,201,201)!important}}}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,100,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(251,44,54)!important}}
             </style>
           </head>
           <body>
+            <!--$--><!--html--><!--head--><!--body-->
             <div
               class="hover_bg-red-600 focus_bg-red-700 sm_bg-red-300 sm_hover_bg-red-200 md_bg-red-400 lg_bg-red-500"
               style="background-color:rgb(255,201,201)"></div>
@@ -659,11 +658,10 @@ describe('Tailwind component', () => {
         <head>
           <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
           <meta name="x-apple-disable-message-reformatting" />
-          <!--$-->
           <style>
             .max-sm_text-red-600{@media (width<40rem){color:rgb(231,0,11)!important}}
-          </style>
-        </head>
+          </style></head
+        ><!--$--><!--head-->
         <p class="max-sm_text-red-600" style="color:rgb(20,71,230)">I am some text</p>
         <!--/$-->
         "
@@ -703,7 +701,6 @@ describe('Tailwind component', () => {
         "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <html lang="en">
           <head>
-            <!--$-->
             <style>
               .sm_bg-red-500{@media (width>=40rem){background-color:rgb(251,44,54)!important}}
             </style>
@@ -711,6 +708,7 @@ describe('Tailwind component', () => {
             <link />
           </head>
           <body>
+            <!--$--><!--html--><!--head--><!--body-->
             <div class="sm_bg-red-500" style="background-color:rgb(255,201,201)"></div>
             <!--/$-->
           </body>
@@ -924,12 +922,12 @@ describe('Tailwind component', () => {
         "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <html lang="en">
           <head>
-            <!--$-->
             <style>
               .sm_border-custom{@media (width>=40rem){border:2px solid!important}}
             </style>
           </head>
           <body>
+            <!--$--><!--html--><!--head--><!--body-->
             <div class="sm_border-custom" style="border:2px solid"></div>
             <!--/$-->
           </body>
