@@ -60,6 +60,7 @@
 
 .dark {
   --re-bg: #1c1c1c;
+  --re-bg-active: #2e2e2e;
   --re-border: #2e2e2e;
   --re-text: #ececec;
   --re-text-muted: #a0a0a0;
