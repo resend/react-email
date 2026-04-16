@@ -37,7 +37,9 @@ export function ExampleTabbedContent({
             {title}
           </h2>
         )}
-        <Tabs.List className="relative flex w-fit items-center overflow-hidden p-1 text-xs">
+        <Tabs.List
+          className={`relative flex w-fit items-center overflow-hidden p-1 text-xs ${!title ? 'ml-auto' : ''}`}
+        >
           <TabTrigger
             activeView={activeView}
             layoutId="example-view"
