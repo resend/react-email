@@ -10,6 +10,7 @@ import {
   type Ref,
   useEffect,
   useImperativeHandle,
+  useLayoutEffect,
   useMemo,
   useRef,
 } from 'react';
@@ -34,7 +35,7 @@ export interface EmailEditorRef {
 export interface EmailEditorProps {
   content?: Content;
   onUpdate?: (ref: EmailEditorRef) => void;
-  onReady?: (editor: Editor) => void;
+  onReady?: (ref: EmailEditorRef) => void;
   theme?: 'basic' | 'minimal';
   editable?: boolean;
   placeholder?: string;
@@ -98,6 +99,21 @@ function RefBridge({
   return null;
 }
 
+function EmailEditorReadyBridge({
+  onReadyRef,
+}: {
+  onReadyRef: React.RefObject<((ref: EmailEditorRef) => void) | undefined>;
+}) {
+  const { editor } = useCurrentEditor();
+
+  useLayoutEffect(() => {
+    if (!editor) return;
+    onReadyRef.current?.(buildRef(editor));
+  }, [editor, onReadyRef]);
+
+  return null;
+}
+
 export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
   (
     {
@@ -117,6 +133,9 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
   ) => {
     const onUpdateRef = useRef(onUpdate);
     onUpdateRef.current = onUpdate;
+
+    const onReadyRef = useRef(onReady);
+    onReadyRef.current = onReady;
 
     const imageExtension = useMemo(() => {
       if (!onUploadImage) return null;
@@ -164,9 +183,9 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
         immediatelyRender={false}
         editorProps={editorProps}
         editorContainerProps={{ className }}
-        onCreate={({ editor }) => onReady?.(editor)}
       >
         <RefBridge editorRef={ref} onUpdateRef={onUpdateRef} />
+        <EmailEditorReadyBridge onReadyRef={onReadyRef} />
         <BubbleMenu
           hideWhenActiveNodes={bubbleMenu?.hideWhenActiveNodes ?? ['button']}
           hideWhenActiveMarks={bubbleMenu?.hideWhenActiveMarks ?? ['link']}
