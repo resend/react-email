@@ -1,0 +1,135 @@
+apps/web/src/app/editor/examples/page.tsx
+  bf9385a2124245ed 1,3,5-6,11,13-16,18,25,27,30,35-36,42-43,49-50,52,207,213-230,232-233,235,238-249,251-296,298-302
+apps/web/src/illustrations/editor-examples/email-theming.tsx
+  bf9385a2124245ed 1-6
+packages/create-email/template/package.json
+  bf9385a2124245ed 12-13,17
+apps/web/src/illustrations/editor-examples/image-upload.tsx
+  bf9385a2124245ed 1-6
+renovate.json
+  bf9385a2124245ed 5-8
+pnpm-workspace.yaml
+  bf9385a2124245ed 24-25,27,29,35,37-38
+.changeset/vast-pigs-shine.md
+  bf9385a2124245ed 1-5
+apps/web/src/components/sections/primitives.tsx
+  bf9385a2124245ed 7-8
+apps/web/src/illustrations/editor-examples/inspector-composed.tsx
+  bf9385a2124245ed 1-6
+.changeset/better-coins-fetch.md
+  bf9385a2124245ed 1-5
+apps/web/src/components/copy-code.tsx
+  bf9385a2124245ed 38
+apps/web/src/components/sections/playground/index.tsx
+  bf9385a2124245ed 30,58,77
+packages/editor/src/extensions/table.tsx
+  bf9385a2124245ed 3,94,96-101,107-108
+packages/ui/package.json
+  bf9385a2124245ed 3,36
+package.json
+  bf9385a2124245ed 21,67-68
+apps/web/src/illustrations/editor-examples/basic-editor.tsx
+  bf9385a2124245ed 1-28
+packages/react-email/src/components/html/html.spec.tsx
+  bf9385a2124245ed 23
+apps/web/src/components/sections/playground/code-preview.tsx
+  bf9385a2124245ed 61
+apps/web/src/illustrations/editor-examples/one-line-editor.tsx
+  bf9385a2124245ed 1-21
+apps/web/src/illustrations/editor-examples/full-email-builder.tsx
+  bf9385a2124245ed 1-6
+apps/web/src/illustrations/editor-examples/inspector-defaults.tsx
+  bf9385a2124245ed 1-6
+apps/web/src/illustrations/editor-examples/custom-extensions.tsx
+  bf9385a2124245ed 1-6
+packages/editor/src/email-editor/email-editor.tsx
+  bf9385a2124245ed 13,25,38,102-116,137-139,147-160,188
+.changeset/pre.json
+  bf9385a2124245ed 21,26-28,31,38
+apps/web/src/illustrations/editor-examples/buttons.tsx
+  bf9385a2124245ed 1-6
+packages/editor/src/extensions/table.spec.tsx
+  bf9385a2124245ed 74-119
+apps/web/src/illustrations/editor-examples/column-layouts.tsx
+  bf9385a2124245ed 1-6
+apps/web/src/illustrations/editor-examples/illustration-shared.ts
+  bf9385a2124245ed 1-46
+.changeset/funny-pears-listen.md
+  bf9385a2124245ed 1-5
+packages/react-email/src/cli/commands/testing/export.spec.ts
+  bf9385a2124245ed 30
+apps/web/src/illustrations/editor-examples/inspector-custom.tsx
+  bf9385a2124245ed 1-6
+packages/react-email/src/components/body/body.spec.tsx
+  bf9385a2124245ed 26
+apps/web/src/illustrations/editor-examples/one-line-editor-full.tsx
+  bf9385a2124245ed 1-36
+packages/react-email/src/components/tailwind/e2e/nextjs/package.json
+  bf9385a2124245ed 20
+apps/web/src/app/api/check-spam/check-spam.spec.tsx
+  bf9385a2124245ed 57-63,65
+apps/web/src/components/sections/patterns.tsx
+  bf9385a2124245ed 14-15
+apps/web/tailwind.config.js
+  bf9385a2124245ed 31-44,59-85
+packages/editor/package.json
+  bf9385a2124245ed 3,149
+apps/web/src/illustrations/editor-examples/custom-bubble-menu.tsx
+  bf9385a2124245ed 1-6
+apps/web/src/illustrations/editor-examples/slash-commands.tsx
+  bf9385a2124245ed 1-6
+packages/react-email/package.json
+  bf9385a2124245ed 3,47
+.changeset/fix-table-nesting.md
+  bf9385a2124245ed 1-5
+packages/react-email/src/components/head/head.spec.tsx
+  bf9385a2124245ed 14,29,31
+apps/web/src/components/sections/editor.css
+  bf9385a2124245ed 1-12
+apps/web/src/illustrations/editor-examples/link-editing.tsx
+  bf9385a2124245ed 1-6
+packages/react-email/src/components/tailwind/tailwind.spec.tsx
+  bf9385a2124245ed 57-60,143,358,394,429-430,456-457,501,527,565,595,663-664,711,930
+packages/ui/src/utils/get-email-component.spec.ts
+  bf9385a2124245ed 40
+apps/web/src/illustrations/editor-examples/illustration-placeholder.tsx
+  bf9385a2124245ed 1-21
+packages/editor/src/extensions/container.spec.tsx
+  bf9385a2124245ed 277,1384,1497,1578
+apps/web/src/components/sections/editor-toolbar.tsx
+  bf9385a2124245ed 1-411
+packages/ui/src/components/send.tsx
+  bf9385a2124245ed 114,128
+apps/web/src/illustrations/editor-examples/bubble-menu.tsx
+  bf9385a2124245ed 1-23
+apps/web/src/components/sections/integration.tsx
+  bf9385a2124245ed 16
+apps/web/src/app/page.tsx
+  bf9385a2124245ed 2,20
+apps/web/src/components/sections/editor.tsx
+  bf9385a2124245ed 1-302
+apps/web/src/illustrations/editor-examples/one-line-editor-inspector.tsx
+  bf9385a2124245ed 1-25
+apps/web/src/illustrations/editor-examples/email-export.tsx
+  bf9385a2124245ed 1-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "730c070f5e7bdc29f58e6c5c1f2ba179a70d50a6",
+  "prompts": {
+    "bf9385a2124245ed": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "924a2a0f-1622-42b4-ac85-5ecd42b4e8c8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 6969,
+      "total_deletions": 1186,
+      "accepted_lines": 6970,
+      "overriden_lines": 0
+    }
+  }
+}
