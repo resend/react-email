@@ -6,6 +6,50 @@ description: "New features, bug fixes, and improvements made to each package."
 icon: "list-check"
 ---
 
+## April 16, 2026
+
+**React Email 6.0.0**
+
+- all components (previously in `@react-email/components` or individual packages like `@react-email/button`) and rendering utilities (previously in `@react-email/render`) are now exported directly from `react-email`, unifying the install and import experience into a single package
+- replace deprecated `url.parse()` with WHATWG URL API in the preview dev server
+- Updated dependencies
+    - @react-email/render@2.0.7
+
+**UI 6.0.0**
+
+- rename `@react-email/preview-server` to `@react-email/ui`
+- copy toolbar insights for AI
+- remove extra margin from sending button
+
+**Render 2.0.7**
+
+- fix export map ordering between convex and node
+
+**Editor 1.0.0**
+
+- avoid injecting undefined css values
+- add `getEmailHTML()` and `getEmailText()` to `EmailEditorRef`, remove `getHTML()`, rename `onChange` to `onUpdate`
+- add placeholder style
+- add `onUploadImage` prop to `EmailEditor` and merge image paste/drop handlers into a single plugin
+- don't add an extra focus scope provider if there's already one above `Inspector.Root`
+- add trailing nodes for columns and sections
+- new `ThemeConfig` API for custom theming
+- add `children` prop to `EmailEditor` for composing UI like the Inspector sidebar inside the editor context
+- render Table as a native `<table>` instead of `Section` to fix invalid `<tr>` inside `<td>` nesting in email output
+- align `EmailEditor`'s `onReady` callback with `onUpdate` so it receives `EmailEditorRef`
+- `InspectorBreadcrumbSegment.node` is now always a `FocusedNode`; exports `getNodeMeta` for custom breadcrumb label/icon mapping
+- collapse `SlashCommand.Root` into `SlashCommand` and stop exporting internal `CommandList`/`CommandListProps`
+- remove placeholder from starter kit, keep it in standalone editor
+- improved default for inspector
+- fix color pickers closing and not letting drag happen in root node
+- remove line height from default inbox styles
+- Updated dependencies
+    - react-email@6.0.0
+
+**Create Email 1.2.4**
+
+- use the new `@react-email/ui`
+
 ## April 9, 2026
 
 **Render 2.0.6**
