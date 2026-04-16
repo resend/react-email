@@ -34,8 +34,8 @@ catalog:
   ora: ^8.0.0
   postcss: 8.5.10
   prism-react-renderer: 2.4.1
-  react: 19.2.4
-  react-dom: 19.2.4
+  react: 19.2.5
+  react-dom: 19.2.5
   resend: 6.4.0
   sonner: 2.0.7
   '@tailwindcss/postcss': ^4.1.18
