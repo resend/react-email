@@ -338,10 +338,12 @@ export const EmailTheming = Extension.create<{
               if (isThemeConfig(extensionTheme)) {
                 const { baseTheme, panels } =
                   resolveThemeConfig(extensionTheme);
-                if (panels) {
+                if (panels && !getGlobalContent('styles', editor)) {
                   editor.commands.setGlobalContent('styles', panels);
                 }
-                editor.commands.setGlobalContent('theme', baseTheme);
+                if (!getGlobalContent('theme', editor)) {
+                  editor.commands.setGlobalContent('theme', baseTheme);
+                }
               }
             }
 
