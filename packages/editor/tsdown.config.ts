@@ -12,7 +12,7 @@ export default defineConfig({
   format: ['esm', 'cjs'],
   dts: true,
   deps: {
-    neverBundle: ['react', 'react-dom']
+    neverBundle: ['react', 'react-dom'],
   },
   onSuccess: 'pnpm build:css',
 });
