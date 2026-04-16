@@ -44,7 +44,7 @@
     "chokidar": "^4.0.3",
     "commander": "catalog:",
     "conf": "^15.0.2",
-    "css-tree": "3.1.0",
+    "css-tree": "3.2.1",
     "debounce": "^2.0.0",
     "esbuild": "catalog:",
     "glob": "^13.0.6",
