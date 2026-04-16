@@ -1,6 +1,5 @@
 'use client';
 
-import classNames from 'classnames';
 import { createContext, useContext } from 'react';
 
 export const ExamplePageContext = createContext(false);
@@ -26,11 +25,7 @@ export function ExampleShell({
           <p className="text-sm text-slate-11 mb-4">{description}</p>
         </>
       )}
-      <div
-        className={classNames('example-shell-content p-4 flex-1', {
-          'border border-slate-4 rounded-xl': !hideHeader,
-        })}
-      >
+      <div className="example-shell-content border border-slate-4 rounded-xl p-4 flex-1">
         {children}
       </div>
     </div>
