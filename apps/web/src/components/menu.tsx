@@ -19,9 +19,12 @@ function MenuItem({ children, className, href, onClick }: MenuItemProps) {
   const pathname = usePathname();
   const normalizedPathname = pathname?.replace(/\/$/, '') ?? '';
   const normalizedHref = href.replace(/\/$/, '');
+  const sectionHref = normalizedHref.startsWith('/')
+    ? `/${normalizedHref.split('/')[1] ?? ''}`
+    : normalizedHref;
   const isActive =
-    normalizedPathname === normalizedHref ||
-    normalizedPathname.startsWith(`${normalizedHref}/`);
+    normalizedPathname === sectionHref ||
+    normalizedPathname.startsWith(`${sectionHref}/`);
 
   return (
     <TabButton
