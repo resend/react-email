@@ -204,8 +204,8 @@ export default function EditorExamplesPage() {
           {sections.map((section) =>
             section.examples.map((example) => {
               const sectionIcon = {
-                'Standalone Editor': Bolt,
-                'Getting Started': Rocket,
+                'Standalone editor': Bolt,
+                'Getting started': Rocket,
                 Intermediate: Layers2,
                 Advanced: Cpu,
               }[section.title];
@@ -269,8 +269,8 @@ export default function EditorExamplesPage() {
                         <span
                           className={`mb-3.5 -ml-0.5 inline-flex w-fit items-center gap-1.5 rounded-full px-2 py-1.5 pr-2.5 text-xs ${
                             {
-                              'Standalone Editor': 'bg-cyan-3 text-cyan-11',
-                              'Getting Started': 'bg-green-3 text-green-11',
+                              'Standalone editor': 'bg-cyan-3 text-cyan-11',
+                              'Getting started': 'bg-green-3 text-green-11',
                               Intermediate: 'bg-amber-3 text-amber-11',
                               Advanced: 'bg-purple-3 text-purple-11',
                             }[section.title] ?? 'bg-slate-3 text-slate-11'
