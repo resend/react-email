@@ -1,5 +1,5 @@
 import { Editor } from '@tiptap/core';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import { StarterKit } from '../../extensions';
 import { EmailTheming } from '../../plugins';
 import { computePathFromRoot, type FocusedNode } from './root';
@@ -10,11 +10,19 @@ const BODY: FocusedNode = {
   nodePos: { pos: 0, inside: 0 },
 };
 
+let editor: Editor | null = null;
+
+afterEach(() => {
+  editor?.destroy();
+  editor = null;
+});
+
 function createEditor(content: unknown) {
-  return new Editor({
+  editor = new Editor({
     extensions: [StarterKit, EmailTheming],
     content: content as string,
   });
+  return editor;
 }
 
 function findNodePos(editor: Editor, nodeType: string): number {
