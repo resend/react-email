@@ -34,7 +34,7 @@ export interface EmailEditorRef {
 export interface EmailEditorProps {
   content?: Content;
   onUpdate?: (ref: EmailEditorRef) => void;
-  onReady?: (ref: EmailEditorRef, editorContainer: HTMLDivElement) => void;
+  onReady?: (ref: EmailEditorRef) => void;
   theme?: 'basic' | 'minimal';
   editable?: boolean;
   placeholder?: string;
@@ -101,19 +101,13 @@ function RefBridge({
 function EmailEditorReadyBridge({
   onReadyRef,
 }: {
-  onReadyRef: React.RefObject<
-    ((ref: EmailEditorRef, editorContainer: HTMLDivElement) => void) | undefined
-  >;
+  onReadyRef: React.RefObject<((ref: EmailEditorRef) => void) | undefined>;
 }) {
   const { editor } = useCurrentEditor();
 
   useLayoutEffect(() => {
     if (!editor) return;
-
-    const wrapper = editor.view.dom.parentElement;
-    if (!wrapper || !(wrapper instanceof HTMLDivElement)) return;
-
-    onReadyRef.current?.(buildRef(editor), wrapper);
+    onReadyRef.current?.(buildRef(editor));
   }, [editor, onReadyRef]);
 
   return null;

@@ -1,7 +1,6 @@
 'use client';
 
 import { EmailEditor } from '@react-email/editor';
-import { composeReactEmail } from '@react-email/editor/core';
 import { ArrowRightIcon, SendHorizonal, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -61,9 +60,7 @@ export const EditorHomepage = () => {
           content={INITIAL_CONTENT}
           className="flex-1 overflow-auto px-6 w-full [&>div]:w-full [&_div]:outline-none"
           onReady={async (ref) => {
-            const editor = ref.editor;
-            if (!editor) return;
-            const { html } = await composeReactEmail({ editor });
+            const html = await ref.getEmailHTML();
             setHtml(html);
           }}
           onUpdate={async (editor) => {
