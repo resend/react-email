@@ -13,7 +13,7 @@ permissions:
   pull-requests: read
 jobs:
   e2e:
-    runs-on: depot-ubuntu-22.04-32
+    runs-on: ubuntu-latest
     container:
       image: node:22
     steps:
