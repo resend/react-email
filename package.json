@@ -34,6 +34,7 @@
     "rollup": "4.59.0",
     "tsconfig": "workspace:*",
     "tsdown": "catalog:",
+    "@tsdown/css": "catalog:",
     "tsx": "catalog:",
     "turbo": "2.8.13",
     "typescript": "catalog:",
