@@ -2,8 +2,10 @@
 
 import { EmailEditor } from '@react-email/editor';
 import { composeReactEmail } from '@react-email/editor/core';
-import { SendHorizonal, X } from 'lucide-react';
+import { ArrowRightIcon, SendHorizonal, X } from 'lucide-react';
+import Link from 'next/link';
 import * as React from 'react';
+import { Button } from '../button';
 import { CodeBlock } from '../code-block';
 import { Heading } from '../heading';
 import { Text } from '../text';
@@ -16,21 +18,55 @@ export const EditorHomepage = () => {
   const [subject, setSubject] = React.useState(
     'I hope this email finds you well',
   );
+  const focusEditor = React.useRef<(() => void) | null>(null);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && window.innerWidth >= 768) {
+          focusEditor.current?.();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5 },
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="relative py-10 pb-80 space-y-16 sm:space-y-24">
       <div className="space-y-6 pt-20">
         <Heading as="h2" size="8" weight="medium" className="text-white/80">
-          Plug'n Play Email Editor
+          Don't build it, ship it
         </Heading>
 
         <Text size="5" className="block max-w-[400px] text-balance opacity-70">
-          A visual editor you can embed directly in your app to compose
-          email templates.
+          Let your users design beautiful emails without leaving your product.
         </Text>
+
+        <div className="flex items-center gap-3">
+          <Button asChild size="3">
+            <Link href="/docs/editor/overview">
+              React Email Editor
+              <ArrowRightIcon size={14} />
+            </Link>
+          </Button>
+          <Button asChild size="3" appearance="gradient">
+            <Link href="/editor/examples">See examples</Link>
+          </Button>
+        </div>
       </div>
 
-      <div className="w-4/6 bg-white z-20 relative border border-slate-4 grow rounded-2xl sm:rounded-3xl overflow-hidden [overflow-anchor:none] -order-1 md:order-0 flex flex-col">
+      <div
+        ref={containerRef}
+        className="w-4/6 bg-white aspect-video z-20 relative border border-slate-4 grow rounded-2xl sm:rounded-3xl overflow-hidden [overflow-anchor:none] -order-1 md:order-0 flex flex-col"
+      >
         <div
           aria-hidden="true"
           class="absolute top-0 right-0 h-px w-96 bg-linear-to-l from-transparent via-cyan-12/30 via-50% to-transparent"
@@ -39,6 +75,9 @@ export const EditorHomepage = () => {
         <EmailEditor
           content={INITIAL_CONTENT}
           className="flex-1 overflow-auto px-6 w-full [&>div]:w-full [&_div]:outline-none"
+          onReady={(editor) => {
+            focusEditor.current = () => editor.commands.focus('end');
+          }}
           onChange={async (editor) => {
             const { html } = await composeReactEmail({ editor });
             setHtml(html);
@@ -60,54 +99,20 @@ export const EditorHomepage = () => {
             <X size={14} />
           </div>
 
-          <div className="shrink-0 flex items-center justify-end px-6 py-4">
-            <div className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-400">
-              Send
-              <SendHorizonal size={14} />
-            </div>
+          <div className="absolute right-3 bottom-3 pointer-events-none inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-400">
+            Send
+            <SendHorizonal size={14} />
           </div>
         </EmailEditor>
       </div>
 
-      <div className="overflow-hidden absolute right-10 top-0 h-full z-10 w-1/2 [-mask-image:linear-gradient(to_bottom,black_50%,transparent)]">
-        <CodeBlock
-          children={html}
-          codeClassName="w-fit text-xs opacity-60"
-          language="tsx"
-          isGradientLine={false}
-        />
-
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute z-40 top-1/2 inset-0"
-        >
-          <div
-            className="absolute inset-0 backdrop-blur-sm"
-            style={{
-              mask: 'linear-gradient(to top, black, transparent 30%)',
-              WebkitMask: 'linear-gradient(to top, black, transparent 30%)',
-            }}
-          />
-          <div
-            className="absolute inset-0 backdrop-blur"
-            style={{
-              mask: 'linear-gradient(to top, black, transparent 50%)',
-              WebkitMask: 'linear-gradient(to top, black, transparent 50%)',
-            }}
-          />
-          <div
-            className="absolute inset-0 backdrop-blur-lg"
-            style={{
-              mask: 'linear-gradient(to top, black, transparent 70%)',
-              WebkitMask: 'linear-gradient(to top, black, transparent 70%)',
-            }}
-          />
-          <div
-            className="absolute inset-0 backdrop-blur-2xl"
-            style={{
-              mask: 'linear-gradient(to top, black, transparent 85%)',
-              WebkitMask: 'linear-gradient(to top, black, transparent 85%)',
-            }}
+      <div className="absolute right-10 -top-50 h-full z-10 w-1/2 ">
+        <div className="w-dvw h-full [mask-image:linear-gradient(to_bottom,transparent_10%,black_20%,black_80%,transparent)]">
+          <CodeBlock
+            children={html}
+            codeClassName="text-xs opacity-60 "
+            language="tsx"
+            isGradientLine={false}
           />
         </div>
       </div>

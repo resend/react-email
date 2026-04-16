@@ -5,7 +5,7 @@ import { Text } from '@/components/text';
 const PrimitivesSection = () => {
   return (
     <section className="relative my-20 space-y-16 max-md:px-6">
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-6">
         <Heading as="h2" size="8" weight="medium" className="text-white/80">
           Battle-tested Primitives
         </Heading>
