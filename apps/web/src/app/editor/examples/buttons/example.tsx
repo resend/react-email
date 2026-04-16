@@ -9,7 +9,7 @@ const extensions = [StarterKit];
 
 const content = `
   <p>Click the button below to see its bubble menu. You can edit the button link and text.</p>
-  <div class="align-left"><a class="node-button button" data-id="react-email-button" href="https://react.email">Click me</a></div>
+  <a class="button" data-id="react-email-button" href="https://react.email">Click me</a>
   <p>Use the slash command menu (type /) to insert more buttons.</p>
 `;
 

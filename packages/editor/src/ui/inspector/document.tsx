@@ -247,7 +247,7 @@ export function InspectorDocument({ children }: InspectorDocumentProps) {
     return propDef?.defaultValue ?? '';
   }
 
-  if (target !== 'doc') {
+  if (typeof target !== 'object' || target.nodeType !== 'body') {
     return null;
   }
 
