@@ -1,0 +1,23 @@
+apps/docs/editor/api-reference/theming-api.mdx
+  30a6dbae347700c0 44-63,66,70
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "eda95e731b46c5540fe3b456973ba31002b8a39b",
+  "prompts": {
+    "30a6dbae347700c0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3400a5c-4e95-4ecf-832c-73c26c8243f3",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 22,
+      "total_deletions": 2,
+      "accepted_lines": 22,
+      "overriden_lines": 0
+    }
+  }
+}
