@@ -116,6 +116,11 @@ module.exports = {
           '0%': { backgroundPosition: '0%' },
           '100%': { backgroundPosition: '110%' },
         },
+        shineTranslate: {
+          '0%': { transform: 'translate(-198%)' },
+          '50%': { transform: 'translate(198%)' },
+          '100%': { transform: 'translate(198%)' },
+        },
         dash: {
           '0%': { strokeDashoffset: 1000 },
           '100%': { strokeDashoffset: 0 },
