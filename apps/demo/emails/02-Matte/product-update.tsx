@@ -92,7 +92,7 @@ export const ProductUpdateEmail = ({
           <Preview>Your monthly {brand} product updates</Preview>
           <Container className="mx-auto max-w-[640px] px-4 pt-16 pb-6">
             <Section className="shadow-collage-card rounded-[8px]">
-              <Section className="bg-bg border-stroke rounded-[8px] border">
+              <Section className="bg-bg border-stroke rounded-[8px] border overflow-hidden">
                 <Section className="p-0">
                   <Img
                     src={`${baseUrl}/static/collage/collage-image-5.png`}
@@ -102,7 +102,7 @@ export const ProductUpdateEmail = ({
                   />
                 </Section>
 
-                <Section className="px-10 pt-20 pb-14 text-left">
+                <Section className="mobile:px-6! mobile:pt-10 px-10 pt-20 pb-14 text-left">
                   <Section className="mb-9 text-left">
                     <Text className="font-48 text-fg m-0 font-sans">
                       Monthly roundup
@@ -126,7 +126,7 @@ export const ProductUpdateEmail = ({
                   </Section>
                 </Section>
 
-                <Section className="px-10 pt-4 pb-16">
+                <Section className="mobile:px-6! px-10 pt-4 pb-16">
                   <Row>
                     {cards.slice(0, 2).map((card, idx) => (
                       <Column
@@ -166,7 +166,7 @@ export const ProductUpdateEmail = ({
                   </Row>
                 </Section>
 
-                <Section className="bg-bg-2 px-6 py-20">
+                <Section className="bg-bg-2 mobile:px-0! px-4 mobile:py-16! py-20">
                   <Section className="px-6">
                     <Text className="font-48 text-fg m-0 max-w-[400px] font-sans">
                       Something to be proud of
@@ -212,7 +212,7 @@ export const ProductUpdateEmail = ({
                   </Section>
                 </Section>
 
-                <Section className="px-10 pt-20 text-center">
+                <Section className="mobile:px-6! mobile:pt-10 px-10 pt-20 text-center">
                   <Text className="font-48 text-fg m-0 font-sans">
                     Jump back into {brand}
                   </Text>
