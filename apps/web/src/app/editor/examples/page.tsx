@@ -220,6 +220,13 @@ export default function EditorExamplesPage() {
                 Advanced: Cpu,
               }[section.title];
               const tone = sectionTitleToTone(section.title);
+              const hue = {
+                amber: 46,
+                cyan: 185,
+                green: 151,
+                purple: 272,
+                slate: 185,
+              }[tone];
               const illustrationComponent = dynamic<IllustrationProps>(() =>
                 import(`@/illustrations/editor-examples/${example.slug}`).catch(
                   () =>
@@ -235,7 +242,10 @@ export default function EditorExamplesPage() {
                     className="group relative isolate cursor-pointer overflow-hidden rounded-md scroll-m-6 focus:outline-hidden focus:ring-slate-2"
                     href={`/editor/examples/${example.slug}`}
                   >
-                    <Spotlight className="relative flex h-full w-full flex-col gap-4 bg-black">
+                    <Spotlight
+                      className="relative flex h-full w-full flex-col gap-4 bg-black"
+                      hue={hue}
+                    >
                       <div className="pointer-events-none absolute inset-0 rounded-md border border-slate-4 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover:border-slate-6 group-focus:border-slate-6" />
                       <div
                         className={`relative flex aspect-2/1 items-center justify-center overflow-hidden rounded-xs ${
