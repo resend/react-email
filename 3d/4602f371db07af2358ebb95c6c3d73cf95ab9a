@@ -1,0 +1,290 @@
+apps/web/src/app/editor/examples/standalone-editor/example.tsx
+  c8457dc7264a5792 24
+.changeset/theme-customization-api.md
+  c8457dc7264a5792 5
+apps/web/src/components/sections/patterns.tsx
+  c8457dc7264a5792 14-15
+turbo.json
+  c8457dc7264a5792 34-37
+apps/web/src/illustrations/editor-examples/image-upload.tsx
+  c8457dc7264a5792 1-6
+.changeset/funny-pears-listen.md
+  c8457dc7264a5792 1-5
+apps/docs/getting-started/updating-react-email.mdx
+  c8457dc7264a5792 15-16,19-21,23-25,28-44,47-49
+apps/web/src/app/editor/examples/custom-extensions/example.tsx
+  c8457dc7264a5792 106
+apps/web/src/app/editor/examples/inspector-composed/page.tsx
+  c8457dc7264a5792 3,7,13-15,19-20,22-23
+apps/web/src/illustrations/editor-examples/buttons.tsx
+  c8457dc7264a5792 1-6
+apps/web/src/app/editor/examples/custom-extensions/page.tsx
+  c8457dc7264a5792 3,7,13-15,19,21-22
+apps/web/src/app/editor/examples/page.tsx
+  c8457dc7264a5792 1,3,5-6,11,13-16,18,25,27,30,32,35-36,42-43,49-50,52,58,62,68,75,87,93,100,113,125,132,139,146,153,160,167,174,184,214,220-237,239-240,242,245-256,258-303,305-309
+apps/web/src/illustrations/editor-examples/one-line-editor-full.tsx
+  c8457dc7264a5792 1-36
+.changeset/vast-pigs-shine.md
+  c8457dc7264a5792 1-5
+apps/web/src/illustrations/editor-examples/inspector-defaults.tsx
+  c8457dc7264a5792 1-6
+packages/editor/src/ui/inspector/node.tsx
+  c8457dc7264a5792 55
+packages/editor/src/ui/inspector/root.tsx
+  c8457dc7264a5792 15-56,69,82,109,125,146,187-217,220-221,224,226-234,236-238,240-243,245,258
+packages/react-email/src/components/body/body.spec.tsx
+  c8457dc7264a5792 26
+packages/editor/package.json
+  c8457dc7264a5792 3,149
+packages/ui/src/utils/caniemail/tailwind/get-tailwind-metadata.spec.ts
+  c8457dc7264a5792 10
+pnpm-workspace.yaml
+  c8457dc7264a5792 24-25,27,29,35,37-38
+apps/web/src/app/page.tsx
+  c8457dc7264a5792 2,20
+packages/react-email/src/components/head/head.spec.tsx
+  c8457dc7264a5792 14,29,31
+packages/ui/package.json
+  c8457dc7264a5792 3,36
+apps/web/src/illustrations/editor-examples/inspector-composed.tsx
+  c8457dc7264a5792 1-6
+apps/web/src/app/editor/examples/standalone-editor/page.tsx
+  c8457dc7264a5792 3,7,12-14,18-19,21-22
+packages/ui/src/components/sidebar/file-tree-directory.tsx
+  c8457dc7264a5792 54
+apps/web/src/components/sections/playground/index.tsx
+  c8457dc7264a5792 30,58,77
+apps/web/src/components/sections/editor-toolbar.tsx
+  c8457dc7264a5792 1-411
+apps/web/src/components/sections/editor.css
+  c8457dc7264a5792 1-12
+apps/web/src/app/editor/examples/inspector-custom/page.tsx
+  c8457dc7264a5792 3,7,13-15,19-20,22-23
+apps/web/src/app/editor/examples/image-upload/example.tsx
+  c8457dc7264a5792 151
+apps/web/src/app/editor/examples/bubble-menu/example.tsx
+  c8457dc7264a5792 32
+apps/web/src/illustrations/editor-examples/column-layouts.tsx
+  c8457dc7264a5792 1-6
+packages/editor/src/extensions/table.tsx
+  c8457dc7264a5792 3,94,96-101,107-108
+packages/editor/src/ui/inspector/document.tsx
+  c8457dc7264a5792 250
+apps/web/src/illustrations/editor-examples/email-theming.tsx
+  c8457dc7264a5792 1-6
+apps/web/src/illustrations/editor-examples/one-line-editor.tsx
+  c8457dc7264a5792 1-21
+renovate.json
+  c8457dc7264a5792 5-8
+packages/editor/src/extensions/container.spec.tsx
+  c8457dc7264a5792 277,1384,1497,1578
+apps/web/src/app/editor/examples/get-example-source.ts
+  c8457dc7264a5792 1-14
+apps/web/src/illustrations/editor-examples/email-export.tsx
+  c8457dc7264a5792 1-6
+apps/web/src/app/editor/examples/slash-commands/example.tsx
+  c8457dc7264a5792 64
+packages/ui/src/components/send.tsx
+  c8457dc7264a5792 114,128
+apps/web/src/app/editor/examples/basic-editor/example.tsx
+  c8457dc7264a5792 36
+apps/web/src/illustrations/editor-examples/inspector-custom.tsx
+  c8457dc7264a5792 1-6
+apps/web/src/components/template-list.tsx
+  c8457dc7264a5792 1-203
+apps/web/src/app/editor/examples/full-email-builder/example.tsx
+  c8457dc7264a5792 28,49,118
+.changeset/get-email-html.md
+  c8457dc7264a5792 1-5
+apps/web/src/app/editor/examples/email-export/example.tsx
+  c8457dc7264a5792 81
+apps/web/src/app/editor/examples/image-upload/page.tsx
+  c8457dc7264a5792 3,7,13-15,19,21-22
+apps/web/src/app/editor/examples/inspector-defaults/example.tsx
+  c8457dc7264a5792 14,30,60
+apps/web/src/app/editor/examples/slash-commands/page.tsx
+  c8457dc7264a5792 3,7,13-15,19,21-22
+apps/web/src/app/editor/examples/full-email-builder/page.tsx
+  c8457dc7264a5792 3,7,13-15,19,21-22
+apps/web/src/app/editor/examples/custom-bubble-menu/example.tsx
+  c8457dc7264a5792 28
+apps/web/src/illustrations/editor-examples/basic-editor.tsx
+  c8457dc7264a5792 1-28
+apps/web/src/illustrations/editor-examples/bubble-menu.tsx
+  c8457dc7264a5792 1-23
+apps/web/src/illustrations/editor-examples/custom-extensions.tsx
+  c8457dc7264a5792 1-6
+apps/web/src/illustrations/editor-examples/link-editing.tsx
+  c8457dc7264a5792 1-6
+apps/web/src/app/editor/examples/column-layouts/page.tsx
+  c8457dc7264a5792 3,7,12-14,18,20-21
+apps/web/src/components/sections/playground/code-preview.tsx
+  c8457dc7264a5792 61
+packages/editor/src/extensions/table.spec.tsx
+  c8457dc7264a5792 74-119
+apps/web/src/app/editor/examples/standalone-editor-full/example.tsx
+  c8457dc7264a5792 34-35,45
+packages/render/package.json
+  c8457dc7264a5792 3
+apps/web/tailwind.config.js
+  c8457dc7264a5792 31-44,59-85
+packages/react-email/package.json
+  c8457dc7264a5792 3,43,47
+packages/react-email/src/components/html/html.spec.tsx
+  c8457dc7264a5792 23
+.changeset/loud-experts-think.md
+  c8457dc7264a5792 1-5
+apps/web/src/illustrations/editor-examples/full-email-builder.tsx
+  c8457dc7264a5792 1-6
+.changeset/fix-table-nesting.md
+  c8457dc7264a5792 1-5
+packages/ui/src/utils/get-emails-directory-metadata.spec.ts
+  c8457dc7264a5792 16-18,32-34,48-50,64-66,80-82,96-198
+apps/docs/editor/features/email-export.mdx
+  c8457dc7264a5792 63-100
+apps/web/src/app/editor/examples/inspector-composed/example.tsx
+  c8457dc7264a5792 14,29,140
+apps/web/src/app/editor/examples/example-tabbed-content.tsx
+  c8457dc7264a5792 1-84
+packages/react-email/src/components/tailwind/e2e/nextjs/package.json
+  c8457dc7264a5792 20
+packages/react-email/src/cli/utils/get-emails-directory-metadata.spec.ts
+  c8457dc7264a5792 16-18,32-34,48-50,64-66,80-82,96-198
+.changeset/pre.json
+  c8457dc7264a5792 17-18,21-23,26-39
+apps/web/src/app/api/check-spam/check-spam.spec.tsx
+  c8457dc7264a5792 57-63,65
+apps/web/src/app/editor/examples/bubble-menu/page.tsx
+  c8457dc7264a5792 3,7,13-15,19,21-22
+packages/react-email/src/components/tailwind/tailwind.spec.tsx
+  c8457dc7264a5792 57-60,143,358,394,429-430,456-457,501,527,565,595,663-664,711,930
+apps/web/src/illustrations/editor-examples/one-line-editor-inspector.tsx
+  c8457dc7264a5792 1-25
+apps/web/src/app/editor/examples/buttons/page.tsx
+  c8457dc7264a5792 3,7,12-14,18,20-21
+apps/web/src/app/templates/page.tsx
+  c8457dc7264a5792 2,6,13-15,21-29,32-33,41,43
+apps/web/src/components/sections/primitives.tsx
+  c8457dc7264a5792 7-8
+apps/web/src/components/icons/icon-github.tsx
+  c8457dc7264a5792 1-20
+apps/docs/editor/api-reference/extensions-list.mdx
+  c8457dc7264a5792 364,374-377
+packages/react-email/src/cli/commands/testing/export.spec.ts
+  c8457dc7264a5792 30
+apps/docs/editor/advanced/extensions.mdx
+  c8457dc7264a5792 51-53,63
+apps/web/src/app/editor/examples/example-page-shell.tsx
+  c8457dc7264a5792 6,10-11,13-14,20-21,23-24,27-28,31-36,58,61-73
+apps/web/src/app/editor/examples/inspector-custom/example.tsx
+  c8457dc7264a5792 14,29
+apps/web/src/app/editor/examples/standalone-editor-inspector/page.tsx
+  c8457dc7264a5792 3,7,12-14,18-19,21-22
+apps/web/src/illustrations/editor-examples/illustration-placeholder.tsx
+  c8457dc7264a5792 1-21
+apps/web/src/app/editor/examples/link-editing/page.tsx
+  c8457dc7264a5792 3,7,13-15,19,21-22
+apps/web/src/app/editor/examples/standalone-editor-inspector/example.tsx
+  c8457dc7264a5792 10,18,54
+apps/web/src/app/editor/examples/buttons/example.tsx
+  c8457dc7264a5792 12
+apps/web/src/app/editor/examples/column-layouts/example.tsx
+  c8457dc7264a5792 101
+packages/editor/src/ui/inspector/breadcrumb.tsx
+  c8457dc7264a5792 7,20-29,36-40,42,82
+apps/docs/editor/features/inspector.mdx
+  c8457dc7264a5792 132
+apps/web/src/components/sections/editor.tsx
+  c8457dc7264a5792 1-302
+apps/web/src/components/sections/integration.tsx
+  c8457dc7264a5792 16
+apps/web/src/components/icons/icon-figma.tsx
+  c8457dc7264a5792 1-24
+apps/web/src/components/template.tsx
+  c8457dc7264a5792 5-6,12-17,26-30,33-34,37,40,42-47,51-103,105-111,113
+apps/web/src/illustrations/editor-examples/custom-bubble-menu.tsx
+  c8457dc7264a5792 1-6
+.changeset/better-coins-fetch.md
+  c8457dc7264a5792 1-5
+apps/web/src/app/editor/examples/inspector-defaults/page.tsx
+  c8457dc7264a5792 3,7,13-15,19-20,22-23
+packages/editor/src/email-editor/email-editor.tsx
+  c8457dc7264a5792 11,13,15,26,29-31,38-39,53-107,110-113,122,135-140,148-161,188-189
+packages/create-email/template/package.json
+  c8457dc7264a5792 12-13,17
+packages/editor/src/ui/inspector/index.tsx
+  c8457dc7264a5792 31-32
+apps/web/src/app/editor/examples/link-editing/example.tsx
+  c8457dc7264a5792 18
+apps/web/src/app/editor/examples/standalone-editor-full/page.tsx
+  c8457dc7264a5792 3,7,9,13-15,19-20,22-23
+packages/editor/src/ui/editor-focus-scope.tsx
+  c8457dc7264a5792 42-46,48,50-54,79
+packages/editor/src/ui/inspector/root.spec.ts
+  c8457dc7264a5792 1-110
+packages/ui/src/components/sidebar/file-tree-directory-children.tsx
+  c8457dc7264a5792 43-46
+apps/web/src/app/editor/examples/email-export/page.tsx
+  c8457dc7264a5792 3,7,13-15,19,21-22
+.changeset/root-focused-node-inspector.md
+  c8457dc7264a5792 1-5
+apps/web/src/app/editor/examples/email-theming/page.tsx
+  c8457dc7264a5792 3,7,13-15,19,21-22
+packages/editor/src/ui/inspector/config/node-meta.ts
+  c8457dc7264a5792 18,24
+apps/docs/editor/api-reference/ui/inspector.mdx
+  c8457dc7264a5792 239-240,244,247-267
+apps/web/src/app/editor/examples/email-theming/example.tsx
+  c8457dc7264a5792 85
+apps/web/src/illustrations/editor-examples/slash-commands.tsx
+  c8457dc7264a5792 1-6
+apps/web/src/app/editor/examples/example-shell.tsx
+  c8457dc7264a5792 3-6,18-19,22-27
+packages/ui/src/utils/get-email-component.spec.ts
+  c8457dc7264a5792 40
+apps/web/src/app/editor/examples/example-code-view.tsx
+  c8457dc7264a5792 1-36
+apps/web/src/app/editor/examples/basic-editor/page.tsx
+  c8457dc7264a5792 3,7,12-14,18,20-21
+apps/web/src/app/editor/examples/custom-bubble-menu/page.tsx
+  c8457dc7264a5792 3,7,12-14,18,20-21
+apps/web/src/components/copy-code.tsx
+  c8457dc7264a5792 38
+package.json
+  c8457dc7264a5792 21,67-68
+apps/web/src/illustrations/editor-examples/illustration-shared.ts
+  c8457dc7264a5792 1-46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "3d4602f371db07af2358ebb95c6c3d73cf95ab9a",
+  "prompts": {
+    "30a6dbae347700c0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3400a5c-4e95-4ecf-832c-73c26c8243f3",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 988,
+      "overriden_lines": 0
+    },
+    "c8457dc7264a5792": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c3295dd2-3d94-4ccf-a2a8-b9fa5acc7eaf",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 18302,
+      "total_deletions": 753,
+      "accepted_lines": 18290,
+      "overriden_lines": 2
+    }
+  }
+}
