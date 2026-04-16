@@ -21,6 +21,7 @@ import { createImageExtension } from '../plugins/image/extension';
 import { BubbleMenu } from '../ui/bubble-menu';
 import { SlashCommandRoot } from '../ui/slash-command/root';
 import '../ui/themes/default.css';
+import { Placeholder } from '@tiptap/extension-placeholder';
 
 export interface EmailEditorRef {
   getEmail: () => Promise<{ html: string; text: string }>;
@@ -124,8 +125,20 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
 
     const extensions = useMemo(() => {
       const base = extensionsProp ?? [
-        StarterKit.configure({
-          Placeholder: placeholder ? { placeholder } : undefined,
+        StarterKit.configure(),
+        Placeholder.configure({
+          placeholder:
+            placeholder ??
+            (({ node }) => {
+              // TODO: this heading placeholder is not working,
+              // in part because styles are only targetting paragraphs,
+              // but in part because of the way the content is rendered
+              if (node.type.name === 'heading') {
+                return `Heading ${node.attrs.level}`;
+              }
+              return "Press '/' for commands";
+            }),
+          includeChildren: true,
         }),
         EmailTheming.configure({ theme }),
       ];
