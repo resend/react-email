@@ -10,14 +10,16 @@ icon: "list-check"
 
 **React Email 6.0.0**
 
-- all components (previously in `@react-email/components` or individual packages like `@react-email/button`) and rendering utilities (previously in `@react-email/render`) are now exported directly from `react-email`, unifying the install and import experience into a single package
+- All components and rendering utilities unified into the `react-email` package, so `@react-email/components` and individual component packages are no longer needed
 - replace deprecated `url.parse()` with WHATWG URL API in the preview dev server
 - Updated dependencies
     - @react-email/render@2.0.7
 
+See [the migration guide](/getting-started/updating-react-email)
+
 **UI 6.0.0**
 
-- rename `@react-email/preview-server` to `@react-email/ui`
+- Renamed from `@react-email/preview-server` to `@react-email/ui`, same code under a new name
 - copy toolbar insights for AI
 - remove extra margin from sending button
 
@@ -27,24 +29,7 @@ icon: "list-check"
 
 **Editor 1.0.0**
 
-- avoid injecting undefined css values
-- add `getEmailHTML()` and `getEmailText()` to `EmailEditorRef`, remove `getHTML()`, rename `onChange` to `onUpdate`
-- add placeholder style
-- add `onUploadImage` prop to `EmailEditor` and merge image paste/drop handlers into a single plugin
-- don't add an extra focus scope provider if there's already one above `Inspector.Root`
-- add trailing nodes for columns and sections
-- new `ThemeConfig` API for custom theming
-- add `children` prop to `EmailEditor` for composing UI like the Inspector sidebar inside the editor context
-- render Table as a native `<table>` instead of `Section` to fix invalid `<tr>` inside `<td>` nesting in email output
-- align `EmailEditor`'s `onReady` callback with `onUpdate` so it receives `EmailEditorRef`
-- `InspectorBreadcrumbSegment.node` is now always a `FocusedNode`; exports `getNodeMeta` for custom breadcrumb label/icon mapping
-- collapse `SlashCommand.Root` into `SlashCommand` and stop exporting internal `CommandList`/`CommandListProps`
-- remove placeholder from starter kit, keep it in standalone editor
-- improved default for inspector
-- fix color pickers closing and not letting drag happen in root node
-- remove line height from default inbox styles
-- Updated dependencies
-    - react-email@6.0.0
+- Launch!
 
 **Create Email 1.2.4**
 
