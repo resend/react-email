@@ -1,0 +1,59 @@
+apps/web/src/app/editor/examples/slash-commands/page.tsx
+  0897733fcad27620 19
+apps/web/src/app/editor/examples/bubble-menu/page.tsx
+  0897733fcad27620 19
+apps/web/src/app/editor/examples/link-editing/page.tsx
+  0897733fcad27620 19
+apps/web/src/app/editor/examples/standalone-editor-inspector/page.tsx
+  0897733fcad27620 18-19
+apps/web/src/app/editor/examples/basic-editor/page.tsx
+  0897733fcad27620 18
+apps/web/src/app/editor/examples/full-email-builder/page.tsx
+  0897733fcad27620 19
+apps/web/src/app/editor/examples/inspector-composed/page.tsx
+  0897733fcad27620 19-20
+apps/web/src/app/editor/examples/column-layouts/page.tsx
+  0897733fcad27620 18
+apps/web/src/app/editor/examples/inspector-defaults/page.tsx
+  0897733fcad27620 19-20
+apps/web/src/app/editor/examples/standalone-editor-full/page.tsx
+  0897733fcad27620 19-20
+apps/web/src/app/editor/examples/custom-extensions/page.tsx
+  0897733fcad27620 19
+apps/web/src/app/editor/examples/email-theming/page.tsx
+  0897733fcad27620 19
+apps/web/src/app/editor/examples/example-page-shell.tsx
+  0897733fcad27620 10-11,20-21,58,64
+apps/web/src/app/editor/examples/buttons/page.tsx
+  0897733fcad27620 18
+apps/web/src/app/editor/examples/custom-bubble-menu/page.tsx
+  0897733fcad27620 18
+apps/web/src/app/editor/examples/inspector-custom/page.tsx
+  0897733fcad27620 19-20
+apps/web/src/app/editor/examples/standalone-editor/page.tsx
+  0897733fcad27620 18-19
+apps/web/src/app/editor/examples/email-export/page.tsx
+  0897733fcad27620 19
+apps/web/src/app/editor/examples/image-upload/page.tsx
+  0897733fcad27620 19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "53f9c4e53257c1719d1e3475e3a394a0c9486d11",
+  "prompts": {
+    "0897733fcad27620": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7bf0a8a8-ab75-4f2c-9738-d0702f42e297",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 599,
+      "total_deletions": 598,
+      "accepted_lines": 30,
+      "overriden_lines": 0
+    }
+  }
+}
