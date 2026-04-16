@@ -25,8 +25,11 @@ export function ExamplePageShell({
   const hasTabs = sourceCode && githubUrl;
   const titleParts = title.split(' — ');
   const pageHeading = titleParts[0];
-  const tabTitle =
+  const rawTabTitle =
     titleParts.length > 1 ? titleParts.slice(1).join(' — ') : undefined;
+  const tabTitle = rawTabTitle
+    ? rawTabTitle.charAt(0).toUpperCase() + rawTabTitle.slice(1)
+    : undefined;
 
   return (
     <PageWrapper>
