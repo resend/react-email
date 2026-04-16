@@ -33,6 +33,22 @@ Content section container.
 
 ---
 
+### Container
+
+Primary email content wrapper. In `StarterKit`, top-level blocks are wrapped in a
+`container` node so the document exports through React Email's
+[`<Container>`](https://react.email/docs/components/container) component.
+
+<ResponseField name="HTMLAttributes" type="Record<string, any>">
+  Extra HTML attributes applied to the editor wrapper for the container node.
+</ResponseField>
+
+When HTML is pasted or imported, this extension also recognizes React Email-style
+container tables: a presentation table with a `max-width` and a single row/cell is
+parsed back into a `container` node.
+
+---
+
 ### Div
 
 Generic div container.
@@ -337,6 +353,34 @@ Shows placeholder text when the editor is empty.
 
 <ResponseField name="includeChildren" type="boolean" default="true">
   Whether to show placeholders in child nodes.
+</ResponseField>
+
+---
+
+### TrailingNode
+
+Keeps an empty block at the end of the target node so the caret can move below the
+last block and users can continue typing. In `StarterKit`, it is configured to append
+an empty paragraph inside each `container`, `section`, and `columnsColumn`.
+
+<ResponseField
+  name="node"
+  type="string"
+  default="schema default block (typically 'paragraph')"
+>
+  Node type to insert when a trailing block is needed.
+</ResponseField>
+
+<ResponseField name="appendTo" type="string | string[]" default="'doc'">
+  Node type (or array of node types) that receives the trailing block. When an array is
+  provided, a trailing node is appended inside every matching node type. `StarterKit`
+  overrides this to `['container', 'section', 'columnsColumn']`.
+</ResponseField>
+
+<ResponseField name="notAfter" type="string | string[]" default="[]">
+  Node types after which no trailing block should be inserted. The inserted node type
+  is always treated as disallowed automatically, so a trailing paragraph will not be
+  added after another paragraph.
 </ResponseField>
 
 ---

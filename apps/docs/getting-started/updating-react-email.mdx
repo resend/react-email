@@ -12,23 +12,44 @@ import NextSteps from '/snippets/next-steps.mdx';
 
 All components (previously in `@react-email/components` or individual packages like `@react-email/button`) and rendering utilities (previously in `@react-email/render`) are now exported directly from `react-email`. This unifies the install and import experience into a single package.
 
+Now, what was previously `@react-email/preview-server` was moved over to `@react-email/ui`, so you will also need to replace that.
+
 To update:
 
-1. **Update your dependencies** -- remove `@react-email/components`, keep `react-email`:
+1. **Update your dependencies** -- remove `@react-email/components` and `@react-email/preview-server`, keep `react-email` and add `@react-email/ui`:
 
-   ```diff
-   - npm install @react-email/components react-email @react-email/preview-server
-   + npm install react-email @react-email/preview-server
+   <CodeGroup>
+
+   ```sh npm
+   npm uninstall @react-email/components @react-email/preview-server
+   npm install react-email@latest @react-email/ui@latest
    ```
+
+   ```sh yarn
+   yarn remove @react-email/components @react-email/preview-server
+   yarn install react-email@latest @react-email/ui@latest
+   ```
+
+   ```sh pnpm
+   pnpm remove @react-email/components @react-email/preview-server
+   pnpm install react-email@latest @react-email/ui@latest
+   ```
+
+   ```sh bun
+   bun remove @react-email/components @react-email/preview-server
+   bun install react-email@latest @react-email/ui@latest
+   ```
+
+   </CodeGroup>
 
 2. **Update your imports**:
 
-   ```diff
-   - import { Button, Html, Head, render } from "@react-email/components";
-   + import { Button, Html, Head, render } from "react-email";
+   ```tsx
+   import { Button, Html, Head, render } from "@react-email/components"; // [!code --]
+   import { Button, Html, Head, render } from "react-email"; // [!code ++]
    ```
 
-3. The `@react-email/preview-server` and `@react-email/editor` packages are not included in `react-email`
+3. The `@react-email/ui` and `@react-email/editor` packages are not included in `react-email`
 
 ## Update from React Email 4.0 to 5.0
 

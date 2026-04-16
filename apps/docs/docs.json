@@ -145,7 +145,8 @@
               "editor/features/buttons",
               "editor/features/column-layouts",
               "editor/features/link-editing",
-              "editor/features/email-export"
+              "editor/features/email-export",
+              "editor/features/image-upload"
             ]
           },
           {
@@ -169,6 +170,8 @@
                 "icon": "window",
                 "pages": [
                   "editor/api-reference/ui/bubble-menu",
+                  "editor/api-reference/ui/editor-focus-scope",
+                  "editor/api-reference/ui/editor-focus-scope-provider",
                   "editor/api-reference/ui/inspector",
                   "editor/api-reference/ui/slash-command"
                 ]

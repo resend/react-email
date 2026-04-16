@@ -15,8 +15,13 @@
   gap: 0.125rem;
   padding: 0 0.125rem;
   border: none;
+  border-left: 1px solid var(--re-border);
   margin: 0;
   min-width: 0;
+}
+
+[data-re-bubble-menu-group]:last-child {
+  padding-right: 0;
 }
 
 [data-re-bubble-menu-separator] {
@@ -33,6 +38,7 @@
   border: none;
   background: none;
   padding: 0.375rem;
+  margin: 0.125rem 0;
 }
 
 [data-re-bubble-menu-item] svg {

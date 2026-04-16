@@ -11,9 +11,8 @@ interface FocusScopeContextValue {
   unregisterScope: (el: HTMLElement | null) => void;
 }
 
-const FocusScopeContext = React.createContext<FocusScopeContextValue | null>(
-  null,
-);
+export const FocusScopeContext =
+  React.createContext<FocusScopeContextValue | null>(null);
 
 export function useEditorFocusScope() {
   const context = React.useContext(FocusScopeContext);
@@ -40,15 +39,19 @@ export function EditorFocusScopeProvider({
 
   const handleFocusIn = React.useCallback(
     (event: FocusEvent) => {
-      if (editor) {
-        editor.isFocused = true;
-
-        const transaction = editor.state.tr
-          .setMeta('focus', { event })
-          .setMeta('addToHistory', false);
-
-        editor.view.dispatch(transaction);
+      if (!editor) return;
+      const t = event.target;
+      if (!(t instanceof Node) || !editor.view.dom.contains(t)) {
+        return;
       }
+
+      editor.isFocused = true;
+
+      const transaction = editor.state.tr
+        .setMeta('focus', { event })
+        .setMeta('addToHistory', false);
+
+      editor.view.dispatch(transaction);
     },
     [editor],
   );
@@ -73,7 +76,7 @@ export function EditorFocusScopeProvider({
         editor.view.dispatch(transaction);
       }
     },
-    [editor],
+    [editor, clearSelectionOnBlur],
   );
 
   const registerScope = React.useCallback(

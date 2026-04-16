@@ -1,11 +1,11 @@
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
-import { getPreviewServerLocation } from '../utils/get-preview-server-location.js';
+import { getUiLocation } from '../utils/get-ui-location.js';
 
 export const start = async () => {
   try {
-    const previewServerLocation = await getPreviewServerLocation();
+    const previewServerLocation = await getUiLocation();
 
     const usersProjectLocation = process.cwd();
     const builtPreviewPath = path.resolve(
