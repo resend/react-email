@@ -46,7 +46,14 @@ export function GET() {
     lines.push('');
     lines.push(category.description);
     lines.push('');
-    lines.push(`URL: https://react.email/components/${category.name.toLowerCase().trim().replace(/\s+/g, '-').replace(/[^\w-]+/g, '').replace(/--+/g, '-')}`);
+    lines.push(
+      `URL: https://react.email/components/${category.name
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, '-')
+        .replace(/[^\w-]+/g, '')
+        .replace(/--+/g, '-')}`,
+    );
     lines.push('');
 
     for (const component of category.components) {
