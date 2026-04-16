@@ -1,14 +1,12 @@
-import { ArrowRightIcon, Bolt, Cpu, Layers2, Rocket } from 'lucide-react';
+import { Bolt, Cpu, Layers2, Rocket } from 'lucide-react';
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { createElement } from 'react';
 
-import { Button } from '@/components/button';
 import { Heading } from '@/components/heading';
 import { PageTransition } from '@/components/page-transition';
 import { PageWrapper } from '@/components/page-wrapper';
-import { SmartLink } from '@/components/smart-link';
 import { Spotlight } from '@/components/spotlight';
 import {
   type IllustrationProps,
