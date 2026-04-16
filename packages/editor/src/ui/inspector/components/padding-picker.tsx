@@ -40,6 +40,7 @@ export function PaddingPicker({
   const [expanded, setExpanded] = React.useState(!allEqual);
 
   const handleChange = (key: keyof PaddingValues, newValue: number) => {
+    console.log('changing padding', key, newValue);
     onChange({
       paddingTop: value.paddingTop ?? 0,
       paddingRight: value.paddingRight ?? 0,
