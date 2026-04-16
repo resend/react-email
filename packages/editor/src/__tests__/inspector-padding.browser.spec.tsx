@@ -145,3 +145,90 @@ describe('inspector padding input (browser)', () => {
     expect(paddingInput.value).toBe('12');
   });
 });
+
+const HSL_CONTENT = {
+  type: 'doc',
+  content: [
+    {
+      type: 'section',
+      attrs: {
+        style: 'background-color: hsl(200, 50%, 40%);',
+      },
+      content: [
+        {
+          type: 'paragraph',
+          content: [{ type: 'text', text: 'Inside section' }],
+        },
+      ],
+    },
+  ],
+};
+
+function HslHarness({
+  editorRef,
+}: {
+  editorRef: React.RefObject<EmailEditorRef | null>;
+}) {
+  return (
+    <EmailEditor
+      ref={(value) => {
+        editorRef.current = value;
+      }}
+      content={HSL_CONTENT}
+    >
+      <Inspector.Root data-testid="inspector">
+        <Inspector.Node />
+      </Inspector.Root>
+    </EmailEditor>
+  );
+}
+
+async function waitForBackgroundSection() {
+  return vi.waitFor(() => {
+    const inspector = document.querySelector<HTMLElement>(
+      '[data-testid="inspector"]',
+    );
+    if (!inspector) throw new Error('Inspector not rendered yet');
+    const header = Array.from(
+      inspector.querySelectorAll<HTMLElement>(
+        '[data-re-inspector-section-header]',
+      ),
+    ).find((h) => h.textContent?.includes('Background'));
+    const section = header?.closest<HTMLElement>('[data-re-inspector-section]');
+    if (!section) throw new Error('Background section not rendered yet');
+    return section;
+  });
+}
+
+describe('inspector background color input (browser)', () => {
+  it('does not strip % from HSL color values at parse time', async () => {
+    const editorRef: React.RefObject<EmailEditorRef | null> = {
+      current: null,
+    };
+    render(<HslHarness editorRef={editorRef} />);
+
+    const editor = page.getByRole('textbox');
+    await expect.element(editor).toBeVisible();
+
+    selectSectionNode(editorRef.current);
+
+    const hexInput = await vi.waitFor(() => {
+      const bg = document.querySelector<HTMLElement>(
+        '[data-testid="inspector"]',
+      );
+      if (!bg) throw new Error('Inspector not rendered yet');
+      return waitForBackgroundSection().then((section) => {
+        const input = section.querySelector<HTMLInputElement>(
+          'input[data-re-inspector-color-hex]',
+        );
+        if (!input) throw new Error('Color hex input not rendered yet');
+        if (input.value === '') {
+          throw new Error('Color hex input not populated yet');
+        }
+        return input;
+      });
+    });
+
+    expect(hexInput.value).toBe('hsl(200, 50%, 40%)');
+  });
+});

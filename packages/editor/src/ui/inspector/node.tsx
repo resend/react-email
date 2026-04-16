@@ -6,6 +6,7 @@ import {
   stylesToCss,
   useEmailTheming,
 } from '../../plugins/email-theming/extension';
+import { SUPPORTED_CSS_PROPERTIES } from '../../plugins/email-theming/themes';
 import type { KnownCssProperties } from '../../plugins/email-theming/types';
 import { inlineCssToJs } from '../../utils/styles';
 import { useDocumentColors } from './hooks/use-document-colors';
@@ -65,7 +66,7 @@ export function InspectorNode({ children }: InspectorNodeProps) {
   }
 
   const attrs = localAttr ?? focusedNode.nodeAttrs;
-  const inlineStyles = inlineCssToJs(attrs.style || '', { removeUnit: true });
+  const inlineStyles = inlineCssToJs(attrs.style || '');
 
   const css = stylesToCss(theming.styles, theming.theme);
   const themeDefaults = resolveThemeDefaults(
@@ -79,7 +80,18 @@ export function InspectorNode({ children }: InspectorNodeProps) {
     ...inlineStyles,
   };
 
-  const getStyle = (prop: KnownCssProperties) => mergedStyles[prop];
+  const getStyle = (prop: KnownCssProperties) => {
+    const value = mergedStyles[prop];
+    // Strip the trailing CSS unit only for numeric properties so that
+    // numeric inputs receive a parseable number. Non-numeric properties
+    // (colors, gradients, etc.) are returned verbatim — stripping `%`/`px`
+    // globally would corrupt values like `hsl(200, 50%, 40%)`.
+    const isNumericProperty = Boolean(SUPPORTED_CSS_PROPERTIES[prop]?.unit);
+    if (isNumericProperty && typeof value === 'string') {
+      return value.replace(/(px|%)$/, '');
+    }
+    return value;
+  };
 
   const setStyle = (prop: KnownCssProperties, value: string | number) => {
     customUpdateStyles(
