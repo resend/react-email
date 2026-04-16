@@ -13,6 +13,7 @@ import {
   useLayoutEffect,
   useMemo,
   useRef,
+  useState,
 } from 'react';
 import { createPasteHandler } from '../core/create-paste-handler';
 import { composeReactEmail } from '../core/serializer/compose-react-email';
@@ -29,12 +30,13 @@ export interface EmailEditorRef {
   getEmailText: () => Promise<string>;
   getJSON: () => JSONContent;
   editor: Editor | null;
+  editorContainer: HTMLDivElement | null;
 }
 
 export interface EmailEditorProps {
   content?: Content;
   onUpdate?: (ref: EmailEditorRef) => void;
-  onReady?: (editor: Editor, editorContainer: HTMLDivElement) => void;
+  onReady?: (ref: EmailEditorRef) => void;
   theme?: 'basic' | 'minimal';
   editable?: boolean;
   placeholder?: string;
@@ -48,7 +50,10 @@ export interface EmailEditorProps {
   children?: ReactNode;
 }
 
-function buildRef(editor: Editor | null): EmailEditorRef {
+function buildRef(
+  editor: Editor | null,
+  editorContainer: HTMLDivElement | null = null,
+): EmailEditorRef {
   return {
     getEmail: async () => {
       if (!editor) return { html: '', text: '' };
@@ -66,19 +71,25 @@ function buildRef(editor: Editor | null): EmailEditorRef {
     },
     getJSON: () => editor?.getJSON() ?? { type: 'doc', content: [] },
     editor,
+    editorContainer,
   };
 }
 
 function RefBridge({
   editorRef,
   onUpdateRef,
+  editorContainer,
 }: {
   editorRef: Ref<EmailEditorRef>;
   onUpdateRef: React.RefObject<((ref: EmailEditorRef) => void) | undefined>;
+  editorContainer: HTMLDivElement | null;
 }) {
   const { editor } = useCurrentEditor();
 
-  const emailEditorRef = useMemo(() => buildRef(editor), [editor]);
+  const emailEditorRef = useMemo(
+    () => buildRef(editor, editorContainer),
+    [editor, editorContainer],
+  );
 
   useImperativeHandle(editorRef, () => emailEditorRef, [emailEditorRef]);
 
@@ -100,23 +111,29 @@ function RefBridge({
 
 function EmailEditorReadyBridge({
   onReadyRef,
+  onEditorContainer,
 }: {
-  onReadyRef: React.RefObject<
-    ((editor: Editor, editorContainer: HTMLDivElement) => void) | undefined
-  >;
+  onReadyRef: React.RefObject<((ref: EmailEditorRef) => void) | undefined>;
+  onEditorContainer: (el: HTMLDivElement | null) => void;
 }) {
   const { editor } = useCurrentEditor();
 
   useLayoutEffect(() => {
     if (!editor) return;
-    const onReady = onReadyRef.current;
-    if (!onReady) return;
 
     const wrapper = editor.view.dom.parentElement;
-    if (!wrapper || !(wrapper instanceof HTMLDivElement)) return;
+    if (!wrapper || !(wrapper instanceof HTMLDivElement)) {
+      onEditorContainer(null);
+      return;
+    }
 
-    onReady(editor, wrapper);
-  }, [editor, onReadyRef]);
+    onEditorContainer(wrapper);
+    onReadyRef.current?.(buildRef(editor, wrapper));
+
+    return () => {
+      onEditorContainer(null);
+    };
+  }, [editor, onReadyRef, onEditorContainer]);
 
   return null;
 }
@@ -143,6 +160,10 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
 
     const onReadyRef = useRef(onReady);
     onReadyRef.current = onReady;
+
+    const [editorContainer, setEditorContainer] = useState<HTMLDivElement | null>(
+      null,
+    );
 
     const imageExtension = useMemo(() => {
       if (!onUploadImage) return null;
@@ -179,8 +200,15 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
         editorProps={editorProps}
         editorContainerProps={{ className }}
       >
-        <RefBridge editorRef={ref} onUpdateRef={onUpdateRef} />
-        <EmailEditorReadyBridge onReadyRef={onReadyRef} />
+        <RefBridge
+          editorRef={ref}
+          onUpdateRef={onUpdateRef}
+          editorContainer={editorContainer}
+        />
+        <EmailEditorReadyBridge
+          onReadyRef={onReadyRef}
+          onEditorContainer={setEditorContainer}
+        />
         <BubbleMenu
           hideWhenActiveNodes={bubbleMenu?.hideWhenActiveNodes ?? ['button']}
           hideWhenActiveMarks={bubbleMenu?.hideWhenActiveMarks ?? ['link']}

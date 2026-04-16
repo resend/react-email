@@ -60,7 +60,9 @@ export const EditorHomepage = () => {
         <EmailEditor
           content={INITIAL_CONTENT}
           className="flex-1 overflow-auto px-6 w-full [&>div]:w-full [&_div]:outline-none"
-          onReady={async (editor) => {
+          onReady={async (ref) => {
+            const editor = ref.editor;
+            if (!editor) return;
             const { html } = await composeReactEmail({ editor });
             setHtml(html);
           }}
