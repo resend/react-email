@@ -2,6 +2,7 @@
 
 import * as Tabs from '@radix-ui/react-tabs';
 import { useState } from 'react';
+import { IconMonitor } from '@/components/icons/icon-monitor';
 import { IconSource } from '@/components/icons/icon-source';
 import { TabTrigger } from '@/components/tab-trigger';
 import { ExampleCodeView } from './example-code-view';
@@ -41,8 +42,9 @@ export function ExampleTabbedContent({
             activeView={activeView}
             layoutId="example-view"
             value="example"
+            className="flex w-9 items-center justify-center px-0!"
           >
-            Example
+            <IconMonitor />
           </TabTrigger>
           <TabTrigger
             activeView={activeView}
