@@ -1,12 +1,8 @@
 import { NodeSelection } from '@tiptap/pm/state';
-import { useRef } from 'react';
+import { vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
-import { vi } from 'vitest';
-import {
-  EmailEditor,
-  type EmailEditorRef,
-} from '../email-editor/email-editor';
+import { EmailEditor, type EmailEditorRef } from '../email-editor/email-editor';
 import { Inspector } from '../ui/inspector';
 
 const CONTENT = {
@@ -31,7 +27,7 @@ const CONTENT = {
 function Harness({
   editorRef,
 }: {
-  editorRef: React.MutableRefObject<EmailEditorRef | null>;
+  editorRef: React.RefObject<EmailEditorRef | null>;
 }) {
   return (
     <EmailEditor
@@ -97,7 +93,7 @@ async function waitForPaddingInputWithValue(expected: string) {
 
 describe('inspector padding input (browser)', () => {
   it('keeps the same value after focus + blur', async () => {
-    const editorRef: React.MutableRefObject<EmailEditorRef | null> = {
+    const editorRef: React.RefObject<EmailEditorRef | null> = {
       current: null,
     };
     render(<Harness editorRef={editorRef} />);
@@ -120,7 +116,7 @@ describe('inspector padding input (browser)', () => {
   });
 
   it('keeps a newly committed value after a subsequent focus + blur', async () => {
-    const editorRef: React.MutableRefObject<EmailEditorRef | null> = {
+    const editorRef: React.RefObject<EmailEditorRef | null> = {
       current: null,
     };
     render(<Harness editorRef={editorRef} />);
