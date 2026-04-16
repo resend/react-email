@@ -32,10 +32,7 @@
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "playground#build": {
-      "dependsOn": [
-        "^build",
-        "^postbuild"
-      ],
+      "dependsOn": ["^build", "^postbuild"],
       "outputs": [".react-email/**", "!.react-email/.next/cache/**"]
     },
     "demo#build": {
