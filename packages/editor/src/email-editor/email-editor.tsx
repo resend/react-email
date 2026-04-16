@@ -130,6 +130,9 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
           placeholder:
             placeholder ??
             (({ node }) => {
+              // TODO: this heading placeholder is not working,
+              // in part because styles are only targetting paragraphs,
+              // but in part because of the way the content is rendered
               if (node.type.name === 'heading') {
                 return `Heading ${node.attrs.level}`;
               }
