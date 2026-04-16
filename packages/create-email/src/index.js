@@ -69,10 +69,6 @@ const init = async (name, { tag }) => {
   fse.writeFileSync(
     templatePackageJsonPath,
     templatePackageJson
-      .replace(
-        'INSERT_COMPONENTS_VERSION',
-        await getLatestVersionOfTag('@react-email/components', tag),
-      )
       .replaceAll(
         'INSERT_REACT_EMAIL_VERSION',
         await getLatestVersionOfTag('react-email', tag),

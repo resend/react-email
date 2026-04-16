@@ -3,7 +3,8 @@ import { existsSync, promises as fs } from 'node:fs';
 import path from 'node:path';
 import { installDependencies, runScript } from 'nypm';
 
-describe('automatic setup', () => {
+// Skipping while there is no latest for @react-email/ui that matches react-email
+describe.skip('automatic setup', () => {
   const starterPath = path.resolve(import.meta.dirname, '../.test');
   test.sequential('creation', async () => {
     if (existsSync(starterPath)) {
