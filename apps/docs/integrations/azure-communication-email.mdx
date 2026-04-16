@@ -1,0 +1,88 @@
+---
+title: 'Send email using Azure Communication Email'
+sidebarTitle: 'Azure Communication Email'
+description: 'Learn how to send an email using React Email and the Azure Communication Email SDK.'
+'og:image': 'https://react.email/static/covers/react-email.png'
+---
+
+## 1. Install dependencies
+
+Get the [@react-email/components](https://www.npmjs.com/package/@react-email/components) package and the [Azure Communication Email SDK](https://www.npmjs.com/package/@azure/communication-email).
+
+<CodeGroup>
+
+```sh npm
+npm install @azure/communication-email @react-email/components
+```
+
+```sh yarn
+yarn add @azure/communication-email @react-email/components
+```
+
+```sh pnpm
+pnpm add @azure/communication-email @react-email/components
+```
+
+</CodeGroup>
+
+## 2. Create an email using React
+
+Start by building your email template in a `.jsx` or `.tsx` file.
+
+```tsx email.tsx
+import * as React from 'react';
+import { Html, Button } from "@react-email/components";
+
+export function Email(props) {
+  const { url } = props;
+
+  return (
+    <Html lang="en">
+      <Button href={url}>Click me</Button>
+    </Html>
+  );
+}
+```
+
+## 3. Convert to HTML and send email
+
+Import the email template you just built, convert into an HTML string, and use the Azure Communication Email SDK to send it.
+
+```tsx
+import { EmailClient } from '@azure/communication-email';
+import { render } from '@react-email/components';
+import { Email } from './email';
+
+const client = new EmailClient(process.env.AZURE_EMAIL_CONNECTION_STRING);
+
+const from ='you@example.com';
+const emailHtml = await render(<Email url="https://example.com" />);
+
+const message = {
+  senderAddress: from,
+  content: {
+    subject: 'hello world',
+    html: emailHtml,
+  },
+  recipients: {
+    to: [{ address: 'user@gmail.com' }],
+  },
+};
+
+const poller = await client.beginSend(message);
+
+await poller.pollUntilDone();
+```
+
+<Info>Azure Communication Email expects the sender in the `senderAddress` field.</Info>
+
+## Try it yourself
+
+<Card
+  title="Azure Communication Email example"
+  icon='arrow-up-right-from-square'
+  iconType="duotone"
+  href="https://github.com/resend/react-email/tree/main/examples/azure-communication-email"
+>
+  See the full source code.
+</Card>
