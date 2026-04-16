@@ -40,7 +40,10 @@ export const FileTreeDirectoryChildren = (props: {
                 {props.emailsDirectoryMetadata.subDirectories.map(
                   (subDirectory) => (
                     <FileTreeDirectory
-                      className="p-0 data-[state=open]:mb-2"
+                      className={cn(
+                        'data-[state=open]:mb-2',
+                        !props.isRoot && 'pl-3',
+                      )}
                       currentEmailOpenSlug={props.currentEmailOpenSlug}
                       emailsDirectoryMetadata={subDirectory}
                       key={subDirectory.absolutePath}

@@ -7,7 +7,7 @@ describe('getTailwindMetadata()', () => {
   test('with the netlify-welcome demo email', async () => {
     const emailPath = path.resolve(
       __dirname,
-      '../../../../../../apps/demo/emails/welcome/netlify-welcome.tsx',
+      '../../../../../../apps/demo/emails/Community/welcome/netlify-welcome.tsx',
     );
     const reactCode = await fs.readFile(emailPath, 'utf8');
     const ast = parse(reactCode, {
