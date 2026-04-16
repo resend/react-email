@@ -1,0 +1,23 @@
+apps/web/src/app/editor/examples/page.tsx
+  0897733fcad27620 1,3,5-6,11,13-16,18,25,27,30,35-36,42-43,49-50,52,191,203,207,213-230,232-233,235,238-249,251-296,298-302
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "bf3f28631ab3c99a2b87c1996dc16e34c2404663",
+  "prompts": {
+    "0897733fcad27620": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7bf0a8a8-ab75-4f2c-9738-d0702f42e297",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 1221,
+      "total_deletions": 1446,
+      "accepted_lines": 897,
+      "overriden_lines": 0
+    }
+  }
+}
