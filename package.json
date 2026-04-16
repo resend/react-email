@@ -72,19 +72,12 @@
       "express>qs": "^6.14.2",
       "express>send": "^0.19.0",
       "express>serve-static": "^1.16.0",
-      "fdir>picomatch": "^4.0.4",
       "get-uri>basic-ftp": "^5.2.2",
-      "glob>minimatch": "^3.1.4",
-      "micromatch>picomatch": "^2.3.2",
       "minimatch>brace-expansion": "^1.1.13",
-      "picomatch@4.0.3": "4.0.4",
       "react": "19.2.4",
       "react-dom": "19.2.4",
       "serve-static>send": "^0.19.0",
-      "socket.io>socket.io-parser": "^4.2.6",
-      "tinyglobby>picomatch": "^4.0.4",
-      "undici": "^6.24.0",
-      "yaml": "^2.8.3"
+      "socket.io>socket.io-parser": "^4.2.6"
     }
   },
   "packageManager": "pnpm@10.30.3+sha512.c961d1e0a2d8e354ecaa5166b822516668b7f44cb5bd95122d590dd81922f606f5473b6d23ec4a5be05e7fcd18e8488d47d978bbe981872f1145d06e9a740017"
