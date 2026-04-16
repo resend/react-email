@@ -39,3 +39,10 @@ yarn-error.log*
 .turbo
 .worktrees
 .serena/
+
+# cursor
+.cursor/hooks/state/
+
+# mintlify exports (generated locally)
+apps/docs/export.zip
+apps/docs/export/

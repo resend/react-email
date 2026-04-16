@@ -2,25 +2,36 @@ import { PluginKey } from '@tiptap/pm/state';
 import { useCurrentEditor } from '@tiptap/react';
 import { BubbleMenu } from '@tiptap/react/menus';
 import * as React from 'react';
+import { BubbleMenuAlignCenter } from './align-center';
+import { BubbleMenuAlignLeft } from './align-left';
+import { BubbleMenuAlignRight } from './align-right';
+import { BubbleMenuBold } from './bold';
+import { BubbleMenuCode } from './code';
 import { BubbleMenuContext } from './context';
-import { bubbleMenuTriggers, type ShouldShowFn } from './triggers';
+import { BubbleMenuItemGroup } from './group';
+import { BubbleMenuItalic } from './italic';
+import { BubbleMenuLinkSelector } from './link-selector';
+import { BubbleMenuNodeSelector } from './node-selector';
+import { BubbleMenuStrike } from './strike';
+import { bubbleMenuTriggers, type TriggerFn } from './triggers';
+import { BubbleMenuUnderline } from './underline';
+import { BubbleMenuUppercase } from './uppercase';
 
 const defaultPluginKey = new PluginKey('bubbleMenu');
 
 export interface BubbleMenuRootProps
-  extends Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> {
-  shouldShow?: ShouldShowFn;
+  extends React.ComponentPropsWithoutRef<'div'> {
+  trigger?: TriggerFn;
   pluginKey?: PluginKey;
   hideWhenActiveNodes?: string[];
   hideWhenActiveMarks?: string[];
   placement?: 'top' | 'bottom';
   offset?: number;
   onHide?: () => void;
-  children: React.ReactNode;
 }
 
-export function BubbleMenuRoot({
-  shouldShow,
+function Root({
+  trigger,
   pluginKey = defaultPluginKey,
   hideWhenActiveNodes = [],
   hideWhenActiveMarks = [],
@@ -34,8 +45,8 @@ export function BubbleMenuRoot({
   const { editor } = useCurrentEditor();
   const [isEditing, setIsEditing] = React.useState(false);
 
-  const resolvedShouldShow =
-    shouldShow ??
+  const resolvedTrigger =
+    trigger ??
     bubbleMenuTriggers.textSelection(hideWhenActiveNodes, hideWhenActiveMarks);
 
   if (!editor) {
@@ -47,7 +58,7 @@ export function BubbleMenuRoot({
       editor={editor}
       pluginKey={pluginKey}
       data-re-bubble-menu=""
-      shouldShow={resolvedShouldShow}
+      shouldShow={resolvedTrigger}
       options={{
         placement,
         offset,
@@ -65,3 +76,92 @@ export function BubbleMenuRoot({
     </BubbleMenu>
   );
 }
+
+const textPluginKey = new PluginKey('textBubbleMenu');
+
+interface BubbleMenuDefaultProps
+  extends Omit<React.ComponentPropsWithoutRef<'div'>, 'children'> {
+  hideWhenActiveNodes?: string[];
+  hideWhenActiveMarks?: string[];
+  placement?: 'top' | 'bottom';
+  offset?: number;
+  onHide?: () => void;
+}
+
+function Default({
+  hideWhenActiveNodes,
+  hideWhenActiveMarks,
+  placement,
+  offset,
+  onHide,
+  className,
+  ...rest
+}: BubbleMenuDefaultProps) {
+  const [isNodeSelectorOpen, setIsNodeSelectorOpen] = React.useState(false);
+  const [isLinkSelectorOpen, setIsLinkSelectorOpen] = React.useState(false);
+
+  const handleNodeSelectorOpenChange = React.useCallback((open: boolean) => {
+    setIsNodeSelectorOpen(open);
+    if (open) {
+      setIsLinkSelectorOpen(false);
+    }
+  }, []);
+
+  const handleLinkSelectorOpenChange = React.useCallback((open: boolean) => {
+    setIsLinkSelectorOpen(open);
+    if (open) {
+      setIsNodeSelectorOpen(false);
+    }
+  }, []);
+
+  const handleHide = React.useCallback(() => {
+    setIsNodeSelectorOpen(false);
+    setIsLinkSelectorOpen(false);
+    onHide?.();
+  }, [onHide]);
+
+  return (
+    <Root
+      pluginKey={textPluginKey}
+      hideWhenActiveNodes={hideWhenActiveNodes}
+      hideWhenActiveMarks={hideWhenActiveMarks}
+      placement={placement}
+      offset={offset}
+      onHide={handleHide}
+      className={className}
+      {...rest}
+    >
+      <BubbleMenuNodeSelector
+        open={isNodeSelectorOpen}
+        onOpenChange={handleNodeSelectorOpenChange}
+      />
+      <BubbleMenuLinkSelector
+        open={isLinkSelectorOpen}
+        onOpenChange={handleLinkSelectorOpenChange}
+      />
+      <BubbleMenuItemGroup>
+        <BubbleMenuBold />
+        <BubbleMenuItalic />
+        <BubbleMenuUnderline />
+        <BubbleMenuStrike />
+        <BubbleMenuCode />
+        <BubbleMenuUppercase />
+      </BubbleMenuItemGroup>
+      <BubbleMenuItemGroup>
+        <BubbleMenuAlignLeft />
+        <BubbleMenuAlignCenter />
+        <BubbleMenuAlignRight />
+      </BubbleMenuItemGroup>
+    </Root>
+  );
+}
+
+function RootWithDefault({ children, ...rest }: BubbleMenuRootProps) {
+  if (children) {
+    return <Root {...rest}>{children}</Root>;
+  }
+
+  return <Default {...rest} />;
+}
+
+export { RootWithDefault as BubbleMenuRoot };

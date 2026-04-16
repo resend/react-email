@@ -1,5 +1,5 @@
-import { render } from '@react-email/components';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { render } from 'react-email';
 import { WaitlistEmail } from '../../../transactional/emails/waitlist';
 import { scalewayTEM } from '../../lib/scaleway';
 

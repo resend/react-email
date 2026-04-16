@@ -1,19 +1,12 @@
 /**
- * Stub for `@react-email/render` and `@react-email/markdown` in the Vite
- * browser test environment. These packages depend on Node-only modules
- * (`prettier`, `md-to-react-email`) that Vite cannot resolve in the browser.
- *
- * The stubs satisfy the named exports that `@react-email/components`
- * barrel-re-exports, so that extensions importing individual components
- * (e.g. `{ Heading }`) from the components package can resolve correctly.
+ * Stub for `@react-email/render` in the Vite browser test environment.
+ * The render package depends on Node-only modules (`prettier`) that
+ * Vite cannot resolve in the browser. Only the render functions are
+ * stubbed — components resolve from the real `react-email` source.
  */
 
-// @react-email/render exports
 export const plainTextSelectors = {};
 export const pretty = async (html: string) => html;
 export const render = async () => '';
 export const renderAsync = async () => '';
 export const toPlainText = () => '';
-
-// @react-email/markdown exports
-export const Markdown = () => null;

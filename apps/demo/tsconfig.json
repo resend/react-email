@@ -1,0 +1,8 @@
+{
+  "extends": "tsconfig/react-library.json",
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "types": ["node"]
+  },
+  "include": ["."]
+}

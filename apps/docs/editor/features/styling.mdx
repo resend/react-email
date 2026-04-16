@@ -48,7 +48,7 @@ element to restyle the editor:
 
 The default theme supports dark mode in two ways:
 
-**Automatic** — via `prefers-color-scheme`:
+**Automatic**: via `prefers-color-scheme`.
 
 ```css
 @media (prefers-color-scheme: dark) {
@@ -60,7 +60,7 @@ The default theme supports dark mode in two ways:
 }
 ```
 
-**Class-based** — via a `.dark` class on any ancestor:
+**Class-based**: via a `.dark` class on any ancestor.
 
 ```css
 .dark {
@@ -78,6 +78,8 @@ Every UI component uses `data-re-*` attributes as stable CSS hooks. These are th
 way to target specific parts of the editor UI.
 
 ### Bubble menu
+
+See the [Bubble Menu](/editor/features/bubble-menu) guide for setup, behavior, and composition.
 
 ```css
 /* Menu container */
@@ -105,7 +107,7 @@ Available `data-item` values: `bold`, `italic`, `underline`, `strike`, `code`, `
 
 ### Node selector
 
-The block type dropdown inside the bubble menu:
+The block type dropdown inside the bubble menu
 
 ```css
 /* Dropdown wrapper */
@@ -126,7 +128,7 @@ The block type dropdown inside the bubble menu:
 
 ### Link selector
 
-The link popover inside the bubble menu:
+The link popover inside the bubble menu
 
 ```css
 /* Wrapper */
@@ -150,7 +152,7 @@ The link popover inside the bubble menu:
 
 ### Link bubble menu
 
-The standalone menu that appears when clicking a link:
+The standalone menu that appears when clicking a link
 
 ```css
 /* Container */
@@ -174,7 +176,7 @@ The standalone menu that appears when clicking a link:
 
 ### Button bubble menu
 
-The menu that appears when clicking an email button:
+The menu that appears when clicking an email button
 
 ```css
 /* Container */
@@ -190,7 +192,7 @@ The menu that appears when clicking an email button:
 
 ### Image bubble menu
 
-The menu that appears when clicking an image:
+The menu that appears when clicking an image
 
 ```css
 /* Container */
@@ -205,6 +207,9 @@ The menu that appears when clicking an image:
 ```
 
 ### Slash command
+
+See the [Slash Commands](/editor/features/slash-commands) guide for setup, default items,
+and custom commands.
 
 ```css
 /* Command palette container */
@@ -223,10 +228,64 @@ The menu that appears when clicking an image:
 [data-re-slash-command-empty] { }
 ```
 
+### Inspector
+
+See the [Inspector](/editor/features/inspector) guide for setup, panels, and custom render props.
+
+```css
+/* Section container */
+[data-re-inspector-section] { }
+
+/* Section header with collapse toggle */
+[data-re-inspector-section-header] { }
+[data-re-inspector-section-toggle] { }
+
+/* Section body (collapsible content) */
+[data-re-inspector-section-body] { }
+
+/* Field row (label + control) */
+[data-re-inspector-field] { }
+
+/* Text / number / textarea inputs */
+[data-re-inspector-input] { }
+[data-re-inspector-input][data-type="number"] { }
+[data-re-inspector-input][data-type="textarea"] { }
+
+/* Number field wrapper (input + unit label) */
+[data-re-inspector-number] { }
+[data-re-inspector-unit] { }
+
+/* Select dropdown */
+[data-re-inspector-select] { }
+
+/* Color picker */
+[data-re-inspector-color-control] { }
+[data-re-inspector-color-trigger] { }
+[data-re-inspector-color-hex] { }
+
+/* Toggle group (e.g. alignment) */
+[data-re-inspector-toggle-group] { }
+[data-re-inspector-toggle-item] { }
+[data-re-inspector-toggle-item][data-active] { }
+
+/* Buttons */
+[data-re-inspector-button] { }
+[data-re-inspector-icon-button] { }
+
+/* Breadcrumb navigation */
+[data-re-inspector-breadcrumb-list] { }
+[data-re-inspector-breadcrumb-item] { }
+[data-re-inspector-breadcrumb-button] { }
+[data-re-inspector-breadcrumb-separator] { }
+
+/* Labels and text */
+[data-re-inspector-label] { }
+[data-re-inspector-prop-row] { }
+```
+
 ## Editor content classes
 
-The editor content area uses the `.tiptap` root class from [TipTap](https://tiptap.dev/docs/editor/getting-started/style-editor). Target content elements with
-`.tiptap` as a prefix:
+The editor content area uses the `.tiptap` root class from [TipTap](https://tiptap.dev/docs/editor/getting-started/style-editor). Target content elements with `.tiptap` as a prefix.
 
 ### Typography
 
@@ -280,7 +339,7 @@ The editor content area uses the `.tiptap` root class from [TipTap](https://tipt
 
 ### Text alignment
 
-The alignment attribute renders as an HTML attribute on block nodes:
+The alignment attribute renders as an HTML attribute on block nodes.
 
 ```css
 .tiptap [alignment="left"] { text-align: left; }
@@ -290,7 +349,7 @@ The alignment attribute renders as an HTML attribute on block nodes:
 
 ### Column data types
 
-Column layouts also use `data-type` attributes:
+Column layouts also use `data-type` attributes.
 
 ```css
 .tiptap [data-type="two-columns"] { }
@@ -304,7 +363,7 @@ Column layouts also use `data-type` attributes:
 
 ### Custom brand colors
 
-Override the CSS variables to match your brand:
+Override the CSS variables to match your brand.
 
 ```css
 .my-editor {
@@ -323,14 +382,14 @@ Override the CSS variables to match your brand:
 ```tsx
 <div className="my-editor">
   <EditorProvider extensions={extensions} content={content}>
-    <BubbleMenu.Default />
+    <BubbleMenu />
   </EditorProvider>
 </div>
 ```
 
 ### Custom bubble menu item styles
 
-Increase icon size and change the active state color:
+Increase icon size and change the active state color.
 
 ```css
 [data-re-bubble-menu-item] svg {
@@ -346,7 +405,7 @@ Increase icon size and change the active state color:
 
 ### Custom slash command appearance
 
-Make the command palette wider with a custom background:
+Make the command palette wider with a custom background color.
 
 ```css
 [data-re-slash-command] {
@@ -367,7 +426,7 @@ Make the command palette wider with a custom background:
 
 ### Styling editor content
 
-Customize how content looks inside the editor:
+Customize how content looks inside the editor.
 
 ```css
 /* Custom heading styles */
@@ -404,3 +463,16 @@ Customize how content looks inside the editor:
   Content styling in the editor (via `.tiptap` selectors) only affects how content looks while
   editing. The exported email HTML is styled separately via the [Theming](/editor/features/theming) system.
 </Tip>
+
+## Examples
+
+See styling and theming in action with runnable examples:
+
+<CardGroup cols={2}>
+  <Card title="Email Theming" icon="code" href="https://react.email/editor/examples/email-theming">
+    Basic/Minimal theme toggle with live preview.
+  </Card>
+  <Card title="Full Email Builder" icon="code" href="https://react.email/editor/examples/full-email-builder">
+    Complete editor with all styling features combined.
+  </Card>
+</CardGroup>

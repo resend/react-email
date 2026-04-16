@@ -7,7 +7,7 @@ icon: "link"
 
 ## Quick start
 
-Use `BubbleMenu.LinkDefault` to add an inline link editing toolbar:
+Use `BubbleMenu.LinkDefault` to add an inline link editing toolbar.
 
 ```tsx
 import { StarterKit } from '@react-email/editor/extensions';
@@ -35,32 +35,32 @@ export function MyEditor() {
 
 When you click on a link in the editor, the link bubble menu appears with:
 
-- **Edit button** -- Opens an inline form to change the URL
-- **Open button** -- Opens the link in a new tab
-- **Unlink button** -- Removes the link, keeping the text
+- **Edit button**: Opens an inline form to change the URL
+- **Open button**: Opens the link in a new tab
+- **Unlink button**: Removes the link, keeping the text
 
 To **add a new link**, select text and press `Cmd+K` (or `Ctrl+K` on Windows/Linux).
 
-## Using with the text bubble menu
+## Bubble menu
 
-When combining the link bubble menu with `BubbleMenu.Default`, use `hideWhenActiveMarks` to prevent
-the text bubble menu from appearing when a link is focused:
+When combining the link bubble menu with `BubbleMenu`, use `hideWhenActiveMarks` to prevent
+the text bubble menu from appearing when a link is focused.
 
 ```tsx
 import { BubbleMenu } from '@react-email/editor/ui';
 
 <EditorProvider extensions={extensions} content={content}>
-  <BubbleMenu.Default hideWhenActiveMarks={['link']} />
+  <BubbleMenu hideWhenActiveMarks={['link']} />
   <BubbleMenu.LinkDefault />
 </EditorProvider>
 ```
 
-Without `hideWhenActiveMarks`, both menus would try to show at the same time when a link is selected.
+Without `hideWhenActiveMarks`, both menus will try to show at the same time when a link is selected.
 
 ## HTML content with links
 
 When using HTML strings as content, `<a>` tags are automatically parsed into the editor's
-link model:
+link model.
 
 ```tsx
 const content = `
@@ -68,5 +68,15 @@ const content = `
 `;
 ```
 
-The link extension is included in `StarterKit` with `openOnClick` disabled by default,
-so clicking a link in edit mode focuses it rather than navigating away.
+The link extension is included in `StarterKit` with `openOnClick` disabled by default.
+This means that clicking a link in edit mode focuses it rather than navigating away.
+
+## Examples
+
+See link editing in action with a runnable example:
+
+<CardGroup cols={2}>
+  <Card title="Link Editing" icon="code" href="https://react.email/editor/examples/link-editing">
+    Inline link editing with Cmd+K support.
+  </Card>
+</CardGroup>

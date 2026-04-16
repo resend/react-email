@@ -1,9 +1,9 @@
 {
   "name": "react-email",
-  "version": "5.2.10",
+  "version": "6.0.0-canary.2",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
-    "email": "./dist/index.mjs"
+    "email": "./dist/cli/index.mjs"
   },
   "type": "module",
   "scripts": {
@@ -11,9 +11,20 @@
     "build:watch": "tsdown --watch src",
     "clean": "rm -rf dist",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
   },
   "license": "MIT",
+  "exports": {
+    "import": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "require": {
+      "types": "./dist/index.d.cts",
+      "default": "./dist/index.cjs"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/resend/react-email.git",
@@ -29,26 +40,33 @@
   "dependencies": {
     "@babel/parser": "catalog:",
     "@babel/traverse": "catalog:",
+    "@react-email/render": "workspace:>=2.0.7-canary.0",
     "chokidar": "^4.0.3",
     "commander": "catalog:",
     "conf": "^15.0.2",
+    "css-tree": "3.1.0",
     "debounce": "^2.0.0",
     "esbuild": "catalog:",
     "glob": "^13.0.6",
     "jiti": "2.4.2",
     "log-symbols": "catalog:",
+    "marked": "^15.0.12",
     "mime-types": "^3.0.0",
     "normalize-path": "^3.0.0",
     "nypm": "catalog:",
     "ora": "catalog:",
+    "prismjs": "^1.30.0",
     "prompts": "2.4.2",
     "socket.io": "^4.8.1",
+    "tailwindcss": "catalog:",
     "tsconfig-paths": "4.2.0"
   },
   "devDependencies": {
-    "@react-email/components": "workspace:*",
+    "@react-email/render": "workspace:*",
+    "@responsive-email/react-email": "catalog:",
     "@types/babel__core": "catalog:",
     "@types/babel__traverse": "catalog:",
+    "@types/css-tree": "catalog:",
     "@types/mime-types": "catalog:",
     "@types/prompts": "2.4.9",
     "next": "catalog:",

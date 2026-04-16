@@ -1,3 +1,6 @@
+import type { Attrs } from '@tiptap/pm/model';
+import { useEffect } from 'react';
+
 const EVENT_PREFIX = '@react-email/editor:';
 
 /**
@@ -14,7 +17,14 @@ const EVENT_PREFIX = '@react-email/editor:';
  */
 export interface EditorEventMap {
   'bubble-menu:add-link': undefined;
+  'node-clicked': NodeClickedEvent;
 }
+
+export type NodeClickedEvent = {
+  nodeType: string;
+  nodeAttrs: Attrs;
+  nodePos: { pos: number; inside: number };
+};
 
 export type EditorEventName = keyof EditorEventMap;
 
@@ -83,3 +93,15 @@ class EditorEventBus {
 }
 
 export const editorEventBus = new EditorEventBus();
+
+export function useEditorEvent<T extends EditorEventName>(
+  eventName: T,
+  handler: EditorEventHandler<T>,
+  options?: AddEventListenerOptions & { target?: EventTarget },
+) {
+  useEffect(() => {
+    const subscription = editorEventBus.on(eventName, handler, options);
+
+    return () => subscription.unsubscribe();
+  }, [eventName, handler, options]);
+}

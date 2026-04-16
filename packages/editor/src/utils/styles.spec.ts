@@ -431,6 +431,45 @@ describe('inlineCssToJs', () => {
     expect(inlineCssToJs('color:   ')).toEqual({});
   });
 
+  describe('values containing colons', () => {
+    it('preserves https URL in background-image', () => {
+      expect(
+        inlineCssToJs('background-image: url(https://cdn.example.com/bg.png)'),
+      ).toEqual({
+        backgroundImage: 'url(https://cdn.example.com/bg.png)',
+      });
+    });
+
+    it('preserves data URI in background-image', () => {
+      expect(
+        inlineCssToJs('background-image: url(data:image/png;base64,abc123)'),
+      ).toEqual({
+        backgroundImage: 'url(data:image/png;base64,abc123)',
+      });
+    });
+
+    it('preserves multiple properties with URL values', () => {
+      expect(
+        inlineCssToJs(
+          'background-image: url(https://cdn.example.com/bg.png); color: red',
+        ),
+      ).toEqual({
+        backgroundImage: 'url(https://cdn.example.com/bg.png)',
+        color: 'red',
+      });
+    });
+
+    it('preserves http URL in background shorthand', () => {
+      expect(
+        inlineCssToJs(
+          'background: url(http://example.com/img.jpg) no-repeat center',
+        ),
+      ).toEqual({
+        background: 'url(http://example.com/img.jpg) no-repeat center',
+      });
+    });
+  });
+
   describe('removeUnit option', () => {
     it('should remove px units when removeUnit is true', () => {
       expect(inlineCssToJs('width: 100px', { removeUnit: true })).toEqual({

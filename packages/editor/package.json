@@ -1,7 +1,7 @@
 {
   "name": "@react-email/editor",
-  "version": "0.0.0-experimental.39",
-  "description": "",
+  "version": "0.0.0-canary.51",
+  "description": "A rich text editor for editing and building email templates",
   "sideEffects": [
     "**/*.css"
   ],
@@ -74,6 +74,7 @@
     "./styles/button-bubble-menu.css": "./dist/ui/button-bubble-menu/button-bubble-menu.css",
     "./styles/image-bubble-menu.css": "./dist/ui/image-bubble-menu/image-bubble-menu.css",
     "./styles/slash-command.css": "./dist/ui/slash-command/slash-command.css",
+    "./styles/inspector.css": "./dist/ui/inspector/inspector.css",
     "./themes/default.css": "./dist/ui/themes/default.css"
   },
   "license": "MIT",
@@ -101,16 +102,17 @@
     "node": ">=20.0.0"
   },
   "peerDependencies": {
-    "@radix-ui/react-popover": "^1.0.0",
-    "@react-email/components": "workspace:*",
     "react": "^18.0 || ^19.0 || ^19.0.0-rc",
     "react-dom": "^18.0 || ^19.0 || ^19.0.0-rc"
   },
   "dependencies": {
     "@floating-ui/react-dom": "^2.1.8",
+    "react-email": "workspace:*",
+    "@radix-ui/react-popover": "^1.0.0",
+    "@radix-ui/react-slot": "^1.2.3",
     "@tiptap/core": "^3.17.1",
     "@tiptap/extension-blockquote": "^3.17.1",
-    "@tiptap/extension-bold": "^3.20.1",
+    "@tiptap/extension-bold": "^3.17.1",
     "@tiptap/extension-bullet-list": "^3.17.1",
     "@tiptap/extension-code": "^3.17.1",
     "@tiptap/extension-code-block": "^3.17.1",
@@ -138,9 +140,9 @@
     "prismjs": "^1.30.0"
   },
   "devDependencies": {
-    "@testing-library/react": "16.0.0",
+    "@testing-library/react": "16.3.2",
     "@types/node": "catalog:",
-    "@types/prismjs": "1.26.5",
+    "@types/prismjs": "1.26.6",
     "@vitejs/plugin-react": "catalog:",
     "@vitest/browser-playwright": "4.0.17",
     "playwright": "1.58.2",

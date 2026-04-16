@@ -8,6 +8,7 @@ import type { ListItemOptions } from '@tiptap/extension-list-item';
 import type { OrderedListOptions } from '@tiptap/extension-ordered-list';
 import type { ParagraphOptions } from '@tiptap/extension-paragraph';
 import type { StrikeOptions } from '@tiptap/extension-strike';
+import { UndoRedo, type UndoRedoOptions } from '@tiptap/extensions';
 import TipTapStarterKit, {
   type StarterKitOptions as TipTapStarterKitOptions,
 } from '@tiptap/starter-kit';
@@ -32,6 +33,8 @@ import {
   ThreeColumns,
   TwoColumns,
 } from './columns';
+import type { ContainerOptions } from './container';
+import { Container } from './container';
 import type { DivOptions } from './div';
 import { Div } from './div';
 import type { DividerOptions } from './divider';
@@ -49,8 +52,6 @@ import type { MaxNestingOptions } from './max-nesting';
 import { MaxNesting } from './max-nesting';
 import { OrderedList } from './ordered-list';
 import { Paragraph } from './paragraph';
-import type { PlaceholderOptions } from './placeholder';
-import { Placeholder } from './placeholder';
 import { PreservedStyle } from './preserved-style';
 import type { PreviewTextOptions } from './preview-text';
 import { PreviewText } from './preview-text';
@@ -64,6 +65,7 @@ import { Sup } from './sup';
 import type { TableCellOptions, TableOptions, TableRowOptions } from './table';
 import { Table, TableCell, TableHeader, TableRow } from './table';
 import { Text } from './text';
+import { TrailingNode, type TrailingNodeOptions } from './trailing-node';
 import type { UnderlineOptions } from './underline';
 import { Underline } from './underline';
 import type { UppercaseOptions } from './uppercase';
@@ -79,6 +81,7 @@ export * from './class-attribute';
 export * from './code';
 export * from './code-block';
 export * from './columns';
+export * from './container';
 export * from './div';
 export * from './divider';
 export * from './global-content';
@@ -90,7 +93,6 @@ export * from './list-item';
 export * from './max-nesting';
 export * from './ordered-list';
 export * from './paragraph';
-export * from './placeholder';
 export * from './preserved-style';
 export * from './preview-text';
 export * from './section';
@@ -99,6 +101,7 @@ export * from './style-attribute';
 export * from './sup';
 export * from './table';
 export * from './text';
+export * from './trailing-node';
 export * from './underline';
 export * from './uppercase';
 
@@ -108,6 +111,7 @@ const starterKitExtensions: Record<string, AnyExtension> = {
   TwoColumns,
   ThreeColumns,
   FourColumns,
+  Container,
   ColumnsColumn,
   Paragraph,
   BulletList,
@@ -116,8 +120,8 @@ const starterKitExtensions: Record<string, AnyExtension> = {
   ListItem,
   HardBreak,
   Italic,
-  Placeholder,
   PreviewText,
+  TrailingNode,
   Bold,
   Strike,
   Heading,
@@ -141,6 +145,7 @@ const starterKitExtensions: Record<string, AnyExtension> = {
   StyleAttribute,
   ClassAttribute,
   MaxNesting,
+  UndoRedo,
 };
 
 export type StarterKitOptions = {
@@ -153,11 +158,11 @@ export type StarterKitOptions = {
   Paragraph: Partial<ParagraphOptions> | false;
   BulletList: Partial<BulletListOptions> | false;
   OrderedList: Partial<OrderedListOptions> | false;
+  TrailingNode: Partial<TrailingNodeOptions> | false;
   Blockquote: Partial<BlockquoteOptions> | false;
   ListItem: Partial<ListItemOptions> | false;
   HardBreak: Partial<HardBreakOptions> | false;
   Italic: Partial<ItalicOptions> | false;
-  Placeholder: Partial<PlaceholderOptions> | false;
   PreviewText: Partial<PreviewTextOptions> | false;
   Bold: Partial<BoldOptions> | false;
   Strike: Partial<StrikeOptions> | false;
@@ -173,6 +178,7 @@ export type StarterKitOptions = {
   TableCell: Partial<TableCellOptions> | false;
   TableHeader: Partial<Record<string, any>> | false;
   Body: Partial<BodyOptions> | false;
+  Container: Partial<ContainerOptions> | false;
   Div: Partial<DivOptions> | false;
   Text: Record<string, never> | false;
   Button: Partial<EditorButtonOptions> | false;
@@ -182,6 +188,7 @@ export type StarterKitOptions = {
   StyleAttribute: Partial<StyleAttributeOptions> | false;
   ClassAttribute: Partial<ClassAttributeOptions> | false;
   MaxNesting: Partial<MaxNestingOptions> | false;
+  UndoRedo: Partial<UndoRedoOptions> | false;
   TiptapStarterKit: Partial<TipTapStarterKitOptions> | false;
 };
 
@@ -196,6 +203,10 @@ export const StarterKit = Extension.create<StarterKitOptions>({
         HTMLAttributes: {
           class: 'prism node-codeBlock',
         },
+      },
+      TrailingNode: {
+        node: 'paragraph',
+        appendTo: ['container', 'section', 'columnsColumn'],
       },
       Code: {
         HTMLAttributes: {
@@ -230,7 +241,6 @@ export const StarterKit = Extension.create<StarterKitOptions>({
       ListItem: {},
       HardBreak: {},
       Italic: {},
-      Placeholder: {},
       PreviewText: {},
       Bold: {},
       Strike: {},
@@ -246,6 +256,7 @@ export const StarterKit = Extension.create<StarterKitOptions>({
       TableCell: {},
       TableHeader: {},
       Body: {},
+      Container: {},
       Div: {},
       Button: {},
       Section: {},
@@ -326,6 +337,7 @@ export const StarterKit = Extension.create<StarterKitOptions>({
         maxDepth: 50,
         nodeTypes: ['section', 'bulletList', 'orderedList'],
       },
+      UndoRedo: {},
     };
   },
 

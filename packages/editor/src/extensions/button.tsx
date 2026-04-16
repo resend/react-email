@@ -1,9 +1,5 @@
-import {
-  Column,
-  Button as ReactEmailButton,
-  Row,
-} from '@react-email/components';
 import { mergeAttributes } from '@tiptap/core';
+import { Column, Button as ReactEmailButton, Row } from 'react-email';
 import { EmailNode } from '../core/serializer/email-node';
 import { inlineCssToJs } from '../utils/styles';
 
@@ -53,13 +49,14 @@ export const Button = EmailNode.create<EditorButtonOptions>({
           }
           const element = node as HTMLElement;
           const attrs: Record<string, string> = {};
-
-          // Preserve all attributes
           Array.from(element.attributes).forEach((attr) => {
             attrs[attr.name] = attr.value;
           });
 
-          return attrs;
+          return {
+            ...attrs,
+            href: attrs['data-href'] ?? attrs.href,
+          };
         },
       },
     ];
@@ -77,6 +74,7 @@ export const Button = EmailNode.create<EditorButtonOptions>({
           class: `node-button ${HTMLAttributes?.class}`,
           style: HTMLAttributes?.style,
           'data-id': 'react-email-button',
+          href: HTMLAttributes?.href,
           'data-href': HTMLAttributes?.href,
         }),
         0,

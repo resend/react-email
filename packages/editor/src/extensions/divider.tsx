@@ -1,7 +1,7 @@
-import { Hr } from '@react-email/components';
 import { InputRule } from '@tiptap/core';
 import type { HorizontalRuleOptions } from '@tiptap/extension-horizontal-rule';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
+import { Hr } from 'react-email';
 
 export type DividerOptions = HorizontalRuleOptions;
 

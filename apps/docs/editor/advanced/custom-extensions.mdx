@@ -5,28 +5,12 @@ description: "Create custom email-compatible editor nodes and marks."
 icon: "wrench"
 ---
 
-## EmailNode vs TipTap Node
-
-The editor uses `EmailNode` instead of TipTap's standard `Node`, which is a class that extends `Node`. The key difference is a
-required `renderToReactEmail()` method that tells the serializer how to convert the node to
-a React Email component for HTML export.
-
-```
-TipTap Node
-├── name, group, content
-├── parseHTML()
-├── renderHTML()          ← How it looks in the editor
-└── ...
-
-EmailNode (extends Node)
-├── name, group, content
-├── parseHTML()
-├── renderHTML()          ← How it looks in the editor
-├── renderToReactEmail()  ← How it looks in the exported email HTML
-└── ...
-```
-
 ## Creating a custom node
+
+Custom extensions use `EmailNode`, which extends TipTap's `Node` with one extra required
+method: `renderToReactEmail()`. Use `parseHTML()` to recognize pasted or imported HTML,
+`renderHTML()` to control how the node appears in the editor, and `renderToReactEmail()` to
+control how it is exported by `composeReactEmail`.
 
 Here's a complete example of a custom "Callout" node that renders as a highlighted block:
 
@@ -73,12 +57,6 @@ const Callout = EmailNode.create({
   },
 });
 ```
-
-Key methods:
-
-- **`parseHTML()`** — Defines which HTML elements get parsed into this node (for clipboard paste, HTML content)
-- **`renderHTML()`** — Controls how the node appears in the editor (in the browser DOM)
-- **`renderToReactEmail()`** — Controls how the node is serialized when exporting to email HTML via `composeReactEmail`
 
 ## Registering the extension
 
@@ -222,7 +200,7 @@ export function MyEditor() {
       content={content}
       slotBefore={<Toolbar />}
     >
-      <BubbleMenu.Default />
+      <BubbleMenu />
     </EditorProvider>
   );
 }
@@ -279,3 +257,13 @@ const CustomParagraph = Paragraph.extend({
   },
 });
 ```
+
+## Examples
+
+See custom extensions in action with a runnable example:
+
+<CardGroup cols={2}>
+  <Card title="Custom Extensions" icon="code" href="https://react.email/editor/examples/custom-extensions">
+    Custom Callout node with EmailNode.create, toolbar insertion, and bubble menu.
+  </Card>
+</CardGroup>

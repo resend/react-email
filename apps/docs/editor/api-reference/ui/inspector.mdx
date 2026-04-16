@@ -1,0 +1,290 @@
+---
+title: "Inspector"
+sidebarTitle: "Inspector"
+description: "Contextual sidebar components for document, node, and text editing."
+icon: "sidebar"
+---
+
+The Inspector is a sidebar that provides a way to inspect and edit the email's properties. From the Inspector, you can edit document, node, and text properties such as colors, fonts, and padding.
+
+View a minimal example of the Inspector at the [Standalone Editor Inspector](https://react.email/editor/examples/standalone-editor-inspector) demo page.
+
+Everything is accessed through a single import:
+
+```tsx
+import { Inspector } from '@react-email/editor/ui';
+```
+
+`Inspector.Root` must be rendered inside the current editor context, and it
+requires the [EmailTheming](/editor/api-reference/theming-api) extension to be present in the editor.
+
+## Core components
+
+### Inspector.Root
+
+Wraps your inspector UI and decides which panel should be active based on the
+current selection.
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+import { EmailTheming } from '@react-email/editor/plugins';
+import { Inspector } from '@react-email/editor/ui';
+import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
+
+const extensions = [StarterKit, EmailTheming];
+
+export function MyEditor() {
+  const editor = useEditor({
+    extensions,
+    content,
+  });
+
+  return (
+    <EditorContext.Provider value={{ editor }}>
+      <div className="flex">
+        <EditorContent editor={editor} />
+        <Inspector.Root className="w-60 shrink-0 border-l p-4">
+          <Inspector.Document />
+          <Inspector.Node />
+          <Inspector.Text />
+        </Inspector.Root>
+      </div>
+    </EditorContext.Provider>
+  );
+}
+```
+
+<Tip>
+  If you use the standalone `EmailEditor` component, pass the inspector as a
+  child. No `EditorContext.Provider` is needed. See the
+  [Inspector feature guide](/editor/features/inspector#using-with-emaileditor).
+</Tip>
+
+<Tip>
+  `Inspector.Root` already renders
+  [EditorFocusScopeProvider](/editor/api-reference/ui/editor-focus-scope-provider)
+  and wraps itself in
+  [EditorFocusScope](/editor/api-reference/ui/editor-focus-scope) by default,
+  so the Inspector handles the editor's focus idiomatically and reliably. Add
+  `EditorFocusScope` yourself only when custom inspector controls render
+  additional portaled content.
+</Tip>
+
+<ResponseField name="asChild" type="boolean" default="false">
+  Render without the default `aside` wrapper and pass props to the child via
+  Radix UI's [Slot](https://www.radix-ui.com/primitives/docs/utilities/slot).
+</ResponseField>
+
+All standard props from `aside` are also supported if `asChild` is `false`.
+
+### Inspector.Document
+
+This is meant for inspecting and changing properties related to the entire editor's content. That is, [EmailTheming](/editor/api-reference/theming-api), page-level settings, and other document-wide concerns.
+
+It shows up when the editor is not focused on a specific node or text selection, or when the editor is unfocused.
+
+```tsx
+<Inspector.Document />
+```
+
+<ResponseField name="children" type="(context: InspectorDocumentContext) => ReactNode">
+  Optional render prop. When provided, you receive the document inspector
+  context instead of the default UI.
+</ResponseField>
+
+#### InspectorDocumentContext
+
+<ResponseField name="styles" type="PanelGroup[]">
+  Theme-backed document style groups after merging defaults.
+</ResponseField>
+
+<ResponseField name="setGlobalStyle" type="(classReference, property, value) => void">
+  Updates a single document-level style.
+</ResponseField>
+
+<ResponseField name="batchSetGlobalStyle" type="(changes) => void">
+  Applies multiple document style changes at once.
+</ResponseField>
+
+<ResponseField name="findStyleValue" type="(classReference, property) => string | number">
+  Reads the current or default value for a document style.
+</ResponseField>
+
+### Inspector.Node
+
+Renders when a node is focused or selected. Without `children`, it shows the
+default node-specific sections for the active node type.
+
+```tsx
+<Inspector.Node />
+```
+
+<ResponseField name="children" type="(context: InspectorNodeContext) => ReactNode">
+  Optional render prop. When provided, you receive the node inspector context
+  instead of the default UI.
+</ResponseField>
+
+#### InspectorNodeContext
+
+<ResponseField name="nodeType" type="string">
+  Active node type, such as `image`, `button`, or `section`.
+</ResponseField>
+
+<ResponseField name="nodePos" type="{ pos: number; inside: number }">
+  ProseMirror position information for the focused node.
+</ResponseField>
+
+<ResponseField name="getStyle" type="(prop) => string | number | undefined">
+  Reads a resolved style value for the node.
+</ResponseField>
+
+<ResponseField name="setStyle" type="(prop, value) => void">
+  Updates one inline style on the focused node.
+</ResponseField>
+
+<ResponseField name="batchSetStyle" type="(changes) => void">
+  Applies multiple inline style updates in one call.
+</ResponseField>
+
+<ResponseField name="getAttr" type="(name) => unknown">
+  Reads a node attribute.
+</ResponseField>
+
+<ResponseField name="setAttr" type="(name, value) => void">
+  Updates a node attribute.
+</ResponseField>
+
+<ResponseField name="themeDefaults" type="Record<string, string | number | undefined>">
+  Resolved theme defaults for the current node.
+</ResponseField>
+
+<ResponseField name="presetColors" type="string[]">
+  Colors collected from the current document.
+</ResponseField>
+
+### Inspector.Text
+
+Renders when text is selected. Without `children`, it shows typography controls
+and link controls when a link mark is active.
+
+```tsx
+<Inspector.Text />
+```
+
+<ResponseField name="children" type="(context: InspectorTextContext) => ReactNode">
+  Optional render prop. When provided, you receive the text inspector context
+  instead of the default UI.
+</ResponseField>
+
+#### InspectorTextContext
+
+<ResponseField name="marks" type="Record<string, boolean>">
+  Active text marks like `bold`, `italic`, and `underline`.
+</ResponseField>
+
+<ResponseField name="toggleMark" type="(mark: string) => void">
+  Toggles a text mark on the current selection.
+</ResponseField>
+
+<ResponseField name="alignment" type="string">
+  Current block alignment.
+</ResponseField>
+
+<ResponseField name="setAlignment" type="(value: string) => void">
+  Updates the parent block alignment.
+</ResponseField>
+
+<ResponseField name="linkHref" type="string">
+  Current link URL when a link mark is active.
+</ResponseField>
+
+<ResponseField name="linkColor" type="string">
+  Resolved link color.
+</ResponseField>
+
+<ResponseField name="setLinkColor" type="(color: string) => void">
+  Updates the active link color.
+</ResponseField>
+
+<ResponseField name="isLinkActive" type="boolean">
+  Whether the current text selection is inside a link.
+</ResponseField>
+
+<ResponseField name="getStyle" type="(prop) => string | number | undefined">
+  Reads the resolved parent block style.
+</ResponseField>
+
+<ResponseField name="setStyle" type="(prop, value) => void">
+  Updates the parent block style.
+</ResponseField>
+
+<ResponseField name="presetColors" type="string[]">
+  Colors collected from the current document.
+</ResponseField>
+
+### Inspector.Breadcrumb
+
+Renders the current path from the document root to the focused node.
+
+```tsx
+<Inspector.Breadcrumb />
+```
+
+<ResponseField name="children" type="(segments: InspectorBreadcrumbSegment[]) => ReactNode">
+  Optional render prop for completely custom breadcrumb rendering.
+</ResponseField>
+
+Each segment includes:
+
+<ResponseField name="node" type="FocusedNode | null">
+  The node for this breadcrumb segment. `null` represents the root layout item.
+</ResponseField>
+
+<ResponseField name="focus" type="() => void">
+  Focuses the corresponding node or the document root.
+</ResponseField>
+
+## Built-in sections
+
+Use these inside custom `Inspector.Node` or `Inspector.Text` render functions to
+reuse the default section UIs in your own layout.
+
+```tsx
+<Inspector.Node>
+  {(context) => (
+    <>
+      <Inspector.Size {...context} />
+      <Inspector.Padding {...context} initialCollapsed />
+      <Inspector.Border {...context} initialCollapsed />
+    </>
+  )}
+</Inspector.Node>
+```
+
+Each section component accepts an `initialCollapsed?: boolean` prop.
+
+| Component | Context | Description |
+| -- | -- | -- |
+| `Inspector.Attributes` | Node | Editable attribute fields based on the local attribute schema |
+| `Inspector.Background` | Node | Background color editor |
+| `Inspector.Border` | Node | Border width, color, style, and radius controls |
+| `Inspector.Link` | Text | Read-only URL plus link color controls for active links |
+| `Inspector.Padding` | Node | Four-sided padding editor |
+| `Inspector.Size` | Node | Width and height controls |
+| `Inspector.Typography` | Node or Text | Typography, formatting, and alignment controls |
+
+## CSS import
+
+```tsx
+import '@react-email/editor/styles/inspector.css';
+```
+
+<Tip>
+  `@react-email/editor/themes/default.css` bundles all UI component styles.
+  Unless you need to cherry-pick, use this single import:
+
+```tsx
+import '@react-email/editor/themes/default.css';
+```
+
+</Tip>

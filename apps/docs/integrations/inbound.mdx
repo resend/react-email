@@ -7,26 +7,26 @@ sidebarTitle: 'Inbound'
 
 ## 1. Install dependencies
 
-Get the [@react-email/components](https://www.npmjs.com/package/@react-email/components) package and the [Inbound Node.js SDK](https://www.npmjs.com/package/inboundemail).
+Get the [react-email](https://www.npmjs.com/package/react-email) package and the [Inbound Node.js SDK](https://www.npmjs.com/package/inboundemail).
 
 Make sure you have an account on [inbound](https://inbound.new?utm_source=react-email%20docs&utm_medium=email&utm_campaign=react_email_campaign), you will need an inbound API key.
 
 <CodeGroup>
 
 ```sh npm
-npm install inboundemail @react-email/components
+npm install inboundemail react-email
 ```
 
 ```sh yarn
-yarn add inboundemail @react-email/components
+yarn add inboundemail react-email
 ```
 
 ```sh pnpm
-pnpm add inboundemail @react-email/components
+pnpm add inboundemail react-email
 ```
 
 ```sh bun
-bun add inboundemail @react-email/components
+bun add inboundemail react-email
 ```
 
 </CodeGroup>
@@ -37,7 +37,7 @@ Start by building your email template in a `.jsx` or `.tsx` file.
 
 ```tsx email.tsx
 import * as React from 'react';
-import { Html, Button } from "@react-email/components";
+import { Html, Button } from "react-email";
 
 export function Email(props) {
   const { url } = props;

@@ -1,0 +1,41 @@
+{
+  "mode": "pre",
+  "tag": "canary",
+  "initialVersions": {
+    "demo": "0.0.0",
+    "docs": "0.0.0",
+    "web": "0.0.0",
+    "@benchmarks/preview-server": "0.0.0",
+    "@benchmarks/tailwind-component": "0.0.0",
+    "create-email": "1.2.3",
+    "@react-email/editor": "0.0.0-experimental.48",
+    "@react-email/ui": "5.2.10",
+    "react-email": "5.2.10",
+    "email-dev": "0.0.6",
+    "@react-email/render": "2.0.6",
+    "tsconfig": "0.0.0",
+    "playground": "0.0.20",
+    "@benchmarks/ui": "0.0.0"
+  },
+  "changesets": [
+    "better-coins-fetch",
+    "bitter-boxes-fetch",
+    "eleven-doors-matter",
+    "email-editor-children-prop",
+    "fix-preview-url-parse",
+    "fix-table-nesting",
+    "funny-pears-listen",
+    "get-email-html",
+    "image-upload-plugin",
+    "lemon-drinks-cover",
+    "loud-experts-think",
+    "public-corners-carry",
+    "puny-sloths-decide",
+    "slash-command-api-cleanup",
+    "spotty-rice-shop",
+    "tender-toes-try",
+    "vast-bushes-post",
+    "vast-pigs-shine",
+    "whole-tires-follow"
+  ]
+}

@@ -7,7 +7,7 @@ icon: "rectangle-wide"
 
 ## Quick start
 
-Add `BubbleMenu.ButtonDefault` and a slash command for inserting buttons:
+Add `BubbleMenu.ButtonDefault` and a slash command for inserting buttons.
 
 ```tsx
 import { StarterKit } from '@react-email/editor/extensions';
@@ -27,7 +27,7 @@ export function MyEditor() {
   return (
     <EditorProvider extensions={extensions} content={content}>
       <BubbleMenu.ButtonDefault />
-      <SlashCommand.Root items={[BUTTON]} />
+      <SlashCommand items={[BUTTON]} />
     </EditorProvider>
   );
 }
@@ -52,20 +52,20 @@ as a styled button in the editor and serializes to a React Email `<Button>` comp
 
 When you click a button in the editor, the button bubble menu appears with:
 
-- **Edit link** (pencil icon) -- Opens an inline form to change the button's URL
-- **Unlink** -- Removes the button link
+- **Edit link** (pencil icon): Opens an inline form to change the button's URL
+- **Unlink**: Removes the button link
 
 The form validates URLs and lets you apply or cancel changes inline.
 
 ## Inserting buttons programmatically
 
-Use the `setButton` command to insert a button via the editor API:
+Use the `setButton` command to insert a button via the editor API.
 
 ```tsx
 editor.chain().focus().setButton().run();
 ```
 
-This can be triggered from a custom toolbar:
+This can be triggered from a custom toolbar.
 
 ```tsx
 import { useCurrentEditor } from '@tiptap/react';
@@ -81,3 +81,13 @@ function Toolbar() {
   );
 }
 ```
+
+## Examples
+
+See buttons in action with a runnable example:
+
+<CardGroup cols={2}>
+  <Card title="Buttons" icon="code" href="https://react.email/editor/examples/buttons">
+    Button insertion and editing with the button bubble menu.
+  </Card>
+</CardGroup>

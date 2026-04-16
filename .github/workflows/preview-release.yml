@@ -7,7 +7,7 @@ permissions:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   preview-release:
-    runs-on: blacksmith-2vcpu-ubuntu-2204
+    runs-on: depot-ubuntu-22.04-8
     permissions: 
       contents: write
       pull-requests: write

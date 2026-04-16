@@ -29,7 +29,7 @@ export function BubbleMenuImageDefault({
 
   return (
     <BubbleMenuRoot
-      shouldShow={bubbleMenuTriggers.node('image')}
+      trigger={bubbleMenuTriggers.node('image')}
       pluginKey={imagePluginKey}
       placement={placement}
       offset={offset}

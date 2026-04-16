@@ -7,7 +7,7 @@ icon: "file-export"
 
 ## Quick start
 
-Use `composeReactEmail` to convert editor content into email-ready HTML and plain text:
+Use `composeReactEmail` to convert editor content into email-ready HTML and plain text.
 
 ```tsx
 import { composeReactEmail } from '@react-email/editor/core';
@@ -53,12 +53,50 @@ function ExportPanel() {
 export function MyEditor() {
   return (
     <EditorProvider extensions={extensions} content={content}>
-      <BubbleMenu.Default />
+      <BubbleMenu />
       <ExportPanel />
     </EditorProvider>
   );
 }
 ```
+
+## Using with EmailEditor
+
+If you use the standalone `EmailEditor` component, you can access the email HTML and plain text through ref methods — no need to call `composeReactEmail` directly.
+
+```tsx
+import { EmailEditor, type EmailEditorRef } from '@react-email/editor';
+import { useRef, useState } from 'react';
+
+export function MyEditor() {
+  const ref = useRef<EmailEditorRef>(null);
+  const [html, setHtml] = useState('');
+
+  const handleExport = async () => {
+    if (!ref.current) return;
+    const html = await ref.current.getEmailHTML();
+    setHtml(html);
+  };
+
+  return (
+    <div>
+      <EmailEditor ref={ref} content="<p>Edit me</p>" />
+      <button onClick={handleExport}>Export HTML</button>
+      {html && <textarea readOnly value={html} />}
+    </div>
+  );
+}
+```
+
+The ref exposes three export methods:
+
+| Method | Returns | Description |
+|--------|---------|-------------|
+| `getEmailHTML()` | `Promise<string>` | Email-ready HTML |
+| `getEmailText()` | `Promise<string>` | Plain text version |
+| `getEmail()` | `Promise<{ html, text }>` | Both in a single call |
+
+All three use `composeReactEmail` under the hood.
 
 ## How it works
 
@@ -82,8 +120,9 @@ const { html, text } = await composeReactEmail({ editor, preview: null });
 
 ## Preview text
 
-The `preview` parameter sets the email preview text — the snippet shown in inbox list views
-before the email is opened:
+The `preview` parameter sets the email preview text.
+
+Email preview text is the snippet shown in inbox list views before the email is opened.
 
 ```tsx
 const result = await composeReactEmail({
@@ -97,8 +136,9 @@ Pass `null` to omit preview text.
 ## Using with theming
 
 When the `EmailTheming` extension is in your extensions array, theme styles are automatically
-injected into the exported HTML. The serializer uses the `SerializerPlugin` provided by
-`EmailTheming` to resolve styles for each node based on the current theme and depth in the
+injected into the exported HTML. 
+
+The serializer uses the `SerializerPlugin` provided by `EmailTheming` to resolve styles for each node based on the current theme and depth in the
 document tree.
 
 ```tsx
@@ -106,12 +146,12 @@ const extensions = [StarterKit, EmailTheming.configure({ theme: 'basic' })];
 
 // Later, when exporting:
 const { html } = await composeReactEmail({ editor, preview: null });
-// html includes all theme styles inline
+// ...the html includes all theme styles inline
 ```
 
 ## Full example with export panel
 
-Here's a complete editor with theming and an export panel:
+Here's a complete editor with theming and an export panel.
 
 ```tsx
 import { composeReactEmail } from '@react-email/editor/core';
@@ -173,13 +213,26 @@ export function FullEmailBuilder() {
         <button onClick={() => setTheme('minimal')}>Minimal Theme</button>
       </div>
       <EditorProvider key={theme} extensions={extensions} content={content}>
-        <BubbleMenu.Default hideWhenActiveNodes={['button']} hideWhenActiveMarks={['link']} />
+        <BubbleMenu hideWhenActiveNodes={['button']} hideWhenActiveMarks={['link']} />
         <BubbleMenu.LinkDefault />
         <BubbleMenu.ButtonDefault />
-        <SlashCommand.Root items={defaultSlashCommands} />
+        <SlashCommand items={defaultSlashCommands} />
         <ControlPanel />
       </EditorProvider>
     </div>
   );
 }
 ```
+
+## Examples
+
+See email export in action with runnable examples:
+
+<CardGroup cols={2}>
+  <Card title="Email Export" icon="code" href="https://react.email/editor/examples/email-export">
+    Export editor content to themed HTML.
+  </Card>
+  <Card title="Full Email Builder" icon="code" href="https://react.email/editor/examples/full-email-builder">
+    Complete editor with theming, menus, and export.
+  </Card>
+</CardGroup>

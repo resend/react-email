@@ -3,41 +3,9 @@ import { createDropHandler } from './create-drop-handler';
 import { createPasteHandler } from './create-paste-handler';
 
 describe('createDropHandler', () => {
-  it('uploads dropped images when auto-import declines synchronously', () => {
-    const onUploadImage = vi.fn();
-    const handler = createDropHandler({
-      onPaste: () => false,
-      onUploadImage,
-    });
-    const file = new File(['image'], 'photo.png', { type: 'image/png' });
-    const preventDefault = vi.fn();
-    const posAtCoords = vi.fn().mockReturnValue({ pos: 5 });
-    const handled = handler(
-      {
-        state: { doc: { textContent: '' } },
-        posAtCoords,
-      } as never,
-      {
-        dataTransfer: { files: [file] },
-        preventDefault,
-        clientX: 10,
-        clientY: 20,
-      } as unknown as DragEvent,
-      null,
-      false,
-    );
-
-    expect(handled).toBe(true);
-    expect(preventDefault).toHaveBeenCalledTimes(1);
-    expect(posAtCoords).toHaveBeenCalledWith({ left: 10, top: 20 });
-    expect(onUploadImage).toHaveBeenCalledWith(file, expect.anything(), 4);
-  });
-
-  it('consumes the drop when auto-import accepts it', () => {
-    const onUploadImage = vi.fn();
+  it('consumes the drop when onPaste accepts it', () => {
     const handler = createDropHandler({
       onPaste: () => true,
-      onUploadImage,
     });
     const preventDefault = vi.fn();
     const handled = handler(
@@ -58,7 +26,32 @@ describe('createDropHandler', () => {
 
     expect(handled).toBe(true);
     expect(preventDefault).toHaveBeenCalledTimes(1);
-    expect(onUploadImage).not.toHaveBeenCalled();
+  });
+
+  it('returns false when onPaste declines the drop', () => {
+    const handler = createDropHandler({
+      onPaste: () => false,
+    });
+    const preventDefault = vi.fn();
+    const handled = handler(
+      {
+        state: { doc: { textContent: '' } },
+        posAtCoords: vi.fn().mockReturnValue({ pos: 5 }),
+      } as never,
+      {
+        dataTransfer: {
+          files: [new File(['image'], 'photo.png', { type: 'image/png' })],
+        },
+        preventDefault,
+        clientX: 10,
+        clientY: 20,
+      } as unknown as DragEvent,
+      null,
+      false,
+    );
+
+    expect(handled).toBe(false);
+    expect(preventDefault).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -67,7 +60,6 @@ describe('createPasteHandler', () => {
     const preventDefault = vi.fn();
     const handler = createPasteHandler({
       onPaste: () => false,
-      onUploadImage: vi.fn(),
       extensions: [],
     });
     const handled = handler(

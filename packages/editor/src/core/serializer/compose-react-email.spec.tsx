@@ -2,6 +2,7 @@ import type { AnyExtension, JSONContent } from '@tiptap/core';
 import { Editor } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
 import { StarterKit } from '../../extensions';
+import { EmailTheming } from '../../plugins/email-theming/extension';
 import { composeReactEmail } from './compose-react-email';
 import { EmailNode } from './email-node';
 
@@ -47,6 +48,7 @@ function createEditorWithContent(
 function docWithGlobalContent(
   content: JSONContent['content'],
   styles = basicTheme,
+  theme: 'basic' | 'minimal' = 'basic',
 ): JSONContent {
   return {
     type: 'doc',
@@ -54,7 +56,7 @@ function docWithGlobalContent(
       {
         type: 'globalContent',
         attrs: {
-          data: { styles, theme: 'basic', css: '' },
+          data: { styles, theme, css: '' },
         },
       },
       ...(content ?? []),
@@ -63,7 +65,7 @@ function docWithGlobalContent(
 }
 
 describe('Text marks', () => {
-  it('should preserve bold wrapping order when combined with italic', async () => {
+  it('should nest bold and italic by schema mark rank (same as ProseMirror)', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -83,21 +85,23 @@ describe('Text marks', () => {
       preview: '',
     });
 
-    const strongOpen = result.html.indexOf('<strong');
-    const emOpen = result.html.indexOf('<em', strongOpen);
-    const emClose = result.html.indexOf('</em', emOpen);
+    // StarterKit registers Italic before Bold at equal priority; link/bold order follows
+    // Tiptap `sortExtensions` → italic lower `rank` than bold → italic wraps outside in DOM.
+    const emOpen = result.html.indexOf('<em');
+    const strongOpen = result.html.indexOf('<strong', emOpen);
     const strongClose = result.html.indexOf('</strong', strongOpen);
-    const textIndex = result.html.indexOf('Hello world', emOpen);
+    const emClose = result.html.indexOf('</em', strongClose);
+    const textIndex = result.html.indexOf('Hello world', strongOpen);
 
-    expect(strongOpen).toBeGreaterThan(-1);
-    expect(emOpen).toBeGreaterThan(strongOpen);
-    expect(textIndex).toBeGreaterThan(emOpen);
-    expect(textIndex).toBeLessThan(emClose);
-    expect(emClose).toBeGreaterThan(emOpen);
-    expect(strongClose).toBeGreaterThan(emClose);
+    expect(emOpen).toBeGreaterThan(-1);
+    expect(strongOpen).toBeGreaterThan(emOpen);
+    expect(textIndex).toBeGreaterThan(strongOpen);
+    expect(textIndex).toBeLessThan(strongClose);
+    expect(strongClose).toBeGreaterThan(strongOpen);
+    expect(emClose).toBeGreaterThan(strongClose);
   });
 
-  it('should keep bold outer when combined with link on text', async () => {
+  it('should nest link and bold by schema mark rank (link extension priority 1000)', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -123,16 +127,17 @@ describe('Text marks', () => {
       preview: '',
     });
 
-    const strongOpen = result.html.indexOf('<strong');
-    const linkOpen = result.html.indexOf('<a', strongOpen);
-    const linkClose = result.html.indexOf('</a', linkOpen);
+    // Link has higher extension priority than bold → lower ProseMirror rank → wraps outside.
+    const linkOpen = result.html.indexOf('<a');
+    const strongOpen = result.html.indexOf('<strong', linkOpen);
     const strongClose = result.html.indexOf('</strong', strongOpen);
+    const linkClose = result.html.indexOf('</a', linkOpen);
 
-    expect(strongOpen).toBeGreaterThan(-1);
+    expect(linkOpen).toBeGreaterThan(-1);
     expect(result.html).toContain('href="https://example.com"');
-    expect(linkOpen).toBeGreaterThan(strongOpen);
-    expect(linkClose).toBeGreaterThan(linkOpen);
-    expect(strongClose).toBeGreaterThan(linkClose);
+    expect(strongOpen).toBeGreaterThan(linkOpen);
+    expect(strongClose).toBeGreaterThan(strongOpen);
+    expect(linkClose).toBeGreaterThan(strongClose);
   });
 
   it('wraps custom email nodes with marks around the rendered node', async () => {
@@ -350,5 +355,144 @@ describe('StarterKit node wrappers', () => {
     expect(result.html).toContain('<br');
     expect(result.html).toContain('Hello');
     expect(result.html).toContain('World');
+  });
+});
+
+describe('Button and image reset styles', () => {
+  it('should include display:inline-block on buttons with the basic theme', async () => {
+    const content = docWithGlobalContent(
+      [
+        {
+          type: 'button',
+          attrs: { href: 'https://example.com', class: 'button' },
+          content: [{ type: 'text', text: 'Click me' }],
+        },
+      ],
+      basicTheme,
+      'basic',
+    );
+
+    const ed = createEditorWithContent(content, [EmailTheming]);
+    const result = await composeReactEmail({ editor: ed, preview: '' });
+
+    expect(result.html).toMatch(/display:\s*inline-block/);
+    expect(result.html).toContain('Click me');
+  });
+
+  it('should include display:inline-block on buttons with the minimal theme', async () => {
+    const content = docWithGlobalContent(
+      [
+        {
+          type: 'button',
+          attrs: { href: 'https://example.com', class: 'button' },
+          content: [{ type: 'text', text: 'Click me' }],
+        },
+      ],
+      basicTheme,
+      'minimal',
+    );
+
+    const ed = createEditorWithContent(content, [EmailTheming]);
+    const result = await composeReactEmail({ editor: ed, preview: '' });
+
+    expect(result.html).toMatch(/display:\s*inline-block/);
+    expect(result.html).toContain('Click me');
+  });
+
+  it('should include line-height:100% on buttons with the minimal theme', async () => {
+    const content = docWithGlobalContent(
+      [
+        {
+          type: 'button',
+          attrs: { href: 'https://example.com', class: 'button' },
+          content: [{ type: 'text', text: 'Click me' }],
+        },
+      ],
+      basicTheme,
+      'minimal',
+    );
+
+    const ed = createEditorWithContent(content, [EmailTheming]);
+    const result = await composeReactEmail({ editor: ed, preview: '' });
+
+    expect(result.html).toMatch(/line-height:\s*100%/);
+  });
+
+  it('should include max-width:100% on images with the basic theme', async () => {
+    const ImageNode = EmailNode.create({
+      name: 'image',
+      group: 'block',
+      atom: true,
+      addAttributes() {
+        return {
+          src: { default: '' },
+          alt: { default: '' },
+        };
+      },
+      renderHTML({ HTMLAttributes }) {
+        return ['img', HTMLAttributes];
+      },
+      renderToReactEmail({ style, node }) {
+        return (
+          <img alt={node.attrs?.alt} src={node.attrs?.src} style={style} />
+        );
+      },
+    });
+
+    const content = docWithGlobalContent(
+      [
+        {
+          type: 'image',
+          attrs: { src: 'https://example.com/img.png', alt: 'test image' },
+        },
+      ],
+      basicTheme,
+      'basic',
+    );
+
+    const ed = createEditorWithContent(content, [ImageNode, EmailTheming]);
+    const result = await composeReactEmail({ editor: ed, preview: '' });
+
+    expect(result.html).toMatch(/max-width:\s*100%/);
+    expect(result.html).toContain('test image');
+  });
+
+  it('should include max-width:100% on images with the minimal theme', async () => {
+    const ImageNode = EmailNode.create({
+      name: 'image',
+      group: 'block',
+      atom: true,
+      addAttributes() {
+        return {
+          src: { default: '' },
+          alt: { default: '' },
+        };
+      },
+      renderHTML({ HTMLAttributes }) {
+        return ['img', HTMLAttributes];
+      },
+      renderToReactEmail({ style, node }) {
+        return (
+          <img alt={node.attrs?.alt} src={node.attrs?.src} style={style} />
+        );
+      },
+    });
+
+    const content = docWithGlobalContent(
+      [
+        {
+          type: 'image',
+          attrs: { src: 'https://example.com/img.png', alt: 'test image' },
+        },
+      ],
+      basicTheme,
+      'minimal',
+    );
+
+    const ed = createEditorWithContent(content, [ImageNode, EmailTheming]);
+    const result = await composeReactEmail({ editor: ed, preview: '' });
+
+    expect(result.html).toMatch(/max-width:\s*100%/);
+    expect(result.html).toContain('test image');
   });
 });

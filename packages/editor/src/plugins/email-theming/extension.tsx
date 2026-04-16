@@ -1,9 +1,9 @@
-import { Body, Head, Html, Preview, Section } from '@react-email/components';
 import type { Editor, JSONContent } from '@tiptap/core';
 import { Extension } from '@tiptap/core';
 import { Plugin, PluginKey } from '@tiptap/pm/state';
 import { useEditorState } from '@tiptap/react';
 import type * as React from 'react';
+import { Body, Head, Html, Preview } from 'react-email';
 import type { SerializerPlugin } from '../../core/serializer/serializer-plugin';
 import { getGlobalContent } from '../../extensions/global-content';
 import {
@@ -51,6 +51,8 @@ export function getThemeComponentKey(
       return 'blockquote';
     case 'button':
       return 'button';
+    case 'container':
+      return 'container';
     case 'section':
       return 'section';
     case 'footer':
@@ -247,11 +249,7 @@ export const EmailTheming = Extension.create<{
     return {
       theme: undefined as EditorTheme | undefined,
       serializerPlugin: {
-        getNodeStyles(
-          node: JSONContent,
-          depth: number,
-          editor: Editor,
-        ): React.CSSProperties {
+        getNodeStyles(node, depth, editor): React.CSSProperties {
           const theming = getEmailTheming(editor);
 
           return getResolvedNodeStyles(
@@ -260,15 +258,7 @@ export const EmailTheming = Extension.create<{
             getMergedCssJs(theming.theme, theming.styles),
           );
         },
-        BaseTemplate({
-          previewText,
-          children,
-          editor,
-        }: {
-          previewText: string | null;
-          children: React.ReactNode;
-          editor: Editor;
-        }) {
+        BaseTemplate({ previewText, children, editor }) {
           const { css: globalCss, styles, theme } = getEmailTheming(editor);
           const mergedStyles = getMergedCssJs(theme, styles);
 
@@ -289,21 +279,7 @@ export const EmailTheming = Extension.create<{
                 <Preview>{previewText}</Preview>
               )}
 
-              <Body>
-                <Section width="100%" align="center" style={mergedStyles.body}>
-                  <Section
-                    align={mergedStyles.container?.align}
-                    style={{
-                      ...mergedStyles.container,
-                      width: '100%',
-                      maxWidth: mergedStyles.container?.width,
-                      fontFamily: mergedStyles.body?.fontFamily,
-                    }}
-                  >
-                    {children}
-                  </Section>
-                </Section>
-              </Body>
+              <Body style={mergedStyles.body}>{children}</Body>
             </Html>
           );
         },
