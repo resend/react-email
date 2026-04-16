@@ -1,7 +1,7 @@
 'use client';
 
 import { EmailEditor } from '@react-email/editor';
-import { getNodeMeta, Inspector } from '@react-email/editor/ui';
+import { Inspector } from '@react-email/editor/ui';
 import { ExampleShell } from '../example-shell';
 
 const content = `
@@ -51,7 +51,7 @@ function Breadcrumb() {
         <Inspector.Breadcrumb>
           {(segments) =>
             segments.map((segment, i) => {
-              const label = getNodeMeta(segment.node.nodeType).label;
+              const label = segment.node.nodeType;
               return (
                 <li key={i} className="flex items-center gap-1">
                   {i !== 0 && <span className="text-(--re-text-muted)">/</span>}
