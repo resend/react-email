@@ -4,6 +4,12 @@ import { StarterKit } from '../../extensions';
 import { EmailTheming } from '../../plugins';
 import { computePathFromRoot, type FocusedNode } from './root';
 
+const BODY: FocusedNode = {
+  nodeType: 'body',
+  nodeAttrs: {},
+  nodePos: { pos: 0, inside: 0 },
+};
+
 function createEditor(content: unknown) {
   return new Editor({
     extensions: [StarterKit, EmailTheming],
@@ -25,12 +31,7 @@ function findNodePos(editor: Editor, nodeType: string): number {
 
 describe('computePathFromRoot', () => {
   it('returns [] when editor is null', () => {
-    expect(computePathFromRoot(null, null)).toEqual([]);
-  });
-
-  it('returns [] when target is null', () => {
-    const editor = createEditor('<p>hi</p>');
-    expect(computePathFromRoot(editor, null)).toEqual([]);
+    expect(computePathFromRoot(null, BODY)).toEqual([]);
   });
 
   it('prepends synthetic body for typical content (no body PM node)', () => {

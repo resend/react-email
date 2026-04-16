@@ -46,11 +46,9 @@ const MARK_NAMES = ['bold', 'italic', 'underline', 'strike', 'code'] as const;
 export function InspectorText({ children }: InspectorTextProps) {
   const { editor } = useCurrentEditor();
   const theming = useEmailTheming(editor);
-  const inspector = useInspector();
+  const { target } = useInspector();
   const documentColors = useDocumentColors(editor);
   const linkMark = useLinkMark(editor);
-
-  const target = inspector.ready ? inspector.target : null;
 
   const activeMarks =
     useEditorState({

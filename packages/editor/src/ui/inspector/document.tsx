@@ -184,13 +184,11 @@ export interface InspectorDocumentProps {
 export function InspectorDocument({ children }: InspectorDocumentProps) {
   const { editor } = useCurrentEditor();
   const theming = useEmailTheming(editor);
-  const inspector = useInspector();
+  const { target } = useInspector();
 
-  if (!inspector.ready || !editor || !theming) {
+  if (!editor || !theming) {
     return null;
   }
-
-  const { target } = inspector;
 
   const themeDefaults = EDITOR_THEMES[theming.theme];
 

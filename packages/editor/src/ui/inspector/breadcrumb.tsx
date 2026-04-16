@@ -14,12 +14,10 @@ export interface InspectorBreadcrumbProps {
 
 export function InspectorBreadcrumb({ children }: InspectorBreadcrumbProps) {
   const { editor } = useCurrentEditor();
-  const inspector = useInspector();
-
-  const pathFromRoot = inspector.ready ? inspector.pathFromRoot : null;
+  const { pathFromRoot } = useInspector();
 
   const segments = React.useMemo(() => {
-    if (!editor || !pathFromRoot) {
+    if (!editor || pathFromRoot.length === 0) {
       return [];
     }
     return pathFromRoot.map((focusedNode) => ({
@@ -43,10 +41,6 @@ export function InspectorBreadcrumb({ children }: InspectorBreadcrumbProps) {
       },
     })) satisfies InspectorBreadcrumbSegment[];
   }, [editor, pathFromRoot]);
-
-  if (!inspector.ready) {
-    return null;
-  }
 
   if (children) {
     return children(segments);

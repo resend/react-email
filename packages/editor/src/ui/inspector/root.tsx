@@ -31,9 +31,9 @@ const BODY_FOCUSED: FocusedNode = {
 
 export function computePathFromRoot(
   editor: ReturnType<typeof useCurrentEditor>['editor'],
-  target: InspectorTarget | null,
+  target: InspectorTarget,
 ): FocusedNode[] {
-  if (!editor || target === null) {
+  if (!editor) {
     return [];
   }
   // Prepend the synthetic body root unless the hierarchy already starts
@@ -149,9 +149,10 @@ export interface RootProps extends React.ComponentPropsWithRef<'aside'> {
   asChild?: boolean;
 }
 
-export type InspectorContextValue =
-  | { ready: false }
-  | { ready: true; target: InspectorTarget; pathFromRoot: FocusedNode[] };
+export interface InspectorContextValue {
+  target: InspectorTarget;
+  pathFromRoot: FocusedNode[];
+}
 
 export const InspectorContext =
   React.createContext<InspectorContextValue | null>(null);
@@ -183,67 +184,65 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
       }
     }
 
-    const target = useEditorState({
-      editor,
-      selector(context): InspectorTarget | null {
-        if (!context.editor) {
-          return null;
-        }
-
-        if (!context.editor.isFocused) {
-          return BODY_FOCUSED;
-        }
-
-        const { selection } = context.editor.state;
-
-        if (
-          selection.content().size > 0 &&
-          selection instanceof TextSelection
-        ) {
-          const { $from } = selection;
-          for (let depth = $from.depth; depth > 0; depth--) {
-            if ($from.node(depth).type.name === 'button') {
-              const pos = $from.before(depth);
-              const node = context.editor.state.doc.nodeAt(pos);
-              if (node) {
-                return {
-                  nodeType: 'button',
-                  nodeAttrs: { ...node.attrs },
-                  nodePos: { pos, inside: pos },
-                };
-              }
-              break;
-            }
+    const target =
+      useEditorState({
+        editor,
+        selector(context): InspectorTarget {
+          if (!context.editor) {
+            return BODY_FOCUSED;
           }
 
-          return 'text';
-        }
+          if (!context.editor.isFocused) {
+            return BODY_FOCUSED;
+          }
 
-        const hierarchy = getNodeHierarchy(context.editor);
+          const { selection } = context.editor.state;
 
-        if (hierarchy.length > 0) {
-          const innermost = hierarchy[0];
-          const columnEntry = hierarchy.find(
-            (h) => h.nodeType === 'columnsColumn',
-          );
-          const preferColumn =
-            columnEntry && innermost.nodeType === 'paragraph';
-          return preferColumn ? columnEntry : innermost;
-        }
+          if (
+            selection.content().size > 0 &&
+            selection instanceof TextSelection
+          ) {
+            const { $from } = selection;
+            for (let depth = $from.depth; depth > 0; depth--) {
+              if ($from.node(depth).type.name === 'button') {
+                const pos = $from.before(depth);
+                const node = context.editor.state.doc.nodeAt(pos);
+                if (node) {
+                  return {
+                    nodeType: 'button',
+                    nodeAttrs: { ...node.attrs },
+                    nodePos: { pos, inside: pos },
+                  };
+                }
+                break;
+              }
+            }
 
-        return BODY_FOCUSED;
-      },
-    });
+            return 'text';
+          }
+
+          const hierarchy = getNodeHierarchy(context.editor);
+
+          if (hierarchy.length > 0) {
+            const innermost = hierarchy[0];
+            const columnEntry = hierarchy.find(
+              (h) => h.nodeType === 'columnsColumn',
+            );
+            const preferColumn =
+              columnEntry && innermost.nodeType === 'paragraph';
+            return preferColumn ? columnEntry : innermost;
+          }
+
+          return BODY_FOCUSED;
+        },
+      }) ?? BODY_FOCUSED;
 
     const pathFromRoot = React.useMemo(
       () => computePathFromRoot(editor, target),
       [editor, target],
     );
 
-    const contextValue: InspectorContextValue =
-      target === null
-        ? { ready: false }
-        : { ready: true, target, pathFromRoot };
+    const contextValue: InspectorContextValue = { target, pathFromRoot };
 
     const Component = asChild ? Slot : 'aside';
 
