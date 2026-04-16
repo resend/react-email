@@ -15,9 +15,6 @@ import './editor.css';
 
 export const EditorHomepage = () => {
   const [html, setHtml] = React.useState('');
-  const [subject, setSubject] = React.useState(
-    'I hope this email finds you well',
-  );
 
   return (
     <div className="relative py-20 md:py-10 md:pb-80 space-y-16 sm:space-y-24">
@@ -30,17 +27,17 @@ export const EditorHomepage = () => {
       />
       <div className="space-y-6 pt-20">
         <Heading as="h2" size="8" weight="medium" className="text-white/80">
-          Don't build it, ship it
+          Add an email editor <br /> to your product
         </Heading>
 
         <Text size="5" className="block max-w-[400px] text-balance opacity-70">
-          Let your users design beautiful emails without leaving your product.
+          Let your users write beautiful emails without leaving your product.
         </Text>
 
         <div className="flex items-center gap-3">
           <Button asChild size="3">
             <Link href="/docs/editor/overview">
-              React Email Editor
+              Check the docs
               <ArrowRightIcon size={14} />
             </Link>
           </Button>
@@ -68,13 +65,6 @@ export const EditorHomepage = () => {
             setHtml(html);
           }}
         >
-          <input
-            className="text-black h-15 -order-1 px-6 text-xl outline-none"
-            type="text"
-            value={subject}
-            onChange={(e) => setSubject(e.target.value)}
-            placeholder="Subject"
-          />
           <EditorToolbar className="shrink-0 border-y border-gray-100 px-4 py-1" />
           <div className="absolute right-6 top-4 inline-flex items-center justify-center rounded p-1.5 text-gray-400">
             <X size={14} />
