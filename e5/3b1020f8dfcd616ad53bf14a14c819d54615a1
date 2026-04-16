@@ -1,0 +1,31 @@
+apps/docs/editor/features/inspector.mdx
+  bf9385a2124245ed 132
+apps/web/src/app/editor/examples/inspector-composed/example.tsx
+  bf9385a2124245ed 5,140
+apps/web/src/app/editor/examples/standalone-editor-inspector/example.tsx
+  bf9385a2124245ed 4,54
+apps/web/src/app/editor/examples/inspector-defaults/example.tsx
+  bf9385a2124245ed 5,60
+apps/web/src/app/editor/examples/full-email-builder/example.tsx
+  bf9385a2124245ed 49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "e53b1020f8dfcd616ad53bf14a14c819d54615a1",
+  "prompts": {
+    "bf9385a2124245ed": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "924a2a0f-1622-42b4-ac85-5ecd42b4e8c8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": null,
+      "messages": [],
+      "total_additions": 8,
+      "total_deletions": 9,
+      "accepted_lines": 13,
+      "overriden_lines": 0
+    }
+  }
+}
