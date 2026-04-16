@@ -21,7 +21,7 @@ catalog:
   '@types/babel__traverse': 7.20.7
   '@types/css-tree': 2.3.11
   '@types/mime-types': 2.1.4
-  '@types/node': 22.19.15
+  '@types/node': 22.19.17
   '@types/react': 19.2.14
   '@types/react-dom': 19.2.3
   '@vitejs/plugin-react': 5.2.0
