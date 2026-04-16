@@ -3,15 +3,13 @@ import type {
   EditorTheme,
   EditorThemeInput,
   KnownCssProperties,
-  KnownThemeComponents,
   PanelGroup,
   ThemeComponentStyles,
   ThemeConfig,
+  ThemeableComponent,
 } from './types';
 
-const CLASS_REFERENCE_TO_PANEL_ID: Partial<
-  Record<KnownThemeComponents, string>
-> = {
+const CLASS_REFERENCE_TO_PANEL_ID: Record<ThemeableComponent, string> = {
   body: 'body',
   container: 'container',
   h1: 'h1',
@@ -58,12 +56,11 @@ export function themeStylesToPanelOverrides(
   }));
 
   for (const [component, cssProps] of Object.entries(styles) as [
-    KnownThemeComponents,
+    ThemeableComponent,
     React.CSSProperties,
   ][]) {
     if (!cssProps) continue;
     const panelId = CLASS_REFERENCE_TO_PANEL_ID[component];
-    if (!panelId) continue;
 
     const group = result.find((g) => g.id === panelId);
     if (!group) continue;

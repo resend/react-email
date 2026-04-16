@@ -123,8 +123,22 @@ export interface PanelGroup {
   inputs: Omit<PanelInputProperty, 'category'>[];
 }
 
+export type ThemeableComponent = Extract<
+  KnownThemeComponents,
+  | 'body'
+  | 'container'
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'link'
+  | 'image'
+  | 'button'
+  | 'codeBlock'
+  | 'inlineCode'
+>;
+
 export type ThemeComponentStyles = {
-  [K in KnownThemeComponents]?: React.CSSProperties & {
+  [K in ThemeableComponent]?: React.CSSProperties & {
     align?: 'center' | 'left' | 'right';
   };
 };
