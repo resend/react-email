@@ -13,7 +13,7 @@ permissions:
   pull-requests: read
 jobs:
   tests:
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-2vcpu-ubuntu-2204
     container:
       image: mcr.microsoft.com/playwright:v1.58.2-noble
     steps:
