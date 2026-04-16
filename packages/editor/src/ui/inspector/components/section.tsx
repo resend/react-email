@@ -7,19 +7,12 @@ import { IconButton, Text, Tooltip } from '../primitives';
 interface SectionProps {
   title?: string;
   children?: React.ReactNode;
-  initialCollapsed?: boolean;
   onAdd?: () => void;
   onRemove?: () => void;
 }
 
-export function Section({
-  title,
-  children,
-  initialCollapsed = false,
-  onAdd,
-  onRemove,
-}: SectionProps) {
-  const [collapsed, setCollapsed] = React.useState(initialCollapsed);
+export function Section({ title, children, onAdd, onRemove }: SectionProps) {
+  const [collapsed, setCollapsed] = React.useState(false);
 
   return (
     <div

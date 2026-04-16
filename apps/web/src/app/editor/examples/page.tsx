@@ -32,21 +32,21 @@ const sections: Section[] = [
     title: 'Standalone editor',
     examples: [
       {
-        slug: 'one-line-editor',
+        slug: 'standalone-editor',
         title: 'Minimal',
         description:
           'The simplest setup — one component with everything included.',
         docsUrl: 'https://react.email/docs/editor/getting-started',
       },
       {
-        slug: 'one-line-editor-full',
-        title: 'Full features',
+        slug: 'standalone-editor-full',
+        title: 'Full Features',
         description:
           'Theme switching, ref methods (export, getJSON), and callbacks — all with a single component.',
         docsUrl: 'https://react.email/docs/editor/getting-started',
       },
       {
-        slug: 'one-line-editor-inspector',
+        slug: 'standalone-editor-inspector',
         title: 'Inspector',
         description:
           'Add an inspector sidebar alongside the one-line EmailEditor — no manual EditorProvider setup needed.',

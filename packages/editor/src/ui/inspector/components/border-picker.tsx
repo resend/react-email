@@ -168,47 +168,56 @@ export function BorderPicker({ styleObject, onChange }: BorderPickerProps) {
 
         <div className="flex flex-col gap-1.5">
           {SIDES.map(({ side, icon }) => (
-            <div key={side} className="flex items-center gap-1">
-              <BorderWidthInput
-                icon={icon}
-                value={getSideValue(styleObject, side, 'Width')}
-                onChange={(v) => onChange(`border${side}Width`, v)}
-              />
+            <div key={side} className="flex flex-col items-center gap-1">
+              <div className="flex gap-1 w-full">
+                <BorderWidthInput
+                  icon={icon}
+                  value={getSideValue(styleObject, side, 'Width')}
+                  onChange={(v) => onChange(`border${side}Width`, v)}
+                  className="w-full"
+                />
 
-              <Select.Root
-                value={String(
-                  getSideValue(styleObject, side, 'Style') ??
-                    SUPPORTED_CSS_PROPERTIES.borderStyle.defaultValue,
-                )}
-                onChange={(e) => onChange(`border${side}Style`, e.target.value)}
-              >
-                {Object.entries(BORDER_STYLE_OPTIONS).map(([val, label]) => (
-                  <Select.Item key={val} value={val}>
-                    {label}
-                  </Select.Item>
-                ))}
-              </Select.Root>
+                <ColorInput
+                  value={String(
+                    getSideValue(styleObject, side, 'Color') ??
+                      SUPPORTED_CSS_PROPERTIES.borderColor.defaultValue,
+                  )}
+                  onChange={(v) => onChange(`border${side}Color`, v)}
+                  className="w-full"
+                />
+              </div>
 
-              <ColorInput
-                value={String(
-                  getSideValue(styleObject, side, 'Color') ??
-                    SUPPORTED_CSS_PROPERTIES.borderColor.defaultValue,
-                )}
-                onChange={(v) => onChange(`border${side}Color`, v)}
-              />
+              <div className="flex gap-1 w-full">
+                <Select.Root
+                  className="w-full"
+                  value={String(
+                    getSideValue(styleObject, side, 'Style') ??
+                      SUPPORTED_CSS_PROPERTIES.borderStyle.defaultValue,
+                  )}
+                  onChange={(e) =>
+                    onChange(`border${side}Style`, e.target.value)
+                  }
+                >
+                  {Object.entries(BORDER_STYLE_OPTIONS).map(([val, label]) => (
+                    <Select.Item key={val} value={val}>
+                      {label}
+                    </Select.Item>
+                  ))}
+                </Select.Root>
 
-              <IconButton
-                onClick={() => {
-                  onChange([
-                    [`border${side}Width`, ''],
-                    [`border${side}Style`, ''],
-                    [`border${side}Color`, ''],
-                  ]);
-                }}
-                aria-label={`Clear ${side.toLowerCase()} border`}
-              >
-                <XIcon size={14} />
-              </IconButton>
+                <IconButton
+                  onClick={() => {
+                    onChange([
+                      [`border${side}Width`, ''],
+                      [`border${side}Style`, ''],
+                      [`border${side}Color`, ''],
+                    ]);
+                  }}
+                  aria-label={`Clear ${side.toLowerCase()} border`}
+                >
+                  <XIcon size={14} />
+                </IconButton>
+              </div>
             </div>
           ))}
         </div>
@@ -222,7 +231,7 @@ export function BorderPicker({ styleObject, onChange }: BorderPickerProps) {
   );
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 w-full">
       <PropRow>
         <Label>Border</Label>
         <div className="flex items-center gap-1">
@@ -235,7 +244,7 @@ export function BorderPicker({ styleObject, onChange }: BorderPickerProps) {
       </PropRow>
 
       <PropRow>
-        <Label />
+        <Label>Border color</Label>
         <ColorInput
           value={uniformColor}
           onChange={(v) => onChange('borderColor', v)}
@@ -249,10 +258,12 @@ function BorderWidthInput({
   icon,
   value,
   onChange,
+  className,
 }: {
   icon?: React.ReactNode;
   value: string | number | undefined;
   onChange: (value: number | '') => void;
+  className?: string;
 }) {
   const { displayValue, ...handlers } = useNumericInput({
     value,
@@ -268,7 +279,7 @@ function BorderWidthInput({
   });
 
   return (
-    <span data-re-inspector-number="">
+    <span data-re-inspector-number="" className={className}>
       {icon && (
         <span className="pointer-events-none" aria-hidden>
           {icon}

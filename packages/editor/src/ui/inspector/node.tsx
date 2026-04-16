@@ -149,7 +149,6 @@ interface NodeLayout {
       | 'padding'
       | 'background'
       | 'border';
-    initialCollapsed?: boolean;
   }>;
 }
 
@@ -160,9 +159,9 @@ function getDefaultLayout(nodeType: string): NodeLayout {
         sections: [
           { type: 'attributes' },
           { type: 'size' },
-          { type: 'link', initialCollapsed: true },
-          { type: 'padding', initialCollapsed: true },
-          { type: 'border', initialCollapsed: true },
+          { type: 'link' },
+          { type: 'padding' },
+          { type: 'border' },
         ],
       };
     case 'button':
@@ -170,10 +169,10 @@ function getDefaultLayout(nodeType: string): NodeLayout {
         sections: [
           { type: 'link' },
           { type: 'typography' },
-          { type: 'size', initialCollapsed: true },
-          { type: 'padding', initialCollapsed: true },
-          { type: 'border', initialCollapsed: true },
-          { type: 'background', initialCollapsed: true },
+          { type: 'size' },
+          { type: 'padding' },
+          { type: 'border' },
+          { type: 'background' },
         ],
       };
     case 'section':
@@ -181,33 +180,33 @@ function getDefaultLayout(nodeType: string): NodeLayout {
       return {
         sections: [
           { type: 'background' },
-          { type: 'padding', initialCollapsed: true },
-          { type: 'border', initialCollapsed: true },
+          { type: 'padding' },
+          { type: 'border' },
         ],
       };
     case 'codeBlock':
       return {
         sections: [
           { type: 'attributes' },
-          { type: 'padding', initialCollapsed: true },
-          { type: 'border', initialCollapsed: true },
+          { type: 'padding' },
+          { type: 'border' },
         ],
       };
     case 'footer':
       return {
         sections: [
-          { type: 'typography', initialCollapsed: true },
-          { type: 'padding', initialCollapsed: true },
-          { type: 'background', initialCollapsed: true },
+          { type: 'typography' },
+          { type: 'padding' },
+          { type: 'background' },
         ],
       };
     default:
       return {
         sections: [
-          { type: 'typography', initialCollapsed: true },
-          { type: 'padding', initialCollapsed: true },
-          { type: 'background', initialCollapsed: true },
-          { type: 'border', initialCollapsed: true },
+          { type: 'typography' },
+          { type: 'padding' },
+          { type: 'background' },
+          { type: 'border' },
         ],
       };
   }
@@ -221,53 +220,17 @@ function InspectorNodeDefaults({ context }: { context: InspectorNodeContext }) {
       {layout.sections.map((section) => {
         switch (section.type) {
           case 'attributes':
-            return (
-              <AttributesSection
-                key={section.type}
-                {...context}
-                initialCollapsed={section.initialCollapsed}
-              />
-            );
+            return <AttributesSection key={section.type} {...context} />;
           case 'size':
-            return (
-              <SizeSection
-                key={section.type}
-                {...context}
-                initialCollapsed={section.initialCollapsed}
-              />
-            );
+            return <SizeSection key={section.type} {...context} />;
           case 'typography':
-            return (
-              <TypographySection
-                key={section.type}
-                {...context}
-                initialCollapsed={section.initialCollapsed}
-              />
-            );
+            return <TypographySection key={section.type} {...context} />;
           case 'padding':
-            return (
-              <PaddingSection
-                key={section.type}
-                {...context}
-                initialCollapsed={section.initialCollapsed}
-              />
-            );
+            return <PaddingSection key={section.type} {...context} />;
           case 'background':
-            return (
-              <BackgroundSection
-                key={section.type}
-                {...context}
-                initialCollapsed={section.initialCollapsed}
-              />
-            );
+            return <BackgroundSection key={section.type} {...context} />;
           case 'border':
-            return (
-              <BorderSection
-                key={section.type}
-                {...context}
-                initialCollapsed={section.initialCollapsed}
-              />
-            );
+            return <BorderSection key={section.type} {...context} />;
           default:
             return null;
         }
