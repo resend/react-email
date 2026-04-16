@@ -1,0 +1,33 @@
+packages/editor/src/ui/inspector/text.tsx
+  bf9385a2124245ed 49
+packages/editor/src/ui/inspector/root.tsx
+  bf9385a2124245ed 34,36,152-155,187-197,199-217,221-222,224,226-234,236-238,245
+packages/editor/src/ui/inspector/breadcrumb.tsx
+  bf9385a2124245ed 17,20
+packages/editor/src/ui/inspector/document.tsx
+  bf9385a2124245ed 187,189
+packages/editor/src/ui/inspector/node.tsx
+  bf9385a2124245ed 47,55
+packages/editor/src/ui/inspector/root.spec.ts
+  bf9385a2124245ed 7-12,34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "e82ee70351cda92250fe266c68df6869f5fffee3",
+  "prompts": {
+    "bf9385a2124245ed": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "924a2a0f-1622-42b4-ac85-5ecd42b4e8c8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 69,
+      "total_deletions": 82,
+      "accepted_lines": 65,
+      "overriden_lines": 0
+    }
+  }
+}
