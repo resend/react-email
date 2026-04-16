@@ -32,7 +32,7 @@ catalog:
   next: 16.2.3
   nypm: 0.6.5
   ora: ^8.0.0
-  postcss: 8.5.8
+  postcss: 8.5.10
   prism-react-renderer: 2.4.1
   react: 19.2.4
   react-dom: 19.2.4
