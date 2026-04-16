@@ -1,0 +1,23 @@
+apps/web/src/app/editor/examples/example-shell.tsx
+  0897733fcad27620 28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "f0ad81df741e977987abd7ba3ce87032da54460f",
+  "prompts": {
+    "0897733fcad27620": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7bf0a8a8-ab75-4f2c-9738-d0702f42e297",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 6,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}
