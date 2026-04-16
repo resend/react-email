@@ -1,5 +1,5 @@
 {
-  "mode": "pre",
+  "mode": "exit",
   "tag": "canary",
   "initialVersions": {
     "demo": "0.0.0",
