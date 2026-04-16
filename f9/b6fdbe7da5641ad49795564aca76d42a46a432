@@ -1,0 +1,33 @@
+apps/docs/editor/features/theming.mdx
+  30a6dbae347700c0 96-166,214-217
+apps/web/src/app/editor/examples/custom-theme/page.tsx
+  30a6dbae347700c0 1-2,4-20,23-27
+apps/web/src/app/editor/examples/custom-theme/example.tsx
+  30a6dbae347700c0 1-136
+apps/web/src/app/editor/examples/email-theming/example.tsx
+  30a6dbae347700c0 4-8,28,44-64,67,69,80,86,89-102
+apps/docs/editor/api-reference/theming-api.mdx
+  30a6dbae347700c0 19-21,34-78,169-216
+apps/web/src/app/editor/examples/page.tsx
+  30a6dbae347700c0 127-134
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "f9b6fdbe7da5641ad49795564aca76d42a46a432",
+  "prompts": {
+    "30a6dbae347700c0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3400a5c-4e95-4ecf-832c-73c26c8243f3",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 384,
+      "overriden_lines": 0
+    }
+  }
+}
