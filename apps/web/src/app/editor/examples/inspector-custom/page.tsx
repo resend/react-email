@@ -16,7 +16,8 @@ export default async function Page() {
   return (
     <ExamplePageShell
       slug="inspector-custom"
-      title="Inspector — fully custom"
+      heading="Inspector"
+      subtitle="Fully custom"
       docsUrl="https://react.email/docs/editor/overview"
       sourceCode={sourceCode}
       githubUrl={getExampleGitHubUrl('inspector-custom')}

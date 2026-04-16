@@ -16,7 +16,7 @@ export default async function Page() {
   return (
     <ExamplePageShell
       slug="image-upload"
-      title="Image upload"
+      heading="Image upload"
       docsUrl="https://react.email/docs/editor/features/image-upload"
       sourceCode={sourceCode}
       githubUrl={getExampleGitHubUrl('image-upload')}

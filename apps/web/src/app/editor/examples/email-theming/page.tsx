@@ -16,7 +16,7 @@ export default async function Page() {
   return (
     <ExamplePageShell
       slug="email-theming"
-      title="Email theming"
+      heading="Email theming"
       docsUrl="https://react.email/docs/editor/features/theming"
       sourceCode={sourceCode}
       githubUrl={getExampleGitHubUrl('email-theming')}

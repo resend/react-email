@@ -15,7 +15,7 @@ export default async function Page() {
   return (
     <ExamplePageShell
       slug="basic-editor"
-      title="Basic editor"
+      heading="Basic editor"
       docsUrl="https://react.email/docs/editor/getting-started"
       sourceCode={sourceCode}
       githubUrl={getExampleGitHubUrl('basic-editor')}

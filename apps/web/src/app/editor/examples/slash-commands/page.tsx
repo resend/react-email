@@ -16,7 +16,7 @@ export default async function Page() {
   return (
     <ExamplePageShell
       slug="slash-commands"
-      title="Slash commands"
+      heading="Slash commands"
       docsUrl="https://react.email/docs/editor/features/slash-commands"
       sourceCode={sourceCode}
       githubUrl={getExampleGitHubUrl('slash-commands')}

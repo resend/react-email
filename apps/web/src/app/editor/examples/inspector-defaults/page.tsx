@@ -16,7 +16,8 @@ export default async function Page() {
   return (
     <ExamplePageShell
       slug="inspector-defaults"
-      title="Inspector — defaults"
+      heading="Inspector"
+      subtitle="Defaults"
       docsUrl="https://react.email/docs/editor/overview"
       sourceCode={sourceCode}
       githubUrl={getExampleGitHubUrl('inspector-defaults')}

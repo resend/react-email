@@ -15,7 +15,8 @@ export default async function Page() {
   return (
     <ExamplePageShell
       slug="standalone-editor-inspector"
-      title="Standalone editor — inspector"
+      heading="Standalone editor"
+      subtitle="Inspector"
       docsUrl="https://react.email/docs/editor/features/inspector"
       sourceCode={sourceCode}
       githubUrl={getExampleGitHubUrl('standalone-editor-inspector')}

@@ -7,7 +7,8 @@ import { ExampleTabbedContent } from './example-tabbed-content';
 
 interface ExamplePageShellProps {
   slug: string;
-  title: string;
+  heading: string;
+  subtitle?: string;
   docsUrl?: string;
   sourceCode?: string;
   githubUrl?: string;
@@ -16,20 +17,14 @@ interface ExamplePageShellProps {
 
 export function ExamplePageShell({
   slug,
-  title,
+  heading,
+  subtitle,
   docsUrl,
   sourceCode,
   githubUrl,
   children,
 }: ExamplePageShellProps) {
   const hasTabs = sourceCode && githubUrl;
-  const titleParts = title.split(' — ');
-  const pageHeading = titleParts[0];
-  const rawTabTitle =
-    titleParts.length > 1 ? titleParts.slice(1).join(' — ') : undefined;
-  const tabTitle = rawTabTitle
-    ? rawTabTitle.charAt(0).toUpperCase() + rawTabTitle.slice(1)
-    : undefined;
 
   return (
     <PageWrapper>
@@ -60,13 +55,13 @@ export function ExamplePageShell({
             )}
           </div>
           <Heading size="6" weight="medium" className="text-slate-12">
-            {pageHeading}
+            {heading}
           </Heading>
         </div>
         {hasTabs ? (
           <div className="relative flex w-full flex-col gap-4 border-slate-4 border-y pt-3">
             <ExampleTabbedContent
-              title={tabTitle}
+              title={subtitle}
               sourceCode={sourceCode}
               githubUrl={githubUrl}
             >

@@ -16,7 +16,7 @@ export default async function Page() {
   return (
     <ExamplePageShell
       slug="custom-extensions"
-      title="Custom extensions"
+      heading="Custom extensions"
       docsUrl="https://react.email/docs/editor/advanced/custom-extensions"
       sourceCode={sourceCode}
       githubUrl={getExampleGitHubUrl('custom-extensions')}

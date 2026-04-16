@@ -16,7 +16,8 @@ export default async function Page() {
   return (
     <ExamplePageShell
       slug="inspector-composed"
-      title="Inspector — composed"
+      heading="Inspector"
+      subtitle="Composed"
       docsUrl="https://react.email/docs/editor/overview"
       sourceCode={sourceCode}
       githubUrl={getExampleGitHubUrl('inspector-composed')}

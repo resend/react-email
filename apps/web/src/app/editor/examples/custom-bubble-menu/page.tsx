@@ -15,7 +15,7 @@ export default async function Page() {
   return (
     <ExamplePageShell
       slug="custom-bubble-menu"
-      title="Custom bubble menu"
+      heading="Custom bubble menu"
       docsUrl="https://react.email/docs/editor/features/bubble-menu"
       sourceCode={sourceCode}
       githubUrl={getExampleGitHubUrl('custom-bubble-menu')}

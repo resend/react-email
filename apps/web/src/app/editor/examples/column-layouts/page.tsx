@@ -15,7 +15,7 @@ export default async function Page() {
   return (
     <ExamplePageShell
       slug="column-layouts"
-      title="Column layouts"
+      heading="Column layouts"
       docsUrl="https://react.email/docs/editor/features/column-layouts"
       sourceCode={sourceCode}
       githubUrl={getExampleGitHubUrl('column-layouts')}
