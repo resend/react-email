@@ -25,7 +25,9 @@ export function ExampleShell({
           <p className="text-sm text-slate-11 mb-4">{description}</p>
         </>
       )}
-      <div className="example-shell-content border border-slate-4 rounded-xl p-4 flex-1">
+      <div
+        className={`example-shell-content p-4 flex-1 ${hideHeader ? '' : 'border border-slate-4 rounded-xl'}`}
+      >
         {children}
       </div>
     </div>
