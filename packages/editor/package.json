@@ -1,6 +1,6 @@
 {
   "name": "@react-email/editor",
-  "version": "1.0.0-canary.51",
+  "version": "1.0.0",
   "description": "A rich text editor for editing and building email templates",
   "sideEffects": [
     "**/*.css"
