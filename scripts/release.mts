@@ -99,6 +99,50 @@ const createRelease = async ({
   });
 };
 
+const releaseAlreadyExists = async (tagName: string) => {
+  try {
+    await octokit.rest.repos.getReleaseByTag({
+      ...github.context.repo,
+      tag: tagName,
+    });
+    return true;
+  } catch (error: unknown) {
+    if (
+      typeof error === 'object' &&
+      error !== null &&
+      'status' in error &&
+      (error as { status?: number }).status === 404
+    ) {
+      return false;
+    }
+    throw error;
+  }
+};
+
+const ensureReleaseForPackage = async (pkg: Package) => {
+  const tagName = `${pkg.packageJson.name}@${pkg.packageJson.version}`;
+  await octokit.rest.git
+    .createRef({
+      ...github.context.repo,
+      ref: `refs/tags/${tagName}`,
+      sha: github.context.sha,
+    })
+    .catch((error: unknown) => {
+      core.warning(`Failed to create tag ${tagName}: ${error}`);
+    });
+
+  if (await releaseAlreadyExists(tagName)) {
+    console.log(`Release for ${tagName} already exists, skipping`);
+    return;
+  }
+
+  console.log(`Creating release for ${tagName}`);
+  await createRelease({ pkg, tagName });
+};
+
+const isTruthyEnv = (value: string | undefined) =>
+  value !== undefined && /^(1|true|yes)$/i.test(value);
+
 (async () => {
   if (!github.context.repo.owner || !github.context.repo.repo) {
     throw new Error(
@@ -106,61 +150,82 @@ const createRelease = async ({
     );
   }
 
-  // https://docs.npmjs.com/generating-provenance-statements#publishing-packages-with-provenance-via-github-actions
-  const npmIdToken = await core.getIDToken('npm:registry.npmjs.org');
-
-  const isCanaryBranch = github.context.ref === 'refs/heads/canary';
-  const isMainBranch = github.context.ref === 'refs/heads/main';
-
-  if (isCanaryBranch) {
-    console.log('Detected running in canary branch, checking prerelease state');
-    const preState = await readPreState(process.cwd());
-    if (preState?.mode !== 'pre') {
-      console.log(
-        'Was not in prerelease, skipping automated release. To release this you should rebase onto main',
-      );
-      return;
-    }
-    console.log('Is in prerelease mode, proceeding with automated release');
-  } else if (isMainBranch) {
-    console.log(
-      'Detected running in main branch, proceeding with stable release',
-    );
-  } else {
-    throw new Error(
-      `Unexpected branch/ref: ${github.context.ref}. Expected refs/heads/main or refs/heads/canary`,
-    );
-  }
-
-  const changesetPublishOutput = await getExecOutput('pnpm', ['release'], {
-    env: {
-      ...process.env,
-      NPM_ID_TOKEN: npmIdToken,
-      // https://docs.npmjs.com/generating-provenance-statements#using-third-party-package-publishing-tools
-      NPM_CONFIG_PROVENANCE: 'true',
-    },
-  });
+  const skipNpmPublish =
+    isTruthyEnv(process.env.SKIP_NPM_PUBLISH) ||
+    process.argv.includes('--skip-npm-publish') ||
+    process.argv.includes('--only-github-releases');
 
   const { packages } = await getPackages(process.cwd());
+  const publishablePackages = packages.filter(
+    (pkg) => pkg.packageJson.private !== true,
+  );
 
-  const newTagRegex = /New tag:\s+(@[^/]+\/[^@]+|[^/]+)@([^\s]+)/;
-  const packagesByName = new Map(packages.map((x) => [x.packageJson.name, x]));
+  let releasedPackages: Package[];
 
-  const releasedPackages: Package[] = [];
-  for (const line of changesetPublishOutput.stdout.split('\n')) {
-    const match = line.match(newTagRegex);
-    if (match === null) {
-      continue;
-    }
-    const pkgName = match[1];
-    const pkg = packagesByName.get(pkgName);
-    if (pkg === undefined) {
+  if (skipNpmPublish) {
+    console.log(
+      'SKIP_NPM_PUBLISH is set, skipping npm publish and only ensuring GitHub releases exist',
+    );
+    releasedPackages = publishablePackages;
+  } else {
+    // https://docs.npmjs.com/generating-provenance-statements#publishing-packages-with-provenance-via-github-actions
+    const npmIdToken = await core.getIDToken('npm:registry.npmjs.org');
+
+    const isCanaryBranch = github.context.ref === 'refs/heads/canary';
+    const isMainBranch = github.context.ref === 'refs/heads/main';
+
+    if (isCanaryBranch) {
+      console.log(
+        'Detected running in canary branch, checking prerelease state',
+      );
+      const preState = await readPreState(process.cwd());
+      if (preState?.mode !== 'pre') {
+        console.log(
+          'Was not in prerelease, skipping automated release. To release this you should rebase onto main',
+        );
+        return;
+      }
+      console.log('Is in prerelease mode, proceeding with automated release');
+    } else if (isMainBranch) {
+      console.log(
+        'Detected running in main branch, proceeding with stable release',
+      );
+    } else {
       throw new Error(
-        `Package "${pkgName}" not found.` +
-          'This is probably a bug in the action, please open an issue',
+        `Unexpected branch/ref: ${github.context.ref}. Expected refs/heads/main or refs/heads/canary`,
       );
     }
-    releasedPackages.push(pkg);
+
+    const changesetPublishOutput = await getExecOutput('pnpm', ['release'], {
+      env: {
+        ...process.env,
+        NPM_ID_TOKEN: npmIdToken,
+        // https://docs.npmjs.com/generating-provenance-statements#using-third-party-package-publishing-tools
+        NPM_CONFIG_PROVENANCE: 'true',
+      },
+    });
+
+    const newTagRegex = /New tag:\s+(@[^/]+\/[^@]+|[^/]+)@([^\s]+)/;
+    const packagesByName = new Map(
+      packages.map((x) => [x.packageJson.name, x]),
+    );
+
+    releasedPackages = [];
+    for (const line of changesetPublishOutput.stdout.split('\n')) {
+      const match = line.match(newTagRegex);
+      if (match === null) {
+        continue;
+      }
+      const pkgName = match[1];
+      const pkg = packagesByName.get(pkgName);
+      if (pkg === undefined) {
+        throw new Error(
+          `Package "${pkgName}" not found.` +
+            'This is probably a bug in the action, please open an issue',
+        );
+      }
+      releasedPackages.push(pkg);
+    }
   }
 
   await exec('git', ['config', 'user.name', `"github-actions[bot]"`]);
@@ -170,18 +235,6 @@ const createRelease = async ({
     `"41898282+github-actions[bot]@users.noreply.github.com"`,
   ]);
   for (const pkg of releasedPackages) {
-    const tagName = `${pkg.packageJson.name}@${pkg.packageJson.version}`;
-    await octokit.rest.git
-      .createRef({
-        ...github.context.repo,
-        ref: `refs/tags/${tagName}`,
-        sha: github.context.sha,
-      })
-      .catch((error: unknown) => {
-        core.warning(`Failed to create tag ${tagName}: ${error}`);
-      });
-
-    console.log(`Creating release for ${tagName}`);
-    await createRelease({ pkg, tagName });
+    await ensureReleaseForPackage(pkg);
   }
 })();
