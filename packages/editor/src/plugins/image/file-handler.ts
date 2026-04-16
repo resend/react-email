@@ -6,7 +6,6 @@ import { executeUploadFlow } from './upload-flow';
 export function createImageFileHandlerPlugin(
   editor: Editor,
   uploadImage: UseEditorImageOptions['uploadImage'],
-  onUploadError?: UseEditorImageOptions['onUploadError'],
 ) {
   return new Plugin({
     key: new PluginKey('imageFileHandler'),
@@ -18,7 +17,7 @@ export function createImageFileHandlerPlugin(
         }
 
         event.preventDefault();
-        void executeUploadFlow({ editor, file, uploadImage, onUploadError });
+        void executeUploadFlow({ editor, file, uploadImage });
 
         return true;
       },
@@ -33,7 +32,7 @@ export function createImageFileHandlerPlugin(
         }
 
         event.preventDefault();
-        void executeUploadFlow({ editor, file, uploadImage, onUploadError });
+        void executeUploadFlow({ editor, file, uploadImage });
 
         return true;
       },

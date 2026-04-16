@@ -8,8 +8,10 @@ import {
   forwardRef,
   type ReactNode,
   type Ref,
+  useEffect,
   useImperativeHandle,
   useMemo,
+  useRef,
 } from 'react';
 import { createPasteHandler } from '../core/create-paste-handler';
 import { composeReactEmail } from '../core/serializer/compose-react-email';
@@ -21,15 +23,16 @@ import { SlashCommandRoot } from '../ui/slash-command/root';
 import '../ui/themes/default.css';
 
 export interface EmailEditorRef {
-  export: () => Promise<{ html: string; text: string }>;
+  getEmail: () => Promise<{ html: string; text: string }>;
+  getEmailHTML: () => Promise<string>;
+  getEmailText: () => Promise<string>;
   getJSON: () => JSONContent;
-  getHTML: () => string;
   editor: Editor | null;
 }
 
 export interface EmailEditorProps {
   content?: Content;
-  onChange?: (editor: Editor) => void;
+  onUpdate?: (ref: EmailEditorRef) => void;
   onReady?: (editor: Editor) => void;
   theme?: 'basic' | 'minimal';
   editable?: boolean;
@@ -40,29 +43,56 @@ export interface EmailEditorProps {
   };
   extensions?: Extensions;
   onUploadImage?: (file: File) => Promise<{ url: string }>;
-  onUploadImageError?: (error: Error, file: File) => void;
   className?: string;
   children?: ReactNode;
 }
 
-function RefBridge({ editorRef }: { editorRef: Ref<EmailEditorRef> }) {
+function buildRef(editor: Editor | null): EmailEditorRef {
+  return {
+    getEmail: async () => {
+      if (!editor) return { html: '', text: '' };
+      return composeReactEmail({ editor });
+    },
+    getEmailHTML: async () => {
+      if (!editor) return '';
+      const result = await composeReactEmail({ editor });
+      return result.html;
+    },
+    getEmailText: async () => {
+      if (!editor) return '';
+      const result = await composeReactEmail({ editor });
+      return result.text;
+    },
+    getJSON: () => editor?.getJSON() ?? { type: 'doc', content: [] },
+    editor,
+  };
+}
+
+function RefBridge({
+  editorRef,
+  onUpdateRef,
+}: {
+  editorRef: Ref<EmailEditorRef>;
+  onUpdateRef: React.RefObject<((ref: EmailEditorRef) => void) | undefined>;
+}) {
   const { editor } = useCurrentEditor();
 
-  useImperativeHandle(
-    editorRef,
-    () => ({
-      export: async () => {
-        if (!editor) {
-          return { html: '', text: '' };
-        }
-        return composeReactEmail({ editor });
-      },
-      getJSON: () => editor?.getJSON() ?? { type: 'doc', content: [] },
-      getHTML: () => editor?.getHTML() ?? '',
-      editor,
-    }),
-    [editor],
-  );
+  const emailEditorRef = useMemo(() => buildRef(editor), [editor]);
+
+  useImperativeHandle(editorRef, () => emailEditorRef, [emailEditorRef]);
+
+  useEffect(() => {
+    if (!editor) return;
+
+    const handler = () => {
+      onUpdateRef.current?.(emailEditorRef);
+    };
+
+    editor.on('update', handler);
+    return () => {
+      editor.off('update', handler);
+    };
+  }, [editor, emailEditorRef, onUpdateRef]);
 
   return null;
 }
@@ -71,7 +101,7 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
   (
     {
       content,
-      onChange,
+      onUpdate,
       onReady,
       theme = 'basic',
       editable = true,
@@ -79,19 +109,18 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
       bubbleMenu,
       extensions: extensionsProp,
       onUploadImage,
-      onUploadImageError,
       className,
       children,
     },
     ref,
   ) => {
+    const onUpdateRef = useRef(onUpdate);
+    onUpdateRef.current = onUpdate;
+
     const imageExtension = useMemo(() => {
       if (!onUploadImage) return null;
-      return createImageExtension({
-        uploadImage: onUploadImage,
-        onUploadError: onUploadImageError,
-      });
-    }, [onUploadImage, onUploadImageError]);
+      return createImageExtension({ uploadImage: onUploadImage });
+    }, [onUploadImage]);
 
     const extensions = useMemo(() => {
       const base = extensionsProp ?? [
@@ -123,9 +152,8 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
         editorProps={editorProps}
         editorContainerProps={{ className }}
         onCreate={({ editor }) => onReady?.(editor)}
-        onUpdate={({ editor }) => onChange?.(editor)}
       >
-        <RefBridge editorRef={ref} />
+        <RefBridge editorRef={ref} onUpdateRef={onUpdateRef} />
         <BubbleMenu
           hideWhenActiveNodes={bubbleMenu?.hideWhenActiveNodes ?? ['button']}
           hideWhenActiveMarks={bubbleMenu?.hideWhenActiveMarks ?? ['link']}

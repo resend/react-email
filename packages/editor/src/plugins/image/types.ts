@@ -4,5 +4,4 @@ export interface UploadImageResult {
 
 export interface UseEditorImageOptions {
   uploadImage: (file: File) => Promise<UploadImageResult>;
-  onUploadError?: (error: Error, file: File) => void;
 }

@@ -7,7 +7,9 @@ import { createElement } from 'react';
 import { Heading } from '@/components/heading';
 import { PageTransition } from '@/components/page-transition';
 import { PageWrapper } from '@/components/page-wrapper';
+import { SmartLink } from '@/components/smart-link';
 import { Spotlight } from '@/components/spotlight';
+import { TabButton } from '@/components/tab-button';
 import {
   type IllustrationProps,
   sectionTitleToTone,
@@ -27,7 +29,7 @@ interface Section {
 
 const sections: Section[] = [
   {
-    title: 'One-Line Editor',
+    title: 'Standalone Editor',
     examples: [
       {
         slug: 'one-line-editor',
@@ -105,6 +107,13 @@ const sections: Section[] = [
         description:
           'Click the button to edit its link via the button bubble menu.',
         docsUrl: 'https://react.email/docs/editor/features/buttons',
+      },
+      {
+        slug: 'image-upload',
+        title: 'Image Upload',
+        description:
+          'Upload images via paste, drop, or the slash command — with a stubbed uploader and an error-path toggle.',
+        docsUrl: 'https://react.email/docs/editor/features/image-upload',
       },
     ],
   },
@@ -185,52 +194,27 @@ export default function EditorExamplesPage() {
             Interactive examples showing how to build email editors with
             @react-email/editor.
           </p>
-          <nav aria-label="Editor documentation links" className="mt-3 text-sm">
-            <ul className="flex flex-wrap items-center gap-x-3 gap-y-1">
-              <li>
-                <a
-                  className="text-slate-11 transition-[color] duration-300 ease-in-out motion-reduce:transition-none motion-reduce:duration-0 hover:text-slate-12"
-                  href="https://react.email/docs/editor/overview"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  Overview
-                </a>
-              </li>
-              <li aria-hidden className="text-slate-6">
-                ·
-              </li>
-              <li>
-                <a
-                  className="text-slate-11 transition-[color] duration-300 ease-in-out motion-reduce:transition-none motion-reduce:duration-0 hover:text-slate-12"
-                  href="https://react.email/docs/editor/getting-started"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  Getting Started
-                </a>
-              </li>
-              <li aria-hidden className="text-slate-6">
-                ·
-              </li>
-              <li>
-                <a
-                  className="text-slate-11 transition-[color] duration-300 ease-in-out motion-reduce:transition-none motion-reduce:duration-0 hover:text-slate-12"
-                  href="https://react.email/docs/editor/api-reference"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  API Reference
-                </a>
-              </li>
-            </ul>
-          </nav>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+            <TabButton asChild>
+              <SmartLink href="/docs/editor/overview">Overview</SmartLink>
+            </TabButton>
+            <TabButton asChild>
+              <SmartLink href="/docs/editor/getting-started">
+                Getting Started
+              </SmartLink>
+            </TabButton>
+            <TabButton asChild>
+              <SmartLink href="/docs/editor/api-reference">
+                API Reference
+              </SmartLink>
+            </TabButton>
+          </div>
         </div>
         <ul className="grid grid-cols-1 gap-4 px-6 pb-10 md:grid-cols-2 md:px-8 lg:grid-cols-3">
           {sections.map((section) =>
             section.examples.map((example) => {
               const sectionIcon = {
-                'One-Line Editor': Bolt,
+                'Standalone Editor': Bolt,
                 'Getting Started': Rocket,
                 Intermediate: Layers2,
                 Advanced: Cpu,
@@ -280,7 +264,7 @@ export default function EditorExamplesPage() {
                         <span
                           className={`mb-3.5 -ml-0.5 inline-flex w-fit items-center gap-1.5 rounded-full px-2 py-1.5 pr-2.5 text-xs ${
                             {
-                              'One-Line Editor': 'bg-cyan-3 text-cyan-11',
+                              'Standalone Editor': 'bg-cyan-3 text-cyan-11',
                               'Getting Started': 'bg-green-3 text-green-11',
                               Intermediate: 'bg-amber-3 text-amber-11',
                               Advanced: 'bg-purple-3 text-purple-11',

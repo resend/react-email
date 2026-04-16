@@ -4,22 +4,6 @@ import { createImageFileHandlerPlugin } from './file-handler';
 import type { UseEditorImageOptions } from './types';
 import { executeUploadFlow } from './upload-flow';
 
-declare module '@tiptap/core' {
-  interface Commands<ReturnType> {
-    image: {
-      setImage: (attrs: {
-        src: string;
-        alt?: string;
-        width?: string;
-        height?: string;
-        alignment?: string;
-        href?: string;
-      }) => ReturnType;
-      uploadImage: () => ReturnType;
-    };
-  }
-}
-
 export function createImageExtension(options: UseEditorImageOptions) {
   return EmailNode.create({
     name: 'image',
@@ -70,7 +54,6 @@ export function createImageExtension(options: UseEditorImageOptions) {
                   editor,
                   file,
                   uploadImage: options.uploadImage,
-                  onUploadError: options.onUploadError,
                 });
               }
             };
@@ -82,9 +65,8 @@ export function createImageExtension(options: UseEditorImageOptions) {
 
     addProseMirrorPlugins() {
       const { editor } = this;
-      const { uploadImage, onUploadError } = options;
 
-      return [createImageFileHandlerPlugin(editor, uploadImage, onUploadError)];
+      return [createImageFileHandlerPlugin(editor, options.uploadImage)];
     },
 
     renderToReactEmail: ({ node, style }) => {
