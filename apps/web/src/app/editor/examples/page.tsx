@@ -1,15 +1,15 @@
-import { Bolt, Cpu, Layers2, Rocket } from 'lucide-react';
+import { ArrowRightIcon, Bolt, Cpu, Layers2, Rocket } from 'lucide-react';
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { createElement } from 'react';
 
+import { Button } from '@/components/button';
 import { Heading } from '@/components/heading';
 import { PageTransition } from '@/components/page-transition';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SmartLink } from '@/components/smart-link';
 import { Spotlight } from '@/components/spotlight';
-import { TabButton } from '@/components/tab-button';
 import {
   type IllustrationProps,
   sectionTitleToTone,
@@ -201,21 +201,6 @@ export default function EditorExamplesPage() {
             Interactive examples showing how to build email editors with
             @react-email/editor.
           </p>
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-            <TabButton asChild>
-              <SmartLink href="/docs/editor/overview">Overview</SmartLink>
-            </TabButton>
-            <TabButton asChild>
-              <SmartLink href="/docs/editor/getting-started">
-                Getting Started
-              </SmartLink>
-            </TabButton>
-            <TabButton asChild>
-              <SmartLink href="/docs/editor/api-reference">
-                API Reference
-              </SmartLink>
-            </TabButton>
-          </div>
         </div>
         <ul className="grid grid-cols-1 gap-4 px-6 pb-10 md:grid-cols-2 md:px-8 lg:grid-cols-3">
           {sections.map((section) =>
