@@ -3,6 +3,10 @@
   color: highlighttext;
 }
 
+.example-shell-content .tiptap {
+  min-height: 350px !important;
+}
+
 .tiptap .node-button {
   background-color: #fff;
   color: #000;
