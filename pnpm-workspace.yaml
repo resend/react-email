@@ -41,7 +41,7 @@ catalog:
   '@tailwindcss/postcss': ^4.1.18
   tailwindcss: ^4.1.18
   tinybench: 3.1.0
-  tsdown: 0.19.0
+  tsdown: 0.21.9
   tsx: 4.21.0
   typescript: 5.9.3
   vite: 7.3.2
