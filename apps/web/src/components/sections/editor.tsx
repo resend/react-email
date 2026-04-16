@@ -3,6 +3,7 @@
 import { EmailEditor } from '@react-email/editor';
 import { composeReactEmail } from '@react-email/editor/core';
 import { ArrowRightIcon, SendHorizonal, X } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
 import { Button } from '../button';
@@ -40,7 +41,14 @@ export const EditorHomepage = () => {
   }, []);
 
   return (
-    <div className="relative py-10 pb-80 space-y-16 sm:space-y-24">
+    <div className="relative py-20 md:py-10 md:pb-80 space-y-16 sm:space-y-24">
+      <Image
+        alt=""
+        className="pointer-events-none absolute md:-translate-x-96 -top-40 z-3 select-none mix-blend-lighten"
+        fill
+        priority
+        src="/static/bg.png"
+      />
       <div className="space-y-6 pt-20">
         <Heading as="h2" size="8" weight="medium" className="text-white/80">
           Don't build it, ship it
@@ -65,24 +73,21 @@ export const EditorHomepage = () => {
 
       <div
         ref={containerRef}
-        className="w-4/6 bg-white aspect-video z-20 relative border border-slate-4 grow rounded-2xl sm:rounded-3xl overflow-hidden [overflow-anchor:none] -order-1 md:order-0 flex flex-col"
+        className="md:w-4/6 bg-white md:aspect-video z-20 relative border border-slate-4 grow rounded-2xl sm:rounded-3xl overflow-hidden [overflow-anchor:none] -order-1 md:order-0 flex flex-col"
       >
         <div
           aria-hidden="true"
-          class="absolute top-0 right-0 h-px w-96 bg-linear-to-l from-transparent via-cyan-12/30 via-50% to-transparent"
+          className="absolute top-0 right-0 h-px w-96 bg-linear-to-l from-transparent via-cyan-12/30 via-50% to-transparent"
         />
 
         <EmailEditor
           content={INITIAL_CONTENT}
           className="flex-1 overflow-auto px-6 w-full [&>div]:w-full [&_div]:outline-none"
-          onReady={(editor) => {
-            focusEditor.current = () => editor.commands.focus('end');
-          }}
-          onChange={async (editor) => {
+          onReady={async (editor) => {
             const { html } = await composeReactEmail({ editor });
             setHtml(html);
           }}
-          ref={async ({ editor }) => {
+          onChange={async (editor) => {
             const { html } = await composeReactEmail({ editor });
             setHtml(html);
           }}
@@ -106,11 +111,11 @@ export const EditorHomepage = () => {
         </EmailEditor>
       </div>
 
-      <div className="absolute right-10 -top-50 h-full z-10 w-1/2 ">
+      <div className="absolute right-10 -top-50 h-full z-10 w-1/2 hidden md:block pointer-events-none">
         <div className="w-dvw h-full [mask-image:linear-gradient(to_bottom,transparent_10%,black_20%,black_80%,transparent)]">
           <CodeBlock
             children={html}
-            codeClassName="text-xs opacity-60 "
+            codeClassName="text-xs opacity-50 scale-90"
             language="tsx"
             isGradientLine={false}
           />
@@ -129,87 +134,170 @@ const INITIAL_CONTENT = {
         {
           type: 'heading',
           attrs: {
-            style: 'margin-top: 0px; margin-bottom: 16px;',
+            style: 'margin-top: 0px; margin-bottom: 8px;',
             alignment: null,
             class: '',
-            level: 1,
+            level: 2,
           },
-          content: [
-            {
-              type: 'text',
-              text: 'Welcome aboard',
-            },
-          ],
+          content: [{ type: 'text', text: 'Your editor is live' }],
         },
         {
           type: 'paragraph',
-          attrs: {
-            style: 'margin-bottom: 16px;',
-            alignment: null,
-            class: 'node-paragraph',
-          },
+          attrs: { class: 'node-paragraph' },
           content: [
             {
               type: 'text',
-              text: 'Hi there!',
+              text: 'Everything your users need to write beautiful emails.',
             },
           ],
         },
         {
-          type: 'paragraph',
-          attrs: {
-            style: 'margin-bottom: 16px;',
-            alignment: null,
-            class: 'node-paragraph',
-          },
+          type: 'twoColumns',
+          attrs: { class: null, columnRatio: '1:1' },
           content: [
             {
-              type: 'text',
-              text: "Thanks for signing up. We're glad to have you with us. Your account is ready, and you can start exploring right away.",
-            },
-          ],
-        },
-        {
-          type: 'paragraph',
-          attrs: {
-            style: 'margin-bottom: 16px;',
-            alignment: null,
-            class: 'node-paragraph',
-          },
-          content: [
-            {
-              type: 'text',
-              text: 'Head over to your dashboard to get set up and make the most of your new account.',
-            },
-          ],
-        },
-        {
-          type: 'div',
-          attrs: {
-            style: '',
-            class: 'align-left',
-            id: null,
-            title: null,
-            lang: null,
-            dir: null,
-            'data-id': null,
-            align: null,
-            width: null,
-            height: null,
-          },
-          content: [
-            {
-              type: 'button',
-              attrs: {
-                style: 'margin-bottom: 24px;',
-                alignment: 'left',
-                class: 'node-button button',
-                href: '#',
-              },
+              type: 'columnsColumn',
+              attrs: { class: null },
               content: [
                 {
-                  type: 'text',
-                  text: 'Go to Your Dashboard',
+                  type: 'paragraph',
+                  attrs: { alignment: null, class: 'node-paragraph' },
+                  content: [
+                    {
+                      type: 'text',
+                      marks: [{ type: 'bold' }],
+                      text: 'For users',
+                    },
+                  ],
+                },
+                {
+                  type: 'bulletList',
+                  attrs: { tight: true, class: null, indent: null },
+                  content: [
+                    {
+                      type: 'listItem',
+                      attrs: { class: null },
+                      content: [
+                        {
+                          type: 'paragraph',
+                          attrs: {
+                            style: null,
+                            alignment: null,
+                            class: 'node-paragraph',
+                          },
+                          content: [
+                            { type: 'text', text: 'Rich text & headings' },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'listItem',
+                      attrs: { class: null },
+                      content: [
+                        {
+                          type: 'paragraph',
+                          attrs: {
+                            style: null,
+                            alignment: null,
+                            class: 'node-paragraph',
+                          },
+                          content: [
+                            { type: 'text', text: 'Columns & layouts' },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'listItem',
+                      attrs: { class: null },
+                      content: [
+                        {
+                          type: 'paragraph',
+                          attrs: {
+                            style: null,
+                            alignment: null,
+                            class: 'node-paragraph',
+                          },
+                          content: [{ type: 'text', text: 'Buttons & images' }],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'columnsColumn',
+              attrs: { class: null },
+              content: [
+                {
+                  type: 'paragraph',
+                  attrs: { alignment: null, class: 'node-paragraph' },
+                  content: [
+                    {
+                      type: 'text',
+                      marks: [{ type: 'bold' }],
+                      text: 'For developers',
+                    },
+                  ],
+                },
+                {
+                  type: 'bulletList',
+                  attrs: { tight: true, class: null, indent: null },
+                  content: [
+                    {
+                      type: 'listItem',
+                      attrs: { class: null },
+                      content: [
+                        {
+                          type: 'paragraph',
+                          attrs: {
+                            style: null,
+                            alignment: null,
+                            class: 'node-paragraph',
+                          },
+                          content: [
+                            { type: 'text', text: 'Drop-in React component' },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'listItem',
+                      attrs: { class: null },
+                      content: [
+                        {
+                          type: 'paragraph',
+                          attrs: {
+                            style: null,
+                            alignment: null,
+                            class: 'node-paragraph',
+                          },
+                          content: [
+                            { type: 'text', text: 'TypeScript support' },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'listItem',
+                      attrs: { class: null },
+                      content: [
+                        {
+                          type: 'paragraph',
+                          attrs: {
+                            style: null,
+                            alignment: null,
+                            class: 'node-paragraph',
+                          },
+                          content: [
+                            { type: 'text', text: 'Fully customizable' },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
                 },
               ],
             },
@@ -217,17 +305,20 @@ const INITIAL_CONTENT = {
         },
         {
           type: 'paragraph',
-          attrs: {
-            style: 'margin-bottom: 0px;',
-            alignment: null,
-            class: 'node-paragraph',
-          },
+          attrs: { alignment: null, class: 'node-paragraph' },
           content: [
+            { type: 'text', text: 'Try it — type ' },
+            { type: 'text', marks: [{ type: 'code' }], text: '/' },
             {
               type: 'text',
-              text: "If you have any questions, just reply to this email. We're happy to help.",
+              text: ' to open the command menu and insert any block.',
             },
           ],
+        },
+        {
+          type: 'paragraph',
+          attrs: {},
+          content: [],
         },
       ],
     },
