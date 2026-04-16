@@ -1,5 +1,19 @@
 # @react-email/editor
 
+## 0.0.0-canary.51
+
+### Major Changes
+
+- abb7e8d: add `getEmailHTML()` and `getEmailText()` to `EmailEditorRef`, remove `getHTML()`, rename `onChange` to `onUpdate`
+
+### Patch Changes
+
+- 766cc41: remove placeholder from starter kit, keep it in standalone editor
+- ca6a71d: Render Table as a native `<table>` instead of `Section` to fix invalid `<tr>` inside `<td>` nesting in email output
+- 7d587f3: Align `EmailEditor`'s `onReady` callback with `onUpdate` so it receives `EmailEditorRef`
+- 07fb6f0: fix color pickers closing and not letting drag happen in root node
+  - react-email@6.0.0-canary.2
+
 ## 0.0.0-canary.50
 
 ### Major Changes

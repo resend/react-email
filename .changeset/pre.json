@@ -18,18 +18,24 @@
     "@benchmarks/ui": "0.0.0"
   },
   "changesets": [
+    "better-coins-fetch",
     "bitter-boxes-fetch",
     "eleven-doors-matter",
     "email-editor-children-prop",
     "fix-preview-url-parse",
+    "fix-table-nesting",
+    "funny-pears-listen",
+    "get-email-html",
     "image-upload-plugin",
     "lemon-drinks-cover",
+    "loud-experts-think",
     "public-corners-carry",
     "puny-sloths-decide",
     "slash-command-api-cleanup",
     "spotty-rice-shop",
     "tender-toes-try",
     "vast-bushes-post",
+    "vast-pigs-shine",
     "whole-tires-follow"
   ]
 }

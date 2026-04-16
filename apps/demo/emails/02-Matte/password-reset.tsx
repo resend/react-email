@@ -43,7 +43,7 @@ export const PasswordResetEmail = ({
         <Container className="mx-auto max-w-[640px] px-4 pt-16 pb-6">
           <Section className="rounded-[8px] shadow-collage-card">
             <Section className="bg-bg border-stroke rounded-[8px] border">
-              <Section className="px-10 pt-16">
+              <Section className="mobile:px-6! px-10 pt-16">
                 <Img
                   src={`${baseUrl}/static/collage/collage-image-2.png`}
                   alt=""
@@ -53,7 +53,7 @@ export const PasswordResetEmail = ({
                 />
               </Section>
 
-              <Section className="px-10 pt-8">
+              <Section className="mobile:px-6! px-10 pt-8">
                 <Section className="mb-9">
                   <Text className="font-48 text-fg m-0 font-sans">
                     Reset your password
@@ -72,7 +72,7 @@ export const PasswordResetEmail = ({
                 </Button>
               </Section>
 
-              <Section className="px-10 pt-16 pb-8">
+              <Section className="mobile:px-6! px-10 pt-16 pb-8">
                 <Text className="font-11 font-inter text-fg-3 m-0 max-w-[310px]">
                   If you didn&apos;t request this, please ignore this email.
                   Your password won&apos;t change until you access the link

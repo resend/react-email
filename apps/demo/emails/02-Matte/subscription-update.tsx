@@ -56,7 +56,7 @@ export const SubscriptionUpdate = ({
           <Container className="mx-auto max-w-[640px] px-4 pt-16 pb-6">
             <Section className="rounded-[8px] shadow-collage-card">
               <Section className="bg-bg border-stroke rounded-[8px] border">
-                <Section className="px-10 pt-16">
+                <Section className="mobile:px-6! px-10 pt-16">
                   <Img
                     src={`${baseUrl}/static/collage/collage-image-2.png`}
                     alt=""
@@ -66,7 +66,7 @@ export const SubscriptionUpdate = ({
                   />
                 </Section>
 
-                <Section className="px-10 pb-14 pt-8">
+                <Section className="mobile:px-6! px-10 pb-14 pt-8">
                   <Section
                     align="left"
                     className="mb-12 ml-0 mr-auto w-full max-w-[480px] text-left"

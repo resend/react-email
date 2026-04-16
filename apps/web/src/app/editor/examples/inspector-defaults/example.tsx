@@ -11,7 +11,7 @@ const extensions = [StarterKit, EmailTheming];
 const content = `
   <h1>Inspector Defaults</h1>
   <p>Click on any element to inspect it. The sidebar renders sensible defaults for each node type — no configuration needed.</p>
-  <div class="align-left"><a class="node-button button" data-id="react-email-button" href="https://react.email">Click me</a></div>
+  <a class="button" data-id="react-email-button" href="https://react.email">Click me</a>
   <p>Try selecting text to see the text inspector, or click the background to see document-level styles.</p>
   <img src="https://placehold.co/600x200" alt="Placeholder" />
 `;
@@ -57,7 +57,7 @@ function Breadcrumb() {
         <Inspector.Breadcrumb>
           {(segments) =>
             segments.map((segment, i) => {
-              const label = segment.node?.nodeType ?? 'Layout';
+              const label = segment.node.nodeType;
               return (
                 <li key={i} className="flex items-center gap-1">
                   {i !== 0 && <span className="text-(--re-text-muted)">/</span>}

@@ -1,50 +1,55 @@
+import { Bolt, Cpu, Layers2, Rocket } from 'lucide-react';
 import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import { createElement } from 'react';
+
 import { Heading } from '@/components/heading';
 import { PageTransition } from '@/components/page-transition';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SmartLink } from '@/components/smart-link';
+import { Spotlight } from '@/components/spotlight';
 import { TabButton } from '@/components/tab-button';
+import {
+  type IllustrationProps,
+  sectionTitleToTone,
+} from '@/illustrations/editor-examples/illustration-shared';
 
-interface ExampleMeta {
+interface Example {
   slug: string;
   title: string;
   description: string;
-  section: string;
   docsUrl?: string;
 }
 
-interface ExampleSection {
+interface Section {
   title: string;
-  examples: ExampleMeta[];
+  examples: Example[];
 }
 
-const sections: ExampleSection[] = [
+const sections: Section[] = [
   {
     title: 'Standalone editor',
     examples: [
       {
-        slug: 'standalone-editor',
-        title: 'Standalone editor — minimal',
+        slug: 'one-line-editor',
+        title: 'Minimal',
         description:
           'The simplest setup — one component with everything included.',
-        section: 'Standalone editor',
         docsUrl: 'https://react.email/docs/editor/getting-started',
       },
       {
-        slug: 'standalone-editor-full',
-        title: 'Standalone editor — full features',
+        slug: 'one-line-editor-full',
+        title: 'Full features',
         description:
           'Theme switching, ref methods (export, getJSON), and callbacks — all with a single component.',
-        section: 'Standalone editor',
         docsUrl: 'https://react.email/docs/editor/getting-started',
       },
       {
-        slug: 'standalone-editor-inspector',
-        title: 'Standalone editor — inspector',
+        slug: 'one-line-editor-inspector',
+        title: 'Inspector',
         description:
-          'Add an inspector sidebar alongside the standalone EmailEditor — no manual EditorProvider setup needed.',
-        section: 'Standalone editor',
+          'Add an inspector sidebar alongside the one-line EmailEditor — no manual EditorProvider setup needed.',
         docsUrl: 'https://react.email/docs/editor/features/inspector',
       },
     ],
@@ -56,7 +61,6 @@ const sections: ExampleSection[] = [
         slug: 'basic-editor',
         title: 'Basic editor',
         description: 'Minimal setup with StarterKit and no UI overlays.',
-        section: 'Getting started',
         docsUrl: 'https://react.email/docs/editor/getting-started',
       },
       {
@@ -64,7 +68,6 @@ const sections: ExampleSection[] = [
         title: 'Bubble menu',
         description:
           'Select text to see the default bubble menu with formatting options.',
-        section: 'Getting started',
         docsUrl: 'https://react.email/docs/editor/features/bubble-menu',
       },
       {
@@ -72,7 +75,6 @@ const sections: ExampleSection[] = [
         title: 'Slash commands',
         description:
           'Type / to open the command menu. Includes default commands plus a custom "Greeting" command.',
-        section: 'Getting started',
         docsUrl: 'https://react.email/docs/editor/features/slash-commands',
       },
     ],
@@ -84,7 +86,6 @@ const sections: ExampleSection[] = [
         slug: 'custom-bubble-menu',
         title: 'Custom bubble menu',
         description: 'Building bubble menus from primitives.',
-        section: 'Intermediate',
         docsUrl: 'https://react.email/docs/editor/features/bubble-menu',
       },
       {
@@ -92,14 +93,12 @@ const sections: ExampleSection[] = [
         title: 'Link editing',
         description:
           'Click a link to see the link bubble menu. Select text and press Cmd+K to add links.',
-        section: 'Intermediate',
         docsUrl: 'https://react.email/docs/editor/features/link-editing',
       },
       {
         slug: 'column-layouts',
         title: 'Column layouts',
         description: 'Insert multi-column layouts using the toolbar buttons.',
-        section: 'Intermediate',
         docsUrl: 'https://react.email/docs/editor/features/column-layouts',
       },
       {
@@ -107,7 +106,6 @@ const sections: ExampleSection[] = [
         title: 'Buttons',
         description:
           'Click the button to edit its link via the button bubble menu.',
-        section: 'Intermediate',
         docsUrl: 'https://react.email/docs/editor/features/buttons',
       },
       {
@@ -115,7 +113,6 @@ const sections: ExampleSection[] = [
         title: 'Image upload',
         description:
           'Upload images via paste, drop, or the slash command — with a stubbed uploader and an error-path toggle.',
-        section: 'Intermediate',
         docsUrl: 'https://react.email/docs/editor/features/image-upload',
       },
     ],
@@ -128,7 +125,6 @@ const sections: ExampleSection[] = [
         title: 'Email theming',
         description:
           'Switch between Basic and Minimal themes to see how email styles change.',
-        section: 'Advanced',
         docsUrl: 'https://react.email/docs/editor/features/theming',
       },
       {
@@ -136,7 +132,6 @@ const sections: ExampleSection[] = [
         title: 'Email export',
         description:
           'Edit content and export it as email-ready HTML using composeReactEmail().',
-        section: 'Advanced',
         docsUrl: 'https://react.email/docs/editor/features/email-export',
       },
       {
@@ -144,7 +139,6 @@ const sections: ExampleSection[] = [
         title: 'Custom extensions',
         description:
           'A custom Callout node created with EmailNode.create — showing how to extend the editor with email-compatible nodes.',
-        section: 'Advanced',
         docsUrl: 'https://react.email/docs/editor/advanced/custom-extensions',
       },
       {
@@ -152,7 +146,6 @@ const sections: ExampleSection[] = [
         title: 'Inspector — defaults',
         description:
           'Zero-config inspector sidebar. All three inspectors render sensible defaults when no children are passed.',
-        section: 'Advanced',
         docsUrl: 'https://react.email/docs/editor/overview',
       },
       {
@@ -160,7 +153,6 @@ const sections: ExampleSection[] = [
         title: 'Inspector — composed',
         description:
           'Cherry-pick which sections render, control collapse state, and mix in custom sections alongside built-in ones.',
-        section: 'Advanced',
         docsUrl: 'https://react.email/docs/editor/overview',
       },
       {
@@ -168,7 +160,6 @@ const sections: ExampleSection[] = [
         title: 'Inspector — fully custom',
         description:
           'Build the entire inspector UI from scratch using only render-props data and plain HTML.',
-        section: 'Advanced',
         docsUrl: 'https://react.email/docs/editor/overview',
       },
       {
@@ -176,7 +167,6 @@ const sections: ExampleSection[] = [
         title: 'Full email builder',
         description:
           'All components combined: bubble menus, slash commands, theming, inspector sidebar, and export.',
-        section: 'Advanced',
         docsUrl: 'https://react.email/docs/editor/features/email-export',
       },
     ],
@@ -192,20 +182,13 @@ export const metadata: Metadata = {
   },
 };
 
-const sectionStyles: Record<string, string> = {
-  'Standalone editor': 'bg-cyan-3 text-cyan-11',
-  'Getting started': 'bg-green-3 text-green-11',
-  Intermediate: 'bg-amber-3 text-amber-11',
-  Advanced: 'bg-purple-3 text-purple-11',
-};
-
 export default function EditorExamplesPage() {
   return (
     <PageWrapper>
       <PageTransition className="pb-10" key="editor-examples" tag="main">
         <div className="flex w-full flex-col gap-2 px-6 pt-16 pb-10 md:px-8">
           <Heading size="6" weight="medium" className="text-slate-12">
-            Editor examples
+            Editor Examples
           </Heading>
           <p>
             Interactive examples showing how to build email editors with
@@ -217,70 +200,106 @@ export default function EditorExamplesPage() {
             </TabButton>
             <TabButton asChild>
               <SmartLink href="/docs/editor/getting-started">
-                Getting started
+                Getting Started
               </SmartLink>
             </TabButton>
             <TabButton asChild>
-              <SmartLink href="/docs/editor/getting-started">
+              <SmartLink href="/docs/editor/api-reference">
                 API Reference
               </SmartLink>
             </TabButton>
           </div>
         </div>
+        <ul className="grid grid-cols-1 gap-4 px-6 pb-10 md:grid-cols-2 md:px-8 lg:grid-cols-3">
+          {sections.map((section) =>
+            section.examples.map((example) => {
+              const sectionIcon = {
+                'Standalone Editor': Bolt,
+                'Getting Started': Rocket,
+                Intermediate: Layers2,
+                Advanced: Cpu,
+              }[section.title];
+              const tone = sectionTitleToTone(section.title);
+              const illustrationComponent = dynamic<IllustrationProps>(() =>
+                import(`@/illustrations/editor-examples/${example.slug}`).catch(
+                  () =>
+                    import(
+                      '@/illustrations/editor-examples/illustration-placeholder'
+                    ),
+                ),
+              );
 
-        <div className="mx-6 mb-10 flex items-start gap-3 rounded-lg border border-cyan-4 bg-cyan-2 p-4 md:mx-8">
-          <svg
-            className="mt-0.5 shrink-0 text-cyan-11"
-            fill="none"
-            height="16"
-            viewBox="0 0 16 16"
-            width="16"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM8 5a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 8 5Zm0 8a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z"
-              fill="currentColor"
-            />
-          </svg>
-          <p className="text-sm text-cyan-11">
-            You are viewing the{' '}
-            <span className="font-medium text-cyan-12">canary</span> version of
-            the editor. APIs and features may change without notice.
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-12 px-6 pb-10 md:px-8">
-          {sections.map((section) => (
-            <div key={section.title}>
-              <h2 className="text-sm font-medium text-slate-12 mb-4">
-                {section.title}
-              </h2>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {section.examples.map((example) => (
+              return (
+                <li key={example.slug}>
                   <Link
-                    key={example.slug}
+                    className="group relative isolate cursor-pointer overflow-hidden rounded-md scroll-m-6 focus:outline-hidden focus:ring-slate-2"
                     href={`/editor/examples/${example.slug}`}
-                    className="group relative flex flex-col gap-3 rounded-lg border border-slate-4 p-5 transition-colors hover:border-slate-6 focus:outline-hidden focus:ring-3 focus:ring-slate-3"
                   >
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-medium text-slate-12">
-                        {example.title}
-                      </h3>
-                      <span
-                        className={`rounded-full px-2 py-0.5 text-[0.6875rem] leading-tight ${sectionStyles[section.title] ?? 'bg-slate-3 text-slate-11'}`}
+                    <Spotlight className="relative flex h-full w-full flex-col gap-4 bg-black">
+                      <div className="pointer-events-none absolute inset-0 rounded-md border border-slate-4 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover:border-slate-6 group-focus:border-slate-6" />
+                      <div
+                        className={`relative flex aspect-2/1 items-center justify-center overflow-hidden rounded-xs ${
+                          {
+                            amber: 'text-amber-11',
+                            cyan: 'text-cyan-11',
+                            green: 'text-green-11',
+                            purple: 'text-purple-11',
+                            slate: 'text-slate-11',
+                          }[tone]
+                        }`}
                       >
-                        {section.title}
-                      </span>
-                    </div>
-                    <p className="text-sm text-slate-11">
-                      {example.description}
-                    </p>
+                        <div
+                          className={`pointer-events-none absolute inset-0 z-0 bg-transparent opacity-80 bg-position-[0_0,.625rem_.625rem] bg-size-[1.25rem_1.25rem] ${
+                            {
+                              amber:
+                                'bg-[radial-gradient(hsl(45_4%_16%)_.0313rem,transparent_.0313rem),radial-gradient(hsl(45_4%_16%)_.0313rem,transparent_.0313rem)]',
+                              cyan: 'bg-[radial-gradient(hsl(190_4%_16%)_.0313rem,transparent_.0313rem),radial-gradient(hsl(190_4%_16%)_.0313rem,transparent_.0313rem)]',
+                              green:
+                                'bg-[radial-gradient(hsl(145_4%_16%)_.0313rem,transparent_.0313rem),radial-gradient(hsl(145_4%_16%)_.0313rem,transparent_.0313rem)]',
+                              purple:
+                                'bg-[radial-gradient(hsl(275_4%_16%)_.0313rem,transparent_.0313rem),radial-gradient(hsl(275_4%_16%)_.0313rem,transparent_.0313rem)]',
+                              slate:
+                                'bg-[radial-gradient(hsl(240_4%_16%)_.0313rem,transparent_.0313rem),radial-gradient(hsl(240_4%_16%)_.0313rem,transparent_.0313rem)]',
+                            }[tone]
+                          }`}
+                        />
+                        {createElement(illustrationComponent, { tone })}
+                      </div>
+                      <div className="flex flex-col px-5 pb-5">
+                        <span
+                          className={`mb-3.5 -ml-0.5 inline-flex w-fit items-center gap-1.5 rounded-full px-2 py-1.5 pr-2.5 text-xs ${
+                            {
+                              'Standalone Editor': 'bg-cyan-3 text-cyan-11',
+                              'Getting Started': 'bg-green-3 text-green-11',
+                              Intermediate: 'bg-amber-3 text-amber-11',
+                              Advanced: 'bg-purple-3 text-purple-11',
+                            }[section.title] ?? 'bg-slate-3 text-slate-11'
+                          }`}
+                        >
+                          {sectionIcon
+                            ? createElement(sectionIcon, {
+                                'aria-hidden': true,
+                                className: 'size-3 shrink-0',
+                              })
+                            : null}
+                          <span className="[text-box:trim-both_cap_alphabetic]">
+                            {section.title}
+                          </span>
+                        </span>
+                        <h3 className="mb-[.375rem] font-medium leading-tight text-slate-12">
+                          {example.title}
+                        </h3>
+                        <p className="text-pretty text-[.8125rem] leading-relaxed text-slate-11">
+                          {example.description}
+                        </p>
+                      </div>
+                    </Spotlight>
                   </Link>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+                </li>
+              );
+            }),
+          )}
+        </ul>
       </PageTransition>
     </PageWrapper>
   );

@@ -28,6 +28,8 @@ export const Inspector = {
   Typography: TypographySection,
 };
 
+export type { NodeMeta } from './config/node-meta';
+export { getNodeMeta } from './config/node-meta';
 export type { InspectorDocumentProps } from './document';
 export type { InspectorNodeContext, InspectorNodeProps } from './node';
 export type { InspectorTextContext, InspectorTextProps } from './text';

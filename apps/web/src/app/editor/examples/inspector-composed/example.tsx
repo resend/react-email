@@ -11,7 +11,7 @@ const extensions = [StarterKit, EmailTheming];
 const content = `
   <h1>Composed Inspector</h1>
   <p>This example picks specific sections and adds a custom one. Click an element to see the composed sidebar.</p>
-  <div class="align-left"><a class="node-button button" data-id="react-email-button" href="https://react.email">Click me</a></div>
+  <a class="button" data-id="react-email-button" href="https://react.email">Click me</a>
   <img src="https://placehold.co/600x200" alt="Placeholder" />
 `;
 
@@ -137,7 +137,7 @@ function Breadcrumb() {
         <Inspector.Breadcrumb>
           {(segments) =>
             segments.map((segment, i) => {
-              const label = segment.node?.nodeType ?? 'Layout';
+              const label = segment.node.nodeType;
               return (
                 <li key={i} className="flex items-center gap-1">
                   {i !== 0 && <span className="text-(--re-text-muted)">/</span>}

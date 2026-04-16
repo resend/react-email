@@ -2,5 +2,8 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
   "ignorePaths": ["benchmarks"],
-  "rebaseWhen": "never"
+  "rebaseWhen": "never",
+  "vulnerabilityAlerts": {
+    "groupName": "security updates"
+  }
 }

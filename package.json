@@ -18,7 +18,7 @@
     "@actions/exec": "3.0.0",
     "@actions/github": "9.0.0",
     "@actions/http-client": "4.0.0",
-    "@biomejs/biome": "2.4.10",
+    "@biomejs/biome": "2.4.12",
     "@changesets/cli": "2.30.0",
     "@changesets/pre": "2.0.2",
     "@manypkg/get-packages": "3.1.0",
@@ -64,8 +64,8 @@
       "@mintlify/previewing>js-yaml": "^4.1.1",
       "@mintlify/validation>zod": "^3.22.3",
       "@mintlify/scraping>zod": "^3.22.3",
-      "react": "19.0.0",
-      "react-dom": "19.0.0"
+      "react": "19.2.4",
+      "react-dom": "19.2.4"
     }
   },
   "packageManager": "pnpm@10.30.3+sha512.c961d1e0a2d8e354ecaa5166b822516668b7f44cb5bd95122d590dd81922f606f5473b6d23ec4a5be05e7fcd18e8488d47d978bbe981872f1145d06e9a740017"

@@ -10,6 +10,7 @@ import {
   type Ref,
   useEffect,
   useImperativeHandle,
+  useLayoutEffect,
   useMemo,
   useRef,
 } from 'react';
@@ -21,6 +22,7 @@ import { createImageExtension } from '../plugins/image/extension';
 import { BubbleMenu } from '../ui/bubble-menu';
 import { SlashCommandRoot } from '../ui/slash-command/root';
 import '../ui/themes/default.css';
+import { Placeholder } from '@tiptap/extension-placeholder';
 
 export interface EmailEditorRef {
   getEmail: () => Promise<{ html: string; text: string }>;
@@ -33,7 +35,7 @@ export interface EmailEditorRef {
 export interface EmailEditorProps {
   content?: Content;
   onUpdate?: (ref: EmailEditorRef) => void;
-  onReady?: (editor: Editor) => void;
+  onReady?: (ref: EmailEditorRef) => void;
   theme?: 'basic' | 'minimal';
   editable?: boolean;
   placeholder?: string;
@@ -97,6 +99,21 @@ function RefBridge({
   return null;
 }
 
+function EmailEditorReadyBridge({
+  onReadyRef,
+}: {
+  onReadyRef: React.RefObject<((ref: EmailEditorRef) => void) | undefined>;
+}) {
+  const { editor } = useCurrentEditor();
+
+  useLayoutEffect(() => {
+    if (!editor) return;
+    onReadyRef.current?.(buildRef(editor));
+  }, [editor, onReadyRef]);
+
+  return null;
+}
+
 export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
   (
     {
@@ -117,6 +134,9 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
     const onUpdateRef = useRef(onUpdate);
     onUpdateRef.current = onUpdate;
 
+    const onReadyRef = useRef(onReady);
+    onReadyRef.current = onReady;
+
     const imageExtension = useMemo(() => {
       if (!onUploadImage) return null;
       return createImageExtension({ uploadImage: onUploadImage });
@@ -124,8 +144,20 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
 
     const extensions = useMemo(() => {
       const base = extensionsProp ?? [
-        StarterKit.configure({
-          Placeholder: placeholder ? { placeholder } : undefined,
+        StarterKit.configure(),
+        Placeholder.configure({
+          placeholder:
+            placeholder ??
+            (({ node }) => {
+              // TODO: this heading placeholder is not working,
+              // in part because styles are only targetting paragraphs,
+              // but in part because of the way the content is rendered
+              if (node.type.name === 'heading') {
+                return `Heading ${node.attrs.level}`;
+              }
+              return "Press '/' for commands";
+            }),
+          includeChildren: true,
         }),
         EmailTheming.configure({ theme }),
       ];
@@ -151,9 +183,9 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
         immediatelyRender={false}
         editorProps={editorProps}
         editorContainerProps={{ className }}
-        onCreate={({ editor }) => onReady?.(editor)}
       >
         <RefBridge editorRef={ref} onUpdateRef={onUpdateRef} />
+        <EmailEditorReadyBridge onReadyRef={onReadyRef} />
         <BubbleMenu
           hideWhenActiveNodes={bubbleMenu?.hideWhenActiveNodes ?? ['button']}
           hideWhenActiveMarks={bubbleMenu?.hideWhenActiveMarks ?? ['link']}
