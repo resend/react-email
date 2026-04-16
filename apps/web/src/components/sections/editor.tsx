@@ -19,26 +19,6 @@ export const EditorHomepage = () => {
   const [subject, setSubject] = React.useState(
     'I hope this email finds you well',
   );
-  const focusEditor = React.useRef<(() => void) | null>(null);
-  const containerRef = React.useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && window.innerWidth >= 768) {
-          focusEditor.current?.();
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.5 },
-    );
-
-    observer.observe(container);
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <div className="relative py-20 md:py-10 md:pb-80 space-y-16 sm:space-y-24">
@@ -71,10 +51,7 @@ export const EditorHomepage = () => {
         </div>
       </div>
 
-      <div
-        ref={containerRef}
-        className="md:w-4/6 bg-white md:aspect-video z-20 relative border border-slate-4 grow rounded-2xl sm:rounded-3xl overflow-hidden [overflow-anchor:none] -order-1 md:order-0 flex flex-col"
-      >
+      <div className="md:w-4/6 bg-white md:aspect-video z-20 relative border border-slate-4 grow rounded-2xl sm:rounded-3xl overflow-hidden [overflow-anchor:none] -order-1 md:order-0 flex flex-col">
         <div
           aria-hidden="true"
           className="absolute top-0 right-0 h-px w-96 bg-linear-to-l from-transparent via-cyan-12/30 via-50% to-transparent"
