@@ -27,7 +27,7 @@ const PlaygroundSection = () => {
   const [activeTab, setActiveTab] = useState(tabs[0].value);
 
   return (
-    <section className="relative min-h-screen my-24 text-center flex flex-col items-center justify-center">
+    <section className="relative my-24 text-center flex flex-col items-center justify-center">
       <div className="space-y-8 w-full">
         <div className="max-w-full text-center md:max-w-160 md:mx-auto space-y-4">
           <Heading
@@ -55,7 +55,7 @@ const PlaygroundSection = () => {
                 <Tabs.Trigger
                   key={tab.value}
                   value={tab.value}
-                  className="group relative px-3 py-2 md:px-4 rounded-xl outline-hidden"
+                  className="group relative px-3 py-2 md:px-4 rounded-xl outline-hidden cursor-pointer"
                 >
                   <span
                     className={classNames(
@@ -74,7 +74,7 @@ const PlaygroundSection = () => {
                         layoutId="activeTab"
                         transition={{
                           type: 'spring',
-                          duration: 0.3,
+                          duration: 0.2,
                           bounce: 0,
                         }}
                       />

@@ -1,5 +1,11 @@
 # @react-email/ui
 
+## 6.0.0-canary.2
+
+### Patch Changes
+
+- 91ca688: remove extra margin from sending button
+
 ## 6.0.0-canary.1
 
 ### Major Changes

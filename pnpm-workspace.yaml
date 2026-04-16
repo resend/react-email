@@ -21,21 +21,21 @@ catalog:
   '@types/babel__traverse': 7.20.7
   '@types/css-tree': 2.3.11
   '@types/mime-types': 2.1.4
-  '@types/node': 22.19.15
-  '@types/react': 19.2.13
+  '@types/node': 22.19.17
+  '@types/react': 19.2.14
   '@types/react-dom': 19.2.3
-  '@vitejs/plugin-react': 5.1.4
+  '@vitejs/plugin-react': 5.2.0
   commander: ^13.0.0
-  esbuild: 0.27.4
+  esbuild: 0.27.5
   framer-motion: 12.23.22
   log-symbols: ^7.0.0
   next: 16.2.3
   nypm: 0.6.5
   ora: ^8.0.0
-  postcss: 8.5.8
+  postcss: 8.5.10
   prism-react-renderer: 2.4.1
-  react: 19.0.0
-  react-dom: 19.0.0
+  react: 19.2.4
+  react-dom: 19.2.4
   resend: 6.4.0
   sonner: 2.0.7
   '@tailwindcss/postcss': ^4.1.18

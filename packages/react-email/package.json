@@ -1,6 +1,6 @@
 {
   "name": "react-email",
-  "version": "6.0.0-canary.1",
+  "version": "6.0.0-canary.2",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/cli/index.mjs"
@@ -44,7 +44,7 @@
     "chokidar": "^4.0.3",
     "commander": "catalog:",
     "conf": "^15.0.2",
-    "css-tree": "3.1.0",
+    "css-tree": "3.2.1",
     "debounce": "^2.0.0",
     "esbuild": "catalog:",
     "glob": "^13.0.6",

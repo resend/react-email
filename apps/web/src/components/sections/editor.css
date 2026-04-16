@@ -1,0 +1,12 @@
+.tiptap ::selection {
+  background-color: highlight;
+  color: highlighttext;
+}
+
+div:has([data-re-slash-command]) {
+  z-index: 99999;
+}
+
+.tiptap li p {
+  margin: 0;
+}

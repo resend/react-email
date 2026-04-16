@@ -272,9 +272,9 @@ describe('Container Node', () => {
           <meta
             content="telephone=no,address=no,email=no,date=no,url=no"
             name="format-detection" />
-          <!--$-->
         </head>
         <body style="background-color:#ffffff">
+          <!--$--><!--html--><!--head--><!--body-->
           <table
             border="0"
             width="100%"
@@ -1379,9 +1379,9 @@ describe('Container Node', () => {
           <meta
             content="telephone=no,address=no,email=no,date=no,url=no"
             name="format-detection" />
-          <!--$-->
         </head>
         <body>
+          <!--$--><!--html--><!--head--><!--body-->
           <table
             border="0"
             width="100%"
@@ -1492,9 +1492,9 @@ describe('Container Node', () => {
           <meta
             content="telephone=no,address=no,email=no,date=no,url=no"
             name="format-detection" />
-          <!--$-->
         </head>
         <body>
+          <!--$--><!--html--><!--head--><!--body-->
           <table
             border="0"
             width="100%"
@@ -1573,9 +1573,9 @@ describe('Container Node', () => {
           <meta
             content="telephone=no,address=no,email=no,date=no,url=no"
             name="format-detection" />
-          <!--$-->
         </head>
         <body style="background-color:#ffffff">
+          <!--$--><!--html--><!--head--><!--body-->
           <table
             border="0"
             width="100%"
