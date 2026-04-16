@@ -21,7 +21,7 @@ catalog:
   '@types/babel__traverse': 7.20.7
   '@types/css-tree': 2.3.11
   '@types/mime-types': 2.1.4
-  '@types/node': 22.19.15
+  '@types/node': 22.19.17
   '@types/react': 19.2.14
   '@types/react-dom': 19.2.3
   '@vitejs/plugin-react': 5.2.0
@@ -32,7 +32,7 @@ catalog:
   next: 16.2.3
   nypm: 0.6.5
   ora: ^8.0.0
-  postcss: 8.5.8
+  postcss: 8.5.10
   prism-react-renderer: 2.4.1
   react: 19.2.4
   react-dom: 19.2.4
