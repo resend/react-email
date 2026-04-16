@@ -17,6 +17,11 @@ const GITHUB_URL = 'https://github.com/resend/react-email';
 
 function MenuItem({ children, className, href, onClick }: MenuItemProps) {
   const pathname = usePathname();
+  const normalizedPathname = pathname?.replace(/\/$/, '') ?? '';
+  const normalizedHref = href.replace(/\/$/, '');
+  const isActive =
+    normalizedPathname === normalizedHref ||
+    normalizedPathname.startsWith(`${normalizedHref}/`);
 
   return (
     <TabButton
@@ -24,7 +29,7 @@ function MenuItem({ children, className, href, onClick }: MenuItemProps) {
       className={className}
       onClick={onClick}
       tabIndex={0}
-      data-active={pathname?.replace(/\/$/, '') === href.replace(/\/$/, '')}
+      data-active={isActive}
     >
       <SmartLink href={href}>{children}</SmartLink>
     </TabButton>
