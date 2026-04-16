@@ -41,13 +41,33 @@ type EditorThemeInput = EditorTheme | ThemeConfig;
 
 ---
 
+### ThemeableComponent
+
+The subset of `KnownThemeComponents` that can be customized via `ThemeComponentStyles`:
+
+```tsx
+type ThemeableComponent =
+  | 'body'
+  | 'container'
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'link'
+  | 'image'
+  | 'button'
+  | 'codeBlock'
+  | 'inlineCode';
+```
+
+---
+
 ### ThemeComponentStyles
 
-CSS-in-JS styles keyed by component name:
+CSS-in-JS styles keyed by themeable component name:
 
 ```tsx
 type ThemeComponentStyles = {
-  [K in KnownThemeComponents]?: React.CSSProperties & {
+  [K in ThemeableComponent]?: React.CSSProperties & {
     align?: 'center' | 'left' | 'right';
   };
 };
