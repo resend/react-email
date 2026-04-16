@@ -5,8 +5,7 @@ import { CustomThemeExample as Example } from './example';
 
 export const metadata: Metadata = {
   title: 'Custom themes — Editor examples',
-  description:
-    'Define custom themes with createTheme and extendTheme helpers.',
+  description: 'Define custom themes with createTheme and extendTheme helpers.',
   alternates: { canonical: '/editor/examples/custom-theme' },
 };
 
