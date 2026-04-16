@@ -1,5 +1,5 @@
 ---
-"@react-email/ui": major
+"@react-email/ui": patch
 ---
 
 remove extra margin from sending button
