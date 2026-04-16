@@ -111,7 +111,7 @@ export const Send = ({ markup }: { markup: string }) => {
               type="checkbox"
             />
             <div className="mt-3 flex items-center justify-between">
-              <div className="flex flex-col inline-block">
+              <div className="inline-flex flex-col">
                 <Text size="1">
                   Powered by{' '}
                   <a
@@ -125,7 +125,7 @@ export const Send = ({ markup }: { markup: string }) => {
                 </Text>
               </div>
               <Button
-                className="disabled:border-transparent disabled:bg-slate-11"
+                className="disabled:border-transparent disabled:bg-slate-11 m-0"
                 disabled={subject.length === 0 || to.length === 0 || isSending}
                 type="submit"
               >

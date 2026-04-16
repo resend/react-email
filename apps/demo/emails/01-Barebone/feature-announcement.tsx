@@ -69,7 +69,7 @@ export const FeatureAnnouncementEmail = ({
               <Section className="bg-bg-2 mb-6 mobile:mb-2 px-6 mobile:px-4 py-20 mobile:py-12 pb-16 mobile:pb-10 rounded-[10px]">
                 <Section className="mx-auto mb-16 max-w-[422px] text-center">
                   <Text className="mt-0 mb-4 font-13 font-sans text-fg-3">
-                    The new from {companyName}
+                    What's new from {companyName}
                   </Text>
                   <Heading
                     as="h1"
