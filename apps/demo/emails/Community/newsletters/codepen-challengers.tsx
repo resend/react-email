@@ -77,7 +77,7 @@ export const CodepenChallengersEmail = () => (
             <Text className="text-base">
               This week's starter template features an ice cube emoji to help
               inspire a "cool" idea for your Pen. As always, the template is
-              just as jumping off point. Feel free to incorporate the 🧊 in your
+              just a jumping off point. Feel free to incorporate the 🧊 in your
               creation, add more elements, or freeze it out completely and start
               over from scratch!
             </Text>

@@ -66,7 +66,7 @@ export const OrderConfirmationEmail = ({
               <Section className="mobile:px-6 px-[40px] pt-[80px] pb-[56px]">
                 <Section className="mb-[48px]">
                   <Text className="font-72 text-fg mb-8 max-w-[480px] font-serif">
-                    Your Order has been placed
+                    Your order has been placed
                   </Text>
                   <Text className="font-15 text-fg-2 m-0 mt-3 max-w-[480px] font-sans">
                     Your order #1234567890 has been confirmed!
