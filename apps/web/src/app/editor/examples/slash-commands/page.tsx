@@ -4,7 +4,7 @@ import { getExampleGitHubUrl, getExampleSource } from '../get-example-source';
 import { SlashCommands as Example } from './example';
 
 export const metadata: Metadata = {
-  title: 'Slash Commands — Editor Examples',
+  title: 'Slash commands — Editor examples',
   description:
     'Type / to open the command menu. Includes default commands plus a custom "Greeting" command.',
   alternates: { canonical: '/editor/examples/slash-commands' },
@@ -16,7 +16,7 @@ export default async function Page() {
   return (
     <ExamplePageShell
       slug="slash-commands"
-      title="Slash Commands"
+      title="Slash commands"
       docsUrl="https://react.email/docs/editor/features/slash-commands"
       sourceCode={sourceCode}
       githubUrl={getExampleGitHubUrl('slash-commands')}

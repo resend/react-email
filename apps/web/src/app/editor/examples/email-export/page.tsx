@@ -4,7 +4,7 @@ import { getExampleGitHubUrl, getExampleSource } from '../get-example-source';
 import { EmailExport as Example } from './example';
 
 export const metadata: Metadata = {
-  title: 'Email Export — Editor Examples',
+  title: 'Email export — Editor examples',
   description:
     'Edit content and export it as email-ready HTML using composeReactEmail().',
   alternates: { canonical: '/editor/examples/email-export' },
@@ -16,7 +16,7 @@ export default async function Page() {
   return (
     <ExamplePageShell
       slug="email-export"
-      title="Email Export"
+      title="Email export"
       docsUrl="https://react.email/docs/editor/features/email-export"
       sourceCode={sourceCode}
       githubUrl={getExampleGitHubUrl('email-export')}

@@ -42,7 +42,7 @@ export function StandaloneEditorFull() {
 
   return (
     <ExampleShell
-      title="Standalone Editor — Full Features"
+      title="Standalone editor — full features"
       description="Theme switching, ref methods (export, getJSON), and callbacks — all with a single component."
     >
       <div className="flex gap-2 mb-4">

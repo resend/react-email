@@ -78,7 +78,7 @@ function ExportPanel() {
 export function EmailExport() {
   return (
     <ExampleShell
-      title="Email Export"
+      title="Email export"
       description="Edit content and export it as email-ready HTML using composeReactEmail()."
     >
       <EditorProvider

@@ -27,7 +27,7 @@ export function InspectorDefaults() {
 
   return (
     <ExampleShell
-      title="Inspector — Defaults"
+      title="Inspector — defaults"
       description="Zero-config inspector sidebar. All three inspectors (Document, Node, Text) render sensible defaults when no children are passed."
     >
       <EditorContext.Provider value={{ editor }}>

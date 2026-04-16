@@ -4,7 +4,7 @@ import { getExampleGitHubUrl, getExampleSource } from '../get-example-source';
 import { CustomExtensions as Example } from './example';
 
 export const metadata: Metadata = {
-  title: 'Custom Extensions — Editor Examples',
+  title: 'Custom extensions — Editor examples',
   description:
     'A custom Callout node created with EmailNode.create — showing how to extend the editor with email-compatible nodes.',
   alternates: { canonical: '/editor/examples/custom-extensions' },
@@ -16,7 +16,7 @@ export default async function Page() {
   return (
     <ExamplePageShell
       slug="custom-extensions"
-      title="Custom Extensions"
+      title="Custom extensions"
       docsUrl="https://react.email/docs/editor/advanced/custom-extensions"
       sourceCode={sourceCode}
       githubUrl={getExampleGitHubUrl('custom-extensions')}

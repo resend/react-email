@@ -4,7 +4,7 @@ import { getExampleGitHubUrl, getExampleSource } from '../get-example-source';
 import { Buttons as Example } from './example';
 
 export const metadata: Metadata = {
-  title: 'Buttons — Editor Examples',
+  title: 'Buttons — Editor examples',
   description: 'Click the button to edit its link via the button bubble menu.',
   alternates: { canonical: '/editor/examples/buttons' },
 };

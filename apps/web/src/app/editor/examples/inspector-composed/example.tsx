@@ -26,7 +26,7 @@ export function InspectorComposed() {
 
   return (
     <ExampleShell
-      title="Inspector — Composed"
+      title="Inspector — composed"
       description="Cherry-pick which sections render, control collapse state, and mix in custom sections alongside built-in ones."
     >
       <EditorContext.Provider value={{ editor }}>

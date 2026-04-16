@@ -15,7 +15,7 @@ const content = `
 export function StandaloneEditorInspector() {
   return (
     <ExampleShell
-      title="Standalone Editor — Inspector"
+      title="Standalone editor — inspector"
       description="Add an inspector sidebar alongside the standalone EmailEditor — no manual EditorProvider setup needed."
     >
       <div

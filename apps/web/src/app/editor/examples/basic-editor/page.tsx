@@ -4,7 +4,7 @@ import { getExampleGitHubUrl, getExampleSource } from '../get-example-source';
 import { BasicEditor as Example } from './example';
 
 export const metadata: Metadata = {
-  title: 'Basic Editor — Editor Examples',
+  title: 'Basic editor — Editor examples',
   description: 'Minimal setup with StarterKit and no UI overlays.',
   alternates: { canonical: '/editor/examples/basic-editor' },
 };
@@ -15,7 +15,7 @@ export default async function Page() {
   return (
     <ExamplePageShell
       slug="basic-editor"
-      title="Basic Editor"
+      title="Basic editor"
       docsUrl="https://react.email/docs/editor/getting-started"
       sourceCode={sourceCode}
       githubUrl={getExampleGitHubUrl('basic-editor')}

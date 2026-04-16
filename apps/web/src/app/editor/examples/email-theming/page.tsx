@@ -4,7 +4,7 @@ import { getExampleGitHubUrl, getExampleSource } from '../get-example-source';
 import { EmailThemingExample as Example } from './example';
 
 export const metadata: Metadata = {
-  title: 'Email Theming — Editor Examples',
+  title: 'Email theming — Editor examples',
   description:
     'Switch between Basic and Minimal themes to see how email styles change.',
   alternates: { canonical: '/editor/examples/email-theming' },
@@ -16,7 +16,7 @@ export default async function Page() {
   return (
     <ExamplePageShell
       slug="email-theming"
-      title="Email Theming"
+      title="Email theming"
       docsUrl="https://react.email/docs/editor/features/theming"
       sourceCode={sourceCode}
       githubUrl={getExampleGitHubUrl('email-theming')}

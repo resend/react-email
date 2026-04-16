@@ -22,8 +22,20 @@ export function ExamplePageShell({
   githubUrl,
   children,
 }: ExamplePageShellProps) {
+  const hasTabs = sourceCode && githubUrl;
+  const titleParts = title.split(' — ');
+  const pageHeading = titleParts[0];
+  const tabTitle =
+    titleParts.length > 1 ? titleParts.slice(1).join(' — ') : undefined;
+
   return (
     <PageWrapper>
+      <div className="pointer-events-none absolute inset-0 flex justify-center">
+        <div className="hidden h-full w-full max-w-7xl grid-cols-2 gap-4 px-4 lg:grid">
+          <div className="border-r-slate-3 border-l border-l-slate-4" />
+          <div className="border-r border-r-slate-4" />
+        </div>
+      </div>
       <PageTransition className="pb-10" key={slug} tag="main">
         <div className="flex w-full flex-col gap-4 px-6 pt-16 pb-10 md:px-8">
           <div className="flex items-center gap-4">
@@ -45,18 +57,22 @@ export function ExamplePageShell({
             )}
           </div>
           <Heading size="6" weight="medium" className="text-slate-12">
-            {title}
+            {pageHeading}
           </Heading>
         </div>
-        <div className="px-6 pb-10 md:px-8">
-          {sourceCode && githubUrl ? (
-            <ExampleTabbedContent sourceCode={sourceCode} githubUrl={githubUrl}>
+        {hasTabs ? (
+          <div className="relative flex w-full flex-col gap-4 border-slate-4 border-y pt-3">
+            <ExampleTabbedContent
+              title={tabTitle}
+              sourceCode={sourceCode}
+              githubUrl={githubUrl}
+            >
               {children}
             </ExampleTabbedContent>
-          ) : (
-            children
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className="px-6 pb-10 md:px-8">{children}</div>
+        )}
       </PageTransition>
     </PageWrapper>
   );

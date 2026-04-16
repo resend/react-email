@@ -4,7 +4,7 @@ import { getExampleGitHubUrl, getExampleSource } from '../get-example-source';
 import { StandaloneEditorInspector as Example } from './example';
 
 export const metadata: Metadata = {
-  title: 'Standalone Editor — Inspector — Editor Examples',
+  title: 'Standalone editor — inspector — Editor examples',
   description: 'Add an inspector sidebar alongside the standalone EmailEditor.',
   alternates: { canonical: '/editor/examples/standalone-editor-inspector' },
 };
@@ -15,7 +15,7 @@ export default async function Page() {
   return (
     <ExamplePageShell
       slug="standalone-editor-inspector"
-      title="Standalone Editor — Inspector"
+      title="Standalone editor — inspector"
       docsUrl="https://react.email/docs/editor/features/inspector"
       sourceCode={sourceCode}
       githubUrl={getExampleGitHubUrl('standalone-editor-inspector')}

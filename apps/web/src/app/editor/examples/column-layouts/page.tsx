@@ -4,7 +4,7 @@ import { getExampleGitHubUrl, getExampleSource } from '../get-example-source';
 import { ColumnLayouts as Example } from './example';
 
 export const metadata: Metadata = {
-  title: 'Column Layouts — Editor Examples',
+  title: 'Column layouts — Editor examples',
   description: 'Insert multi-column layouts using the toolbar buttons.',
   alternates: { canonical: '/editor/examples/column-layouts' },
 };
@@ -15,7 +15,7 @@ export default async function Page() {
   return (
     <ExamplePageShell
       slug="column-layouts"
-      title="Column Layouts"
+      title="Column layouts"
       docsUrl="https://react.email/docs/editor/features/column-layouts"
       sourceCode={sourceCode}
       githubUrl={getExampleGitHubUrl('column-layouts')}
