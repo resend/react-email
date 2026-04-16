@@ -93,7 +93,7 @@ function ToolbarButton({
       onMouseDown={(e) => e.preventDefault()}
       onClick={onClick}
       className={classNames(
-        'inline-flex items-center justify-center rounded p-1.5 text-gray-400 transition-colors',
+        'inline-flex items-center justify-center rounded p-1.5 text-gray-400 focus-visible:outline-none transition-colors',
         isActive
           ? 'bg-black/5 text-gray-900'
           : 'hover:bg-black/5 hover:text-gray-700',
@@ -183,7 +183,7 @@ function NodeSelector({ editor }: { editor: Editor }) {
         <button
           type="button"
           onMouseDown={(e) => e.preventDefault()}
-          className="inline-flex items-center gap-1 rounded px-2 py-1.5 text-xs font-medium text-gray-700 transition-colors hover:bg-black/5"
+          className="inline-flex items-center gap-1 rounded px-2 py-1.5 text-xs font-medium text-gray-700 focus-visible:outline-none transition-colors hover:bg-black/5"
         >
           {activeName}
           <ChevronDown size={12} className="opacity-50" />
@@ -204,7 +204,7 @@ function NodeSelector({ editor }: { editor: Editor }) {
               setOpen(false);
             }}
             className={classNames(
-              'flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-xs transition-colors',
+              'focus-visible:outline-none flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-xs transition-colors',
               isActive(editor)
                 ? 'font-medium text-gray-900'
                 : 'text-gray-500 hover:bg-black/5 hover:text-gray-900',
@@ -265,7 +265,7 @@ function LinkSelector({ editor }: { editor: Editor }) {
           aria-pressed={linkState.isActive}
           onMouseDown={(e) => e.preventDefault()}
           className={classNames(
-            'inline-flex items-center justify-center rounded p-1.5 text-gray-400 transition-colors',
+            'inline-flex items-center justify-center rounded p-1.5 text-gray-400 focus-visible:outline-none transition-colors',
             linkState.isActive
               ? 'bg-black/5 text-gray-900'
               : 'hover:bg-black/5 hover:text-gray-700',
@@ -292,7 +292,7 @@ function LinkSelector({ editor }: { editor: Editor }) {
             if (e.key === 'Escape') setOpen(false);
           }}
           placeholder="Paste a link"
-          className="min-w-48 px-2 py-1 text-xs text-gray-700 outline-none placeholder:text-gray-400"
+          className="min-w-48 px-2 py-1 text-xs text-gray-700 focus-visible:outline-none placeholder:text-gray-400"
         />
         {linkState.href ? (
           <button
