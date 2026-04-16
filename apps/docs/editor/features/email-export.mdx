@@ -60,6 +60,44 @@ export function MyEditor() {
 }
 ```
 
+## Using with EmailEditor
+
+If you use the standalone `EmailEditor` component, you can access the email HTML and plain text through ref methods — no need to call `composeReactEmail` directly.
+
+```tsx
+import { EmailEditor, type EmailEditorRef } from '@react-email/editor';
+import { useRef, useState } from 'react';
+
+export function MyEditor() {
+  const ref = useRef<EmailEditorRef>(null);
+  const [html, setHtml] = useState('');
+
+  const handleExport = async () => {
+    if (!ref.current) return;
+    const html = await ref.current.getEmailHTML();
+    setHtml(html);
+  };
+
+  return (
+    <div>
+      <EmailEditor ref={ref} content="<p>Edit me</p>" />
+      <button onClick={handleExport}>Export HTML</button>
+      {html && <textarea readOnly value={html} />}
+    </div>
+  );
+}
+```
+
+The ref exposes three export methods:
+
+| Method | Returns | Description |
+|--------|---------|-------------|
+| `getEmailHTML()` | `Promise<string>` | Email-ready HTML |
+| `getEmailText()` | `Promise<string>` | Plain text version |
+| `getEmail()` | `Promise<{ html, text }>` | Both in a single call |
+
+All three use `composeReactEmail` under the hood.
+
 ## How it works
 
 The `composeReactEmail` function follows this pipeline:

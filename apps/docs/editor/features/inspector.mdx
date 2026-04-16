@@ -342,8 +342,9 @@ dropdown content, moving focus into that portal can make the editor think it
 blurred. That can switch the active inspector target or clear the current text
 selection.
 
-Wrap the portaled content with `EditorFocusScope` so focus inside the portal is
-still treated as part of the editor UI.
+Wrap the portaled content with
+[`EditorFocusScope`](/editor/api-reference/ui/editor-focus-scope) so focus
+inside the portal is still treated as part of the editor UI.
 
 ```tsx
 import { EditorFocusScope, Inspector } from '@react-email/editor/ui';
@@ -381,10 +382,13 @@ import * as Select from '@radix-ui/react-select';
 </Inspector.Node>
 ```
 
-`Inspector.Root` already includes the required focus-scope provider, so inside
-a custom inspector you only need to add `EditorFocusScope` around the portaled
-content. The same pattern works for other portaled Radix components, not just
-`Select`.
+`Inspector.Root` already includes
+[`EditorFocusScopeProvider`](/editor/api-reference/ui/editor-focus-scope-provider),
+and it uses both focus-scope components by default to handle the editor's focus
+idiomatically and reliably. Inside a custom inspector you usually only need to
+add [`EditorFocusScope`](/editor/api-reference/ui/editor-focus-scope) around
+the portaled content. The same pattern works for other portaled Radix
+components, not just `Select`.
 
 ## Reusing built-in sections
 

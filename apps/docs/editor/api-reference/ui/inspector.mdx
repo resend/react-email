@@ -60,6 +60,16 @@ export function MyEditor() {
   [Inspector feature guide](/editor/features/inspector#using-with-emaileditor).
 </Tip>
 
+<Tip>
+  `Inspector.Root` already renders
+  [EditorFocusScopeProvider](/editor/api-reference/ui/editor-focus-scope-provider)
+  and wraps itself in
+  [EditorFocusScope](/editor/api-reference/ui/editor-focus-scope) by default,
+  so the Inspector handles the editor's focus idiomatically and reliably. Add
+  `EditorFocusScope` yourself only when custom inspector controls render
+  additional portaled content.
+</Tip>
+
 <ResponseField name="asChild" type="boolean" default="false">
   Render without the default `aside` wrapper and pass props to the child via
   Radix UI's [Slot](https://www.radix-ui.com/primitives/docs/utilities/slot).

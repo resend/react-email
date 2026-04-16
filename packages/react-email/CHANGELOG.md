@@ -1,5 +1,12 @@
 # react-email
 
+## 6.0.0-canary.1
+
+### Patch Changes
+
+- Updated dependencies [7fc539d]
+  - @react-email/render@2.0.7-canary.0
+
 ## 6.0.0-canary.0
 
 ### Major Changes
