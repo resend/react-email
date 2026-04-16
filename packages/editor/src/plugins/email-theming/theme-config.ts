@@ -4,9 +4,9 @@ import type {
   EditorThemeInput,
   KnownCssProperties,
   PanelGroup,
+  ThemeableComponent,
   ThemeComponentStyles,
   ThemeConfig,
-  ThemeableComponent,
 } from './types';
 
 const CLASS_REFERENCE_TO_PANEL_ID: Record<ThemeableComponent, string> = {
