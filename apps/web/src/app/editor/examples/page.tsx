@@ -221,7 +221,15 @@ export default function EditorExamplesPage() {
               }[section.title];
               const tone = sectionTitleToTone(section.title);
               const illustrationComponent = dynamic<IllustrationProps>(
-                () => import(`@/illustrations/editor-examples/${example.slug}`),
+                () =>
+                  import(
+                    `@/illustrations/editor-examples/${example.slug}`
+                  ).catch(
+                    () =>
+                      import(
+                        '@/illustrations/editor-examples/illustration-placeholder'
+                      ),
+                  ),
               );
 
               return (
