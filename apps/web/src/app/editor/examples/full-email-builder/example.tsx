@@ -115,7 +115,7 @@ export function FullEmailBuilder() {
 
   return (
     <ExampleShell
-      title="Full Email Builder"
+      title="Full email builder"
       description="All components combined: bubble menus, slash commands, theming, inspector sidebar, and export."
     >
       <div className="flex gap-2 mb-4">

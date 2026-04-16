@@ -26,7 +26,7 @@ export function InspectorCustom() {
 
   return (
     <ExampleShell
-      title="Inspector — Fully Custom"
+      title="Inspector — fully custom"
       description="Build the entire inspector UI from scratch using only render-props data and plain HTML. No primitives or section components."
     >
       <EditorContext.Provider value={{ editor }}>

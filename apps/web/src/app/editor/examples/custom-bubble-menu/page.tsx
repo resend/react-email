@@ -1,19 +1,24 @@
 import type { Metadata } from 'next';
 import { ExamplePageShell } from '../example-page-shell';
+import { getExampleGitHubUrl, getExampleSource } from '../get-example-source';
 import { CustomBubbleMenu as Example } from './example';
 
 export const metadata: Metadata = {
-  title: 'Custom Bubble Menu — Editor Examples',
+  title: 'Custom bubble menu — Editor examples',
   description: 'Building bubble menus from primitives.',
   alternates: { canonical: '/editor/examples/custom-bubble-menu' },
 };
 
-export default function Page() {
+export default async function Page() {
+  const sourceCode = await getExampleSource('custom-bubble-menu');
+
   return (
     <ExamplePageShell
       slug="custom-bubble-menu"
-      title="Custom Bubble Menu"
+      heading="Custom bubble menu"
       docsUrl="https://react.email/docs/editor/features/bubble-menu"
+      sourceCode={sourceCode}
+      githubUrl={getExampleGitHubUrl('custom-bubble-menu')}
     >
       <Example />
     </ExamplePageShell>

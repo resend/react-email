@@ -33,7 +33,7 @@ const content = {
 export function BasicEditor() {
   return (
     <ExampleShell
-      title="Basic Editor"
+      title="Basic editor"
       description="Minimal setup with StarterKit and no UI overlays."
     >
       <EditorProvider

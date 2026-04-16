@@ -29,7 +29,7 @@ interface Section {
 
 const sections: Section[] = [
   {
-    title: 'Standalone Editor',
+    title: 'Standalone editor',
     examples: [
       {
         slug: 'one-line-editor',
@@ -40,7 +40,7 @@ const sections: Section[] = [
       },
       {
         slug: 'one-line-editor-full',
-        title: 'Full Features',
+        title: 'Full features',
         description:
           'Theme switching, ref methods (export, getJSON), and callbacks — all with a single component.',
         docsUrl: 'https://react.email/docs/editor/getting-started',
@@ -55,24 +55,24 @@ const sections: Section[] = [
     ],
   },
   {
-    title: 'Getting Started',
+    title: 'Getting started',
     examples: [
       {
         slug: 'basic-editor',
-        title: 'Basic Editor',
+        title: 'Basic editor',
         description: 'Minimal setup with StarterKit and no UI overlays.',
         docsUrl: 'https://react.email/docs/editor/getting-started',
       },
       {
         slug: 'bubble-menu',
-        title: 'Bubble Menu',
+        title: 'Bubble menu',
         description:
           'Select text to see the default bubble menu with formatting options.',
         docsUrl: 'https://react.email/docs/editor/features/bubble-menu',
       },
       {
         slug: 'slash-commands',
-        title: 'Slash Commands',
+        title: 'Slash commands',
         description:
           'Type / to open the command menu. Includes default commands plus a custom "Greeting" command.',
         docsUrl: 'https://react.email/docs/editor/features/slash-commands',
@@ -84,20 +84,20 @@ const sections: Section[] = [
     examples: [
       {
         slug: 'custom-bubble-menu',
-        title: 'Custom Bubble Menu',
+        title: 'Custom bubble menu',
         description: 'Building bubble menus from primitives.',
         docsUrl: 'https://react.email/docs/editor/features/bubble-menu',
       },
       {
         slug: 'link-editing',
-        title: 'Link Editing',
+        title: 'Link editing',
         description:
           'Click a link to see the link bubble menu. Select text and press Cmd+K to add links.',
         docsUrl: 'https://react.email/docs/editor/features/link-editing',
       },
       {
         slug: 'column-layouts',
-        title: 'Column Layouts',
+        title: 'Column layouts',
         description: 'Insert multi-column layouts using the toolbar buttons.',
         docsUrl: 'https://react.email/docs/editor/features/column-layouts',
       },
@@ -110,7 +110,7 @@ const sections: Section[] = [
       },
       {
         slug: 'image-upload',
-        title: 'Image Upload',
+        title: 'Image upload',
         description:
           'Upload images via paste, drop, or the slash command — with a stubbed uploader and an error-path toggle.',
         docsUrl: 'https://react.email/docs/editor/features/image-upload',
@@ -122,49 +122,49 @@ const sections: Section[] = [
     examples: [
       {
         slug: 'email-theming',
-        title: 'Email Theming',
+        title: 'Email theming',
         description:
           'Switch between Basic and Minimal themes to see how email styles change.',
         docsUrl: 'https://react.email/docs/editor/features/theming',
       },
       {
         slug: 'email-export',
-        title: 'Email Export',
+        title: 'Email export',
         description:
           'Edit content and export it as email-ready HTML using composeReactEmail().',
         docsUrl: 'https://react.email/docs/editor/features/email-export',
       },
       {
         slug: 'custom-extensions',
-        title: 'Custom Extensions',
+        title: 'Custom extensions',
         description:
           'A custom Callout node created with EmailNode.create — showing how to extend the editor with email-compatible nodes.',
         docsUrl: 'https://react.email/docs/editor/advanced/custom-extensions',
       },
       {
         slug: 'inspector-defaults',
-        title: 'Inspector — Defaults',
+        title: 'Inspector — defaults',
         description:
           'Zero-config inspector sidebar. All three inspectors render sensible defaults when no children are passed.',
         docsUrl: 'https://react.email/docs/editor/overview',
       },
       {
         slug: 'inspector-composed',
-        title: 'Inspector — Composed',
+        title: 'Inspector — composed',
         description:
           'Cherry-pick which sections render, control collapse state, and mix in custom sections alongside built-in ones.',
         docsUrl: 'https://react.email/docs/editor/overview',
       },
       {
         slug: 'inspector-custom',
-        title: 'Inspector — Fully Custom',
+        title: 'Inspector — fully custom',
         description:
           'Build the entire inspector UI from scratch using only render-props data and plain HTML.',
         docsUrl: 'https://react.email/docs/editor/overview',
       },
       {
         slug: 'full-email-builder',
-        title: 'Full Email Builder',
+        title: 'Full email builder',
         description:
           'All components combined: bubble menus, slash commands, theming, inspector sidebar, and export.',
         docsUrl: 'https://react.email/docs/editor/features/email-export',
@@ -174,7 +174,7 @@ const sections: Section[] = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Editor Examples',
+  title: 'Editor examples',
   description:
     'Interactive examples showing how to build email editors with @react-email/editor.',
   alternates: {
