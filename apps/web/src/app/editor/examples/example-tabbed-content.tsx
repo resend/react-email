@@ -1,6 +1,7 @@
 'use client';
 
 import * as Tabs from '@radix-ui/react-tabs';
+import classNames from 'classnames';
 import { useState } from 'react';
 import { IconMonitor } from '@/components/icons/icon-monitor';
 import { IconSource } from '@/components/icons/icon-source';
@@ -38,7 +39,10 @@ export function ExampleTabbedContent({
           </h2>
         )}
         <Tabs.List
-          className={`relative flex w-fit items-center overflow-hidden p-1 text-xs ${!title ? 'ml-auto' : ''}`}
+          className={classNames(
+            'relative flex w-fit items-center overflow-hidden p-1 text-xs',
+            { 'ml-auto': !title },
+          )}
         >
           <TabTrigger
             activeView={activeView}
