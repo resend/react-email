@@ -24,7 +24,7 @@ catalog:
   '@types/node': 22.19.15
   '@types/react': 19.2.14
   '@types/react-dom': 19.2.3
-  '@vitejs/plugin-react': 5.1.4
+  '@vitejs/plugin-react': 5.2.0
   commander: ^13.0.0
   esbuild: 0.27.4
   framer-motion: 12.23.22
