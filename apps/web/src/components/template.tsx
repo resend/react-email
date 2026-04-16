@@ -1,37 +1,26 @@
-'use client';
-
 import classNames from 'classnames';
-import type { ImageLoader } from 'next/image';
 import Image from 'next/image';
 import Link from 'next/link';
-import * as React from 'react';
 import { Heading } from './heading';
 import { IconFigma } from './icons/icon-figma';
 import { IconGitHub } from './icons/icon-github';
 import { Text } from './text';
 
 interface TemplateProps {
-  path: string;
   name: string;
   className?: string;
   author?: string;
-  href?: string;
+  href: string;
   github?: string;
   figma?: string;
   image?: string;
   index?: number;
 }
 
-const DEMO_EMAIL_PREVIEW_BASE_URL = 'https://demo.react.email/preview';
 const DEFAULT_IMAGE = '/static/covers/react-email.png';
-
-const imageLoader: ImageLoader = ({ src, width, quality }) => {
-  return `${src}?w=${width}&q=${quality || 75}`;
-};
 
 export function Template({
   className,
-  path,
   name,
   author,
   href,
@@ -41,19 +30,11 @@ export function Template({
   index,
   ...props
 }: TemplateProps) {
-  const emailName = path.split('/').pop();
-  if (!path || !emailName) {
-    throw new Error('Cannot have an empty path for an Example!');
+  if (!name?.trim()) {
+    throw new Error('Template name cannot be empty.');
   }
 
-  const defaultSrc = image ?? `/examples/${emailName}.png`;
-  const [imageSrc, setImageSrc] = React.useState(defaultSrc);
-
-  const handleImageError = () => {
-    setImageSrc(DEFAULT_IMAGE);
-  };
-
-  const linkHref = href ?? `${DEMO_EMAIL_PREVIEW_BASE_URL}/${path}`;
+  const imageSrc = image ?? DEFAULT_IMAGE;
 
   return (
     <div
@@ -71,12 +52,10 @@ export function Template({
         <Image
           alt={name}
           className="rounded-xs"
-          height="300"
-          loader={imageLoader}
-          onError={handleImageError}
+          height={300}
           priority
           src={imageSrc}
-          width="450"
+          width={450}
         />
         <div className="mt-4">
           <div className="flex items-center justify-between">
@@ -126,7 +105,7 @@ export function Template({
         <Link
           aria-label={name}
           className="absolute inset-0 rounded-md focus:outline-hidden focus:ring-2 focus:ring-white/20"
-          href={linkHref}
+          href={href}
           target="_blank"
           {...props}
         />

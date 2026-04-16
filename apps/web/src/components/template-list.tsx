@@ -2,60 +2,52 @@ import { Heading } from './heading';
 import { Template } from './template';
 
 interface TemplateItem {
-  path: string;
   name: string;
   author?: string;
-  href?: string;
+  href: string;
   github?: string;
   figma?: string;
   image?: string;
 }
 
-const OFFICIAL_PREVIEW_BASE =
-  'https://react-email-templates-topaz.vercel.app/preview';
-
+const DEMO_EMAIL_PREVIEW_BASE_URL = 'https://demo.react.email/preview';
 const GITHUB_BASE =
   'https://github.com/resend/react-email/tree/canary/apps/demo/emails';
 const FIGMA_BASE = 'https://figma.com/community/file';
 
 const officialItems: TemplateItem[] = [
   {
-    path: '01-barebone',
     name: 'Barebone',
     image: '/static/templates/barebone-cover.jpeg',
-    href: `${OFFICIAL_PREVIEW_BASE}/01-Barebone/welcome`,
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/01-Barebone/welcome`,
     github: `${GITHUB_BASE}/01-Barebone`,
     figma: `${FIGMA_BASE}/barebone`,
   },
   {
-    path: '02-matte',
     name: 'Matte',
     image: '/static/templates/matte-cover.jpeg',
-    href: `${OFFICIAL_PREVIEW_BASE}/02-Matte/welcome`,
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/02-Matte/welcome`,
     github: `${GITHUB_BASE}/02-Matte`,
     figma: `${FIGMA_BASE}/matte`,
   },
   {
-    path: '03-protocol',
     name: 'Protocol',
     image: '/static/templates/protocol-cover.jpeg',
-    href: `${OFFICIAL_PREVIEW_BASE}/03-Protocol/welcome`,
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/03-Protocol/welcome`,
     github: `${GITHUB_BASE}/03-Protocol`,
     figma: `${FIGMA_BASE}/protocol`,
   },
   {
-    path: '04-arcane',
     name: 'Arcane',
     image: '/static/templates/arcane-cover.jpeg',
-    href: `${OFFICIAL_PREVIEW_BASE}/04-Arcane/welcome`,
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/04-Arcane/welcome`,
     github: `${GITHUB_BASE}/04-Arcane`,
     figma: `${FIGMA_BASE}/arcane`,
   },
   {
-    path: '05-studio',
     name: 'Studio',
     image: '/static/templates/studio-cover.jpeg',
-    href: `${OFFICIAL_PREVIEW_BASE}/05-Studio/welcome`,
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/05-Studio/welcome`,
     github: `${GITHUB_BASE}/05-Studio`,
     figma: `${FIGMA_BASE}/studio`,
   },
@@ -63,92 +55,110 @@ const officialItems: TemplateItem[] = [
 
 const communityItems: TemplateItem[] = [
   {
-    path: 'Community/magic-links/aws-verify-email',
+    image: '/examples/aws-verify-email.png',
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/Community/magic-links/aws-verify-email`,
     name: 'AWS / Verify Email',
     author: 'thecodeinfluencer',
   },
   {
-    path: 'Community/notifications/github-access-token',
+    image: '/examples/github-access-token.png',
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/Community/notifications/github-access-token`,
     name: 'GitHub / Access Token',
     author: 'bruno88cabral',
   },
   {
-    path: 'Community/receipts/apple-receipt',
+    image: '/examples/apple-receipt.png',
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/Community/receipts/apple-receipt`,
     name: 'Apple / Receipt',
     author: 'relferreira',
   },
   {
-    path: 'Community/receipts/nike-receipt',
+    image: '/examples/nike-receipt.png',
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/Community/receipts/nike-receipt`,
     name: 'Nike / Receipt',
     author: 'camillegachido',
   },
   {
-    path: 'Community/newsletters/stack-overflow-tips',
+    image: '/examples/stack-overflow-tips.png',
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/Community/newsletters/stack-overflow-tips`,
     name: 'Stack Overflow / Tips',
     author: 'bruno88cabral',
   },
   {
-    path: 'Community/magic-links/slack-confirm',
+    image: '/examples/slack-confirm.png',
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/Community/magic-links/slack-confirm`,
     name: 'Slack / Confirm Email',
     author: 'c0dr',
   },
   {
-    path: 'Community/reset-password/twitch-reset-password',
+    image: '/examples/twitch-reset-password.png',
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/Community/reset-password/twitch-reset-password`,
     name: 'Twitch / Reset Password',
     author: 'EmersonGarrido',
   },
   {
-    path: 'Community/magic-links/raycast-magic-link',
+    image: '/examples/raycast-magic-link.png',
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/Community/magic-links/raycast-magic-link`,
     name: 'Raycast / Magic Link',
     author: 'abhinandanwadwa',
   },
   {
-    path: 'Community/notifications/yelp-recent-login',
+    image: '/examples/yelp-recent-login.png',
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/Community/notifications/yelp-recent-login`,
     name: 'Yelp / Recent Login',
     author: 'EmersonGarrido',
   },
   {
-    path: 'Community/magic-links/linear-login-code',
+    image: '/examples/linear-login-code.png',
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/Community/magic-links/linear-login-code`,
     name: 'Linear / Login Code',
     author: 'Rychillie',
   },
   {
-    path: 'Community/newsletters/google-play-policy-update',
+    image: '/examples/google-play-policy-update.png',
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/Community/newsletters/google-play-policy-update`,
     name: 'Google Play / Policy Update',
     author: 'EmersonGarrido',
   },
   {
-    path: 'Community/reviews/airbnb-review',
+    image: '/examples/airbnb-review.png',
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/Community/reviews/airbnb-review`,
     name: 'Airbnb / Review',
     author: 'joaom00',
   },
   {
-    path: 'Community/reset-password/dropbox-reset-password',
+    image: '/examples/dropbox-reset-password.png',
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/Community/reset-password/dropbox-reset-password`,
     name: 'Dropbox / Reset Password',
     author: 'ribeiroevandro',
   },
   {
-    path: 'Community/welcome/koala-welcome',
+    image: '/examples/koala-welcome.png',
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/Community/welcome/koala-welcome`,
     name: 'Koala / Welcome',
     author: 'nettofarah',
   },
   {
-    path: 'Community/notifications/vercel-invite-user',
+    image: '/examples/vercel-invite-user.png',
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/Community/notifications/vercel-invite-user`,
     name: 'Vercel / Invite User',
     author: 'zenorocha',
   },
   {
-    path: 'Community/welcome/stripe-welcome',
+    image: '/examples/stripe-welcome.png',
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/Community/welcome/stripe-welcome`,
     name: 'Stripe / Welcome',
     author: 'zenorocha',
   },
   {
-    path: 'Community/magic-links/notion-magic-link',
+    image: '/examples/notion-magic-link.png',
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/Community/magic-links/notion-magic-link`,
     name: 'Notion / Magic Link',
     author: 'bukinoshita',
   },
   {
-    path: 'Community/magic-links/plaid-verify-identity',
+    image: '/examples/plaid-verify-identity.png',
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/Community/magic-links/plaid-verify-identity`,
     name: 'Plaid / Verify Identity',
     author: 'zenorocha',
   },
@@ -168,7 +178,7 @@ export function TemplateList() {
         </Heading>
         <div className="relative grid grid-cols-1 gap-x-4 px-1 pb-10 md:grid-cols-2 md:px-0 lg:grid-cols-3">
           {officialItems.map((item, index) => (
-            <Template key={item.path} index={index} {...item} />
+            <Template key={item.name} index={index} {...item} />
           ))}
         </div>
       </section>
@@ -184,7 +194,7 @@ export function TemplateList() {
         </Heading>
         <div className="relative grid grid-cols-1 gap-x-4 px-1 pb-10 md:grid-cols-2 md:px-0 lg:grid-cols-3">
           {communityItems.map((item, index) => (
-            <Template key={item.path} index={index} {...item} />
+            <Template key={item.name} index={index} {...item} />
           ))}
         </div>
       </section>
