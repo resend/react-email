@@ -24,9 +24,7 @@ type TypographyContext = Pick<
       InspectorTextContext,
       'marks' | 'toggleMark' | 'alignment' | 'setAlignment'
     >
-  > & {
-    initialCollapsed?: boolean;
-  };
+  >;
 
 export function TypographySection({
   getStyle,
@@ -35,14 +33,13 @@ export function TypographySection({
   toggleMark,
   alignment,
   setAlignment,
-  initialCollapsed = false,
 }: TypographyContext) {
   const color = String(getStyle('color') ?? '');
   const fontSize = getStyle('fontSize') ?? '';
   const lineHeight = getStyle('lineHeight') ?? '';
 
   return (
-    <Section title="Typography" initialCollapsed={initialCollapsed}>
+    <Section title="Typography">
       <PropRow>
         <Label>Color</Label>
         <ColorInput value={color} onChange={(v) => setStyle('color', v)} />

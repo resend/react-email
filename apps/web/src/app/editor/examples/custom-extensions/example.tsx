@@ -103,7 +103,7 @@ function Toolbar() {
 export function CustomExtensions() {
   return (
     <ExampleShell
-      title="Custom Extensions"
+      title="Custom extensions"
       description="A custom Callout node created with EmailNode.create — showing how to extend the editor with email-compatible nodes."
     >
       <EditorProvider

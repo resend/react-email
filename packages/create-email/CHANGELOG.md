@@ -1,5 +1,11 @@
 # create-email
 
+## 1.2.4
+
+### Patch Changes
+
+- bd14364: use the new @react-email/ui
+
 ## 1.2.3
 
 ### Patch Changes

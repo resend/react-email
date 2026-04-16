@@ -11,7 +11,7 @@ const extensions = [StarterKit, EmailTheming];
 const content = `
   <h1>Inspector Defaults</h1>
   <p>Click on any element to inspect it. The sidebar renders sensible defaults for each node type — no configuration needed.</p>
-  <div class="align-left"><a class="node-button button" data-id="react-email-button" href="https://react.email">Click me</a></div>
+  <a class="button" data-id="react-email-button" href="https://react.email">Click me</a>
   <p>Try selecting text to see the text inspector, or click the background to see document-level styles.</p>
   <img src="https://placehold.co/600x200" alt="Placeholder" />
 `;
@@ -27,7 +27,7 @@ export function InspectorDefaults() {
 
   return (
     <ExampleShell
-      title="Inspector — Defaults"
+      title="Inspector — defaults"
       description="Zero-config inspector sidebar. All three inspectors (Document, Node, Text) render sensible defaults when no children are passed."
     >
       <EditorContext.Provider value={{ editor }}>
@@ -53,17 +53,29 @@ export function InspectorDefaults() {
 function Breadcrumb() {
   return (
     <nav>
-      <ol className="flex items-center gap-1 list-none m-0 p-0">
+      <ol className="flex items-center gap-1 list-none m-0 p-0 mb-4">
         <Inspector.Breadcrumb>
           {(segments) =>
             segments.map((segment, i) => {
               const label = segment.node?.nodeType ?? 'Layout';
+              if (i === segments.length - 1) {
+                return (
+                  <li key={i} className="flex items-center gap-1">
+                    {i !== 0 && (
+                      <span className="text-(--re-text-muted)">/</span>
+                    )}
+                    <span className="text-(--re-text) p-0 text-xs capitalize">
+                      {label}
+                    </span>
+                  </li>
+                );
+              }
               return (
                 <li key={i} className="flex items-center gap-1">
                   {i !== 0 && <span className="text-(--re-text-muted)">/</span>}
                   <button
                     type="button"
-                    className="bg-transparent border-0 cursor-pointer text-(--re-text) p-0 text-xs hover:underline"
+                    className="bg-transparent border-0 cursor-pointer text-(--re-text-muted) p-0 text-xs hover:text-(--re-text) capitalize"
                     onClick={() => segment.focus()}
                   >
                     {label}

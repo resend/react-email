@@ -11,6 +11,8 @@ export default defineConfig({
   },
   format: ['esm', 'cjs'],
   dts: true,
-  external: ['react', 'react-dom'],
+  deps: {
+    neverBundle: ['react', 'react-dom'],
+  },
   onSuccess: 'pnpm build:css',
 });

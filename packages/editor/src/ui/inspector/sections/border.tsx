@@ -5,9 +5,7 @@ import { BorderRadiusPicker } from '../components/border-radius-picker';
 import { Section } from '../components/section';
 import type { InspectorNodeContext } from '../node';
 
-type InspectorBorderProps = InspectorNodeContext & {
-  initialCollapsed?: boolean;
-};
+type InspectorBorderProps = InspectorNodeContext;
 
 const BORDER_PROPS = [
   'borderWidth',
@@ -32,7 +30,6 @@ export function BorderSection({
   getStyle,
   setStyle,
   batchSetStyle,
-  initialCollapsed = false,
 }: InspectorBorderProps) {
   const styleObject: Record<string, string | number | undefined> = {};
   for (const prop of BORDER_PROPS) {
@@ -40,7 +37,7 @@ export function BorderSection({
   }
 
   return (
-    <Section title="Border" initialCollapsed={initialCollapsed}>
+    <Section title="Border">
       <BorderPicker
         styleObject={styleObject}
         onChange={(propOrChanges, value) => {

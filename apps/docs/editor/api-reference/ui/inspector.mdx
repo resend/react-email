@@ -236,13 +236,35 @@ Renders the current path from the document root to the focused node.
 
 Each segment includes:
 
-<ResponseField name="node" type="FocusedNode | null">
-  The node for this breadcrumb segment. `null` represents the root layout item.
+<ResponseField name="node" type="FocusedNode">
+  The node for this breadcrumb segment. The root segment is the `body` node.
 </ResponseField>
 
 <ResponseField name="focus" type="() => void">
-  Focuses the corresponding node or the document root.
+  Focuses the corresponding node.
 </ResponseField>
+
+<Tip>
+  Use `getNodeMeta(nodeType)` to get the label and icon the default breadcrumb
+  uses for a given node type:
+
+```tsx
+import { getNodeMeta } from '@react-email/editor/ui';
+
+<Inspector.Breadcrumb>
+  {(segments) =>
+    segments.map((segment, i) => {
+      const { label } = getNodeMeta(segment.node.nodeType);
+      return (
+        <button key={i} type="button" onClick={() => segment.focus()}>
+          {label}
+        </button>
+      );
+    })
+  }
+</Inspector.Breadcrumb>
+```
+</Tip>
 
 ## Built-in sections
 
@@ -254,14 +276,12 @@ reuse the default section UIs in your own layout.
   {(context) => (
     <>
       <Inspector.Size {...context} />
-      <Inspector.Padding {...context} initialCollapsed />
-      <Inspector.Border {...context} initialCollapsed />
+      <Inspector.Padding {...context} />
+      <Inspector.Border {...context} />
     </>
   )}
 </Inspector.Node>
 ```
-
-Each section component accepts an `initialCollapsed?: boolean` prop.
 
 | Component | Context | Description |
 | -- | -- | -- |
