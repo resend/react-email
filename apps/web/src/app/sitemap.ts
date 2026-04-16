@@ -1,27 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { componentsStructure } from '../../components/structure';
+import { editorExampleSlugs } from './editor/examples/editor-examples-data';
 import { slugify } from '../utils/slugify';
-
-const editorExampleSlugs = [
-  'basic-editor',
-  'bubble-menu',
-  'slash-commands',
-  'custom-bubble-menu',
-  'link-editing',
-  'column-layouts',
-  'buttons',
-  'image-upload',
-  'email-theming',
-  'email-export',
-  'custom-extensions',
-  'inspector-defaults',
-  'inspector-composed',
-  'inspector-custom',
-  'full-email-builder',
-  'standalone-editor',
-  'standalone-editor-full',
-  'standalone-editor-inspector',
-];
 
 const Sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const lastModified = new Date().toISOString().split('T')[0];
