@@ -65,7 +65,7 @@ export function InspectorNode({ children }: InspectorNodeProps) {
   }
 
   const attrs = localAttr ?? focusedNode.nodeAttrs;
-  const inlineStyles = inlineCssToJs(attrs.style || '');
+  const inlineStyles = inlineCssToJs(attrs.style || '', { removeUnit: true });
 
   const css = stylesToCss(theming.styles, theming.theme);
   const themeDefaults = resolveThemeDefaults(
