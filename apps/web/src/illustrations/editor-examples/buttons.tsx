@@ -8,7 +8,7 @@ const IllustrationButtons: React.FC = () => (
       </span>
     </div>
     <MousePointer2Icon
-      className="-bottom-4 md:group-hover:-rotate-12 absolute left-[80%] transition-transform duration-150 ease-[cubic-bezier(.42,0,.58,1.8)]"
+      className="-bottom-4 text-white md:group-hover:-rotate-12 absolute left-[80%] transition-transform duration-150 ease-[cubic-bezier(.42,0,.58,1.8)]"
       fill="currentColor"
       stroke="currentColor"
     />
