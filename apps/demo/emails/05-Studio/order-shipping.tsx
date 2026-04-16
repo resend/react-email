@@ -83,7 +83,7 @@ export const TechOrderShippingEmail = ({
                 <Section className="mx-auto">
                   <Section className="max-w-[420px]">
                     <Text className="m-0 font-40 font-geist text-fg">
-                      Your Order has Shipped
+                      Your order has shipped
                     </Text>
                     <Text className="m-0 mt-6 font-14 font-sans text-fg-2">
                       Order #1234567890 with your Halo ring is on the way. Tap
