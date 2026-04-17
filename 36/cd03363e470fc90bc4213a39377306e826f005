@@ -1,0 +1,29 @@
+apps/docs/editor/features/styling.mdx
+  0dfcf037da758818 218-220
+packages/editor/src/ui/slash-command/command-list.tsx
+  0dfcf037da758818 85-95,104-122
+packages/editor/src/ui/slash-command/slash-command.css
+  0dfcf037da758818 9-17
+.changeset/slash-command-scrollbar-clip.md
+  0dfcf037da758818 1-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "36cd03363e470fc90bc4213a39377306e826f005",
+  "prompts": {
+    "0dfcf037da758818": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "57633f67-51ff-4b95-a1d6-588a6cadd3b8",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 47,
+      "total_deletions": 27,
+      "accepted_lines": 47,
+      "overriden_lines": 0
+    }
+  }
+}
