@@ -1,0 +1,119 @@
+apps/web/src/app/editor/slash-commands/example.tsx
+  48391c00706f1ed3 1-76
+apps/web/src/app/editor/custom-extensions/page.tsx
+  48391c00706f1ed3 10
+apps/web/src/app/editor/example-tabbed-content.tsx
+  48391c00706f1ed3 1-84
+apps/web/src/app/editor/buttons/page.tsx
+  48391c00706f1ed3 9
+apps/web/src/app/editor/buttons/example.tsx
+  48391c00706f1ed3 1-32
+apps/web/src/app/editor/column-layouts/example.tsx
+  48391c00706f1ed3 1-112
+apps/web/src/app/editor/full-email-builder/page.tsx
+  48391c00706f1ed3 10
+apps/web/src/app/editor/email-theming/page.tsx
+  48391c00706f1ed3 10
+apps/web/src/app/editor/link-editing/page.tsx
+  48391c00706f1ed3 10
+apps/web/src/app/editor/image-upload/example.tsx
+  48391c00706f1ed3 1-170
+apps/web/src/app/editor/link-editing/example.tsx
+  48391c00706f1ed3 1-30
+apps/web/src/app/editor/bubble-menu/page.tsx
+  48391c00706f1ed3 10
+apps/web/src/app/editor/layout.tsx
+  48391c00706f1ed3 1-10
+apps/web/src/app/editor/custom-extensions/example.tsx
+  48391c00706f1ed3 1-119
+apps/web/src/app/editor/standalone-editor-inspector/page.tsx
+  48391c00706f1ed3 9
+apps/web/src/app/editor/bubble-menu/example.tsx
+  48391c00706f1ed3 1-44
+apps/web/src/app/editor/standalone-editor-full/page.tsx
+  48391c00706f1ed3 10
+apps/web/src/app/editor/page.tsx
+  48391c00706f1ed3 186,233
+apps/web/src/app/editor/example-shell.tsx
+  48391c00706f1ed3 1-33
+apps/web/src/app/editor/email-export/example.tsx
+  48391c00706f1ed3 1-99
+apps/web/src/app/editor/inspector-custom/example.tsx
+  48391c00706f1ed3 1-317
+apps/web/src/app/editor/image-upload/page.tsx
+  48391c00706f1ed3 10
+apps/web/src/app/editor/email-export/page.tsx
+  48391c00706f1ed3 10
+apps/web/src/app/editor/custom-theme/page.tsx
+  48391c00706f1ed3 9
+apps/web/src/app/editor/inspector-composed/page.tsx
+  48391c00706f1ed3 10
+apps/web/src/app/editor/example-code-view.tsx
+  48391c00706f1ed3 1-36
+apps/web/src/app/editor/inspector-composed/example.tsx
+  48391c00706f1ed3 1-185
+apps/web/src/app/editor/custom-bubble-menu/page.tsx
+  48391c00706f1ed3 9
+apps/web/src/app/editor/editor-overrides.css
+  48391c00706f1ed3 1-19
+apps/web/src/app/editor/basic-editor/page.tsx
+  48391c00706f1ed3 9
+apps/web/src/app/editor/inspector-defaults/example.tsx
+  48391c00706f1ed3 1-94
+apps/web/next.config.ts
+  48391c00706f1ed3 12-21
+apps/web/src/app/editor/get-example-source.ts
+  48391c00706f1ed3 7,13
+apps/web/src/app/editor/column-layouts/page.tsx
+  48391c00706f1ed3 9
+apps/web/src/app/editor/inspector-custom/page.tsx
+  48391c00706f1ed3 10
+apps/web/src/app/editor/email-theming/example.tsx
+  48391c00706f1ed3 1-112
+apps/web/src/app/editor/standalone-editor-inspector/example.tsx
+  48391c00706f1ed3 1-85
+apps/web/src/app/editor/example-page-shell.tsx
+  48391c00706f1ed3 42
+apps/web/src/app/editor/custom-theme/example.tsx
+  48391c00706f1ed3 1-139
+apps/web/src/app/editor/custom-bubble-menu/example.tsx
+  48391c00706f1ed3 1-51
+apps/web/src/app/editor/basic-editor/example.tsx
+  48391c00706f1ed3 1-46
+apps/web/src/app/editor/inspector-defaults/page.tsx
+  48391c00706f1ed3 10
+apps/web/src/components/menu.tsx
+  48391c00706f1ed3 51
+apps/web/src/app/editor/standalone-editor/example.tsx
+  48391c00706f1ed3 1-30
+apps/web/src/app/editor/slash-commands/page.tsx
+  48391c00706f1ed3 10
+apps/web/src/components/sections/editor.tsx
+  48391c00706f1ed3 45
+apps/web/src/app/editor/full-email-builder/example.tsx
+  48391c00706f1ed3 1-185
+apps/web/src/app/editor/standalone-editor-full/example.tsx
+  48391c00706f1ed3 1-88
+apps/web/src/app/editor/standalone-editor/page.tsx
+  48391c00706f1ed3 9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "90fd723bd8696e46c146d43fe2c47b9849c407e0",
+  "prompts": {
+    "48391c00706f1ed3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bd4d299c-3a12-48fb-93aa-5fe7719af605",
+        "model": "<synthetic>"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 3677,
+      "total_deletions": 2370,
+      "accepted_lines": 3141,
+      "overriden_lines": 0
+    }
+  }
+}
