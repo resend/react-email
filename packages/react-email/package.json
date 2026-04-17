@@ -11,6 +11,7 @@
     "build:watch": "tsdown --watch src",
     "clean": "rm -rf dist",
     "test": "vitest run",
+    "test:e2e": "vitest run --config vitest.e2e.config.ts",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit"
   },
@@ -69,11 +70,14 @@
     "@types/css-tree": "catalog:",
     "@types/mime-types": "catalog:",
     "@types/prompts": "2.4.9",
+    "@types/shelljs": "0.10.0",
     "next": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
+    "shelljs": "0.10.0",
     "shlex": "3.0.0",
     "tsx": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "yalc": "catalog:"
   }
 }
