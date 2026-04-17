@@ -1,0 +1,33 @@
+packages/editor/src/ui/bubble-menu/index.ts
+  94a5f2c367fcc8c6 14,16,63-64,67-68,143-144
+packages/editor/src/ui/bubble-menu/bubble-menu.css
+  94a5f2c367fcc8c6 285-286,290-325
+packages/editor/src/ui/bubble-menu/image-default.tsx
+  94a5f2c367fcc8c6 2,4,6,8,14,22-65,74-76,89-94
+packages/editor/src/ui/bubble-menu/image-unlink.tsx
+  94a5f2c367fcc8c6 1-43
+packages/editor/src/ui/bubble-menu/image-form.tsx
+  94a5f2c367fcc8c6 1-164
+packages/editor/src/ui/bubble-menu/image-edit-link.tsx
+  94a5f2c367fcc8c6 2,34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.0",
+  "base_commit_sha": "92ad9df73060d688092098e68fe8794eb8ba4369",
+  "prompts": {
+    "94a5f2c367fcc8c6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "513467c2-cb61-4557-9066-75b280dd237b",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 314,
+      "total_deletions": 21,
+      "accepted_lines": 314,
+      "overriden_lines": 0
+    }
+  }
+}
