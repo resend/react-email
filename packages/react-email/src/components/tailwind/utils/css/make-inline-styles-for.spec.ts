@@ -41,10 +41,34 @@ describe('makeInlineStylesFor()', async () => {
       ),
     ).toMatchInlineSnapshot(`
       {
-        "backgroundColor": " #3490dc",
+        "backgroundColor": "#3490dc",
         "borderRadius": "0.25rem",
-        "color": " #fff",
+        "color": "#fff",
         "padding": "0.5rem 1rem",
+      }
+    `);
+  });
+
+  it('strips Tailwind v4 variant-stacking var() refs with empty fallbacks', () => {
+    // Tailwind v4 compiles `tabular-nums` to a font-variant-numeric value
+    // where every optional variant slot is represented by an unresolved
+    // var(--tw-..., ) with an empty fallback. Email clients do not support
+    // CSS custom properties reliably, so these must collapse at inline time
+    // (per CSS spec, an empty fallback resolves to empty string).
+    const tailwindStyles = parse(`
+      .tabular-nums {
+        font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) tabular-nums var(--tw-numeric-fraction,);
+      }
+    `) as StyleSheet;
+
+    expect(
+      makeInlineStylesFor(
+        tailwindStyles.children.toArray(),
+        getCustomProperties(tailwindStyles),
+      ),
+    ).toMatchInlineSnapshot(`
+      {
+        "fontVariantNumeric": "tabular-nums",
       }
     `);
   });

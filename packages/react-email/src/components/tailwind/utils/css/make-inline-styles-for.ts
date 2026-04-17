@@ -59,9 +59,23 @@ export function makeInlineStylesFor(
         if (declaration.property.startsWith('--')) {
           return;
         }
+        // Tailwind v4 emits variant-stacking idioms like
+        //   font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) tabular-nums var(--tw-numeric-fraction,)
+        // where each var() has an empty fallback so missing variants collapse to nothing.
+        // The walker above replaces var() calls with an initialValue when one is defined,
+        // but Tailwind deliberately leaves these variant vars undefined until used, so they
+        // stay in the output here and produce unresolvable custom properties in email HTML
+        // (no email client supports CSS custom properties reliably). Per the CSS spec
+        // (https://www.w3.org/TR/css-variables-1/#using-variables) an empty fallback means
+        // "use empty string if the variable is undefined", which is exactly what we want at
+        // inline-style time.
+        const rawValue = generate(declaration.value);
+        const cleanedValue = rawValue
+          .replace(/var\(\s*--[\w-]+\s*,\s*\)/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
         styles[getReactProperty(declaration.property)] =
-          generate(declaration.value) +
-          (declaration.important ? '!important' : '');
+          cleanedValue + (declaration.important ? '!important' : '');
       },
     });
   }
