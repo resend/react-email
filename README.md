@@ -20,34 +20,18 @@ We believe that email is an extremely important medium for people to communicate
 
 ## Install
 
-Install one of the components from your command line.
-
-#### With yarn
-
 ```sh
-yarn add @react-email/components -E
-```
-
-#### With npm
-
-```sh
-npm install @react-email/components -E
-```
-
-#### With pnpm
-
-```sh
-pnpm install @react-email/components -E
+npm i react-email@latest
 ```
 
 ## Getting started
 
-Add the component to your email template. Include styles where needed.
+Define your email template with React, include styles and our components where needed.
 
 ```jsx
-import { Button } from "@react-email/components";
+import { Button } from "react-email";
 
-const Email = () => {
+export default function Email() {
   return (
     <Button href="https://example.com" style={{ color: "#61dafb" }}>
       Click me
@@ -60,23 +44,31 @@ const Email = () => {
 
 A set of standard components to help you build amazing emails without having to deal with the mess of creating table-based layouts and maintaining archaic markup.
 
-- [Body](https://github.com/resend/react-email/tree/main/packages/body)
-- [Button](https://github.com/resend/react-email/tree/main/packages/button)
-- [CodeBlock](https://github.com/resend/react-email/tree/main/packages/code-block)
-- [CodeInline](https://github.com/resend/react-email/tree/main/packages/code-inline)
-- [Column](https://github.com/resend/react-email/tree/main/packages/column)
-- [Container](https://github.com/resend/react-email/tree/main/packages/container)
-- [Divider](https://github.com/resend/react-email/tree/main/packages/hr)
-- [Font](https://github.com/resend/react-email/tree/main/packages/font)
-- [Head](https://github.com/resend/react-email/tree/main/packages/head)
-- [Heading](https://github.com/resend/react-email/tree/main/packages/heading)
-- [Html](https://github.com/resend/react-email/tree/main/packages/html)
-- [Image](https://github.com/resend/react-email/tree/main/packages/img)
-- [Link](https://github.com/resend/react-email/tree/main/packages/link)
-- [Markdown](https://github.com/resend/react-email/tree/main/packages/markdown)
-- [Paragraph](https://github.com/resend/react-email/tree/main/packages/text)
-- [Preview](https://github.com/resend/react-email/tree/main/packages/preview)
-- [Section](https://github.com/resend/react-email/tree/main/packages/section)
+- [Html](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/html)
+- [Head](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/head)
+- [Button](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/button)
+- [Container](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/container)
+- [CodeBlock](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/code-block)
+- [CodeInline](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/code-inline)
+- [Column](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/column)
+- [Row](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/row)
+- [Font](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/font)
+- [Heading](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/heading)
+- [Divider](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/hr)
+- [Image](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/img)
+- [Link](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/link)
+- [Markdown](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/markdown)
+- [Preview](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/preview)
+- [Section](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/section)
+- [Tailwind](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/tailwind)
+- [Paragraph](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/text)
+- [Body](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/body)
+
+## Editor
+
+React Email also provides an Editor built on top of built on [TipTap](https://tiptap.dev/) and [ProseMirror](https://prosemirror.net/), It serializes to React Email components, and exports email-ready HTML and plain text.
+
+See the [Editor documentation](https://react.email/docs/editor) for more details.
 
 ## Integrations
 
@@ -110,11 +102,6 @@ All components were tested using the most popular email clients.
 
 - [Contribution Guide](https://react.email/docs/contributing)
 
-## Authors
+---
 
-- Bu Kinoshita ([@bukinoshita](https://twitter.com/bukinoshita))
-- Zeno Rocha ([@zenorocha](https://twitter.com/zenorocha))
-
-## License
-
-MIT License
+Brought to you by [Resend](https://resend.com), MIT License.
