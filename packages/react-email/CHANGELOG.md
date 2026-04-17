@@ -8,7 +8,7 @@
 
   All components (previously in `@react-email/components` or individual packages like `@react-email/button`) and rendering utilities (previously in `@react-email/render`) are now exported directly from `react-email`. This unifies the install and import experience into a single package.
 
-  We're going to deprecate all packages except `@react-email/render` and `@react-email/preview-server`, and they will not be updated anymore.
+  We're going to deprecate all packages except `@react-email/render` and `@react-email/ui`, and they will not be updated anymore.
 
   ### Breaking change
 
@@ -19,21 +19,26 @@
   Having separate packages for components (`@react-email/components`), and the CLI (`react-email`) created unnecessary confusion, and a maintenance burden for us.
 
   ### How to migrate
-  1. **Update your dependencies** -- remove `@react-email/components`, keep `react-email`:
+
+  1. Remove `@react-email/components`:
 
      ```diff
-     - npm install @react-email/components react-email @react-email/preview-server
-     + npm install react-email @react-email/preview-server
+     npm remove @react-email/components
+     ```
+  
+  2. Update `react-email`, and move it over to `dependencies`:
+
+     ```diff
+     npm install react-email@latest
      ```
 
-  2. **Update your imports**:
+  3. **Update your imports**:
 
      ```diff
      - import { Button, Html, Head, render } from "@react-email/components";
      + import { Button, Html, Head, render } from "react-email";
      ```
 
-  3. The `@react-email/preview-server` and `@react-email/editor` packages are not included in `react-email`
 
 ### Patch Changes
 
