@@ -7,8 +7,8 @@ packages:
   - playground
 
 catalog:
-  '@babel/parser': 7.27.0
-  '@babel/traverse': 7.27.0
+  '@babel/parser': 7.29.2
+  '@babel/traverse': 7.29.0
   '@radix-ui/colors': 3.0.0
   '@radix-ui/react-popover': 1.1.15
   '@radix-ui/react-slot': 1.2.4
