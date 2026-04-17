@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.0.2
+
+### Patch Changes
+
+- 4155ec9: fix slash command scrollbar extending past rounded corners
+
 ## 1.0.1
 
 ### Patch Changes
