@@ -1,5 +1,11 @@
 # @react-email/preview-server
 
+## 5.2.11
+
+### Patch Changes
+
+- Security: Update Next.js to 16.2.3 to fix CVE-2026-23869 (High severity DoS vulnerability in React Server Components)
+
 ## 5.2.10
 
 ### Patch Changes
