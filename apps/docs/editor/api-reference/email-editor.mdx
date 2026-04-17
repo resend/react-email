@@ -1,0 +1,210 @@
+---
+title: "EmailEditor"
+sidebarTitle: "EmailEditor"
+description: "Standalone editor component with built-in menus, slash commands, and export helpers."
+icon: "window"
+---
+
+`EmailEditor` is the highest-level way to embed the React Email editor. It wraps
+Tiptap's `EditorProvider`, mounts the default editor UI, and exposes a ref API
+for exporting HTML, plain text, and JSON.
+
+Use it when you want a batteries-included editor. If you need full control over
+the provider, overlays, or extension list, compose the editor from the lower-level
+APIs instead.
+
+<Tip>
+  `EmailEditor` automatically imports `@react-email/editor/themes/default.css`,
+  so the default bubble menus, slash command menu, and theme styles work without
+  a separate CSS import.
+
+  See [styling](/editor/features/styling) for details on customizing the editor's appearance.
+</Tip>
+
+## Import
+
+```tsx
+import { EmailEditor, type EmailEditorRef } from '@react-email/editor';
+```
+
+## Signature
+
+```tsx
+const EmailEditor: React.ForwardRefExoticComponent<
+  EmailEditorProps & React.RefAttributes<EmailEditorRef>
+>;
+```
+
+## Default behavior
+
+When rendered without a custom `extensions` prop, `EmailEditor` configures:
+
+- [`StarterKit`](/editor/api-reference/extensions-list)
+- `Placeholder`
+- [`EmailTheming`](/editor/api-reference/theming-api)
+- The default text `BubbleMenu`
+- [`BubbleMenu.LinkDefault`](/editor/api-reference/ui/bubble-menu#bubblemenu-linkdefault)
+- [`BubbleMenu.ButtonDefault`](/editor/api-reference/ui/bubble-menu#bubblemenu-buttondefault)
+- [`BubbleMenu.ImageDefault`](/editor/api-reference/ui/bubble-menu#bubblemenu-imagedefault)
+- The [built-in slash command menu](/editor/api-reference/ui/slash-command#default-commands)
+
+If `onUploadImage` is provided, the image upload extension is appended
+automatically.
+
+## Props
+
+<ResponseField name="content" type="Content">
+  Initial editor content. Accepts TipTap JSON or an HTML string.
+</ResponseField>
+
+<ResponseField name="onUpdate" type="(ref: EmailEditorRef) => void">
+  Called on every content update. The callback receives the same helper object
+  exposed through the component ref.
+</ResponseField>
+
+<ResponseField name="onReady" type="(ref: EmailEditorRef) => void">
+  Called once after the editor instance is mounted and ready.
+</ResponseField>
+
+<ResponseField name="theme" type="EditorThemeInput" default="'basic'">
+  Built-in theme preset or custom theme object used by the default
+  `EmailTheming` extension.
+</ResponseField>
+
+<ResponseField name="editable" type="boolean" default="true">
+  Toggles read-only mode for the editor content.
+</ResponseField>
+
+<ResponseField name="placeholder" type="string">
+  Overrides the default placeholder text. When omitted, paragraphs show
+  `Press '/' for commands`.
+</ResponseField>
+
+<ResponseField
+  name="bubbleMenu"
+  type="{ hideWhenActiveNodes?: string[]; hideWhenActiveMarks?: string[] }"
+>
+  Configures when the default text bubble menu should stay hidden.
+</ResponseField>
+
+<ResponseField name="extensions" type="Extensions">
+  Replaces the default extensions array. Use this when you want more control
+  over the editor schema or plugin list.
+</ResponseField>
+
+<ResponseField
+  name="onUploadImage"
+  type="(file: File) => Promise<{ url: string }>"
+>
+  Enables image upload for paste, drop, and image insertion flows. Resolve with
+  the final hosted image URL.
+</ResponseField>
+
+<ResponseField name="className" type="string">
+  Applied to the underlying editor container element.
+</ResponseField>
+
+<ResponseField name="children" type="ReactNode">
+  Additional UI rendered inside the internal `EditorProvider`. Children render
+  as siblings of the editor content area, which makes layouts like split-pane
+  editors and inspector sidebars work naturally.
+</ResponseField>
+
+### bubbleMenu options
+
+<ResponseField name="hideWhenActiveNodes" type="string[]" default="['button']">
+  Prevents the default text bubble menu from appearing when one of these node
+  types is active.
+</ResponseField>
+
+<ResponseField name="hideWhenActiveMarks" type="string[]" default="['link']">
+  Prevents the default text bubble menu from appearing when one of these mark
+  types is active.
+</ResponseField>
+
+## Ref API
+
+```tsx
+interface EmailEditorRef {
+  getEmail(): Promise<{ html: string; text: string }>;
+  getEmailHTML(): Promise<string>;
+  getEmailText(): Promise<string>;
+  getJSON(): JSONContent;
+  editor: Editor | null;
+}
+```
+
+<ResponseField
+  name="getEmail"
+  type="() => Promise<{ html: string; text: string }>"
+>
+  Serializes the current document to email-ready HTML and plain text in one
+  call.
+</ResponseField>
+
+<ResponseField name="getEmailHTML" type="() => Promise<string>">
+  Returns only the HTML export.
+</ResponseField>
+
+<ResponseField name="getEmailText" type="() => Promise<string>">
+  Returns only the plain text export.
+</ResponseField>
+
+<ResponseField name="getJSON" type="() => JSONContent">
+  Returns the current TipTap JSON document.
+</ResponseField>
+
+<ResponseField name="editor" type="Editor | null">
+  The underlying TipTap editor instance. `null` until the editor is ready.
+</ResponseField>
+
+<Note>
+  Before the editor is ready, the export methods resolve to empty output and
+  `getJSON()` returns an empty document with `type: 'doc'` and an empty
+  `content` array.
+</Note>
+
+## Example
+
+```tsx
+import { EmailEditor, type EmailEditorRef } from '@react-email/editor';
+import { useRef, useState } from 'react';
+
+export function MyEditor() {
+  const editorRef = useRef<EmailEditorRef>(null);
+  const [html, setHtml] = useState('');
+
+  const handleExport = async () => {
+    if (!editorRef.current) return;
+    setHtml(await editorRef.current.getEmailHTML());
+  };
+
+  return (
+    <div>
+      <EmailEditor
+        ref={editorRef}
+        content="<h1>Welcome</h1><p>Edit this email.</p>"
+        theme="basic"
+        onReady={(ref) => {
+          console.log(ref.getJSON());
+        }}
+        onUpdate={(ref) => {
+          console.log(ref.editor?.isEmpty);
+        }}
+      />
+
+      <button onClick={handleExport}>Export HTML</button>
+
+      {html && <textarea readOnly value={html} rows={12} />}
+    </div>
+  );
+}
+```
+
+## See also
+
+- [Getting Started](/editor/getting-started)
+- [BubbleMenu](/editor/api-reference/ui/bubble-menu)
+- [Inspector](/editor/api-reference/ui/inspector)
+- [composeReactEmail](/editor/api-reference/compose-react-email)
+- [Theming API](/editor/api-reference/theming-api)

@@ -160,6 +160,7 @@
           {
             "group": "API Reference",
             "pages": [
+              "editor/api-reference/email-editor",
               "editor/api-reference/compose-react-email",
               "editor/api-reference/email-node",
               "editor/api-reference/email-mark",
