@@ -64,6 +64,12 @@ A set of standard components to help you build amazing emails without having to 
 - [Paragraph](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/text)
 - [Body](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/body)
 
+## Editor
+
+React Email also provides an Editor built on top of built on [TipTap](https://tiptap.dev/) and [ProseMirror](https://prosemirror.net/), It serializes to React Email components, and exports email-ready HTML and plain text.
+
+See the [Editor documentation](https://react.email/docs/editor) for more details.
+
 ## Integrations
 
 Emails built with React Email can be converted into HTML and sent using any email service provider. Here are some examples:
