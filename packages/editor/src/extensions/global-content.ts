@@ -1,4 +1,6 @@
 import { type Editor, mergeAttributes, Node } from '@tiptap/core';
+import type { Node as PmNode } from '@tiptap/pm/model';
+import { Plugin, PluginKey } from '@tiptap/pm/state';
 
 const GLOBAL_CONTENT_NODE_TYPE = 'globalContent' as const;
 
@@ -135,5 +137,48 @@ export const GlobalContent = Node.create<GlobalContentOptions>({
           return true;
         },
     };
+  },
+
+  addProseMirrorPlugins() {
+    const nodeType = this.type;
+
+    return [
+      new Plugin({
+        key: new PluginKey('globalContentProtector'),
+
+        appendTransaction(transactions, oldState, newState) {
+          const docChanged = transactions.some((tr) => tr.docChanged);
+          if (!docChanged) {
+            return null;
+          }
+
+          const hasGlobalContent =
+            findGlobalContentPositions(newState.doc).length > 0;
+          if (hasGlobalContent) {
+            return null;
+          }
+
+          let previousNode: PmNode | null = null;
+          oldState.doc.descendants((node) => {
+            if (node.type.name === GLOBAL_CONTENT_NODE_TYPE) {
+              previousNode = node;
+              return false;
+            }
+          });
+
+          if (!previousNode) {
+            return null;
+          }
+
+          const restoredNode = nodeType.create((previousNode as PmNode).attrs);
+          const tr = newState.tr;
+          tr.insert(0, restoredNode);
+          tr.setMeta('addToHistory', false);
+          cachedGlobalPosition = 0;
+
+          return tr;
+        },
+      }),
+    ];
   },
 });
