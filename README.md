@@ -31,7 +31,7 @@ Define your email template with React, include styles and our components where n
 ```jsx
 import { Button } from "react-email";
 
-const Email = () => {
+export default function Email() {
   return (
     <Button href="https://example.com" style={{ color: "#61dafb" }}>
       Click me
