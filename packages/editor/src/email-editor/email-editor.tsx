@@ -1,21 +1,20 @@
-import type { Content, Editor, Extensions, JSONContent } from '@tiptap/core';
+import type { Content, Extensions } from '@tiptap/core';
 import {
   EditorProvider,
   type UseEditorOptions,
-  useCurrentEditor,
 } from '@tiptap/react';
 import {
   forwardRef,
   type ReactNode,
-  type Ref,
-  useEffect,
-  useImperativeHandle,
-  useLayoutEffect,
   useMemo,
   useRef,
 } from 'react';
 import { createPasteHandler } from '../core/create-paste-handler';
-import { composeReactEmail } from '../core/serializer/compose-react-email';
+import {
+  ReadyBridge,
+  RefBridge,
+  type EmailEditorRef,
+} from '../editor-provider/ref-bridge';
 import { StarterKit } from '../extensions';
 import { EmailTheming } from '../plugins/email-theming/extension';
 import type { EditorThemeInput } from '../plugins/email-theming/types';
@@ -25,13 +24,7 @@ import { SlashCommandRoot } from '../ui/slash-command/root';
 import '../ui/themes/default.css';
 import { Placeholder } from '@tiptap/extension-placeholder';
 
-export interface EmailEditorRef {
-  getEmail: () => Promise<{ html: string; text: string }>;
-  getEmailHTML: () => Promise<string>;
-  getEmailText: () => Promise<string>;
-  getJSON: () => JSONContent;
-  editor: Editor | null;
-}
+export type { EmailEditorRef } from '../editor-provider/ref-bridge';
 
 export interface EmailEditorProps {
   content?: Content;
@@ -48,71 +41,6 @@ export interface EmailEditorProps {
   onUploadImage?: (file: File) => Promise<{ url: string }>;
   className?: string;
   children?: ReactNode;
-}
-
-function buildRef(editor: Editor | null): EmailEditorRef {
-  return {
-    getEmail: async () => {
-      if (!editor) return { html: '', text: '' };
-      return composeReactEmail({ editor });
-    },
-    getEmailHTML: async () => {
-      if (!editor) return '';
-      const result = await composeReactEmail({ editor });
-      return result.html;
-    },
-    getEmailText: async () => {
-      if (!editor) return '';
-      const result = await composeReactEmail({ editor });
-      return result.text;
-    },
-    getJSON: () => editor?.getJSON() ?? { type: 'doc', content: [] },
-    editor,
-  };
-}
-
-function RefBridge({
-  editorRef,
-  onUpdateRef,
-}: {
-  editorRef: Ref<EmailEditorRef>;
-  onUpdateRef: React.RefObject<((ref: EmailEditorRef) => void) | undefined>;
-}) {
-  const { editor } = useCurrentEditor();
-
-  const emailEditorRef = useMemo(() => buildRef(editor), [editor]);
-
-  useImperativeHandle(editorRef, () => emailEditorRef, [emailEditorRef]);
-
-  useEffect(() => {
-    if (!editor) return;
-
-    const handler = () => {
-      onUpdateRef.current?.(emailEditorRef);
-    };
-
-    editor.on('update', handler);
-    return () => {
-      editor.off('update', handler);
-    };
-  }, [editor, emailEditorRef, onUpdateRef]);
-
-  return null;
-}
-
-function EmailEditorReadyBridge({
-  onReadyRef,
-}: {
-  onReadyRef: React.RefObject<((ref: EmailEditorRef) => void) | undefined>;
-}) {
-  const { editor } = useCurrentEditor();
-
-  useLayoutEffect(() => {
-    if (!editor) return;
-    onReadyRef.current?.(buildRef(editor));
-  }, [editor, onReadyRef]);
-
-  return null;
 }
 
 export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
@@ -186,7 +114,7 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
         editorContainerProps={{ className }}
       >
         <RefBridge editorRef={ref} onUpdateRef={onUpdateRef} />
-        <EmailEditorReadyBridge onReadyRef={onReadyRef} />
+        <ReadyBridge onReadyRef={onReadyRef} />
         <BubbleMenu
           hideWhenActiveNodes={bubbleMenu?.hideWhenActiveNodes ?? ['button']}
           hideWhenActiveMarks={bubbleMenu?.hideWhenActiveMarks ?? ['link']}
