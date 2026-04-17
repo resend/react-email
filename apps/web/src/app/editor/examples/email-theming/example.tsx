@@ -101,10 +101,12 @@ export function EmailThemingExample() {
           </button>
         ))}
       </div>
-      <EditorContext.Provider value={{ editor }}>
-        <EditorContent editor={editor} />
-        <BubbleMenu />
-      </EditorContext.Provider>
+      <div className="p-4 bg-white rounded-md">
+        <EditorContext.Provider value={{ editor }}>
+          <EditorContent editor={editor} />
+          <BubbleMenu />
+        </EditorContext.Provider>
+      </div>
     </ExampleShell>
   );
 }

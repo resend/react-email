@@ -65,7 +65,7 @@ export function ExampleTabbedContent({
       </div>
       <div className="relative h-fit w-full transition-all duration-300 ease-[cubic-bezier(.36,.66,.6,1)] transition-discrete">
         <Tabs.Content
-          className="relative m-4 mx-2 h-fit scroll-m-2 transition-colors focus:outline-hidden focus:ring-3 focus:ring-slate-8 md:mx-8"
+          className="relative m-4 mx-2 h-fit scroll-m-2 transition-colors focus:outline-hidden md:mx-8"
           value="example"
         >
           <ExamplePageContext.Provider value={true}>
