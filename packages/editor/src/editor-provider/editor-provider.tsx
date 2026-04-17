@@ -3,7 +3,7 @@ import {
   type EditorProviderProps as TiptapEditorProviderProps,
 } from '@tiptap/react';
 import { forwardRef, useRef } from 'react';
-import { ReadyBridge, RefBridge, type EmailEditorRef } from './ref-bridge';
+import { type EmailEditorRef, ReadyBridge, RefBridge } from './ref-bridge';
 
 export type EditorProviderProps = TiptapEditorProviderProps & {
   /**

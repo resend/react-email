@@ -1,19 +1,11 @@
 import type { Content, Extensions } from '@tiptap/core';
-import {
-  EditorProvider,
-  type UseEditorOptions,
-} from '@tiptap/react';
-import {
-  forwardRef,
-  type ReactNode,
-  useMemo,
-  useRef,
-} from 'react';
+import { EditorProvider, type UseEditorOptions } from '@tiptap/react';
+import { forwardRef, type ReactNode, useMemo, useRef } from 'react';
 import { createPasteHandler } from '../core/create-paste-handler';
 import {
+  type EmailEditorRef,
   ReadyBridge,
   RefBridge,
-  type EmailEditorRef,
 } from '../editor-provider/ref-bridge';
 import { StarterKit } from '../extensions';
 import { EmailTheming } from '../plugins/email-theming/extension';

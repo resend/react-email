@@ -43,9 +43,7 @@ export function RefBridge({
   onUpdateRef,
 }: {
   editorRef: Ref<EmailEditorRef>;
-  onUpdateRef?: React.RefObject<
-    ((ref: EmailEditorRef) => void) | undefined
-  >;
+  onUpdateRef?: React.RefObject<((ref: EmailEditorRef) => void) | undefined>;
 }) {
   const { editor } = useCurrentEditor();
 
