@@ -5,7 +5,15 @@
   "colors": {
     "primary": "#06BCEE",
     "light": "#81D7F7",
-    "dark": "#06A6D1"
+    "dark": "#0E7490"
+  },
+  "styling": {
+    "codeblocks": {
+      "theme": {
+        "light": "github-light",
+        "dark": "vesper"
+      }
+    }
   },
   "contextual": {
     "options": ["copy", "chatgpt", "claude"]
@@ -200,13 +208,10 @@
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
   },
-  "appearance": {
-    "default": "dark",
-    "strict": true
-  },
   "background": {
     "image": "/images/background.png",
     "color": {
+      "light": "#FFFFFF",
       "dark": "#111111"
     }
   },
