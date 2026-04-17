@@ -8,6 +8,7 @@ import * as React from 'react';
 import { Button } from '../button';
 import { CodeBlock } from '../code-block';
 import { Heading } from '../heading';
+import { Send } from '../send';
 import { Text } from '../text';
 import { EditorToolbar } from './editor-toolbar';
 import '@react-email/editor/themes/default.css';
@@ -74,10 +75,14 @@ export const EditorHomepage = () => {
             <X size={14} />
           </div>
 
-          <div className="absolute right-3 bottom-3 pointer-events-none inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-400">
+          <Send
+            className="absolute right-3 bottom-3 gap-2 bg-transparent! px-4! py-2! h-auto! font-medium text-gray-400! hover:text-gray-600!"
+            defaultSubject="Your editor is live"
+            markup={html}
+          >
             Send
             <SendHorizonal size={14} />
-          </div>
+          </Send>
         </EmailEditor>
       </div>
 
