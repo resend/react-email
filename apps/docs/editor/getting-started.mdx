@@ -29,20 +29,13 @@ theming, and export helpers already wired up:
 ```tsx
 import { EmailEditor } from '@react-email/editor';
 
-const content = {
-  type: 'doc',
-  content: [
-    {
-      type: 'paragraph',
-      content: [
-        {
-          type: 'text',
-          text: 'This is the simplest way to use the editor. Try selecting text to see the bubble menu, or type "/" for slash commands.',
-        },
-      ],
-    },
-  ],
-};
+const content = `
+  <h1>Welcome</h1>
+  <p>
+    This is the simplest way to use the editor. Try selecting text to see the
+    bubble menu, or type "/" for slash commands.
+  </p>
+`;
 
 export function MyEditor() {
   return <EmailEditor content={content} />;
@@ -60,6 +53,17 @@ See the [API Reference](/editor/api-reference/email-editor) for details.
 
 The editor accepts content in two formats:
 
+**HTML string** — Parsed automatically into the editor's document model:
+
+```tsx
+const content = `
+  <h1>Welcome</h1>
+  <p>This is a <a href="https://react.email">link</a>.</p>
+`;
+
+<EmailEditor content={content} />
+```
+
 **TipTap JSON** — A structured document tree:
 
 ```json
@@ -74,17 +78,6 @@ The editor accepts content in two formats:
     }
   ]
 }
-```
-
-**HTML string** — Parsed automatically into the editor's document model:
-
-```tsx
-const content = `
-  <h1>Welcome</h1>
-  <p>This is a <a href="https://react.email">link</a>.</p>
-`;
-
-<EmailEditor content={content} />
 ```
 
 ## Lower-level setup
@@ -109,20 +102,10 @@ import { EditorProvider } from '@tiptap/react';
 
 const extensions = [StarterKit];
 
-const content = {
-  type: 'doc',
-  content: [
-    {
-      type: 'paragraph',
-      content: [
-        {
-          type: 'text',
-          text: 'Start typing or edit this text.',
-        },
-      ],
-    },
-  ],
-};
+const content = `
+  <h1>Welcome</h1>
+  <p>Start typing or edit this text.</p>
+`;
 
 export function MyEditor() {
   return <EditorProvider extensions={extensions} content={content} />;
@@ -164,21 +147,12 @@ import '@react-email/editor/themes/default.css';
 
 const extensions = [StarterKit];
 
-const content = {
-  type: 'doc',
-  content: [
-    {
-      type: 'paragraph',
-      content: [
-        { type: 'text', text: 'Select this text to see the bubble menu. Try ' },
-        { type: 'text', marks: [{ type: 'bold' }], text: 'bold' },
-        { type: 'text', text: ', ' },
-        { type: 'text', marks: [{ type: 'italic' }], text: 'italic' },
-        { type: 'text', text: ', and other formatting options.' },
-      ],
-    },
-  ],
-};
+const content = `
+  <p>
+    Select this text to see the bubble menu. Try <strong>bold</strong>,
+    <em>italic</em>, and other formatting options.
+  </p>
+`;
 
 export function MyEditor() {
   return (
