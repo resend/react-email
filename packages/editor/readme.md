@@ -31,13 +31,6 @@ The package exposes multiple entry points for granular imports:
 npm install @react-email/editor
 ```
 
-### Peer Dependencies
-
-- `react` (^18.0 || ^19.0)
-- `react-dom` (^18.0 || ^19.0)
-- `@react-email/components`
-- `@radix-ui/react-popover` (^1.0.0)
-
 ## Development
 
 ```bash

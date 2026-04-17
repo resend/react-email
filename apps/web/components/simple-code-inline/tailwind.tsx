@@ -5,7 +5,7 @@ export const component = (
   <Text className="text-center">
     Install the{' '}
     <CodeInline className="rounded-[6px] bg-gray-300 px-[4px] py-[2px]">
-      @react-email/components
+      react-email
     </CodeInline>{' '}
     package
   </Text>

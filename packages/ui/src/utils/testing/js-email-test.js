@@ -1,6 +1,6 @@
 // A simple JavaScript email component
 const _React = require('react');
-const { Html, Button } = require('@react-email/components');
+const { Html, Button } = require('react-email');
 
 function Email() {
   return (

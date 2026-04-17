@@ -67,7 +67,7 @@ export function ComponentCodeView({
     if (importsReactEmail.length > 0) {
       importStatements += `import { ${importsReactEmail.join(
         ', ',
-      )} } from "@react-email/components";\n`;
+      )} } from "react-email";\n`;
     }
 
     if (importsReactResponsive.length > 0) {
