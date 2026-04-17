@@ -1,6 +1,7 @@
 import { type Editor, mergeAttributes, Node } from '@tiptap/core';
 import type { Node as PmNode } from '@tiptap/pm/model';
 import { Plugin, PluginKey } from '@tiptap/pm/state';
+import { hasCollaborationExtension } from '../utils/is-collaboration';
 
 const GLOBAL_CONTENT_NODE_TYPE = 'globalContent' as const;
 
@@ -141,20 +142,64 @@ export const GlobalContent = Node.create<GlobalContentOptions>({
 
   addProseMirrorPlugins() {
     const nodeType = this.type;
+    const isCollaborative = hasCollaborationExtension(
+      this.editor.extensionManager.extensions,
+    );
 
     return [
       new Plugin({
         key: new PluginKey('globalContentProtector'),
 
-        appendTransaction(transactions, oldState, newState) {
-          const docChanged = transactions.some((tr) => tr.docChanged);
-          if (!docChanged) {
+        view: isCollaborative
+          ? undefined
+          : (editorView) => {
+              let lastGlobalContentNode: PmNode | null = null;
+
+              const findAndCache = (doc: PmNode) => {
+                let found: PmNode | null = null;
+                doc.descendants((node) => {
+                  if (node.type.name === GLOBAL_CONTENT_NODE_TYPE) {
+                    found = node;
+                    return false;
+                  }
+                });
+                if (found) {
+                  lastGlobalContentNode = found;
+                }
+                return found;
+              };
+
+              findAndCache(editorView.state.doc);
+
+              return {
+                update(view) {
+                  const doc = view.state.doc;
+                  const current = findAndCache(doc);
+
+                  if (!current && lastGlobalContentNode) {
+                    const restoredNode = nodeType.create(
+                      lastGlobalContentNode.attrs,
+                    );
+                    const tr = view.state.tr;
+                    tr.insert(0, restoredNode);
+                    tr.setMeta('addToHistory', false);
+                    cachedGlobalPosition = 0;
+                    view.dispatch(tr);
+                  }
+                },
+              };
+            },
+
+        appendTransaction(_transactions, oldState, newState) {
+          if (findGlobalContentPositions(newState.doc).length > 0) {
             return null;
           }
 
-          const hasGlobalContent =
-            findGlobalContentPositions(newState.doc).length > 0;
-          if (hasGlobalContent) {
+          // Skip no-op transactions from collaboration extensions (e.g.
+          // Liveblocks stabilisation rounds) to avoid restoring the node
+          // before the real document content arrives — same guard used by
+          // the containerEnforcer plugin.
+          if (newState.doc.eq(oldState.doc)) {
             return null;
           }
 
