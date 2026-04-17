@@ -1,5 +1,11 @@
 # react-email
 
+## 5.2.11
+
+### Patch Changes
+
+- Backport release updating Next.js
+
 ## 5.2.10
 
 ## 5.2.9
