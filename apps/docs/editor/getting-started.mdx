@@ -20,32 +20,88 @@ Install the editor and its peer dependencies:
 
 <EditorInstall />
 
-## Import CSS
+## Quick start
 
-The quickest way to get started is to import the bundled default theme:
+The recommended way to start is with the standalone `EmailEditor` component. It
+gives you a working editor with the default bubble menus, slash commands,
+theming, and export helpers already wired up:
 
 ```tsx
-import '@react-email/editor/themes/default.css';
+import { EmailEditor } from '@react-email/editor';
+
+const content = {
+  type: 'doc',
+  content: [
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'This is the simplest way to use the editor. Try selecting text to see the bubble menu, or type "/" for slash commands.',
+        },
+      ],
+    },
+  ],
+};
+
+export function MyEditor() {
+  return <EmailEditor content={content} />;
+}
 ```
 
-This single import includes the default color theme and the built-in UI styles for bubble menus,
-slash commands, and the inspector.
+See the [API Reference](/editor/api-reference/email-editor) for details.
 
 <Tip>
-  If you want to import only the pieces you use, skip the bundled theme and import the individual
-  CSS files instead:
-
-  ```tsx
-  import '@react-email/editor/styles/bubble-menu.css';
-  import '@react-email/editor/styles/slash-command.css';
-  import '@react-email/editor/styles/inspector.css';
-  ```
+  Start here unless you need full control over the extension list, provider
+  layout, or UI composition, in which case see [Lower Level Setup](#lower-level-setup).
 </Tip>
 
-## Minimal editor
+## Content format
 
-The simplest setup uses `StarterKit` with `EditorProvider`—no UI overlays, just a content-editable area
-with all core extensions (paragraphs, headings, lists, tables, code blocks, and more):
+The editor accepts content in two formats:
+
+**TipTap JSON** — A structured document tree:
+
+```json
+{
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "text": "Hello world" }
+      ]
+    }
+  ]
+}
+```
+
+**HTML string** — Parsed automatically into the editor's document model:
+
+```tsx
+const content = `
+  <h1>Welcome</h1>
+  <p>This is a <a href="https://react.email">link</a>.</p>
+`;
+
+<EmailEditor content={content} />
+```
+
+## Lower-level setup
+
+If you need more control, drop down to Tiptap's `EditorProvider` and compose the
+editor yourself. This is the lower-level path: you choose the extensions, add
+UI overlays manually, and import any CSS you need.
+
+Common building blocks on this path are [`StarterKit`](/editor/api-reference/extensions-list),
+[`BubbleMenu`](/editor/api-reference/ui/bubble-menu),
+[`SlashCommand`](/editor/api-reference/ui/slash-command),
+[`EmailTheming`](/editor/api-reference/theming-api),
+[`composeReactEmail`](/editor/api-reference/compose-react-email), and the
+[`useEditor`](/editor/api-reference/use-editor) hook.
+
+The simplest manual setup uses `StarterKit` with `EditorProvider` and no UI
+overlays:
 
 ```tsx
 import { StarterKit } from '@react-email/editor/extensions';
@@ -73,7 +129,29 @@ export function MyEditor() {
 }
 ```
 
-## Adding a bubble menu
+### Import CSS
+
+When you use the lower-level UI components directly, import the bundled theme:
+
+```tsx
+import '@react-email/editor/themes/default.css';
+```
+
+This single import includes the default color theme and the built-in UI styles
+for bubble menus, slash commands, and the inspector.
+
+<Tip>
+  If you want to import only the pieces you use, skip the bundled theme and
+  import the individual CSS files instead:
+
+  ```tsx
+  import '@react-email/editor/styles/bubble-menu.css';
+  import '@react-email/editor/styles/slash-command.css';
+  import '@react-email/editor/styles/inspector.css';
+  ```
+</Tip>
+
+### Adding a bubble menu
 
 To add a floating formatting toolbar that appears when you select text, add `BubbleMenu`
 as a child of `EditorProvider`:
@@ -111,38 +189,8 @@ export function MyEditor() {
 }
 ```
 
-Select text in the editor to see the formatting toolbar with bold, italic, underline, alignment, and more.
-
-## Content format
-
-The editor accepts content in two formats:
-
-**TipTap JSON** — A structured document tree:
-
-```json
-{
-  "type": "doc",
-  "content": [
-    {
-      "type": "paragraph",
-      "content": [
-        { "type": "text", "text": "Hello world" }
-      ]
-    }
-  ]
-}
-```
-
-**HTML string** — Parsed automatically into the editor's document model:
-
-```tsx
-const content = `
-  <h1>Welcome</h1>
-  <p>This is a <a href="https://react.email">link</a>.</p>
-`;
-
-<EditorProvider extensions={extensions} content={content} />
-```
+Select text in the editor to see the formatting toolbar with bold, italic,
+underline, alignment, and more.
 
 ## Examples
 
