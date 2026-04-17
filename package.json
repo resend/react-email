@@ -31,15 +31,15 @@
     "nypm": "catalog:",
     "pkg-pr-new": "0.0.66",
     "remark": "15.0.1",
-    "rollup": "4.59.0",
+    "rollup": "4.60.1",
     "tsconfig": "workspace:*",
     "tsdown": "catalog:",
     "@tsdown/css": "catalog:",
     "tsx": "catalog:",
-    "turbo": "2.8.13",
+    "turbo": "2.9.6",
     "typescript": "catalog:",
     "vite": "catalog:",
-    "vitest": "4.0.17"
+    "vitest": "4.1.4"
   },
   "pnpm": {
     "ignoredBuiltDependencies": [
