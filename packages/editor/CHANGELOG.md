@@ -1,5 +1,15 @@
 # @react-email/editor
 
+## 1.1.0
+
+### Minor Changes
+
+- f5b1338: add image bubble menu edit-link form and unlink button
+
+### Patch Changes
+
+- 1be5684: Do not preserve button href through HTML round-trip
+
 ## 1.0.2
 
 ### Patch Changes
