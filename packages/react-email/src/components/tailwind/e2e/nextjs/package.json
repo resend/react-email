@@ -6,11 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "preinstall": "yalc add @react-email/tailwind"
+    "preinstall": "yalc add react-email"
   },
   "dependencies": {
-    "@react-email/components": "0.0.36",
-    "@react-email/tailwind": "file:.yalc/@react-email/tailwind",
+    "react-email": "file:.yalc/react-email",
     "next": "^15",
     "react": "^19",
     "react-dom": "^19"
