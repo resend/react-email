@@ -27,7 +27,7 @@ catalog:
   '@vitejs/plugin-react': 5.2.0
   commander: ^13.0.0
   esbuild: 0.28.0
-  framer-motion: 12.23.22
+  framer-motion: 12.38.0
   log-symbols: ^7.0.0
   next: 16.2.3
   nypm: 0.6.5
