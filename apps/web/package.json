@@ -55,7 +55,7 @@
     "@types/babel__core": "catalog:",
     "@types/babel__traverse": "catalog:",
     "@types/node": "catalog:",
-    "@types/three": "0.170.0",
+    "@types/three": "0.184.0",
     "@vercel/firewall": "1.1.2",
     "classnames": "2.5.1",
     "html-to-ast": "0.0.6",
@@ -63,7 +63,7 @@
     "tailwindcss": "catalog:",
     "tsconfig": "workspace:*",
     "typescript": "catalog:",
-    "webpack": "5.105.4",
+    "webpack": "5.106.2",
     "zod": "catalog:"
   }
 }
