@@ -18,6 +18,7 @@ const PANEL_SECTION_TITLES: Record<PanelSectionId, string> = {
   h1: 'Title',
   h2: 'Subtitle',
   h3: 'Heading',
+  paragraph: 'Paragraph',
   link: 'Link',
   image: 'Image',
   button: 'Button',
@@ -221,6 +222,13 @@ const THEME_BASIC: PanelGroup[] = [
     title: 'Heading',
     category: 'Text',
     classReference: 'h3',
+    inputs: [],
+  },
+  {
+    id: 'paragraph',
+    title: 'Paragraph',
+    category: 'Text',
+    classReference: 'paragraph',
     inputs: [],
   },
   {
@@ -569,6 +577,13 @@ const THEME_MINIMAL: PanelGroup[] = [
     title: 'Heading',
     category: 'Text',
     classReference: 'h3',
+    inputs: [],
+  },
+  {
+    id: 'paragraph',
+    title: 'Paragraph',
+    category: 'Text',
+    classReference: 'paragraph',
     inputs: [],
   },
   {

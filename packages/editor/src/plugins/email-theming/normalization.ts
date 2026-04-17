@@ -10,6 +10,7 @@ const PANEL_SECTION_IDS = new Set<PanelSectionId>([
   'body',
   'container',
   'typography',
+  'paragraph',
   'link',
   'image',
   'button',
@@ -23,6 +24,7 @@ const PANEL_SECTION_IDS_BY_TITLE: Record<string, PanelSectionId> = {
   content: 'container',
   container: 'container',
   typography: 'typography',
+  paragraph: 'paragraph',
   link: 'link',
   image: 'image',
   button: 'button',
@@ -34,6 +36,7 @@ const PANEL_SECTION_IDS_BY_CLASS_REFERENCE: Partial<
   Record<KnownThemeComponents, PanelSectionId>
 > = {
   container: 'container',
+  paragraph: 'paragraph',
   link: 'link',
   image: 'image',
   button: 'button',
