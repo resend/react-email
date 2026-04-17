@@ -172,7 +172,6 @@
                 "pages": [
                   "editor/api-reference/ui/bubble-menu",
                   "editor/api-reference/ui/editor-focus-scope",
-                  "editor/api-reference/ui/editor-focus-scope-provider",
                   "editor/api-reference/ui/inspector",
                   "editor/api-reference/ui/slash-command"
                 ]
