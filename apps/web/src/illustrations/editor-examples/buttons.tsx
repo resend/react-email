@@ -1,6 +1,6 @@
 import { BoltIcon, MousePointer2Icon } from 'lucide-react';
 
-const IllustrationButtons: React.FC = () => (
+const Illustration = () => (
   <div className="relative flex h-6 w-[24%] items-center justify-center rounded-md border border-[#2B2510] bg-[#2B2510] p-1 shadow-xs transition-transform duration-150 ease-[cubic-bezier(.42,0,.58,1.8)] md:group-hover:rotate-3">
     <div className="h-2 w-[80%] rounded-xs bg-black/30 group-hover:bg-[#FFD018]">
       <span className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 group-hover:animate-bounce">
@@ -15,4 +15,4 @@ const IllustrationButtons: React.FC = () => (
   </div>
 );
 
-export default IllustrationButtons;
+export default Illustration;

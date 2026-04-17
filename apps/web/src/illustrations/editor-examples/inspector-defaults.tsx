@@ -1,7 +1,7 @@
 import { ChevronRightIcon } from 'lucide-react';
 
-const IllustrationCodeInline: React.FC = () => (
-  <div className="relative flex w-[40%] items-center gap-2 rounded-lg bg-[#2D0D4D] bg-linear-to-b from-transparent via-black/20 to-black/20 p-3 shadow-xs transition-transform duration-150 ease-[cubic-bezier(.42,0,.58,1.8)] md:group-hover:skew-x-2">
+const Illustration = () => (
+  <div className="relative flex w-[35%] items-center gap-1.5 rounded-lg bg-[#2D0D4D] bg-linear-to-b from-transparent via-black/20 to-black/20 p-2 shadow-xs transition-transform duration-150 ease-[cubic-bezier(.42,0,.58,1.8)] md:group-hover:skew-x-2">
     <ChevronRightIcon
       size={16}
       strokeWidth={4}
@@ -12,4 +12,4 @@ const IllustrationCodeInline: React.FC = () => (
   </div>
 );
 
-export default IllustrationCodeInline;
+export default Illustration;

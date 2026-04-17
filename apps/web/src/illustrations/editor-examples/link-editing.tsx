@@ -1,4 +1,4 @@
-const IllustrationLink: React.FC = () => (
+const Illustration = () => (
   <div className="relative flex w-full flex-col items-center gap-2">
     <div className="h-2 w-[36%] rounded-xs bg-[#2B2510]" />
     <div className="flex w-[50%] gap-2">
@@ -9,4 +9,4 @@ const IllustrationLink: React.FC = () => (
   </div>
 );
 
-export default IllustrationLink;
+export default Illustration;

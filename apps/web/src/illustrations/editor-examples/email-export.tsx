@@ -1,6 +1,6 @@
 import { MoveDownRightIcon } from 'lucide-react';
 
-const IllustrationTimeline: React.FC = () => (
+const Illustration = () => (
   <div className="group-hover:-skew-x-4 relative flex w-[25%] translate-y-3 flex-col gap-2 rounded-md bg-[#260D30] bg-linear-to-b from-transparent to-black/20 p-2 group-hover:p-0 shadow-xs transition-transform duration-150 ease-[cubic-bezier(.42,0,.58,1.8)]">
     <div className="relative w-full flex p-1 items-center justify-start h-full rounded-sm border-[#EAA1FF] border border-dashed bg-purple-4 text-[#EAA1FF] shadow-[0px_0px_9px_4px_rgba(234,161,255,0.10)]">
       <MoveDownRightIcon
@@ -13,4 +13,4 @@ const IllustrationTimeline: React.FC = () => (
   </div>
 );
 
-export default IllustrationTimeline;
+export default Illustration;

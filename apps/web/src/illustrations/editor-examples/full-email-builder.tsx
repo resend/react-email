@@ -1,4 +1,4 @@
-const IllustrationCodeBlock: React.FC = () => (
+const Illustration = () => (
   <div className="relative flex aspect-square w-[30%] flex-col gap-2 rounded-md bg-[#260D30] bg-linear-to-b from-transparent via-black/20 to-black/20 p-4 shadow-xs transition-transform duration-150 ease-[cubic-bezier(.42,0,.58,1.8)] md:group-hover:skew-x-2">
     <div className="flex w-full gap-1">
       <div className="h-1 w-[24%] rounded-xs bg-[#DB9AFF] shadow-[0px_0px_9px_4px_rgba(219,154,255,0.10)] transition-colors ease-in-out group-hover:bg-purple-8" />
@@ -23,4 +23,4 @@ const IllustrationCodeBlock: React.FC = () => (
   </div>
 );
 
-export default IllustrationCodeBlock;
+export default Illustration;

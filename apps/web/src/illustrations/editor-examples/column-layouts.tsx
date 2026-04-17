@@ -1,4 +1,4 @@
-const IllustrationText: React.FC = () => (
+const Illustration = () => (
   <div className="group-hover:-skew-x-6 relative flex w-[40%] translate-y-3 flex-col gap-2 rounded-md bg-[#1E1A0C] bg-linear-to-b from-transparent via-black/20 to-black/20 p-2 shadow-xs transition-transform duration-150 ease-[cubic-bezier(.42,0,.58,1.8)]">
     <div className="h-4 w-[84%] ml-auto rounded-xs bg-black/40" />
     <div className="flex w-full gap-2">
@@ -8,4 +8,4 @@ const IllustrationText: React.FC = () => (
   </div>
 );
 
-export default IllustrationText;
+export default Illustration;
