@@ -1,0 +1,40 @@
+name: Build CI image
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 0"
+  push:
+    branches:
+      - canary
+    paths:
+      - "pnpm-lock.yaml"
+      - ".github/workflows/build-ci-image.yml"
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: depot-ubuntu-22.04-8
+    env:
+      PLAYWRIGHT_BROWSERS_PATH: /opt/playwright
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
+        with:
+          fetch-depth: 1
+      - name: Install Node 22
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 22
+      - name: pnpm setup
+        uses: pnpm/action-setup@738f428026a1f5a72398de22aeed83d859c4a660
+      - name: Warm pnpm store
+        run: pnpm install --frozen-lockfile
+      - name: Install Playwright browsers with system deps
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Snapshot and push image
+        uses: depot/snapshot-action@b11edd94cf3edbcab102fc45e695c2967953e177
+        with:
+          image: ${{ vars.DEPOT_ORG_ID }}.registry.depot.dev/react-email-ci:latest

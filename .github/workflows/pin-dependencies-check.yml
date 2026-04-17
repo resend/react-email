@@ -13,16 +13,14 @@ permissions:
   pull-requests: read
 jobs:
   pin-dependencies-check:
-    runs-on: depot-ubuntu-22.04-2
-    container:
-      image: node:22-slim
+    runs-on:
+      size: 2x8
+      image: ${{ vars.DEPOT_ORG_ID }}.registry.depot.dev/react-email-ci:latest
     steps:
       - name: Checkout Repo
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
         with:
           fetch-depth: 1
-      - name: pnpm setup
-        uses: pnpm/action-setup@738f428026a1f5a72398de22aeed83d859c4a660
       - name: Install root dependencies only
         run: pnpm install --frozen-lockfile --filter . --ignore-scripts
       - name: Check for pinned dependencies
