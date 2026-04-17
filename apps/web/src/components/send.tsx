@@ -14,6 +14,7 @@ export const Send = ({
   markup,
   defaultSubject,
   className,
+  children,
   ...rest
 }: SendProps) => {
   const [to, setTo] = React.useState('');
@@ -81,7 +82,7 @@ export const Send = ({
             className,
           )}
         >
-          Send
+          {children ?? 'Send'}
         </button>
       </Popover.Trigger>
       <Popover.Anchor />
