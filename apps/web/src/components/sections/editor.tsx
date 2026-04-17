@@ -17,7 +17,7 @@ export const EditorHomepage = () => {
   const [html, setHtml] = React.useState('');
 
   return (
-    <div className="relative py-20 md:py-10 md:pb-80 space-y-16 sm:space-y-24">
+    <section className="relative py-20 md:py-10 md:pb-80 space-y-16 sm:space-y-24">
       <Image
         alt=""
         className="pointer-events-none absolute md:-translate-x-96 -top-40 z-3 select-none mix-blend-lighten"
@@ -48,11 +48,6 @@ export const EditorHomepage = () => {
       </div>
 
       <div className="md:w-4/6 bg-white md:aspect-video z-20 relative border border-slate-4 grow rounded-2xl sm:rounded-3xl overflow-hidden [overflow-anchor:none] -order-1 md:order-0 flex flex-col">
-        <div
-          aria-hidden="true"
-          className="absolute top-0 right-0 h-px w-96 bg-linear-to-l from-transparent via-cyan-12/30 via-50% to-transparent"
-        />
-
         <EmailEditor
           content={INITIAL_CONTENT}
           className="flex-1 overflow-auto px-6 w-full [&>div]:w-full [&_div]:outline-none"
@@ -86,8 +81,8 @@ export const EditorHomepage = () => {
         </EmailEditor>
       </div>
 
-      <div className="absolute right-10 -top-50 h-full z-10 w-1/2 hidden md:block pointer-events-none">
-        <div className="w-dvw h-full [mask-image:linear-gradient(to_bottom,transparent_10%,black_20%,black_80%,transparent)]">
+      <div className="absolute right-10 -mr-2 -top-50 h-full z-10 w-1/2 hidden md:block pointer-events-none">
+        <div className="w-dvw h-full overflow-hidden [mask-image:linear-gradient(to_bottom,transparent_10%,black_20%,black_80%,transparent)]">
           <CodeBlock
             children={html}
             codeClassName="text-xs opacity-50 scale-90"
@@ -96,7 +91,7 @@ export const EditorHomepage = () => {
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
