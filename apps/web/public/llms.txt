@@ -1,0 +1,9 @@
+# React Email
+
+Build HTML email templates with React components.
+
+## Documentation
+- [Full docs](https://react.email/docs/llms.txt)
+
+## Skills
+- [React Email Skill](https://raw.githubusercontent.com/resend/react-email/main/skills/react-email/SKILL.md)
