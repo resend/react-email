@@ -141,7 +141,7 @@ export const CodeBlockPrism = EmailNode.from(
       ? `${node.attrs.language}`
       : 'javascript';
 
-    // @ts-expect-error -- @react-email/components does not export theme objects by name; dynamic access needed for user-selected themes
+    // @ts-expect-error -- react-email does not export theme objects by name; dynamic access needed for user-selected themes
     // biome-ignore lint/performance/noDynamicNamespaceImportAccess: dynamic access needed for user-selected themes
     const userTheme = ReactEmailComponents[node.attrs?.theme];
 

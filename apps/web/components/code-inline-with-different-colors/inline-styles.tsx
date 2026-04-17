@@ -14,7 +14,7 @@ export const component = (
         paddingBottom: 2,
       }}
     >
-      @react-email/components
+      react-email
     </CodeInline>{' '}
     package
   </Text>
