@@ -145,7 +145,7 @@
     "@types/prismjs": "1.26.6",
     "@vitejs/plugin-react": "catalog:",
     "@vitest/browser-playwright": "4.0.17",
-    "playwright": "1.58.2",
+    "playwright": "1.59.1",
     "postcss": "8.5.10",
     "postcss-import": "16.1.1",
     "tsconfig": "workspace:*",
