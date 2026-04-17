@@ -204,12 +204,19 @@ export default function EditorExamplesPage() {
           {sections.map((section) =>
             section.examples.map((example) => {
               const sectionIcon = {
-                'Standalone Editor': Bolt,
-                'Getting Started': Rocket,
+                'Standalone editor': Bolt,
+                'Getting started': Rocket,
                 Intermediate: Layers2,
                 Advanced: Cpu,
               }[section.title];
               const tone = sectionTitleToTone(section.title);
+              const hue = {
+                amber: 46,
+                cyan: 185,
+                green: 151,
+                purple: 272,
+                slate: 185,
+              }[tone];
               const illustrationComponent = dynamic<IllustrationProps>(() =>
                 import(`@/illustrations/editor-examples/${example.slug}`).catch(
                   () =>
@@ -225,7 +232,10 @@ export default function EditorExamplesPage() {
                     className="group relative isolate cursor-pointer overflow-hidden rounded-md scroll-m-6 focus:outline-hidden focus:ring-slate-2"
                     href={`/editor/examples/${example.slug}`}
                   >
-                    <Spotlight className="relative flex h-full w-full flex-col gap-4 bg-black">
+                    <Spotlight
+                      className="relative flex h-full w-full flex-col gap-4 bg-black"
+                      hue={hue}
+                    >
                       <div className="pointer-events-none absolute inset-0 rounded-md border border-slate-4 transition-colors duration-300 ease-[cubic-bezier(.36,.66,.6,1)] group-hover:border-slate-6 group-focus:border-slate-6" />
                       <div
                         className={`relative flex aspect-2/1 items-center justify-center overflow-hidden rounded-xs ${
@@ -259,8 +269,8 @@ export default function EditorExamplesPage() {
                         <span
                           className={`mb-3.5 -ml-0.5 inline-flex w-fit items-center gap-1.5 rounded-full px-2 py-1.5 pr-2.5 text-xs ${
                             {
-                              'Standalone Editor': 'bg-cyan-3 text-cyan-11',
-                              'Getting Started': 'bg-green-3 text-green-11',
+                              'Standalone editor': 'bg-cyan-3 text-cyan-11',
+                              'Getting started': 'bg-green-3 text-green-11',
                               Intermediate: 'bg-amber-3 text-amber-11',
                               Advanced: 'bg-purple-3 text-purple-11',
                             }[section.title] ?? 'bg-slate-3 text-slate-11'

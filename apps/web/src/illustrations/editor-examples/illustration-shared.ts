@@ -34,11 +34,11 @@ export function sectionTitleToTone(sectionTitle: string): IllustrationTone {
   switch (sectionTitle) {
     case 'Advanced':
       return 'purple';
-    case 'Getting Started':
+    case 'Getting started':
       return 'green';
     case 'Intermediate':
       return 'amber';
-    case 'One-Line Editor':
+    case 'Standalone editor':
       return 'cyan';
     default:
       return 'slate';
