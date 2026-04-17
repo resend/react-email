@@ -12,6 +12,7 @@ export type PanelSectionId =
   | 'h1'
   | 'h2'
   | 'h3'
+  | 'paragraph'
   | 'link'
   | 'image'
   | 'button'
@@ -135,6 +136,7 @@ export type ThemeableComponent = Extract<
   | 'button'
   | 'codeBlock'
   | 'inlineCode'
+  | 'paragraph'
 >;
 
 export type ThemeComponentStyles = {

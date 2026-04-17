@@ -30,7 +30,7 @@ export const EditorHomepage = () => {
           Add an email editor <br /> to your product
         </Heading>
 
-        <Text size="5" className="block max-w-[400px] text-balance opacity-70">
+        <Text size="5" className="block max-w-100 text-balance opacity-70">
           Let your users write beautiful emails without leaving your product.
         </Text>
 
@@ -64,9 +64,18 @@ export const EditorHomepage = () => {
             const html = await editor.getEmailHTML();
             setHtml(html);
           }}
+          theme={{
+            extends: 'basic',
+            styles: {
+              paragraph: {
+                paddingTop: 0,
+                paddingBottom: 0,
+              },
+            },
+          }}
         >
           <EditorToolbar className="shrink-0 border-y border-gray-100 px-4 py-1" />
-          <div className="absolute right-6 top-4 inline-flex items-center justify-center rounded p-1.5 text-gray-400">
+          <div className="absolute right-3 top-1.5 inline-flex items-center justify-center rounded p-1.5 text-gray-400">
             <X size={14} />
           </div>
 
@@ -273,7 +282,8 @@ const INITIAL_CONTENT = {
           type: 'paragraph',
           attrs: { alignment: null, class: 'node-paragraph' },
           content: [
-            { type: 'text', text: 'Try it — type ' },
+            { type: 'text', text: 'Try it! ', marks: [{ type: 'bold' }] },
+            { type: 'text', text: 'Type ' },
             { type: 'text', marks: [{ type: 'code' }], text: '/' },
             {
               type: 'text',

@@ -15,6 +15,7 @@ const CLASS_REFERENCE_TO_PANEL_ID: Record<ThemeableComponent, string> = {
   h1: 'h1',
   h2: 'h2',
   h3: 'h3',
+  paragraph: 'paragraph',
   link: 'link',
   image: 'image',
   button: 'button',
