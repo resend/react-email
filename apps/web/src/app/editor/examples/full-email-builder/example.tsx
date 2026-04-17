@@ -162,8 +162,12 @@ export function FullEmailBuilder() {
           className="flex overflow-hidden -mx-4 -mb-4 border-t border-(--re-border)"
           style={{ height: '32rem' }}
         >
-          <div className="flex-1 min-w-0 p-4 overflow-y-auto">
-            <EditorContent editor={editor} />
+          <div className="flex-1 min-w-0 m-4 mt-0 overflow-y-auto">
+            <EditorContent
+              className="p-4 pt-0 bg-white rounded-md"
+              editor={editor}
+            />
+
             <BubbleMenu
               hideWhenActiveNodes={['button']}
               hideWhenActiveMarks={['link']}

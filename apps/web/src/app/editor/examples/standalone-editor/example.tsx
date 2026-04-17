@@ -24,7 +24,7 @@ export function StandaloneEditor() {
       title="Standalone editor — minimal"
       description="The simplest setup — one component with everything included."
     >
-      <EmailEditor content={content} />
+      <EmailEditor className="p-4 bg-white -m-4" content={content} />
     </ExampleShell>
   );
 }

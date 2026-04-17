@@ -19,12 +19,12 @@ export function StandaloneEditorInspector() {
       description="Add an inspector sidebar alongside the standalone EmailEditor — no manual EditorProvider setup needed."
     >
       <div
-        className="flex flex-1 min-h-0 overflow-hidden -m-4 border-t border-(--re-border)"
+        className="flex flex-1 min-h-0 overflow-hidden"
         style={{ height: '32rem' }}
       >
         <EmailEditor
           content={content}
-          className="flex-1 min-w-0 overflow-y-auto p-4"
+          className="flex-1 min-w-0 overflow-y-auto mr-4 p-4 bg-white rounded-md"
         >
           <Sidebar />
         </EmailEditor>

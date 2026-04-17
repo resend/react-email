@@ -85,6 +85,11 @@ export function EmailExport() {
         extensions={extensions}
         content={content}
         immediatelyRender={false}
+        editorProps={{
+          attributes: {
+            class: 'p-4 bg-white rounded-md',
+          },
+        }}
       >
         <BubbleMenu />
         <ExportPanel />

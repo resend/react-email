@@ -128,7 +128,10 @@ export function CustomThemeExample() {
         ))}
       </div>
       <EditorContext.Provider value={{ editor }}>
-        <EditorContent editor={editor} />
+        <EditorContent
+          className="p-4 pt-0 bg-white rounded-md"
+          editor={editor}
+        />
         <BubbleMenu />
       </EditorContext.Provider>
     </ExampleShell>

@@ -32,8 +32,11 @@ export function InspectorDefaults() {
     >
       <EditorContext.Provider value={{ editor }}>
         <div className="flex flex-1 min-h-0 overflow-hidden -m-4">
-          <div className="flex-1 min-w-0 p-4 overflow-y-auto">
-            <EditorContent editor={editor} />
+          <div className="flex-1 min-w-0 m-4 overflow-y-auto">
+            <EditorContent
+              className="p-4 pt-0 bg-white rounded-md"
+              editor={editor}
+            />
           </div>
 
           <aside className="w-60 shrink-0 border-l border-(--re-border) p-4 flex flex-col gap-4 overflow-y-auto text-xs">

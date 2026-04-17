@@ -25,7 +25,7 @@ export function ExampleShell({
           <p className="text-sm text-slate-11 mb-4">{description}</p>
         </>
       )}
-      <div className="example-shell-content border border-slate-4 rounded-xl p-4 flex-1 min-h-[350px] flex flex-col grow">
+      <div className="example-shell-content focus-visible:outline-none border border-slate-4 rounded-xl p-4 flex-1 min-h-[350px] flex flex-col grow">
         {children}
       </div>
     </div>

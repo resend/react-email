@@ -69,7 +69,12 @@ export function StandaloneEditorFull() {
         </button>
       </div>
 
-      <EmailEditor ref={editorRef} content={content} theme={theme} />
+      <EmailEditor
+        className="p-4 bg-white rounded-md"
+        ref={editorRef}
+        content={content}
+        theme={theme}
+      />
 
       {output && (
         <textarea
