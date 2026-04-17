@@ -96,11 +96,6 @@ All components were tested using the most popular email clients.
 
 - [Contribution Guide](https://react.email/docs/contributing)
 
-## Authors
+---
 
-- Bu Kinoshita ([@bukinoshita](https://twitter.com/bukinoshita))
-- Zeno Rocha ([@zenorocha](https://twitter.com/zenorocha))
-
-## License
-
-MIT License
+Brought to you by [Resend](https://resend.com), MIT License.
