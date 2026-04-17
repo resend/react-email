@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.0.1
+
+### Patch Changes
+
+- 8e4226a: introduce paragraph option to the custom theme property
+
 ## 1.0.0
 
 ### Major Changes
