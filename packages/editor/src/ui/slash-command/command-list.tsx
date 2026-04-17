@@ -82,15 +82,17 @@ export function CommandList({
 
   if (isFiltering) {
     return (
-      <div data-re-slash-command="" ref={containerRef}>
-        {items.map((item, index) => (
-          <CommandItem
-            item={item}
-            key={item.title}
-            onSelect={() => onSelect(index)}
-            selected={index === selectedIndex}
-          />
-        ))}
+      <div data-re-slash-command="">
+        <div data-re-slash-command-scroll="" ref={containerRef}>
+          {items.map((item, index) => (
+            <CommandItem
+              item={item}
+              key={item.title}
+              onSelect={() => onSelect(index)}
+              selected={index === selectedIndex}
+            />
+          ))}
+        </div>
       </div>
     );
   }
@@ -99,23 +101,25 @@ export function CommandList({
   let flatIndex = 0;
 
   return (
-    <div data-re-slash-command="" ref={containerRef}>
-      {groups.map((group) => (
-        <div key={group.category}>
-          <div data-re-slash-command-category="">{group.category}</div>
-          {group.items.map((item) => {
-            const currentIndex = flatIndex++;
-            return (
-              <CommandItem
-                item={item}
-                key={item.title}
-                onSelect={() => onSelect(currentIndex)}
-                selected={currentIndex === selectedIndex}
-              />
-            );
-          })}
-        </div>
-      ))}
+    <div data-re-slash-command="">
+      <div data-re-slash-command-scroll="" ref={containerRef}>
+        {groups.map((group) => (
+          <div key={group.category}>
+            <div data-re-slash-command-category="">{group.category}</div>
+            {group.items.map((item) => {
+              const currentIndex = flatIndex++;
+              return (
+                <CommandItem
+                  item={item}
+                  key={item.title}
+                  onSelect={() => onSelect(currentIndex)}
+                  selected={currentIndex === selectedIndex}
+                />
+              );
+            })}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
