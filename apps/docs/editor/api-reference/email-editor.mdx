@@ -48,8 +48,8 @@ When rendered without a custom `extensions` prop, `EmailEditor` configures:
 - [`BubbleMenu.ImageDefault`](/editor/api-reference/ui/bubble-menu#bubblemenu-imagedefault)
 - The [built-in slash command menu](/editor/api-reference/ui/slash-command#default-commands)
 
-If `onUploadImage` is provided, the image upload extension is appended
-automatically.
+If [`onUploadImage`](#onuploadimage) is provided, the image upload extension is
+appended automatically.
 
 ## Props
 
@@ -97,7 +97,9 @@ automatically.
   type="(file: File) => Promise<{ url: string }>"
 >
   Enables image upload for paste, drop, and image insertion flows. Resolve with
-  the final hosted image URL.
+  the final hosted image URL. See [Image Upload](/editor/features/image-upload)
+  for setup patterns and [Image Upload API](/editor/api-reference/image-upload-api)
+  for the lower-level hook, commands, and types.
 </ResponseField>
 
 <ResponseField name="className" type="string">
@@ -208,3 +210,4 @@ export function MyEditor() {
 - [Inspector](/editor/api-reference/ui/inspector)
 - [composeReactEmail](/editor/api-reference/compose-react-email)
 - [Theming API](/editor/api-reference/theming-api)
+- [Image Upload API](/editor/api-reference/image-upload-api)

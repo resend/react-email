@@ -1,0 +1,168 @@
+---
+title: "Image Upload API"
+sidebarTitle: "Image Upload API"
+description: "Hook, types, slash command, and editor commands for image uploads."
+icon: "image"
+---
+
+## `useEditorImage`
+
+The `useEditorImage` hook from `@react-email/editor/plugins` creates the image
+extension used for paste, drop, file-picker, and slash-command uploads.
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+import { useEditorImage } from '@react-email/editor/plugins';
+
+const imageExtension = useEditorImage({
+  uploadImage: async (file) => {
+    const url = await uploadToStorage(file);
+    return { url };
+  },
+});
+
+const extensions = [StarterKit, imageExtension];
+```
+
+It returns a configured `image` extension that:
+
+- adds the `image` node to the editor schema
+- handles image paste and drop events
+- adds `editor.commands.uploadImage()`
+- adds `editor.commands.setImage(...)`
+
+<ResponseField name="options" type="UseEditorImageOptions" required>
+  Configuration for the upload flow.
+</ResponseField>
+
+## Types
+
+### `UseEditorImageOptions`
+
+```tsx
+interface UseEditorImageOptions {
+  uploadImage: (file: File) => Promise<UploadImageResult>;
+}
+```
+
+<ResponseField
+  name="uploadImage"
+  type="(file: File) => Promise<UploadImageResult>"
+  required
+>
+  Called after a user pastes, drops, or selects an image file. Resolve with the
+  final hosted image URL.
+</ResponseField>
+
+---
+
+### `UploadImageResult`
+
+```tsx
+interface UploadImageResult {
+  url: string;
+}
+```
+
+<ResponseField name="url" type="string" required>
+  The final image URL written back to the image node after upload completes.
+</ResponseField>
+
+## `imageSlashCommand`
+
+`imageSlashCommand` is a ready-made slash command item that triggers
+`editor.commands.uploadImage()` after removing the typed slash-command range.
+
+```tsx
+import { imageSlashCommand } from '@react-email/editor/plugins';
+import { defaultSlashCommands, SlashCommand } from '@react-email/editor/ui';
+
+<SlashCommand.Root items={[...defaultSlashCommands, imageSlashCommand]} />
+```
+
+The command appears as **Image** in the slash menu and is categorized under
+`Layout`.
+
+## Editor commands
+
+Registering `useEditorImage()` adds two commands to `editor.commands`.
+
+### `uploadImage`
+
+Opens a native file picker with `accept="image/*"` and runs the configured
+upload flow:
+
+```tsx
+editor.commands.uploadImage();
+```
+
+Use this when you want to trigger uploads from your own toolbar buttons or
+custom UI.
+
+---
+
+### `setImage`
+
+Inserts an image node directly:
+
+```tsx
+editor.commands.setImage({
+  src: 'https://example.com/hero.png',
+  alt: 'Hero image',
+  width: '600',
+  height: '320',
+  alignment: 'center',
+  href: 'https://react.email',
+});
+```
+
+<ResponseField name="src" type="string" required>
+  Image source URL.
+</ResponseField>
+
+<ResponseField name="alt" type="string">
+  Alternate text for the image.
+</ResponseField>
+
+<ResponseField name="width" type="string" default="'auto'">
+  Rendered image width.
+</ResponseField>
+
+<ResponseField name="height" type="string" default="'auto'">
+  Rendered image height.
+</ResponseField>
+
+<ResponseField
+  name="alignment"
+  type="'left' | 'center' | 'right'"
+  default="'center'"
+>
+  Alignment metadata used by the image UI and serializer.
+</ResponseField>
+
+<ResponseField name="href" type="string | null" default="null">
+  Optional link URL. When present, the image is wrapped in a link on export.
+</ResponseField>
+
+## Upload behavior
+
+All upload entry points share the same behavior:
+
+1. A temporary blob URL is inserted immediately so the image appears in the editor.
+2. Your `uploadImage(file)` handler runs.
+3. On success, the blob URL is replaced with the returned `url`.
+4. On failure, the temporary image node is removed and the error is logged.
+
+## `EmailEditor` integration
+
+If you're using [`EmailEditor`](/editor/api-reference/email-editor), you can
+enable the same behavior without calling `useEditorImage()` directly:
+
+```tsx
+<EmailEditor
+  onUploadImage={async (file) => ({ url: await uploadToStorage(file) })}
+/>
+```
+
+See [Image Upload](/editor/features/image-upload) for setup patterns and
+end-to-end examples.

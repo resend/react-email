@@ -166,6 +166,7 @@
               "editor/api-reference/email-mark",
               "editor/api-reference/extensions-list",
               "editor/api-reference/theming-api",
+              "editor/api-reference/image-upload-api",
               {
                 "group": "UI Components",
                 "icon": "window",
