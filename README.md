@@ -44,23 +44,25 @@ const Email = () => {
 
 A set of standard components to help you build amazing emails without having to deal with the mess of creating table-based layouts and maintaining archaic markup.
 
-- [Body](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/body)
+- [Html](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/html)
+- [Head](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/head)
 - [Button](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/button)
+- [Container](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/container)
 - [CodeBlock](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/code-block)
 - [CodeInline](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/code-inline)
 - [Column](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/column)
-- [Container](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/container)
-- [Divider](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/hr)
+- [Row](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/row)
 - [Font](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/font)
-- [Head](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/head)
 - [Heading](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/heading)
-- [Html](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/html)
+- [Divider](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/hr)
 - [Image](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/img)
 - [Link](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/link)
 - [Markdown](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/markdown)
-- [Paragraph](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/text)
 - [Preview](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/preview)
 - [Section](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/section)
+- [Tailwind](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/tailwind)
+- [Paragraph](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/text)
+- [Body](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/body)
 
 ## Integrations
 
