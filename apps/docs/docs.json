@@ -127,8 +127,7 @@
       },
       {
         "tab": "Editor",
-        "icon": "flask",
-        "tag": "Experimental",
+        "icon": "pen-to-square",
         "groups": [
           {
             "group": "Overview",
