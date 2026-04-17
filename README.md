@@ -20,32 +20,16 @@ We believe that email is an extremely important medium for people to communicate
 
 ## Install
 
-Install one of the components from your command line.
-
-#### With yarn
-
 ```sh
-yarn add @react-email/components -E
-```
-
-#### With npm
-
-```sh
-npm install @react-email/components -E
-```
-
-#### With pnpm
-
-```sh
-pnpm install @react-email/components -E
+npm i react-email@latest
 ```
 
 ## Getting started
 
-Add the component to your email template. Include styles where needed.
+Define your email template with React, include styles and our components where needed.
 
 ```jsx
-import { Button } from "@react-email/components";
+import { Button } from "react-email";
 
 const Email = () => {
   return (
