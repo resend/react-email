@@ -9,6 +9,16 @@ const nextConfig: NextConfig = {
         destination: '/templates',
         permanent: true,
       },
+      {
+        source: '/editor/examples',
+        destination: '/editor',
+        permanent: true,
+      },
+      {
+        source: '/editor/examples/:slug*',
+        destination: '/editor/:slug*',
+        permanent: true,
+      },
     ];
   },
   async rewrites() {

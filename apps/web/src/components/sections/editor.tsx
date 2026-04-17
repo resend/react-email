@@ -42,7 +42,7 @@ export const EditorHomepage = () => {
             </Link>
           </Button>
           <Button asChild size="3" appearance="gradient">
-            <Link href="/editor/examples">See examples</Link>
+            <Link href="/editor">See examples</Link>
           </Button>
         </div>
       </div>
