@@ -1,13 +1,14 @@
 'use client';
 
 import { EmailEditor } from '@react-email/editor';
-import { ArrowRightIcon, SendHorizonal, X } from 'lucide-react';
+import { ArrowRightIcon, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as React from 'react';
 import { Button } from '../button';
 import { CodeBlock } from '../code-block';
 import { Heading } from '../heading';
+import { Send } from '../send';
 import { Text } from '../text';
 import { EditorToolbar } from './editor-toolbar';
 import '@react-email/editor/themes/default.css';
@@ -79,10 +80,11 @@ export const EditorHomepage = () => {
             <X size={14} />
           </div>
 
-          <div className="absolute right-3 bottom-3 pointer-events-none inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-400">
-            Send
-            <SendHorizonal size={14} />
-          </div>
+          <Send
+            className="absolute right-3 bottom-3"
+            defaultSubject="Your editor is live"
+            markup={html}
+          />
         </EmailEditor>
       </div>
 
