@@ -69,8 +69,8 @@ Image editing menu that appears when clicking an image.
 <BubbleMenu.ImageDefault />
 ```
 
-<ResponseField name="excludeItems" type="('edit-link')[]" default="[]">
-  Actions to hide.
+<ResponseField name="excludeItems" type="('edit-link' | 'unlink')[]" default="[]">
+  Actions to hide from the toolbar.
 </ResponseField>
 
 <ResponseField name="placement" type="'top' | 'bottom'" default="'top'">
@@ -83,6 +83,18 @@ Image editing menu that appears when clicking an image.
 
 <ResponseField name="onHide" type="() => void">
   Called when the bubble menu is hidden.
+</ResponseField>
+
+<ResponseField name="validateUrl" type="(value: string) => string | null">
+  Custom URL validator. Return the valid URL string or `null`.
+</ResponseField>
+
+<ResponseField name="onLinkApply" type="(href: string) => void">
+  Called after a link is applied to the image.
+</ResponseField>
+
+<ResponseField name="onLinkRemove" type="() => void">
+  Called after a link is removed from the image.
 </ResponseField>
 
 ---
@@ -216,6 +228,8 @@ Factory for common `trigger` functions:
 | -- | -- |
 | `BubbleMenu.ImageToolbar` | Wrapper -- hides when editing mode is active |
 | `BubbleMenu.ImageEditLink` | Button that enters editing mode |
+| `BubbleMenu.ImageUnlink` | Removes the link wrapping the image |
+| `BubbleMenu.ImageForm` | Inline form for editing the image's link |
 
 ---
 
