@@ -69,9 +69,12 @@ export function makeInlineStylesFor(
         // (https://www.w3.org/TR/css-variables-1/#using-variables) an empty fallback means
         // "use empty string if the variable is undefined", which is exactly what we want at
         // inline-style time.
+        //
+        // Scoped to the `--tw-` prefix so any user-authored empty-fallback var() refs
+        // (even ones used inside tailwind utilities) are left untouched.
         const rawValue = generate(declaration.value);
         const cleanedValue = rawValue
-          .replace(/var\(\s*--[\w-]+\s*,\s*\)/g, ' ')
+          .replace(/var\(\s*--tw-[\w-]+\s*,\s*\)/g, ' ')
           .replace(/\s+/g, ' ')
           .trim();
         styles[getReactProperty(declaration.property)] =

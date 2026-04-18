@@ -72,4 +72,30 @@ describe('makeInlineStylesFor()', async () => {
       }
     `);
   });
+
+  it('preserves user-authored empty-fallback var() refs (non --tw- prefix)', () => {
+    // The collapse is scoped to Tailwind's --tw-* variant-stacking idiom.
+    // A user-authored var(--my-color,) with an empty fallback must pass
+    // through unchanged even though it syntactically matches the idiom --
+    // the user opted into that semantic and the render target may define
+    // --my-color at a higher scope.
+    const userStyles = parse(`
+      .thing {
+        color: var(--my-color,);
+        background: var(--brand,) var(--tw-custom,);
+      }
+    `) as StyleSheet;
+
+    expect(
+      makeInlineStylesFor(
+        userStyles.children.toArray(),
+        getCustomProperties(userStyles),
+      ),
+    ).toMatchInlineSnapshot(`
+      {
+        "background": "var(--brand,)",
+        "color": "var(--my-color,)",
+      }
+    `);
+  });
 });
