@@ -17,7 +17,7 @@ import tailwindConfig from '../../tailwind.config';
 
 const demoProductImageUrl = 'https://placehold.co/64x64';
 
-const demoDefaultExternalUrl = 'https://resend.com/emails';
+const demoDefaultExternalUrl = 'https://resend.com';
 
 interface OrderItem {
   name: string;
