@@ -69,6 +69,9 @@ catalogs:
     framer-motion:
       specifier: 12.38.0
       version: 12.38.0
+    jiti:
+      specifier: 2.4.2
+      version: 2.4.2
     log-symbols:
       specifier: ^7.0.0
       version: 7.0.1
@@ -670,7 +673,7 @@ importers:
         specifier: ^13.0.6
         version: 13.0.6
       jiti:
-        specifier: 2.4.2
+        specifier: 'catalog:'
         version: 2.4.2
       log-symbols:
         specifier: 'catalog:'
@@ -792,9 +795,15 @@ importers:
       esbuild:
         specifier: 'catalog:'
         version: 0.28.0
+      jiti:
+        specifier: 'catalog:'
+        version: 2.4.2
       next:
         specifier: 'catalog:'
         version: 16.2.3(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react-email:
+        specifier: workspace:*
+        version: link:../react-email
     devDependencies:
       '@babel/core':
         specifier: 7.29.0
@@ -910,9 +919,6 @@ importers:
       react-dom:
         specifier: 19.2.4
         version: 19.2.4(react@19.2.4)
-      react-email:
-        specifier: workspace:*
-        version: link:../react-email
       resend:
         specifier: 'catalog:'
         version: 6.4.0(@react-email/render@2.0.7(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
