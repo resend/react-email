@@ -16,7 +16,7 @@ import tailwindConfig from '../../tailwind.config';
 
 const demoProductImageUrl = 'https://placehold.co/64x64';
 
-const demoDefaultExternalUrl = 'https://resend.com';
+const demoDefaultExternalUrl = 'https://react.email';
 
 interface OrderItem {
   name: string;
@@ -47,7 +47,7 @@ interface OrderConfirmedEmailProps {
 }
 
 export const OrderConfirmedEmail = ({
-  companyName = 'Resend Ecommerce',
+  companyName = 'Ecommerce',
   customerName = 'Anna Maria',
   orderNumber = '1234567890',
   paymentMethod = 'Credit card ending in 2032',
