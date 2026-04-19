@@ -222,6 +222,8 @@ function buildChatGPTUrl(prompt: string): string {
   return `https://chatgpt.com/?q=${encodeURIComponent(prompt)}`;
 }
 
+const MAX_SAFE_CHATGPT_URL_LENGTH = 7500;
+
 function buildCursorUrl(prompt: string): string {
   return `cursor://prompt?text=${encodeURIComponent(prompt)}`;
 }
@@ -254,7 +256,12 @@ export const CopyForAI = ({
   }, [markdown]);
 
   const claudeUrl = buildClaudeUrl(markdown);
-  const chatGPTUrl = buildChatGPTUrl(markdown);
+  const directChatGPTUrl = buildChatGPTUrl(markdown);
+  const isChatGPTPromptTooLong =
+    directChatGPTUrl.length > MAX_SAFE_CHATGPT_URL_LENGTH;
+  const chatGPTUrl = isChatGPTPromptTooLong
+    ? 'https://chatgpt.com/'
+    : directChatGPTUrl;
   const cursorUrl = buildCursorUrl(markdown);
 
   return (
@@ -356,6 +363,10 @@ export const CopyForAI = ({
               href={chatGPTUrl}
               target="_blank"
               rel="noreferrer noopener"
+              onClick={() => {
+                if (!isChatGPTPromptTooLong) return;
+                void navigator.clipboard.writeText(markdown);
+              }}
               className="flex items-center gap-2.5 p-2 rounded-lg cursor-pointer outline-none transition-colors hover:bg-white/5"
             >
               <span
@@ -368,7 +379,11 @@ export const CopyForAI = ({
                 <span className="text-sm font-medium text-white">
                   Open in ChatGPT
                 </span>
-                <span className="text-xs text-white/40">{linkDescription}</span>
+                <span className="text-xs text-white/40">
+                  {isChatGPTPromptTooLong
+                    ? 'Long prompt: copied to clipboard. Paste with Ctrl+V / Cmd+V'
+                    : linkDescription}
+                </span>
               </div>
               <IconArrowUpRight size={16} className="shrink-0 text-white/30" />
             </a>
