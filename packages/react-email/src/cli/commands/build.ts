@@ -3,7 +3,12 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getPackages } from '@manypkg/get-packages';
 import logSymbols from 'log-symbols';
-import { installDependencies, type PackageManagerName, runScript } from 'nypm';
+import {
+  detectPackageManager,
+  installDependencies,
+  type PackageManagerName,
+  runScript,
+} from 'nypm';
 import ora from 'ora';
 import {
   type EmailsDirectory,
@@ -14,7 +19,7 @@ import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopp
 
 interface Args {
   dir: string;
-  packageManager: PackageManagerName;
+  packageManager?: PackageManagerName;
 }
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -176,6 +181,8 @@ export const build = async ({
 }: Args) => {
   try {
     const usersProjectLocation = process.cwd();
+    const resolvedPackageManager =
+      packageManager ?? (await detectPackageManager(usersProjectLocation));
     const previewServerLocation = await getUiLocation();
 
     const spinner = ora({
@@ -246,7 +253,7 @@ export const build = async ({
       await installDependencies({
         cwd: builtPreviewAppPath,
         silent: true,
-        packageManager,
+        packageManager: resolvedPackageManager,
       });
     }
 
@@ -256,7 +263,7 @@ export const build = async ({
     });
 
     await runScript('build', {
-      packageManager,
+      packageManager: resolvedPackageManager,
       cwd: builtPreviewAppPath,
     });
   } catch (error) {
