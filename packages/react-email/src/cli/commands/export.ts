@@ -9,8 +9,7 @@ import logSymbols from 'log-symbols';
 import normalize from 'normalize-path';
 import ora, { type Ora } from 'ora';
 import type React from 'react';
-import { getEmailConfig } from '../../config/get-email-config.js';
-import { getEmailConfigPath } from '../../config/get-email-config-path.js';
+import { getEmailConfig, getEmailConfigPath } from '../../config/index.js';
 import { renderingUtilitiesExporter } from '../utils/esbuild/renderring-utilities-exporter.js';
 import {
   type EmailsDirectory,

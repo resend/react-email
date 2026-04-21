@@ -1,9 +1,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const supportedEmailConfigFilenames = [
+export const supportedEmailConfigFilenames = [
   'email.config.ts',
   'email.config.mts',
+  'email.config.cts',
   'email.config.js',
   'email.config.mjs',
   'email.config.cjs',
