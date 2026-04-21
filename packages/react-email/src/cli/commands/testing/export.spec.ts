@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { exportTemplates } from '../export.js';
+import { exportTemplates, getPreviewProps } from '../export.js';
 
 test('email export', { retry: 3 }, async () => {
   const pathToEmailsDirectory = path.resolve(__dirname, './emails');
@@ -222,4 +222,27 @@ test('email export', { retry: 3 }, async () => {
     </html>
     "
   `);
+});
+
+test('getPreviewProps returns object preview props', () => {
+  const emailComponent = Object.assign(() => null, {
+    PreviewProps: { name: 'Alice', inviteLink: 'https://example.com' },
+  });
+
+  expect(getPreviewProps(emailComponent)).toEqual({
+    name: 'Alice',
+    inviteLink: 'https://example.com',
+  });
+});
+
+test('getPreviewProps falls back to an empty object for invalid preview props', () => {
+  const nullPreviewPropsComponent = Object.assign(() => null, {
+    PreviewProps: null,
+  });
+  const primitivePreviewPropsComponent = Object.assign(() => null, {
+    PreviewProps: 'invalid',
+  });
+
+  expect(getPreviewProps(nullPreviewPropsComponent)).toEqual({});
+  expect(getPreviewProps(primitivePreviewPropsComponent)).toEqual({});
 });
