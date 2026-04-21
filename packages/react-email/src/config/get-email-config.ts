@@ -19,7 +19,11 @@ export const getEmailConfig = async (
     );
   }
 
-  if (!emailConfig || typeof emailConfig !== 'object') {
+  if (
+    !emailConfig ||
+    typeof emailConfig !== 'object' ||
+    Array.isArray(emailConfig)
+  ) {
     throw new Error(
       `Expected React Email config at ${emailConfigPath} to export an object.`,
     );
