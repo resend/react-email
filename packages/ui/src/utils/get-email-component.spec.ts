@@ -1,7 +1,33 @@
+import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
+import { build } from 'esbuild';
 import { getEmailComponent } from './get-email-component';
 
+let mockedEmailConfigPath: string | undefined;
+
+vi.mock('../app/env', () => ({
+  get emailConfigPath() {
+    return mockedEmailConfigPath;
+  },
+}));
+
+vi.mock('esbuild', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('esbuild')>();
+  return {
+    ...actual,
+    build: vi.fn(actual.build),
+  };
+});
+
 describe('getEmailComponent()', () => {
+  const mockedBuild = vi.mocked(build);
+
+  beforeEach(() => {
+    mockedBuild.mockClear();
+    mockedEmailConfigPath = undefined;
+  });
+
   test('with a demo email template', { timeout: 10_000 }, async () => {
     const result = await getEmailComponent(
       path.resolve(__dirname, './testing/vercel-invite-user.tsx'),
@@ -230,6 +256,112 @@ describe('getEmailComponent()', () => {
         </html>
         "
       `);
+    }
+  });
+
+  test('uses email config plugins when a config file exists', async () => {
+    const temporaryProjectRoot = fs.mkdtempSync(
+      path.join(os.tmpdir(), 'react-email-ui-config-'),
+    );
+    const previousWorkingDirectory = process.cwd();
+
+    try {
+      process.chdir(temporaryProjectRoot);
+      mockedEmailConfigPath = path.join(
+        temporaryProjectRoot,
+        'email.config.cjs',
+      );
+
+      fs.writeFileSync(
+        path.join(temporaryProjectRoot, 'email.config.cjs'),
+        `
+module.exports = {
+  esbuild: {
+    plugins: [{
+      name: 'email-config-plugin',
+      setup() {},
+    }],
+  },
+};
+        `,
+        'utf8',
+      );
+
+      mockedBuild.mockImplementation(async () => {
+        fs.writeFileSync(
+          path.join(temporaryProjectRoot, 'email.js.map'),
+          JSON.stringify({
+            version: 3,
+            sources: [],
+            names: [],
+            mappings: '',
+          }),
+          'utf8',
+        );
+        fs.writeFileSync(
+          path.join(temporaryProjectRoot, 'email.js'),
+          `
+export default function Email() {
+  return null;
+}
+export async function render() {
+  return 'rendered';
+}
+export function reactEmailCreateReactElement(type, props) {
+  return { type, props };
+}
+          `,
+          'utf8',
+        );
+
+        return {
+          outputFiles: [
+            {
+              path: path.join(temporaryProjectRoot, 'email.js.map'),
+              text: JSON.stringify({
+                version: 3,
+                sources: [],
+                names: [],
+                mappings: '',
+              }),
+            },
+            {
+              path: path.join(temporaryProjectRoot, 'email.js'),
+              text: `
+export default function Email() {
+  return null;
+}
+export async function render() {
+  return 'rendered';
+}
+export function reactEmailCreateReactElement(type, props) {
+  return { type, props };
+}
+              `,
+            },
+          ],
+        } as any;
+      });
+
+      const result = await getEmailComponent(
+        path.resolve(__dirname, './testing/vercel-invite-user.tsx'),
+        path.resolve(__dirname, '../../jsx-runtime'),
+      );
+
+      expect('error' in result).toBe(false);
+      if ('error' in result) {
+        return;
+      }
+
+      expect(mockedBuild).toHaveBeenCalledTimes(1);
+      expect(mockedBuild.mock.calls[0]?.[0].plugins).toEqual([
+        expect.objectContaining({ name: 'rendering-utilities-exporter' }),
+        expect.objectContaining({ name: 'email-config-plugin' }),
+      ]);
+    } finally {
+      process.chdir(previousWorkingDirectory);
+      fs.rmSync(temporaryProjectRoot, { recursive: true, force: true });
+      mockedEmailConfigPath = undefined;
     }
   });
 });
