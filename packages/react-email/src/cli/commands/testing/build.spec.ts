@@ -3,8 +3,8 @@ import os from 'node:os';
 import path from 'node:path';
 import { getPackages } from '@manypkg/get-packages';
 import { detectPackageManager, installDependencies, runScript } from 'nypm';
-import { getUiLocation } from '../../utils/get-ui-location.js';
-import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping.js';
+import * as getUiLocationModule from '../../utils/get-ui-location.js';
+import * as registerSpinnerAutostoppingModule from '../../utils/register-spinner-autostopping.js';
 import { build } from '../build.js';
 
 vi.mock('@manypkg/get-packages', () => ({
@@ -33,21 +33,17 @@ vi.mock('nypm', () => ({
   runScript: vi.fn(),
 }));
 
-vi.mock('../utils/get-ui-location.js', () => ({
-  getUiLocation: vi.fn(),
-}));
-
-vi.mock('../utils/register-spinner-autostopping.js', () => ({
-  registerSpinnerAutostopping: vi.fn(),
-}));
-
 const mockedDetectPackageManager = vi.mocked(detectPackageManager);
 const mockedGetPackages = vi.mocked(getPackages);
-const mockedGetUiLocation = vi.mocked(getUiLocation);
+const mockedGetUiLocation = vi.spyOn(
+  getUiLocationModule,
+  'getUiLocation',
+);
 const mockedInstallDependencies = vi.mocked(installDependencies);
 const mockedRunScript = vi.mocked(runScript);
-const mockedRegisterSpinnerAutostopping = vi.mocked(
-  registerSpinnerAutostopping,
+const mockedRegisterSpinnerAutostopping = vi.spyOn(
+  registerSpinnerAutostoppingModule,
+  'registerSpinnerAutostopping',
 );
 
 const createFixture = async () => {
