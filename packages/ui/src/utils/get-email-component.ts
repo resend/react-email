@@ -1,7 +1,8 @@
 import path from 'node:path';
 import { type BuildFailure, build, type OutputFile } from 'esbuild';
 import type React from 'react';
-import { getEmailConfig, type render } from 'react-email';
+import type { render } from 'react-email';
+import { getEmailConfig } from 'react-email/config';
 import type { RawSourceMap } from 'source-map-js';
 import { z } from 'zod';
 import { emailConfigPath } from '../app/env';

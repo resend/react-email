@@ -17,13 +17,25 @@
   },
   "license": "MIT",
   "exports": {
-    "import": {
-      "types": "./dist/index.d.mts",
-      "default": "./dist/index.mjs"
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
-    "require": {
-      "types": "./dist/index.d.cts",
-      "default": "./dist/index.cjs"
+    "./config": {
+      "import": {
+        "types": "./dist/config/index.d.mts",
+        "default": "./dist/config/index.mjs"
+      },
+      "require": {
+        "types": "./dist/config/index.d.cts",
+        "default": "./dist/config/index.cjs"
+      }
     }
   },
   "repository": {
