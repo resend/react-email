@@ -36,7 +36,7 @@ import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
 const userProjectLocation = '${process.cwd().replaceAll('\\', '/')}';
 const previewServerLocation = '${builtPreviewAppPath.replaceAll('\\', '/')}';
-const emailConfigPath = ${emailConfigPath ? `'${emailConfigPath.replaceAll('\\', '/')}'` : 'undefined'};
+const emailConfigPath = ${emailConfigPath ? JSON.stringify(emailConfigPath.replaceAll('\\', '/')) : 'undefined'};
 const rootDir = ${rootDir};
 /** @type {import('next').NextConfig} */
 const nextConfig = {
