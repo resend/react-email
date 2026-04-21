@@ -10,7 +10,9 @@ export const supportedEmailConfigFilenames = [
   'email.config.cjs',
 ];
 
-export const getEmailConfigPath = (userProjectLocation: string) => {
+export const getEmailConfigPath = (
+  userProjectLocation: string,
+): string | undefined => {
   for (const filename of supportedEmailConfigFilenames) {
     const emailConfigPath = path.join(userProjectLocation, filename);
 
