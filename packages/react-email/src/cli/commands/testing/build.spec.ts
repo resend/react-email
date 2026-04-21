@@ -35,10 +35,7 @@ vi.mock('nypm', () => ({
 
 const mockedDetectPackageManager = vi.mocked(detectPackageManager);
 const mockedGetPackages = vi.mocked(getPackages);
-const mockedGetUiLocation = vi.spyOn(
-  getUiLocationModule,
-  'getUiLocation',
-);
+const mockedGetUiLocation = vi.spyOn(getUiLocationModule, 'getUiLocation');
 const mockedInstallDependencies = vi.mocked(installDependencies);
 const mockedRunScript = vi.mocked(runScript);
 const mockedRegisterSpinnerAutostopping = vi.spyOn(
