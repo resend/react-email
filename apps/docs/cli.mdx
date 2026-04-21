@@ -144,8 +144,9 @@ Copies the preview app for onto `.react-email` and builds it.
 <ResponseField name="--dir" type="string" default="emails">
   Change the directory of your email templates.
 </ResponseField>
-<ResponseField name="--packageManager" type="string" default="npm">
-  Package manager to use on the installation of `.react-email`.
+<ResponseField name="--packageManager" type="string">
+  Package manager to use on the installation of `.react-email`. If omitted, it
+  will be detected from the project automatically.
 </ResponseField>
 
 ## `email start`
