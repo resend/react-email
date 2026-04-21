@@ -38,7 +38,9 @@ const filename = url.fileURLToPath(import.meta.url);
 
 const require = createRequire(filename);
 
-const getPreviewProps = (emailComponent: React.FC): Record<string, unknown> => {
+export const getPreviewProps = (
+  emailComponent: React.FC,
+): Record<string, unknown> => {
   const previewProps =
     (emailComponent as React.FC & { PreviewProps?: unknown }).PreviewProps ??
     {};
