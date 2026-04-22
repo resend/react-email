@@ -6,6 +6,7 @@ export type LinkOptions = TipTapLinkOptions;
 
 import { editorEventBus } from '../core';
 import { EmailMark } from '../core/serializer/email-mark';
+import { isSafeUrl } from '../utils/is-safe-url';
 import { inlineCssToJs } from '../utils/styles';
 import { processStylesForUnlink } from './preserved-style';
 
@@ -16,9 +17,12 @@ export const Link: EmailMark<TipTapLinkOptions, any> = EmailMark.from(
       ? inlineCssToJs(mark.attrs.style)
       : {};
 
+    const rawHref = (mark.attrs?.href as string) ?? '';
+    const href = isSafeUrl(rawHref) ? rawHref : undefined;
+
     return (
       <ReactEmailLink
-        href={mark.attrs?.href ?? undefined}
+        href={href}
         rel={mark.attrs?.rel ?? undefined}
         style={{
           ...style,
@@ -43,13 +47,14 @@ export const Link: EmailMark<TipTapLinkOptions, any> = EmailMark.from(
             return false;
           }
           const element = node as HTMLElement;
+          const href = element.getAttribute('href') ?? '';
+          if (!isSafeUrl(href)) {
+            return false;
+          }
           const attrs: Record<string, string> = {};
-
-          // Preserve all attributes
           Array.from(element.attributes).forEach((attr) => {
             attrs[attr.name] = attr.value;
           });
-
           return attrs;
         },
       },
@@ -60,13 +65,14 @@ export const Link: EmailMark<TipTapLinkOptions, any> = EmailMark.from(
             return false;
           }
           const element = node as HTMLElement;
+          const href = element.getAttribute('href') ?? '';
+          if (!isSafeUrl(href)) {
+            return false;
+          }
           const attrs: Record<string, string> = {};
-
-          // Preserve all attributes
           Array.from(element.attributes).forEach((attr) => {
             attrs[attr.name] = attr.value;
           });
-
           return attrs;
         },
       },

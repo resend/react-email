@@ -1,18 +1,7 @@
-/**
- * Sanitizes pasted HTML.
- * - From editor (has node-* classes): pass through as-is
- * - From external: strip all styles/classes, keep only semantic HTML
- */
+import { isSafeUrl } from './is-safe-url';
 
-/**
- * Detects content from the Resend editor by checking for node-* class names.
- */
 const EDITOR_CLASS_PATTERN = /class="[^"]*node-/;
 
-/**
- * Attributes to preserve on specific elements for EXTERNAL content.
- * Only functional attributes - NO style or class.
- */
 const PRESERVED_ATTRIBUTES: Record<string, string[]> = {
   a: ['href', 'target', 'rel'],
   img: ['src', 'alt', 'width', 'height'],
@@ -22,11 +11,11 @@ const PRESERVED_ATTRIBUTES: Record<string, string[]> = {
   '*': ['id'],
 };
 
-function isFromEditor(html: string): boolean {
-  return EDITOR_CLASS_PATTERN.test(html);
-}
+const URL_ATTRIBUTES = new Set(['href', 'src']);
 
-export function sanitizePastedHtml(html: string): string {
+const isFromEditor = (html: string): boolean => EDITOR_CLASS_PATTERN.test(html);
+
+export const sanitizePastedHtml = (html: string): string => {
   if (isFromEditor(html)) {
     return html;
   }
@@ -37,40 +26,41 @@ export function sanitizePastedHtml(html: string): string {
   sanitizeNode(doc.body);
 
   return doc.body.innerHTML;
-}
+};
 
-function sanitizeNode(node: Node): void {
+const sanitizeNode = (node: Node): void => {
   if (node.nodeType === Node.ELEMENT_NODE) {
-    const el = node as HTMLElement;
-    sanitizeElement(el);
+    sanitizeElement(node as HTMLElement);
   }
 
-  for (const child of Array.from(node.childNodes)) {
+  Array.from(node.childNodes).forEach((child) => {
     sanitizeNode(child);
-  }
-}
+  });
+};
 
-function sanitizeElement(el: HTMLElement): void {
+const sanitizeElement = (el: HTMLElement): void => {
   const tagName = el.tagName.toLowerCase();
 
   const allowedForTag = PRESERVED_ATTRIBUTES[tagName] || [];
   const allowedGlobal = PRESERVED_ATTRIBUTES['*'] || [];
   const allowed = new Set([...allowedForTag, ...allowedGlobal]);
 
-  const attributesToRemove: string[] = [];
+  const attributesToRemove = Array.from(el.attributes)
+    .filter((attr) => {
+      if (attr.name.startsWith('data-')) {
+        return true;
+      }
+      if (!allowed.has(attr.name)) {
+        return true;
+      }
+      if (URL_ATTRIBUTES.has(attr.name) && !isSafeUrl(attr.value)) {
+        return true;
+      }
+      return false;
+    })
+    .map((attr) => attr.name);
 
-  for (const attr of Array.from(el.attributes)) {
-    if (attr.name.startsWith('data-')) {
-      attributesToRemove.push(attr.name);
-      continue;
-    }
-
-    if (!allowed.has(attr.name)) {
-      attributesToRemove.push(attr.name);
-    }
-  }
-
-  for (const attr of attributesToRemove) {
+  attributesToRemove.forEach((attr) => {
     el.removeAttribute(attr);
-  }
-}
+  });
+};
