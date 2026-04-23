@@ -2,6 +2,7 @@ import { Editor } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
 import { StarterKit } from '../../extensions';
 import { EmailTheming } from './extension';
+import type { ThemeConfig } from './types';
 
 vi.mock('@tiptap/react', () => ({
   ReactNodeViewRenderer: () => () => null,
@@ -303,5 +304,62 @@ describe('EmailTheming', () => {
 
     // Prevent afterEach from calling destroy again
     editor = undefined as unknown as Editor;
+  });
+});
+
+describe('EmailTheming with ThemeConfig', () => {
+  let editor: Editor;
+
+  afterEach(() => {
+    editor?.destroy();
+    document.head
+      .querySelectorAll('style[id^="tiptap-theme-"]')
+      .forEach((node) => {
+        node.remove();
+      });
+  });
+
+  it('applies custom theme styles from ThemeConfig', () => {
+    const customTheme: ThemeConfig = {
+      extends: 'basic',
+      styles: {
+        body: { backgroundColor: '#f4f4f5' },
+      },
+    };
+
+    editor = new Editor({
+      extensions: [StarterKit, EmailTheming.configure({ theme: customTheme })],
+      content: BUTTON_DOC,
+    });
+
+    const themeStyleTag = document.head.querySelector<HTMLStyleElement>(
+      'style[id^="tiptap-theme-"][id$="-theme"]',
+    );
+
+    expect(themeStyleTag).not.toBeNull();
+    expect(themeStyleTag?.textContent).toContain('background-color:#f4f4f5;');
+  });
+
+  it('applies ThemeConfig without extends using minimal reset', () => {
+    const customTheme: ThemeConfig = {
+      styles: {
+        button: { backgroundColor: '#0670DB' },
+      },
+    };
+
+    editor = new Editor({
+      extensions: [StarterKit, EmailTheming.configure({ theme: customTheme })],
+      content: BUTTON_DOC,
+    });
+
+    const themeStyleTag = document.head.querySelector<HTMLStyleElement>(
+      'style[id^="tiptap-theme-"][id$="-theme"]',
+    );
+
+    expect(themeStyleTag).not.toBeNull();
+    expect(themeStyleTag?.textContent).toContain('background-color:#0670DB;');
+    expect(themeStyleTag?.textContent).not.toContain(
+      'background-color:#000000;',
+    );
   });
 });

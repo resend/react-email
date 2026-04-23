@@ -18,6 +18,7 @@ const PANEL_SECTION_TITLES: Record<PanelSectionId, string> = {
   h1: 'Title',
   h2: 'Subtitle',
   h3: 'Heading',
+  paragraph: 'Paragraph',
   link: 'Link',
   image: 'Image',
   button: 'Button',
@@ -221,6 +222,13 @@ const THEME_BASIC: PanelGroup[] = [
     title: 'Heading',
     category: 'Text',
     classReference: 'h3',
+    inputs: [],
+  },
+  {
+    id: 'paragraph',
+    title: 'Paragraph',
+    category: 'Text',
+    classReference: 'paragraph',
     inputs: [],
   },
   {
@@ -572,6 +580,13 @@ const THEME_MINIMAL: PanelGroup[] = [
     inputs: [],
   },
   {
+    id: 'paragraph',
+    title: 'Paragraph',
+    category: 'Text',
+    classReference: 'paragraph',
+    inputs: [],
+  },
+  {
     id: 'link',
     title: 'Link',
     classReference: 'link',
@@ -770,7 +785,6 @@ export const INBOX_EMAIL_DEFAULTS: Partial<ResetTheme> = {
     fontFamily:
       "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
     fontSize: `${DEFAULT_INBOX_FONT_SIZE_PX}px`,
-    lineHeight: '155%',
   },
   container: {
     width: 600,

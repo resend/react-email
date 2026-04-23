@@ -1,0 +1,11 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "react-email",
+      "type": "skill-md",
+      "description": "Create HTML email templates with React components: welcome emails, password resets, notifications, order confirmations, newsletters, or transactional emails.",
+      "url": "https://raw.githubusercontent.com/resend/react-email/main/skills/react-email/SKILL.md"
+    }
+  ]
+}

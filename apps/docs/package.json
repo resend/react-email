@@ -6,7 +6,7 @@
     "dev": "mintlify dev"
   },
   "dependencies": {
-    "mintlify": "4.2.502",
+    "mintlify": "4.2.521",
     "zod": "catalog:"
   }
 }

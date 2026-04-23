@@ -1,9 +1,6 @@
-import {
-  Container as ReactEmailContainer,
-  render,
-} from '@react-email/components';
 import type { JSONContent } from '@tiptap/core';
 import { Editor, Extension } from '@tiptap/core';
+import { Container as ReactEmailContainer, render } from 'react-email';
 import { afterEach, describe, expect, it } from 'vitest';
 import { composeReactEmail } from '../core/serializer/compose-react-email';
 import { EmailTheming } from '../plugins';
@@ -275,9 +272,9 @@ describe('Container Node', () => {
           <meta
             content="telephone=no,address=no,email=no,date=no,url=no"
             name="format-detection" />
-          <!--$-->
         </head>
         <body style="background-color:#ffffff">
+          <!--$--><!--html--><!--head--><!--body-->
           <table
             border="0"
             width="100%"
@@ -1382,9 +1379,9 @@ describe('Container Node', () => {
           <meta
             content="telephone=no,address=no,email=no,date=no,url=no"
             name="format-detection" />
-          <!--$-->
         </head>
         <body>
+          <!--$--><!--html--><!--head--><!--body-->
           <table
             border="0"
             width="100%"
@@ -1495,9 +1492,9 @@ describe('Container Node', () => {
           <meta
             content="telephone=no,address=no,email=no,date=no,url=no"
             name="format-detection" />
-          <!--$-->
         </head>
         <body>
+          <!--$--><!--html--><!--head--><!--body-->
           <table
             border="0"
             width="100%"
@@ -1576,9 +1573,9 @@ describe('Container Node', () => {
           <meta
             content="telephone=no,address=no,email=no,date=no,url=no"
             name="format-detection" />
-          <!--$-->
         </head>
         <body style="background-color:#ffffff">
+          <!--$--><!--html--><!--head--><!--body-->
           <table
             border="0"
             width="100%"

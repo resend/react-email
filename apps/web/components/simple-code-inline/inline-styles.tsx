@@ -1,4 +1,4 @@
-import { CodeInline, Text } from '@react-email/components';
+import { CodeInline, Text } from 'react-email';
 import { Layout } from '../_components/layout';
 
 export const component = (
@@ -14,7 +14,7 @@ export const component = (
         paddingBottom: 2,
       }}
     >
-      @react-email/components
+      react-email
     </CodeInline>{' '}
     package
   </Text>

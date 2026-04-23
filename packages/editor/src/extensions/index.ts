@@ -52,8 +52,6 @@ import type { MaxNestingOptions } from './max-nesting';
 import { MaxNesting } from './max-nesting';
 import { OrderedList } from './ordered-list';
 import { Paragraph } from './paragraph';
-import type { PlaceholderOptions } from './placeholder';
-import { Placeholder } from './placeholder';
 import { PreservedStyle } from './preserved-style';
 import type { PreviewTextOptions } from './preview-text';
 import { PreviewText } from './preview-text';
@@ -95,7 +93,6 @@ export * from './list-item';
 export * from './max-nesting';
 export * from './ordered-list';
 export * from './paragraph';
-export * from './placeholder';
 export * from './preserved-style';
 export * from './preview-text';
 export * from './section';
@@ -123,7 +120,6 @@ const starterKitExtensions: Record<string, AnyExtension> = {
   ListItem,
   HardBreak,
   Italic,
-  Placeholder,
   PreviewText,
   TrailingNode,
   Bold,
@@ -167,7 +163,6 @@ export type StarterKitOptions = {
   ListItem: Partial<ListItemOptions> | false;
   HardBreak: Partial<HardBreakOptions> | false;
   Italic: Partial<ItalicOptions> | false;
-  Placeholder: Partial<PlaceholderOptions> | false;
   PreviewText: Partial<PreviewTextOptions> | false;
   Bold: Partial<BoldOptions> | false;
   Strike: Partial<StrikeOptions> | false;
@@ -211,7 +206,7 @@ export const StarterKit = Extension.create<StarterKitOptions>({
       },
       TrailingNode: {
         node: 'paragraph',
-        appendTo: 'container',
+        appendTo: ['container', 'section', 'columnsColumn'],
       },
       Code: {
         HTMLAttributes: {
@@ -246,7 +241,6 @@ export const StarterKit = Extension.create<StarterKitOptions>({
       ListItem: {},
       HardBreak: {},
       Italic: {},
-      Placeholder: {},
       PreviewText: {},
       Bold: {},
       Strike: {},

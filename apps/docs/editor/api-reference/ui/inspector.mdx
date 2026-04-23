@@ -5,6 +5,10 @@ description: "Contextual sidebar components for document, node, and text editing
 icon: "sidebar"
 ---
 
+The Inspector is a sidebar that provides a way to inspect and edit the email's properties. From the Inspector, you can edit document, node, and text properties such as colors, fonts, and padding.
+
+View a minimal example of the Inspector at the [Standalone Editor Inspector](https://react.email/editor/examples/standalone-editor-inspector) demo page.
+
 Everything is accessed through a single import:
 
 ```tsx
@@ -50,6 +54,22 @@ export function MyEditor() {
 }
 ```
 
+<Tip>
+  If you use the standalone `EmailEditor` component, pass the inspector as a
+  child. No `EditorContext.Provider` is needed. See the
+  [Inspector feature guide](/editor/features/inspector#using-with-emaileditor).
+</Tip>
+
+<Tip>
+  `Inspector.Root` already renders
+  [EditorFocusScopeProvider](/editor/api-reference/ui/editor-focus-scope#editor-focus-scope-provider)
+  and wraps itself in
+  [EditorFocusScope](/editor/api-reference/ui/editor-focus-scope) by default,
+  so the Inspector handles the editor's focus idiomatically and reliably. Add
+  `EditorFocusScope` yourself only when custom inspector controls render
+  additional portaled content.
+</Tip>
+
 <ResponseField name="asChild" type="boolean" default="false">
   Render without the default `aside` wrapper and pass props to the child via
   Radix UI's [Slot](https://www.radix-ui.com/primitives/docs/utilities/slot).
@@ -59,7 +79,7 @@ All standard props from `aside` are also supported if `asChild` is `false`.
 
 ### Inspector.Document
 
-Meant for inspecting and changing things related to the entire editor's content. That is, [EmailTheming](/editor/api-reference/theming-api), page-level settings, and other document-wide concerns.
+This is meant for inspecting and changing properties related to the entire editor's content. That is, [EmailTheming](/editor/api-reference/theming-api), page-level settings, and other document-wide concerns.
 
 It shows up when the editor is not focused on a specific node or text selection, or when the editor is unfocused.
 
@@ -216,13 +236,35 @@ Renders the current path from the document root to the focused node.
 
 Each segment includes:
 
-<ResponseField name="node" type="FocusedNode | null">
-  The node for this breadcrumb segment. `null` represents the root layout item.
+<ResponseField name="node" type="FocusedNode">
+  The node for this breadcrumb segment. The root segment is the `body` node.
 </ResponseField>
 
 <ResponseField name="focus" type="() => void">
-  Focuses the corresponding node or the document root.
+  Focuses the corresponding node.
 </ResponseField>
+
+<Tip>
+  Use `getNodeMeta(nodeType)` to get the label and icon the default breadcrumb
+  uses for a given node type:
+
+```tsx
+import { getNodeMeta } from '@react-email/editor/ui';
+
+<Inspector.Breadcrumb>
+  {(segments) =>
+    segments.map((segment, i) => {
+      const { label } = getNodeMeta(segment.node.nodeType);
+      return (
+        <button key={i} type="button" onClick={() => segment.focus()}>
+          {label}
+        </button>
+      );
+    })
+  }
+</Inspector.Breadcrumb>
+```
+</Tip>
 
 ## Built-in sections
 
@@ -234,14 +276,12 @@ reuse the default section UIs in your own layout.
   {(context) => (
     <>
       <Inspector.Size {...context} />
-      <Inspector.Padding {...context} initialCollapsed />
-      <Inspector.Border {...context} initialCollapsed />
+      <Inspector.Padding {...context} />
+      <Inspector.Border {...context} />
     </>
   )}
 </Inspector.Node>
 ```
-
-Each section component accepts an `initialCollapsed?: boolean` prop.
 
 | Component | Context | Description |
 | -- | -- | -- |

@@ -7,7 +7,7 @@ icon: "slash-forward"
 
 ## Quick start
 
-Add `SlashCommand.Root` with the default command set:
+Add `SlashCommand` with the default command set:
 
 ```tsx
 import { StarterKit } from '@react-email/editor/extensions';
@@ -20,7 +20,7 @@ const extensions = [StarterKit];
 export function MyEditor() {
   return (
     <EditorProvider extensions={extensions} content={content}>
-      <SlashCommand.Root items={defaultSlashCommands} />
+      <SlashCommand items={defaultSlashCommands} />
     </EditorProvider>
   );
 }
@@ -59,7 +59,7 @@ Each command is also exported individually, so you can cherry-pick:
 ```tsx
 import { BUTTON, H1, H2, TEXT } from '@react-email/editor/ui';
 
-<SlashCommand.Root items={[TEXT, H1, H2, BUTTON]} />
+<SlashCommand items={[TEXT, H1, H2, BUTTON]} />
 ```
 
 ## Adding custom commands
@@ -96,7 +96,7 @@ const GREETING: SlashCommandItem = {
 export function MyEditor() {
   return (
     <EditorProvider extensions={extensions} content={content}>
-      <SlashCommand.Root
+      <SlashCommand
         items={[...defaultSlashCommands, GREETING]}
       />
     </EditorProvider>
@@ -137,7 +137,7 @@ You can cherry-pick from the default commands to show only specific options:
 ```tsx
 import { BUTTON, SlashCommand } from '@react-email/editor/ui';
 
-<SlashCommand.Root items={[BUTTON]} />
+<SlashCommand items={[BUTTON]} />
 ```
 
 This is useful when you want a minimal command palette. For example, only allowing button insertion.
@@ -153,7 +153,7 @@ This is useful when you want a minimal command palette. For example, only allowi
 </ResponseField>
 
 ```tsx
-<SlashCommand.Root
+<SlashCommand
   items={defaultSlashCommands}
   char="/"
   allow={({ editor }) => !editor.isActive('codeBlock')}
@@ -165,7 +165,7 @@ This is useful when you want a minimal command palette. For example, only allowi
 See slash commands in action with a runnable example:
 
 <CardGroup cols={2}>
-  <Card title="Slash Commands" icon="code" href="https://editor-examples.react.email/#slash-commands">
+  <Card title="Slash Commands" icon="code" href="https://react.email/editor/examples/slash-commands">
     Default commands plus a custom Greeting command.
   </Card>
 </CardGroup>

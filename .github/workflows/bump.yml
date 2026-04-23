@@ -6,17 +6,26 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   bump:
-    runs-on: ubuntu-latest
+    runs-on: depot-ubuntu-22.04-2
     permissions: 
       contents: write
       pull-requests: write
     container:
       image: node:22
     steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349
+        with:
+          app-id: ${{ secrets.BOT_APP_ID }}
+          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
       - name: Checkout Repo
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
         with:
           fetch-depth: 1
+          token: ${{ steps.app-token.outputs.token }}
       - run: git config --global --add safe.directory $GITHUB_WORKSPACE
       - name: pnpm setup
         uses: pnpm/action-setup@738f428026a1f5a72398de22aeed83d859c4a660
@@ -28,4 +37,4 @@ jobs:
           version: pnpm run version
           title: "chore(root): version packages"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}

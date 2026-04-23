@@ -8,23 +8,20 @@ import type { InspectorTextContext } from '../text';
 type InspectorLinkProps = Pick<
   InspectorTextContext,
   'linkHref' | 'linkColor' | 'setLinkColor' | 'isLinkActive' | 'presetColors'
-> & {
-  initialCollapsed?: boolean;
-};
+>;
 
 export function LinkSection({
   linkHref,
   linkColor,
   setLinkColor,
   isLinkActive,
-  initialCollapsed = false,
 }: InspectorLinkProps) {
   if (!isLinkActive) {
     return null;
   }
 
   return (
-    <Section title="Link" initialCollapsed={initialCollapsed}>
+    <Section title="Link">
       <PropRow>
         <Label>URL</Label>
         <TextField type="text" value={linkHref} readOnly />

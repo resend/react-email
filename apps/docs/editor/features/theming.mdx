@@ -93,6 +93,77 @@ export function MyEditor() {
   ensuring the new theme is applied cleanly.
 </Info>
 
+## Custom themes
+
+Instead of being limited to built-in presets, you can define custom themes using a CSS-in-JS
+object that maps component names to styles.
+
+### Extending a built-in theme
+
+Use `extendTheme` to start from a built-in theme and override specific styles:
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+import { EmailTheming, extendTheme } from '@react-email/editor/plugins';
+import { EditorProvider } from '@tiptap/react';
+
+const brandTheme = extendTheme('basic', {
+  body: { backgroundColor: '#eff6ff' },
+  h1: { color: '#1e40af', fontSize: '28px' },
+  button: { backgroundColor: '#2563eb', color: '#fff', borderRadius: '6px' },
+  link: { color: '#2563eb' },
+});
+
+const extensions = [StarterKit, EmailTheming.configure({ theme: brandTheme })];
+
+export function MyEditor() {
+  return (
+    <EditorProvider extensions={extensions} content={content}>
+      {/* ... */}
+    </EditorProvider>
+  );
+}
+```
+
+### Creating a theme from scratch
+
+Use `createTheme` to build a theme without inheriting from a built-in preset.
+When no `extends` is set, the `minimal` reset is used as a base:
+
+```tsx
+import { createTheme } from '@react-email/editor/plugins';
+
+const darkTheme = createTheme({
+  body: { backgroundColor: '#1a1a2e', color: '#e2e8f0' },
+  container: { backgroundColor: '#16213e', color: '#e2e8f0' },
+  h1: { color: '#e2e8f0' },
+  link: { color: '#60a5fa' },
+  button: { backgroundColor: '#3b82f6', color: '#fff', borderRadius: '4px' },
+});
+```
+
+### Passing a theme config inline
+
+You can also pass a `ThemeConfig` object directly to the `theme` prop without using the
+helper functions:
+
+```tsx
+<EmailEditor
+  theme={{
+    extends: 'basic',
+    styles: {
+      body: { backgroundColor: '#f4f4f5' },
+      button: { backgroundColor: '#0670DB' },
+    },
+  }}
+/>
+```
+
+<Info>
+  Custom theme values appear in the inspector UI, and users can still tweak them
+  interactively. The inspector doesn't distinguish between built-in and custom values.
+</Info>
+
 ## Theme components
 
 Themes define styles for the following email components:
@@ -139,7 +210,10 @@ See [Email Export](/editor/features/email-export) for more details on the serial
 See theming in action with a runnable example:
 
 <CardGroup cols={2}>
-  <Card title="Email Theming" icon="code" href="https://editor-examples.react.email/#email-theming">
-    Basic/Minimal theme toggle with live preview.
+  <Card title="Email Theming" icon="code" href="https://react.email/editor/examples/email-theming">
+    Basic/Minimal/Custom theme toggle with live preview.
+  </Card>
+  <Card title="Custom Themes" icon="palette" href="https://react.email/editor/examples/custom-theme">
+    Define custom themes with createTheme and extendTheme.
   </Card>
 </CardGroup>

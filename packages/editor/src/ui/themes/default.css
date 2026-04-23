@@ -25,7 +25,7 @@
   --re-pressed: rgba(0, 0, 0, 0.06);
   --re-separator: #e5e5e5;
   --re-radius: 0.75rem;
-  --re-radius-sm: 0.5rem;
+  --re-radius-sm: calc(var(--re-radius) - 0.125rem);
   --re-shadow:
     0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
   --re-danger: #dc2626;
@@ -39,6 +39,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --re-bg: #1c1c1c;
+    --re-bg-active: #2e2e2e;
     --re-border: #2e2e2e;
     --re-text: #ececec;
     --re-text-muted: #a0a0a0;
@@ -59,6 +60,7 @@
 
 .dark {
   --re-bg: #1c1c1c;
+  --re-bg-active: #2e2e2e;
   --re-border: #2e2e2e;
   --re-text: #ececec;
   --re-text-muted: #a0a0a0;
@@ -82,18 +84,10 @@
   border-radius: var(--re-radius);
   box-shadow: var(--re-shadow);
   z-index: 50;
-  padding: 0.125rem;
+  padding: 0 0.125rem;
   font-family: system-ui, -apple-system, sans-serif;
   font-size: 0.8125rem;
   line-height: 1;
-}
-
-/* ----------------------------------------------------------------
- * Toolbars (link, button, image bubble menus)
- * ---------------------------------------------------------------- */
-
-[data-re-img-bm-toolbar] > * + * {
-  border-left: 1px solid var(--re-border);
 }
 
 /* ----------------------------------------------------------------
@@ -490,6 +484,14 @@
   list-style-type: decimal;
   padding-left: 1.5em;
   margin: 0.25em 0;
+}
+
+.tiptap p.is-empty::before {
+  opacity: 0.3;
+  float: left;
+  content: attr(data-placeholder);
+  height: 0;
+  pointer-events: none;
 }
 
 .tiptap .node-placeholder::before {

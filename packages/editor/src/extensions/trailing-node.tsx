@@ -34,9 +34,11 @@ export interface TrailingNodeOptions {
    */
   node?: string;
   /**
-   * The node that the trailing node should be appended to. The default is the 'doc', giving the same behavior as TipTap's extension.
+   * The node type(s) that the trailing node should be appended to.
+   * Accepts a single node name or an array of node names.
+   * @default 'doc'
    */
-  appendTo?: string;
+  appendTo?: string | string[];
   /**
    * The node types after which the trailing node should not be inserted.
    * @default ['paragraph']
@@ -78,20 +80,25 @@ export const TrailingNode = Extension.create<TrailingNodeOptions>({
       .map(([, value]) => value)
       .filter((node) => notAfter.concat(defaultNode).includes(node.name));
 
-    const appendToType =
-      this.editor.schema.nodes[this.options.appendTo || 'doc'];
+    const appendToNames = Array.isArray(this.options.appendTo)
+      ? this.options.appendTo
+      : [this.options.appendTo || 'doc'];
+
+    const appendToTypes = appendToNames
+      .map((name) => this.editor.schema.nodes[name])
+      .filter(Boolean);
 
     const getInsertPositions = (doc: Node): number[] => {
       const positions: number[] = [];
 
-      if (doc.type === appendToType) {
+      if (appendToTypes.includes(doc.type)) {
         if (!nodeEqualsType({ node: doc.lastChild, types: disabledNodes })) {
           positions.push(doc.content.size);
         }
       }
 
       doc.descendants((node, pos) => {
-        if (node.type !== appendToType) return;
+        if (!appendToTypes.includes(node.type)) return;
         if (!nodeEqualsType({ node: node.lastChild, types: disabledNodes })) {
           positions.push(pos + node.nodeSize - 1);
         }

@@ -11,15 +11,12 @@ import {
 import type { InspectorNodeContext } from '../node';
 import { Label, Select, Textarea, TextField } from '../primitives';
 
-type InspectorAttributesProps = InspectorNodeContext & {
-  initialCollapsed?: boolean;
-};
+type InspectorAttributesProps = InspectorNodeContext;
 
 export function AttributesSection({
   nodeType,
   getAttr,
   setAttr,
-  initialCollapsed = false,
 }: InspectorAttributesProps) {
   const nodeAttrs = getVisibleAttributes(nodeType, getAttr);
 
@@ -28,7 +25,7 @@ export function AttributesSection({
   }
 
   return (
-    <Section title="Attributes" initialCollapsed={initialCollapsed}>
+    <Section title="Attributes">
       {nodeAttrs.map(({ name, config, value }) => (
         <PropRow key={name}>
           <Label>{config.label}</Label>

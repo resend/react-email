@@ -1,8 +1,8 @@
 import * as Select from '@radix-ui/react-select';
 import * as Tabs from '@radix-ui/react-tabs';
-import * as allReactEmailComponents from '@react-email/components';
 import * as allReactResponsiveComponents from '@responsive-email/react-email';
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
+import * as allReactEmailComponents from 'react-email';
 import type {
   CodeVariant,
   ImportedComponent,
@@ -67,7 +67,7 @@ export function ComponentCodeView({
     if (importsReactEmail.length > 0) {
       importStatements += `import { ${importsReactEmail.join(
         ', ',
-      )} } from "@react-email/components";\n`;
+      )} } from "react-email";\n`;
     }
 
     if (importsReactResponsive.length > 0) {

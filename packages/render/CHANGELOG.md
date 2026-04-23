@@ -1,5 +1,17 @@
 # @react-email/render
 
+## 2.0.7
+
+### Patch Changes
+
+- 7fc539d: fix export map ordering between convex and node
+
+## 2.0.7-canary.0
+
+### Patch Changes
+
+- 7fc539d: fix export map ordering between convex and node
+
 ## 2.0.6
 
 ### Patch Changes

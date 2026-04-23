@@ -28,6 +28,27 @@ export const jsToInlineCss = (styleObject: { [key: string]: any }) => {
   return parts.join(';') + (parts.length ? ';' : '');
 };
 
+const splitDeclarations = (input: string): string[] => {
+  const results: string[] = [];
+  let current = '';
+  let depth = 0;
+
+  for (const char of input) {
+    if (char === '(') depth++;
+    if (char === ')') depth--;
+
+    if (char === ';' && depth === 0) {
+      results.push(current);
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+
+  if (current) results.push(current);
+  return results;
+};
+
 export const inlineCssToJs = (
   inlineStyle: string,
   options: { removeUnit?: boolean } = {},
@@ -38,10 +59,15 @@ export const inlineCssToJs = (
     return styleObject;
   }
 
-  inlineStyle.split(';').forEach((style: string) => {
-    if (style.trim()) {
-      const [key, value] = style.split(':');
-      const valueTrimmed = value?.trim();
+  splitDeclarations(inlineStyle).forEach((style: string) => {
+    const trimmed = style.trim();
+    if (trimmed) {
+      const separatorIndex = trimmed.indexOf(':');
+      if (separatorIndex === -1) return;
+
+      const key = trimmed.slice(0, separatorIndex);
+      const value = trimmed.slice(separatorIndex + 1);
+      const valueTrimmed = value.trim();
 
       if (!valueTrimmed) {
         return;

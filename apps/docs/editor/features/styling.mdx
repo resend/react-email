@@ -198,12 +198,19 @@ The menu that appears when clicking an image
 /* Container */
 [data-re-img-bm] { }
 
-/* Toolbar */
+/* Toolbar with action buttons */
 [data-re-img-bm-toolbar] { }
 
 /* Action buttons */
 [data-re-img-bm-item] { }
 [data-re-img-bm-item][data-item="edit-link"] { }
+[data-re-img-bm-item][data-item="unlink"] { }
+
+/* Edit form */
+[data-re-img-bm-form] { }
+[data-re-img-bm-input] { }
+[data-re-img-bm-apply] { }
+[data-re-img-bm-unlink] { }
 ```
 
 ### Slash command
@@ -214,6 +221,9 @@ and custom commands.
 ```css
 /* Command palette container */
 [data-re-slash-command] { }
+
+/* Scrollable viewport inside the container */
+[data-re-slash-command-scroll] { }
 
 /* Individual command item */
 [data-re-slash-command-item] { }
@@ -469,10 +479,10 @@ Customize how content looks inside the editor.
 See styling and theming in action with runnable examples:
 
 <CardGroup cols={2}>
-  <Card title="Email Theming" icon="code" href="https://editor-examples.react.email/#email-theming">
+  <Card title="Email Theming" icon="code" href="https://react.email/editor/examples/email-theming">
     Basic/Minimal theme toggle with live preview.
   </Card>
-  <Card title="Full Email Builder" icon="code" href="https://editor-examples.react.email/#full-email-builder">
+  <Card title="Full Email Builder" icon="code" href="https://react.email/editor/examples/full-email-builder">
     Complete editor with all styling features combined.
   </Card>
 </CardGroup>

@@ -15,12 +15,13 @@ import {
   TypeIcon,
 } from '../../icons';
 
-interface NodeMeta {
+export interface NodeMeta {
   icon: ElementType;
   label: string;
 }
 
 const NODE_META: Record<string, NodeMeta> = {
+  body: { icon: LayoutIcon, label: 'Body' },
   paragraph: { icon: TypeIcon, label: 'Text' },
   heading: { icon: Heading1Icon, label: 'Heading' },
   image: { icon: ImageIcon, label: 'Image' },

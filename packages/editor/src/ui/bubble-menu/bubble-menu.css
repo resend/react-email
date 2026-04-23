@@ -15,8 +15,13 @@
   gap: 0.125rem;
   padding: 0 0.125rem;
   border: none;
+  border-left: 1px solid var(--re-border);
   margin: 0;
   min-width: 0;
+}
+
+[data-re-bubble-menu-group]:last-child {
+  padding-right: 0;
 }
 
 [data-re-bubble-menu-separator] {
@@ -33,6 +38,7 @@
   border: none;
   background: none;
   padding: 0.375rem;
+  margin: 0.125rem 0;
 }
 
 [data-re-bubble-menu-item] svg {
@@ -276,10 +282,45 @@ a[data-re-link-bm-item] {
   cursor: pointer;
   border: none;
   background: none;
-  padding: 0.5rem;
+  padding: 0.375rem;
+  margin: 0.125rem 0;
 }
 
 [data-re-img-bm-item] svg {
-  width: 1rem;
-  height: 1rem;
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+[data-re-img-bm-form] {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 16rem;
+  padding: 0.25rem;
+}
+
+[data-re-img-bm-input] {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 0.8125rem;
+  padding: 0.25rem;
+  background: transparent;
+}
+
+[data-re-img-bm-apply],
+[data-re-img-bm-unlink] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0.25rem;
+}
+
+[data-re-img-bm-apply] svg,
+[data-re-img-bm-unlink] svg {
+  width: 0.875rem;
+  height: 0.875rem;
 }

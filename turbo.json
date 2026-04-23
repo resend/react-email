@@ -27,15 +27,19 @@
       ],
       "outputs": [".next/**", "!.next/cache/**"]
     },
-    "@react-email/preview-server#build": {
+    "@react-email/ui#build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "playground#build": {
+      "dependsOn": ["^build", "^postbuild"],
+      "outputs": [".react-email/**", "!.react-email/.next/cache/**"]
     },
     "demo#build": {
       "dependsOn": [
         "^build",
         "^postbuild",
-        "@react-email/preview-server#build",
+        "@react-email/ui#build",
         "react-email#build"
       ],
       "outputs": [".react-email/**", "!.react-email/.next/cache/**"]

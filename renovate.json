@@ -2,5 +2,52 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
   "ignorePaths": ["benchmarks"],
-  "rebaseWhen": "never"
+  "rebaseWhen": "never",
+  "vulnerabilityAlerts": {
+    "groupName": "security updates"
+  },
+  "packageRules": [
+    {
+      "description": "Group routine non-major dev-only updates to reduce PR noise.",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "groupName": "dev dependency updates"
+    },
+    {
+      "description": "Keep React ecosystem updates together.",
+      "matchPackageNames": [
+        "react",
+        "react-dom",
+        "@types/react",
+        "@types/react-dom",
+        "next",
+        "@next/*"
+      ],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "groupName": "react ecosystem updates"
+    },
+    {
+      "description": "Keep build, test, and release tooling together.",
+      "matchPackageNames": [
+        "@biomejs/**",
+        "@changesets/**",
+        "rollup",
+        "tsdown",
+        "@tsdown/**",
+        "tsx",
+        "turbo",
+        "typescript",
+        "vite",
+        "vitest"
+      ],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "groupName": "tooling updates"
+    },
+    {
+      "description": "Keep GitHub integration libraries together.",
+      "matchPackageNames": ["@actions/**", "@octokit/**"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "groupName": "github integration updates"
+    }
+  ]
 }

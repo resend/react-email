@@ -1,6 +1,6 @@
 {
   "name": "@react-email/render",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Transform React components into HTML email templates",
   "sideEffects": false,
   "main": "./dist/browser/index.cjs",
@@ -51,16 +51,6 @@
           "default": "./dist/edge/index.cjs"
         }
       },
-      "convex": {
-        "import": {
-          "types": "./dist/edge/index.d.mts",
-          "default": "./dist/edge/index.mjs"
-        },
-        "require": {
-          "types": "./dist/edge/index.d.cts",
-          "default": "./dist/edge/index.cjs"
-        }
-      },
       "node": {
         "import": {
           "types": "./dist/node/index.d.mts",
@@ -69,6 +59,16 @@
         "require": {
           "types": "./dist/node/index.d.cts",
           "default": "./dist/node/index.cjs"
+        }
+      },
+      "convex": {
+        "import": {
+          "types": "./dist/edge/index.d.mts",
+          "default": "./dist/edge/index.mjs"
+        },
+        "require": {
+          "types": "./dist/edge/index.d.cts",
+          "default": "./dist/edge/index.cjs"
         }
       },
       "browser": {

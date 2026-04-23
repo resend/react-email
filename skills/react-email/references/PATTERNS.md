@@ -25,7 +25,7 @@ import {
   Hr,
   Tailwind,
   pixelBasedPreset
-} from '@react-email/components';
+} from 'react-email';
 
 interface PasswordResetProps {
   resetUrl: string;
@@ -95,7 +95,7 @@ import {
   Hr,
   Tailwind,
   pixelBasedPreset
-} from '@react-email/components';
+} from 'react-email';
 
 interface Product {
   name: string;
@@ -298,7 +298,7 @@ import {
   Link,
   Tailwind,
   pixelBasedPreset
-} from '@react-email/components';
+} from 'react-email';
 
 interface NotificationProps {
   title: string;
@@ -436,7 +436,7 @@ import {
   Link,
   Tailwind,
   pixelBasedPreset
-} from '@react-email/components';
+} from 'react-email';
 
 interface Article {
   title: string;
@@ -635,7 +635,7 @@ import {
   Hr,
   Tailwind,
   pixelBasedPreset
-} from '@react-email/components';
+} from 'react-email';
 
 interface TeamInvitationProps {
   inviterName: string;

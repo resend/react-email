@@ -1,11 +1,11 @@
-import { CodeInline, Text } from '@react-email/components';
+import { CodeInline, Text } from 'react-email';
 import { Layout } from '../_components/layout';
 
 export const component = (
   <Text className="text-center">
     Install the{' '}
     <CodeInline className="rounded-[6px] bg-green-300 px-[4px] py-[2px]">
-      @react-email/components
+      react-email
     </CodeInline>{' '}
     package
   </Text>

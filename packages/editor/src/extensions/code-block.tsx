@@ -1,12 +1,12 @@
-import * as ReactEmailComponents from '@react-email/components';
-import {
-  type PrismLanguage,
-  CodeBlock as ReactEmailCodeBlock,
-} from '@react-email/components';
 import { mergeAttributes } from '@tiptap/core';
 import type { CodeBlockOptions } from '@tiptap/extension-code-block';
 import CodeBlock from '@tiptap/extension-code-block';
 import { TextSelection } from '@tiptap/pm/state';
+import * as ReactEmailComponents from 'react-email';
+import {
+  type PrismLanguage,
+  CodeBlock as ReactEmailCodeBlock,
+} from 'react-email';
 import { EmailNode } from '../core/serializer/email-node';
 import { PrismPlugin } from './prism-plugin';
 
@@ -141,7 +141,7 @@ export const CodeBlockPrism = EmailNode.from(
       ? `${node.attrs.language}`
       : 'javascript';
 
-    // @ts-expect-error -- @react-email/components does not export theme objects by name; dynamic access needed for user-selected themes
+    // @ts-expect-error -- react-email does not export theme objects by name; dynamic access needed for user-selected themes
     // biome-ignore lint/performance/noDynamicNamespaceImportAccess: dynamic access needed for user-selected themes
     const userTheme = ReactEmailComponents[node.attrs?.theme];
 
