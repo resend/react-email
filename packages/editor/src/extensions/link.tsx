@@ -1,5 +1,5 @@
-import { mergeAttributes } from '@tiptap/core';
 import type { Editor } from '@tiptap/core';
+import { mergeAttributes } from '@tiptap/core';
 import type { LinkOptions as TipTapLinkOptions } from '@tiptap/extension-link';
 import TiptapLink from '@tiptap/extension-link';
 import { Link as ReactEmailLink } from 'react-email';

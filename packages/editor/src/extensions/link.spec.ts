@@ -78,7 +78,9 @@ describe('Link mark theming', () => {
     editor?.destroy();
     document.head
       .querySelectorAll('style[id^="tiptap-theme-"]')
-      .forEach((node) => node.remove());
+      .forEach((node) => {
+        node.remove();
+      });
   });
 
   it('emits theme-resolved color and text-decoration on plain links (basic)', () => {
