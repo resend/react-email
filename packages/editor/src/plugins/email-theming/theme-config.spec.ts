@@ -6,7 +6,8 @@ import {
   parseCssValue,
   themeStylesToPanelOverrides,
 } from './theme-config';
-import { EDITOR_THEMES } from './themes';
+import { EDITOR_THEMES, RESET_THEMES } from './themes';
+import type { EditorTheme } from './types';
 
 describe('parseCssValue', () => {
   it('parses pixel strings', () => {
@@ -208,5 +209,77 @@ describe('extendTheme', () => {
     const result = extendTheme('minimal', { link: { color: '#abc' } });
     expect(result.extends).toBe('minimal');
     expect(result.styles).toEqual({ link: { color: '#abc' } });
+  });
+});
+
+describe('new design themes', () => {
+  const DESIGN_THEMES = [
+    'barebone',
+    'matte',
+    'protocol',
+    'arcane',
+    'studio',
+  ] as const satisfies readonly EditorTheme[];
+
+  const REQUIRED_PANEL_IDS = [
+    'body',
+    'container',
+    'typography',
+    'h1',
+    'h2',
+    'h3',
+    'paragraph',
+    'link',
+    'image',
+    'button',
+    'code-block',
+    'inline-code',
+  ];
+
+  for (const theme of DESIGN_THEMES) {
+    it(`${theme} is registered in EDITOR_THEMES with all required panels`, () => {
+      const panels = EDITOR_THEMES[theme];
+      expect(panels).toBeDefined();
+      const ids = panels.map((g) => g.id);
+      for (const id of REQUIRED_PANEL_IDS) {
+        expect(ids).toContain(id);
+      }
+    });
+
+    it(`${theme} is registered in RESET_THEMES with heading styles`, () => {
+      const reset = RESET_THEMES[theme];
+      expect(reset).toBeDefined();
+      expect(reset.h1.fontSize).toBeDefined();
+      expect(reset.h2.fontSize).toBeDefined();
+      expect(reset.h3.fontSize).toBeDefined();
+      expect(reset.button.backgroundColor).toBeDefined();
+      expect(reset.button.color).toBeDefined();
+    });
+
+    it(`${theme} can be used as extendTheme base`, () => {
+      const result = extendTheme(theme, { link: { color: '#abc' } });
+      expect(result.extends).toBe(theme);
+    });
+  }
+
+  it('barebone has a light body background', () => {
+    const bodyBg = EDITOR_THEMES.barebone
+      .find((g) => g.id === 'body')
+      ?.inputs.find((i) => i.prop === 'backgroundColor')?.value;
+    expect(bodyBg).toBe('#F3F4F6');
+  });
+
+  it('protocol is a dark theme', () => {
+    const containerBg = EDITOR_THEMES.protocol
+      .find((g) => g.id === 'container')
+      ?.inputs.find((i) => i.prop === 'backgroundColor')?.value;
+    expect(containerBg).toBe('#131313');
+  });
+
+  it('arcane has a dark maroon container', () => {
+    const containerBg = EDITOR_THEMES.arcane
+      .find((g) => g.id === 'container')
+      ?.inputs.find((i) => i.prop === 'backgroundColor')?.value;
+    expect(containerBg).toBe('#300610');
   });
 });

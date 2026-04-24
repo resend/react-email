@@ -227,6 +227,10 @@ export function setGlobalCssInjected(editor: Editor, css: string): boolean {
   return editor.commands.setGlobalContent('css', css);
 }
 
+function isKnownEditorTheme(value: unknown): value is EditorTheme {
+  return typeof value === 'string' && value in EDITOR_THEMES;
+}
+
 function getEmailTheme(editor: Editor): EditorTheme {
   const extensionOptions = (
     editor.extensionManager.extensions.find(
@@ -238,12 +242,12 @@ function getEmailTheme(editor: Editor): EditorTheme {
     return extensionOptions.extends ?? 'minimal';
   }
 
-  if (extensionOptions === 'basic' || extensionOptions === 'minimal') {
+  if (isKnownEditorTheme(extensionOptions)) {
     return extensionOptions;
   }
 
-  const globalTheme = getGlobalContent('theme', editor) as EditorTheme | null;
-  if (globalTheme === 'basic' || globalTheme === 'minimal') {
+  const globalTheme = getGlobalContent('theme', editor);
+  if (isKnownEditorTheme(globalTheme)) {
     return globalTheme;
   }
 

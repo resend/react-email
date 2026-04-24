@@ -8,6 +8,7 @@ import {
   SUPPORTED_CSS_PROPERTIES,
 } from '../../plugins/email-theming/themes';
 import type {
+  EditorTheme,
   KnownCssProperties,
   KnownThemeComponents,
   PanelGroup,
@@ -69,7 +70,7 @@ function ensureAllProperties(
 
 function applyStyleChange(
   styles: PanelGroup[],
-  themeName: 'basic' | 'minimal',
+  themeName: EditorTheme,
   {
     classReference,
     prop,
