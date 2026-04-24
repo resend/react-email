@@ -44,6 +44,12 @@ export default defineConfig([
   },
   {
     dts: true,
+    entry: ['./src/config/index.ts'],
+    format: ['esm', 'cjs'],
+    outDir: 'dist/config',
+  },
+  {
+    dts: true,
     entry: ['./src/index.ts'],
     format: ['esm', 'cjs'],
     outDir: 'dist',

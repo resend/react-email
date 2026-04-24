@@ -2,8 +2,10 @@ import path from 'node:path';
 import { type BuildFailure, build, type OutputFile } from 'esbuild';
 import type React from 'react';
 import type { render } from 'react-email';
+import { getEmailConfig } from 'react-email/config';
 import type { RawSourceMap } from 'source-map-js';
 import { z } from 'zod';
+import { emailConfigPath } from '../app/env';
 import { convertStackWithSourceMap } from './convert-stack-with-sourcemap';
 import { renderingUtilitiesExporter } from './esbuild/renderring-utilities-exporter';
 import { isErr } from './result';
@@ -57,10 +59,13 @@ export const getEmailComponent = async (
 > => {
   let outputFiles: OutputFile[];
   try {
+    const emailConfig = await getEmailConfig(emailConfigPath);
+    const emailConfigPlugins = emailConfig.esbuild?.plugins ?? [];
+
     const buildData = await build({
       bundle: true,
       entryPoints: [emailPath],
-      plugins: [renderingUtilitiesExporter([emailPath])],
+      plugins: [renderingUtilitiesExporter([emailPath]), ...emailConfigPlugins],
       platform: 'node',
       write: false,
 

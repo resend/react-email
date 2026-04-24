@@ -3,6 +3,10 @@ export const userProjectLocation =
   process.env.REACT_EMAIL_INTERNAL_USER_PROJECT_LOCATION!;
 
 /** ONLY ACCESSIBLE ON THE SERVER */
+export const emailConfigPath =
+  process.env.REACT_EMAIL_INTERNAL_EMAIL_CONFIG_PATH;
+
+/** ONLY ACCESSIBLE ON THE SERVER */
 export const previewServerLocation =
   process.env.REACT_EMAIL_INTERNAL_PREVIEW_SERVER_LOCATION!;
 

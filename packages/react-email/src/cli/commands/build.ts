@@ -5,6 +5,7 @@ import { getPackages } from '@manypkg/get-packages';
 import logSymbols from 'log-symbols';
 import { installDependencies, type PackageManagerName, runScript } from 'nypm';
 import ora from 'ora';
+import { getEmailConfigPath } from '../../config/get-email-config-path.js';
 import {
   type EmailsDirectory,
   getEmailsDirectoryMetadata,
@@ -29,11 +30,13 @@ const setNextEnvironmentVariablesForBuild = async (
   if (isInReactEmailMonorepo) {
     rootDir = `'${await getPackages(usersProjectLocation).then((p) => p.rootDir.replaceAll('\\', '/'))}'`;
   }
+  const emailConfigPath = getEmailConfigPath(usersProjectLocation);
   const nextConfigContents = `
 import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
 const userProjectLocation = '${process.cwd().replaceAll('\\', '/')}';
 const previewServerLocation = '${builtPreviewAppPath.replaceAll('\\', '/')}';
+const emailConfigPath = ${emailConfigPath ? JSON.stringify(emailConfigPath.replaceAll('\\', '/')) : 'undefined'};
 const rootDir = ${rootDir};
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -42,13 +45,14 @@ const nextConfig = {
     REACT_EMAIL_INTERNAL_EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath,
     REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH: path.resolve(userProjectLocation, emailsDirRelativePath),
     REACT_EMAIL_INTERNAL_PREVIEW_SERVER_LOCATION: previewServerLocation,
-    REACT_EMAIL_INTERNAL_USER_PROJECT_LOCATION: userProjectLocation
+    REACT_EMAIL_INTERNAL_USER_PROJECT_LOCATION: userProjectLocation,
+    REACT_EMAIL_INTERNAL_EMAIL_CONFIG_PATH: emailConfigPath
   },
   turbopack: {
     root: rootDir,
   },
   outputFileTracingRoot: rootDir,
-  serverExternalPackages: ['esbuild'],
+  serverExternalPackages: ['esbuild', 'jiti'],
   typescript: {
     ignoreBuildErrors: true
   },

@@ -9,6 +9,7 @@ import logSymbols from 'log-symbols';
 import normalize from 'normalize-path';
 import ora, { type Ora } from 'ora';
 import type React from 'react';
+import { getEmailConfig, getEmailConfigPath } from '../../config/index.js';
 import { renderingUtilitiesExporter } from '../utils/esbuild/renderring-utilities-exporter.js';
 import {
   type EmailsDirectory,
@@ -78,6 +79,10 @@ export const exportTemplates = async (
   const allTemplates = getEmailTemplatesFromDirectory(emailsDirectoryMetadata);
 
   try {
+    const emailConfigPath = getEmailConfigPath(process.cwd());
+    const emailConfig = await getEmailConfig(emailConfigPath);
+    const emailConfigPlugins = emailConfig.esbuild?.plugins ?? [];
+
     await build({
       bundle: true,
       entryPoints: allTemplates,
@@ -89,7 +94,10 @@ export const exportTemplates = async (
       outExtension: { '.js': '.cjs' },
       outdir: pathToWhereEmailMarkupShouldBeDumped,
       platform: 'node',
-      plugins: [renderingUtilitiesExporter(allTemplates)],
+      plugins: [
+        renderingUtilitiesExporter(allTemplates),
+        ...emailConfigPlugins,
+      ],
       write: true,
     });
   } catch (exception) {

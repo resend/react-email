@@ -1,6 +1,17 @@
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
+import { build } from 'esbuild';
+import * as config from '../../../config/index.js';
 import { exportTemplates } from '../export.js';
+
+vi.mock('esbuild', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('esbuild')>();
+  return {
+    ...actual,
+    build: vi.fn(actual.build),
+  };
+});
 
 test('email export', { retry: 3 }, async () => {
   const pathToEmailsDirectory = path.resolve(__dirname, './emails');
@@ -211,4 +222,90 @@ test('email export', { retry: 3 }, async () => {
     </html>
     "
   `);
+});
+
+test('email export uses email config plugins', async () => {
+  const temporaryProjectRoot = fs.mkdtempSync(
+    path.join(os.tmpdir(), 'react-email-export-config-'),
+  );
+  const previousWorkingDirectory = process.cwd();
+
+  try {
+    process.chdir(temporaryProjectRoot);
+
+    fs.mkdirSync(path.join(temporaryProjectRoot, 'emails'));
+    fs.writeFileSync(
+      path.join(temporaryProjectRoot, 'emails', 'test-email.js'),
+      `
+export default function Email() {
+  return null;
+}
+      `,
+      'utf8',
+    );
+    fs.writeFileSync(
+      path.join(temporaryProjectRoot, 'email.config.ts'),
+      'export default {};\n',
+      'utf8',
+    );
+
+    const mockedBuild = vi.mocked(build);
+    mockedBuild.mockClear();
+    mockedBuild.mockImplementation(async (options: any) => {
+      fs.mkdirSync(options.outdir, { recursive: true });
+      fs.writeFileSync(
+        path.join(options.outdir, 'test-email.cjs'),
+        `
+module.exports = {
+  default: function Email() {
+    return null;
+  },
+  render: async () => '<html><body>rendered</body></html>',
+  reactEmailCreateReactElement: (type, props) => ({ type, props }),
+};
+        `,
+        'utf8',
+      );
+
+      return { outputFiles: [] } as any;
+    });
+    const mockedGetEmailConfig = vi
+      .spyOn(config, 'getEmailConfig')
+      .mockResolvedValue({
+        esbuild: {
+          plugins: [{ name: 'email-config-plugin', setup: vi.fn() }],
+        },
+      });
+    const mockedGetEmailConfigPath = vi
+      .spyOn(config, 'getEmailConfigPath')
+      .mockReturnValue(path.join(temporaryProjectRoot, 'email.config.ts'));
+    mockedGetEmailConfig.mockClear();
+    mockedGetEmailConfigPath.mockClear();
+
+    const outDir = path.join(temporaryProjectRoot, 'out');
+    await exportTemplates(outDir, path.join(temporaryProjectRoot, 'emails'), {
+      silent: true,
+      pretty: true,
+    });
+
+    const calledConfigPath = mockedGetEmailConfig.mock.calls[0]?.[0];
+    expect(calledConfigPath).toContain('react-email-export-config-');
+    expect(path.basename(calledConfigPath ?? '')).toBe('email.config.ts');
+    const calledEmailConfigPathArg =
+      mockedGetEmailConfigPath.mock.calls[0]?.[0];
+    expect(calledEmailConfigPathArg).toContain('react-email-export-config-');
+    expect(path.basename(calledEmailConfigPathArg ?? '')).toBe(
+      path.basename(temporaryProjectRoot),
+    );
+    expect(mockedBuild).toHaveBeenCalledTimes(1);
+    expect(mockedBuild.mock.calls[0]?.[0].plugins).toEqual([
+      expect.objectContaining({ name: 'rendering-utilities-exporter' }),
+      expect.objectContaining({ name: 'email-config-plugin' }),
+    ]);
+    expect(fs.existsSync(path.join(outDir, 'test-email.html'))).toBe(true);
+  } finally {
+    process.chdir(previousWorkingDirectory);
+    fs.rmSync(temporaryProjectRoot, { recursive: true, force: true });
+    vi.restoreAllMocks();
+  }
 });
