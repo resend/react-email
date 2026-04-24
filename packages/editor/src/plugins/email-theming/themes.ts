@@ -677,7 +677,7 @@ const RESET_BASIC: ResetTheme = {
     fontFamily:
       "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
   },
-  link: { textDecoration: 'underline' },
+  link: { color: '#0670DB', textDecoration: 'underline' },
   footer: {
     fontSize: '0.8em',
   },
@@ -729,7 +729,7 @@ const RESET_MINIMAL: ResetTheme = {
   nestedList: RESET_BASIC.nestedList,
   listItem: RESET_BASIC.listItem,
   listParagraph: RESET_BASIC.listParagraph,
-  link: { color: '#0670DB', textDecoration: 'underline' },
+  link: RESET_BASIC.link,
 };
 
 export const RESET_THEMES: Record<EditorTheme, ResetTheme> = {
