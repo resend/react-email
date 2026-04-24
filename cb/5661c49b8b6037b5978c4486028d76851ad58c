@@ -1,0 +1,23 @@
+.changeset/theme-aware-link-mark.md
+  b8b1d4477d2e1ce1 1-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "cb5661c49b8b6037b5978c4486028d76851ad58c",
+  "prompts": {
+    "b8b1d4477d2e1ce1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "799121ec-6631-4063-9bed-0f39ac8daf4c",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 5,
+      "total_deletions": 0,
+      "accepted_lines": 5,
+      "overriden_lines": 0
+    }
+  }
+}
