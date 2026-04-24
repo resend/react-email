@@ -1,6 +1,6 @@
 {
   "name": "@react-email/editor",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A rich text editor for editing and building email templates",
   "sideEffects": [
     "**/*.css"
