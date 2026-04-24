@@ -1,0 +1,25 @@
+packages/editor/src/extensions/link.tsx
+  b8b1d4477d2e1ce1 2
+packages/editor/src/extensions/link.spec.ts
+  b8b1d4477d2e1ce1 81-83
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "0edde94723a630ec8b2fb26801715674d71ca59b",
+  "prompts": {
+    "b8b1d4477d2e1ce1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "799121ec-6631-4063-9bed-0f39ac8daf4c",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 4,
+      "total_deletions": 2,
+      "accepted_lines": 4,
+      "overriden_lines": 0
+    }
+  }
+}
