@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { exportTemplates } from '../export.js';
+import { exportTemplates, getPreviewProps } from '../export.js';
 
 test('email export', { retry: 3 }, async () => {
   const pathToEmailsDirectory = path.resolve(__dirname, './emails');
@@ -21,7 +21,9 @@ test('email export', { retry: 3 }, async () => {
     <html dir="ltr" lang="en">
       <head>
         <link rel="preload" as="image" href="/static/vercel-logo.png" />
+        <link rel="preload" as="image" href="/static/vercel-user.png" />
         <link rel="preload" as="image" href="/static/vercel-arrow.png" />
+        <link rel="preload" as="image" href="/static/vercel-team.png" />
         <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
         <meta name="x-apple-disable-message-reformatting" />
       </head>
@@ -42,9 +44,9 @@ test('email export', { retry: 3 }, async () => {
                 <div
                   style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0"
                   data-skip-in-text="true">
-                  Join undefined on Vercel
+                  Join Alan on Vercel
                   <div>
-                     ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿
+                     ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿
                   </div>
                 </div>
                 <table
@@ -81,20 +83,21 @@ test('email export', { retry: 3 }, async () => {
                         </table>
                         <h1
                           style="margin-right:0;margin-left:0;margin-bottom:30px;margin-top:30px;padding:0;text-align:center;font-weight:400;font-size:24px;color:rgb(0,0,0)">
-                          Join <strong></strong> on <strong>Vercel</strong>
+                          Join <strong>Enigma</strong> on <strong>Vercel</strong>
                         </h1>
                         <p
                           style="font-size:14px;line-height:24px;color:rgb(0,0,0);margin-top:16px;margin-bottom:16px">
                           Hello
-                          <!-- -->,
+                          <!-- -->alanturing<!-- -->,
                         </p>
                         <p
                           style="font-size:14px;line-height:24px;color:rgb(0,0,0);margin-top:16px;margin-bottom:16px">
-                          <strong></strong> (<a
-                            href="mailto:undefined"
+                          <strong>Alan</strong> (<a
+                            href="mailto:alan.turing@example.com"
                             style="color:rgb(21,93,252);text-decoration-line:none"
-                            target="_blank"></a
-                          >) has invited you to the <strong></strong> team on<!-- -->
+                            target="_blank"
+                            >alan.turing@example.com</a
+                          >) has invited you to the <strong>Enigma</strong> team on<!-- -->
                           <strong>Vercel</strong>.
                         </p>
                         <table
@@ -120,8 +123,9 @@ test('email export', { retry: 3 }, async () => {
                                         align="right"
                                         data-id="__react-email-column">
                                         <img
-                                          alt="undefined&#x27;s profile picture"
+                                          alt="alanturing&#x27;s profile picture"
                                           height="64"
+                                          src="/static/vercel-user.png"
                                           style="display:block;outline:none;border:none;text-decoration:none;border-radius:9999px"
                                           width="64" />
                                       </td>
@@ -139,8 +143,9 @@ test('email export', { retry: 3 }, async () => {
                                         align="left"
                                         data-id="__react-email-column">
                                         <img
-                                          alt="undefined team logo"
+                                          alt="Enigma team logo"
                                           height="64"
+                                          src="/static/vercel-team.png"
                                           style="display:block;outline:none;border:none;text-decoration:none;border-radius:9999px"
                                           width="64" />
                                       </td>
@@ -163,6 +168,7 @@ test('email export', { retry: 3 }, async () => {
                             <tr>
                               <td>
                                 <a
+                                  href="https://vercel.com"
                                   style="line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;border-radius:0.25rem;background-color:rgb(0,0,0);padding-right:20px;padding-left:20px;padding-bottom:12px;padding-top:12px;text-align:center;font-weight:600;font-size:12px;color:rgb(255,255,255);text-decoration-line:none"
                                   target="_blank"
                                   ><span
@@ -182,21 +188,26 @@ test('email export', { retry: 3 }, async () => {
                           style="font-size:14px;line-height:24px;color:rgb(0,0,0);margin-top:16px;margin-bottom:16px">
                           or copy and paste this URL into your browser:<!-- -->
                           <a
+                            href="https://vercel.com"
                             style="color:rgb(21,93,252);text-decoration-line:none"
-                            target="_blank"></a>
+                            target="_blank"
+                            >https://vercel.com</a
+                          >
                         </p>
                         <hr
                           style="width:100%;border:none;border-top:1px solid #eaeaea;margin-right:0;margin-left:0;margin-bottom:26px;margin-top:26px;border-style:solid;border-width:1px;border-color:rgb(234,234,234)" />
                         <p
                           style="font-size:12px;line-height:24px;color:rgb(102,102,102);margin-top:16px;margin-bottom:16px">
                           This invitation was intended for<!-- -->
-                          <span style="color:rgb(0,0,0)"></span>. This invite was
-                          sent from <span style="color:rgb(0,0,0)"></span>
+                          <span style="color:rgb(0,0,0)">alanturing</span>. This
+                          invite was sent from
+                          <span style="color:rgb(0,0,0)">204.13.186.218</span>
                           <!-- -->located in<!-- -->
-                          <span style="color:rgb(0,0,0)"></span>. If you were not
-                          expecting this invitation, you can ignore this email. If
-                          you are concerned about your account&#x27;s safety, please
-                          reply to this email to get in touch with us.
+                          <span style="color:rgb(0,0,0)">São Paulo, Brazil</span>.
+                          If you were not expecting this invitation, you can ignore
+                          this email. If you are concerned about your account&#x27;s
+                          safety, please reply to this email to get in touch with
+                          us.
                         </p>
                       </td>
                     </tr>
@@ -211,4 +222,27 @@ test('email export', { retry: 3 }, async () => {
     </html>
     "
   `);
+});
+
+test('getPreviewProps returns object preview props', () => {
+  const emailComponent = Object.assign(() => null, {
+    PreviewProps: { name: 'Alice', inviteLink: 'https://example.com' },
+  });
+
+  expect(getPreviewProps(emailComponent)).toEqual({
+    name: 'Alice',
+    inviteLink: 'https://example.com',
+  });
+});
+
+test('getPreviewProps falls back to an empty object for invalid preview props', () => {
+  const nullPreviewPropsComponent = Object.assign(() => null, {
+    PreviewProps: null,
+  });
+  const primitivePreviewPropsComponent = Object.assign(() => null, {
+    PreviewProps: 'invalid',
+  });
+
+  expect(getPreviewProps(nullPreviewPropsComponent)).toEqual({});
+  expect(getPreviewProps(primitivePreviewPropsComponent)).toEqual({});
 });

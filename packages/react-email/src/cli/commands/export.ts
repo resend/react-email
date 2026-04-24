@@ -38,6 +38,20 @@ const filename = url.fileURLToPath(import.meta.url);
 
 const require = createRequire(filename);
 
+export const getPreviewProps = (
+  emailComponent: React.FC,
+): Record<string, unknown> => {
+  const previewProps =
+    (emailComponent as React.FC & { PreviewProps?: unknown }).PreviewProps ??
+    {};
+
+  if (!previewProps || typeof previewProps !== 'object') {
+    return {};
+  }
+
+  return previewProps as Record<string, unknown>;
+};
+
 /*
   This first builds all the templates using esbuild and then puts the output in the `.js`
   files. Then these `.js` files are imported dynamically and rendered to `.html` files
@@ -132,8 +146,12 @@ export const exportTemplates = async (
         ) => Promise<string>;
         reactEmailCreateReactElement: typeof React.createElement;
       };
+      const previewProps = getPreviewProps(emailModule.default);
       const rendered = await emailModule.render(
-        emailModule.reactEmailCreateReactElement(emailModule.default, {}),
+        emailModule.reactEmailCreateReactElement(
+          emailModule.default,
+          previewProps,
+        ),
         options,
       );
       const htmlPath = template.replace(
