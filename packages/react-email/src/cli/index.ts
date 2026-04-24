@@ -60,11 +60,7 @@ if (!hasRequiredFlags) {
       'Directory with your email templates',
       './emails',
     )
-    .option(
-      '-p --packageManager <name>',
-      'Package name to use on installation on `.react-email`',
-      'npm',
-    )
+    .option('-p --packageManager <name>', 'Package manager to use')
     .action(build);
 
   program
