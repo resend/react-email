@@ -174,7 +174,7 @@ function resolveThemeConfig(config: EditorThemeInput): {
   return { baseTheme, panels };
 }
 
-function getEmailTheming(editor: Editor) {
+export function getEmailTheming(editor: Editor) {
   const theme = getEmailTheme(editor);
   const normalizedStyles =
     normalizeThemePanelStyles(theme, getEmailStyles(editor)) ??

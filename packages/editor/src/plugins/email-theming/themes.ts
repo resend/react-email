@@ -729,6 +729,7 @@ const RESET_MINIMAL: ResetTheme = {
   nestedList: RESET_BASIC.nestedList,
   listItem: RESET_BASIC.listItem,
   listParagraph: RESET_BASIC.listParagraph,
+  link: { color: '#0670DB', textDecoration: 'underline' },
 };
 
 export const RESET_THEMES: Record<EditorTheme, ResetTheme> = {
