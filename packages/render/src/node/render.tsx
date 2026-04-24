@@ -50,7 +50,7 @@ export const render = async (node: React.ReactNode, options?: Options) => {
         </ErrorBoundary>,
         {
           async onAllReady() {
-            html = await readStream(stream);
+            html = await readStream(stream).then(stripNulBytes);
             resolve();
           },
           onError(error) {
@@ -77,3 +77,7 @@ export const render = async (node: React.ReactNode, options?: Options) => {
 
   return document;
 };
+
+// Workaround for https://github.com/facebook/react/pull/26228
+// (fixed in React 19, not backported to 18)
+const stripNulBytes = (s: string) => s.replaceAll('\0', '');
