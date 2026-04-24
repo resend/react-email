@@ -1,0 +1,29 @@
+packages/editor/src/extensions/link.spec.ts
+  b8b1d4477d2e1ce1 1-128
+packages/editor/src/plugins/email-theming/extension.tsx
+  b8b1d4477d2e1ce1 177
+packages/editor/src/extensions/link.tsx
+  b8b1d4477d2e1ce1 1-2,11-16,19-28,104-116
+packages/editor/src/plugins/email-theming/themes.ts
+  b8b1d4477d2e1ce1 732
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "05b7ed7045b356344424db1924132fd43887ab66",
+  "prompts": {
+    "b8b1d4477d2e1ce1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "799121ec-6631-4063-9bed-0f39ac8daf4c",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 198,
+      "total_deletions": 1792,
+      "accepted_lines": 164,
+      "overriden_lines": 0
+    }
+  }
+}
