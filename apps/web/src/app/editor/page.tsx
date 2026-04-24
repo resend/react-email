@@ -122,7 +122,7 @@ const sections: Section[] = [
         slug: 'email-theming',
         title: 'Email theming',
         description:
-          'Switch between Basic, Minimal, and Custom themes to see how email styles change.',
+          'Switch between the built-in themes — Basic, Minimal, Barebone, Matte, Protocol, Arcane, Studio, and Custom — to see how email styles change.',
         docsUrl: 'https://react.email/docs/editor/features/theming',
       },
       {
