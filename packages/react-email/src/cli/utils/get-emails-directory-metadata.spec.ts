@@ -102,6 +102,22 @@ test('getEmailsDirectoryMetadata on demo emails', async () => {
             absolutePath: path.join(
               emailsDirectoryPath,
               'Community',
+              'ecommerce',
+            ),
+            directoryName: 'ecommerce',
+            relativePath: path.join('Community', 'ecommerce'),
+            emailFilenames: [
+              '01-order-created',
+              '02-order-confirmed',
+              '03-order-shipped',
+              '04-order-delivered',
+            ],
+            subDirectories: [],
+          },
+          {
+            absolutePath: path.join(
+              emailsDirectoryPath,
+              'Community',
               'magic-links',
             ),
             directoryName: 'magic-links',

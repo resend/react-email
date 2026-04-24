@@ -55,6 +55,12 @@ const officialItems: TemplateItem[] = [
 
 const communityItems: TemplateItem[] = [
   {
+    image: '/examples/ecommerce-order-created.png',
+    href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/Community/ecommerce/01-order-created`,
+    name: 'Ecommerce / Order Emails',
+    author: 'imnotannamaria',
+  },
+  {
     image: '/examples/aws-verify-email.png',
     href: `${DEMO_EMAIL_PREVIEW_BASE_URL}/Community/magic-links/aws-verify-email`,
     name: 'AWS / Verify Email',
