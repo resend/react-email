@@ -26,9 +26,9 @@ describe('isUnderAnyPath()', () => {
   });
 
   it('does not match an unrelated path', () => {
-    expect(isUnderAnyPath(path.resolve('/proj/emails/welcome.tsx'), roots)).toBe(
-      false,
-    );
+    expect(
+      isUnderAnyPath(path.resolve('/proj/emails/welcome.tsx'), roots),
+    ).toBe(false);
   });
 
   it('returns false when no roots are configured', () => {

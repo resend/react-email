@@ -3,8 +3,7 @@ import type { EmailsDirectory } from '../../get-emails-directory-metadata.js';
 
 export const isUnderAnyPath = (absolutePath: string, roots: string[]) =>
   roots.some(
-    (root) =>
-      absolutePath === root || absolutePath.startsWith(root + path.sep),
+    (root) => absolutePath === root || absolutePath.startsWith(root + path.sep),
   );
 
 export const collectEmailTemplatePaths = (
