@@ -173,13 +173,16 @@ Expected future direction:
 This keeps the PDF builder portable while preserving core's app boundaries and
 data policies.
 
-## Phase 6 Handoff
+## Phase 6 Schema Outcome
 
-The next phase creates the PDF template schema foundation. It should fill
-`@asym/pdf-template-schema` with the first real versioned template types and
-runtime validation while preserving the package strategy defined here.
+Phase 6 fills `@asym/pdf-template-schema` with the first real versioned
+template types and runtime validation while preserving the package strategy
+defined here.
 
-Phase 6 should use Zod by default because Zod is already present in the
-workspace and supports runtime validation, TypeScript inference, and JSON
-Schema conversion. Valibot can be reconsidered later only with a measured
-bundle-size or runtime reason.
+Phase 6 uses Zod by default because Zod is already present in the workspace
+and supports runtime validation, TypeScript inference, and JSON Schema
+conversion. Valibot can be reconsidered later only with a measured bundle-size
+or runtime reason.
+
+Phase 7 should keep this wrapper-first package strategy intact while expanding
+compatibility fixtures for current `@react-email/editor` behavior.

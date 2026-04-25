@@ -1,22 +1,43 @@
 # @asym/pdf-template-schema
 
-Phase 3 package shell for the Asym PDF Document Builder template schema.
+Phase 6 schema foundation for the Asym PDF Document Builder.
 
 ## Purpose
 
-This package will own shared document template types, runtime schema,
-versioning primitives, variable domains, page settings, asset references,
-render metadata, batch metadata, and audit-oriented model types.
+This package owns shared document template types, runtime schema, versioning
+primitives, variable domains, page settings, asset references, render metadata,
+batch metadata, and audit-oriented model types.
 
 ## Public API Promise
 
-The current public API is intentionally small:
+The public API is the shared schema contract for later editor, renderer,
+DocRaptor, batch, and core-adapter phases. Runtime schemas and inferred
+TypeScript types are exported together:
 
 - `pdfTemplateSchemaBoundary`
 - `PdfTemplateSchemaBoundary`
+- `DocumentTemplateV1Schema` / `DocumentTemplateV1`
+- `DocumentPageSettingsSchema` / `DocumentPageSettings`
+- `DocumentThemeSchema` / `DocumentTheme`
+- `VariableDefinitionSchema` / `VariableDefinition`
+- `VariableReferenceSchema` / `VariableReference`
+- `DataBindingSchema` / `DataBinding`
+- `ConditionalRuleSchema` / `ConditionalRule`
+- `RepeaterBindingSchema` / `RepeaterBinding`
+- `TableBindingSchema` / `TableBinding`
+- `AssetReferenceSchema` / `AssetReference`
+- `RenderRequestSchema` / `RenderRequest`
+- `RenderResultSchema` / `RenderResult`
+- `RenderWarningSchema` / `RenderWarning`
+- `RenderErrorSchema` / `RenderError`
+- `RenderJobV1Schema` / `RenderJobV1`
+- `BatchRunV1Schema` / `BatchRunV1`
+- `DocumentArtifactSchema` / `DocumentArtifact`
+- `AuditEventSchema` / `AuditEvent`
 
-These exports prove the package boundary is discoverable. Full template schema
-exports begin in Phase 5.
+Zod is the runtime validation library for Phase 6 because it is already in the
+workspace catalog and supports TypeScript inference plus future JSON Schema
+conversion.
 
 ## Non-goals
 
@@ -24,12 +45,14 @@ exports begin in Phase 5.
 - No DocRaptor API calls.
 - No browser-only APIs.
 - No tenant storage, auth, or queue integration.
-- No concrete template schema implementation before Phase 5.
+- No print HTML serialization.
+- No starter template exports; Phase 24 owns starter templates and golden
+  fixtures.
 
 ## Maturity
 
-`phase-3-boundary`. The package is private to prevent accidental publication
-while the fork is still defining package ownership.
+`phase-6-schema-foundation`. The package is private to prevent accidental
+publication while the shared model is still evolving.
 
 ## Development
 
