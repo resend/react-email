@@ -30,6 +30,33 @@ Starts a local development server that will watch your files and automatically r
 npx react-email dev
 ```
 
+#### Watching files outside the emails directory
+
+By default, only the emails directory and files reachable through static imports from your templates are watched. Files loaded at runtime are invisible to the static dependency graph, so editing them does not refresh the preview. Common examples:
+
+- `react-i18next` message JSON pulled in through a dynamic import:
+
+  ```ts
+  i18next.use(resourcesToBackend((lng, ns) => import(`./messages/${lng}/${ns}.json`)));
+  ```
+
+- MDX or YAML content loaded by a backend at request time.
+- Any file read with `fs.readFileSync` / `fs.promises.readFile`.
+
+Pass `-w, --watch <paths...>` to declare extra files or directories to watch. A change in any of these paths reloads every email preview:
+
+```sh
+npx react-email dev -d ./emails -w ./i18n
+```
+
+Multiple paths are supported:
+
+```sh
+npx react-email dev -w ./i18n ./content
+```
+
+Non-existent paths are skipped with a warning rather than failing.
+
 ### `email export`
 
 Generates the plain HTML files of your emails into a `out` directory.
