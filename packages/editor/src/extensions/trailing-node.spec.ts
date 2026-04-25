@@ -224,8 +224,12 @@ describe('TrailingNode', () => {
     );
 
     const json = editor.getJSON();
-    const container = json.content!.find((n) => n.type === 'container')!;
-    const section = container.content!.find((n) => n.type === 'section')!;
+    const container = json.content!.find(
+      (node) => node.type === 'container',
+    ) as JSONContent;
+    const section = container.content!.find(
+      (node) => node.type === 'section',
+    ) as JSONContent;
 
     expect(section.content!.at(-1)!.type).toBe('paragraph');
     expect(container.content!.at(-1)!.type).toBe('paragraph');
@@ -268,7 +272,9 @@ describe('TrailingNode', () => {
     );
 
     const json = editor.getJSON();
-    expect(json.content!.at(-1)!.type).toBe('paragraph');
-    expect(json.content!.at(-1)!.content).toBeUndefined();
+    const trailingNode = json.content!.at(-1) as JSONContent;
+
+    expect(trailingNode.type).toBe('paragraph');
+    expect(trailingNode.content).toBeUndefined();
   });
 });

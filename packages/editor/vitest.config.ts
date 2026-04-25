@@ -26,7 +26,7 @@ export default defineConfig({
       },
       {
         extends: true,
-        plugins: [react()],
+        plugins: [react({})],
         resolve: {
           alias: {
             '@react-email/render': renderStub,
@@ -37,7 +37,7 @@ export default defineConfig({
           include: ['src/**/*.browser.spec.tsx'],
           browser: {
             enabled: true,
-            provider: playwright(),
+            provider: playwright({}),
             instances: [{ browser: 'chromium' }],
             headless: true,
           },

@@ -28,8 +28,14 @@ Observed repo facts:
 - `packages/editor/src/core/serializer/compose-react-email.tsx` walks TipTap
   JSON, maps extensions, calls email-aware renderers, wraps the result in a
   base email template, and returns email-ready HTML plus plain text.
-- The root README and docs are still email-oriented.
-- No PDF-first package boundaries exist yet.
+- The root README and governance docs are now PDF-builder-first, while many
+  retained package docs, apps, examples, and generated assets remain
+  email-oriented reference surfaces.
+- Phase 3 introduced private PDF-first package shells for
+  `@asym/pdf-editor`, `@asym/pdf-renderer`,
+  `@asym/pdf-template-schema`, and `@asym/docraptor-client`.
+  These shells define package boundaries only and do not yet implement PDF
+  editor, schema, renderer, or DocRaptor behavior.
 
 The broader Asymmetric.al platform currently uses Unlayer document mode for
 PDF Studio. That platform shape includes or expects template CRUD, Unlayer
@@ -178,15 +184,20 @@ needs a document serializer such as `composePdfDocumentHtml`,
 
 ## 9. Package architecture
 
-Future implementation should introduce these package targets:
+Phase 3 introduced private package shells for the first four package targets.
+Future implementation should fill these package boundaries with behavior and
+introduce the core adapter only when the integration phase owns it:
 
 ```text
 packages/pdf-template-schema
 packages/pdf-editor
 packages/pdf-renderer
 packages/docraptor-client
-packages/pdf-studio-adapter
+packages/pdf-studio-adapter (future)
 ```
+
+The package descriptions below are target ownership statements, not proof that
+the current Phase 3 shells already implement the final behavior.
 
 ### `packages/pdf-template-schema`
 
