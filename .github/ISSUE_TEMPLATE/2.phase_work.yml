@@ -1,0 +1,38 @@
+name: PDF Builder Phase Work
+description: Track scoped implementation work for the Asym PDF Document Builder
+labels: ["Type: Task"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for roadmap-scoped Asym PDF Document Builder work. Read `AGENTS.md`, `openspec/project.md`, and the active OpenSpec change before implementation.
+  - type: input
+    id: phase
+    attributes:
+      label: Roadmap phase
+      description: Name the phase from `openspec/changes/build-pdf-document-builder/tasks.md`.
+      placeholder: "Phase 2: Monorepo Inventory and Isolation Map"
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: List the exact outputs and boundaries for this issue.
+      placeholder: "Create docs/monorepo-inventory.md and docs/editor-dependency-graph.md. Do not delete upstream packages."
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation
+      description: List commands, tests, or docs checks expected for completion.
+      placeholder: "pnpm lint; pnpm --filter @react-email/editor test:unit"
+    validations:
+      required: true
+  - type: textarea
+    id: handoff
+    attributes:
+      label: Handoff notes
+      description: State what the next phase needs from this issue.
+      placeholder: "Next phase starts from the documented editor dependency graph."

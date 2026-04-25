@@ -1,43 +1,45 @@
 name: Tests
+
 on:
   push:
     branches:
-      - main
       - canary
   pull_request:
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-permissions: 
+
+permissions:
   contents: read
-  pull-requests: read
+
 jobs:
   tests:
-    runs-on: depot-ubuntu-22.04-8
+    runs-on: ubuntu-22.04
     container:
-      image: mcr.microsoft.com/playwright:v1.59.1-noble
+      image: node:22
     steps:
-      - name: Checkout Repo
+      - name: Checkout repo
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
         with:
           fetch-depth: 1
-      - run: git config --global --add safe.directory $GITHUB_WORKSPACE
-      - name: pnpm setup
+      - name: Mark workspace safe
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Setup pnpm
         uses: pnpm/action-setup@738f428026a1f5a72398de22aeed83d859c4a660
-      - name: Install packages
+      - name: Install dependencies
         run: pnpm install --frozen-lockfile --prefer-offline
-      - name: Run Build
-        run: pnpm build
-        env:
-          SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
-          SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
-      - name: Run Tests
-        run: pnpm test
-        env:
-          PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
-          SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
-          SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+      - name: Fetch upstream baseline
+        run: |
+          if ! git remote get-url upstream >/dev/null 2>&1; then
+            git remote add upstream https://github.com/resend/react-email.git
+          fi
+          git fetch upstream canary --depth=1
+      - name: Run baseline smoke
+        run: pnpm asym:baseline-smoke
+      - name: Build editor test dependencies
+        run: |
+          pnpm --filter @react-email/render build
+          pnpm --filter react-email build
+      - name: Run editor unit tests
+        run: pnpm --filter @react-email/editor test:unit

@@ -1,59 +1,40 @@
-![React email cover](https://react.email/static/covers/react-email.png)
+# react-email
 
-<div align="center"><strong>React Email</strong></div>
-<div align="center">The next generation of writing emails.<br />High-quality, unstyled components for creating emails.</div>
-<br />
-<div align="center">
-<a href="https://react.email">Website</a>
-<span> · </span>
-<a href="https://github.com/resend/react-email">GitHub</a>
+This is a retained upstream React Email package inside the Asymmetric.al PDF
+Document Builder fork. It remains here to preserve the frozen baseline while
+the repo is refactored through OpenSpec phases.
 
-</div>
+This package is not the PDF builder API. For product direction, current phase
+scope, and future package boundaries, start with the root README, `AGENTS.md`,
+and `openspec/changes/build-pdf-document-builder/`.
 
-## Getting started
+## Current Baseline Behavior
 
-To get started, open a new shell and run:
-
-```sh
-npx create-email
-```
-
-This will create a new folder called `emails` with a few email templates.
-
-## Commands
-
-### `email dev`
-
-Starts a local development server that will watch your files and automatically rebuild your email when you make changes.
+The upstream CLI can run a local preview server for email templates:
 
 ```sh
 npx react-email dev
 ```
 
-### `email export`
-
-Generates the plain HTML files of your emails into a `out` directory.
+It can export plain HTML files:
 
 ```sh
 npx react-email export
 ```
 
-## Setting Up the Environment
+Those commands are retained for compatibility. Do not add PDF rendering,
+DocRaptor credentials, tenant data, or batch generation behavior here until a
+later OpenSpec phase explicitly changes the package boundary.
 
-When working in the CLI, a lot of friction can get introduced with installing it and rebuilding for every change. To avoid that, we have a script that can be linked globally to directly run the source code of the CLI. You can use it the same as you would the standard CLI.
+## Development
 
-### 1. Link `react-email` globally
-
-```sh
-pnpm link ./dev -g
-```
-
-### 2. Run the CLI
+Use `pnpm` from the repo root:
 
 ```sh
-email-dev [command] [flags]
+pnpm --filter react-email build
+pnpm --filter react-email test
 ```
 
 ## License
 
-MIT License
+MIT

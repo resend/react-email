@@ -1,8 +1,10 @@
 {
   "name": "react-email-monorepo",
   "version": "0.0.0",
+  "description": "Asymmetric.al PDF Document Builder fork of React Email.",
   "private": true,
   "scripts": {
+    "asym:baseline-smoke": "tsx scripts/asym-baseline-smoke.ts",
     "build": "turbo run build",
     "canary:enter": "changeset pre enter canary",
     "canary:exit": "changeset pre exit",

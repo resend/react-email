@@ -1,42 +1,25 @@
-![React Email button cover](https://react.email/static/covers/render.png)
+# @react-email/render
 
-<div align="center"><strong>@react-email/render</strong></div>
-<div align="center">Transform React components into HTML email templates.</div>
-<br />
-<div align="center">
-<a href="https://react.email">Website</a>
-<span> · </span>
-<a href="https://github.com/resend/react-email">GitHub</a>
+This is a retained upstream React Email package inside the Asymmetric.al PDF
+Document Builder fork. It remains here to preserve the frozen baseline while
+the repo is refactored through OpenSpec phases.
 
-</div>
+This package renders React Email components to HTML. It is not the production
+PDF renderer, and it must not grow DocRaptor credential handling or PDF batch
+job behavior unless a later OpenSpec phase explicitly changes that boundary.
 
-## Install
+## Current Baseline Behavior
 
-Install component from your command line.
-
-#### With yarn
-
-```sh
-yarn add @react-email/render -E
-```
-
-#### With npm
-
-```sh
-npm install @react-email/render -E
-```
-
-## Getting started
-
-Convert React components into a HTML string.
-
-```jsx
-import { MyTemplate } from "../components/MyTemplate";
+```tsx
 import { render } from "@react-email/render";
+import { MyTemplate } from "../components/MyTemplate";
 
 const html = await render(<MyTemplate firstName="Jim" />);
 ```
 
+For PDF builder work, start with the root README, `AGENTS.md`, and
+`openspec/changes/build-pdf-document-builder/`.
+
 ## License
 
-MIT License
+MIT

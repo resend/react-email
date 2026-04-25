@@ -1,4 +1,8 @@
 body:
+  - type: markdown
+    attributes:
+      value: |
+        Product ideas for the PDF builder should map to OpenSpec. If the idea changes scope or behavior, propose an OpenSpec update before implementation.
   - type: textarea
     attributes:
       label: Goals
@@ -12,12 +16,12 @@ body:
   - type: textarea
     attributes:
       label: Background
-      description: Discuss prior art, why do you think this feature is needed? Are there current alternatives?
+      description: Discuss prior art, PDF Studio or Unlayer behavior, and why this is needed.
     validations:
       required: true
   - type: textarea
     attributes:
       label: Proposal
-      description: How should this feature be implemented? Are you interested in contributing?
+      description: How should this fit the current roadmap and package boundaries?
     validations:
       required: true

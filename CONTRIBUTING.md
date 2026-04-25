@@ -1,23 +1,92 @@
-Thank you for considering contributing to React Email.
+# Contributing
 
-We've created this guide to help you better understand how to contribute to the project, even if you've never contributed to an open source project before.
+This repository is the Asymmetric.al PDF Document Builder fork of
+`resend/react-email`. It is not a general-purpose React Email contribution
+queue. Contributions should preserve the current upstream baseline while moving
+the fork toward the OpenSpec-defined PDF builder.
 
-## How to report bugs
+## Before You Start
 
-To report a bug, please first read our guide on [opening issues](https://react.email/docs/contributing/opening-issues).
+Read:
 
-## How to contribute code
+- `AGENTS.md`
+- `openspec/project.md`
+- `openspec/changes/build-pdf-document-builder/proposal.md`
+- `openspec/changes/build-pdf-document-builder/design.md`
+- `openspec/changes/build-pdf-document-builder/tasks.md`
+- the related specs under
+  `openspec/changes/build-pdf-document-builder/specs/**`
 
-To open a pull request, please first read our guide on [opening pull requests](https://react.email/docs/contributing/opening-pull-requests), which outlines our process for RFCs and pull requests.
+Use `docs/roadmap.md` for a quick phase-status view and
+`docs/baseline-test-results.md` for known baseline validation results.
 
-### Codebase overview
-If you need help getting familiar with our codebase, we recommend reading our [Codebase overview guide](https://react.email/docs/contributing/codebase-overview).
+## Scope Rules
 
-### Development workflow guide
-We have also created a Development workflow guide to help you get familiar with the development workflow for React Email. It includes instructions for:
-1. [Setting up your development environment](https://react.email/docs/contributing/development-workflow/1-setup)
-2. [Running tests](https://react.email/docs/contributing/development-workflow/2-running-tests)
-3. [Linting](https://react.email/docs/contributing/development-workflow/3-linting)
-4. [Building](https://react.email/docs/contributing/development-workflow/4-building)
-5. [Writing documentation](https://react.email/docs/contributing/development-workflow/5-writing-docs)
+- Keep changes scoped to the current roadmap phase.
+- Do not delete upstream React Email code unless the active phase explicitly
+  says to do so.
+- Do not treat this repo as `Asymmetric-al/core`.
+- Do not add direct app dependencies for storage, auth, tenant data, assets,
+  queues, audit logs, or permissions.
+- Use adapter boundaries for future platform integration.
+- Update `docs/decision-log.md` when a product or architecture decision changes.
 
+## Development Setup
+
+Use `pnpm`.
+
+```sh
+pnpm install --frozen-lockfile --prefer-offline
+pnpm asym:baseline-smoke
+```
+
+The smoke command verifies the frozen upstream baseline and that
+`packages/editor/package.json` is still discoverable as `@react-email/editor`.
+
+## Validation
+
+Run the smallest relevant checks first, then broader checks before handoff.
+
+Common commands:
+
+```sh
+pnpm lint
+pnpm --filter @react-email/editor test:unit
+pnpm test
+pnpm dlx @fission-ai/openspec@latest validate build-pdf-document-builder
+pnpm dlx @fission-ai/openspec@latest validate --all
+```
+
+Broader baseline commands:
+
+```sh
+pnpm build
+pnpm -r --if-present typecheck
+```
+
+If a broad command fails because of an existing baseline issue, record the
+exact command, result, and reason in the relevant phase notes. Do not claim a
+check passed unless it did.
+
+## Pull Requests
+
+Each pull request should include:
+
+- roadmap phase and scope
+- user-facing summary
+- files changed
+- tests run with exact commands and results
+- skipped checks with reasons
+- decisions or tradeoffs added to `docs/decision-log.md`
+- handoff notes for the next phase
+
+Use the GitHub pull request template and keep the PR focused.
+
+## Security And Data Handling
+
+- Keep DocRaptor credentials server-only.
+- Treat donor and financial data as private by default.
+- Avoid secrets, private data, or real donor records in fixtures, snapshots,
+  logs, examples, and docs.
+- Keep generated output deterministic when it is serialized, snapshotted, or
+  logged.

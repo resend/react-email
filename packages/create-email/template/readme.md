@@ -1,5 +1,8 @@
 # React Email Starter
 
+This starter template is retained for upstream compatibility in the
+Asymmetric.al PDF Document Builder fork. It is not a PDF builder starter.
+
 A live preview right in your browser so you don't need to keep sending real emails during development.
 
 ## Getting Started

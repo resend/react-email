@@ -1,5 +1,9 @@
 # Sending Guide
 
+Legacy reference notice: this file documents inherited React Email behavior.
+For Asym PDF Document Builder product work, use OpenSpec and the root docs as
+the source of truth.
+
 General guidelines for sending emails with React Email.
 
 Important: Use verified domains in `from` addresses. Ask the user for the verified domain and use it in the `from` address. If the user does not have a verified domain, ask them to verify one with their email service provider.

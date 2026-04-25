@@ -1,26 +1,29 @@
-name: Sync Skills
+name: Skills Check
 
 on:
   push:
-    branches: [main]
-    paths: ['skills/**']
+    branches:
+      - main
+      - canary
+    paths:
+      - 'skills/**'
+      - '.github/workflows/sync-skills.yml'
+  pull_request:
+    paths:
+      - 'skills/**'
+      - '.github/workflows/sync-skills.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  sync:
-    runs-on: depot-ubuntu-22.04-2
+  check:
+    runs-on: ubuntu-22.04
     steps:
-      - name: Trigger sync on resend-skills
-        env:
-          GH_TOKEN: ${{ secrets.SYNC_SKILLS_TO_RESEND_SKILLS }}
+      - name: Checkout Repo
+        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
+      - name: Confirm local skills are repo-owned
         run: |
-          gh workflow run sync-from-repo.yml \
-            --repo resend/resend-skills \
-            --field repo=react-email \
-            --field skill-path=skills/react-email \
-            --field skill-name=react-email \
-            --field sha=${{ github.sha }} \
-            --field reviewer=${{ github.actor }}
+          echo "Skills are maintained in this fork."
+          echo "No external upstream skills sync is configured for this repository."

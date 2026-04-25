@@ -1,33 +1,30 @@
-![create-email cover](https://react.email/static/covers/create-email.png)
+# create-email
 
-<div align="center"><strong>create-email</strong></div>
-<div align="center">The easiest way to get started with React Email.</div>
-<br />
-<div align="center">
-<a href="https://react.email">Website</a>
-<span> · </span>
-<a href="https://github.com/resend/react-email">GitHub</a>
+This is a retained upstream React Email package inside the Asymmetric.al PDF
+Document Builder fork. It remains here to preserve the frozen baseline while
+the repo is refactored through OpenSpec phases.
 
-</div>
+This package is not the PDF builder entrypoint. For product direction, current
+phase scope, and future package boundaries, start with the root README,
+`AGENTS.md`, and `openspec/changes/build-pdf-document-builder/`.
 
-## Getting started
+## Current Baseline Behavior
 
-To get started, open a new shell and run:
+The upstream package scaffolds a React Email project:
 
 ```sh
 npx create-email
 ```
 
-This will create a new folder called `emails` with a few email templates.
-
-## Options
-
-Alternatively, you can pass a parameter to specify the name of the folder:
+You can pass a directory name:
 
 ```sh
-npx create-email foo
+npx create-email my-emails
 ```
+
+Do not repurpose this package for PDF builder scaffolding until an OpenSpec
+phase explicitly introduces that boundary.
 
 ## License
 
-MIT License
+MIT
