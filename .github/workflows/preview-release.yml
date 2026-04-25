@@ -1,43 +1,26 @@
 name: Preview Release
-on: 
+
+on:
   pull_request:
+    paths:
+      - package.json
+      - pnpm-lock.yaml
+      - 'packages/**'
+      - .github/workflows/preview-release.yml
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
-  pull-requests: write
-concurrency: ${{ github.workflow }}-${{ github.ref }}
+  pull-requests: read
+
 jobs:
   preview-release:
-    runs-on: depot-ubuntu-22.04-8
-    permissions: 
-      contents: write
-      pull-requests: write
-    container:
-      image: node:22
+    runs-on: ubuntu-22.04
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
-        with:
-          fetch-depth: 2
-      - run: git config --global --add safe.directory $GITHUB_WORKSPACE
-      - name: pnpm setup
-        uses: pnpm/action-setup@738f428026a1f5a72398de22aeed83d859c4a660
-      - name: Install packages
-        run: pnpm install --frozen-lockfile --prefer-offline
-      - name: Find changed packages
-        id: changed_packages
-        uses: tj-actions/changed-files@3c4bc6fa0ca4718d438e0a4bd3ea81fbb0e6e2be
-        with:
-          files: packages/**
-          dir_names: true
-          dir_names_max_depth: 2
-      - name: Run Build
-        if: steps.changed_packages.outputs.all_changed_and_modified_files != ''
-        run: pnpm build
-        env:
-          SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
-          SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
-      - name: Publish changed packages to pkg.pr.new
-        if: steps.changed_packages.outputs.all_changed_and_modified_files != ''
-        run: pnpm pkg-pr-new publish ${{ steps.changed_packages.outputs.all_changed_and_modified_files }} --pnpm
+      - name: Confirm preview release policy
+        run: |
+          echo "Preview package publishing is disabled for this fork."
+          echo "Re-enable it only after an OpenSpec release policy defines package scope, registry, and credentials."

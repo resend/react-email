@@ -81,3 +81,16 @@ phase-level choices and tradeoffs found during implementation.
 - Tradeoff: Detailed skill reference files still contain upstream email
   examples until later phases decide whether to remove, replace, or archive
   them.
+
+## 2026-04-25: GitHub Checks Use Fork-Owned Baseline Gates
+
+- Decision: Pull-request checks run on GitHub-hosted Ubuntu runners and validate
+  the fork baseline with lint, baseline smoke, editor unit tests, OpenSpec
+  validation, pinned dependency checks, title format checks, and local skills
+  ownership.
+- Reason: The upstream workflows depended on Depot runners, release secrets,
+  and preview package publishing that are not part of this fork's foundation
+  phase.
+- Tradeoff: Full builds, recursive typecheck, broad e2e, automated version
+  PRs, and package publishing remain deferred until later OpenSpec phases define
+  release scope and resolve known baseline caveats.
