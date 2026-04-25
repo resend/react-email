@@ -1,5 +1,15 @@
 # @react-email/ui
 
+## 6.0.3
+
+## 6.0.2
+
+### Patch Changes
+
+- 6b24228: fallback behavior for prompt copying when too long
+
+## 6.0.1
+
 ## 6.0.0
 
 ### Major Changes

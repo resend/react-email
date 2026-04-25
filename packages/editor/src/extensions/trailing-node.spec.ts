@@ -227,7 +227,9 @@ describe('TrailingNode', () => {
     const container = json.content!.find((n) => n.type === 'container')!;
     const section = container.content!.find((n) => n.type === 'section')!;
 
-    expect(section.content!.at(-1)!.type).toBe('paragraph');
+    expect(
+      'content' in section ? section.content?.at(-1)?.type : undefined,
+    ).toBe('paragraph');
     expect(container.content!.at(-1)!.type).toBe('paragraph');
   });
 
