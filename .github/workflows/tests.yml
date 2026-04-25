@@ -37,5 +37,9 @@ jobs:
           git fetch upstream canary --depth=1
       - name: Run baseline smoke
         run: pnpm asym:baseline-smoke
+      - name: Build editor test dependencies
+        run: |
+          pnpm --filter @react-email/render build
+          pnpm --filter react-email build
       - name: Run editor unit tests
         run: pnpm --filter @react-email/editor test:unit
