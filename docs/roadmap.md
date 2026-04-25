@@ -2,13 +2,13 @@
 
 The canonical phase list lives in
 `openspec/changes/build-pdf-document-builder/tasks.md`. This document mirrors
-that list with current Phase 1 status for handoff visibility.
+that list with current phase status for handoff visibility.
 
 | Phase | Name | Status | Primary Output |
 |---:|---|---|---|
 | 1 | Fork Baseline, Governance, and Product Charter | Complete; validation gaps recorded | `docs/asym-product-charter.md`, `docs/research-basis.md` |
-| 2 | Monorepo Inventory and Isolation Map | Next | `docs/monorepo-inventory.md`, `docs/editor-dependency-graph.md` |
-| 3 | Package Boundary for @asym/pdf-editor and Related Packages | Not started | `packages/pdf-editor`, `packages/pdf-renderer` |
+| 2 | Monorepo Inventory and Isolation Map | Complete; validation recorded | `docs/monorepo-inventory.md`, `docs/editor-dependency-graph.md` |
+| 3 | Package Boundary for @asym/pdf-editor and Related Packages | Next | `packages/pdf-editor`, `packages/pdf-renderer` |
 | 4 | Editor Baseline Fixtures and Regression Harness | Not started | `packages/pdf-editor/test/fixtures`, `packages/pdf-renderer/test/fixtures` |
 | 5 | PDF Template Schema and Domain Model | Not started | `packages/pdf-template-schema/src`, `packages/pdf-template-schema/test` |
 | 6 | PDF Serialization Core: DocumentNode, DocumentMark, and composePdfDocumentHtml | Not started | `packages/pdf-renderer/src/compose-pdf-document-html.ts`, `packages/pdf-renderer/src/document-node.ts` |
@@ -39,8 +39,15 @@ that list with current Phase 1 status for handoff visibility.
 | 31 | Documentation, Examples, Developer Experience, and Internal Training Material | Not started | `docs`, `examples/pdf-editor` |
 | 32 | Production Hardening, Release Candidate, and Core Cutover Readiness | Not started | `docs/release-candidate-checklist.md`, `docs/core-cutover-plan.md` |
 
-## Phase 2 Entry Point
+## Phase 3 Entry Point
 
-Phase 2 should start by inventorying the current pnpm workspaces, package
-scripts, editor exports, editor dependencies, and serializer paths. It should
-not delete packages or move implementation code.
+Phase 3 should start from the Phase 2 inventory and dependency map:
+
+- `docs/monorepo-inventory.md`
+- `docs/editor-dependency-graph.md`
+- `docs/public-export-map.md`
+- `docs/term-migration-map.md`
+- `docs/dep-map.json`
+
+It should create new package boundaries while leaving the original
+`@react-email/editor` package intact.

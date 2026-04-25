@@ -91,6 +91,7 @@
     "includes": [
       "**",
       "!**/dist",
+      "!docs/dep-map.json",
       "!**/pnpm-lock.yaml",
       "!**/.next",
       "!**/public",
