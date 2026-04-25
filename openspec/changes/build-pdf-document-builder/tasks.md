@@ -36,8 +36,8 @@
 | 3 | Package Boundary for @asym/pdf-editor and Related Packages | Complete | `packages/pdf-editor`, `packages/pdf-renderer` |
 | 4 | Editor Boundary Isolation, Baseline Fixtures, and Regression Harness | Complete | `packages/pdf-editor/test/fixtures`, `packages/pdf-renderer/test/fixtures` |
 | 5 | Package Names, Export Strategy, and Compatibility Policy | Complete | `docs/package-strategy.md`, `scripts/asym-package-strategy-smoke.ts` |
-| 6 | Create the PDF Template Schema Foundation | Next | `packages/pdf-template-schema/src`, `packages/pdf-template-schema/test` |
-| 7 | Add Compatibility Fixtures and Regression Harness | Not started | `packages/editor/src`, `packages/editor/test` |
+| 6 | Create the PDF Template Schema Foundation | Complete | `packages/pdf-template-schema/src`, `packages/pdf-template-schema/test` |
+| 7 | Add Compatibility Fixtures and Regression Harness | Next | `packages/editor/src`, `packages/editor/test` |
 | 8 | Rename Public Concepts Safely from Email to Document | Not started | `@asym/pdf-editor` compatibility exports, editor docs |
 | 9 | Build the Document Serializer Foundation | Not started | `packages/pdf-renderer/src/compose-pdf-document-html.ts` |
 | 10 | Build the Print HTML Shell and Page Model | Not started | `packages/pdf-renderer/src/print-shell.ts` |
@@ -247,33 +247,33 @@ DocRaptor, batch, and adapter work can share.
 
 ### Tasks
 
-- [ ] Use Zod by default for runtime validation and inferred TypeScript types
+- [x] Use Zod by default for runtime validation and inferred TypeScript types
       because it is already in the workspace catalog and supports JSON Schema
       conversion; document any measured reason before choosing Valibot.
-- [ ] Define runtime schemas and aligned TypeScript types for
+- [x] Define runtime schemas and aligned TypeScript types for
       `DocumentTemplateV1`, `DocumentPageSettings`, `DocumentTheme`,
       `VariableDefinition`, `VariableReference`, `DataBinding`,
       `ConditionalRule`, `RepeaterBinding`, `TableBinding`, `AssetReference`,
       `RenderRequest`, `RenderResult`, `RenderWarning`, `RenderError`,
       `RenderJobV1`, `BatchRunV1`, `DocumentArtifact`, and `AuditEvent`.
-- [ ] Add schema version behavior, page setting defaults, nonprofit document
+- [x] Add schema version behavior, page setting defaults, nonprofit document
       categories, and first product fixtures.
-- [ ] Keep the package free of React UI, browser-only code, DocRaptor secrets,
+- [x] Keep the package free of React UI, browser-only code, DocRaptor secrets,
       and app-specific dependencies.
 
 ### Validation
 
-- [ ] Run `pnpm --filter @asym/pdf-template-schema typecheck`.
-- [ ] Run `pnpm --filter @asym/pdf-template-schema test`.
-- [ ] Run `pnpm --filter @asym/pdf-template-schema build`.
-- [ ] Run `pnpm lint`.
-- [ ] Tests cover valid template parsing, invalid template rejection, page
+- [x] Run `pnpm --filter @asym/pdf-template-schema typecheck`.
+- [x] Run `pnpm --filter @asym/pdf-template-schema test`.
+- [x] Run `pnpm --filter @asym/pdf-template-schema build`.
+- [x] Run `pnpm lint`.
+- [x] Tests cover valid template parsing, invalid template rejection, page
       setting defaults, variable validation, version field behavior, and
       schema fixtures.
 
 ### Handoff output
 
-- [ ] Schema API docs, fixtures, validation-library decision note, and Phase
+- [x] Schema API docs, fixtures, validation-library decision note, and Phase
       07 compatibility-harness entry point.
 
 ## Phase 07: Add Compatibility Fixtures and Regression Harness

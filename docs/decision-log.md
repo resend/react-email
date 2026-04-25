@@ -211,3 +211,23 @@ phase-level choices and tradeoffs found during implementation.
 - Tradeoff: Some earlier completion notes mention the previous 33-phase
   tracker as historical validation output; current planning docs should follow
   the 36-phase tracker.
+
+## 2026-04-26: Phase 6 Schema Foundation Uses Zod
+
+- Decision: `@asym/pdf-template-schema` uses Zod for runtime validation and
+  inferred TypeScript types.
+- Reason: Zod is already present in the workspace catalog and was selected in
+  Phase 5 planning as the default for cross-package schema contracts and
+  future JSON Schema conversion.
+- Tradeoff: The schema package now has a runtime dependency on Zod while it
+  remains private. Valibot can be reconsidered only if a later phase records
+  measured bundle-size or runtime reasons to add another validation library.
+
+## 2026-04-26: Phase 6 Fixtures Are Test Data, Not Starter Templates
+
+- Decision: Donation receipt, annual giving statement, financial report,
+  invoice, and certificate fixtures live under
+  `packages/pdf-template-schema/test/fixtures`.
+- Reason: Phase 6 needs realistic product-shape schema coverage, but Phase 24
+  owns starter templates and golden fixtures.
+- Tradeoff: Consumers get schema APIs now, not packaged starter templates.

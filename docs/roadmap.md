@@ -11,8 +11,8 @@ that list with current phase status for handoff visibility.
 | 3 | Package Boundary for @asym/pdf-editor and Related Packages | Complete; validation recorded | `packages/pdf-editor`, `packages/pdf-renderer` |
 | 4 | Editor Boundary Isolation, Baseline Fixtures, and Regression Harness | Complete; validation recorded | `packages/editor/src/boundary`, baseline fixtures |
 | 5 | Package Names, Export Strategy, and Compatibility Policy | Complete; validation recorded | `docs/package-strategy.md`, `scripts/asym-package-strategy-smoke.ts` |
-| 6 | Create the PDF Template Schema Foundation | Next | `packages/pdf-template-schema/src`, schema fixtures |
-| 7 | Add Compatibility Fixtures and Regression Harness | Not started | Expanded `@react-email/editor` compatibility fixtures |
+| 6 | Create the PDF Template Schema Foundation | Complete; validation recorded | `packages/pdf-template-schema/src`, schema fixtures |
+| 7 | Add Compatibility Fixtures and Regression Harness | Next | Expanded `@react-email/editor` compatibility fixtures |
 | 8 | Rename Public Concepts Safely from Email to Document | Not started | Compatibility aliases and migration docs |
 | 9 | Build the Document Serializer Foundation | Not started | `packages/pdf-renderer/src/compose-pdf-document-html.ts` |
 | 10 | Build the Print HTML Shell and Page Model | Not started | `packages/pdf-renderer/src/print-shell.ts` |
@@ -43,15 +43,15 @@ that list with current phase status for handoff visibility.
 | 35 | Build Performance, Load, and Large Document Tests | Not started | Performance smoke and opt-in load tests |
 | 36 | Production Hardening, Release Readiness, and Cutover Plan | Not started | Release checklist and core cutover plan |
 
-## Phase 6 Entry Point
+## Phase 7 Entry Point
 
-Phase 6 should start from the Phase 5 package strategy and Phase 4 editor
-boundary artifacts:
+Phase 7 should start from the Phase 6 schema foundation, Phase 5 package
+strategy, and Phase 4 editor boundary artifacts:
 
 - `docs/package-strategy.md`
 - `docs/package-boundaries.md`
 - `docs/editor-package-isolation.md`
-- `docs/phase-5-completion-notes.md`
+- `docs/phase-6-completion-notes.md`
 - `openspec/changes/build-pdf-document-builder/tasks.md`
 - `packages/pdf-template-schema`
 - `packages/pdf-editor`
@@ -59,9 +59,7 @@ boundary artifacts:
 - `packages/docraptor-client`
 - `packages/editor/package.json`
 
-Phase 6 should implement the first real PDF template schema foundation in
-`@asym/pdf-template-schema`. It should use Zod by default because Zod is
-already present in the workspace catalog and supports runtime validation,
-TypeScript inference, and JSON Schema conversion. It must not add React UI,
-DocRaptor behavior, app-specific storage/auth dependencies, or editor UI
-dependencies.
+Phase 7 should expand compatibility fixtures for the current
+`@react-email/editor` behavior before broad naming or serializer changes. It
+must not change current editor output unless the compatibility harness reveals
+a bug that the active OpenSpec allows fixing.

@@ -145,9 +145,9 @@ Active package migration rules:
 
 See `docs/package-strategy.md` for the full compatibility policy.
 
-## Phase 6 Handoff
+## Phase 6 Schema Status
 
-The next phase should create the PDF template schema foundation inside
+Phase 6 creates the PDF template schema foundation inside
 `@asym/pdf-template-schema` while preserving the editor boundary created in
 Phase 4 and the package strategy defined in Phase 5. The new package names
 remain available for fixture imports:
@@ -158,4 +158,13 @@ remain available for fixture imports:
 - `@asym/docraptor-client`
 
 Phase 6 should use Zod by default for runtime schema validation unless it
-documents a measured reason to introduce Valibot.
+documents a measured reason to introduce Valibot. The package now exports
+Zod-backed template, variable, binding, render, batch, artifact, and audit
+schemas while staying private and free of React UI, DocRaptor calls, browser
+APIs, storage, auth, and queue dependencies.
+
+## Phase 7 Handoff
+
+The next phase should expand compatibility fixtures for the current
+`@react-email/editor` behavior before broad naming, serializer, or extension
+changes.
