@@ -57,7 +57,11 @@ describe('Image extension', () => {
   });
 
   it('defines expected attributes', () => {
-    const attrs = extension.config.addAttributes?.call(extension) ?? {};
+    const addAttributes = extension.config.addAttributes as
+      | ((this: unknown) => Record<string, unknown>)
+      | undefined;
+    const attrs = addAttributes?.call(extension) ?? {};
+
     expect(attrs).toHaveProperty('src');
     expect(attrs).toHaveProperty('alt');
     expect(attrs).toHaveProperty('width');
@@ -78,7 +82,11 @@ describe('Image extension', () => {
   });
 
   it('has setImage and uploadImage commands', () => {
-    const commands = extension.config.addCommands?.call(extension);
+    const addCommands = extension.config.addCommands as
+      | ((this: unknown) => Record<string, unknown>)
+      | undefined;
+    const commands = addCommands?.call(extension);
+
     expect(commands).toHaveProperty('setImage');
     expect(commands).toHaveProperty('uploadImage');
   });
@@ -90,7 +98,11 @@ describe('Image extension', () => {
       options: extension.options,
       storage: extension.storage,
     };
-    const plugins = extension.config.addProseMirrorPlugins?.call(context);
+    const addProseMirrorPlugins = extension.config.addProseMirrorPlugins as
+      | ((this: unknown) => unknown[])
+      | undefined;
+    const plugins = addProseMirrorPlugins?.call(context);
+
     expect(plugins).toHaveLength(1);
   });
 });

@@ -160,3 +160,23 @@ phase-level choices and tradeoffs found during implementation.
   validate against the React Email baseline.
 - Tradeoff: The repository still contains legacy email-oriented guidance until
   Phase 31 or earlier feature-specific docs phases replace those surfaces.
+
+## 2026-04-25: Editor Boundary Is Internal Before PDF Behavior
+
+- Decision: Phase 4 adds `packages/editor/src/boundary` as an internal-only
+  legacy editor boundary and does not add public `@react-email/editor` exports.
+- Reason: Future PDF-first wrappers need a clear map of the current root, core,
+  extension, plugin, UI, utility, CSS, and theme surfaces before behavior is
+  moved or renamed.
+- Tradeoff: The boundary still references email-era names and
+  `composeReactEmail`; this is intentional until later phases define
+  `DocumentNode`, `DocumentMark`, and PDF serialization behavior.
+
+## 2026-04-25: Phase 4 Fixtures Are Plain Test Data
+
+- Decision: Phase 4 stores baseline editor JSON and legacy render expectation
+  fixtures under package test folders, not public package exports.
+- Reason: The fixtures provide deterministic regression anchors without
+  claiming a stable template schema or renderer API before Phase 5 and Phase 6.
+- Tradeoff: Later schema and renderer phases may replace these fixture shapes
+  with formal model types after the public contracts exist.

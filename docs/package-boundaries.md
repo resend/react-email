@@ -112,11 +112,25 @@ examples are not part of the PDF builder product path. Phase 31 owns broad
 documentation and examples replacement. Earlier feature phases may add focused
 PDF examples only when the matching package behavior exists.
 
-## Phase 4 Handoff
+## Phase 4 Boundary Status
 
-The next phase should add fixtures and regression tests against these package
-boundaries without deleting or renaming `@react-email/editor`. The new package
-names are now available for fixture imports:
+Phase 4 adds an internal boundary around the current React Email editor
+surface without adding public package exports. The boundary lives at
+`packages/editor/src/boundary` and records selected legacy root, core,
+extension, plugin, UI, utility, CSS, and theme surfaces for future wrappers.
+
+The baseline fixture scaffolding lives under:
+
+- `packages/pdf-editor/test/fixtures`
+- `packages/pdf-renderer/test/fixtures`
+
+These fixtures are plain test data. They are not package APIs.
+
+## Phase 5 Handoff
+
+The next phase should implement the first real PDF template schema behavior
+inside `@asym/pdf-template-schema` while preserving the editor boundary created
+in Phase 4. The new package names remain available for fixture imports:
 
 - `@asym/pdf-editor`
 - `@asym/pdf-renderer`

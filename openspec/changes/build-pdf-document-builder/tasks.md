@@ -31,8 +31,8 @@
 | 1 | Fork Baseline, Governance, and Product Charter | Complete | docs/asym-product-charter.md, docs/research-basis.md |
 | 2 | Monorepo Inventory and Isolation Map | Complete | docs/monorepo-inventory.md, docs/editor-dependency-graph.md |
 | 3 | Package Boundary for @asym/pdf-editor and Related Packages | Complete | packages/pdf-editor, packages/pdf-renderer |
-| 4 | Editor Baseline Fixtures and Regression Harness | Next | packages/pdf-editor/test/fixtures, packages/pdf-renderer/test/fixtures |
-| 5 | PDF Template Schema and Domain Model | Not started | packages/pdf-template-schema/src, packages/pdf-template-schema/test |
+| 4 | Editor Boundary Isolation, Baseline Fixtures, and Regression Harness | Complete | packages/pdf-editor/test/fixtures, packages/pdf-renderer/test/fixtures |
+| 5 | PDF Template Schema and Domain Model | Next | packages/pdf-template-schema/src, packages/pdf-template-schema/test |
 | 6 | PDF Serialization Core: DocumentNode, DocumentMark, and composePdfDocumentHtml | Not started | packages/pdf-renderer/src/compose-pdf-document-html.ts, packages/pdf-renderer/src/document-node.ts |
 | 7 | Print HTML Shell and Paged-Media CSS Engine | Not started | packages/pdf-renderer/src/print-shell.ts, packages/pdf-renderer/src/paged-media-css.ts |
 | 8 | DocRaptor Client and Rendering API Layer | Not started | packages/docraptor-client/src, packages/docraptor-client/test |
@@ -163,11 +163,12 @@ renderer while preserving the current fork.
 
 - [x] Package boundary notes and initial package ownership map.
 
-## Phase 04: Editor Baseline Fixtures and Regression Harness
+## Phase 04: Editor Boundary Isolation, Baseline Fixtures, and Regression Harness
 
 ### Purpose
 
-Capture editor and renderer baseline behavior before deeper PDF-first changes.
+Capture and isolate editor and renderer baseline behavior before deeper
+PDF-first changes.
 
 ### Primary output
 
@@ -176,22 +177,25 @@ Capture editor and renderer baseline behavior before deeper PDF-first changes.
 
 ### Tasks
 
-- [ ] Add baseline editor JSON fixtures that reflect current supported content.
-- [ ] Add serializer/render fixtures for representative React Email editor
+- [x] Add internal legacy editor boundary metadata without adding public
+      package exports.
+- [x] Add package boundary tests that guard selected current editor surfaces.
+- [x] Add baseline editor JSON fixtures that reflect current supported content.
+- [x] Add serializer/render fixtures for representative React Email editor
       output.
-- [ ] Add deterministic snapshot helpers that avoid timestamps, random IDs, and
+- [x] Add deterministic fixture helpers that avoid timestamps, random IDs, and
       unstable object key order.
-- [ ] Document how to update fixtures intentionally.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [x] Document how to update fixtures intentionally.
+- [x] Follow the existing package, export, test, and documentation patterns for this repo.
 
 ### Validation
 
-- [ ] Fixture tests pass and fail on intentional serializer changes.
-- [ ] Snapshot outputs are deterministic across repeated runs.
+- [x] Fixture tests pass and fail on intentional serializer changes.
+- [x] Snapshot outputs are deterministic across repeated runs.
 
 ### Handoff output
 
-- [ ] Baseline regression harness and fixture update notes.
+- [x] Baseline regression harness and fixture update notes.
 
 ## Phase 05: PDF Template Schema and Domain Model
 

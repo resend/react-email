@@ -9,8 +9,8 @@ that list with current phase status for handoff visibility.
 | 1 | Fork Baseline, Governance, and Product Charter | Complete; validation gaps recorded | `docs/asym-product-charter.md`, `docs/research-basis.md` |
 | 2 | Monorepo Inventory and Isolation Map | Complete; validation recorded | `docs/monorepo-inventory.md`, `docs/editor-dependency-graph.md` |
 | 3 | Package Boundary for @asym/pdf-editor and Related Packages | Complete; validation recorded | `packages/pdf-editor`, `packages/pdf-renderer` |
-| 4 | Editor Baseline Fixtures and Regression Harness | Next | `packages/pdf-editor/test/fixtures`, `packages/pdf-renderer/test/fixtures` |
-| 5 | PDF Template Schema and Domain Model | Not started | `packages/pdf-template-schema/src`, `packages/pdf-template-schema/test` |
+| 4 | Editor Boundary Isolation, Baseline Fixtures, and Regression Harness | Complete; validation recorded | `packages/pdf-editor/test/fixtures`, `packages/pdf-renderer/test/fixtures` |
+| 5 | PDF Template Schema and Domain Model | Next | `packages/pdf-template-schema/src`, `packages/pdf-template-schema/test` |
 | 6 | PDF Serialization Core: DocumentNode, DocumentMark, and composePdfDocumentHtml | Not started | `packages/pdf-renderer/src/compose-pdf-document-html.ts`, `packages/pdf-renderer/src/document-node.ts` |
 | 7 | Print HTML Shell and Paged-Media CSS Engine | Not started | `packages/pdf-renderer/src/print-shell.ts`, `packages/pdf-renderer/src/paged-media-css.ts` |
 | 8 | DocRaptor Client and Rendering API Layer | Not started | `packages/docraptor-client/src`, `packages/docraptor-client/test` |
@@ -39,9 +39,9 @@ that list with current phase status for handoff visibility.
 | 31 | Documentation, Examples, Developer Experience, and Internal Training Material | Not started | `docs`, `examples/pdf-editor` |
 | 32 | Production Hardening, Release Candidate, and Core Cutover Readiness | Not started | `docs/release-candidate-checklist.md`, `docs/core-cutover-plan.md` |
 
-## Phase 4 Entry Point
+## Phase 5 Entry Point
 
-Phase 4 should start from the merged Phase 3 package-boundary artifacts:
+Phase 5 should start from the Phase 4 editor boundary and fixture artifacts:
 
 - `docs/monorepo-inventory.md`
 - `docs/editor-dependency-graph.md`
@@ -50,10 +50,13 @@ Phase 4 should start from the merged Phase 3 package-boundary artifacts:
 - `docs/dep-map.json`
 - `docs/package-boundaries.md`
 - `docs/phase-3-completion-notes.md`
+- `docs/editor-package-isolation.md`
+- `docs/phase-4-completion-notes.md`
+- `packages/editor/src/boundary`
 - `packages/pdf-editor`
 - `packages/pdf-renderer`
 - `packages/pdf-template-schema`
 - `packages/docraptor-client`
 
-It should add editor and renderer baseline fixtures while leaving the original
-`@react-email/editor` package intact.
+It should implement the first real PDF template schema and domain model while
+leaving the original `@react-email/editor` package intact.
