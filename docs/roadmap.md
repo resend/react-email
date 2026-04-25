@@ -9,54 +9,59 @@ that list with current phase status for handoff visibility.
 | 1 | Fork Baseline, Governance, and Product Charter | Complete; validation gaps recorded | `docs/asym-product-charter.md`, `docs/research-basis.md` |
 | 2 | Monorepo Inventory and Isolation Map | Complete; validation recorded | `docs/monorepo-inventory.md`, `docs/editor-dependency-graph.md` |
 | 3 | Package Boundary for @asym/pdf-editor and Related Packages | Complete; validation recorded | `packages/pdf-editor`, `packages/pdf-renderer` |
-| 4 | Editor Boundary Isolation, Baseline Fixtures, and Regression Harness | Complete; validation recorded | `packages/pdf-editor/test/fixtures`, `packages/pdf-renderer/test/fixtures` |
-| 5 | PDF Template Schema and Domain Model | Next | `packages/pdf-template-schema/src`, `packages/pdf-template-schema/test` |
-| 6 | PDF Serialization Core: DocumentNode, DocumentMark, and composePdfDocumentHtml | Not started | `packages/pdf-renderer/src/compose-pdf-document-html.ts`, `packages/pdf-renderer/src/document-node.ts` |
-| 7 | Print HTML Shell and Paged-Media CSS Engine | Not started | `packages/pdf-renderer/src/print-shell.ts`, `packages/pdf-renderer/src/paged-media-css.ts` |
-| 8 | DocRaptor Client and Rendering API Layer | Not started | `packages/docraptor-client/src`, `packages/docraptor-client/test` |
-| 9 | PdfEditor Shell, Layout, Toolbar, Inspector, and Event Bus | Not started | `packages/pdf-editor/src/components/PdfEditor.tsx`, `packages/pdf-editor/src/ui` |
-| 10 | Base Document Blocks and Marks | Not started | `packages/pdf-editor/src/extensions/base`, `packages/pdf-editor/src/ui/slash-commands` |
-| 11 | Images, Assets, Buttons, Callouts, and Visual Blocks | Not started | `packages/pdf-editor/src/extensions/media`, `packages/pdf-renderer/src/assets` |
-| 12 | Page Setup UI and Page Settings Renderer | Not started | `packages/pdf-editor/src/ui/page-setup`, `packages/pdf-template-schema/src/page-settings.ts` |
-| 13 | Brand Kit, Document Theming, and Style Tokens | Not started | `packages/pdf-editor/src/plugins/document-theming`, `packages/pdf-template-schema/src/brand.ts` |
-| 14 | Variable Registry and Merge Tag Domain Model | Not started | `packages/pdf-template-schema/src/variables`, `packages/pdf-renderer/src/variables` |
-| 15 | Variable Chip Extension and Sample Data Preview | Not started | `packages/pdf-editor/src/extensions/variable`, `packages/pdf-editor/src/ui/variable-picker` |
-| 16 | Conditional Section Extension | Not started | `packages/pdf-editor/src/extensions/conditional-section`, `packages/pdf-renderer/src/conditions` |
-| 17 | Repeater Extension and Collection Data Model | Not started | `packages/pdf-editor/src/extensions/repeater`, `packages/pdf-renderer/src/repeaters` |
-| 18 | Data Table Block for Financial Reports and Statements | Not started | `packages/pdf-editor/src/extensions/data-table`, `packages/pdf-renderer/src/data-table` |
-| 19 | Headers, Footers, Page Numbers, and Running Content | Not started | `packages/pdf-editor/src/extensions/header-footer`, `packages/pdf-renderer/src/header-footer` |
-| 20 | Page Breaks, Keep-Together Rules, Named Pages, and Section Flow | Not started | `packages/pdf-editor/src/extensions/page-flow`, `packages/pdf-renderer/src/page-flow` |
-| 21 | Financial Report Templates and Data Adapters | Not started | `packages/pdf-template-schema/src/report-data`, `packages/pdf-editor/src/templates/financial` |
-| 22 | Donation Receipts, Tax Receipts, Annual Statements, and Donor Letters | Not started | `packages/pdf-editor/src/templates/donations`, `packages/pdf-template-schema/src/donor-documents` |
-| 23 | Template Library, Saved Blocks, and Reusable Sections | Not started | `packages/pdf-editor/src/template-library`, `packages/pdf-template-schema/src/template-library.ts` |
-| 24 | Preview System: Editor Preview, Print Preview, DocRaptor Test Preview, and Render Diffing | Not started | `packages/pdf-editor/src/preview`, `packages/pdf-renderer/src/preview` |
-| 25 | Preflight Validation, Render Warnings, and Unsupported Feature Scanner | Not started | `packages/pdf-renderer/src/preflight`, `packages/pdf-editor/src/ui/preflight-panel` |
-| 26 | Batch Generation Engine and Job Model | Not started | `packages/pdf-renderer/src/batch`, `packages/docraptor-client/src/async-batch-helpers.ts` |
-| 27 | Storage, Security, Tenant Boundaries, PII, and Audit Logging | Not started | `packages/pdf-renderer/src/storage`, `packages/pdf-template-schema/src/security.ts` |
-| 28 | Asymmetric Core Integration Adapter | Not started | `packages/pdf-editor/src/core-adapter`, `docs/asymmetric-core-integration.md` |
-| 29 | Unlayer Migration, Legacy Coexistence, and Dual-Run Strategy | Not started | `packages/pdf-editor/src/migration/unlayer`, `docs/unlayer-migration.md` |
-| 30 | Full Testing Strategy, Golden Fixtures, Visual Checks, and Quality Gates | Not started | `test/golden-fixtures`, `docs/testing-strategy.md` |
-| 31 | Documentation, Examples, Developer Experience, and Internal Training Material | Not started | `docs`, `examples/pdf-editor` |
-| 32 | Production Hardening, Release Candidate, and Core Cutover Readiness | Not started | `docs/release-candidate-checklist.md`, `docs/core-cutover-plan.md` |
+| 4 | Editor Boundary Isolation, Baseline Fixtures, and Regression Harness | Complete; validation recorded | `packages/editor/src/boundary`, baseline fixtures |
+| 5 | Package Names, Export Strategy, and Compatibility Policy | Complete; validation recorded | `docs/package-strategy.md`, `scripts/asym-package-strategy-smoke.ts` |
+| 6 | Create the PDF Template Schema Foundation | Next | `packages/pdf-template-schema/src`, schema fixtures |
+| 7 | Add Compatibility Fixtures and Regression Harness | Not started | Expanded `@react-email/editor` compatibility fixtures |
+| 8 | Rename Public Concepts Safely from Email to Document | Not started | Compatibility aliases and migration docs |
+| 9 | Build the Document Serializer Foundation | Not started | `packages/pdf-renderer/src/compose-pdf-document-html.ts` |
+| 10 | Build the Print HTML Shell and Page Model | Not started | `packages/pdf-renderer/src/print-shell.ts` |
+| 11 | Build the DocRaptor Client Package | Not started | `packages/docraptor-client/src` |
+| 12 | Build Browser Preview and DocRaptor Preview Strategy | Not started | Preview package APIs |
+| 13 | Build the Variable Registry | Not started | `packages/pdf-template-schema/src/variables` |
+| 14 | Build the Variable Chip Extension | Not started | `packages/pdf-editor/src/extensions/variable` |
+| 15 | Build Formatter and Fallback System | Not started | Shared formatter modules |
+| 16 | Build Conditional Section Extension | Not started | Conditional editor and renderer support |
+| 17 | Build Repeater Extension | Not started | Repeater editor and renderer support |
+| 18 | Build Financial Data Table Block | Not started | Financial table node and renderer support |
+| 19 | Build Totals, Subtotals, Grouping, and Summary Blocks | Not started | Safe calculation contracts |
+| 20 | Build Page Break and Keep-Together Controls | Not started | Page-flow controls and print CSS |
+| 21 | Build Header and Footer System | Not started | Header/footer schema and serializer |
+| 22 | Build Image and Asset Pipeline | Not started | PDF image model and asset adapters |
+| 23 | Build Branding and Theme System | Not started | Document theme model and print tokens |
+| 24 | Build Starter Templates and Golden Fixtures | Not started | Starter templates and golden fixtures |
+| 25 | Build Preflight Validation | Not started | `packages/pdf-renderer/src/preflight` |
+| 26 | Build Render Logs, Artifact Metadata, and Audit Contracts | Not started | Render metadata and audit schemas |
+| 27 | Build Batch Generation Framework | Not started | Queue-agnostic batch framework |
+| 28 | Build Async DocRaptor Rendering and Retry System | Not started | Async render and retry helpers |
+| 29 | Build Puppeteer or Playwright Local Fallback and Test Renderer | Not started | Local development/test renderer |
+| 30 | Build Accessibility, Metadata, and PDF Profile Support | Not started | Metadata and PDF profile contracts |
+| 31 | Build Security and Tenant Integration Contracts | Not started | Security and tenant adapter contracts |
+| 32 | Build Unlayer Migration and Coexistence Path | Not started | Migration/coexistence contracts |
+| 33 | Build `Asymmetric-al/core` Adapter Package and Feature Flag Contract | Not started | Core adapter contract |
+| 34 | Build Documentation, Playground, and Developer Examples | Not started | PDF-first docs, examples, playground |
+| 35 | Build Performance, Load, and Large Document Tests | Not started | Performance smoke and opt-in load tests |
+| 36 | Production Hardening, Release Readiness, and Cutover Plan | Not started | Release checklist and core cutover plan |
 
-## Phase 5 Entry Point
+## Phase 6 Entry Point
 
-Phase 5 should start from the Phase 4 editor boundary and fixture artifacts:
+Phase 6 should start from the Phase 5 package strategy and Phase 4 editor
+boundary artifacts:
 
-- `docs/monorepo-inventory.md`
-- `docs/editor-dependency-graph.md`
-- `docs/public-export-map.md`
-- `docs/term-migration-map.md`
-- `docs/dep-map.json`
+- `docs/package-strategy.md`
 - `docs/package-boundaries.md`
-- `docs/phase-3-completion-notes.md`
 - `docs/editor-package-isolation.md`
-- `docs/phase-4-completion-notes.md`
-- `packages/editor/src/boundary`
+- `docs/phase-5-completion-notes.md`
+- `openspec/changes/build-pdf-document-builder/tasks.md`
+- `packages/pdf-template-schema`
 - `packages/pdf-editor`
 - `packages/pdf-renderer`
-- `packages/pdf-template-schema`
 - `packages/docraptor-client`
+- `packages/editor/package.json`
 
-It should implement the first real PDF template schema and domain model while
-leaving the original `@react-email/editor` package intact.
+Phase 6 should implement the first real PDF template schema foundation in
+`@asym/pdf-template-schema`. It should use Zod by default because Zod is
+already present in the workspace catalog and supports runtime validation,
+TypeScript inference, and JSON Schema conversion. It must not add React UI,
+DocRaptor behavior, app-specific storage/auth dependencies, or editor UI
+dependencies.

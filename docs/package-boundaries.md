@@ -108,7 +108,7 @@ Retained reference surfaces:
 - `examples/*`
 
 These surfaces remain classified as `replace-later`. Email sending/provider
-examples are not part of the PDF builder product path. Phase 31 owns broad
+examples are not part of the PDF builder product path. Phase 34 owns broad
 documentation and examples replacement. Earlier feature phases may add focused
 PDF examples only when the matching package behavior exists.
 
@@ -126,13 +126,36 @@ The baseline fixture scaffolding lives under:
 
 These fixtures are plain test data. They are not package APIs.
 
-## Phase 5 Handoff
+## Phase 5 Package Strategy Status
 
-The next phase should implement the first real PDF template schema behavior
-inside `@asym/pdf-template-schema` while preserving the editor boundary created
-in Phase 4. The new package names remain available for fixture imports:
+Phase 5 chooses the wrapper-first migration path. `@react-email/editor` remains
+the working legacy package and `@asym/pdf-editor` remains the private future
+PDF editor package that consumes it through public exports.
+
+Active package migration rules:
+
+- Do not rename `packages/editor` or change `@react-email/editor` exports.
+- Do not force consumers to migrate during the compatibility window.
+- New PDF-first work should target `@asym/*` package names.
+- Keep `@asym/pdf-editor/react-email-compat` as the temporary React Email
+  bridge until later phases add document-native APIs beside it.
+- Keep all `@asym/*` packages private until release policy and stable public
+  APIs exist.
+- Do not add changesets for private boundary-only changes.
+
+See `docs/package-strategy.md` for the full compatibility policy.
+
+## Phase 6 Handoff
+
+The next phase should create the PDF template schema foundation inside
+`@asym/pdf-template-schema` while preserving the editor boundary created in
+Phase 4 and the package strategy defined in Phase 5. The new package names
+remain available for fixture imports:
 
 - `@asym/pdf-editor`
 - `@asym/pdf-renderer`
 - `@asym/pdf-template-schema`
 - `@asym/docraptor-client`
+
+Phase 6 should use Zod by default for runtime schema validation unless it
+documents a measured reason to introduce Valibot.

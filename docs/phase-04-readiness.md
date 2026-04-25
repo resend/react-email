@@ -119,8 +119,9 @@ Reviewed fork PRs:
 
 - PR #1, `[codex] Add OpenSpec foundation for PDF document builder`, merged
   2026-04-25 11:49:40 UTC. Added `AGENTS.md`, `openspec/project.md`, the
-  active `build-pdf-document-builder` proposal, design, 32-phase task tracker,
-  and initial specs.
+  active `build-pdf-document-builder` proposal, design, initial task tracker,
+  and initial specs. The tracker has since been superseded by the current
+  36-phase roadmap.
 - PR #2, `chore: document pdf builder fork baseline`, merged
   2026-04-25 13:31:19 UTC. Added Phase 1 docs, governance, baseline smoke
   command, PDF-builder-first repo docs, and CI alignment.

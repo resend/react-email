@@ -214,7 +214,7 @@ CSS warning.
 - `@asym/pdf-editor` still references `@react-email/editor` through the
   temporary compatibility adapter.
 - The Phase 4 fixtures are intentionally minimal and should be expanded when
-  Phase 5 and Phase 6 define real schema and serializer behavior.
+  Phase 6 and Phase 9 define real schema and serializer behavior.
 - Email-oriented apps, examples, and docs remain retained reference material
   until later phases own replacement.
 
@@ -229,5 +229,5 @@ Phase 5 can start from:
 - `packages/pdf-renderer/test/fixtures`
 - `packages/pdf-template-schema`
 
-Next phase goal: implement the first real PDF template schema and domain model
-inside `@asym/pdf-template-schema` without breaking the editor boundary.
+Next phase goal: define package names, export strategy, and compatibility
+policy without breaking the editor boundary.

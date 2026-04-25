@@ -21,45 +21,52 @@
       app-specific imports.
 - [ ] Do not introduce `ds.shadcn` unless a phase explicitly reopens the
       canvas-mode decision.
+- [ ] Do not treat browser preview as production PDF fidelity.
+- [ ] Do not use arbitrary JavaScript in template logic.
+- [ ] Do not store raw HTML as the only template source of truth.
 - [ ] Leave handoff notes that state scope completed, checks run, known gaps,
       and the next phase entry point.
 
-## 32-Phase Course of Action
+## 36-Phase Course of Action
 
 | Phase | Name | Status | Primary Output |
 |---:|---|---|---|
-| 1 | Fork Baseline, Governance, and Product Charter | Complete | docs/asym-product-charter.md, docs/research-basis.md |
-| 2 | Monorepo Inventory and Isolation Map | Complete | docs/monorepo-inventory.md, docs/editor-dependency-graph.md |
-| 3 | Package Boundary for @asym/pdf-editor and Related Packages | Complete | packages/pdf-editor, packages/pdf-renderer |
-| 4 | Editor Boundary Isolation, Baseline Fixtures, and Regression Harness | Complete | packages/pdf-editor/test/fixtures, packages/pdf-renderer/test/fixtures |
-| 5 | PDF Template Schema and Domain Model | Next | packages/pdf-template-schema/src, packages/pdf-template-schema/test |
-| 6 | PDF Serialization Core: DocumentNode, DocumentMark, and composePdfDocumentHtml | Not started | packages/pdf-renderer/src/compose-pdf-document-html.ts, packages/pdf-renderer/src/document-node.ts |
-| 7 | Print HTML Shell and Paged-Media CSS Engine | Not started | packages/pdf-renderer/src/print-shell.ts, packages/pdf-renderer/src/paged-media-css.ts |
-| 8 | DocRaptor Client and Rendering API Layer | Not started | packages/docraptor-client/src, packages/docraptor-client/test |
-| 9 | PdfEditor Shell, Layout, Toolbar, Inspector, and Event Bus | Not started | packages/pdf-editor/src/components/PdfEditor.tsx, packages/pdf-editor/src/ui |
-| 10 | Base Document Blocks and Marks | Not started | packages/pdf-editor/src/extensions/base, packages/pdf-editor/src/ui/slash-commands |
-| 11 | Images, Assets, Buttons, Callouts, and Visual Blocks | Not started | packages/pdf-editor/src/extensions/media, packages/pdf-renderer/src/assets |
-| 12 | Page Setup UI and Page Settings Renderer | Not started | packages/pdf-editor/src/ui/page-setup, packages/pdf-template-schema/src/page-settings.ts |
-| 13 | Brand Kit, Document Theming, and Style Tokens | Not started | packages/pdf-editor/src/plugins/document-theming, packages/pdf-template-schema/src/brand.ts |
-| 14 | Variable Registry and Merge Tag Domain Model | Not started | packages/pdf-template-schema/src/variables, packages/pdf-renderer/src/variables |
-| 15 | Variable Chip Extension and Sample Data Preview | Not started | packages/pdf-editor/src/extensions/variable, packages/pdf-editor/src/ui/variable-picker |
-| 16 | Conditional Section Extension | Not started | packages/pdf-editor/src/extensions/conditional-section, packages/pdf-renderer/src/conditions |
-| 17 | Repeater Extension and Collection Data Model | Not started | packages/pdf-editor/src/extensions/repeater, packages/pdf-renderer/src/repeaters |
-| 18 | Data Table Block for Financial Reports and Statements | Not started | packages/pdf-editor/src/extensions/data-table, packages/pdf-renderer/src/data-table |
-| 19 | Headers, Footers, Page Numbers, and Running Content | Not started | packages/pdf-editor/src/extensions/header-footer, packages/pdf-renderer/src/header-footer |
-| 20 | Page Breaks, Keep-Together Rules, Named Pages, and Section Flow | Not started | packages/pdf-editor/src/extensions/page-flow, packages/pdf-renderer/src/page-flow |
-| 21 | Financial Report Templates and Data Adapters | Not started | packages/pdf-template-schema/src/report-data, packages/pdf-editor/src/templates/financial |
-| 22 | Donation Receipts, Tax Receipts, Annual Statements, and Donor Letters | Not started | packages/pdf-editor/src/templates/donations, packages/pdf-template-schema/src/donor-documents |
-| 23 | Template Library, Saved Blocks, and Reusable Sections | Not started | packages/pdf-editor/src/template-library, packages/pdf-template-schema/src/template-library.ts |
-| 24 | Preview System: Editor Preview, Print Preview, DocRaptor Test Preview, and Render Diffing | Not started | packages/pdf-editor/src/preview, packages/pdf-renderer/src/preview |
-| 25 | Preflight Validation, Render Warnings, and Unsupported Feature Scanner | Not started | packages/pdf-renderer/src/preflight, packages/pdf-editor/src/ui/preflight-panel |
-| 26 | Batch Generation Engine and Job Model | Not started | packages/pdf-renderer/src/batch, packages/docraptor-client/src/async-batch-helpers.ts |
-| 27 | Storage, Security, Tenant Boundaries, PII, and Audit Logging | Not started | packages/pdf-renderer/src/storage, packages/pdf-template-schema/src/security.ts |
-| 28 | Asymmetric Core Integration Adapter | Not started | packages/pdf-editor/src/core-adapter, docs/asymmetric-core-integration.md |
-| 29 | Unlayer Migration, Legacy Coexistence, and Dual-Run Strategy | Not started | packages/pdf-editor/src/migration/unlayer, docs/unlayer-migration.md |
-| 30 | Full Testing Strategy, Golden Fixtures, Visual Checks, and Quality Gates | Not started | test/golden-fixtures, docs/testing-strategy.md |
-| 31 | Documentation, Examples, Developer Experience, and Internal Training Material | Not started | docs, examples/pdf-editor |
-| 32 | Production Hardening, Release Candidate, and Core Cutover Readiness | Not started | docs/release-candidate-checklist.md, docs/core-cutover-plan.md |
+| 1 | Fork Baseline, Governance, and Product Charter | Complete | `docs/asym-product-charter.md`, `docs/research-basis.md` |
+| 2 | Monorepo Inventory and Isolation Map | Complete | `docs/monorepo-inventory.md`, `docs/editor-dependency-graph.md` |
+| 3 | Package Boundary for @asym/pdf-editor and Related Packages | Complete | `packages/pdf-editor`, `packages/pdf-renderer` |
+| 4 | Editor Boundary Isolation, Baseline Fixtures, and Regression Harness | Complete | `packages/pdf-editor/test/fixtures`, `packages/pdf-renderer/test/fixtures` |
+| 5 | Package Names, Export Strategy, and Compatibility Policy | Complete | `docs/package-strategy.md`, `scripts/asym-package-strategy-smoke.ts` |
+| 6 | Create the PDF Template Schema Foundation | Next | `packages/pdf-template-schema/src`, `packages/pdf-template-schema/test` |
+| 7 | Add Compatibility Fixtures and Regression Harness | Not started | `packages/editor/src`, `packages/editor/test` |
+| 8 | Rename Public Concepts Safely from Email to Document | Not started | `@asym/pdf-editor` compatibility exports, editor docs |
+| 9 | Build the Document Serializer Foundation | Not started | `packages/pdf-renderer/src/compose-pdf-document-html.ts` |
+| 10 | Build the Print HTML Shell and Page Model | Not started | `packages/pdf-renderer/src/print-shell.ts` |
+| 11 | Build the DocRaptor Client Package | Not started | `packages/docraptor-client/src` |
+| 12 | Build Browser Preview and DocRaptor Preview Strategy | Not started | `packages/pdf-renderer/src/preview`, `packages/pdf-editor/src/preview` |
+| 13 | Build the Variable Registry | Not started | `packages/pdf-template-schema/src/variables` |
+| 14 | Build the Variable Chip Extension | Not started | `packages/pdf-editor/src/extensions/variable` |
+| 15 | Build Formatter and Fallback System | Not started | `packages/pdf-template-schema/src/formatters`, `packages/pdf-renderer/src/formatters` |
+| 16 | Build Conditional Section Extension | Not started | `packages/pdf-editor/src/extensions/conditional-section`, `packages/pdf-renderer/src/conditions` |
+| 17 | Build Repeater Extension | Not started | `packages/pdf-editor/src/extensions/repeater`, `packages/pdf-renderer/src/repeaters` |
+| 18 | Build Financial Data Table Block | Not started | `packages/pdf-editor/src/extensions/data-table`, `packages/pdf-renderer/src/data-table` |
+| 19 | Build Totals, Subtotals, Grouping, and Summary Blocks | Not started | `packages/pdf-renderer/src/calculations`, `packages/pdf-template-schema/src/calculations` |
+| 20 | Build Page Break and Keep-Together Controls | Not started | `packages/pdf-editor/src/extensions/page-flow`, `packages/pdf-renderer/src/page-flow` |
+| 21 | Build Header and Footer System | Not started | `packages/pdf-editor/src/extensions/header-footer`, `packages/pdf-renderer/src/header-footer` |
+| 22 | Build Image and Asset Pipeline | Not started | `packages/pdf-editor/src/extensions/media`, `packages/pdf-renderer/src/assets` |
+| 23 | Build Branding and Theme System | Not started | `packages/pdf-template-schema/src/brand`, `packages/pdf-renderer/src/theme` |
+| 24 | Build Starter Templates and Golden Fixtures | Not started | `test/golden-fixtures`, `packages/pdf-template-schema/test/fixtures` |
+| 25 | Build Preflight Validation | Not started | `packages/pdf-renderer/src/preflight` |
+| 26 | Build Render Logs, Artifact Metadata, and Audit Contracts | Not started | `packages/pdf-template-schema/src/audit`, `packages/pdf-renderer/src/artifacts` |
+| 27 | Build Batch Generation Framework | Not started | `packages/pdf-renderer/src/batch`, `packages/pdf-template-schema/src/batch` |
+| 28 | Build Async DocRaptor Rendering and Retry System | Not started | `packages/docraptor-client/src/async`, `packages/pdf-renderer/src/batch` |
+| 29 | Build Puppeteer or Playwright Local Fallback and Test Renderer | Not started | `packages/pdf-renderer/src/local-renderer` |
+| 30 | Build Accessibility, Metadata, and PDF Profile Support | Not started | `packages/pdf-template-schema/src/metadata`, `packages/docraptor-client/src/pdf-options` |
+| 31 | Build Security and Tenant Integration Contracts | Not started | `packages/pdf-template-schema/src/security`, adapter interfaces |
+| 32 | Build Unlayer Migration and Coexistence Path | Not started | `packages/pdf-editor/src/migration/unlayer`, `docs/unlayer-migration.md` |
+| 33 | Build Asymmetric Core Adapter Package and Feature Flag Contract | Not started | future adapter package or `packages/pdf-editor/src/core-adapter` |
+| 34 | Build Documentation, Playground, and Developer Examples | Not started | `docs`, `examples/pdf-editor`, playground updates |
+| 35 | Build Performance, Load, and Large Document Tests | Not started | `benchmarks`, opt-in performance tests |
+| 36 | Production Hardening, Release Readiness, and Cutover Plan | Not started | `docs/release-candidate-checklist.md`, `docs/core-cutover-plan.md` |
 
 ## Phase 01: Fork Baseline, Governance, and Product Charter
 
@@ -76,20 +83,17 @@ baseline facts before product implementation begins.
 ### Tasks
 
 - [x] Read `AGENTS.md`, `openspec/project.md`, and the active OpenSpec change.
-- [x] Record current branch, package manager, scripts, package names, editor
-      exports, and upstream React Email fork state.
-- [x] Identify existing repo, package, test, docs, and OpenSpec patterns.
-- [x] Record which patterns this project will follow.
-- [x] Write the product charter from the OpenSpec intent without claiming
+- [x] Record branch, package manager, scripts, package names, editor exports,
+      and upstream React Email fork state.
+- [x] Write the product charter and research basis without claiming
       implementation exists.
-- [x] Write research-basis notes for React Email Editor, `composeReactEmail`,
-      Unlayer Document Builder, DocRaptor, and existing PDF Studio concepts.
-- [x] Avoid creating duplicate OpenSpec changes or competing spec names.
+- [x] Add governance docs, maintainers/CODEOWNERS, and baseline validation
+      notes.
 
 ### Validation
 
-- [x] Confirm charter and research notes cite real repo files, source anchors,
-      and current OpenSpec docs.
+- [x] Confirm charter and research notes cite real repo files and current
+      OpenSpec docs.
 - [x] Run safe documentation checks available in the repo.
 
 ### Handoff output
@@ -100,31 +104,31 @@ baseline facts before product implementation begins.
 
 ### Purpose
 
-Map the current React Email monorepo and identify how the PDF builder work can
-be isolated without breaking upstream package behavior.
+Map the current React Email monorepo and identify how PDF builder work can be
+isolated without breaking upstream package behavior.
 
 ### Primary output
 
 - `docs/monorepo-inventory.md`
 - `docs/editor-dependency-graph.md`
+- `docs/public-export-map.md`
+- `docs/term-migration-map.md`
+- `docs/dep-map.json`
 
 ### Tasks
 
-- [x] Inventory workspaces, apps, packages, scripts, catalogs, build tooling,
-      docs, tests, and examples.
-- [x] Map `packages/editor` imports, exports, dependencies, extension points,
-      UI boundaries, plugins, theming, image upload, and serializer paths.
-- [x] Identify email-only assumptions that must be retained temporarily or
-      replaced later.
-- [x] Mark candidate package boundaries for editor, renderer, schema,
-      DocRaptor client, and core adapter.
-- [x] Follow the existing package, export, test, and documentation patterns for this repo.
+- [x] Inventory workspaces, apps, packages, scripts, build tooling, docs,
+      tests, and examples.
+- [x] Map `packages/editor` imports, exports, dependencies, UI boundaries,
+      plugins, theming, image upload, and serializer paths.
+- [x] Classify email-only assumptions as keep, wrap, fork, replace later,
+      remove later, or unknown.
 
 ### Validation
 
-- [x] Confirm inventory references exact repo paths and package exports.
 - [x] Confirm dependency graph distinguishes browser, server, shared, and test
       concerns.
+- [x] Add deterministic dependency-map and export-smoke tooling.
 
 ### Handoff output
 
@@ -134,29 +138,28 @@ be isolated without breaking upstream package behavior.
 
 ### Purpose
 
-Create the package boundary plan and first package shells for the PDF editor and
-renderer while preserving the current fork.
+Create the first `@asym/*` package shells while preserving the current fork.
 
 ### Primary output
 
 - `packages/pdf-editor`
 - `packages/pdf-renderer`
+- `packages/pdf-template-schema`
+- `packages/docraptor-client`
+- `docs/package-boundaries.md`
 
 ### Tasks
 
-- [x] Define package ownership for `@asym/pdf-editor`, `@asym/pdf-renderer`,
-      `@asym/pdf-template-schema`, `@asym/docraptor-client`, and the future
-      core adapter.
-- [x] Create package shells only after confirming workspace conventions.
+- [x] Define package ownership, runtime boundaries, and allowed dependency
+      direction.
+- [x] Create private package shells with typed boundary exports and package
+      readmes.
 - [x] Preserve existing `@react-email/editor` exports and compatibility paths.
-- [x] Document allowed dependency directions between browser, shared, server,
-      and adapter packages.
-- [x] Follow the existing package, export, test, and documentation patterns for this repo.
 
 ### Validation
 
-- [x] Package builds and workspace discovery still work after package shells are
-      added.
+- [x] Package builds and workspace discovery still work after package shells
+      are added.
 - [x] Dependency directions remain acyclic and documented.
 
 ### Handoff output
@@ -172,21 +175,18 @@ PDF-first changes.
 
 ### Primary output
 
+- `docs/editor-package-isolation.md`
+- `packages/editor/src/boundary`
 - `packages/pdf-editor/test/fixtures`
 - `packages/pdf-renderer/test/fixtures`
 
 ### Tasks
 
-- [x] Add internal legacy editor boundary metadata without adding public
-      package exports.
+- [x] Add internal legacy editor boundary metadata without public package
+      exports.
 - [x] Add package boundary tests that guard selected current editor surfaces.
-- [x] Add baseline editor JSON fixtures that reflect current supported content.
-- [x] Add serializer/render fixtures for representative React Email editor
-      output.
-- [x] Add deterministic fixture helpers that avoid timestamps, random IDs, and
-      unstable object key order.
-- [x] Document how to update fixtures intentionally.
-- [x] Follow the existing package, export, test, and documentation patterns for this repo.
+- [x] Add deterministic baseline fixtures for current editor JSON and render
+      expectations.
 
 ### Validation
 
@@ -197,337 +197,368 @@ PDF-first changes.
 
 - [x] Baseline regression harness and fixture update notes.
 
-## Phase 05: PDF Template Schema and Domain Model
+## Phase 05: Package Names, Export Strategy, and Compatibility Policy
 
 ### Purpose
 
-Define the versioned template, data binding, rendering, asset, theme, and batch
-domain models that become the source of truth for PDF documents.
+Define how the repo moves from React Email package names to PDF-first package
+names without a dangerous big-bang rename.
+
+### Primary output
+
+- `docs/package-strategy.md`
+- `scripts/asym-package-strategy-smoke.ts`
+
+### Tasks
+
+- [x] Document current names, target names, compatibility exports, long-term
+      APIs, and private internals.
+- [x] Choose the wrapper-first path: keep `@react-email/editor` unchanged and
+      use private `@asym/pdf-editor` as the future import target.
+- [x] Document changeset, release, and future `Asymmetric-al/core`
+      consumption policy.
+- [x] Add deterministic package-strategy smoke coverage.
+
+### Validation
+
+- [x] `@react-email/editor` export surfaces remain unchanged.
+- [x] `@asym/pdf-editor` wrapper and `react-email-compat` entry points remain
+      discoverable.
+- [x] All `@asym/*` package shells remain private.
+
+### Handoff output
+
+- [x] Package strategy policy, smoke command, and Phase 06 schema handoff
+      notes.
+
+## Phase 06: Create the PDF Template Schema Foundation
+
+### Purpose
+
+Create versioned template schema types that all later editor, renderer,
+DocRaptor, batch, and adapter work can share.
 
 ### Primary output
 
 - `packages/pdf-template-schema/src`
 - `packages/pdf-template-schema/test`
+- Schema fixtures for donation receipt, annual giving statement, financial
+  report, invoice, and certificate.
 
 ### Tasks
 
-- [ ] Define `DocumentTemplateV1`, page settings, theme, variable definitions,
-      data bindings, assets, render jobs, render artifacts, audit events, and
-      batch runs.
-- [ ] Add runtime validation and typed exports.
-- [ ] Define schema versioning and migration hooks.
-- [ ] Include nonprofit document categories and required variable groups.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Use Zod by default for runtime validation and inferred TypeScript types
+      because it is already in the workspace catalog and supports JSON Schema
+      conversion; document any measured reason before choosing Valibot.
+- [ ] Define runtime schemas and aligned TypeScript types for
+      `DocumentTemplateV1`, `DocumentPageSettings`, `DocumentTheme`,
+      `VariableDefinition`, `VariableReference`, `DataBinding`,
+      `ConditionalRule`, `RepeaterBinding`, `TableBinding`, `AssetReference`,
+      `RenderRequest`, `RenderResult`, `RenderWarning`, `RenderError`,
+      `RenderJobV1`, `BatchRunV1`, `DocumentArtifact`, and `AuditEvent`.
+- [ ] Add schema version behavior, page setting defaults, nonprofit document
+      categories, and first product fixtures.
+- [ ] Keep the package free of React UI, browser-only code, DocRaptor secrets,
+      and app-specific dependencies.
 
 ### Validation
 
-- [ ] Schema tests cover valid templates, invalid templates, missing required
-      fields, and version handling.
+- [ ] Run `pnpm --filter @asym/pdf-template-schema typecheck`.
+- [ ] Run `pnpm --filter @asym/pdf-template-schema test`.
+- [ ] Run `pnpm --filter @asym/pdf-template-schema build`.
+- [ ] Run `pnpm lint`.
+- [ ] Tests cover valid template parsing, invalid template rejection, page
+      setting defaults, variable validation, version field behavior, and
+      schema fixtures.
 
 ### Handoff output
 
-- [ ] Template schema API, fixtures, and domain model notes.
+- [ ] Schema API docs, fixtures, validation-library decision note, and Phase
+      07 compatibility-harness entry point.
 
-## Phase 06: PDF Serialization Core: DocumentNode, DocumentMark, and composePdfDocumentHtml
+## Phase 07: Add Compatibility Fixtures and Regression Harness
 
 ### Purpose
 
-Create the PDF-first serializer core modeled after React Email's serializer
-pattern but targeting print-ready HTML.
+Protect current React Email editor behavior before changing names,
+serializers, or core extensions.
+
+### Primary output
+
+- Expanded `@react-email/editor` compatibility fixtures and snapshots.
+
+### Tasks
+
+- [ ] Add fixtures for paragraph, heading, link, image, button, two-column
+      layout, table, themed document, and current custom extension examples.
+- [ ] Test editor JSON shape, current HTML export, `composeReactEmail`,
+      extension registration, package exports, and CSS/theme import
+      availability.
+- [ ] Avoid changing output unless the harness reveals a bug that OpenSpec
+      allows fixing.
+
+### Validation
+
+- [ ] Run `pnpm --filter @react-email/editor test`.
+- [ ] Run `pnpm --filter @react-email/editor typecheck`.
+- [ ] Run `pnpm --filter @react-email/editor build`.
+- [ ] Run `pnpm lint`.
+
+### Handoff output
+
+- [ ] Compatibility fixture update notes and refactor safety summary.
+
+## Phase 08: Rename Public Concepts Safely from Email to Document
+
+### Purpose
+
+Introduce document/PDF-first names as wrappers or aliases without breaking
+current imports.
+
+### Primary output
+
+- Compatibility aliases or wrappers in the chosen package surfaces.
+
+### Tasks
+
+- [ ] Add safe document/PDF-first names, such as `PdfEditor` or
+      `DocumentEditor`, only beside existing names.
+- [ ] Keep `EmailEditor`, `composeReactEmail`, `EmailNode`, `EmailMark`, UI
+      exports, and CSS exports working.
+- [ ] Document every compatibility decision and the migration window.
+
+### Validation
+
+- [ ] Tests prove old imports still work, new imports work, generated types are
+      correct, and build output contains intended exports.
+- [ ] Run `pnpm --filter @react-email/editor test`.
+- [ ] Run `pnpm --filter @react-email/editor typecheck`.
+- [ ] Run `pnpm --filter @react-email/editor build`.
+- [ ] Run `pnpm lint`.
+
+### Handoff output
+
+- [ ] Compatibility alias docs and import-path migration notes.
+
+## Phase 09: Build the Document Serializer Foundation
+
+### Purpose
+
+Create a PDF document serializer path separate from `composeReactEmail`.
 
 ### Primary output
 
 - `packages/pdf-renderer/src/compose-pdf-document-html.ts`
-- `packages/pdf-renderer/src/document-node.ts`
 
 ### Tasks
 
-- [ ] Define document node and mark render contracts.
-- [ ] Implement `composePdfDocumentHtml` or equivalent serializer entry point.
-- [ ] Return deterministic HTML, CSS, metadata, warnings, and optional text.
-- [ ] Preserve a clear distinction between email serializer behavior and
-      PDF-first document serializer behavior.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Implement a serializer that walks structured editor/template JSON,
+      resolves registered document nodes and marks, and returns deterministic
+      HTML fragments or body output.
+- [ ] Return structured CSS requirements, render warnings, asset references,
+      variable usage, and unsupported node warnings.
+- [ ] Do not connect DocRaptor and do not implement a string-replacement
+      engine.
 
 ### Validation
 
-- [ ] Serializer fixtures produce stable snapshots.
-- [ ] Invalid node and mark inputs return structured errors or warnings.
+- [ ] Tests cover paragraph, heading, links, images, columns, table where
+      supported, unknown node warning, style merge order, empty document, and
+      invalid input.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
 - [ ] Serializer API docs and fixture coverage summary.
 
-## Phase 07: Print HTML Shell and Paged-Media CSS Engine
+## Phase 10: Build the Print HTML Shell and Page Model
 
 ### Purpose
 
-Build the print document shell and DocRaptor-compatible paged-media CSS output.
+Add page settings and deterministic print CSS generation that DocRaptor can
+render.
 
 ### Primary output
 
 - `packages/pdf-renderer/src/print-shell.ts`
-- `packages/pdf-renderer/src/paged-media-css.ts`
+- Page-model CSS helpers.
 
 ### Tasks
 
-- [ ] Generate print media CSS, `@page` rules, page size, orientation, margins,
-      page counters, and page-break classes.
-- [ ] Add deterministic CSS ordering and supported page setting serialization.
-- [ ] Add table continuation and print-safe layout helpers.
-- [ ] Avoid browser-only CSS that DocRaptor cannot reliably render.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Support Letter, A4, Legal, custom sizes, portrait, landscape, margins,
+      document title, print media, base CSS variables, page breaks,
+      keep-together classes, repeated table header CSS, and page number
+      placeholders.
+- [ ] Drive page settings from the schema and keep output deterministic.
+- [ ] Do not call DocRaptor.
 
 ### Validation
 
-- [ ] Snapshot tests cover Letter, A4, Legal, custom sizes, portrait,
-      landscape, margins, counters, and page breaks.
+- [ ] Tests cover page sizes, orientations, margins, invalid custom sizes,
+      title escaping, print CSS snapshots, and page break output.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
-- [ ] Print shell and paged-media CSS behavior notes.
+- [ ] Print shell docs and DocRaptor compatibility notes.
 
-## Phase 08: DocRaptor Client and Rendering API Layer
+## Phase 11: Build the DocRaptor Client Package
 
 ### Purpose
 
-Create the server-only DocRaptor integration layer for production and preview
-PDF rendering.
+Add a server-only DocRaptor client with safe configuration, sync rendering,
+async rendering, polling, and error normalization.
 
 ### Primary output
 
 - `packages/docraptor-client/src`
-- `packages/docraptor-client/test`
 
 ### Tasks
 
-- [ ] Implement sync render, async render, status polling, test mode, and error
-      normalization.
-- [ ] Ensure DocRaptor API keys stay server-only and never enter templates or
-      browser bundles.
-- [ ] Capture request IDs and render metadata when available.
-- [ ] Define retryable versus permanent error categories.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Implement server-only client APIs for test mode, production mode,
+      document content, base URL, print media, sync render, async job creation,
+      status polling, timeouts, abort signals, and normalized errors.
+- [ ] Keep API keys out of browser bundles and tests.
+- [ ] Support app-layer idempotency metadata without requiring DocRaptor to
+      provide a first-class idempotency key.
 
 ### Validation
 
-- [ ] Client tests mock success, timeout, validation error, async status,
-      retryable failure, and permanent failure flows.
+- [ ] Mock tests cover payloads, missing API key, test mode, base URL, sync
+      success/error, async success/polling, timeout handling, and browser import
+      guards where practical.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
 - [ ] DocRaptor client API docs and error taxonomy.
 
-## Phase 09: PdfEditor Shell, Layout, Toolbar, Inspector, and Event Bus
+## Phase 12: Build Browser Preview and DocRaptor Preview Strategy
 
 ### Purpose
 
-Introduce the PDF editor shell while preserving useful React Email editor
-patterns.
+Create preview infrastructure for fast browser preview and true DocRaptor test
+preview.
 
 ### Primary output
 
-- `packages/pdf-editor/src/components/PdfEditor.tsx`
-- `packages/pdf-editor/src/ui`
+- Preview package-layer APIs in renderer/editor boundaries.
 
 ### Tasks
 
-- [ ] Build the PDF editor shell around existing editor architecture and event
-      patterns.
-- [ ] Add layout, toolbar, inspector, and event bus boundaries for PDF document
-      authoring.
-- [ ] Keep current editor behavior available during the transition.
-- [ ] Document public editor props and extension registration points.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Add browser preview from generated print HTML/CSS and DocRaptor preview
+      through server-side test mode.
+- [ ] Return preview result types with success, warnings, errors, render ID,
+      generated HTML/CSS snapshots, PDF bytes or URL, and render timing.
+- [ ] Mark browser preview as non-final fidelity and ensure preview cannot
+      mutate templates.
 
 ### Validation
 
-- [ ] Editor shell tests cover render, extension registration, event dispatch,
-      and no-regression import paths.
+- [ ] Tests cover browser preview generation, DocRaptor preview payload,
+      warning/error flow, no API key exposure, and read-only preview behavior.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
-- [ ] PDF editor shell API and extension surface notes.
+- [ ] Preview architecture docs and caveats.
 
-## Phase 10: Base Document Blocks and Marks
-
-### Purpose
-
-Port and define base document editing primitives for PDF output.
-
-### Primary output
-
-- `packages/pdf-editor/src/extensions/base`
-- `packages/pdf-editor/src/ui/slash-commands`
-
-### Tasks
-
-- [ ] Add document-first blocks and marks for text, headings, lists, links,
-      buttons, sections, columns, dividers, and tables.
-- [ ] Wire slash commands and inspector controls for base blocks.
-- [ ] Ensure each block serializes through the PDF renderer contract.
-- [ ] Preserve compatibility with current editor extension patterns.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
-
-### Validation
-
-- [ ] Editor and serializer tests cover insertion, editing, serialization, and
-      invalid block handling.
-
-### Handoff output
-
-- [ ] Base block and mark extension documentation.
-
-## Phase 11: Images, Assets, Buttons, Callouts, and Visual Blocks
+## Phase 13: Build the Variable Registry
 
 ### Purpose
 
-Support visual document content with render-safe asset references.
-
-### Primary output
-
-- `packages/pdf-editor/src/extensions/media`
-- `packages/pdf-renderer/src/assets`
-
-### Tasks
-
-- [ ] Add image, button, callout, and visual block extensions where relevant to
-      PDF documents.
-- [ ] Store asset references rather than browser blob URLs.
-- [ ] Add alt text, sizing, alignment, and render-safe URL metadata.
-- [ ] Add asset serialization and reachability preflight hooks.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
-
-### Validation
-
-- [ ] Tests cover valid assets, missing assets, private URLs, invalid MIME
-      types, and successful render-safe URLs.
-
-### Handoff output
-
-- [ ] Media extension and asset rendering contract.
-
-## Phase 12: Page Setup UI and Page Settings Renderer
-
-### Purpose
-
-Expose page settings in the editor and serialize them for print rendering.
-
-### Primary output
-
-- `packages/pdf-editor/src/ui/page-setup`
-- `packages/pdf-template-schema/src/page-settings.ts`
-
-### Tasks
-
-- [ ] Add page setup UI for Letter, A4, Legal, custom size, portrait,
-      landscape, margins, and future bleed settings.
-- [ ] Persist page settings in the schema.
-- [ ] Serialize page settings into print shell CSS.
-- [ ] Validate unsupported or impossible page settings before render.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
-
-### Validation
-
-- [ ] Tests cover page setup persistence, serializer output, and invalid custom
-      dimensions.
-
-### Handoff output
-
-- [ ] Page settings schema, UI, and renderer behavior notes.
-
-## Phase 13: Brand Kit, Document Theming, and Style Tokens
-
-### Purpose
-
-Support tenant brand defaults and controlled template-level overrides.
-
-### Primary output
-
-- `packages/pdf-editor/src/plugins/document-theming`
-- `packages/pdf-template-schema/src/brand.ts`
-
-### Tasks
-
-- [ ] Define brand logo, colors, fonts, footer text, and organization identity.
-- [ ] Add document theming plugin and style token handling.
-- [ ] Support template-level overrides with auditable inheritance.
-- [ ] Ensure fonts and brand assets can be made reachable by DocRaptor.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
-
-### Validation
-
-- [ ] Tests cover default inheritance, template overrides, unavailable fonts,
-      and deterministic theme serialization.
-
-### Handoff output
-
-- [ ] Brand kit schema and document theming docs.
-
-## Phase 14: Variable Registry and Merge Tag Domain Model
-
-### Purpose
-
-Define typed variable and merge tag domains for Asymmetric.al documents.
+Define typed variables for nonprofit documents and reports.
 
 ### Primary output
 
 - `packages/pdf-template-schema/src/variables`
-- `packages/pdf-renderer/src/variables`
 
 ### Tasks
 
-- [ ] Port organization, recipient, donation, document, missionary, and tax
-      receipt domains.
-- [ ] Add financial report, statement, invoice, and future document domains.
-- [ ] Define type, label, sample value, required status, fallback, and formatter
-      metadata.
-- [ ] Reject duplicate keys and unsupported formatter combinations.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Create registry domains for organization, recipient, donation,
+      document, missionary, tax receipt, financial report, statement, invoice,
+      asset, and computed values.
+- [ ] Define key, label, group, description, type, sample value, required flag,
+      fallback behavior, formatter hints, privacy classification, and future
+      source-path metadata.
+- [ ] Add fixtures for donation receipt, tax receipt, annual statement,
+      financial report, invoice, and certificate.
 
 ### Validation
 
-- [ ] Registry tests cover required groups, duplicate rejection, sample data,
-      required fields, and formatter metadata.
+- [ ] Tests cover registry validation, duplicate rejection, required fields,
+      sample data generation, group lookup, and unknown variable detection.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
 - [ ] Variable registry exports and merge tag domain notes.
 
-## Phase 15: Variable Chip Extension and Sample Data Preview
+## Phase 14: Build the Variable Chip Extension
 
 ### Purpose
 
-Represent variables safely in the editor and preview them with sample data.
+Represent variables inside the editor as protected structured inline nodes.
 
 ### Primary output
 
 - `packages/pdf-editor/src/extensions/variable`
-- `packages/pdf-editor/src/ui/variable-picker`
 
 ### Tasks
 
-- [ ] Add protected inline variable chips.
-- [ ] Add variable picker UI grouped by domain.
-- [ ] Add inspector controls for fallback and formatter settings.
-- [ ] Prevent normal text editing from corrupting variable keys.
-- [ ] Render sample data previews in editor and browser preview.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Add structured inline variable nodes that reference registry keys,
+      render visibly, serialize to JSON, and preview sample/fallback values.
+- [ ] Add command/API insertion and slash command integration only if it fits
+      current UI patterns.
+- [ ] Detect missing or broken variable keys and prevent accidental key edits.
 
 ### Validation
 
-- [ ] Editor tests cover insertion, deletion, copy/paste, serialization,
-      fallback editing, and sample preview rendering.
+- [ ] Tests cover insertion, serialization, deserialization, chip rendering,
+      unknown key warnings, fallback display, and keyboard/copy-paste behavior
+      where practical.
+- [ ] Run `pnpm --filter @react-email/editor test`, `pnpm build`, and
+      `pnpm lint`.
 
 ### Handoff output
 
-- [ ] Variable chip extension and variable picker documentation.
+- [ ] Variable chip extension docs and fixture notes.
 
-## Phase 16: Conditional Section Extension
+## Phase 15: Build Formatter and Fallback System
 
 ### Purpose
 
-Support structured conditional content without executable template logic.
+Format variable values consistently for receipts, statements, invoices, and
+reports without React dependencies.
+
+### Primary output
+
+- Shared formatter and fallback modules.
+
+### Tasks
+
+- [ ] Support currency, date, date range, number, percentage, address, receipt
+      number, fiscal period, boolean labels, image URL validation, string
+      fallback, required-value errors, and optional-value warnings.
+- [ ] Design APIs for renderer consumption without UI dependencies.
+
+### Validation
+
+- [ ] Tests cover USD currency, date basics, fiscal year labels, address
+      formatting, missing required values, optional fallbacks, invalid types,
+      and unknown formatters.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
+
+### Handoff output
+
+- [ ] Formatter API docs and fallback behavior notes.
+
+## Phase 16: Build Conditional Section Extension
+
+### Purpose
+
+Allow sections to show or hide based on structured data rules without
+arbitrary JavaScript.
 
 ### Primary output
 
@@ -536,28 +567,27 @@ Support structured conditional content without executable template logic.
 
 ### Tasks
 
-- [ ] Add conditional section node and editor controls.
-- [ ] Support safe presence, equality, boolean, enum, and numeric comparisons.
-- [ ] Reject arbitrary executable conditions.
-- [ ] Support conditions for goods/services language, donor country language,
-      empty donation periods, fund-specific copy, and optional missionary
-      sections.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Support structured operators such as exists, not_exists, equals,
+      not_equals, greater_than, less_than, contains, is_empty, and
+      is_not_empty.
+- [ ] Cover receipt language, country-specific language, empty donation table
+      messages, missionary sections, and financial report sections.
 
 ### Validation
 
-- [ ] Tests cover true, false, missing data, invalid rules, and nonprofit
-      document conditional scenarios.
+- [ ] Tests cover schema validation, condition evaluation, nested content,
+      true/false preview, invalid fields, and missing data behavior.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
 - [ ] Conditional rule schema, renderer behavior, and editor docs.
 
-## Phase 17: Repeater Extension and Collection Data Model
+## Phase 17: Build Repeater Extension
 
 ### Purpose
 
-Support repeated document sections from array data.
+Support repeatable sections for arrays of data.
 
 ### Primary output
 
@@ -566,28 +596,29 @@ Support repeated document sections from array data.
 
 ### Tasks
 
-- [ ] Add repeater node for donations, invoice line items, financial rows,
-      missionaries, funds, and future collections.
-- [ ] Support sorting, grouping hooks, empty states, limits, and item-scoped
-      variables.
-- [ ] Add page-safe rendering hints for repeated content.
-- [ ] Validate missing or incorrectly typed collections before publish.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Support source array key, item alias, empty state, optional sorting or
+      safe filtering, maximum row guard, scoped variables, warnings for missing
+      sources, and deterministic render order.
+- [ ] Cover donations, invoice line items, missionary lists, financial row
+      groups, and funds.
 
 ### Validation
 
-- [ ] Tests cover empty, single-item, multi-item, invalid collection, sorting,
-      empty state, and serialization scenarios.
+- [ ] Tests cover repeated rows, empty state, missing source warnings, scoped
+      variable resolution, sorting where included, nested variables, and
+      invalid source type.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
 - [ ] Repeater schema, collection resolver behavior, and fixtures.
 
-## Phase 18: Data Table Block for Financial Reports and Statements
+## Phase 18: Build Financial Data Table Block
 
 ### Purpose
 
-Support report-grade, data-bound tables for financial reports and statements.
+Create a report-grade data table block for financial statements and annual
+giving statements.
 
 ### Primary output
 
@@ -596,338 +627,401 @@ Support report-grade, data-bound tables for financial reports and statements.
 
 ### Tasks
 
-- [ ] Add data-bound table block with columns, grouping, sorting, repeated
-      headers, empty states, and page-safe hints.
-- [ ] Support annual giving statement donation tables and financial report
-      tables.
-- [ ] Serialize tables to DocRaptor-compatible HTML and CSS.
-- [ ] Validate missing columns, missing bindings, and unsupported table options.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Support data source binding, columns, labels, widths, alignment,
+      formatters, grouping, totals, empty state, repeated headers, page-safe
+      classes, unsupported-column warnings, and deterministic order.
+- [ ] Cover annual giving statements, invoices, financial reports, and fund
+      activity reports.
 
 ### Validation
 
-- [ ] Fixtures cover annual giving statements, financial reports, empty tables,
-      grouped rows, repeated headers, and multi-page output.
+- [ ] Tests cover table schema, donation table render, invoice table render,
+      financial report table render, empty state, invalid binding, totals row
+      placeholder, and repeated header markup.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
 - [ ] Data table block contract and financial table fixtures.
 
-## Phase 19: Headers, Footers, Page Numbers, and Running Content
+## Phase 19: Build Totals, Subtotals, Grouping, and Summary Blocks
 
 ### Purpose
 
-Support first-page and repeating page regions with DocRaptor-compatible page
-counters and running content.
+Add safe computations needed for donor statements and financial reports.
 
 ### Primary output
 
-- `packages/pdf-editor/src/extensions/header-footer`
-- `packages/pdf-renderer/src/header-footer`
+- Calculation schemas and renderer helpers.
 
 ### Tasks
 
-- [ ] Add first-page and repeating header/footer editing surfaces.
-- [ ] Support current page number, total page count, Page X of Y, report title,
-      document metadata, and footer text.
-- [ ] Validate header and footer height against page margins.
-- [ ] Serialize headers and footers through DocRaptor-compatible structures.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Support sum, count, useful averages, grouped subtotals, report totals,
+      currency formatting, empty result behavior, precision rules, and
+      audit-friendly calculation metadata.
+- [ ] Avoid arbitrary JavaScript.
 
 ### Validation
 
-- [ ] DocRaptor preview fixtures cover multi-page annual statements, financial
-      reports, hidden first-page header, and Page X of Y.
+- [ ] Tests cover donation sums, grouped subtotals, empty sets, currency
+      precision, invalid fields, non-number errors, and deterministic results.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
+
+### Handoff output
+
+- [ ] Calculation behavior docs and audit metadata notes.
+
+## Phase 20: Build Page Break and Keep-Together Controls
+
+### Purpose
+
+Allow users to control PDF pagination without editing CSS.
+
+### Primary output
+
+- Page-flow editor nodes and print CSS output.
+
+### Tasks
+
+- [ ] Support explicit page breaks, keep section together, avoid break after
+      heading, avoid row split where possible, start section on new page, print
+      CSS output, and warnings for non-guaranteed controls.
+
+### Validation
+
+- [ ] Tests cover page break serialization, print HTML output,
+      keep-together classes, invalid placement, preview output, and table row
+      avoid-break classes.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
+
+### Handoff output
+
+- [ ] Page behavior docs and renderer limitation notes.
+
+## Phase 21: Build Header and Footer System
+
+### Purpose
+
+Support first-page and repeating headers/footers with page numbers.
+
+### Primary output
+
+- Header/footer schema, serializer, and editor support.
+
+### Tasks
+
+- [ ] Support no header/footer, first-page and repeating variants, page
+      number, total pages, document title, organization footer, margin
+      requirements, and small-margin warnings.
+- [ ] Keep DocRaptor-specific output isolated in renderer code.
+
+### Validation
+
+- [ ] Tests cover header/footer schema, page number output, first-page
+      variant, margin warning, and serializer snapshots.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
 - [ ] Header/footer schema and serializer contract.
 
-## Phase 20: Page Breaks, Keep-Together Rules, Named Pages, and Section Flow
+## Phase 22: Build Image and Asset Pipeline
 
 ### Purpose
 
-Give document authors controlled page flow for receipts, reports, statements,
-and certificates.
+Support images, logos, signatures, and render-safe asset URLs.
 
 ### Primary output
 
-- `packages/pdf-editor/src/extensions/page-flow`
-- `packages/pdf-renderer/src/page-flow`
+- PDF image model and asset adapter interfaces.
 
 ### Tasks
 
-- [ ] Add explicit page break node.
-- [ ] Add keep-together, avoid-split, section flow, and named page controls.
-- [ ] Add certificate one-page validation hints.
-- [ ] Serialize flow controls to print-safe and DocRaptor-compatible CSS.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Support image metadata, alt text, width/height, alignment, optional
+      links, logo/signature roles, render-safe URL, asset ID, tenant/source
+      metadata, preflight hooks, and no blob URLs in production render.
+- [ ] Define adapters instead of building a storage backend unless one already
+      exists in this repo.
 
 ### Validation
 
-- [ ] Snapshot tests cover appendix breaks, table section headings, named pages,
-      avoid-split behavior, and certificate layout constraints.
+- [ ] Tests cover image schema, node serialization, alt text warnings, blob
+      URL rejection, render-safe URL acceptance, missing image warnings, and
+      signature fixtures.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
-- [ ] Page flow behavior notes and renderer fixture summary.
+- [ ] Asset rendering contract and preflight adapter docs.
 
-## Phase 21: Financial Report Templates and Data Adapters
+## Phase 23: Build Branding and Theme System
 
 ### Purpose
 
-Make financial reports a first-class advanced use case.
+Support tenant brand defaults and document-level overrides without hardcoding
+tenant values.
 
 ### Primary output
 
-- `packages/pdf-template-schema/src/report-data`
-- `packages/pdf-editor/src/templates/financial`
+- Document theme model and serializer support.
 
 ### Tasks
 
-- [ ] Define report data adapter interfaces for report title, period, account
-      groups, funds, income rows, expense rows, totals, subtotals, and summary
-      rows.
-- [ ] Add starter financial report templates and sample data.
-- [ ] Support multi-page tables, repeated headers, grouped sections, and
-      audit-friendly export metadata.
-- [ ] Validate financial report bindings before publish and render.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Support organization name, logo asset, colors, heading/body fonts,
+      fallback fonts, footer text, receipt defaults where appropriate,
+      template overrides, and brand token use in print CSS.
 
 ### Validation
 
-- [ ] Fixtures cover income and expense reports, fund grouping, empty reports,
-      totals, subtotals, page breaks, export logs, and audit trail metadata.
+- [ ] Tests cover theme schema, defaults, overrides, CSS variable output,
+      missing font fallback, receipt brand fixture, and financial report brand
+      fixture.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
-- [ ] Financial report adapter docs and starter template fixtures.
+- [ ] Brand/theme model docs and token serialization notes.
 
-## Phase 22: Donation Receipts, Tax Receipts, Annual Statements, and Donor Letters
+## Phase 24: Build Starter Templates and Golden Fixtures
 
 ### Purpose
 
-Provide core donor document templates and data adapters.
+Create realistic templates that drive development and regression tests.
 
 ### Primary output
 
-- `packages/pdf-editor/src/templates/donations`
-- `packages/pdf-template-schema/src/donor-documents`
+- Starter template fixtures and golden fixtures.
 
 ### Tasks
 
-- [ ] Add templates and data models for donation receipts, tax receipts, annual
-      giving statements, and donor letters.
-- [ ] Include organization identity, donor identity, donation fields, tax
-      language, goods/services language, receipt numbers, signatures, logos,
-      footers, and page setup.
-- [ ] Support annual statement line-item tables, grouping, totals, empty states,
-      multi-page output, page numbers, and batch rendering readiness.
-- [ ] Add sample data and preflight-safe defaults for each donor document type.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Add fixtures for donation receipt, tax receipt, annual giving statement,
+      donor letter, missionary support report, financial report, invoice, and
+      certificate.
+- [ ] Include metadata, page settings, theme, variables, sample data, expected
+      warnings, and output snapshots where practical.
 
 ### Validation
 
-- [ ] Fixtures cover receipt, tax receipt, annual statement, donor letter, empty
-      period, missing required donor field, and multi-page statement scenarios.
+- [ ] Tests validate every fixture, render every fixture to print HTML, confirm
+      sample data, reject unexpected warnings, and keep snapshots
+      deterministic.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
-- [ ] Donor document template fixtures and data adapter notes.
+- [ ] Starter fixture catalog and golden fixture update policy.
 
-## Phase 23: Template Library, Saved Blocks, and Reusable Sections
-
-### Purpose
-
-Support reusable template assets and safer authoring starts.
-
-### Primary output
-
-- `packages/pdf-editor/src/template-library`
-- `packages/pdf-template-schema/src/template-library.ts`
-
-### Tasks
-
-- [ ] Define template library metadata, starter templates, saved blocks, and
-      reusable sections.
-- [ ] Support categories for donation receipts, tax receipts, annual giving
-      statements, donor letters, missionary reports, financial reports,
-      invoices, certificates, and custom documents.
-- [ ] Add preflight-safe library items and sample data links.
-- [ ] Keep saved blocks versioned and tenant-safe after platform integration.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
-
-### Validation
-
-- [ ] Tests cover category filtering, starter selection, saved block
-      serialization, and invalid reusable section data.
-
-### Handoff output
-
-- [ ] Template library schema and starter/saved block contract.
-
-## Phase 24: Preview System: Editor Preview, Print Preview, DocRaptor Test Preview, and Render Diffing
+## Phase 25: Build Preflight Validation
 
 ### Purpose
 
-Provide fast authoring previews and production-fidelity PDF previews.
-
-### Primary output
-
-- `packages/pdf-editor/src/preview`
-- `packages/pdf-renderer/src/preview`
-
-### Tasks
-
-- [ ] Add editor preview and browser print preview for fast sample-data
-      feedback.
-- [ ] Add DocRaptor test preview as the production-fidelity preview path.
-- [ ] Label browser previews as non-authoritative for production fidelity.
-- [ ] Add render diffing or comparison hooks for regression checks.
-- [ ] Support sample data and authorized real-record preview after core
-      integration.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
-
-### Validation
-
-- [ ] Preview tests cover sample data, missing data, browser preview warning,
-      DocRaptor preview, and render diff output.
-
-### Handoff output
-
-- [ ] Preview system contract and comparison fixture notes.
-
-## Phase 25: Preflight Validation, Render Warnings, and Unsupported Feature Scanner
-
-### Purpose
-
-Block unsafe publishing and rendering before donor or financial documents are
-generated.
+Catch broken templates before publishing or rendering.
 
 ### Primary output
 
 - `packages/pdf-renderer/src/preflight`
-- `packages/pdf-editor/src/ui/preflight-panel`
 
 ### Tasks
 
-- [ ] Validate schema, required variables, bindings, conditionals, repeaters,
-      tables, assets, fonts, page setup, headers, footers, and renderer support.
-- [ ] Return structured blocking errors and non-blocking warnings.
-- [ ] Scan for unsupported or browser-only features before DocRaptor rendering.
-- [ ] Require successful DocRaptor preview for production-bound templates.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Validate schema, required variables, unknown keys, formatters,
+      conditionals, repeaters, tables, assets, blob URLs, header/footer margin
+      risk, unsupported nodes, required sections, and batch unsafe conditions.
+- [ ] Return structured errors, warnings, info, affected node IDs, and
+      suggested fixes where practical.
 
 ### Validation
 
-- [ ] Failure fixtures cover missing data, bad asset, private URL, invalid CSS,
-      unsupported binding, missing font, and failed DocRaptor preview.
+- [ ] Tests cover valid receipt, missing donor field, broken image, invalid
+      table column, conditional missing source, batch unsafe template, and
+      result shape snapshots.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
 - [ ] Preflight API, warning catalog, and unsupported feature scanner notes.
 
-## Phase 26: Batch Generation Engine and Job Model
+## Phase 26: Build Render Logs, Artifact Metadata, and Audit Contracts
 
 ### Purpose
 
-Support large document runs with safe progress tracking and retry behavior.
+Define metadata contracts for renders and generated PDFs.
 
 ### Primary output
 
-- `packages/pdf-renderer/src/batch`
-- `packages/docraptor-client/src/async-batch-helpers.ts`
+- Render metadata, artifact, and audit contracts.
 
 ### Tasks
 
-- [ ] Add batch run model, template snapshot, dataset context, and per-document
-      job model.
-- [ ] Support queue-backed processing or platform job framework adapters.
-- [ ] Track total, pending, rendering, complete, failed, retried, skipped, and
-      canceled counts.
-- [ ] Support partial success, resumable runs, cancellation, and batch download
-      readiness.
-- [ ] Prevent silent generation of incorrect donor or financial documents.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Capture render ID, template ID/version, data snapshot hash, renderer
+      mode, DocRaptor metadata, timing, page settings, warnings, errors,
+      artifact MIME/size/location, actor, and batch ID where applicable.
+- [ ] Define audit event types for template lifecycle, render lifecycle, batch
+      lifecycle, and artifact download.
+- [ ] Use package-level types and in-memory test adapters only if no backend
+      storage exists.
 
 ### Validation
 
-- [ ] Tests cover queueing, template snapshot, progress, retry, partial
-      success, resume, cancellation, failed preflight, and donor-trust safety.
+- [ ] Tests cover metadata schema, artifact schema, audit schema, successful
+      render with warnings, failed render, and deterministic data snapshot
+      hashes.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
-- [ ] Batch job model, state transitions, and async helper docs.
+- [ ] Render/audit contracts and future core data-shape notes.
 
-## Phase 27: Storage, Security, Tenant Boundaries, PII, and Audit Logging
+## Phase 27: Build Batch Generation Framework
 
 ### Purpose
 
-Make generated documents, assets, and audit records tenant-safe and traceable.
+Define batch generation at the package layer before tying it to platform
+queues.
 
 ### Primary output
 
-- `packages/pdf-renderer/src/storage`
-- `packages/pdf-template-schema/src/security.ts`
+- Queue-library-agnostic batch framework.
 
 ### Tasks
 
-- [ ] Define storage adapter interfaces for generated PDFs, previews, assets,
-      logs, and batch artifacts.
-- [ ] Track tenant-safe paths, template version, data snapshot hash, renderer
-      metadata, warnings, and errors.
-- [ ] Emit audit events for template edits, publishes, renders, failures,
-      retries, batch starts, cancellations, and downloads.
-- [ ] Treat donor and financial data as private by default.
-- [ ] Ensure templates, assets, rendered documents, and logs respect tenant
-      boundaries.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Support batch definition, template snapshot reference, dataset
+      reference, per-document jobs, status transitions, progress summary,
+      cancellation, retry, partial success, result manifest, and download
+      manifest shape.
+- [ ] Define adapters instead of requiring a queue library.
 
 ### Validation
 
-- [ ] Tests cover tenant isolation, artifact metadata, data snapshot references,
-      audit events, and PII-safe logs.
+- [ ] Tests cover batch creation, job creation, transitions, partial failure,
+      retry, cancellation, progress, and manifest generation.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
-- [ ] Storage, security, tenant boundary, and audit contracts.
+- [ ] Batch job model, state transitions, and adapter docs.
 
-## Phase 28: Asymmetric Core Integration Adapter
+## Phase 28: Build Async DocRaptor Rendering and Retry System
 
 ### Purpose
 
-Prepare the package boundary that will integrate the PDF builder into
-`Asymmetric-al/core` without coupling this repo to the app internals.
+Connect batch jobs to async DocRaptor behavior with retry-safe logic.
 
 ### Primary output
 
-- `packages/pdf-editor/src/core-adapter`
-- `docs/asymmetric-core-integration.md`
+- Async DocRaptor and batch retry helpers.
 
 ### Tasks
 
-- [ ] Define adapter interfaces for core templates, data sources, assets,
-      permissions, storage, audit, feature flags, and render jobs.
-- [ ] Preserve `Asymmetric-al/core` app boundaries and avoid direct app imports.
-- [ ] Map current PDF Studio concepts to the native builder model.
-- [ ] Document feature flag expectations and engine metadata handoff.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Support async render creation, status ID storage, polling, transient and
+      permanent error classification, retry limits, backoff, timeouts,
+      cancellation handling where possible, partial completion, idempotency
+      metadata, and structured logs.
 
 ### Validation
 
-- [ ] Adapter tests cover enabled and disabled feature flag states, permission
-      checks, storage adapters, and missing data.
+- [ ] Mocked tests cover async job creation, polling success/failure, transient
+      retry, permanent failure without retry, partial success, max retries, and
+      status summaries.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
-- [ ] Core adapter API and integration guide.
+- [ ] Async render flow docs and retry policy.
 
-## Phase 29: Unlayer Migration, Legacy Coexistence, and Dual-Run Strategy
+## Phase 29: Build Puppeteer or Playwright Local Fallback and Test Renderer
 
 ### Purpose
 
-Keep legacy Unlayer templates usable while native PDF builder templates roll
-out.
+Create a local render path for development and test snapshots without making
+it the production contract.
+
+### Primary output
+
+- Local renderer helper or explicit deferral note.
+
+### Tasks
+
+- [ ] Prefer Playwright because the repo already uses it; use Puppeteer only
+      if already present or clearly better after inspection.
+- [ ] Support developer preview, CI smoke tests, HTML-to-PDF sanity checks,
+      screenshot/PDF snapshots, and development fallback only.
+- [ ] Document DocRaptor as production fidelity.
+
+### Validation
+
+- [ ] Tests cover print HTML input, page size handling, failures, graceful skip
+      when browser binaries are unavailable, and no production dependency on
+      local renderer.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
+
+### Handoff output
+
+- [ ] Local renderer docs and production-fidelity caveat.
+
+## Phase 30: Build Accessibility, Metadata, and PDF Profile Support
+
+### Purpose
+
+Add metadata and accessibility-related contracts before production hardening.
+
+### Primary output
+
+- Metadata and PDF profile schema/request support.
+
+### Tasks
+
+- [ ] Support title, subject, author/organization, language, keywords, PDF/A
+      option, PDF/UA option where feasible, alt text validation, heading order
+      warnings, table header warnings, and link text warnings.
+- [ ] Implement only options that can be represented safely in schema and
+      DocRaptor request layers.
+
+### Validation
+
+- [ ] Tests cover metadata schema, DocRaptor request metadata, missing title
+      warning, missing alt text warning, PDF profile serialization, and invalid
+      profile rejection.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
+
+### Handoff output
+
+- [ ] Metadata model docs and accessibility warning notes.
+
+## Phase 31: Build Security and Tenant Integration Contracts
+
+### Purpose
+
+Prepare for `Asymmetric-al/core` integration without app-specific code.
+
+### Primary output
+
+- Security and tenant adapter contracts.
+
+### Tasks
+
+- [ ] Define contracts for tenant ID, user ID, permissions, asset access,
+      render authorization, edit/publish authorization, batch authorization,
+      audit identity, signed/public render URLs, PII classification, no secrets
+      in templates, and no API key in browser bundles.
+- [ ] Use interfaces and fake adapters if the repo has no auth system.
+
+### Validation
+
+- [ ] Tests cover unauthorized render, unauthorized publish, secret-like
+      template metadata rejection, tenant mismatch, and API key client-export
+      checks where testable.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
+
+### Handoff output
+
+- [ ] Security contract docs and fake adapter notes.
+
+## Phase 32: Build Unlayer Migration and Coexistence Path
+
+### Purpose
+
+Support safe migration from Unlayer without pretending automatic conversion is
+easy.
 
 ### Primary output
 
@@ -936,95 +1030,117 @@ out.
 
 ### Tasks
 
-- [ ] Add engine metadata and migration status concepts.
-- [ ] Support manual rebuild workflow for legacy templates.
-- [ ] Evaluate optional partial import from exported Unlayer HTML where
-      practical.
-- [ ] Reject any claim of perfect automatic Unlayer design JSON conversion.
-- [ ] Support dual-run or comparison flows where useful for cutover confidence.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Support engine metadata, `unlayer`,
+      `asym_pdf_document_builder`, legacy template references, manual
+      migration workflow, optional HTML import shape, migration report,
+      unsupported feature list, comparison hooks, and feature flag contract.
+- [ ] Do not attempt full Unlayer JSON conversion unless a later spec narrows
+      the scope.
 
 ### Validation
 
-- [ ] Tests cover legacy template opening, native template opening, manual
-      migration state, feature flag disabled path, and partial import failure
-      reporting.
+- [ ] Tests cover engine metadata, legacy/new template metadata, migration
+      reports, unsupported features, and feature flag contract shape.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
 - [ ] Unlayer coexistence, migration, and dual-run guide.
 
-## Phase 30: Full Testing Strategy, Golden Fixtures, Visual Checks, and Quality Gates
+## Phase 33: Build `Asymmetric-al/core` Adapter Package and Feature Flag Contract
 
 ### Purpose
 
-Build the regression system that keeps the PDF builder reliable across schema,
-editor, serializer, rendering, and batch behavior.
+Create the package contract that lets the broader platform consume the PDF
+builder later.
 
 ### Primary output
 
-- `test/golden-fixtures`
-- `docs/testing-strategy.md`
+- Future adapter package or adapter contract.
 
 ### Tasks
 
-- [ ] Add golden fixtures for donation receipts, tax receipts, annual
-      statements, donor letters, missionary reports, financial reports,
-      invoices, certificates, and branded documents.
-- [ ] Add schema, resolver, editor, serializer, print HTML/CSS, DocRaptor test
-      render, local render, visual diff, batch, permission, migration, and
-      package export tests.
-- [ ] Track page count and major layout expectations where practical.
-- [ ] Define quality gates for future pull requests and release candidates.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Expose integration points for editor component/factory, template
+      load/save, preview, render, variable registry injection, asset adapter,
+      auth adapter, DocRaptor client injection, feature flags, and legacy
+      engine metadata.
+- [ ] Do not require editing `Asymmetric-al/core` in this repo.
 
 ### Validation
 
-- [ ] Regression suite fails on unintended schema, serializer, layout,
-      permission, migration, or batch behavior changes.
+- [ ] Tests cover adapter exports, type-level integration fixture, fake core
+      adapter render, feature flag selection, and legacy engine pass-through.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
-- [ ] Golden fixture suite and testing strategy documentation.
+- [ ] Core adapter contract and feature flag docs.
 
-## Phase 31: Documentation, Examples, Developer Experience, and Internal Training Material
+## Phase 34: Build Documentation, Playground, and Developer Examples
 
 ### Purpose
 
-Make the builder understandable for future developers, implementation agents,
-and internal users.
+Make the package usable by humans before production rollout.
 
 ### Primary output
 
-- `docs`
-- `examples/pdf-editor`
+- PDF-first docs, examples, and playground updates.
 
 ### Tasks
 
-- [ ] Add public API docs, package usage examples, editor examples, renderer
-      examples, DocRaptor setup notes, and adapter examples.
-- [ ] Add internal training material for the 32-phase roadmap and handoff
-      expectations.
-- [ ] Document starter templates, variables, repeaters, conditionals, financial
-      tables, previews, preflight, and batch generation.
-- [ ] Keep docs aligned with OpenSpec behavior contracts.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Add examples for donation receipt, annual giving statement, financial
+      report, invoice, certificate, mocked DocRaptor preview, browser preview,
+      variable chips, conditionals, repeaters, and data tables.
+- [ ] Document package installation, exports, editor usage, serializer usage,
+      DocRaptor setup, environment variables, tests, limitations, and migration
+      notes.
 
 ### Validation
 
-- [ ] Documentation examples compile or run where the repo supports executable
-      docs.
-- [ ] Docs link to current OpenSpec, package APIs, and examples.
+- [ ] Docs examples typecheck where supported, playground builds where
+      supported, and export smoke tests pass.
+- [ ] Run `pnpm build`, `pnpm test`, and `pnpm lint`.
 
 ### Handoff output
 
-- [ ] Developer experience and training documentation set.
+- [ ] Developer documentation and training material.
 
-## Phase 32: Production Hardening, Release Candidate, and Core Cutover Readiness
+## Phase 35: Build Performance, Load, and Large Document Tests
 
 ### Purpose
 
-Prepare for controlled production integration and gradual cutover from Unlayer.
+Prove the system can handle long reports and large batches before production
+integration.
+
+### Primary output
+
+- Lightweight performance smoke tests and opt-in heavy tests.
+
+### Tasks
+
+- [ ] Measure one-page receipts, ten-page annual statements, fifty-page
+      financial reports, 500 donation line items, 1,000 financial rows, 1,000
+      recipient batch manifests, asset-heavy documents, repeated
+      header/footer output, and large-template preflight.
+- [ ] Track serializer time, preflight time, memory where practical, output
+      size, warning count, and batch planning time.
+- [ ] Keep heavy tests opt-in so CI stays stable.
+
+### Validation
+
+- [ ] Lightweight performance smoke tests run in normal CI and heavy tests are
+      behind an env flag or separate script with documented thresholds.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
+
+### Handoff output
+
+- [ ] Performance findings and load-test guidance.
+
+## Phase 36: Production Hardening, Release Readiness, and Cutover Plan
+
+### Purpose
+
+Prepare the package for real platform adoption and phased cutover.
 
 ### Primary output
 
@@ -1033,30 +1149,30 @@ Prepare for controlled production integration and gradual cutover from Unlayer.
 
 ### Tasks
 
-- [ ] Harden permissions, security, observability, error reporting, cost
-      controls, rate limits, and support documentation.
-- [ ] Define rollout by tenant, template type, and feature flag state.
-- [ ] Define rollback, incident response, and final Unlayer retirement criteria.
-- [ ] Confirm render fidelity, auditability, batch safety, and donor-trust
-      requirements are met before production cutover.
-- [ ] Follow the existing package, export, test, and documentation patterns for this repo.
+- [ ] Review API exports, compatibility, package names, schema versions,
+      changesets/changelog, docs, tests, OpenSpec tasks/specs, security,
+      client-bundle secrets, DocRaptor modes, core adapter, migration plan,
+      launch plan, rollback plan, and limitations.
+- [ ] Create a core cutover plan covering dependency install, feature flag,
+      internal receipt, annual statement, financial report, Unlayer comparison,
+      pilot, fallback, gradual migration, and final Unlayer removal criteria.
 
 ### Validation
 
-- [ ] Release candidate checklist confirms security, rendering fidelity, audit,
-      batch safety, migration readiness, support readiness, and rollback paths.
+- [ ] Run `pnpm build`, `pnpm test`, `pnpm lint`, and
+      `pnpm dlx @fission-ai/openspec@latest validate --all`.
 
 ### Handoff output
 
-- [ ] Release candidate checklist and core cutover plan.
+- [ ] Release readiness checklist and core cutover plan.
 
-## OpenSpec validation
+## OpenSpec Validation
 
 - [ ] Run `pnpm dlx @fission-ai/openspec@latest validate build-pdf-document-builder`
 - [ ] Run `pnpm dlx @fission-ai/openspec@latest validate --all`
-- [ ] Confirm `AGENTS.md` exists and routes agents to OpenSpec
-- [ ] Confirm `tasks.md` is the canonical 32-phase process tracker
-- [ ] Confirm no product implementation code was added in this OpenSpec task
-- [ ] Confirm no migrations were added
-- [ ] Confirm no secrets were added
-- [ ] Run `pnpm lint` if dependencies are installed and the command is safe
+- [ ] Confirm `AGENTS.md` exists and routes agents to OpenSpec.
+- [ ] Confirm `tasks.md` is the canonical 36-phase process tracker.
+- [ ] Confirm no product implementation code was added in this OpenSpec task.
+- [ ] Confirm no migrations were added.
+- [ ] Confirm no secrets were added.
+- [ ] Run `pnpm lint` if dependencies are installed and the command is safe.

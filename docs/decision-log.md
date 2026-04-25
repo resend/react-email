@@ -104,7 +104,7 @@ phase-level choices and tradeoffs found during implementation.
   imports React Email components. Removing those dependencies before package
   and serializer boundaries exist would break the frozen baseline.
 - Tradeoff: The editor remains visibly email-shaped for another phase. Phase 3
-  owns package boundaries, and Phase 6 owns PDF-first serializer contracts.
+  owns package boundaries, and Phase 9 owns PDF-first serializer contracts.
 
 ## 2026-04-25: Phase 2 Dependency Map Is A Checked Fixture
 
@@ -159,7 +159,7 @@ phase-level choices and tradeoffs found during implementation.
   surfaces before PDF package behavior exists would make the fork harder to
   validate against the React Email baseline.
 - Tradeoff: The repository still contains legacy email-oriented guidance until
-  Phase 31 or earlier feature-specific docs phases replace those surfaces.
+  Phase 34 or earlier feature-specific docs phases replace those surfaces.
 
 ## 2026-04-25: Editor Boundary Is Internal Before PDF Behavior
 
@@ -177,6 +177,37 @@ phase-level choices and tradeoffs found during implementation.
 - Decision: Phase 4 stores baseline editor JSON and legacy render expectation
   fixtures under package test folders, not public package exports.
 - Reason: The fixtures provide deterministic regression anchors without
-  claiming a stable template schema or renderer API before Phase 5 and Phase 6.
+  claiming a stable template schema or renderer API before Phase 6 and Phase 9.
 - Tradeoff: Later schema and renderer phases may replace these fixture shapes
   with formal model types after the public contracts exist.
+
+## 2026-04-26: Package Migration Is Wrapper-First
+
+- Decision: Phase 5 keeps `@react-email/editor` unchanged and treats private
+  `@asym/pdf-editor` as the stable future import target that wraps public React
+  Email editor exports through `@asym/pdf-editor/react-email-compat`.
+- Reason: A wrapper-first path avoids a dangerous big-bang rename while letting
+  new PDF-first code depend on `@asym/*` package names.
+- Tradeoff: The fork carries React Email names and compatibility adapters until
+  later phases add document-native editor, schema, and serializer behavior.
+
+## 2026-04-26: Private Boundary Packages Do Not Get Changesets
+
+- Decision: Phase 5 does not add a changeset for package strategy or private
+  `@asym/*` boundary checks.
+- Reason: The `@asym/*` packages remain `private: true`, and
+  `@react-email/editor` public exports do not change.
+- Tradeoff: Release policy is documented now but actual versioning and
+  publication rules remain deferred until a later release-readiness phase.
+
+## 2026-04-26: Roadmap Uses 36 Phases
+
+- Decision: The canonical OpenSpec tracker now uses the 36-phase course of
+  action, with Phase 6 as schema foundation and Phase 9 as document serializer
+  foundation.
+- Reason: The expanded roadmap separates compatibility fixtures, safe naming,
+  serializer, print shell, preview, security, migration, adapter, docs,
+  performance, and release readiness into smaller reviewable phases.
+- Tradeoff: Some earlier completion notes mention the previous 33-phase
+  tracker as historical validation output; current planning docs should follow
+  the 36-phase tracker.
