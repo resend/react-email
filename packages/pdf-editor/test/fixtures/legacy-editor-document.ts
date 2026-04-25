@@ -73,5 +73,4 @@ export const legacyEditorDocumentFixture = {
   name: 'legacy-donation-receipt-editor-json',
 } as const;
 
-export type LegacyEditorDocumentFixture =
-  typeof legacyEditorDocumentFixture;
+export type LegacyEditorDocumentFixture = typeof legacyEditorDocumentFixture;
