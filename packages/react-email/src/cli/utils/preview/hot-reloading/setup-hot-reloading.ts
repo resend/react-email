@@ -3,12 +3,18 @@ import path from 'node:path';
 import { watch } from 'chokidar';
 import debounce from 'debounce';
 import { type Socket, Server as SocketServer } from 'socket.io';
+import { getEmailsDirectoryMetadata } from '../../get-emails-directory-metadata.js';
 import type { HotReloadChange } from '../../types/hot-reload-change.js';
 import { createDependencyGraph } from './create-dependency-graph.js';
+import {
+  collectEmailTemplatePaths,
+  isUnderAnyPath,
+} from './extra-watch-paths.js';
 
 export const setupHotreloading = async (
   devServer: http.Server,
   emailDirRelativePath: string,
+  extraWatchPaths: string[] = [],
 ) => {
   let clients: Socket[] = [];
   const io = new SocketServer(devServer);
@@ -47,6 +53,13 @@ export const setupHotreloading = async (
     emailDirRelativePath,
   );
 
+  const resolvedExtraWatchPaths = extraWatchPaths.map((p) =>
+    path.resolve(process.cwd(), p),
+  );
+
+  const isUnderExtraWatchPath = (absolutePath: string) =>
+    isUnderAnyPath(absolutePath, resolvedExtraWatchPaths);
+
   const [dependencyGraph, updateDependencyGraph, { resolveDependentsOf }] =
     await createDependencyGraph(absolutePathToEmailsDirectory);
 
@@ -64,6 +77,10 @@ export const setupHotreloading = async (
   // the user's emails directory
   for (const p of filesOutsideEmailsDirectory) {
     watcher.add(p);
+  }
+
+  if (resolvedExtraWatchPaths.length > 0) {
+    watcher.add(resolvedExtraWatchPaths);
   }
 
   const exit = async () => {
@@ -114,6 +131,28 @@ export const setupHotreloading = async (
         filename: path.relative(absolutePathToEmailsDirectory, dependentPath),
       });
     }
+
+    // Files in --watch paths are loaded at runtime (e.g. i18n message JSON read
+    // through a backend) and never enter the static dependency graph, so we
+    // can't tell which template depends on them. Reload every template instead.
+    if (isUnderExtraWatchPath(pathToChangeTarget)) {
+      const metadata = await getEmailsDirectoryMetadata(
+        absolutePathToEmailsDirectory,
+        true,
+      );
+      if (metadata) {
+        for (const templatePath of collectEmailTemplatePaths(metadata)) {
+          changes.push({
+            event: 'change' as const,
+            filename: path.relative(
+              absolutePathToEmailsDirectory,
+              templatePath,
+            ),
+          });
+        }
+      }
+    }
+
     reload();
   });
 

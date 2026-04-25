@@ -50,6 +50,11 @@ if (!hasRequiredFlags) {
       './emails',
     )
     .option('-p --port <port>', 'Port to run dev server on', '3000')
+    .option(
+      '-w, --watch <paths...>',
+      'Additional file or directory paths to watch. Changes inside these paths will reload all email previews. Useful for files loaded at runtime (e.g. i18n message JSON) that are not statically imported.',
+      [],
+    )
     .action(dev);
 
   program
