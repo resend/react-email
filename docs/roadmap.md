@@ -8,8 +8,8 @@ that list with current phase status for handoff visibility.
 |---:|---|---|---|
 | 1 | Fork Baseline, Governance, and Product Charter | Complete; validation gaps recorded | `docs/asym-product-charter.md`, `docs/research-basis.md` |
 | 2 | Monorepo Inventory and Isolation Map | Complete; validation recorded | `docs/monorepo-inventory.md`, `docs/editor-dependency-graph.md` |
-| 3 | Package Boundary for @asym/pdf-editor and Related Packages | Next | `packages/pdf-editor`, `packages/pdf-renderer` |
-| 4 | Editor Baseline Fixtures and Regression Harness | Not started | `packages/pdf-editor/test/fixtures`, `packages/pdf-renderer/test/fixtures` |
+| 3 | Package Boundary for @asym/pdf-editor and Related Packages | Complete; validation recorded | `packages/pdf-editor`, `packages/pdf-renderer` |
+| 4 | Editor Baseline Fixtures and Regression Harness | Next | `packages/pdf-editor/test/fixtures`, `packages/pdf-renderer/test/fixtures` |
 | 5 | PDF Template Schema and Domain Model | Not started | `packages/pdf-template-schema/src`, `packages/pdf-template-schema/test` |
 | 6 | PDF Serialization Core: DocumentNode, DocumentMark, and composePdfDocumentHtml | Not started | `packages/pdf-renderer/src/compose-pdf-document-html.ts`, `packages/pdf-renderer/src/document-node.ts` |
 | 7 | Print HTML Shell and Paged-Media CSS Engine | Not started | `packages/pdf-renderer/src/print-shell.ts`, `packages/pdf-renderer/src/paged-media-css.ts` |

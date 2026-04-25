@@ -1,0 +1,53 @@
+{
+  "name": "@asym/docraptor-client",
+  "version": "0.0.0",
+  "description": "Server-only DocRaptor client boundary for the Asym PDF Document Builder.",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist/**",
+    "readme.md"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsdown",
+    "build:watch": "tsdown --watch",
+    "clean": "rm -rf dist",
+    "lint": "biome check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Asymmetric-al/react-PDF.git",
+    "directory": "packages/docraptor-client"
+  },
+  "keywords": [
+    "asym",
+    "docraptor",
+    "pdf"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*",
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "4.1.4"
+  }
+}

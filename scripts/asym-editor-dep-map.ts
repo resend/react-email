@@ -78,8 +78,16 @@ const editorDependencySections = [
 ] as const;
 
 const referencePatterns = [
+  '@asym/docraptor-client',
+  '@asym/pdf-editor',
+  '@asym/pdf-renderer',
+  '@asym/pdf-template-schema',
   '@react-email/editor',
   'packages/editor',
+  'packages/docraptor-client',
+  'packages/pdf-editor',
+  'packages/pdf-renderer',
+  'packages/pdf-template-schema',
   'EmailEditor',
   'EmailMark',
   'EmailNode',
@@ -336,6 +344,33 @@ function classifyWorkspacePackage(
   pathFromRoot: string,
   name: string,
 ): ClassifiedValue {
+  if (pathFromRoot === 'packages/pdf-editor') {
+    return {
+      classification: 'fork',
+      reason:
+        'Phase 3 PDF editor boundary that wraps the current editor until PDF-first behavior exists.',
+    };
+  }
+
+  if (
+    pathFromRoot === 'packages/pdf-renderer' ||
+    pathFromRoot === 'packages/pdf-template-schema'
+  ) {
+    return {
+      classification: 'keep',
+      reason:
+        'Phase 3 PDF package boundary retained for future schema and renderer work.',
+    };
+  }
+
+  if (pathFromRoot === 'packages/docraptor-client') {
+    return {
+      classification: 'keep',
+      reason:
+        'Phase 3 server-only DocRaptor package boundary retained for future rendering work.',
+    };
+  }
+
   if (pathFromRoot === 'packages/editor') {
     return {
       classification: 'fork',

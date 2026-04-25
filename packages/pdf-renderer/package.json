@@ -1,0 +1,57 @@
+{
+  "name": "@asym/pdf-renderer",
+  "version": "0.0.0",
+  "description": "Print rendering boundary for the Asym PDF Document Builder.",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist/**",
+    "readme.md"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsdown",
+    "build:watch": "tsdown --watch",
+    "clean": "rm -rf dist",
+    "lint": "biome check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Asymmetric-al/react-PDF.git",
+    "directory": "packages/pdf-renderer"
+  },
+  "keywords": [
+    "asym",
+    "pdf",
+    "renderer",
+    "docraptor"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "@asym/pdf-template-schema": "workspace:*"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*",
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "4.1.4"
+  }
+}

@@ -896,6 +896,10 @@
       {
         "path": "docs/decision-log.md",
         "patterns": [
+          "@asym/docraptor-client",
+          "@asym/pdf-editor",
+          "@asym/pdf-renderer",
+          "@asym/pdf-template-schema",
           "@react-email/editor",
           "EmailMark",
           "EmailNode",
@@ -906,6 +910,10 @@
       {
         "path": "docs/editor-dependency-graph.md",
         "patterns": [
+          "@asym/docraptor-client",
+          "@asym/pdf-editor",
+          "@asym/pdf-renderer",
+          "@asym/pdf-template-schema",
           "@react-email/editor",
           "BaseTemplate",
           "EmailEditor",
@@ -920,6 +928,8 @@
       {
         "path": "docs/monorepo-inventory.md",
         "patterns": [
+          "@asym/pdf-editor",
+          "@asym/pdf-renderer",
           "@react-email/editor",
           "EmailEditor",
           "EmailMark",
@@ -927,6 +937,21 @@
           "EmailTheming",
           "composeReactEmail",
           "packages/editor"
+        ]
+      },
+      {
+        "path": "docs/package-boundaries.md",
+        "patterns": [
+          "@asym/docraptor-client",
+          "@asym/pdf-editor",
+          "@asym/pdf-renderer",
+          "@asym/pdf-template-schema",
+          "@react-email/editor",
+          "EmailEditor",
+          "EmailMark",
+          "EmailNode",
+          "EmailTheming",
+          "composeReactEmail"
         ]
       },
       {
@@ -968,12 +993,18 @@
       {
         "path": "docs/roadmap.md",
         "patterns": [
-          "@react-email/editor"
+          "@asym/pdf-editor",
+          "@react-email/editor",
+          "packages/docraptor-client",
+          "packages/pdf-editor",
+          "packages/pdf-renderer",
+          "packages/pdf-template-schema"
         ]
       },
       {
         "path": "docs/term-migration-map.md",
         "patterns": [
+          "@asym/pdf-editor",
           "@react-email/editor",
           "BaseTemplate",
           "EmailEditor",
@@ -982,6 +1013,43 @@
           "EmailTheming",
           "composeReactEmail",
           "renderToReactEmail"
+        ]
+      },
+      {
+        "path": "packages/docraptor-client/package.json",
+        "patterns": [
+          "@asym/docraptor-client",
+          "packages/docraptor-client"
+        ]
+      },
+      {
+        "path": "packages/docraptor-client/readme.md",
+        "patterns": [
+          "@asym/docraptor-client"
+        ]
+      },
+      {
+        "path": "packages/docraptor-client/src/index.ts",
+        "patterns": [
+          "@asym/docraptor-client"
+        ]
+      },
+      {
+        "path": "packages/docraptor-client/test/public-entry.spec.ts",
+        "patterns": [
+          "@asym/docraptor-client"
+        ]
+      },
+      {
+        "path": "packages/docraptor-client/tsconfig.json",
+        "patterns": [
+          "@asym/docraptor-client"
+        ]
+      },
+      {
+        "path": "packages/docraptor-client/vitest.config.ts",
+        "patterns": [
+          "@asym/docraptor-client"
         ]
       },
       {
@@ -1424,6 +1492,162 @@
         ]
       },
       {
+        "path": "packages/pdf-editor/package.json",
+        "patterns": [
+          "@asym/pdf-editor",
+          "@asym/pdf-template-schema",
+          "@react-email/editor",
+          "packages/pdf-editor"
+        ]
+      },
+      {
+        "path": "packages/pdf-editor/readme.md",
+        "patterns": [
+          "@asym/pdf-editor",
+          "@react-email/editor"
+        ]
+      },
+      {
+        "path": "packages/pdf-editor/src/index.ts",
+        "patterns": [
+          "@asym/pdf-editor",
+          "@asym/pdf-template-schema",
+          "@react-email/editor",
+          "EmailEditor",
+          "EmailMark",
+          "EmailNode",
+          "EmailTheming",
+          "composeReactEmail"
+        ]
+      },
+      {
+        "path": "packages/pdf-editor/src/react-email-compat.ts",
+        "patterns": [
+          "@react-email/editor",
+          "EmailEditor",
+          "EmailMark",
+          "EmailNode",
+          "EmailTheming",
+          "composeReactEmail"
+        ]
+      },
+      {
+        "path": "packages/pdf-editor/test/public-entry.spec.tsx",
+        "patterns": [
+          "@asym/pdf-editor",
+          "@asym/pdf-template-schema",
+          "@react-email/editor",
+          "EmailEditor"
+        ]
+      },
+      {
+        "path": "packages/pdf-editor/tsconfig.json",
+        "patterns": [
+          "@asym/pdf-editor",
+          "@asym/pdf-template-schema"
+        ]
+      },
+      {
+        "path": "packages/pdf-editor/tsdown.config.ts",
+        "patterns": [
+          "@asym/pdf-template-schema",
+          "@react-email/editor"
+        ]
+      },
+      {
+        "path": "packages/pdf-editor/vitest.config.ts",
+        "patterns": [
+          "@asym/pdf-editor",
+          "@asym/pdf-template-schema"
+        ]
+      },
+      {
+        "path": "packages/pdf-renderer/package.json",
+        "patterns": [
+          "@asym/pdf-renderer",
+          "@asym/pdf-template-schema",
+          "packages/pdf-renderer"
+        ]
+      },
+      {
+        "path": "packages/pdf-renderer/readme.md",
+        "patterns": [
+          "@asym/docraptor-client",
+          "@asym/pdf-renderer"
+        ]
+      },
+      {
+        "path": "packages/pdf-renderer/src/index.ts",
+        "patterns": [
+          "@asym/pdf-renderer",
+          "@asym/pdf-template-schema"
+        ]
+      },
+      {
+        "path": "packages/pdf-renderer/test/public-entry.spec.ts",
+        "patterns": [
+          "@asym/pdf-renderer",
+          "@asym/pdf-template-schema"
+        ]
+      },
+      {
+        "path": "packages/pdf-renderer/tsconfig.json",
+        "patterns": [
+          "@asym/pdf-renderer",
+          "@asym/pdf-template-schema"
+        ]
+      },
+      {
+        "path": "packages/pdf-renderer/tsdown.config.ts",
+        "patterns": [
+          "@asym/pdf-template-schema"
+        ]
+      },
+      {
+        "path": "packages/pdf-renderer/vitest.config.ts",
+        "patterns": [
+          "@asym/pdf-renderer",
+          "@asym/pdf-template-schema"
+        ]
+      },
+      {
+        "path": "packages/pdf-template-schema/package.json",
+        "patterns": [
+          "@asym/pdf-template-schema",
+          "packages/pdf-template-schema"
+        ]
+      },
+      {
+        "path": "packages/pdf-template-schema/readme.md",
+        "patterns": [
+          "@asym/pdf-template-schema"
+        ]
+      },
+      {
+        "path": "packages/pdf-template-schema/src/index.ts",
+        "patterns": [
+          "@asym/pdf-template-schema"
+        ]
+      },
+      {
+        "path": "packages/pdf-template-schema/test/public-entry.spec.ts",
+        "patterns": [
+          "@asym/pdf-template-schema"
+        ]
+      },
+      {
+        "path": "packages/pdf-template-schema/tsconfig.json",
+        "patterns": [
+          "@asym/pdf-template-schema"
+        ]
+      },
+      {
+        "path": "packages/pdf-template-schema/vitest.config.ts",
+        "patterns": [
+          "@asym/pdf-template-schema"
+        ]
+      },
+      {
         "path": "packages/react-email/CHANGELOG.md",
         "patterns": [
           "@react-email/editor"
@@ -1445,6 +1669,10 @@
       {
         "path": "scripts/asym-editor-dep-map.ts",
         "patterns": [
+          "@asym/docraptor-client",
+          "@asym/pdf-editor",
+          "@asym/pdf-renderer",
+          "@asym/pdf-template-schema",
           "@react-email/editor",
           "BaseTemplate",
           "EmailEditor",
@@ -1452,7 +1680,11 @@
           "EmailNode",
           "EmailTheming",
           "composeReactEmail",
+          "packages/docraptor-client",
           "packages/editor",
+          "packages/pdf-editor",
+          "packages/pdf-renderer",
+          "packages/pdf-template-schema",
           "renderToReactEmail"
         ]
       },
@@ -9110,7 +9342,8 @@
       "packages/editor/src/utils/paste-sanitizer",
       "packages/editor/src/utils/prism-utils",
       "packages/editor/src/utils/set-text-alignment",
-      "packages/editor/src/utils/styles"
+      "packages/editor/src/utils/styles",
+      "packages/pdf-editor"
     ],
     "keep": [
       ".",
@@ -9151,6 +9384,9 @@
       "benchmarks/tailwind",
       "benchmarks/ui",
       "hast-util-from-html",
+      "packages/docraptor-client",
+      "packages/pdf-renderer",
+      "packages/pdf-template-schema",
       "packages/react-email/dev",
       "packages/react-email/src/components/tailwind/e2e/nextjs",
       "packages/react-email/src/components/tailwind/e2e/vite",
@@ -9445,6 +9681,23 @@
         "version": "1.1.0"
       },
       {
+        "classification": "keep",
+        "name": "@asym/docraptor-client",
+        "path": "packages/docraptor-client",
+        "private": true,
+        "reason": "Phase 3 server-only DocRaptor package boundary retained for future rendering work.",
+        "scripts": [
+          "build",
+          "build:watch",
+          "clean",
+          "lint",
+          "test",
+          "test:watch",
+          "typecheck"
+        ],
+        "version": "0.0.0"
+      },
+      {
         "classification": "fork",
         "name": "@react-email/editor",
         "path": "packages/editor",
@@ -9462,6 +9715,57 @@
           "typecheck"
         ],
         "version": "1.1.1"
+      },
+      {
+        "classification": "fork",
+        "name": "@asym/pdf-editor",
+        "path": "packages/pdf-editor",
+        "private": true,
+        "reason": "Phase 3 PDF editor boundary that wraps the current editor until PDF-first behavior exists.",
+        "scripts": [
+          "build",
+          "build:watch",
+          "clean",
+          "lint",
+          "test",
+          "test:watch",
+          "typecheck"
+        ],
+        "version": "0.0.0"
+      },
+      {
+        "classification": "keep",
+        "name": "@asym/pdf-renderer",
+        "path": "packages/pdf-renderer",
+        "private": true,
+        "reason": "Phase 3 PDF package boundary retained for future schema and renderer work.",
+        "scripts": [
+          "build",
+          "build:watch",
+          "clean",
+          "lint",
+          "test",
+          "test:watch",
+          "typecheck"
+        ],
+        "version": "0.0.0"
+      },
+      {
+        "classification": "keep",
+        "name": "@asym/pdf-template-schema",
+        "path": "packages/pdf-template-schema",
+        "private": true,
+        "reason": "Phase 3 PDF package boundary retained for future schema and renderer work.",
+        "scripts": [
+          "build",
+          "build:watch",
+          "clean",
+          "lint",
+          "test",
+          "test:watch",
+          "typecheck"
+        ],
+        "version": "0.0.0"
       },
       {
         "classification": "wrap",

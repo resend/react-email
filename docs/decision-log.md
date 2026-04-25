@@ -127,3 +127,36 @@ phase-level choices and tradeoffs found during implementation.
   the declared package exports usable without changing JavaScript behavior.
 - Tradeoff: These wrappers preserve an email-era public surface until a later
   UI/package phase decides whether distinct PDF-first menu styles are needed.
+
+## 2026-04-25: Phase 3 Packages Are Private Boundary Shells
+
+- Decision: `@asym/pdf-editor`, `@asym/pdf-renderer`,
+  `@asym/pdf-template-schema`, and `@asym/docraptor-client` are created as
+  private package shells with typed boundary exports only.
+- Reason: Later phases need stable package names and dependency direction
+  before moving behavior out of the React Email editor baseline.
+- Tradeoff: The packages are importable in the workspace but are not release
+  candidates and do not yet implement PDF editor, schema, renderer, or
+  DocRaptor behavior.
+
+## 2026-04-25: PDF Editor Uses A React Email Reference Adapter
+
+- Decision: `@asym/pdf-editor` exposes
+  `@asym/pdf-editor/react-email-compat` with explicit `Reference` aliases for
+  public `@react-email/editor` primitives.
+- Reason: Phase 3 needs a package boundary without duplicating or renaming the
+  known-working editor implementation.
+- Tradeoff: The new editor package intentionally depends on
+  `@react-email/editor` until later phases fork editor shell, extension, and
+  serializer behavior into PDF-first names.
+
+## 2026-04-25: Email Docs And Examples Are Deferred
+
+- Decision: Email-oriented docs, demos, playgrounds, package UI, starter
+  flows, and sending examples remain in place and are documented as
+  `replace-later`.
+- Reason: Phase 3 owns package boundaries only. Removing or rewriting those
+  surfaces before PDF package behavior exists would make the fork harder to
+  validate against the React Email baseline.
+- Tradeoff: The repository still contains legacy email-oriented guidance until
+  Phase 31 or earlier feature-specific docs phases replace those surfaces.
