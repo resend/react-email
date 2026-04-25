@@ -39,15 +39,21 @@ that list with current phase status for handoff visibility.
 | 31 | Documentation, Examples, Developer Experience, and Internal Training Material | Not started | `docs`, `examples/pdf-editor` |
 | 32 | Production Hardening, Release Candidate, and Core Cutover Readiness | Not started | `docs/release-candidate-checklist.md`, `docs/core-cutover-plan.md` |
 
-## Phase 3 Entry Point
+## Phase 4 Entry Point
 
-Phase 3 should start from the Phase 2 inventory and dependency map:
+Phase 4 should start from the merged Phase 3 package-boundary artifacts:
 
 - `docs/monorepo-inventory.md`
 - `docs/editor-dependency-graph.md`
 - `docs/public-export-map.md`
 - `docs/term-migration-map.md`
 - `docs/dep-map.json`
+- `docs/package-boundaries.md`
+- `docs/phase-3-completion-notes.md`
+- `packages/pdf-editor`
+- `packages/pdf-renderer`
+- `packages/pdf-template-schema`
+- `packages/docraptor-client`
 
-It should create new package boundaries while leaving the original
+It should add editor and renderer baseline fixtures while leaving the original
 `@react-email/editor` package intact.
