@@ -28,15 +28,15 @@ export const pdfEditorBoundary: PdfEditorBoundary = {
 };
 
 export {
+  composeReactEmailReference,
   ReactEmailBubbleMenuReference,
   ReactEmailEditorReference,
+  type ReactEmailEditorReferenceProps,
+  type ReactEmailEditorReferenceRef,
   ReactEmailInspectorReference,
   ReactEmailMarkReference,
   ReactEmailNodeReference,
   ReactEmailSlashCommandReference,
   ReactEmailStarterKitReference,
   ReactEmailThemingReference,
-  composeReactEmailReference,
-  type ReactEmailEditorReferenceProps,
-  type ReactEmailEditorReferenceRef,
 } from './react-email-compat';

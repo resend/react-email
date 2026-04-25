@@ -8,17 +8,23 @@ const currentDirectory = fileURLToPath(new URL('.', import.meta.url));
 export default defineConfig({
   plugins: [react()],
   resolve: {
-    alias: {
-      '@asym/pdf-editor': resolve(currentDirectory, 'src/index.ts'),
-      '@asym/pdf-editor/react-email-compat': resolve(
-        currentDirectory,
-        'src/react-email-compat.ts',
-      ),
-      '@asym/pdf-template-schema': resolve(
-        currentDirectory,
-        '../pdf-template-schema/src/index.ts',
-      ),
-    },
+    alias: [
+      {
+        find: '@asym/pdf-editor/react-email-compat',
+        replacement: resolve(currentDirectory, 'src/react-email-compat.ts'),
+      },
+      {
+        find: '@asym/pdf-editor',
+        replacement: resolve(currentDirectory, 'src/index.ts'),
+      },
+      {
+        find: '@asym/pdf-template-schema',
+        replacement: resolve(
+          currentDirectory,
+          '../pdf-template-schema/src/index.ts',
+        ),
+      },
+    ],
   },
   test: {
     environment: 'happy-dom',

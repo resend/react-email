@@ -1,11 +1,11 @@
-import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
 import {
+  type PdfEditorBoundary,
   pdfEditorBoundary,
   ReactEmailEditorReference,
-  type PdfEditorBoundary,
 } from '@asym/pdf-editor';
 import { ReactEmailEditorReference as SubpathEditorReference } from '@asym/pdf-editor/react-email-compat';
+import { render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
 
 function BoundaryLabel() {
   return <output>{pdfEditorBoundary.packageName}</output>;

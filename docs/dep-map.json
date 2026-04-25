@@ -967,6 +967,26 @@
         ]
       },
       {
+        "path": "docs/phase-3-completion-notes.md",
+        "patterns": [
+          "@asym/docraptor-client",
+          "@asym/pdf-editor",
+          "@asym/pdf-renderer",
+          "@asym/pdf-template-schema",
+          "@react-email/editor",
+          "EmailEditor",
+          "EmailMark",
+          "EmailNode",
+          "EmailTheming",
+          "composeReactEmail",
+          "packages/docraptor-client",
+          "packages/editor",
+          "packages/pdf-editor",
+          "packages/pdf-renderer",
+          "packages/pdf-template-schema"
+        ]
+      },
+      {
         "path": "docs/public-export-map.md",
         "patterns": [
           "@react-email/editor",

@@ -1,8 +1,8 @@
-import { describe, expect, it } from 'vitest';
 import {
-  pdfRendererBoundary,
   type PdfRendererBoundary,
+  pdfRendererBoundary,
 } from '@asym/pdf-renderer';
+import { describe, expect, it } from 'vitest';
 
 describe('@asym/pdf-renderer public entry', () => {
   it('exposes the Phase 3 package boundary', () => {

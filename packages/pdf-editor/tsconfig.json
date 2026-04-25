@@ -6,9 +6,7 @@
     "moduleResolution": "bundler",
     "paths": {
       "@asym/pdf-editor": ["./src/index.ts"],
-      "@asym/pdf-editor/react-email-compat": [
-        "./src/react-email-compat.ts"
-      ],
+      "@asym/pdf-editor/react-email-compat": ["./src/react-email-compat.ts"],
       "@asym/pdf-template-schema": ["../pdf-template-schema/src/index.ts"]
     },
     "types": ["node", "vitest/globals"]

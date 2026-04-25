@@ -7,10 +7,7 @@ const currentDirectory = fileURLToPath(new URL('.', import.meta.url));
 export default defineConfig({
   resolve: {
     alias: {
-      '@asym/pdf-template-schema': resolve(
-        currentDirectory,
-        'src/index.ts',
-      ),
+      '@asym/pdf-template-schema': resolve(currentDirectory, 'src/index.ts'),
     },
   },
   test: {

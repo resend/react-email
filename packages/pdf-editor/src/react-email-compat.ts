@@ -4,9 +4,9 @@ export {
   type EmailEditorRef as ReactEmailEditorReferenceRef,
 } from '@react-email/editor';
 export {
+  composeReactEmail as composeReactEmailReference,
   EmailMark as ReactEmailMarkReference,
   EmailNode as ReactEmailNodeReference,
-  composeReactEmail as composeReactEmailReference,
 } from '@react-email/editor/core';
 export { StarterKit as ReactEmailStarterKitReference } from '@react-email/editor/extensions';
 export { EmailTheming as ReactEmailThemingReference } from '@react-email/editor/plugins';

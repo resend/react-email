@@ -1,8 +1,8 @@
-import { describe, expect, it } from 'vitest';
 import {
-  docraptorClientBoundary,
   type DocRaptorClientBoundary,
+  docraptorClientBoundary,
 } from '@asym/docraptor-client';
+import { describe, expect, it } from 'vitest';
 
 describe('@asym/docraptor-client public entry', () => {
   it('exposes the Phase 3 package boundary', () => {

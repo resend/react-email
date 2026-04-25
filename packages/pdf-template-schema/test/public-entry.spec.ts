@@ -1,8 +1,8 @@
-import { describe, expect, it } from 'vitest';
 import {
-  pdfTemplateSchemaBoundary,
   type PdfTemplateSchemaBoundary,
+  pdfTemplateSchemaBoundary,
 } from '@asym/pdf-template-schema';
+import { describe, expect, it } from 'vitest';
 
 describe('@asym/pdf-template-schema public entry', () => {
   it('exposes the Phase 3 package boundary', () => {
