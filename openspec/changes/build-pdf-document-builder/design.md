@@ -36,6 +36,11 @@ Observed repo facts:
   `@asym/pdf-template-schema`, and `@asym/docraptor-client`.
   These shells define package boundaries only and do not yet implement PDF
   editor, schema, renderer, or DocRaptor behavior.
+- Phase 5 defines the package migration strategy as wrapper-first:
+  `@react-email/editor` remains unchanged, and private `@asym/pdf-editor`
+  is the future import target that consumes public React Email editor exports
+  through `@asym/pdf-editor/react-email-compat` until PDF-first behavior
+  exists.
 
 The broader Asymmetric.al platform currently uses Unlayer document mode for
 PDF Studio. That platform shape includes or expects template CRUD, Unlayer
@@ -119,6 +124,27 @@ Future implementation phases should follow these practices:
 - Do not introduce `ds.shadcn` unless a later OpenSpec change explicitly
   reopens the canvas-mode decision.
 
+## 4.1 Runtime schema validation choice
+
+Phase 06 should use Zod by default for the PDF template schema foundation.
+This repo already catalogs `zod` through `pnpm-workspace.yaml` and
+`packages/ui`, while Valibot is not currently a workspace dependency. Zod's
+official docs describe it as TypeScript-first runtime validation with static
+type inference and built-in JSON Schema conversion:
+https://zod.dev/.
+
+Valibot remains a reasonable future option if bundle-size measurements justify
+introducing another validation library. Its official docs emphasize type
+safety, a modular API, and small tree-shaken bundles:
+https://valibot.dev/. Valibot's JSON Schema guide also notes that Valibot does
+not output JSON Schema natively and uses a separate conversion package:
+https://valibot.dev/guides/json-schema/.
+
+Until a later phase records a measured reason to switch, using Zod avoids
+adding a second schema validation dependency and gives the shared schema
+package a direct path to JSON Schema output for docs, adapters, and future
+core integration.
+
 ## 5. Repo pattern and evolution rule
 
 The project SHALL evolve from the existing React Email fork structure rather
@@ -133,6 +159,20 @@ and its established entry points: `.`, `./core`, `./extensions`, `./ui`,
 `./plugins`, `./utils`, styles, and themes. PDF-first APIs may add new package
 names and exports, but they should respect the existing editor boundaries and
 test patterns while compatibility shims exist.
+
+The active package migration rule is wrapper-first. New PDF-first code should
+target `@asym/*` package names, but `@react-email/editor` must continue to
+build and export its existing public subpaths during the compatibility window.
+
+The canonical implementation sequence is now the 36-phase tracker in
+`openspec/changes/build-pdf-document-builder/tasks.md`. Phase 06 owns schema
+foundation, Phase 07 owns broader compatibility fixtures, Phase 08 owns safe
+document naming, Phase 09 owns the document serializer foundation, Phase 10
+owns the print shell, and Phase 11 owns the DocRaptor client package. Later
+phases add preview, variables, conditionals, repeaters, tables, calculations,
+page flow, headers/footers, assets, branding, fixtures, preflight, audit,
+batch, local fallback rendering, accessibility, security, Unlayer coexistence,
+core adapter contracts, docs, performance, and production readiness.
 
 ## 6. Target state
 
@@ -185,8 +225,10 @@ needs a document serializer such as `composePdfDocumentHtml`,
 ## 9. Package architecture
 
 Phase 3 introduced private package shells for the first four package targets.
-Future implementation should fill these package boundaries with behavior and
-introduce the core adapter only when the integration phase owns it:
+Phase 5 defines `@asym/pdf-editor` as the wrapper package that consumes the
+legacy editor through public exports. Future implementation should fill these
+package boundaries with behavior and introduce the core adapter only when the
+integration phase owns it:
 
 ```text
 packages/pdf-template-schema

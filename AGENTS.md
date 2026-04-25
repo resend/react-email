@@ -59,7 +59,7 @@ system. `AGENTS.md` only routes agents to that intent.
 ## Phase execution expectations
 
 - Use `openspec/changes/build-pdf-document-builder/tasks.md` as the canonical
-  32-phase process tracker for PDF Document Builder work.
+  36-phase process tracker for PDF Document Builder work.
 - Identify the current phase before editing, complete only that phase's scope,
   and leave handoff notes before moving on.
 - Inspect the repo before editing and keep each phase scoped to its OpenSpec

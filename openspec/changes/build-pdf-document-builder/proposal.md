@@ -105,16 +105,20 @@ This change adds six OpenSpec spec areas:
 
 ## Rollout idea
 
-The rollout should proceed in phases:
+The rollout should proceed through the canonical 36-phase tracker in
+`openspec/changes/build-pdf-document-builder/tasks.md`:
 
 1. Document the product intent in OpenSpec.
 2. Preserve the current React Email baseline.
 3. Isolate the editor package.
 4. Introduce PDF-first packages.
-5. Build the schema and serializer.
-6. Add DocRaptor rendering.
-7. Add document-specific extensions.
-8. Build batch generation.
-9. Add a package adapter.
+5. Define package names, exports, and compatibility policy.
+6. Build the schema foundation.
+7. Expand compatibility fixtures before broad renames.
+8. Add document naming, serializer, print shell, preview, DocRaptor,
+   variables, repeaters, conditionals, tables, assets, branding, preflight,
+   batch, migration, and adapter contracts in small phases.
+9. Add documentation, performance checks, release readiness, and cutover
+   planning.
 10. Integrate into `Asymmetric-al/core` behind a feature flag later.
 11. Keep Unlayer templates working during migration.

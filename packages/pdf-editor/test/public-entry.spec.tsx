@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import {
   type PdfEditorBoundary,
   pdfEditorBoundary,
@@ -9,6 +11,16 @@ import { describe, expect, it } from 'vitest';
 
 function BoundaryLabel() {
   return <output>{pdfEditorBoundary.packageName}</output>;
+}
+
+function readPackageJson() {
+  const packageJsonPath = join(process.cwd(), 'package.json');
+  const packageJsonContent = readFileSync(packageJsonPath, 'utf8');
+  return JSON.parse(packageJsonContent) as {
+    dependencies: Record<string, string>;
+    exports: Record<string, unknown>;
+    private: boolean;
+  };
 }
 
 describe('@asym/pdf-editor public entry', () => {
@@ -31,5 +43,23 @@ describe('@asym/pdf-editor public entry', () => {
   it('exposes the temporary React Email compatibility adapter', () => {
     expect(ReactEmailEditorReference).toBeDefined();
     expect(SubpathEditorReference).toBe(ReactEmailEditorReference);
+  });
+
+  it('keeps the Phase 5 wrapper compatibility policy explicit', () => {
+    const packageJson = readPackageJson();
+
+    expect(packageJson.private).toBe(true);
+    expect(packageJson.dependencies['@react-email/editor']).toBe('workspace:*');
+    expect(Object.keys(packageJson.exports).sort()).toEqual([
+      '.',
+      './react-email-compat',
+    ]);
+    expect(pdfEditorBoundary.compatibility).toBe(
+      'react-email-reference-adapter',
+    );
+    expect(pdfEditorBoundary.consumes).toEqual([
+      '@asym/pdf-template-schema',
+      '@react-email/editor',
+    ]);
   });
 });
