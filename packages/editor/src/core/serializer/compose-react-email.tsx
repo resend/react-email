@@ -2,6 +2,7 @@ import type { Editor, JSONContent } from '@tiptap/core';
 import type { MarkType, Schema } from '@tiptap/pm/model';
 import { pretty, render, toPlainText } from 'react-email';
 import { inlineCssToJs } from '../../utils/styles';
+import { stripTrailingEmptyParagraphs } from '../../utils/strip-trailing-empty-paragraphs';
 import { DefaultBaseTemplate } from './default-base-template';
 import { EmailMark } from './email-mark';
 import { EmailNode } from './email-node';
@@ -45,7 +46,7 @@ export const composeReactEmail = async ({
   editor: Editor;
   preview?: string;
 }): Promise<ComposeReactEmailResult> => {
-  const data = editor.getJSON();
+  const data = stripTrailingEmptyParagraphs(editor.getJSON());
   const extensions = editor.extensionManager.extensions;
 
   const serializerPlugin = extensions

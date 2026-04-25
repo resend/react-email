@@ -358,6 +358,64 @@ describe('StarterKit node wrappers', () => {
   });
 });
 
+describe('Trailing empty paragraph stripping', () => {
+  it('strips trailing empty paragraph from container ending with button', async () => {
+    const content: JSONContent = {
+      type: 'doc',
+      content: [
+        {
+          type: 'container',
+          content: [
+            {
+              type: 'button',
+              attrs: { href: 'https://example.com' },
+              content: [{ type: 'text', text: 'Click me' }],
+            },
+            { type: 'paragraph' },
+          ],
+        },
+      ],
+    };
+
+    const editor = createEditorWithContent(content);
+    const result = await composeReactEmail({ editor, preview: '' });
+
+    const buttonIndex = result.html.indexOf('Click me');
+    const lastParagraph = result.html.lastIndexOf('<p');
+
+    expect(buttonIndex).toBeGreaterThan(-1);
+    expect(lastParagraph).toBeLessThan(buttonIndex);
+  });
+
+  it('preserves trailing paragraph with content in container', async () => {
+    const content: JSONContent = {
+      type: 'doc',
+      content: [
+        {
+          type: 'container',
+          content: [
+            {
+              type: 'button',
+              attrs: { href: 'https://example.com' },
+              content: [{ type: 'text', text: 'Click me' }],
+            },
+            {
+              type: 'paragraph',
+              content: [{ type: 'text', text: 'Footer text' }],
+            },
+          ],
+        },
+      ],
+    };
+
+    const editor = createEditorWithContent(content);
+    const result = await composeReactEmail({ editor, preview: '' });
+
+    expect(result.html).toContain('Click me');
+    expect(result.html).toContain('Footer text');
+  });
+});
+
 describe('Button and image reset styles', () => {
   it('should include display:inline-block on buttons with the basic theme', async () => {
     const content = docWithGlobalContent(
