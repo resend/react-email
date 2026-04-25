@@ -1,5 +1,9 @@
 # Styling Guide
 
+Legacy reference notice: this file documents inherited React Email behavior.
+For Asym PDF Document Builder product work, use OpenSpec and the root docs as
+the source of truth.
+
 Comprehensive styling reference for React Email templates.
 
 ## Styling Approach

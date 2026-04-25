@@ -1,5 +1,9 @@
 # Common Email Patterns
 
+Legacy reference notice: this file documents inherited React Email behavior.
+For Asym PDF Document Builder product work, use OpenSpec and the root docs as
+the source of truth.
+
 Real-world examples of common email templates using React Email with Tailwind CSS styling.
 
 ## Table of Contents

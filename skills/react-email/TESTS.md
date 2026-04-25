@@ -1,5 +1,9 @@
 # React Email Skill Tests
 
+Legacy reference notice: this file documents tests for the retained upstream
+React Email skill. It is not acceptance coverage for the Asym PDF Document
+Builder.
+
 Test scenarios for verifying skill compliance. Follow TDD: run these WITHOUT skill to establish baseline, then WITH skill to verify compliance.
 
 ---

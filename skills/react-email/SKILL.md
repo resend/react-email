@@ -1,9 +1,9 @@
 ---
 name: react-email
-description: Use when building HTML email templates with React components, adding a visual email editor to an application using the React Email visual editor, rendering emails to HTML, or sending emails with Resend. Covers welcome emails, password resets, notifications, order confirmations, newsletters, transactional emails, and the embeddable email editor component.
+description: Use only when maintaining retained upstream React Email compatibility packages or investigating inherited React Email behavior. Do not use as primary guidance for Asym PDF Document Builder product work; read AGENTS.md and the build-pdf-document-builder OpenSpec first.
 license: MIT
 metadata:
-  author: Resend
+  author: Resend upstream, retained by the Asymmetric.al fork
   version: "2.1.0"
   homepage: https://react.email
   source: https://github.com/resend/react-email
@@ -18,6 +18,13 @@ metadata:
 ---
 
 # React Email
+
+## Legacy Scope Notice
+
+This is retained upstream reference material. The active product in this
+repository is the Asymmetric.al PDF Document Builder, and PDF builder work must
+follow `AGENTS.md`, OpenSpec, and the repo docs. Use this skill only to
+understand or preserve inherited React Email package behavior.
 
 Build and send HTML emails using React components - a modern, component-based approach to email development that works across all major email clients.
 

@@ -1,20 +1,47 @@
 # Security Policy
 
-## Supported Versions
+This repository will contain PDF document builder packages for donor,
+financial, and ministry documents. Security issues may affect private donor
+data, financial data, rendered PDFs, tenant assets, DocRaptor rendering, or
+future integration with `Asymmetric-al/core`.
 
-The security is a key priority for Resend, and we are committed to ensuring that our users are protected by promptly addressing security vulnerabilities. Below is a table outlining which versions of our project currently receive security updates:
+## Supported Scope
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+The project is still in foundation work. There are no stable `@asym/*` package
+versions yet.
 
-We encourage all users to run the latest, supported version of the software to ensure they are applying the most recent security patches and updates.
+Security review currently covers:
 
-## Reporting a Vulnerability
+- repository governance and documentation
+- the inherited React Email fork baseline
+- future PDF builder design and package boundaries
+- server-only DocRaptor credential handling
+- tenant, donor, and financial data safety expectations
 
-We take the security of our project seriously. If you believe you have found a security vulnerability within our software, we encourage you to report it to us as quickly as possible. We welcome reports from everyone, including security researchers, developers, and our user community.
+## Reporting A Vulnerability
 
-To report a security issue, please send an email to [security@resend.com](mailto:security@resend.com).
+Do not open a public issue for a suspected security vulnerability.
+
+Use GitHub private vulnerability reporting if it is enabled for the repository.
+If private reporting is unavailable, contact the maintainer listed in
+`MAINTAINERS.md` and provide enough detail to reproduce the issue privately.
+
+Include:
+
+- affected package, app, or docs path
+- commit SHA and branch
+- reproduction steps
+- observed impact
+- whether donor, financial, tenant, asset, render, or credential data could be
+  exposed
+
+## Data Rules
+
+- DocRaptor API keys must remain server-only.
+- Donor and financial data is private by default.
+- Real donor or financial records must not be committed to fixtures, tests,
+  logs, screenshots, docs, or examples.
+- Generated PDFs that contain private data are protected render artifacts, not
+  reusable public assets.
+- Structured template JSON is the editable source of truth; raw exported HTML
+  must not become the only source of an official template.

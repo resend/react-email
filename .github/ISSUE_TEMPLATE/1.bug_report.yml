@@ -1,11 +1,16 @@
 name: Bug Report
-description: Create a bug report for React Email
+description: Report a bug in the Asym PDF Document Builder fork
 labels: ["Type: Bug"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        This repository is the Asymmetric.al PDF Document Builder fork. Include the OpenSpec phase and whether the issue affects the PDF builder path, the retained upstream compatibility baseline, or future core integration.
   - type: input
     attributes:
-      label: What versions are you using? (if relevant)
-      value: "@react-email/components@x.y.z, react-email@x.y.z, etc."
+      label: Version or baseline
+      description: Include package versions, branch, commit SHA, or roadmap phase.
+      value: "@react-email/editor@1.1.1, branch canary, Phase 1"
   - type: textarea
     attributes:
       label: Describe the Bug
@@ -17,40 +22,24 @@ body:
       label: What is affected (leave empty if unsure)
       multiple: true
       options:
-        - "Preview Server"
-        - "CLI"
-        - "Html Component"
-        - "Body Component"
-        - "Head Component"
-        - "Button Component"
-        - "Container Component"
-        - "CodeBlock Component"
-        - "CodeInline Component"
-        - "Column Component"
-        - "Row Component"
-        - "Font Component"
-        - "Heading Component"
-        - "Hr Component"
-        - "Img Component"
-        - "Link Component"
-        - "Markdown Component"
-        - "Preview Component"
-        - "Section Component"
-        - "Tailwind Component"
-        - "Text Component"
-        - "Render Utility"
-        - "@react-email/components package"
-        - "npx create-email"
-        - "Demo"
-        - "Website"
-        - "Examples"
+        - "OpenSpec or roadmap"
+        - "Asym PDF Document Builder docs"
+        - "PDF editor fork"
+        - "PDF renderer or DocRaptor path"
+        - "Template schema or data binding"
+        - "Batch generation"
+        - "Unlayer migration or core adapter"
+        - "Retained React Email compatibility package"
+        - "Current editor baseline"
+        - "Current renderer baseline"
+        - "Preview app or playground"
+        - "CLI or build tooling"
+        - "Website or examples"
   - type: textarea
     attributes:
       label: Link to the code that reproduces this issue
       value: |
-        A link to a GitHub repository minimal reproduction. Not your entire project, just the code necessary to reproduce the issue. Try going from the starter `npx create-email@latest` and adding only what's needed to cause the issue. If you don't share a reproduction, we might close the issue or it will take significantly longer for things to get sorted out.
-    validations:
-      required: true
+        Link to a minimal reproduction, failing fixture, branch, or exact repo path. For documentation or OpenSpec bugs, link to the relevant file and section.
   - type: textarea
     attributes:
       label: To Reproduce
@@ -73,4 +62,9 @@ body:
     attributes:
       label: What's your node version? (if relevant)
       description: "Please specify the exact version."
-
+  - type: textarea
+    attributes:
+      label: Commands and output
+      description: Include exact commands and relevant output.
+      value: |
+        pnpm asym:baseline-smoke

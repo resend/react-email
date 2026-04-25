@@ -1,4 +1,8 @@
 body:
+  - type: markdown
+    attributes:
+      value: |
+        This repository is the Asymmetric.al PDF Document Builder fork. For implementation questions, include the roadmap phase and relevant OpenSpec path.
   - type: textarea
     attributes:
       label: Summary
@@ -8,7 +12,7 @@ body:
   - type: textarea
     attributes:
       label: Additional information
-      description: Any code snippets, error messages, or dependency details that may be related?
+      description: Any code snippets, command output, OpenSpec links, or dependency details that may be related?
       render: js
     validations:
       required: false

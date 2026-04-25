@@ -1,5 +1,9 @@
 # React Email Components Reference
 
+Legacy reference notice: this file documents inherited React Email behavior.
+For Asym PDF Document Builder product work, use OpenSpec and the root docs as
+the source of truth.
+
 Complete reference for all React Email components. All examples use the Tailwind component for styling.
 
 **Important:** Only import the components you need. Do not use components in the code if you are not importing them.

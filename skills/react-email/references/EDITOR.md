@@ -1,5 +1,9 @@
 # React Email Editor Reference
 
+Legacy reference notice: this file documents inherited React Email behavior.
+For Asym PDF Document Builder product work, use OpenSpec and the root docs as
+the source of truth.
+
 A visual rich-text editor for building email templates, built on [TipTap](https://tiptap.dev/) and [ProseMirror](https://prosemirror.net/). Embed it in your app to let users compose email-ready HTML without writing code.
 
 ## Table of Contents

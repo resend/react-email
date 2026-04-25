@@ -1,107 +1,172 @@
-![React email cover](https://react.email/static/covers/react-email.png)
+# Asymmetric.al PDF Document Builder
 
-<div align="center"><strong>React Email</strong></div>
-<div align="center">The next generation of writing emails.<br />High-quality, unstyled components for creating emails.</div>
-<br />
-<div align="center">
-<a href="https://react.email">Website</a>
-<span> · </span>
-<a href="https://github.com/resend/react-email">GitHub</a>
-</div>
+This repository is the Asymmetric.al fork of
+[`resend/react-email`](https://github.com/resend/react-email). It is being
+turned into a PDF-first document builder for nonprofit and ministry workflows:
+donation receipts, tax receipts, annual giving statements, donor letters,
+missionary support reports, financial reports, invoices, certificates, branded
+documents, and large batch generation.
 
-## Introduction
+The project still has React Email roots. The current editor foundation is
+`@react-email/editor`, built on TipTap and ProseMirror, and the monorepo still
+contains upstream React Email packages while the fork is refactored in phases.
+That baseline is intentional: the editor already provides structured document
+JSON, extension points, menus, inspector patterns, theming, image handling, and
+serializer conventions that are useful for a PDF document builder.
 
-A collection of high-quality, unstyled components for creating beautiful emails using React and TypeScript.
-It reduces the pain of coding responsive emails with dark mode support. It also takes care of inconsistencies between Gmail, Outlook, and other email clients for you.
+## Current Status
 
-## Why
+This is not yet a production-ready PDF builder package. The fork is in the
+foundation phase.
 
-We believe that email is an extremely important medium for people to communicate. However, we need to stop developing emails like 2010, and rethink how email can be done in 2025 and beyond. Email development needs a revamp. A renovation. Modernized for the way we build web apps today.
+- OpenSpec is the source of product intent and behavior.
+- The upstream baseline is frozen in `docs/baseline-test-results.md`.
+- `packages/editor` still publishes as `@react-email/editor@1.1.1`.
+- The root package is still `react-email-monorepo`.
+- No `@asym/*` PDF packages have been introduced yet.
+- DocRaptor is the production PDF rendering target.
+- Puppeteer may be used later only for local preview, debugging, or fallback.
 
-## Install
+## Product Direction
+
+The target system is a first-party PDF builder package set that can later be
+ported into `Asymmetric-al/core` and replace or sit beside the current
+Unlayer-powered PDF Studio behind a feature flag.
+
+The durable source of truth for official templates is structured, versioned
+document JSON. Raw exported HTML is a render artifact, not the editable
+template model.
+
+Core capabilities planned by OpenSpec:
+
+- PDF-first editor for structured document templates
+- typed template schema and runtime validation
+- variables, merge tags, fallbacks, and formatters
+- conditional sections and repeaters
+- data-bound financial tables with totals and subtotals
+- page setup, page breaks, headers, footers, and page numbers
+- tenant brand defaults and template-level overrides
+- render-safe image, font, and asset handling
+- DocRaptor print HTML/CSS rendering
+- browser preview clearly marked as non-authoritative
+- batch generation with retries, partial failures, and audit logs
+- migration and coexistence with legacy Unlayer templates
+- future adapter boundary for `Asymmetric-al/core`
+
+## OpenSpec First
+
+Before changing PDF builder behavior, read these files:
+
+- `AGENTS.md`
+- `openspec/project.md`
+- `openspec/changes/build-pdf-document-builder/proposal.md`
+- `openspec/changes/build-pdf-document-builder/design.md`
+- `openspec/changes/build-pdf-document-builder/tasks.md`
+- `openspec/changes/build-pdf-document-builder/specs/**`
+
+The canonical phase tracker is
+`openspec/changes/build-pdf-document-builder/tasks.md`. The current readable
+roadmap mirror is `docs/roadmap.md`.
+
+Do not implement large product changes without an OpenSpec change. Keep each
+pull request scoped to the current phase.
+
+## Important Docs
+
+- `docs/asym-product-charter.md`: product target, users, parity definition,
+  non-goals, and success criteria
+- `docs/research-basis.md`: React Email editor baseline, Unlayer research,
+  DocRaptor paged-media basis, and current PDF Studio expectations
+- `docs/decision-log.md`: durable decisions and tradeoffs discovered during
+  implementation
+- `docs/roadmap.md`: 32-phase roadmap status
+- `docs/baseline-test-results.md`: upstream SHA, machine details, command
+  results, skipped checks, known baseline risks, and handoff notes
+- `MAINTAINERS.md`: current ownership and governance expectations
+
+## Monorepo Shape
+
+Current upstream-shaped packages remain in place while the fork evolves:
+
+```text
+apps/
+benchmarks/
+examples/
+openspec/
+packages/
+  create-email/
+  editor/
+  react-email/
+  render/
+  tsconfig/
+  ui/
+playground/
+scripts/
+skills/
+```
+
+Expected future package targets include:
+
+```text
+packages/pdf-template-schema
+packages/pdf-editor
+packages/pdf-renderer
+packages/docraptor-client
+packages/pdf-studio-adapter
+```
+
+Do not delete or rename upstream React Email packages until the active phase
+explicitly calls for it.
+
+## Development
+
+Use `pnpm`.
 
 ```sh
-npm i react-email@latest
+pnpm install --frozen-lockfile --prefer-offline
+pnpm asym:baseline-smoke
+pnpm lint
+pnpm --filter @react-email/editor test:unit
+pnpm test
 ```
 
-## Getting started
+Useful broader checks:
 
-Define your email template with React, include styles and our components where needed.
-
-```jsx
-import { Button } from "react-email";
-
-export default function Email() {
-  return (
-    <Button href="https://example.com" style={{ color: "#61dafb" }}>
-      Click me
-    </Button>
-  );
-};
+```sh
+pnpm build
+pnpm -r --if-present typecheck
+pnpm dlx @fission-ai/openspec@latest validate build-pdf-document-builder
+pnpm dlx @fission-ai/openspec@latest validate --all
 ```
 
-## Components
+Baseline caveats from the Phase 1 validation run:
 
-A set of standard components to help you build amazing emails without having to deal with the mess of creating table-based layouts and maintaining archaic markup.
+- `pnpm build` failed on this Windows machine because `playground` and
+  `apps/demo` attempted to create symlinks inside generated `.react-email`
+  directories.
+- `pnpm -r --if-present typecheck` failed in existing upstream Tailwind e2e
+  fixtures.
+- `pnpm test`, `pnpm lint`, the editor unit tests, the smoke script, and
+  OpenSpec validation passed.
 
-- [Html](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/html)
-- [Head](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/head)
-- [Button](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/button)
-- [Container](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/container)
-- [CodeBlock](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/code-block)
-- [CodeInline](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/code-inline)
-- [Column](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/column)
-- [Row](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/row)
-- [Font](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/font)
-- [Heading](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/heading)
-- [Divider](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/hr)
-- [Image](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/img)
-- [Link](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/link)
-- [Markdown](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/markdown)
-- [Preview](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/preview)
-- [Section](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/section)
-- [Tailwind](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/tailwind)
-- [Paragraph](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/text)
-- [Body](https://github.com/resend/react-email/tree/main/packages/react-email/src/components/body)
+See `docs/baseline-test-results.md` for exact output.
 
-## Editor
+## Engineering Rules
 
-React Email also provides an Editor built on top of built on [TipTap](https://tiptap.dev/) and [ProseMirror](https://prosemirror.net/), It serializes to React Email components, and exports email-ready HTML and plain text.
+- Keep package code independent from `Asymmetric-al/core` application internals.
+- Use adapter interfaces for future storage, auth, tenant, asset, permission,
+  audit, queue, and feature-flag services.
+- Keep DocRaptor API keys server-only.
+- Treat donor and financial data as private by default.
+- Store structured template JSON as the editable source of truth.
+- Keep render output, serializers, generated CSS, logs, and snapshots
+  deterministic.
+- Preserve existing editor behavior while moving from email-first to PDF-first.
+- Add focused tests for every meaningful behavior change.
+- Record durable decisions in `docs/decision-log.md`.
 
-See the [Editor documentation](https://react.email/docs/editor) for more details.
+## License And Attribution
 
-## Integrations
-
-Emails built with React Email can be converted into HTML and sent using any email service provider. Here are some examples:
-
-- [Resend](https://github.com/resend/react-email/tree/main/examples/resend)
-- [Nodemailer](https://github.com/resend/react-email/tree/main/examples/nodemailer)
-- [SendGrid](https://github.com/resend/react-email/tree/main/examples/sendgrid)
-- [Postmark](https://github.com/resend/react-email/tree/main/examples/postmark)
-- [AWS SES](https://github.com/resend/react-email/tree/main/examples/aws-ses)
-- [Plunk](https://github.com/resend/react-email/tree/main/examples/plunk)
-- [Scaleway](https://github.com/resend/react-email/tree/main/examples/scaleway)
-
-## Support
-
-All components were tested using the most popular email clients.
-
-| <img src="https://react.email/static/icons/gmail.svg" width="48px" height="48px" alt="Gmail logo"> | <img src="https://react.email/static/icons/apple-mail.svg" width="48px" height="48px" alt="Apple Mail"> | <img src="https://react.email/static/icons/outlook.svg" width="48px" height="48px" alt="Outlook logo"> | <img src="https://react.email/static/icons/yahoo-mail.svg" width="48px" height="48px" alt="Yahoo! Mail logo"> | <img src="https://react.email/static/icons/hey.svg" width="48px" height="48px" alt="HEY logo"> | <img src="https://react.email/static/icons/superhuman.svg" width="48px" height="48px" alt="Superhuman logo"> |
-| -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| Gmail ✔                                                                                           | Apple Mail ✔                                                                                           | Outlook ✔                                                                                             | Yahoo! Mail ✔                                                                                                | HEY ✔                                                                                         | Superhuman ✔                                                                                                |
-
-## Development workflow
-
-1. [Setting up your development environment](https://react.email/docs/contributing/development-workflow/1-setup)
-2. [Running tests](https://react.email/docs/contributing/development-workflow/2-running-tests)
-3. [Linting](https://react.email/docs/contributing/development-workflow/3-linting)
-4. [Building](https://react.email/docs/contributing/development-workflow/4-building)
-5. [Writing documentation](https://react.email/docs/contributing/development-workflow/5-writing-docs)
-
-## Contributing
-
-- [Contribution Guide](https://react.email/docs/contributing)
-
----
-
-Brought to you by [Resend](https://resend.com), MIT License.
+This fork retains the upstream MIT license. React Email remains the foundation
+and upstream source for the current editor and package baseline. Asymmetric.al
+PDF Document Builder work is tracked in this repository's OpenSpec and docs.

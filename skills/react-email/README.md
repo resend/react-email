@@ -1,51 +1,60 @@
-# React Email Agent Skill
+# Legacy React Email Skill Reference
 
-This directory contains an Agent Skill for building HTML emails with React Email components.
+This directory is retained as upstream React Email reference material for the
+current compatibility baseline. It is not the product source of truth for the
+Asymmetric.al PDF Document Builder.
+
+Agents working on the PDF builder, PDF Studio replacement, DocRaptor rendering,
+template schema, variables, repeaters, financial reports, batch generation,
+Unlayer migration, or future `Asymmetric-al/core` integration must start with:
+
+- `AGENTS.md`
+- `openspec/project.md`
+- `openspec/changes/build-pdf-document-builder/proposal.md`
+- `openspec/changes/build-pdf-document-builder/design.md`
+- `openspec/changes/build-pdf-document-builder/tasks.md`
+- `docs/asym-product-charter.md`
+- `docs/roadmap.md`
+
+## Why This Still Exists
+
+The fork still contains upstream-shaped packages such as `@react-email/editor`,
+`react-email`, `@react-email/render`, and `create-email`. Until a later OpenSpec
+phase replaces or renames those package boundaries, this skill remains useful
+for understanding inherited editor behavior and compatibility expectations.
+
+## What This Skill Covers
+
+- Legacy HTML email templates built with React Email components
+- Upstream visual email editor behavior
+- Upstream rendering and sending references
+- Compatibility investigation for retained React Email packages
+
+## What This Skill Does Not Cover
+
+- Asym PDF template schema design
+- DocRaptor production rendering contracts
+- PDF Studio replacement behavior
+- tenant brand defaults, donor data, financial reports, or batch PDF jobs
+- migration from Unlayer document templates
+- adapter contracts for future `Asymmetric-al/core` integration
 
 ## Structure
 
-```
+```text
 skills/
-└── react-email/
-    ├── SKILL.md              # Main skill instructions
-    └── references/
-        ├── COMPONENTS.md     # Complete component reference
-        ├── EDITOR.md         # Visual email editor reference
-        ├── I18N.md           # Internationalization guide
-        ├── PATTERNS.md       # Common email patterns and examples
-        ├── SENDING.md        # Email sending guide
-        └── STYLING.md        # Styling and CSS reference
+  react-email/
+    SKILL.md              # Legacy upstream skill instructions
+    references/
+      COMPONENTS.md       # Upstream component reference
+      EDITOR.md           # Upstream visual email editor reference
+      I18N.md             # Upstream internationalization guide
+      PATTERNS.md         # Upstream email patterns and examples
+      SENDING.md          # Upstream email sending guide
+      STYLING.md          # Upstream styling and CSS reference
 ```
 
-## What is an Agent Skill?
+## Maintenance Rule
 
-Agent Skills are a standardized format for giving AI agents specialized knowledge and workflows. This skill teaches agents how to:
-
-- Build HTML email templates using React Email components
-- Add a visual drag-and-drop email editor to a React application (using `@react-email/editor`)
-- Send emails through Resend and other providers
-- Implement internationalization for multi-language support
-- Follow email development best practices
-
-## Using This Skill
-
-AI agents can load this skill to gain expertise in React Email development. The skill follows the [Agent Skills specification](https://agentskills.io) with:
-
-- **SKILL.md**: Core instructions loaded when the skill is activated (< 350 lines)
-- **references/**: Detailed documentation loaded on-demand for specific topics
-
-## Progressive Disclosure
-
-The skill is structured for efficient context usage:
-
-1. **Metadata** (~100 tokens): Name and description in frontmatter
-2. **Core Instructions** (~3K tokens): Main SKILL.md content
-3. **Detailed References** (as needed): Component docs, i18n guides, patterns
-
-Agents load only what they need for each task.
-
-## Learn More
-
-- [React Email Documentation](https://react.email/docs/llms.txt)
-- [Agent Skills Specification](https://agentskills.io/specification.md)
-- [Resend Documentation](https://resend.com/docs/llms.txt)
+Do not expand this skill into PDF builder product guidance. Add durable PDF
+builder behavior to OpenSpec and repo docs instead.

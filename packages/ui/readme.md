@@ -1,34 +1,24 @@
-<div align="center"><strong>@react-email/ui</strong></div>
-<div align="center">A live preview of your emails right in your browser.</div>
-<br />
-<div align="center">
-<a href="https://react.email">Website</a>
-<span> · </span>
-<a href="https://github.com/resend/react-email">GitHub</a>
+# @react-email/ui
 
-</div>
+This is a retained upstream React Email package inside the Asymmetric.al PDF
+Document Builder fork. It remains here to preserve the frozen baseline while
+the repo is refactored through OpenSpec phases.
 
-This package is used to store the preview server, it is also published and versioned so that it can be installed when the [CLI](../react-email) is being used.
+The package currently supports the upstream preview server and CLI workflow.
+It is not the future PDF Studio adapter or PDF editor shell.
 
-## Development workflow
+## Development
 
-### 1. Seed email templates
+Use `pnpm` from the repo root:
 
 ```sh
-pnpm dev:seed
+pnpm --filter @react-email/ui build
+pnpm --filter @react-email/ui test
 ```
 
-This generates a boilerplate emails directory for you to work with. These files can also be modified as you see fit since they are not included in git.
+For PDF builder work, start with the root README, `AGENTS.md`, and
+`openspec/changes/build-pdf-document-builder/`.
 
-### 2. Run development server
+## License
 
-```sh
-pnpm dev
-```
-
-This is somewhat equivalent to `next dev` and does not support hot reloading for email templates like the CLI does. It lets you work on the UI for the preview server mainly.
-
-### 3. Open in your browser
-
-Go to http://localhost:3000
-
+MIT
