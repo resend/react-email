@@ -15,8 +15,8 @@ that list with current phase status for handoff visibility.
 | 7 | Add Compatibility Fixtures and Regression Harness | Complete; validation recorded | Expanded `@react-email/editor` compatibility fixtures |
 | 8 | Rename Public Concepts Safely from Email to Document | Complete; validation recorded | Compatibility aliases and migration docs |
 | 9 | Build the Document Serializer Foundation | Complete; validation recorded | `packages/pdf-renderer/src/compose-pdf-document-html.ts` |
-| 10 | Build the Print HTML Shell and Page Model | Next | `packages/pdf-renderer/src/print-shell.ts` |
-| 11 | Build the DocRaptor Client Package | Not started | `packages/docraptor-client/src` |
+| 10 | Build the Print HTML Shell and Page Model | Complete; validation recorded | `packages/pdf-renderer/src/print-shell.ts` |
+| 11 | Build the DocRaptor Client Package | Next | `packages/docraptor-client/src` |
 | 12 | Build Browser Preview and DocRaptor Preview Strategy | Not started | Preview package APIs |
 | 13 | Build the Variable Registry | Not started | `packages/pdf-template-schema/src/variables` |
 | 14 | Build the Variable Chip Extension | Not started | `packages/pdf-editor/src/extensions/variable` |
@@ -43,20 +43,24 @@ that list with current phase status for handoff visibility.
 | 35 | Build Performance, Load, and Large Document Tests | Not started | Performance smoke and opt-in load tests |
 | 36 | Production Hardening, Release Readiness, and Cutover Plan | Not started | Release checklist and core cutover plan |
 
-## Phase 10 Entry Point
+## Phase 11 Entry Point
 
-Phase 10 should start from the Phase 9 document serializer foundation, Phase 8
-naming compatibility aliases, Phase 7 compatibility harness, Phase 6 schema
-foundation, Phase 5 package strategy, and Phase 4 editor boundary artifacts:
+Phase 11 should start from the Phase 10 print shell and page model, Phase 9
+document serializer foundation, Phase 8 naming compatibility aliases, Phase 7
+compatibility harness, Phase 6 schema foundation, Phase 5 package strategy,
+and Phase 4 editor boundary artifacts:
 
 - `docs/package-strategy.md`
 - `docs/package-boundaries.md`
 - `docs/editor-package-isolation.md`
 - `docs/phase-8-completion-notes.md`
 - `docs/phase-9-completion-notes.md`
+- `docs/phase-10-completion-notes.md`
 - `docs/phase-7-completion-notes.md`
 - `docs/phase-6-completion-notes.md`
 - `openspec/changes/build-pdf-document-builder/tasks.md`
+- `packages/pdf-renderer/src/print-shell.ts`
+- `packages/pdf-renderer/test/print-shell.spec.ts`
 - `packages/pdf-renderer/src/compose-pdf-document-html.ts`
 - `packages/pdf-renderer/test/compose-pdf-document-html.spec.ts`
 - `packages/pdf-editor/src/index.ts`
@@ -68,8 +72,7 @@ foundation, Phase 5 package strategy, and Phase 4 editor boundary artifacts:
 - `packages/docraptor-client`
 - `packages/editor/package.json`
 
-Phase 10 should wrap `composePdfDocumentHtml` output in a deterministic print
-HTML shell with schema-driven page settings and print CSS. It must keep
-`composeReactEmail`, the Phase 7 compatibility fixtures, Phase 8 document/PDF
-alias checks, and Phase 9 serializer tests working during the compatibility
-window.
+Phase 11 should add the server-only DocRaptor client package. It must keep
+DocRaptor secrets out of browser bundles, use mocks for tests, and keep the
+Phase 9 serializer and Phase 10 print shell tests working during the
+compatibility window.

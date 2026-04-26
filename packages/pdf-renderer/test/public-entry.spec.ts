@@ -1,5 +1,6 @@
 import {
   composePdfDocumentHtml,
+  composePrintDocumentHtml,
   type PdfRendererBoundary,
   pdfRendererBoundary,
 } from '@asym/pdf-renderer';
@@ -11,7 +12,7 @@ describe('@asym/pdf-renderer public entry', () => {
 
     expect(boundary).toEqual({
       packageName: '@asym/pdf-renderer',
-      maturity: 'phase-09-serializer-foundation',
+      maturity: 'phase-10-print-shell',
       owns: 'print-renderer',
       runtime: 'server-or-build-time',
       consumes: ['@asym/pdf-template-schema'],
@@ -20,5 +21,9 @@ describe('@asym/pdf-renderer public entry', () => {
 
   it('exposes the Phase 09 document serializer foundation', () => {
     expect(composePdfDocumentHtml).toBeDefined();
+  });
+
+  it('exposes the Phase 10 print shell foundation', () => {
+    expect(composePrintDocumentHtml).toBeDefined();
   });
 });

@@ -1,7 +1,7 @@
 import type { PdfTemplateSchemaBoundary } from '@asym/pdf-template-schema';
 
 export type PdfRendererPackageName = '@asym/pdf-renderer';
-export type PdfRendererMaturity = 'phase-09-serializer-foundation';
+export type PdfRendererMaturity = 'phase-10-print-shell';
 export type PdfRendererRuntime = 'server-or-build-time';
 export type PdfRendererOwnership = 'print-renderer';
 
@@ -15,7 +15,7 @@ export interface PdfRendererBoundary {
 
 export const pdfRendererBoundary: PdfRendererBoundary = {
   packageName: '@asym/pdf-renderer',
-  maturity: 'phase-09-serializer-foundation',
+  maturity: 'phase-10-print-shell',
   owns: 'print-renderer',
   runtime: 'server-or-build-time',
   consumes: ['@asym/pdf-template-schema'],
@@ -38,3 +38,10 @@ export {
   type PdfDocumentRenderWarningSeverity,
   type PdfDocumentVariableUsage,
 } from './compose-pdf-document-html';
+
+export {
+  type ComposePrintDocumentHtmlInput,
+  type ComposePrintDocumentHtmlResult,
+  composePrintDocumentHtml,
+  type PrintDocumentPageBox,
+} from './print-shell';
