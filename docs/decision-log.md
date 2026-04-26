@@ -231,3 +231,27 @@ phase-level choices and tradeoffs found during implementation.
 - Reason: Phase 6 needs realistic product-shape schema coverage, but Phase 24
   owns starter templates and golden fixtures.
 - Tradeoff: Consumers get schema APIs now, not packaged starter templates.
+
+## 2026-04-26: Phase 7 Harness Preserves Current Editor Output
+
+- Decision: Phase 7 adds internal compatibility fixtures and regression tests
+  for the current `@react-email/editor` JSON normalization, `composeReactEmail`
+  output, custom extension registration, and public export groups.
+- Reason: Later naming and serializer phases need a focused harness that fails
+  when current email-first behavior changes unexpectedly.
+- Tradeoff: The harness intentionally records current email-era behavior such
+  as `StarterKit` container wrapping, trailing paragraph insertion, and
+  heading uppercase plain-text output instead of normalizing those behaviors
+  into PDF-first terms.
+
+## 2026-04-26: Image Fixture Uses Internal Image Extension Helper
+
+- Decision: The Phase 7 image fixture imports `createImageExtension` from the
+  internal image extension module and does not add it to the public plugin
+  barrel.
+- Reason: The current public `@react-email/editor/plugins` subpath exposes
+  `useEditorImage`, not `createImageExtension`; adding a new public export
+  would exceed the regression-only scope.
+- Tradeoff: The compatibility harness can exercise image serialization, but
+  future consumers must still use existing public image APIs until a later
+  phase defines PDF-first media exports.
