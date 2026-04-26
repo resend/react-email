@@ -23,7 +23,14 @@ foundation phase.
 - The upstream baseline is frozen in `docs/baseline-test-results.md`.
 - `packages/editor` still publishes as `@react-email/editor@1.1.1`.
 - The root package is still `react-email-monorepo`.
-- No `@asym/*` PDF packages have been introduced yet.
+- Private `@asym/*` packages now exist for the schema, editor wrapper,
+  renderer, and DocRaptor client.
+- Phase 6 added the shared PDF template schema foundation.
+- Phase 9 added the document serializer foundation.
+- Phase 10 added the deterministic print HTML shell and page model.
+- Phase 11 added the server-only DocRaptor client package.
+- Phase 12 is next and will define browser preview and DocRaptor test-mode
+  preview strategy.
 - DocRaptor is the production PDF rendering target.
 - Puppeteer may be used later only for local preview, debugging, or fallback.
 
@@ -79,7 +86,7 @@ pull request scoped to the current phase.
   DocRaptor paged-media basis, and current PDF Studio expectations
 - `docs/decision-log.md`: durable decisions and tradeoffs discovered during
   implementation
-- `docs/roadmap.md`: 32-phase roadmap status
+- `docs/roadmap.md`: 42-phase roadmap status
 - `docs/baseline-test-results.md`: upstream SHA, machine details, command
   results, skipped checks, known baseline risks, and handoff notes
 - `MAINTAINERS.md`: current ownership and governance expectations

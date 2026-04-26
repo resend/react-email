@@ -3,15 +3,17 @@
 Phase 3 creates the first `@asym/*` package shells while preserving the
 current `@react-email/editor` package as the working reference implementation.
 These packages define ownership and dependency direction while individual
-phases fill in behavior. Phase 11 now implements the server-only DocRaptor
-client, but it remains isolated from editor UI and renderer orchestration.
+phases fill in behavior. Phase 6 added the shared template schema foundation,
+Phase 9 added the document serializer, Phase 10 added the print shell, and
+Phase 11 implemented the server-only DocRaptor client. The DocRaptor client
+remains isolated from editor UI and renderer orchestration.
 
 ## Package Ownership
 
 | Package | Runtime | Owns | Current maturity |
 |---|---|---|---|
-| `@asym/pdf-template-schema` | shared | Template schema, document domain types, variables, page settings, assets, render metadata, batch metadata, and audit-oriented model types | `phase-3-boundary` |
-| `@asym/pdf-renderer` | server or build time | Future deterministic print HTML, paged-media CSS, preflight, renderer fixtures, and local preview helpers | `phase-3-boundary` |
+| `@asym/pdf-template-schema` | shared | Template schema, document domain types, variables, page settings, assets, render metadata, batch metadata, and audit-oriented model types | `phase-6-schema-foundation` |
+| `@asym/pdf-renderer` | server or build time | Document serialization, deterministic print HTML, paged-media CSS, renderer fixtures, and future preflight and preview helpers | `phase-10-print-shell` |
 | `@asym/docraptor-client` | server only | DocRaptor API client, sync and async render calls, status polling, test mode, timeouts, abort signals, and error normalization | `phase-11-client` |
 | `@asym/pdf-editor` | browser React | Future PDF editor shell, TipTap extensions, document UI, slash commands, inspector controls, and compatibility shims | `phase-3-boundary` |
 | `@asym/pdf-studio-adapter` | future app adapter | Future `Asymmetric-al/core` integration boundary for storage, permissions, assets, audit, feature flags, and render jobs | not created in Phase 3 |
@@ -57,7 +59,7 @@ Each package exposes one small typed boundary export from its root entry point:
 | Package | Root boundary export |
 |---|---|
 | `@asym/pdf-template-schema` | `pdfTemplateSchemaBoundary`, `PdfTemplateSchemaBoundary` |
-| `@asym/pdf-renderer` | `pdfRendererBoundary`, `PdfRendererBoundary` |
+| `@asym/pdf-renderer` | `pdfRendererBoundary`, `PdfRendererBoundary`, `composePdfDocumentHtml`, `composePrintDocumentHtml`, related serializer and print-shell types |
 | `@asym/docraptor-client` | `createDocRaptorClient`, `DocRaptorClient`, `DocRaptorClientError`, `docraptorClientBoundary`, related request/result/error types |
 | `@asym/pdf-editor` | `pdfEditorBoundary`, `PdfEditorBoundary` |
 
@@ -109,7 +111,7 @@ Retained reference surfaces:
 - `examples/*`
 
 These surfaces remain classified as `replace-later`. Email sending/provider
-examples are not part of the PDF builder product path. Phase 34 owns broad
+examples are not part of the PDF builder product path. Phase 35 owns broad
 documentation and examples replacement. Earlier feature phases may add focused
 PDF examples only when the matching package behavior exists.
 
@@ -158,11 +160,11 @@ remain available for fixture imports:
 - `@asym/pdf-template-schema`
 - `@asym/docraptor-client`
 
-Phase 6 should use Zod by default for runtime schema validation unless it
-documents a measured reason to introduce Valibot. The package now exports
-Zod-backed template, variable, binding, render, batch, artifact, and audit
-schemas while staying private and free of React UI, DocRaptor calls, browser
-APIs, storage, auth, and queue dependencies.
+Phase 6 used Zod for runtime schema validation because it was already present
+in the workspace catalog and no measured reason existed to introduce Valibot.
+The package now exports Zod-backed template, variable, binding, render, batch,
+artifact, and audit schemas while staying private and free of React UI,
+DocRaptor calls, browser APIs, storage, auth, and queue dependencies.
 
 ## Phase 8 Naming Compatibility Status
 
@@ -178,3 +180,21 @@ current `@react-email/editor` exports:
 These are aliases only. They do not add a PDF serializer, PDF theming system,
 new CSS export, or document-native editor shell. Phase 9 owns the print/PDF
 serializer foundation.
+
+## Phase 9 Through Phase 11 Renderer Status
+
+Phase 9 added `composePdfDocumentHtml` in `@asym/pdf-renderer` as the document
+serializer foundation. It walks structured document JSON, emits deterministic
+HTML fragments, records CSS requirements, and returns structured warnings,
+asset references, and variable usage.
+
+Phase 10 added `composePrintDocumentHtml` as the print shell around serializer
+output. It validates page settings through `@asym/pdf-template-schema`, emits
+deterministic full print HTML/CSS, and keeps DocRaptor calls out of the
+renderer package.
+
+Phase 11 added `createDocRaptorClient` in `@asym/docraptor-client` for
+server-only DocRaptor sync renders, async render creation, status polling,
+timeouts, abort signals, normalized errors, and app-layer idempotency
+metadata. Phase 12 owns preview orchestration on top of these package
+foundations.

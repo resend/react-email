@@ -30,7 +30,7 @@ change.
 | `renderToReactEmail` | `renderToPrintDocument` or `renderToPdfHtml` | Map only; needs compatibility strategy. |
 | `SerializerPluginStorage.BaseTemplate` | `PrintDocumentShell` or `DocumentTemplateShell` | Map only; future shell should target DocRaptor print HTML. |
 | `DefaultBaseTemplate` | `DefaultPrintDocumentShell` | Map only; current version wraps React Email components. |
-| `EmailTheming` | `DocumentTheming` | Map only; Phase 13 owns brand/theme model. |
+| `EmailTheming` | `DocumentTheming` | Map only; Phase 23 owns brand/theme model. |
 | `useEmailTheming` | `useDocumentTheming` | Map only. |
 | `getEmailTheming` | `getDocumentTheming` | Map only. |
 

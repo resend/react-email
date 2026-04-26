@@ -27,8 +27,8 @@ or renaming the working editor implementation.
 |---|---|---|
 | `@react-email/editor` | Working legacy editor baseline | Keep unchanged until a later compatibility-removal phase. |
 | `@asym/pdf-editor` | Private wrapper boundary | Use as the stable future import target. |
-| `@asym/pdf-template-schema` | Private schema boundary | Keep private; schema foundation starts in Phase 6. |
-| `@asym/pdf-renderer` | Private renderer boundary | Keep private; renderer behavior starts after schema contracts. |
+| `@asym/pdf-template-schema` | Private schema package | Keep private; Phase 6 added the shared template schema foundation. |
+| `@asym/pdf-renderer` | Private renderer package | Keep private; Phase 9 added the serializer and Phase 10 added the print shell. |
 | `@asym/docraptor-client` | Private server-only client | Keep private; Phase 11 adds the direct DocRaptor REST client while preview, retry, batch, and core adapter behavior remain later phases. |
 | `react-email` and `@react-email/render` | Retained React Email runtime | Wrap or replace later after PDF serializer behavior exists. |
 
@@ -103,11 +103,11 @@ import { pdfRendererBoundary } from '@asym/pdf-renderer';
 ```
 
 Phase 8 starts this transition by adding `PdfEditor`, `DocumentEditor`,
-`DocumentNode`, and `DocumentMark` beside compatibility exports. Later phases
-replace boundary-only exports with real APIs such as print HTML serialization,
-preflight, and DocRaptor client calls. Phase 11 has added the server-only
-DocRaptor client API in `@asym/docraptor-client`; future APIs must continue to
-be added beside compatibility exports before any legacy export is removed.
+`DocumentNode`, and `DocumentMark` beside compatibility exports. Phase 9 and
+Phase 10 added real renderer APIs for print HTML serialization and shell
+generation. Phase 11 added the server-only DocRaptor client API in
+`@asym/docraptor-client`. Future APIs must continue to be added beside
+compatibility exports before any legacy export is removed.
 
 ## Private Internals
 
@@ -207,6 +207,20 @@ or runtime reason.
 
 Phase 7 kept this wrapper-first package strategy intact while expanding
 compatibility fixtures for current `@react-email/editor` behavior.
+
+## Phase 9 Through Phase 11 Package Outcomes
+
+Phase 9 fills `@asym/pdf-renderer` with `composePdfDocumentHtml`, the first
+document/PDF serializer foundation separate from `composeReactEmail`.
+
+Phase 10 adds `composePrintDocumentHtml`, schema-driven page settings, and
+deterministic print CSS suitable for DocRaptor input. It does not call
+DocRaptor.
+
+Phase 11 fills `@asym/docraptor-client` with the server-only direct DocRaptor
+REST client. The package defaults to test mode, requires API key injection by
+server code, keeps credentials out of browser bundles, and remains unwired
+from editor UI and preview orchestration until Phase 12.
 
 ## Phase 8 Safe Naming Outcome
 

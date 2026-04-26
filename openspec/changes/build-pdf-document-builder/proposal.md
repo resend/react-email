@@ -105,7 +105,7 @@ This change adds six OpenSpec spec areas:
 
 ## Rollout idea
 
-The rollout should proceed through the canonical 36-phase tracker in
+The rollout should proceed through the canonical 42-phase tracker in
 `openspec/changes/build-pdf-document-builder/tasks.md`:
 
 1. Document the product intent in OpenSpec.
@@ -115,10 +115,14 @@ The rollout should proceed through the canonical 36-phase tracker in
 5. Define package names, exports, and compatibility policy.
 6. Build the schema foundation.
 7. Expand compatibility fixtures before broad renames.
-8. Add document naming, serializer, print shell, preview, DocRaptor,
-   variables, repeaters, conditionals, tables, assets, branding, preflight,
-   batch, migration, and adapter contracts in small phases.
-9. Add documentation, performance checks, release readiness, and cutover
-   planning.
+8. Add document naming, serializer, print shell, DocRaptor client, preview,
+   variables, resolver/formatter/fallback behavior, chips, conditionals,
+   repeaters, tables, calculations, page flow, headers/footers, assets,
+   branding, fixtures, preflight, render metadata, lifecycle/versioning,
+   batch, async rendering, local test rendering, metadata/accessibility,
+   security, migration, and adapter contracts in small phases.
+9. Add documentation, performance checks, API stability review, browser bundle
+   audit, OpenSpec reconciliation, mocked end-to-end flow validation, core
+   cutover planning, and final package sign-off.
 10. Integrate into `Asymmetric-al/core` behind a feature flag later.
 11. Keep Unlayer templates working during migration.

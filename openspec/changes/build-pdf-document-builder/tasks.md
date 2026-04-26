@@ -27,7 +27,7 @@
 - [ ] Leave handoff notes that state scope completed, checks run, known gaps,
       and the next phase entry point.
 
-## 36-Phase Course of Action
+## 42-Phase Course of Action
 
 | Phase | Name | Status | Primary Output |
 |---:|---|---|---|
@@ -43,11 +43,11 @@
 | 10 | Build the Print HTML Shell and Page Model | Complete | `packages/pdf-renderer/src/print-shell.ts` |
 | 11 | Build the DocRaptor Client Package | Complete | `packages/docraptor-client/src` |
 | 12 | Build Browser Preview and DocRaptor Preview Strategy | Next | `packages/pdf-renderer/src/preview`, `packages/pdf-editor/src/preview` |
-| 13 | Build the Variable Registry | Not started | `packages/pdf-template-schema/src/variables` |
-| 14 | Build the Variable Chip Extension | Not started | `packages/pdf-editor/src/extensions/variable` |
-| 15 | Build Formatter and Fallback System | Not started | `packages/pdf-template-schema/src/formatters`, `packages/pdf-renderer/src/formatters` |
-| 16 | Build Conditional Section Extension | Not started | `packages/pdf-editor/src/extensions/conditional-section`, `packages/pdf-renderer/src/conditions` |
-| 17 | Build Repeater Extension | Not started | `packages/pdf-editor/src/extensions/repeater`, `packages/pdf-renderer/src/repeaters` |
+| 13 | Build the Typed Variable Registry | Not started | `packages/pdf-template-schema/src/variables` |
+| 14 | Build Variable Resolution, Formatter, and Fallback System | Not started | `packages/pdf-template-schema/src/formatters`, `packages/pdf-renderer/src/variables` |
+| 15 | Build the Variable Chip Editor Extension | Not started | `packages/pdf-editor/src/extensions/variable` |
+| 16 | Build Conditional Section Engine and Editor Extension | Not started | `packages/pdf-editor/src/extensions/conditional-section`, `packages/pdf-renderer/src/conditions` |
+| 17 | Build Repeater Extension and Scoped Data Resolver | Not started | `packages/pdf-editor/src/extensions/repeater`, `packages/pdf-renderer/src/repeaters` |
 | 18 | Build Financial Data Table Block | Not started | `packages/pdf-editor/src/extensions/data-table`, `packages/pdf-renderer/src/data-table` |
 | 19 | Build Totals, Subtotals, Grouping, and Summary Blocks | Not started | `packages/pdf-renderer/src/calculations`, `packages/pdf-template-schema/src/calculations` |
 | 20 | Build Page Break and Keep-Together Controls | Not started | `packages/pdf-editor/src/extensions/page-flow`, `packages/pdf-renderer/src/page-flow` |
@@ -57,16 +57,22 @@
 | 24 | Build Starter Templates and Golden Fixtures | Not started | `test/golden-fixtures`, `packages/pdf-template-schema/test/fixtures` |
 | 25 | Build Preflight Validation | Not started | `packages/pdf-renderer/src/preflight` |
 | 26 | Build Render Logs, Artifact Metadata, and Audit Contracts | Not started | `packages/pdf-template-schema/src/audit`, `packages/pdf-renderer/src/artifacts` |
-| 27 | Build Batch Generation Framework | Not started | `packages/pdf-renderer/src/batch`, `packages/pdf-template-schema/src/batch` |
-| 28 | Build Async DocRaptor Rendering and Retry System | Not started | `packages/docraptor-client/src/async`, `packages/pdf-renderer/src/batch` |
-| 29 | Build Puppeteer or Playwright Local Fallback and Test Renderer | Not started | `packages/pdf-renderer/src/local-renderer` |
-| 30 | Build Accessibility, Metadata, and PDF Profile Support | Not started | `packages/pdf-template-schema/src/metadata`, `packages/docraptor-client/src/pdf-options` |
-| 31 | Build Security and Tenant Integration Contracts | Not started | `packages/pdf-template-schema/src/security`, adapter interfaces |
-| 32 | Build Unlayer Migration and Coexistence Path | Not started | `packages/pdf-editor/src/migration/unlayer`, `docs/unlayer-migration.md` |
-| 33 | Build Asymmetric Core Adapter Package and Feature Flag Contract | Not started | future adapter package or `packages/pdf-editor/src/core-adapter` |
-| 34 | Build Documentation, Playground, and Developer Examples | Not started | `docs`, `examples/pdf-editor`, playground updates |
-| 35 | Build Performance, Load, and Large Document Tests | Not started | `benchmarks`, opt-in performance tests |
-| 36 | Production Hardening, Release Readiness, and Cutover Plan | Not started | `docs/release-candidate-checklist.md`, `docs/core-cutover-plan.md` |
+| 27 | Build Template Lifecycle, Versioning, and Publishing Contracts | Not started | `packages/pdf-template-schema/src/template-lifecycle`, adapter contracts |
+| 28 | Build Batch Generation Framework | Not started | `packages/pdf-renderer/src/batch`, `packages/pdf-template-schema/src/batch` |
+| 29 | Build Async DocRaptor Rendering and Retry System | Not started | `packages/docraptor-client/src/async`, `packages/pdf-renderer/src/batch` |
+| 30 | Build Playwright Local Fallback and Test Renderer | Not started | `packages/pdf-renderer/src/local-renderer` |
+| 31 | Build Accessibility, Metadata, and PDF Profile Support | Not started | `packages/pdf-template-schema/src/metadata`, `packages/docraptor-client/src/pdf-options` |
+| 32 | Build Security and Tenant Integration Contracts | Not started | `packages/pdf-template-schema/src/security`, adapter interfaces |
+| 33 | Build Unlayer Migration and Coexistence Path | Not started | `packages/pdf-editor/src/migration/unlayer`, `docs/unlayer-migration.md` |
+| 34 | Build `Asymmetric-al/core` Adapter Package and Feature Flag Contract | Not started | future adapter package or `packages/pdf-editor/src/core-adapter` |
+| 35 | Build Documentation, Playground, and Developer Examples | Not started | `docs`, `examples/pdf-editor`, playground updates |
+| 36 | Build Performance, Load, and Large Document Tests | Not started | `benchmarks`, opt-in performance tests |
+| 37 | Build Release, Versioning, and API Stability Review | Not started | release notes, API/export review, schema version policy |
+| 38 | Run Security, Secret, and Browser Bundle Audit | Not started | browser/server boundary and secret-safety checks |
+| 39 | OpenSpec Current-State Reconciliation and Archive Readiness | Not started | aligned OpenSpec docs and archive-readiness notes |
+| 40 | End-to-End Package Validation with Mocked Production Flows | Not started | mocked package-level production-flow tests |
+| 41 | `Asymmetric-al/core` Cutover Playbook and Integration PR Plan | Not started | `docs/core-cutover-playbook.md` |
+| 42 | Production Hardening, Launch Readiness, and Final Package Sign-Off | Not started | `docs/final-package-readiness.md` |
 
 ## Phase 01: Fork Baseline, Governance, and Product Charter
 
@@ -433,6 +439,45 @@ async rendering, polling, and error normalization.
 
 - [x] DocRaptor client API docs and error taxonomy.
 
+## Pre-Phase 12: Post-Phase-11 Reconciliation, OpenSpec Alignment, and Phase Plan Update
+
+### Purpose
+
+Verify the repository after the Phase 11 merge before any Phase 12 preview
+implementation begins.
+
+### Primary output
+
+- `docs/pre-phase-12-reconciliation.md`
+- Updated README, roadmap, package strategy, package boundary, decision log,
+  term migration, historical phase notes, AGENTS routing, and OpenSpec
+  proposal/design/task notes.
+
+### Tasks
+
+- [x] Confirm the active phase is Pre-Phase 12.
+- [x] Re-read `AGENTS.md`, `openspec/project.md`, the active OpenSpec change,
+      and prior phase notes.
+- [x] Inspect local merge history after Phase 11.
+- [x] Record that `gh` was unavailable, so live PR body/comment/review
+      inspection was not claimed.
+- [x] Identify documentation drift after Phase 11.
+- [x] Update documentation and OpenSpec tracker without implementing Phase 12
+      product code.
+- [x] Expand the remaining phase plan to the current 42-phase roadmap.
+- [x] Keep Phase 12 marked as `Next`.
+
+### Validation
+
+- [x] Run available non-mutating validation.
+- [x] Record blocked validation honestly when local package-manager tooling is
+      unavailable.
+
+### Handoff output
+
+- [x] Reconciliation note with active phase, scope completed, checks run,
+      known gaps, and Phase 12 guardrails.
+
 ## Phase 12: Build Browser Preview and DocRaptor Preview Strategy
 
 ### Purpose
@@ -463,11 +508,12 @@ preview.
 
 - [ ] Preview architecture docs and caveats.
 
-## Phase 13: Build the Variable Registry
+## Phase 13: Build the Typed Variable Registry
 
 ### Purpose
 
-Define typed variables for nonprofit documents and reports.
+Define typed variables for nonprofit, ministry, donor, receipt, invoice, and
+financial-report document workflows.
 
 ### Primary output
 
@@ -481,8 +527,11 @@ Define typed variables for nonprofit documents and reports.
 - [ ] Define key, label, group, description, type, sample value, required flag,
       fallback behavior, formatter hints, privacy classification, and future
       source-path metadata.
-- [ ] Add fixtures for donation receipt, tax receipt, annual statement,
-      financial report, invoice, and certificate.
+- [ ] Add deterministic sample-data generation and fixtures for donation
+      receipt, tax receipt, annual statement, financial report, invoice, and
+      certificate.
+- [ ] Keep the registry React-free so schema, renderer, preview, preflight,
+      and future core adapters can import it safely.
 
 ### Validation
 
@@ -492,13 +541,49 @@ Define typed variables for nonprofit documents and reports.
 
 ### Handoff output
 
-- [ ] Variable registry exports and merge tag domain notes.
+- [ ] Variable registry exports, sample-data behavior, and merge tag domain
+      notes.
 
-## Phase 14: Build the Variable Chip Extension
+## Phase 14: Build Variable Resolution, Formatter, and Fallback System
 
 ### Purpose
 
-Represent variables inside the editor as protected structured inline nodes.
+Resolve variable values from data contexts and format them consistently for
+receipts, statements, invoices, and reports without React dependencies.
+
+### Primary output
+
+- Shared resolver, formatter, and fallback modules.
+
+### Tasks
+
+- [ ] Support variable lookup from data contexts, nested source paths,
+      required/optional behavior, fallback values, missing value diagnostics,
+      and type validation.
+- [ ] Support currency, date, date range, number, percentage, address, receipt
+      number, fiscal period, boolean labels, image URL validation, and
+      deterministic output.
+- [ ] Do not evaluate arbitrary JavaScript from templates. Computed behavior
+      must remain structured and deterministic.
+
+### Validation
+
+- [ ] Tests cover string resolution, nested source paths, optional fallback,
+      missing required errors, USD currency, dates/ranges, fiscal years,
+      addresses, percentages, booleans, image URLs, invalid types, unknown
+      formatters, and React-free imports.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
+
+### Handoff output
+
+- [ ] Resolver, formatter, and fallback behavior docs.
+
+## Phase 15: Build the Variable Chip Editor Extension
+
+### Purpose
+
+Represent variables inside the editor as protected structured inline nodes
+backed by the registry and resolver.
 
 ### Primary output
 
@@ -507,16 +592,19 @@ Represent variables inside the editor as protected structured inline nodes.
 ### Tasks
 
 - [ ] Add structured inline variable nodes that reference registry keys,
-      render visibly, serialize to JSON, and preview sample/fallback values.
+      render visibly, serialize to JSON, deserialize from JSON, and preview
+      sample/fallback values.
 - [ ] Add command/API insertion and slash command integration only if it fits
       current UI patterns.
-- [ ] Detect missing or broken variable keys and prevent accidental key edits.
+- [ ] Detect missing or broken variable keys and prevent accidental key edits
+      inside the chip.
 
 ### Validation
 
 - [ ] Tests cover insertion, serialization, deserialization, chip rendering,
-      unknown key warnings, fallback display, and keyboard/copy-paste behavior
-      where practical.
+      sample preview value rendering, unknown key warnings, fallback display,
+      keyboard behavior, copy/paste behavior where practical, and stable
+      package exports.
 - [ ] Run `pnpm --filter @react-email/editor test`, `pnpm build`, and
       `pnpm lint`.
 
@@ -524,36 +612,7 @@ Represent variables inside the editor as protected structured inline nodes.
 
 - [ ] Variable chip extension docs and fixture notes.
 
-## Phase 15: Build Formatter and Fallback System
-
-### Purpose
-
-Format variable values consistently for receipts, statements, invoices, and
-reports without React dependencies.
-
-### Primary output
-
-- Shared formatter and fallback modules.
-
-### Tasks
-
-- [ ] Support currency, date, date range, number, percentage, address, receipt
-      number, fiscal period, boolean labels, image URL validation, string
-      fallback, required-value errors, and optional-value warnings.
-- [ ] Design APIs for renderer consumption without UI dependencies.
-
-### Validation
-
-- [ ] Tests cover USD currency, date basics, fiscal year labels, address
-      formatting, missing required values, optional fallbacks, invalid types,
-      and unknown formatters.
-- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
-
-### Handoff output
-
-- [ ] Formatter API docs and fallback behavior notes.
-
-## Phase 16: Build Conditional Section Extension
+## Phase 16: Build Conditional Section Engine and Editor Extension
 
 ### Purpose
 
@@ -567,9 +626,9 @@ arbitrary JavaScript.
 
 ### Tasks
 
-- [ ] Support structured operators such as exists, not_exists, equals,
-      not_equals, greater_than, less_than, contains, is_empty, and
-      is_not_empty.
+- [ ] Support structured operators: exists, not_exists, equals, not_equals,
+      greater_than, greater_than_or_equal, less_than, less_than_or_equal,
+      contains, not_contains, is_empty, is_not_empty, in, and not_in.
 - [ ] Cover receipt language, country-specific language, empty donation table
       messages, missionary sections, and financial report sections.
 
@@ -583,11 +642,12 @@ arbitrary JavaScript.
 
 - [ ] Conditional rule schema, renderer behavior, and editor docs.
 
-## Phase 17: Build Repeater Extension
+## Phase 17: Build Repeater Extension and Scoped Data Resolver
 
 ### Purpose
 
-Support repeatable sections for arrays of data.
+Support repeatable sections for arrays of data and introduce safe scoped data
+resolution for item aliases and nested variables.
 
 ### Primary output
 
@@ -596,9 +656,11 @@ Support repeatable sections for arrays of data.
 
 ### Tasks
 
-- [ ] Support source array key, item alias, empty state, optional sorting or
-      safe filtering, maximum row guard, scoped variables, warnings for missing
-      sources, and deterministic render order.
+- [ ] Support source array key/path, item alias, index alias where useful,
+      empty state, structured sorting, safe structured filtering where useful,
+      maximum row guard, scoped variables, nested conditionals, warnings for
+      missing sources, warnings for non-array sources, and deterministic render
+      order.
 - [ ] Cover donations, invoice line items, missionary lists, financial row
       groups, and funds.
 
@@ -871,12 +933,44 @@ Define metadata contracts for renders and generated PDFs.
 
 - [ ] Render/audit contracts and future core data-shape notes.
 
-## Phase 27: Build Batch Generation Framework
+## Phase 27: Build Template Lifecycle, Versioning, and Publishing Contracts
 
 ### Purpose
 
-Define batch generation at the package layer before tying it to platform
-queues.
+Define template lifecycle behavior before batch generation depends on
+published immutable versions.
+
+### Primary output
+
+- Template lifecycle, versioning, and publishing contracts.
+
+### Tasks
+
+- [ ] Support draft, published, and archived template states, version numbers,
+      immutable published snapshots, current draft pointers, timestamps,
+      engine metadata, validation status, preflight status, duplicate/archive/
+      restore behavior, and changelog metadata.
+- [ ] Do not add a database. Use contracts, pure helpers, and in-memory test
+      adapters if needed.
+
+### Validation
+
+- [ ] Tests cover draft metadata, publish immutability, draft updates that do
+      not mutate published versions, duplicate/archive/restore behavior,
+      preflight-blocked publish, engine metadata, and adapter behavior if
+      added.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
+
+### Handoff output
+
+- [ ] Template lifecycle contracts and publishing invariants.
+
+## Phase 28: Build Batch Generation Framework
+
+### Purpose
+
+Define queue-agnostic batch generation at the package layer before tying it to
+platform queues.
 
 ### Primary output
 
@@ -884,27 +978,30 @@ queues.
 
 ### Tasks
 
-- [ ] Support batch definition, template snapshot reference, dataset
-      reference, per-document jobs, status transitions, progress summary,
-      cancellation, retry, partial success, result manifest, and download
-      manifest shape.
+- [ ] Support batch definition, batch ID, immutable template snapshot
+      reference, dataset reference, per-document jobs, status transitions,
+      progress summary, cancellation, retry, partial success, result manifest,
+      zip/download manifest shape, batch safety preflight, and structured
+      failure reasons.
 - [ ] Define adapters instead of requiring a queue library.
 
 ### Validation
 
-- [ ] Tests cover batch creation, job creation, transitions, partial failure,
-      retry, cancellation, progress, and manifest generation.
+- [ ] Tests cover batch creation from a published snapshot, job creation,
+      transitions, partial failure, retry, cancellation, progress, manifest
+      generation, rejection of mutable drafts, and preflight-blocked starts.
 - [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
 - [ ] Batch job model, state transitions, and adapter docs.
 
-## Phase 28: Build Async DocRaptor Rendering and Retry System
+## Phase 29: Build Async DocRaptor Rendering and Retry System
 
 ### Purpose
 
-Connect batch jobs to async DocRaptor behavior with retry-safe logic.
+Connect batch jobs and long documents to async DocRaptor behavior with
+retry-safe logic.
 
 ### Primary output
 
@@ -912,82 +1009,91 @@ Connect batch jobs to async DocRaptor behavior with retry-safe logic.
 
 ### Tasks
 
-- [ ] Support async render creation, status ID storage, polling, transient and
-      permanent error classification, retry limits, backoff, timeouts,
-      cancellation handling where possible, partial completion, idempotency
-      metadata, and structured logs.
+- [ ] Support async render creation, status ID storage, polling, callback
+      contract where useful, transient and permanent error classification,
+      retry limits, backoff, timeouts, cancellation handling where possible,
+      partial completion, idempotency metadata, structured logs, and no
+      secrets in logs.
+- [ ] Preserve Phase 11 sync client compatibility where practical.
 
 ### Validation
 
-- [ ] Mocked tests cover async job creation, polling success/failure, transient
-      retry, permanent failure without retry, partial success, max retries, and
-      status summaries.
+- [ ] Mocked tests cover async job creation, polling success/failure,
+      transient retry, permanent failure without retry, max retries, partial
+      success, cancellation request, status summaries, and no real network
+      calls.
 - [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
 - [ ] Async render flow docs and retry policy.
 
-## Phase 29: Build Puppeteer or Playwright Local Fallback and Test Renderer
+## Phase 30: Build Playwright Local Fallback and Test Renderer
 
 ### Purpose
 
-Create a local render path for development and test snapshots without making
+Create a local render path for development and regression tests without making
 it the production contract.
 
 ### Primary output
 
-- Local renderer helper or explicit deferral note.
+- Playwright local renderer helper or explicit deferral note.
 
 ### Tasks
 
-- [ ] Prefer Playwright because the repo already uses it; use Puppeteer only
-      if already present or clearly better after inspection.
+- [ ] Prefer Playwright because the repo already uses it. Do not introduce a
+      production dependency on the local renderer.
 - [ ] Support developer preview, CI smoke tests, HTML-to-PDF sanity checks,
-      screenshot/PDF snapshots, and development fallback only.
-- [ ] Document DocRaptor as production fidelity.
+      screenshot/PDF snapshots, page size input where practical, print HTML/CSS
+      input, failure reporting, and graceful skips when browser binaries are
+      unavailable.
+- [ ] Document DocRaptor as the production-fidelity renderer.
 
 ### Validation
 
 - [ ] Tests cover print HTML input, page size handling, failures, graceful skip
-      when browser binaries are unavailable, and no production dependency on
-      local renderer.
+      when browser binaries are unavailable, no production dependency on local
+      renderer, and documentation that DocRaptor remains production fidelity.
 - [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
 - [ ] Local renderer docs and production-fidelity caveat.
 
-## Phase 30: Build Accessibility, Metadata, and PDF Profile Support
+## Phase 31: Build Accessibility, Metadata, and PDF Profile Support
 
 ### Purpose
 
-Add metadata and accessibility-related contracts before production hardening.
+Add document metadata, accessibility checks, and DocRaptor PDF profile support
+before production hardening.
 
 ### Primary output
 
-- Metadata and PDF profile schema/request support.
+- Metadata, accessibility warning, and PDF profile schema/request support.
 
 ### Tasks
 
 - [ ] Support title, subject, author/organization, language, keywords, PDF/A
-      option, PDF/UA option where feasible, alt text validation, heading order
-      warnings, table header warnings, and link text warnings.
-- [ ] Implement only options that can be represented safely in schema and
-      DocRaptor request layers.
+      profile options, PDF/UA profile options where feasible, alt text
+      validation, heading order warnings where practical, table header
+      warnings, link text warnings, DocRaptor request metadata mapping, and
+      invalid profile rejection.
+- [ ] Do not overclaim accessibility guarantees. Provide structured warnings
+      and supported profile options.
 
 ### Validation
 
-- [ ] Tests cover metadata schema, DocRaptor request metadata, missing title
-      warning, missing alt text warning, PDF profile serialization, and invalid
-      profile rejection.
+- [ ] Tests cover metadata schema, DocRaptor request metadata mapping, missing
+      title warning, missing alt text warning, heading/table/link warnings
+      where implemented, PDF profile serialization, and invalid profile
+      rejection.
 - [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
 - [ ] Metadata model docs and accessibility warning notes.
 
-## Phase 31: Build Security and Tenant Integration Contracts
+## Phase 32: Build Security and Tenant Integration Contracts
 
 ### Purpose
 
@@ -1000,28 +1106,30 @@ Prepare for `Asymmetric-al/core` integration without app-specific code.
 ### Tasks
 
 - [ ] Define contracts for tenant ID, user ID, permissions, asset access,
-      render authorization, edit/publish authorization, batch authorization,
-      audit identity, signed/public render URLs, PII classification, no secrets
-      in templates, and no API key in browser bundles.
+      render authorization, preview authorization, edit/publish authorization,
+      batch authorization, audit identity, signed/public render URLs, PII
+      classification, secret-like value rejection in templates, no API key in
+      browser bundles, and redacted logs.
 - [ ] Use interfaces and fake adapters if the repo has no auth system.
 
 ### Validation
 
-- [ ] Tests cover unauthorized render, unauthorized publish, secret-like
-      template metadata rejection, tenant mismatch, and API key client-export
-      checks where testable.
+- [ ] Tests cover unauthorized render, unauthorized publish, unauthorized
+      batch, tenant mismatch, secret-like template metadata rejection, PII
+      classification, API key client-export checks where testable, and log
+      redaction.
 - [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
 - [ ] Security contract docs and fake adapter notes.
 
-## Phase 32: Build Unlayer Migration and Coexistence Path
+## Phase 33: Build Unlayer Migration and Coexistence Path
 
 ### Purpose
 
-Support safe migration from Unlayer without pretending automatic conversion is
-easy.
+Support safe migration from Unlayer without promising automatic perfect
+conversion.
 
 ### Primary output
 
@@ -1033,21 +1141,23 @@ easy.
 - [ ] Support engine metadata, `unlayer`,
       `asym_pdf_document_builder`, legacy template references, manual
       migration workflow, optional HTML import shape, migration report,
-      unsupported feature list, comparison hooks, and feature flag contract.
+      unsupported feature list, side-by-side comparison hooks, feature flag
+      contract, legacy PDF artifact references, and safe fallback behavior.
 - [ ] Do not attempt full Unlayer JSON conversion unless a later spec narrows
       the scope.
 
 ### Validation
 
 - [ ] Tests cover engine metadata, legacy/new template metadata, migration
-      reports, unsupported features, and feature flag contract shape.
+      reports, unsupported features, feature flag contract shape, comparison
+      hooks, and legacy template pass-through.
 - [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
 - [ ] Unlayer coexistence, migration, and dual-run guide.
 
-## Phase 33: Build `Asymmetric-al/core` Adapter Package and Feature Flag Contract
+## Phase 34: Build `Asymmetric-al/core` Adapter Package and Feature Flag Contract
 
 ### Purpose
 
@@ -1061,22 +1171,25 @@ builder later.
 ### Tasks
 
 - [ ] Expose integration points for editor component/factory, template
-      load/save, preview, render, variable registry injection, asset adapter,
-      auth adapter, DocRaptor client injection, feature flags, and legacy
-      engine metadata.
+      load/save, lifecycle/versioning, preview, render, variable registry
+      injection, asset adapter, auth/permission adapter, DocRaptor client
+      injection, feature flags, legacy engine metadata, preflight, and batch
+      generation.
 - [ ] Do not require editing `Asymmetric-al/core` in this repo.
 
 ### Validation
 
 - [ ] Tests cover adapter exports, type-level integration fixture, fake core
-      adapter render, feature flag selection, and legacy engine pass-through.
+      adapter preview, fake core adapter render through mocked DocRaptor path,
+      feature flag selection, legacy engine pass-through, and injectable auth/
+      asset adapters.
 - [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
 - [ ] Core adapter contract and feature flag docs.
 
-## Phase 34: Build Documentation, Playground, and Developer Examples
+## Phase 35: Build Documentation, Playground, and Developer Examples
 
 ### Purpose
 
@@ -1089,27 +1202,29 @@ Make the package usable by humans before production rollout.
 ### Tasks
 
 - [ ] Add examples for donation receipt, annual giving statement, financial
-      report, invoice, certificate, mocked DocRaptor preview, browser preview,
-      variable chips, conditionals, repeaters, and data tables.
-- [ ] Document package installation, exports, editor usage, serializer usage,
-      DocRaptor setup, environment variables, tests, limitations, and migration
-      notes.
+      report, invoice, certificate, browser preview, mocked DocRaptor preview,
+      variable chips, conditionals, repeaters, data tables, preflight
+      validation, and batch planning.
+- [ ] Document workspace package installation, exports, editor usage,
+      serializer usage, preview usage, DocRaptor setup, environment variables,
+      tests, known limitations, migration notes, and core adapter notes.
 
 ### Validation
 
 - [ ] Docs examples typecheck where supported, playground builds where
-      supported, and export smoke tests pass.
+      supported, export smoke tests pass, example templates validate, and
+      mocked DocRaptor examples require no real network or API key.
 - [ ] Run `pnpm build`, `pnpm test`, and `pnpm lint`.
 
 ### Handoff output
 
 - [ ] Developer documentation and training material.
 
-## Phase 35: Build Performance, Load, and Large Document Tests
+## Phase 36: Build Performance, Load, and Large Document Tests
 
 ### Purpose
 
-Prove the system can handle long reports and large batches before production
+Prove the system can handle long reports and large batches before platform
 integration.
 
 ### Primary output
@@ -1121,57 +1236,218 @@ integration.
 - [ ] Measure one-page receipts, ten-page annual statements, fifty-page
       financial reports, 500 donation line items, 1,000 financial rows, 1,000
       recipient batch manifests, asset-heavy documents, repeated
-      header/footer output, and large-template preflight.
-- [ ] Track serializer time, preflight time, memory where practical, output
-      size, warning count, and batch planning time.
+      header/footer output, large-template preflight, and variable resolver
+      behavior on large datasets.
+- [ ] Track serializer time, preflight time, resolver time, memory where
+      practical, output size, warning count, and batch planning time.
 - [ ] Keep heavy tests opt-in so CI stays stable.
 
 ### Validation
 
 - [ ] Lightweight performance smoke tests run in normal CI and heavy tests are
-      behind an env flag or separate script with documented thresholds.
+      behind an env flag or separate script with documented broad thresholds.
 - [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
 - [ ] Performance findings and load-test guidance.
 
-## Phase 36: Production Hardening, Release Readiness, and Cutover Plan
+## Phase 37: Build Release, Versioning, and API Stability Review
 
 ### Purpose
 
-Prepare the package for real platform adoption and phased cutover.
+Stabilize package exports, schema versions, and release practices before
+production integration.
 
 ### Primary output
 
-- `docs/release-candidate-checklist.md`
-- `docs/core-cutover-plan.md`
+- Release notes draft, API/export review, and schema versioning policy.
+
+### Tasks
+
+- [ ] Review public exports, private/internal exports, backwards
+      compatibility, schema versions, package names, changeset/changelog needs,
+      generated type declarations, breaking-change policy, deprecated
+      email-first aliases, package size impact, and release notes.
+- [ ] Preserve compatibility shims unless OpenSpec and tests explicitly allow
+      their removal.
+
+### Validation
+
+- [ ] Tests/checks cover public exports, type declarations, schema version
+      compatibility, deprecated alias behavior where applicable, package build
+      output, and changeset/release-note presence if the repo uses changesets.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
+
+### Handoff output
+
+- [ ] API stability review and release path notes.
+
+## Phase 38: Run Security, Secret, and Browser Bundle Audit
+
+### Purpose
+
+Verify no server-only or sensitive rendering behavior leaks into browser
+bundles before integration.
+
+### Primary output
+
+- Server/client boundary audit and automated secret-safety checks where
+  practical.
+
+### Tasks
+
+- [ ] Audit DocRaptor API key usage, server-only exports, browser exports,
+      logs, preview result serialization, render metadata, asset URLs, sample
+      data, PII classifications, side effects, and dependency risks.
+- [ ] Add automated checks where practical instead of relying on docs-only
+      assurances.
+
+### Validation
+
+- [ ] Tests/checks cover browser-facing import boundaries, client bundle
+      secret names where testable, redacted logs, secret-free preview results,
+      redacted render metadata, asset URL classification, and PII variable
+      classifications.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
+
+### Handoff output
+
+- [ ] Security/bundle audit notes and redaction guarantees.
+
+## Phase 39: OpenSpec Current-State Reconciliation and Archive Readiness
+
+### Purpose
+
+Bring OpenSpec docs in line with the built package before final launch
+readiness.
+
+### Primary output
+
+- Aligned OpenSpec docs, completed/deferred task status, and archive-readiness
+  notes.
+
+### Tasks
+
+- [ ] Review `openspec/project.md`, active proposal/design/tasks, all spec
+      delta files, root specs if present, completed tasks through Phase 38,
+      known deviations, deferred items, and current behavior versus proposed
+      behavior.
+- [ ] Update specs to actual chosen architecture without claiming unfinished
+      items are complete.
+
+### Validation
+
+- [ ] Run OpenSpec validation for the active change and all specs, docs link
+      checks if available, manual task consistency checks, and a contradiction
+      scan if no tooling exists.
+- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint` where relevant and safe.
+
+### Handoff output
+
+- [ ] OpenSpec reconciliation note and archive-readiness status.
+
+## Phase 40: End-to-End Package Validation with Mocked Production Flows
+
+### Purpose
+
+Exercise complete package-level flows before platform integration.
+
+### Primary output
+
+- Mocked package-level production-flow tests.
+
+### Tasks
+
+- [ ] Cover donation receipt flow, annual statement flow, financial report
+      flow, batch run flow, migration flow, and asset flow using deterministic
+      fixtures and mocked external services.
+- [ ] Do not require real DocRaptor or `Asymmetric-al/core`.
+
+### Validation
+
+- [ ] Tests cover template to preflight to preview to mocked DocRaptor render
+      metadata, variables/repeaters/tables/totals, grouped financial reports,
+      batch async partial success manifests, legacy pass-through feature flags,
+      and render-safe asset preflight.
+- [ ] Run `pnpm test`, `pnpm build`, `pnpm lint`, and OpenSpec validation.
+
+### Handoff output
+
+- [ ] End-to-end package validation report.
+
+## Phase 41: `Asymmetric-al/core` Cutover Playbook and Integration PR Plan
+
+### Purpose
+
+Create the concrete integration plan for bringing the package into
+`Asymmetric-al/core` safely.
+
+### Primary output
+
+- `docs/core-cutover-playbook.md`
+
+### Tasks
+
+- [ ] Document package dependency strategy, feature flag names and rollout
+      modes, required env vars, server-only DocRaptor setup, asset adapter
+      expectations, auth/permission adapter expectations, template storage
+      mapping, Unlayer coexistence, pilot templates, side-by-side comparison,
+      batch rollout, monitoring/logs, rollback, support/training, migration
+      limits, and criteria for removing Unlayer fallback later.
+- [ ] Do not edit `Asymmetric-al/core` in this repo or claim integration is
+      complete.
+
+### Validation
+
+- [ ] Check that the playbook references current package exports accurately,
+      includes no secrets, links to correct OpenSpec files, and compiles/
+      typechecks examples if included.
+- [ ] Run docs/type checks if the repo supports them.
+
+### Handoff output
+
+- [ ] Core cutover playbook and integration PR sequence.
+
+## Phase 42: Production Hardening, Launch Readiness, and Final Package Sign-Off
+
+### Purpose
+
+Prepare the package for real platform adoption and phased cutover while
+separating package readiness from future platform integration work.
+
+### Primary output
+
+- `docs/final-package-readiness.md`
 
 ### Tasks
 
 - [ ] Review API exports, compatibility, package names, schema versions,
-      changesets/changelog, docs, tests, OpenSpec tasks/specs, security,
-      client-bundle secrets, DocRaptor modes, core adapter, migration plan,
-      launch plan, rollback plan, and limitations.
-- [ ] Create a core cutover plan covering dependency install, feature flag,
-      internal receipt, annual statement, financial report, Unlayer comparison,
-      pilot, fallback, gradual migration, and final Unlayer removal criteria.
+      changelog/changesets, docs, full test suite, OpenSpec tasks/specs,
+      security checklist, client-bundle secrets, DocRaptor modes, core
+      adapter docs, migration plan, launch plan, rollback plan, known
+      limitations, first-class template fixtures, and batch safety.
+- [ ] Create a final readiness report that makes remaining platform work
+      explicit.
 
 ### Validation
 
-- [ ] Run `pnpm build`, `pnpm test`, `pnpm lint`, and
-      `pnpm dlx @fission-ai/openspec@latest validate --all`.
+- [ ] Run full test suite, full build, full lint, OpenSpec validate all,
+      export smoke tests, fixture render tests, Phase 38 security/bundle
+      checks, and Phase 40 mocked end-to-end flows.
+- [ ] Document exact pre-existing failures if any command fails.
 
 ### Handoff output
 
-- [ ] Release readiness checklist and core cutover plan.
+- [ ] Final package readiness report, known limitations, rollback guidance,
+      and sign-off notes.
 
 ## OpenSpec Validation
 
 - [ ] Run `pnpm dlx @fission-ai/openspec@latest validate build-pdf-document-builder`
 - [ ] Run `pnpm dlx @fission-ai/openspec@latest validate --all`
 - [ ] Confirm `AGENTS.md` exists and routes agents to OpenSpec.
-- [ ] Confirm `tasks.md` is the canonical 36-phase process tracker.
+- [ ] Confirm `tasks.md` is the canonical 42-phase process tracker.
 - [ ] Confirm no product implementation code was added in this OpenSpec task.
 - [ ] Confirm no migrations were added.
 - [ ] Confirm no secrets were added.

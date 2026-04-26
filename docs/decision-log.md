@@ -159,7 +159,7 @@ phase-level choices and tradeoffs found during implementation.
   surfaces before PDF package behavior exists would make the fork harder to
   validate against the React Email baseline.
 - Tradeoff: The repository still contains legacy email-oriented guidance until
-  Phase 34 or earlier feature-specific docs phases replace those surfaces.
+  Phase 35 or earlier feature-specific docs phases replace those surfaces.
 
 ## 2026-04-25: Editor Boundary Is Internal Before PDF Behavior
 
@@ -200,17 +200,31 @@ phase-level choices and tradeoffs found during implementation.
 - Tradeoff: Release policy is documented now but actual versioning and
   publication rules remain deferred until a later release-readiness phase.
 
-## 2026-04-26: Roadmap Uses 36 Phases
+## 2026-04-26: Roadmap First Expanded To 36 Phases
 
-- Decision: The canonical OpenSpec tracker now uses the 36-phase course of
+- Decision: The canonical OpenSpec tracker then used the 36-phase course of
   action, with Phase 6 as schema foundation and Phase 9 as document serializer
   foundation.
 - Reason: The expanded roadmap separates compatibility fixtures, safe naming,
   serializer, print shell, preview, security, migration, adapter, docs,
   performance, and release readiness into smaller reviewable phases.
 - Tradeoff: Some earlier completion notes mention the previous 33-phase
-  tracker as historical validation output; current planning docs should follow
-  the 36-phase tracker.
+  tracker as historical validation output. This decision is now historical and
+  was superseded by the 42-phase tracker decision below.
+
+## 2026-04-26: Roadmap Uses 42 Phases
+
+- Decision: The canonical OpenSpec tracker now uses the 42-phase course of
+  action, keeping Phase 12 as the next implementation phase after the
+  Post-Phase-11 reconciliation.
+- Reason: The expanded roadmap separates template lifecycle/versioning,
+  release and API stability, security and browser-bundle audit, OpenSpec
+  current-state reconciliation, mocked end-to-end package validation, core
+  cutover planning, and final package sign-off into explicit reviewable gates.
+- Tradeoff: Historical phase notes still reference older 33-phase and
+  36-phase trackers as completed validation artifacts. Current planning docs
+  and future agents should follow the 42-phase tracker in
+  `openspec/changes/build-pdf-document-builder/tasks.md`.
 
 ## 2026-04-26: Phase 6 Schema Foundation Uses Zod
 
@@ -315,7 +329,21 @@ phase-level choices and tradeoffs found during implementation.
   may populate DocRaptor `tag` for log correlation, but no fake idempotency
   header is sent.
 - Tradeoff: Phase 11 classifies retryable errors but does not implement retry
-  or backoff policy. Phase 28 owns async retry behavior at the batch/render job
+  or backoff policy. Phase 29 owns async retry behavior at the batch/render job
   layer.
 - Constraint: The client is not wired into editor UI, preview UI, or renderer
   orchestration in Phase 11.
+
+## 2026-04-26: Pre-Phase 12 Reconciles The Phase 11 Merge
+
+- Decision: Add a documentation-only reconciliation checkpoint before Phase
+  12 begins.
+- Reason: The repo needed post-merge alignment after the DocRaptor client
+  landed so the README, package boundary docs, package strategy, roadmap,
+  term migration map, and OpenSpec task tracker reflected the current state.
+- Decision: Phase 12 remains the next implementation phase.
+- Constraint: This reconciliation does not implement browser preview,
+  DocRaptor preview orchestration, package exports, runtime behavior, real
+  donor data preview, or template mutation.
+- Constraint: Browser preview remains non-authoritative, and DocRaptor preview
+  must stay server-only and test-mode by default.

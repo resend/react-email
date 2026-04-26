@@ -173,15 +173,19 @@ The active package migration rule is wrapper-first. New PDF-first code should
 target `@asym/*` package names, but `@react-email/editor` must continue to
 build and export its existing public subpaths during the compatibility window.
 
-The canonical implementation sequence is now the 36-phase tracker in
+The canonical implementation sequence is now the 42-phase tracker in
 `openspec/changes/build-pdf-document-builder/tasks.md`. Phase 06 owns schema
 foundation, Phase 07 owns broader compatibility fixtures, Phase 08 owns safe
 document naming, Phase 09 owns the document serializer foundation, Phase 10
 owns the print shell, and Phase 11 owns the DocRaptor client package. Later
-phases add preview, variables, conditionals, repeaters, tables, calculations,
-page flow, headers/footers, assets, branding, fixtures, preflight, audit,
-batch, local fallback rendering, accessibility, security, Unlayer coexistence,
-core adapter contracts, docs, performance, and production readiness.
+phases add preview, typed variables, variable resolution and formatting,
+variable chips, conditionals, repeaters, tables, calculations, page flow,
+headers/footers, assets, branding, fixtures, preflight, render metadata,
+template lifecycle/versioning, batch, async rendering, Playwright local test
+rendering, metadata/accessibility, security, Unlayer coexistence, core adapter
+contracts, docs/examples, performance, API stability, browser bundle audits,
+OpenSpec reconciliation, mocked end-to-end package flows, core cutover
+planning, and final package sign-off.
 
 ## 6. Target state
 

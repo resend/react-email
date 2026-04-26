@@ -18,11 +18,11 @@ that list with current phase status for handoff visibility.
 | 10 | Build the Print HTML Shell and Page Model | Complete; validation recorded | `packages/pdf-renderer/src/print-shell.ts` |
 | 11 | Build the DocRaptor Client Package | Complete; validation recorded | `packages/docraptor-client/src` |
 | 12 | Build Browser Preview and DocRaptor Preview Strategy | Next | Preview package APIs |
-| 13 | Build the Variable Registry | Not started | `packages/pdf-template-schema/src/variables` |
-| 14 | Build the Variable Chip Extension | Not started | `packages/pdf-editor/src/extensions/variable` |
-| 15 | Build Formatter and Fallback System | Not started | Shared formatter modules |
-| 16 | Build Conditional Section Extension | Not started | Conditional editor and renderer support |
-| 17 | Build Repeater Extension | Not started | Repeater editor and renderer support |
+| 13 | Build the Typed Variable Registry | Not started | `packages/pdf-template-schema/src/variables` |
+| 14 | Build Variable Resolution, Formatter, and Fallback System | Not started | Shared resolver, formatter, and fallback modules |
+| 15 | Build the Variable Chip Editor Extension | Not started | `packages/pdf-editor/src/extensions/variable` |
+| 16 | Build Conditional Section Engine and Editor Extension | Not started | Conditional editor and renderer support |
+| 17 | Build Repeater Extension and Scoped Data Resolver | Not started | Repeater editor and renderer support |
 | 18 | Build Financial Data Table Block | Not started | Financial table node and renderer support |
 | 19 | Build Totals, Subtotals, Grouping, and Summary Blocks | Not started | Safe calculation contracts |
 | 20 | Build Page Break and Keep-Together Controls | Not started | Page-flow controls and print CSS |
@@ -32,18 +32,29 @@ that list with current phase status for handoff visibility.
 | 24 | Build Starter Templates and Golden Fixtures | Not started | Starter templates and golden fixtures |
 | 25 | Build Preflight Validation | Not started | `packages/pdf-renderer/src/preflight` |
 | 26 | Build Render Logs, Artifact Metadata, and Audit Contracts | Not started | Render metadata and audit schemas |
-| 27 | Build Batch Generation Framework | Not started | Queue-agnostic batch framework |
-| 28 | Build Async DocRaptor Rendering and Retry System | Not started | Async render and retry helpers |
-| 29 | Build Puppeteer or Playwright Local Fallback and Test Renderer | Not started | Local development/test renderer |
-| 30 | Build Accessibility, Metadata, and PDF Profile Support | Not started | Metadata and PDF profile contracts |
-| 31 | Build Security and Tenant Integration Contracts | Not started | Security and tenant adapter contracts |
-| 32 | Build Unlayer Migration and Coexistence Path | Not started | Migration/coexistence contracts |
-| 33 | Build `Asymmetric-al/core` Adapter Package and Feature Flag Contract | Not started | Core adapter contract |
-| 34 | Build Documentation, Playground, and Developer Examples | Not started | PDF-first docs, examples, playground |
-| 35 | Build Performance, Load, and Large Document Tests | Not started | Performance smoke and opt-in load tests |
-| 36 | Production Hardening, Release Readiness, and Cutover Plan | Not started | Release checklist and core cutover plan |
+| 27 | Build Template Lifecycle, Versioning, and Publishing Contracts | Not started | Template lifecycle and publishing contracts |
+| 28 | Build Batch Generation Framework | Not started | Queue-agnostic batch framework |
+| 29 | Build Async DocRaptor Rendering and Retry System | Not started | Async render and retry helpers |
+| 30 | Build Playwright Local Fallback and Test Renderer | Not started | Local development/test renderer |
+| 31 | Build Accessibility, Metadata, and PDF Profile Support | Not started | Metadata and PDF profile contracts |
+| 32 | Build Security and Tenant Integration Contracts | Not started | Security and tenant adapter contracts |
+| 33 | Build Unlayer Migration and Coexistence Path | Not started | Migration/coexistence contracts |
+| 34 | Build `Asymmetric-al/core` Adapter Package and Feature Flag Contract | Not started | Core adapter contract |
+| 35 | Build Documentation, Playground, and Developer Examples | Not started | PDF-first docs, examples, playground |
+| 36 | Build Performance, Load, and Large Document Tests | Not started | Performance smoke and opt-in load tests |
+| 37 | Build Release, Versioning, and API Stability Review | Not started | API stability and release readiness review |
+| 38 | Run Security, Secret, and Browser Bundle Audit | Not started | Boundary and secret-safety audit |
+| 39 | OpenSpec Current-State Reconciliation and Archive Readiness | Not started | OpenSpec alignment and archive-readiness notes |
+| 40 | End-to-End Package Validation with Mocked Production Flows | Not started | Mocked package-level production-flow tests |
+| 41 | `Asymmetric-al/core` Cutover Playbook and Integration PR Plan | Not started | Core cutover playbook |
+| 42 | Production Hardening, Launch Readiness, and Final Package Sign-Off | Not started | Final package readiness report |
 
 ## Phase 12 Entry Point
+
+Pre-Phase 12 reconciliation is complete. It confirmed that `canary` is at the
+Phase 11 merge, local history contains no merge after PR #11, and the updated
+42-phase plan still points to Phase 12 as the next implementation phase. The
+full handoff is recorded in `docs/pre-phase-12-reconciliation.md`.
 
 Phase 12 should start from the Phase 11 DocRaptor client, Phase 10 print shell
 and page model, Phase 9 document serializer foundation, Phase 8 naming
@@ -79,4 +90,7 @@ foundation, Phase 5 package strategy, and Phase 4 editor boundary artifacts:
 Phase 12 should build preview infrastructure on top of the existing print
 HTML/CSS and server-only DocRaptor client. Browser preview must remain marked
 as non-final fidelity, while true PDF preview should use DocRaptor test mode
-from server-side code only.
+from server-side code only. Phase 12 preview must not mutate templates, expose
+DocRaptor credentials to browser code, treat browser output as production
+fidelity, or resolve real donor and financial records before later data,
+security, and core integration phases define those contracts.

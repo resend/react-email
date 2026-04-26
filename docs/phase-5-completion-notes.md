@@ -12,8 +12,9 @@ Status: complete with known broad build caveat recorded.
   compatibility policy.
 - Updated `docs/package-boundaries.md`, `docs/decision-log.md`,
   `docs/roadmap.md`, `AGENTS.md`, and OpenSpec planning docs for the
-  33-phase tracker. A later roadmap cleanup superseded that tracker with the
-  36-phase course of action.
+  33-phase tracker. Later roadmap cleanup superseded that tracker with the
+  36-phase course of action, and the current canonical tracker now uses 42
+  phases.
 - Preserved `@react-email/editor` package exports and runtime behavior.
 - Did not add a changeset because all `@asym/*` packages remain private and no
   publishable runtime API changed.
@@ -281,8 +282,8 @@ not a Phase 5 package strategy regression.
 - `@asym/pdf-editor` is the future PDF editor import target and currently
   wraps public React Email editor exports.
 - No changeset is added while all `@asym/*` packages remain private.
-- The Phase 5 package strategy remains valid under the later 36-phase tracker;
-  schema foundation is Phase 6.
+- The Phase 5 package strategy remains valid under the current 42-phase
+  tracker; schema foundation is Phase 6.
 
 ## Remaining Risks
 

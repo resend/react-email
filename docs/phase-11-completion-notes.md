@@ -219,7 +219,7 @@ Totals: 1 passed, 0 failed (1 items)
   `playground` builds attempt to create `.react-email` symlinks. This is a
   pre-existing baseline caveat and not caused by Phase 11.
 - Phase 11 does not implement retry/backoff; it only classifies retryable
-  errors. Phase 28 owns async retry policy.
+  errors. Phase 29 owns async retry policy.
 - Phase 11 does not wire DocRaptor into preview or renderer orchestration.
   Phase 12 owns preview infrastructure.
 - Phase 11 does not read environment variables. Server apps must inject the

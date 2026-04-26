@@ -2,6 +2,10 @@
 
 Status: complete.
 
+Supersession note: this historical Phase 05 roadmap update expanded the plan
+from 33 phases to 36 phases. The current canonical plan has since expanded to
+42 phases in `openspec/changes/build-pdf-document-builder/tasks.md`.
+
 ## Scope Completed
 
 - Updated the canonical OpenSpec task tracker from 33 phases to 36 phases.
@@ -82,15 +86,15 @@ changes.
 
 ### `Select-String -Path AGENTS.md,docs/*.md,openspec/changes/build-pdf-document-builder/*.md -Pattern "32-phase|33-phase|Phase 31|Phase 33"`
 
-Result: passed; remaining hits are historical old-tracker notes or current
-valid Phase 31/Phase 33 headings in the 36-phase tracker.
+Result at the time: passed; remaining hits were historical old-tracker notes
+or then-valid Phase 31/Phase 33 headings in the 36-phase tracker.
 
 ```text
 docs/decision-log.md:211: Some earlier completion notes mention the previous 33-phase tracker as historical validation output.
 docs/phase-5-completion-notes.md:15: 33-phase tracker. A later roadmap cleanup superseded that tracker with the 36-phase course of action.
 docs/phase-roadmap-update-notes.md:67: command heading for the reference scan
 docs/phase-roadmap-update-notes.md:101: historical old-tracker note
-docs/phase-roadmap-update-notes.md:103: current Phase 31/Phase 33 note
+docs/phase-roadmap-update-notes.md:103: then-current Phase 31/Phase 33 note
 openspec/changes/build-pdf-document-builder/tasks.md:990: ## Phase 31: Build Security and Tenant Integration Contracts
 openspec/changes/build-pdf-document-builder/tasks.md:1050: ## Phase 33: Build `Asymmetric-al/core` Adapter Package and Feature Flag Contract
 ```
@@ -130,5 +134,6 @@ apps\web\src\app\editor\editor-overrides.css:7:21 lint/complexity/noImportantSty
 
 - Any remaining references to the old 33-phase tracker should be historical
   Phase 5 completion notes, not current planning guidance.
-- Current references to Phase 31 and Phase 33 are valid because the 36-phase
-  tracker includes those phases with new meanings.
+- Current planning references should use the 42-phase tracker. References in
+  this file to the 36-phase tracker are preserved as historical Phase 05
+  validation output.
