@@ -40,8 +40,8 @@
 | 7 | Add Compatibility Fixtures and Regression Harness | Complete | `packages/editor/src`, `packages/editor/test` |
 | 8 | Rename Public Concepts Safely from Email to Document | Complete | `@asym/pdf-editor` compatibility exports, editor docs |
 | 9 | Build the Document Serializer Foundation | Complete | `packages/pdf-renderer/src/compose-pdf-document-html.ts` |
-| 10 | Build the Print HTML Shell and Page Model | Next | `packages/pdf-renderer/src/print-shell.ts` |
-| 11 | Build the DocRaptor Client Package | Not started | `packages/docraptor-client/src` |
+| 10 | Build the Print HTML Shell and Page Model | Complete | `packages/pdf-renderer/src/print-shell.ts` |
+| 11 | Build the DocRaptor Client Package | Next | `packages/docraptor-client/src` |
 | 12 | Build Browser Preview and DocRaptor Preview Strategy | Not started | `packages/pdf-renderer/src/preview`, `packages/pdf-editor/src/preview` |
 | 13 | Build the Variable Registry | Not started | `packages/pdf-template-schema/src/variables` |
 | 14 | Build the Variable Chip Extension | Not started | `packages/pdf-editor/src/extensions/variable` |
@@ -385,22 +385,22 @@ render.
 
 ### Tasks
 
-- [ ] Support Letter, A4, Legal, custom sizes, portrait, landscape, margins,
+- [x] Support Letter, A4, Legal, custom sizes, portrait, landscape, margins,
       document title, print media, base CSS variables, page breaks,
       keep-together classes, repeated table header CSS, and page number
       placeholders.
-- [ ] Drive page settings from the schema and keep output deterministic.
-- [ ] Do not call DocRaptor.
+- [x] Drive page settings from the schema and keep output deterministic.
+- [x] Do not call DocRaptor.
 
 ### Validation
 
-- [ ] Tests cover page sizes, orientations, margins, invalid custom sizes,
+- [x] Tests cover page sizes, orientations, margins, invalid custom sizes,
       title escaping, print CSS snapshots, and page break output.
-- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
+- [x] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
-- [ ] Print shell docs and DocRaptor compatibility notes.
+- [x] Print shell docs and DocRaptor compatibility notes.
 
 ## Phase 11: Build the DocRaptor Client Package
 

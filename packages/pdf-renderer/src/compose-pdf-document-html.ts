@@ -10,6 +10,7 @@ export interface PdfDocumentCssRequirement {
 
 export type PdfDocumentRenderWarningCode =
   | 'empty_document'
+  | 'invalid_page_settings'
   | 'invalid_document'
   | 'missing_attribute'
   | 'unknown_mark'

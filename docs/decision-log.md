@@ -281,3 +281,17 @@ phase-level choices and tradeoffs found during implementation.
   formatter system, and data resolution remain later phases.
 - Constraint: The serializer walks structured document JSON and does not parse
   raw merge-tag text as a string replacement engine.
+
+## 2026-04-26: Phase 10 Wraps Serializer Output In A Print Shell
+
+- Decision: Phase 10 introduces `composePrintDocumentHtml` in
+  `@asym/pdf-renderer` as the schema-driven print shell around Phase 9
+  serializer output.
+- Reason: DocRaptor-ready documents need deterministic full HTML, escaped
+  titles, `@page` CSS, page dimensions, margins, print media helpers, page-flow
+  classes, and page-counter placeholders before the DocRaptor client phase.
+- Tradeoff: Phase 10 emits print HTML/CSS only. It does not call DocRaptor,
+  implement browser preview fidelity, or integrate full headers and footers.
+- Constraint: Page settings are validated through
+  `DocumentPageSettingsSchema`; invalid settings return structured render
+  warnings instead of throwing.
