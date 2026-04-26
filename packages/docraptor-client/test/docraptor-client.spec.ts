@@ -147,6 +147,10 @@ function expectBasicAuthHeader(
   expect(authorization).toBe(`Basic ${expected}`);
 }
 
+function expectJsonContentTypeHeader(headers: RequestInit['headers']): void {
+  expect(new Headers(headers).get('content-type')).toBe('application/json');
+}
+
 describe('Phase 11 DocRaptor client', () => {
   it('requires an API key before creating a client', () => {
     expect(() => createDocRaptorClient({ apiKey: '' })).toThrow(
@@ -203,6 +207,7 @@ describe('Phase 11 DocRaptor client', () => {
     expect(fetch.calls[0]?.payload).not.toHaveProperty('async');
     expect(fetch.calls[0]?.payload).not.toHaveProperty('callback_url');
     expectBasicAuthHeader(fetch.calls[0]?.init.headers, apiKey);
+    expectJsonContentTypeHeader(fetch.calls[0]?.init.headers);
   });
 
   it('forms production mode and explicit tag payloads without fake idempotency headers', async () => {
@@ -340,6 +345,7 @@ describe('Phase 11 DocRaptor client', () => {
       test: true,
       type: 'pdf',
     });
+    expectJsonContentTypeHeader(fetch.calls[0]?.init.headers);
 
     await expect(client.getAsyncRenderStatus('status-123')).resolves.toEqual({
       downloadUrl: undefined,
@@ -369,6 +375,13 @@ describe('Phase 11 DocRaptor client', () => {
       validationErrors: ['Name cannot be blank'],
     });
     expect(fetch.calls[1]?.url).toBe('https://docraptor.com/status/status-123');
+    expect(new Headers(fetch.calls[1]?.init.headers).get('accept')).toBe(
+      'application/json',
+    );
+    expectBasicAuthHeader(fetch.calls[1]?.init.headers, apiKey);
+    expect(new Headers(fetch.calls[1]?.init.headers).has('content-type')).toBe(
+      false,
+    );
   });
 
   it('polls async status until completion', async () => {
@@ -394,6 +407,66 @@ describe('Phase 11 DocRaptor client', () => {
       status: 'completed',
     });
     expect(fetch.calls).toHaveLength(3);
+  });
+
+  it('uses the remaining wall-clock timeout budget for poll status requests', async () => {
+    let now = 1_000;
+    const dateSpy = vi.spyOn(Date, 'now').mockImplementation(() => now);
+    const setTimeoutSpy = vi.spyOn(globalThis, 'setTimeout');
+    const responses = [
+      jsonResponse({ status: 'queued' }),
+      jsonResponse({ status: 'completed' }),
+    ];
+    const calls: FetchCall[] = [];
+    const fetch = vi.fn(async (input: string | URL, init?: RequestInit) => {
+      const requestInit = init ?? {};
+      const payload =
+        typeof requestInit.body === 'string'
+          ? (JSON.parse(requestInit.body) as Record<string, unknown>)
+          : {};
+      calls.push({
+        url: String(input),
+        init: requestInit,
+        payload,
+      });
+
+      const response = responses.shift();
+
+      if (!response) {
+        throw new Error('No mock response queued');
+      }
+
+      if (calls.length === 1) {
+        now = 1_090;
+      }
+
+      return response;
+    }) as unknown as MockFetch;
+
+    Object.defineProperty(fetch, 'calls', {
+      value: calls,
+    });
+
+    try {
+      const client = createDocRaptorClient({ apiKey, fetch });
+
+      await client.pollAsyncRenderStatus('status-budget', {
+        intervalMs: 0,
+        maxAttempts: 2,
+        timeoutMs: 100,
+      });
+
+      const timeoutDelays = setTimeoutSpy.mock.calls
+        .map((call) => call[1])
+        .filter((delay): delay is number => typeof delay === 'number');
+
+      expect(timeoutDelays).toContain(100);
+      expect(timeoutDelays).toContain(10);
+      expect(fetch.calls).toHaveLength(2);
+    } finally {
+      dateSpy.mockRestore();
+      setTimeoutSpy.mockRestore();
+    }
   });
 
   it('supports timeout and caller-provided abort signals', async () => {

@@ -58,6 +58,25 @@ expected: the sync payload still included `callback_url`, body stream failures
 escaped as raw `Error` instances, and the factory-level browser guard did not
 throw. The focused package tests pass after the fixes.
 
+## PR 11 Status Header And Timeout Follow-Up
+
+Date: 2026-04-26T17:55:57.2598801+07:00
+
+PR #11 received two additional DocRaptor client review findings. They were
+fixed with a narrow regression-first pass:
+
+- `GET /status/{status_id}` requests now send `accept` and `authorization`
+  headers without a body-only `content-type` header.
+- JSON `POST /docs` sync and async render requests still send
+  `content-type: application/json`.
+- `pollAsyncRenderStatus` now forwards the remaining wall-clock timeout budget
+  to each status request instead of giving every request the original timeout.
+
+The pre-fix TDD run of `pnpm --filter @asym/docraptor-client test` failed as
+expected: the status request still included `content-type`, and captured
+request timeout delays were `[100, 100]` instead of including the remaining
+`10` ms budget. The package tests pass after the fixes.
+
 ## Files Changed
 
 - `packages/docraptor-client/package.json`
@@ -90,8 +109,8 @@ Result: passed.
 RUN  v4.1.4 .../packages/docraptor-client
 
 Test Files  3 passed (3)
-     Tests  13 passed (13)
-Duration  761ms
+     Tests  14 passed (14)
+Duration  566ms
 ```
 
 ### `pnpm --filter @asym/docraptor-client typecheck`
@@ -111,8 +130,8 @@ Result: passed.
 > @asym/docraptor-client@0.0.0 build ...\packages\docraptor-client
 > tsdown
 
-[CJS] dist\index.cjs  15.18 kB | gzip: 4.14 kB
-[ESM] dist\index.mjs  15.04 kB | gzip: 4.11 kB
+[CJS] dist\index.cjs  15.28 kB | gzip: 4.17 kB
+[ESM] dist\index.mjs  15.14 kB | gzip: 4.14 kB
 Build complete
 ```
 
@@ -126,7 +145,7 @@ Result: passed.
 
 @asym/docraptor-client:test:
 Test Files  3 passed (3)
-     Tests  13 passed (13)
+     Tests  14 passed (14)
 
 @react-email/editor:test:
 Test Files  50 passed (50)
@@ -134,7 +153,7 @@ Test Files  50 passed (50)
 
 Tasks:    15 successful, 15 total
 Cached:    14 cached, 15 total
-Time:      3.054s
+Time:      2.452s
 ```
 
 Observed non-blocking upstream warnings during the broader test run:
@@ -170,7 +189,7 @@ Result: passed with the existing CSS warning.
 > react-email-monorepo@0.0.0 lint ...\react-PDF
 > biome check
 
-Checked 1179 files in 656ms. No fixes applied.
+Checked 1179 files in 589ms. No fixes applied.
 Found 1 warning.
 apps\web\src\app\editor\editor-overrides.css:7:21
 lint/complexity/noImportantStyles

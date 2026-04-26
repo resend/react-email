@@ -160,7 +160,7 @@ async function getAsyncRenderStatus(
   const response = await sendJsonRequest(config, {
     apiKey: config.apiKey,
     defaultTimeoutMs: config.defaultTimeoutMs,
-    headers: createJsonHeaders(config.apiKey, 'application/json'),
+    headers: createJsonHeaders(config.apiKey, 'application/json', false),
     method: 'GET',
     signal: options.signal,
     timeoutMs: options.timeoutMs,
@@ -198,7 +198,10 @@ async function pollAsyncRenderStatus(
 
     const status = await getAsyncRenderStatus(config, statusId, {
       signal: options.signal,
-      timeoutMs: options.timeoutMs,
+      timeoutMs:
+        timeoutAt === undefined
+          ? options.timeoutMs
+          : Math.max(0, timeoutAt - Date.now()),
     });
 
     if (completedStatuses.has(status.status)) {
@@ -343,11 +346,12 @@ function createRequestMetadata(
 function createJsonHeaders(
   apiKey: string,
   accept: string,
+  hasBody = true,
 ): Readonly<Record<string, string>> {
   return {
     accept,
     authorization: `Basic ${Buffer.from(`${apiKey}:`).toString('base64')}`,
-    'content-type': 'application/json',
+    ...(hasBody ? { 'content-type': 'application/json' } : {}),
   };
 }
 
