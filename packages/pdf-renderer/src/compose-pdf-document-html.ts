@@ -906,6 +906,10 @@ function normalizeStyleName(name: string): string {
 }
 
 function isSafeAttributeName(name: string): boolean {
+  if (/^on[a-z]/.test(name)) {
+    return false;
+  }
+
   return /^(aria-[a-z0-9-]+|data-[a-z0-9-]+|[a-z][a-z0-9-]*)$/.test(name);
 }
 

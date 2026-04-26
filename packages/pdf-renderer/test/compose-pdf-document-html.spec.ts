@@ -269,6 +269,63 @@ describe('Phase 09 composePdfDocumentHtml', () => {
     );
   });
 
+  it('drops event handler attributes while preserving safe attributes', () => {
+    const result = composePdfDocumentHtml({
+      document: doc([
+        {
+          type: 'paragraph',
+          attrs: {
+            id: 'receipt-copy',
+            className: 'body-copy',
+            'aria-label': 'Receipt copy',
+            'data-node-id': 'paragraph-1',
+            onclick: 'alert(1)',
+            onerror: 'alert(2)',
+            onload: 'alert(3)',
+            onmouseover: 'alert(4)',
+          },
+          content: [{ type: 'text', text: 'Safe copy.' }],
+        },
+        {
+          type: 'table',
+          content: [
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    colSpan: 2,
+                    rowSpan: 1,
+                    'data-cell': 'summary',
+                    onerror: 'alert(5)',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [{ type: 'text', text: 'Summary cell.' }],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ]),
+    });
+
+    expect(result.html).toContain(
+      '<p aria-label="Receipt copy" class="body-copy" data-node-id="paragraph-1" id="receipt-copy">Safe copy.</p>',
+    );
+    expect(result.html).toContain(
+      '<td colspan="2" data-cell="summary" rowspan="1"><p>Summary cell.</p></td>',
+    );
+    expect(result.html).not.toContain('onclick=');
+    expect(result.html).not.toContain('onerror=');
+    expect(result.html).not.toContain('onload=');
+    expect(result.html).not.toContain('onmouseover=');
+  });
+
   it('returns an empty document warning for empty structured input', () => {
     const result = composePdfDocumentHtml({
       document: doc(),
