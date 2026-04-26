@@ -255,3 +255,16 @@ phase-level choices and tradeoffs found during implementation.
 - Tradeoff: The compatibility harness can exercise image serialization, but
   future consumers must still use existing public image APIs until a later
   phase defines PDF-first media exports.
+
+## 2026-04-26: Phase 8 Adds Document Names As Aliases Only
+
+- Decision: Phase 8 adds `PdfEditor`, `DocumentEditor`, `DocumentNode`, and
+  `DocumentMark` as root `@asym/pdf-editor` aliases for the current React Email
+  editor component and serializer classes.
+- Reason: Future PDF builder code needs document/PDF-first import names before
+  internals are renamed, but existing `@react-email/editor` imports and the
+  Phase 7 compatibility harness must keep working.
+- Tradeoff: These names still point at email-era behavior. `composeReactEmail`
+  intentionally keeps its name until Phase 9 implements a real print/PDF
+  serializer, and document theming remains deferred until the branding/theme
+  phase owns PDF-specific semantics.

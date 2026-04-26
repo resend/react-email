@@ -38,8 +38,8 @@
 | 5 | Package Names, Export Strategy, and Compatibility Policy | Complete | `docs/package-strategy.md`, `scripts/asym-package-strategy-smoke.ts` |
 | 6 | Create the PDF Template Schema Foundation | Complete | `packages/pdf-template-schema/src`, `packages/pdf-template-schema/test` |
 | 7 | Add Compatibility Fixtures and Regression Harness | Complete | `packages/editor/src`, `packages/editor/test` |
-| 8 | Rename Public Concepts Safely from Email to Document | Next | `@asym/pdf-editor` compatibility exports, editor docs |
-| 9 | Build the Document Serializer Foundation | Not started | `packages/pdf-renderer/src/compose-pdf-document-html.ts` |
+| 8 | Rename Public Concepts Safely from Email to Document | Complete | `@asym/pdf-editor` compatibility exports, editor docs |
+| 9 | Build the Document Serializer Foundation | Next | `packages/pdf-renderer/src/compose-pdf-document-html.ts` |
 | 10 | Build the Print HTML Shell and Page Model | Not started | `packages/pdf-renderer/src/print-shell.ts` |
 | 11 | Build the DocRaptor Client Package | Not started | `packages/docraptor-client/src` |
 | 12 | Build Browser Preview and DocRaptor Preview Strategy | Not started | `packages/pdf-renderer/src/preview`, `packages/pdf-editor/src/preview` |
@@ -321,24 +321,24 @@ current imports.
 
 ### Tasks
 
-- [ ] Add safe document/PDF-first names, such as `PdfEditor` or
+- [x] Add safe document/PDF-first names, such as `PdfEditor` or
       `DocumentEditor`, only beside existing names.
-- [ ] Keep `EmailEditor`, `composeReactEmail`, `EmailNode`, `EmailMark`, UI
+- [x] Keep `EmailEditor`, `composeReactEmail`, `EmailNode`, `EmailMark`, UI
       exports, and CSS exports working.
-- [ ] Document every compatibility decision and the migration window.
+- [x] Document every compatibility decision and the migration window.
 
 ### Validation
 
-- [ ] Tests prove old imports still work, new imports work, generated types are
+- [x] Tests prove old imports still work, new imports work, generated types are
       correct, and build output contains intended exports.
-- [ ] Run `pnpm --filter @react-email/editor test`.
-- [ ] Run `pnpm --filter @react-email/editor typecheck`.
-- [ ] Run `pnpm --filter @react-email/editor build`.
-- [ ] Run `pnpm lint`.
+- [x] Run `pnpm --filter @react-email/editor test`.
+- [x] Run `pnpm --filter @react-email/editor typecheck`.
+- [x] Run `pnpm --filter @react-email/editor build`.
+- [x] Run `pnpm lint`.
 
 ### Handoff output
 
-- [ ] Compatibility alias docs and import-path migration notes.
+- [x] Compatibility alias docs and import-path migration notes.
 
 ## Phase 09: Build the Document Serializer Foundation
 

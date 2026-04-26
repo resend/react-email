@@ -9,6 +9,7 @@
     "asym:dep-map:check": "tsx scripts/asym-editor-dep-map.ts --check",
     "asym:editor-export-smoke": "tsx scripts/asym-editor-export-smoke.ts",
     "asym:package-strategy-smoke": "tsx scripts/asym-package-strategy-smoke.ts",
+    "asym:phase-08-document-names-smoke": "tsx scripts/asym-phase-08-document-names-smoke.ts",
     "build": "turbo run build",
     "canary:enter": "changeset pre enter canary",
     "canary:exit": "changeset pre exit",
