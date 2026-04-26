@@ -268,3 +268,16 @@ phase-level choices and tradeoffs found during implementation.
   intentionally keeps its name until Phase 9 implements a real print/PDF
   serializer, and document theming remains deferred until the branding/theme
   phase owns PDF-specific semantics.
+
+## 2026-04-26: Phase 9 Adds A Separate Document Serializer
+
+- Decision: Phase 9 introduces `composePdfDocumentHtml` in
+  `@asym/pdf-renderer` as the first print/PDF serializer foundation.
+- Reason: PDF document output must be separate from `composeReactEmail` because
+  email-client-compatible HTML is not the final print/PDF contract.
+- Tradeoff: Phase 9 intentionally emits only serializer-level HTML fragments,
+  foundational CSS requirements, structured warnings, asset references, and
+  variable usage. The full print shell, page model, DocRaptor client,
+  formatter system, and data resolution remain later phases.
+- Constraint: The serializer walks structured document JSON and does not parse
+  raw merge-tag text as a string replacement engine.

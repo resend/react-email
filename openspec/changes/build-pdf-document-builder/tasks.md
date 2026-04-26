@@ -39,8 +39,8 @@
 | 6 | Create the PDF Template Schema Foundation | Complete | `packages/pdf-template-schema/src`, `packages/pdf-template-schema/test` |
 | 7 | Add Compatibility Fixtures and Regression Harness | Complete | `packages/editor/src`, `packages/editor/test` |
 | 8 | Rename Public Concepts Safely from Email to Document | Complete | `@asym/pdf-editor` compatibility exports, editor docs |
-| 9 | Build the Document Serializer Foundation | Next | `packages/pdf-renderer/src/compose-pdf-document-html.ts` |
-| 10 | Build the Print HTML Shell and Page Model | Not started | `packages/pdf-renderer/src/print-shell.ts` |
+| 9 | Build the Document Serializer Foundation | Complete | `packages/pdf-renderer/src/compose-pdf-document-html.ts` |
+| 10 | Build the Print HTML Shell and Page Model | Next | `packages/pdf-renderer/src/print-shell.ts` |
 | 11 | Build the DocRaptor Client Package | Not started | `packages/docraptor-client/src` |
 | 12 | Build Browser Preview and DocRaptor Preview Strategy | Not started | `packages/pdf-renderer/src/preview`, `packages/pdf-editor/src/preview` |
 | 13 | Build the Variable Registry | Not started | `packages/pdf-template-schema/src/variables` |
@@ -352,24 +352,24 @@ Create a PDF document serializer path separate from `composeReactEmail`.
 
 ### Tasks
 
-- [ ] Implement a serializer that walks structured editor/template JSON,
+- [x] Implement a serializer that walks structured editor/template JSON,
       resolves registered document nodes and marks, and returns deterministic
       HTML fragments or body output.
-- [ ] Return structured CSS requirements, render warnings, asset references,
+- [x] Return structured CSS requirements, render warnings, asset references,
       variable usage, and unsupported node warnings.
-- [ ] Do not connect DocRaptor and do not implement a string-replacement
+- [x] Do not connect DocRaptor and do not implement a string-replacement
       engine.
 
 ### Validation
 
-- [ ] Tests cover paragraph, heading, links, images, columns, table where
+- [x] Tests cover paragraph, heading, links, images, columns, table where
       supported, unknown node warning, style merge order, empty document, and
       invalid input.
-- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
+- [x] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
-- [ ] Serializer API docs and fixture coverage summary.
+- [x] Serializer API docs and fixture coverage summary.
 
 ## Phase 10: Build the Print HTML Shell and Page Model
 
