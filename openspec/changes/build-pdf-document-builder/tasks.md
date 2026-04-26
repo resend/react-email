@@ -41,8 +41,8 @@
 | 8 | Rename Public Concepts Safely from Email to Document | Complete | `@asym/pdf-editor` compatibility exports, editor docs |
 | 9 | Build the Document Serializer Foundation | Complete | `packages/pdf-renderer/src/compose-pdf-document-html.ts` |
 | 10 | Build the Print HTML Shell and Page Model | Complete | `packages/pdf-renderer/src/print-shell.ts` |
-| 11 | Build the DocRaptor Client Package | Next | `packages/docraptor-client/src` |
-| 12 | Build Browser Preview and DocRaptor Preview Strategy | Not started | `packages/pdf-renderer/src/preview`, `packages/pdf-editor/src/preview` |
+| 11 | Build the DocRaptor Client Package | Complete | `packages/docraptor-client/src` |
+| 12 | Build Browser Preview and DocRaptor Preview Strategy | Next | `packages/pdf-renderer/src/preview`, `packages/pdf-editor/src/preview` |
 | 13 | Build the Variable Registry | Not started | `packages/pdf-template-schema/src/variables` |
 | 14 | Build the Variable Chip Extension | Not started | `packages/pdf-editor/src/extensions/variable` |
 | 15 | Build Formatter and Fallback System | Not started | `packages/pdf-template-schema/src/formatters`, `packages/pdf-renderer/src/formatters` |
@@ -415,23 +415,23 @@ async rendering, polling, and error normalization.
 
 ### Tasks
 
-- [ ] Implement server-only client APIs for test mode, production mode,
+- [x] Implement server-only client APIs for test mode, production mode,
       document content, base URL, print media, sync render, async job creation,
       status polling, timeouts, abort signals, and normalized errors.
-- [ ] Keep API keys out of browser bundles and tests.
-- [ ] Support app-layer idempotency metadata without requiring DocRaptor to
+- [x] Keep API keys out of browser bundles and tests.
+- [x] Support app-layer idempotency metadata without requiring DocRaptor to
       provide a first-class idempotency key.
 
 ### Validation
 
-- [ ] Mock tests cover payloads, missing API key, test mode, base URL, sync
+- [x] Mock tests cover payloads, missing API key, test mode, base URL, sync
       success/error, async success/polling, timeout handling, and browser import
       guards where practical.
-- [ ] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
+- [x] Run `pnpm test`, `pnpm build`, and `pnpm lint`.
 
 ### Handoff output
 
-- [ ] DocRaptor client API docs and error taxonomy.
+- [x] DocRaptor client API docs and error taxonomy.
 
 ## Phase 12: Build Browser Preview and DocRaptor Preview Strategy
 

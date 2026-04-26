@@ -4,7 +4,6 @@
   "description": "Server-only DocRaptor client boundary for the Asym PDF Document Builder.",
   "private": true,
   "type": "module",
-  "sideEffects": false,
   "files": [
     "dist/**",
     "readme.md"

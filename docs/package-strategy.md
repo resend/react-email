@@ -29,7 +29,7 @@ or renaming the working editor implementation.
 | `@asym/pdf-editor` | Private wrapper boundary | Use as the stable future import target. |
 | `@asym/pdf-template-schema` | Private schema boundary | Keep private; schema foundation starts in Phase 6. |
 | `@asym/pdf-renderer` | Private renderer boundary | Keep private; renderer behavior starts after schema contracts. |
-| `@asym/docraptor-client` | Private server-only boundary | Keep private; DocRaptor behavior starts in its rendering phase. |
+| `@asym/docraptor-client` | Private server-only client | Keep private; Phase 11 adds the direct DocRaptor REST client while preview, retry, batch, and core adapter behavior remain later phases. |
 | `react-email` and `@react-email/render` | Retained React Email runtime | Wrap or replace later after PDF serializer behavior exists. |
 
 ## Target Package Names
@@ -104,9 +104,10 @@ import { pdfRendererBoundary } from '@asym/pdf-renderer';
 
 Phase 8 starts this transition by adding `PdfEditor`, `DocumentEditor`,
 `DocumentNode`, and `DocumentMark` beside compatibility exports. Later phases
-will replace boundary-only exports with real APIs such as print HTML
-serialization, preflight, and DocRaptor client calls. Those APIs must be added
-beside compatibility exports before any legacy export is removed.
+replace boundary-only exports with real APIs such as print HTML serialization,
+preflight, and DocRaptor client calls. Phase 11 has added the server-only
+DocRaptor client API in `@asym/docraptor-client`; future APIs must continue to
+be added beside compatibility exports before any legacy export is removed.
 
 ## Private Internals
 
@@ -116,7 +117,8 @@ These surfaces remain private until a later phase explicitly promotes them:
 - `packages/pdf-editor/test/fixtures`
 - `packages/pdf-renderer/test/fixtures`
 - Any direct source import from `packages/editor/src/**`
-- Any DocRaptor credential or request-building implementation
+- Any DocRaptor credential. Request-building implementation belongs only in
+  `@asym/docraptor-client` and must stay server-only.
 - Future `Asymmetric-al/core` storage, auth, tenant, asset, queue, or audit
   adapters
 

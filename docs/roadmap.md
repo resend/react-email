@@ -16,8 +16,8 @@ that list with current phase status for handoff visibility.
 | 8 | Rename Public Concepts Safely from Email to Document | Complete; validation recorded | Compatibility aliases and migration docs |
 | 9 | Build the Document Serializer Foundation | Complete; validation recorded | `packages/pdf-renderer/src/compose-pdf-document-html.ts` |
 | 10 | Build the Print HTML Shell and Page Model | Complete; validation recorded | `packages/pdf-renderer/src/print-shell.ts` |
-| 11 | Build the DocRaptor Client Package | Next | `packages/docraptor-client/src` |
-| 12 | Build Browser Preview and DocRaptor Preview Strategy | Not started | Preview package APIs |
+| 11 | Build the DocRaptor Client Package | Complete; validation recorded | `packages/docraptor-client/src` |
+| 12 | Build Browser Preview and DocRaptor Preview Strategy | Next | Preview package APIs |
 | 13 | Build the Variable Registry | Not started | `packages/pdf-template-schema/src/variables` |
 | 14 | Build the Variable Chip Extension | Not started | `packages/pdf-editor/src/extensions/variable` |
 | 15 | Build Formatter and Fallback System | Not started | Shared formatter modules |
@@ -43,12 +43,12 @@ that list with current phase status for handoff visibility.
 | 35 | Build Performance, Load, and Large Document Tests | Not started | Performance smoke and opt-in load tests |
 | 36 | Production Hardening, Release Readiness, and Cutover Plan | Not started | Release checklist and core cutover plan |
 
-## Phase 11 Entry Point
+## Phase 12 Entry Point
 
-Phase 11 should start from the Phase 10 print shell and page model, Phase 9
-document serializer foundation, Phase 8 naming compatibility aliases, Phase 7
-compatibility harness, Phase 6 schema foundation, Phase 5 package strategy,
-and Phase 4 editor boundary artifacts:
+Phase 12 should start from the Phase 11 DocRaptor client, Phase 10 print shell
+and page model, Phase 9 document serializer foundation, Phase 8 naming
+compatibility aliases, Phase 7 compatibility harness, Phase 6 schema
+foundation, Phase 5 package strategy, and Phase 4 editor boundary artifacts:
 
 - `docs/package-strategy.md`
 - `docs/package-boundaries.md`
@@ -56,9 +56,13 @@ and Phase 4 editor boundary artifacts:
 - `docs/phase-8-completion-notes.md`
 - `docs/phase-9-completion-notes.md`
 - `docs/phase-10-completion-notes.md`
+- `docs/phase-11-completion-notes.md`
 - `docs/phase-7-completion-notes.md`
 - `docs/phase-6-completion-notes.md`
 - `openspec/changes/build-pdf-document-builder/tasks.md`
+- `packages/docraptor-client/src/client.ts`
+- `packages/docraptor-client/test/docraptor-client.spec.ts`
+- `packages/docraptor-client/readme.md`
 - `packages/pdf-renderer/src/print-shell.ts`
 - `packages/pdf-renderer/test/print-shell.spec.ts`
 - `packages/pdf-renderer/src/compose-pdf-document-html.ts`
@@ -72,7 +76,7 @@ and Phase 4 editor boundary artifacts:
 - `packages/docraptor-client`
 - `packages/editor/package.json`
 
-Phase 11 should add the server-only DocRaptor client package. It must keep
-DocRaptor secrets out of browser bundles, use mocks for tests, and keep the
-Phase 9 serializer and Phase 10 print shell tests working during the
-compatibility window.
+Phase 12 should build preview infrastructure on top of the existing print
+HTML/CSS and server-only DocRaptor client. Browser preview must remain marked
+as non-final fidelity, while true PDF preview should use DocRaptor test mode
+from server-side code only.
