@@ -136,7 +136,10 @@ function resolveCustomPageSize(settings: DocumentPageSettings): {
   const customSize = settings.customSize;
 
   if (!customSize) {
-    return standardPageSizes.letter;
+    // The schema should reject custom page settings without customSize.
+    throw new Error(
+      'Invariant violation: customSize is required when pageSize is "custom".',
+    );
   }
 
   return {
