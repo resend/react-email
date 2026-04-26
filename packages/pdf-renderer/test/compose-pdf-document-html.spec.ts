@@ -326,6 +326,125 @@ describe('Phase 09 composePdfDocumentHtml', () => {
     expect(result.html).not.toContain('onmouseover=');
   });
 
+  it('ignores unsafe alignment values while preserving allowlisted alignment values', () => {
+    const unsafeAlignment =
+      'center;background-image:url(https://attacker.example/t.gif)';
+    const result = composePdfDocumentHtml({
+      document: doc([
+        {
+          type: 'paragraph',
+          attrs: { alignment: unsafeAlignment },
+          content: [{ type: 'text', text: 'Unsafe paragraph.' }],
+        },
+        {
+          type: 'button',
+          attrs: {
+            href: 'https://example.com/unsafe',
+            alignment: unsafeAlignment,
+          },
+          content: [{ type: 'text', text: 'Unsafe button.' }],
+        },
+        {
+          type: 'table',
+          attrs: { alignment: unsafeAlignment },
+          content: [
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableHeader',
+                  attrs: { alignment: unsafeAlignment },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [{ type: 'text', text: 'Unsafe header.' }],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: { alignment: unsafeAlignment },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [{ type: 'text', text: 'Unsafe cell.' }],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'paragraph',
+          attrs: { alignment: 'left' },
+          content: [{ type: 'text', text: 'Safe left.' }],
+        },
+        {
+          type: 'button',
+          attrs: {
+            href: 'https://example.com/center',
+            alignment: 'center',
+          },
+          content: [{ type: 'text', text: 'Safe center.' }],
+        },
+        {
+          type: 'table',
+          attrs: { alignment: 'center' },
+          content: [
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableHeader',
+                  attrs: { alignment: 'right' },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [{ type: 'text', text: 'Safe right.' }],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: { alignment: 'justify' },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [{ type: 'text', text: 'Safe justify.' }],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ]),
+    });
+
+    expect(result.html).not.toContain('background-image');
+    expect(result.html).not.toContain('https://attacker.example/t.gif');
+    expect(result.html).toContain('<p>Unsafe paragraph.</p>');
+    expect(result.html).toContain(
+      '<a class="pdf-button" href="https://example.com/unsafe">Unsafe button.</a>',
+    );
+    expect(result.html).toContain('<th><p>Unsafe header.</p></th>');
+    expect(result.html).toContain('<td><p>Unsafe cell.</p></td>');
+    expect(result.html).toContain('<p style="text-align:left">Safe left.</p>');
+    expect(result.html).toContain(
+      '<a class="pdf-button" href="https://example.com/center" style="text-align:center">Safe center.</a>',
+    );
+    expect(result.html).toContain(
+      '<table class="pdf-table" style="margin:0 auto">',
+    );
+    expect(result.html).toContain(
+      '<th style="text-align:right"><p>Safe right.</p></th>',
+    );
+    expect(result.html).toContain(
+      '<td style="text-align:justify"><p>Safe justify.</p></td>',
+    );
+  });
+
   it('returns an empty document warning for empty structured input', () => {
     const result = composePdfDocumentHtml({
       document: doc(),

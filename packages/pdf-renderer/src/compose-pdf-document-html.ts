@@ -120,6 +120,13 @@ const phase09CssRequirement: PdfDocumentCssRequirement = {
   css: phase09Css,
 };
 
+const safeAlignmentValues: ReadonlySet<string> = new Set([
+  'left',
+  'center',
+  'right',
+  'justify',
+]);
+
 export function composePdfDocumentHtml(
   input: ComposePdfDocumentHtmlInput,
 ): ComposePdfDocumentHtmlResult {
@@ -355,7 +362,7 @@ function renderSection(context: PdfDocumentNodeRendererContext): string {
 }
 
 function renderParagraph(context: PdfDocumentNodeRendererContext): string {
-  const alignment = readStringAttribute(context.node.attrs, 'alignment');
+  const alignment = readAlignmentAttribute(context.node.attrs);
   const alignmentStyle = alignment ? { 'text-align': alignment } : undefined;
 
   return renderElement(
@@ -445,7 +452,7 @@ function renderImage(context: PdfDocumentNodeRendererContext): string {
 
 function renderButton(context: PdfDocumentNodeRendererContext): string {
   const href = readStringAttribute(context.node.attrs, 'href');
-  const alignment = readStringAttribute(context.node.attrs, 'alignment');
+  const alignment = readAlignmentAttribute(context.node.attrs);
   const alignmentStyle = alignment ? { 'text-align': alignment } : undefined;
 
   if (!href) {
@@ -506,7 +513,7 @@ function renderColumn(context: PdfDocumentNodeRendererContext): string {
 }
 
 function renderTable(context: PdfDocumentNodeRendererContext): string {
-  const alignment = readStringAttribute(context.node.attrs, 'alignment');
+  const alignment = readAlignmentAttribute(context.node.attrs);
   const alignmentStyle = alignment
     ? { margin: alignmentToMargin(alignment) }
     : undefined;
@@ -542,7 +549,7 @@ function renderTableCellElement(
   tagName: 'td' | 'th',
   context: PdfDocumentNodeRendererContext,
 ): string {
-  const alignment = readStringAttribute(context.node.attrs, 'alignment');
+  const alignment = readAlignmentAttribute(context.node.attrs);
   const alignmentStyle = alignment ? { 'text-align': alignment } : undefined;
 
   return renderElement(
@@ -963,6 +970,14 @@ function readScalarAttribute(
   }
 
   return undefined;
+}
+
+function readAlignmentAttribute(
+  attributes: Readonly<Record<string, unknown>> | undefined,
+): string | undefined {
+  const value = readStringAttribute(attributes, 'alignment');
+
+  return value && safeAlignmentValues.has(value) ? value : undefined;
 }
 
 function joinClassNames(
