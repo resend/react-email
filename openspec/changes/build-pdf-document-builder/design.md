@@ -45,6 +45,11 @@ Observed repo facts:
   `DocumentMark` as root `@asym/pdf-editor` aliases. These names are a
   compatibility bridge only; `composeReactEmail` remains the legacy serializer
   and Phase 9 owns the real print/PDF serializer foundation.
+- Phase 11 fills the private `@asym/docraptor-client` package with a
+  server-only direct REST client for DocRaptor sync renders, async render job
+  creation, status polling, timeouts, abort signals, normalized errors, and
+  app-layer idempotency metadata. It remains unwired from editor UI and
+  preview orchestration.
 
 The broader Asymmetric.al platform currently uses Unlayer document mode for
 PDF Studio. That platform shape includes or expects template CRUD, Unlayer

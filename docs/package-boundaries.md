@@ -2,8 +2,9 @@
 
 Phase 3 creates the first `@asym/*` package shells while preserving the
 current `@react-email/editor` package as the working reference implementation.
-These packages define ownership and dependency direction only; they do not
-implement PDF rendering, DocRaptor calls, or a new editor shell yet.
+These packages define ownership and dependency direction while individual
+phases fill in behavior. Phase 11 now implements the server-only DocRaptor
+client, but it remains isolated from editor UI and renderer orchestration.
 
 ## Package Ownership
 
@@ -11,7 +12,7 @@ implement PDF rendering, DocRaptor calls, or a new editor shell yet.
 |---|---|---|---|
 | `@asym/pdf-template-schema` | shared | Template schema, document domain types, variables, page settings, assets, render metadata, batch metadata, and audit-oriented model types | `phase-3-boundary` |
 | `@asym/pdf-renderer` | server or build time | Future deterministic print HTML, paged-media CSS, preflight, renderer fixtures, and local preview helpers | `phase-3-boundary` |
-| `@asym/docraptor-client` | server only | Future DocRaptor API client, sync and async render calls, status polling, test mode, and error normalization | `phase-3-boundary` |
+| `@asym/docraptor-client` | server only | DocRaptor API client, sync and async render calls, status polling, test mode, timeouts, abort signals, and error normalization | `phase-11-client` |
 | `@asym/pdf-editor` | browser React | Future PDF editor shell, TipTap extensions, document UI, slash commands, inspector controls, and compatibility shims | `phase-3-boundary` |
 | `@asym/pdf-studio-adapter` | future app adapter | Future `Asymmetric-al/core` integration boundary for storage, permissions, assets, audit, feature flags, and render jobs | not created in Phase 3 |
 
@@ -57,7 +58,7 @@ Each package exposes one small typed boundary export from its root entry point:
 |---|---|
 | `@asym/pdf-template-schema` | `pdfTemplateSchemaBoundary`, `PdfTemplateSchemaBoundary` |
 | `@asym/pdf-renderer` | `pdfRendererBoundary`, `PdfRendererBoundary` |
-| `@asym/docraptor-client` | `docraptorClientBoundary`, `DocRaptorClientBoundary` |
+| `@asym/docraptor-client` | `createDocRaptorClient`, `DocRaptorClient`, `DocRaptorClientError`, `docraptorClientBoundary`, related request/result/error types |
 | `@asym/pdf-editor` | `pdfEditorBoundary`, `PdfEditorBoundary` |
 
 `@asym/pdf-editor/react-email-compat` exposes temporary reference adapters for

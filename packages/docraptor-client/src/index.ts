@@ -1,21 +1,40 @@
-export type DocRaptorClientPackageName = '@asym/docraptor-client';
-export type DocRaptorClientMaturity = 'phase-3-boundary';
-export type DocRaptorClientRuntime = 'server-only';
-export type DocRaptorClientOwnership = 'docraptor-client';
-export type DocRaptorSecretPolicy = 'credentials-stay-server-side';
+import { assertDocRaptorServerRuntime } from './server-only';
 
-export interface DocRaptorClientBoundary {
-  readonly packageName: DocRaptorClientPackageName;
-  readonly maturity: DocRaptorClientMaturity;
-  readonly owns: DocRaptorClientOwnership;
-  readonly runtime: DocRaptorClientRuntime;
-  readonly secretPolicy: DocRaptorSecretPolicy;
-}
+assertDocRaptorServerRuntime();
 
-export const docraptorClientBoundary: DocRaptorClientBoundary = {
+export { createDocRaptorClient } from './client';
+
+export {
+  DocRaptorClientError,
+  type DocRaptorClientErrorCode,
+} from './errors';
+export type {
+  DocRaptorAsyncRenderJob,
+  DocRaptorAsyncRenderStatus,
+  DocRaptorAsyncRenderStatusValue,
+  DocRaptorClient,
+  DocRaptorClientBoundary,
+  DocRaptorClientConfig,
+  DocRaptorClientMaturity,
+  DocRaptorClientOwnership,
+  DocRaptorClientPackageName,
+  DocRaptorClientRuntime,
+  DocRaptorFetch,
+  DocRaptorIdempotencyMetadata,
+  DocRaptorMedia,
+  DocRaptorMode,
+  DocRaptorPollAsyncRenderStatusOptions,
+  DocRaptorRenderRequest,
+  DocRaptorRequestMetadata,
+  DocRaptorRequestOptions,
+  DocRaptorSecretPolicy,
+  DocRaptorSyncRenderResult,
+} from './types';
+
+export const docraptorClientBoundary = {
   packageName: '@asym/docraptor-client',
-  maturity: 'phase-3-boundary',
+  maturity: 'phase-11-client',
   owns: 'docraptor-client',
   runtime: 'server-only',
   secretPolicy: 'credentials-stay-server-side',
-};
+} as const;

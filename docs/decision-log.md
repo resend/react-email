@@ -295,3 +295,27 @@ phase-level choices and tradeoffs found during implementation.
 - Constraint: Page settings are validated through
   `DocumentPageSettingsSchema`; invalid settings return structured render
   warnings instead of throwing.
+
+## 2026-04-26: Phase 11 Uses A Server-Only Direct DocRaptor REST Client
+
+- Decision: `@asym/docraptor-client` now owns `createDocRaptorClient` and the
+  server-only DocRaptor REST calls for sync render, async render creation,
+  one-shot status reads, and polling.
+- Reason: Official DocRaptor REST behavior is simple enough to call directly
+  with modern Node `fetch`: JSON `POST /docs`, Basic auth with API key as the
+  username and blank password, PDF `document_content`, `test`, `tag`, and
+  `prince_options` payloads, plus `/status/{status_id}` polling for async
+  jobs.
+- Decision: Client mode defaults to `test`; production mode must be explicit.
+- Reason: Preview and local work should not accidentally create billable
+  production renders.
+- Decision: API keys are constructor input only. The package does not read
+  environment variables, commit secrets, or expose browser exports.
+- Decision: App-layer idempotency metadata is retained in result metadata and
+  may populate DocRaptor `tag` for log correlation, but no fake idempotency
+  header is sent.
+- Tradeoff: Phase 11 classifies retryable errors but does not implement retry
+  or backoff policy. Phase 28 owns async retry behavior at the batch/render job
+  layer.
+- Constraint: The client is not wired into editor UI, preview UI, or renderer
+  orchestration in Phase 11.
