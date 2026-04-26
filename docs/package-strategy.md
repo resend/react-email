@@ -61,6 +61,24 @@ import {
 The `Reference` suffix is intentional. It signals that these names are
 temporary React Email references, not final PDF editor APIs.
 
+Phase 8 adds document/PDF-first aliases on the root `@asym/pdf-editor`
+surface:
+
+```ts
+import {
+  DocumentEditor,
+  DocumentMark,
+  DocumentNode,
+  PdfEditor,
+} from '@asym/pdf-editor';
+```
+
+These Phase 8 names are exact runtime aliases for the current React Email
+editor primitives. They do not introduce a new editor shell, serializer, or
+theme implementation. `PdfEditor` is the recommended future editor component
+name because it matches the package name, while `DocumentEditor` is retained as
+a semantic alias for document-first code.
+
 The following `@react-email/editor` exports remain stable during this phase:
 
 - `@react-email/editor`
@@ -72,7 +90,7 @@ The following `@react-email/editor` exports remain stable during this phase:
 - `@react-email/editor/styles/*.css`
 - `@react-email/editor/themes/default.css`
 
-Phase 5 does not add public exports to `@react-email/editor`.
+Phase 8 does not add public exports to `@react-email/editor`.
 
 ## Long-Term Public API
 
@@ -84,8 +102,9 @@ import { pdfTemplateSchemaBoundary } from '@asym/pdf-template-schema';
 import { pdfRendererBoundary } from '@asym/pdf-renderer';
 ```
 
-Later phases will replace boundary-only exports with real APIs such as PDF
-template schemas, `PdfEditor`, PDF document nodes and marks, print HTML
+Phase 8 starts this transition by adding `PdfEditor`, `DocumentEditor`,
+`DocumentNode`, and `DocumentMark` beside compatibility exports. Later phases
+will replace boundary-only exports with real APIs such as print HTML
 serialization, preflight, and DocRaptor client calls. Those APIs must be added
 beside compatibility exports before any legacy export is removed.
 
@@ -184,5 +203,21 @@ and supports runtime validation, TypeScript inference, and JSON Schema
 conversion. Valibot can be reconsidered later only with a measured bundle-size
 or runtime reason.
 
-Phase 7 should keep this wrapper-first package strategy intact while expanding
+Phase 7 kept this wrapper-first package strategy intact while expanding
 compatibility fixtures for current `@react-email/editor` behavior.
+
+## Phase 8 Safe Naming Outcome
+
+Phase 8 introduces document/PDF-first names in `@asym/pdf-editor` without
+changing `@react-email/editor`:
+
+- `PdfEditor`, `PdfEditorProps`, and `PdfEditorRef` alias the current
+  `EmailEditor` component and types.
+- `DocumentEditor`, `DocumentEditorProps`, and `DocumentEditorRef` alias the
+  same current editor component and types.
+- `DocumentNode` and `DocumentMark` alias the current `EmailNode` and
+  `EmailMark` classes.
+- `composeReactEmail` remains only a React Email serializer reference;
+  Phase 9 owns `composePdfDocumentHtml` or another print serializer name.
+- `DocumentTheming` is deferred until the branding/theme phase because current
+  `EmailTheming` still carries email-specific defaults and reset behavior.

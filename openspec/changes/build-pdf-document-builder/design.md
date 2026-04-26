@@ -41,6 +41,10 @@ Observed repo facts:
   is the future import target that consumes public React Email editor exports
   through `@asym/pdf-editor/react-email-compat` until PDF-first behavior
   exists.
+- Phase 8 introduces `PdfEditor`, `DocumentEditor`, `DocumentNode`, and
+  `DocumentMark` as root `@asym/pdf-editor` aliases. These names are a
+  compatibility bridge only; `composeReactEmail` remains the legacy serializer
+  and Phase 9 owns the real print/PDF serializer foundation.
 
 The broader Asymmetric.al platform currently uses Unlayer document mode for
 PDF Studio. That platform shape includes or expects template CRUD, Unlayer

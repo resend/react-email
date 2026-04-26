@@ -28,6 +28,18 @@ export const pdfEditorBoundary: PdfEditorBoundary = {
 };
 
 export {
+  EmailEditor as DocumentEditor,
+  EmailEditor as PdfEditor,
+  type EmailEditorProps as DocumentEditorProps,
+  type EmailEditorProps as PdfEditorProps,
+  type EmailEditorRef as DocumentEditorRef,
+  type EmailEditorRef as PdfEditorRef,
+} from '@react-email/editor';
+export {
+  EmailMark as DocumentMark,
+  EmailNode as DocumentNode,
+} from '@react-email/editor/core';
+export {
   composeReactEmailReference,
   ReactEmailBubbleMenuReference,
   ReactEmailEditorReference,

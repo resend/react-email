@@ -15,18 +15,18 @@ change.
 
 ## Primary API Terms
 
-| Current email term/API | Future PDF/document term | Phase 2 action |
+| Current email term/API | Future PDF/document term | Current action |
 |---|---|---|
 | `@react-email/editor` | `@asym/pdf-editor` | Map only; Phase 3 owns package boundary. |
-| `EmailEditor` | `PdfEditor` or `DocumentEditor` | Map only; keep current export. |
-| `EmailEditorProps` | `PdfEditorProps` or `DocumentEditorProps` | Map only. |
-| `EmailEditorRef` | `PdfEditorRef` or `DocumentEditorRef` | Map only. |
+| `EmailEditor` | `PdfEditor` and `DocumentEditor` | Phase 8 adds root aliases in `@asym/pdf-editor`; keep current export. |
+| `EmailEditorProps` | `PdfEditorProps` and `DocumentEditorProps` | Phase 8 adds root type aliases in `@asym/pdf-editor`. |
+| `EmailEditorRef` | `PdfEditorRef` and `DocumentEditorRef` | Phase 8 adds root type aliases in `@asym/pdf-editor`. |
 | `getEmail` | `getDocumentRender` or `getPdfDocument` | Map only; future return type must include HTML/CSS/PDF metadata. |
 | `getEmailHTML` | `getPrintHtml` | Map only. |
 | `getEmailText` | `getPlainText` | Likely keep behavior under a document-oriented name. |
-| `composeReactEmail` | `composePdfDocumentHtml` | Map only; Phase 6 owns serializer. |
-| `EmailNode` | `DocumentNode` | Map only; keep current serializer class. |
-| `EmailMark` | `DocumentMark` | Map only; keep current serializer class. |
+| `composeReactEmail` | `composePdfDocumentHtml` | Map only; Phase 9 owns serializer. |
+| `EmailNode` | `DocumentNode` | Phase 8 adds a root alias in `@asym/pdf-editor`; keep current serializer class. |
+| `EmailMark` | `DocumentMark` | Phase 8 adds a root alias in `@asym/pdf-editor`; keep current serializer class. |
 | `renderToReactEmail` | `renderToPrintDocument` or `renderToPdfHtml` | Map only; needs compatibility strategy. |
 | `SerializerPluginStorage.BaseTemplate` | `PrintDocumentShell` or `DocumentTemplateShell` | Map only; future shell should target DocRaptor print HTML. |
 | `DefaultBaseTemplate` | `DefaultPrintDocumentShell` | Map only; current version wraps React Email components. |
@@ -95,3 +95,19 @@ The safest later sequence is:
 4. Update docs and examples to use document names.
 5. Keep compatibility shims long enough for `Asymmetric-al/core` adapter work.
 6. Remove legacy names only when an OpenSpec phase explicitly owns removal.
+
+## Phase 8 Compatibility Decisions
+
+- `PdfEditor` is the recommended future component import from
+  `@asym/pdf-editor` because it matches the package name.
+- `DocumentEditor` is added beside `PdfEditor` for document-domain code that
+  should avoid PDF file-format coupling.
+- `DocumentNode` and `DocumentMark` are exact aliases of `EmailNode` and
+  `EmailMark` because Phase 8 is a naming-compatibility phase, not a serializer
+  rewrite.
+- `composeReactEmail` does not get a document alias in Phase 8 because a
+  document-named serializer must not imply print/PDF output until Phase 9
+  implements it.
+- `DocumentTheming` is deferred because the current `EmailTheming` plugin still
+  contains email reset/default behavior; Phase 23 owns document branding and
+  theme semantics.

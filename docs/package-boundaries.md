@@ -163,8 +163,17 @@ Zod-backed template, variable, binding, render, batch, artifact, and audit
 schemas while staying private and free of React UI, DocRaptor calls, browser
 APIs, storage, auth, and queue dependencies.
 
-## Phase 7 Handoff
+## Phase 8 Naming Compatibility Status
 
-The next phase should expand compatibility fixtures for the current
-`@react-email/editor` behavior before broad naming, serializer, or extension
-changes.
+Phase 8 adds future-facing document/PDF names to the root `@asym/pdf-editor`
+entry point while preserving the React Email compatibility adapter and all
+current `@react-email/editor` exports:
+
+- `PdfEditor`, `PdfEditorProps`, and `PdfEditorRef`
+- `DocumentEditor`, `DocumentEditorProps`, and `DocumentEditorRef`
+- `DocumentNode`
+- `DocumentMark`
+
+These are aliases only. They do not add a PDF serializer, PDF theming system,
+new CSS export, or document-native editor shell. Phase 9 owns the print/PDF
+serializer foundation.
