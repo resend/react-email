@@ -12,8 +12,8 @@ that list with current phase status for handoff visibility.
 | 4 | Editor Boundary Isolation, Baseline Fixtures, and Regression Harness | Complete; validation recorded | `packages/editor/src/boundary`, baseline fixtures |
 | 5 | Package Names, Export Strategy, and Compatibility Policy | Complete; validation recorded | `docs/package-strategy.md`, `scripts/asym-package-strategy-smoke.ts` |
 | 6 | Create the PDF Template Schema Foundation | Complete; validation recorded | `packages/pdf-template-schema/src`, schema fixtures |
-| 7 | Add Compatibility Fixtures and Regression Harness | Next | Expanded `@react-email/editor` compatibility fixtures |
-| 8 | Rename Public Concepts Safely from Email to Document | Not started | Compatibility aliases and migration docs |
+| 7 | Add Compatibility Fixtures and Regression Harness | Complete; validation recorded | Expanded `@react-email/editor` compatibility fixtures |
+| 8 | Rename Public Concepts Safely from Email to Document | Next | Compatibility aliases and migration docs |
 | 9 | Build the Document Serializer Foundation | Not started | `packages/pdf-renderer/src/compose-pdf-document-html.ts` |
 | 10 | Build the Print HTML Shell and Page Model | Not started | `packages/pdf-renderer/src/print-shell.ts` |
 | 11 | Build the DocRaptor Client Package | Not started | `packages/docraptor-client/src` |
@@ -43,23 +43,25 @@ that list with current phase status for handoff visibility.
 | 35 | Build Performance, Load, and Large Document Tests | Not started | Performance smoke and opt-in load tests |
 | 36 | Production Hardening, Release Readiness, and Cutover Plan | Not started | Release checklist and core cutover plan |
 
-## Phase 7 Entry Point
+## Phase 8 Entry Point
 
-Phase 7 should start from the Phase 6 schema foundation, Phase 5 package
-strategy, and Phase 4 editor boundary artifacts:
+Phase 8 should start from the Phase 7 compatibility harness, Phase 6 schema
+foundation, Phase 5 package strategy, and Phase 4 editor boundary artifacts:
 
 - `docs/package-strategy.md`
 - `docs/package-boundaries.md`
 - `docs/editor-package-isolation.md`
+- `docs/phase-7-completion-notes.md`
 - `docs/phase-6-completion-notes.md`
 - `openspec/changes/build-pdf-document-builder/tasks.md`
+- `packages/editor/src/compatibility`
 - `packages/pdf-template-schema`
 - `packages/pdf-editor`
 - `packages/pdf-renderer`
 - `packages/docraptor-client`
 - `packages/editor/package.json`
 
-Phase 7 should expand compatibility fixtures for the current
-`@react-email/editor` behavior before broad naming or serializer changes. It
-must not change current editor output unless the compatibility harness reveals
-a bug that the active OpenSpec allows fixing.
+Phase 8 should introduce document/PDF-first names only as safe wrappers or
+aliases. It must keep `EmailEditor`, `composeReactEmail`, `EmailNode`,
+`EmailMark`, UI exports, CSS exports, and the Phase 7 compatibility fixtures
+working during the compatibility window.

@@ -179,7 +179,6 @@ Sources:
 
 Runtime exports:
 
-- `createImageExtension`
 - `createTheme`
 - `EDITOR_THEMES`
 - `EmailTheming`
@@ -221,6 +220,9 @@ Current PDF isolation note:
 - `useEditorImage` keeps image upload browser-side. Future production PDF
   rendering must use structured, render-safe asset references instead of blob
   URLs or private app-session URLs.
+- `createImageExtension` exists as an internal implementation helper under
+  `packages/editor/src/plugins/image/extension.tsx`, but it is not exported
+  from the `@react-email/editor/plugins` public subpath today.
 
 ## UI Export: `@react-email/editor/ui`
 

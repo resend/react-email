@@ -37,8 +37,8 @@
 | 4 | Editor Boundary Isolation, Baseline Fixtures, and Regression Harness | Complete | `packages/pdf-editor/test/fixtures`, `packages/pdf-renderer/test/fixtures` |
 | 5 | Package Names, Export Strategy, and Compatibility Policy | Complete | `docs/package-strategy.md`, `scripts/asym-package-strategy-smoke.ts` |
 | 6 | Create the PDF Template Schema Foundation | Complete | `packages/pdf-template-schema/src`, `packages/pdf-template-schema/test` |
-| 7 | Add Compatibility Fixtures and Regression Harness | Next | `packages/editor/src`, `packages/editor/test` |
-| 8 | Rename Public Concepts Safely from Email to Document | Not started | `@asym/pdf-editor` compatibility exports, editor docs |
+| 7 | Add Compatibility Fixtures and Regression Harness | Complete | `packages/editor/src`, `packages/editor/test` |
+| 8 | Rename Public Concepts Safely from Email to Document | Next | `@asym/pdf-editor` compatibility exports, editor docs |
 | 9 | Build the Document Serializer Foundation | Not started | `packages/pdf-renderer/src/compose-pdf-document-html.ts` |
 | 10 | Build the Print HTML Shell and Page Model | Not started | `packages/pdf-renderer/src/print-shell.ts` |
 | 11 | Build the DocRaptor Client Package | Not started | `packages/docraptor-client/src` |
@@ -289,24 +289,24 @@ serializers, or core extensions.
 
 ### Tasks
 
-- [ ] Add fixtures for paragraph, heading, link, image, button, two-column
+- [x] Add fixtures for paragraph, heading, link, image, button, two-column
       layout, table, themed document, and current custom extension examples.
-- [ ] Test editor JSON shape, current HTML export, `composeReactEmail`,
+- [x] Test editor JSON shape, current HTML export, `composeReactEmail`,
       extension registration, package exports, and CSS/theme import
       availability.
-- [ ] Avoid changing output unless the harness reveals a bug that OpenSpec
+- [x] Avoid changing output unless the harness reveals a bug that OpenSpec
       allows fixing.
 
 ### Validation
 
-- [ ] Run `pnpm --filter @react-email/editor test`.
-- [ ] Run `pnpm --filter @react-email/editor typecheck`.
-- [ ] Run `pnpm --filter @react-email/editor build`.
-- [ ] Run `pnpm lint`.
+- [x] Run `pnpm --filter @react-email/editor test`.
+- [x] Run `pnpm --filter @react-email/editor typecheck`.
+- [x] Run `pnpm --filter @react-email/editor build`.
+- [x] Run `pnpm lint`.
 
 ### Handoff output
 
-- [ ] Compatibility fixture update notes and refactor safety summary.
+- [x] Compatibility fixture update notes and refactor safety summary.
 
 ## Phase 08: Rename Public Concepts Safely from Email to Document
 
