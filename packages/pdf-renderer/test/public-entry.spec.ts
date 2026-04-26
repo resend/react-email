@@ -1,4 +1,5 @@
 import {
+  composePdfDocumentHtml,
   type PdfRendererBoundary,
   pdfRendererBoundary,
 } from '@asym/pdf-renderer';
@@ -10,10 +11,14 @@ describe('@asym/pdf-renderer public entry', () => {
 
     expect(boundary).toEqual({
       packageName: '@asym/pdf-renderer',
-      maturity: 'phase-3-boundary',
+      maturity: 'phase-09-serializer-foundation',
       owns: 'print-renderer',
       runtime: 'server-or-build-time',
       consumes: ['@asym/pdf-template-schema'],
     });
+  });
+
+  it('exposes the Phase 09 document serializer foundation', () => {
+    expect(composePdfDocumentHtml).toBeDefined();
   });
 });

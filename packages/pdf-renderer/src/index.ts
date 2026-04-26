@@ -1,7 +1,7 @@
 import type { PdfTemplateSchemaBoundary } from '@asym/pdf-template-schema';
 
 export type PdfRendererPackageName = '@asym/pdf-renderer';
-export type PdfRendererMaturity = 'phase-3-boundary';
+export type PdfRendererMaturity = 'phase-09-serializer-foundation';
 export type PdfRendererRuntime = 'server-or-build-time';
 export type PdfRendererOwnership = 'print-renderer';
 
@@ -15,8 +15,26 @@ export interface PdfRendererBoundary {
 
 export const pdfRendererBoundary: PdfRendererBoundary = {
   packageName: '@asym/pdf-renderer',
-  maturity: 'phase-3-boundary',
+  maturity: 'phase-09-serializer-foundation',
   owns: 'print-renderer',
   runtime: 'server-or-build-time',
   consumes: ['@asym/pdf-template-schema'],
 };
+
+export {
+  type ComposePdfDocumentHtmlInput,
+  type ComposePdfDocumentHtmlResult,
+  composePdfDocumentHtml,
+  type PdfDocumentAssetReference,
+  type PdfDocumentCssMedia,
+  type PdfDocumentCssRequirement,
+  type PdfDocumentMark,
+  type PdfDocumentMarkRenderer,
+  type PdfDocumentMarkRendererContext,
+  type PdfDocumentNodeRenderer,
+  type PdfDocumentNodeRendererContext,
+  type PdfDocumentRenderWarning,
+  type PdfDocumentRenderWarningCode,
+  type PdfDocumentRenderWarningSeverity,
+  type PdfDocumentVariableUsage,
+} from './compose-pdf-document-html';
