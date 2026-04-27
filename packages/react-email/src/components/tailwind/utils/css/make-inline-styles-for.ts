@@ -72,13 +72,51 @@ export function makeInlineStylesFor(
         //
         // Scoped to the `--tw-` prefix so any user-authored empty-fallback var() refs
         // (even ones used inside tailwind utilities) are left untouched.
-        const rawValue = generate(declaration.value);
-        const cleanedValue = rawValue
-          .replace(/var\(\s*--tw-[\w-]+\s*,\s*\)/g, ' ')
-          .replace(/\s+/g, ' ')
-          .trim();
+        walk(declaration.value, {
+          visit: 'Function',
+          enter(func, funcItem, funcList) {
+            if (func.name !== 'var') {
+              return;
+            }
+
+            let variableName: string | undefined;
+            walk(func, {
+              visit: 'Identifier',
+              enter(identifier) {
+                variableName = identifier.name;
+                return this.break;
+              },
+            });
+            if (!variableName?.startsWith('--tw-')) {
+              return;
+            }
+
+            let sawComma = false;
+            let hasFallbackContent = false;
+            func.children.forEach((child) => {
+              if (!sawComma) {
+                if (child.type === 'Operator' && child.value === ',') {
+                  sawComma = true;
+                }
+                return;
+              }
+
+              if (generate(child).trim().length > 0) {
+                hasFallbackContent = true;
+              }
+            });
+
+            if (!sawComma || hasFallbackContent) {
+              return;
+            }
+
+            funcList.remove(funcItem);
+          },
+        });
+
         styles[getReactProperty(declaration.property)] =
-          cleanedValue + (declaration.important ? '!important' : '');
+          generate(declaration.value).trim() +
+          (declaration.important ? '!important' : '');
       },
     });
   }
