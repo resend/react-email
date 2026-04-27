@@ -22,7 +22,7 @@ declare module '@tiptap/core' {
 
 export const focusScopePluginKey = new PluginKey('reactEmailFocusScopes');
 
-const noop = () => { };
+const noop = () => {};
 
 export function createFocusScopesStorage(): FocusScopesStorage {
   return {
