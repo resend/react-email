@@ -42,13 +42,29 @@ export function createFocusScopePlugin({
 }) {
   const scopeRefs = new Set<HTMLElement>();
 
+  const isInsideScope = (node: Node | null) =>
+    Boolean(node && [...scopeRefs].some((el) => el.contains(node)));
+
+  const getClosestScope = (node: Node | null) => {
+    if (!node) return null;
+
+    let closest: HTMLElement | null = null;
+    for (const scope of scopeRefs) {
+      if (!scope.contains(node)) continue;
+      if (!closest || closest.contains(scope)) {
+        closest = scope;
+      }
+    }
+    return closest;
+  };
+
   const handleFocusIn = (event: FocusEvent) => {
     const target = event.target;
     if (!(target instanceof Node) || !editor.view.dom.contains(target)) {
       return;
     }
 
-    var previous = editor.isFocused;
+    const previous = editor.isFocused;
     editor.isFocused = true;
 
     if (previous !== editor.isFocused) {
@@ -61,29 +77,8 @@ export function createFocusScopePlugin({
   };
 
   const handleFocusOut = (event: FocusEvent) => {
-    // queueMicrotask is needed so that we can determine reliably
-    // whether or not previousFocus is inside of the DOM
-    queueMicrotask(() => {
-      const nextFocus = event.relatedTarget as Node | null;
-      if (!nextFocus) {
-        // a fail safe for when a focused element inside a focus scope is removed from the DOM.
-        // our wanted behavior is that focus kept even after that
-        const previousFocus = event.target as Node | null;
-        if (!previousFocus?.isConnected) {
-          return;
-        }
-      }
-
-      if (nextFocus) {
-        const stillInside = [...scopeRefs].some(
-          (el) => nextFocus && el.contains(nextFocus),
-        );
-        if (stillInside) {
-          return;
-        }
-      }
-
-      var previous = editor.isFocused;
+    const blur = () => {
+      const previous = editor.isFocused;
       editor.isFocused = false;
 
       if (previous !== editor.isFocused) {
@@ -97,7 +92,33 @@ export function createFocusScopePlugin({
 
         editor.view.dispatch(transaction);
       }
-    });
+    };
+
+    // queueMicrotask is needed so that we can determine reliably
+    // whether or not previousFocus is inside of the DOM
+    const nextFocus = event.relatedTarget as Node | null;
+    if (!nextFocus) {
+      const previousFocus = event.target as Node | null;
+      const fallbackScope = getClosestScope(previousFocus);
+
+      queueMicrotask(() => {
+        if (isInsideScope(event.view?.document.activeElement ?? null)) {
+          return;
+        }
+
+        if (!previousFocus?.isConnected && fallbackScope?.isConnected) {
+          fallbackScope.focus({ preventScroll: true });
+          return;
+        }
+
+        blur();
+      });
+    } else {
+      if (isInsideScope(nextFocus)) {
+        return;
+      }
+      blur();
+    }
   };
 
   const registerScope = (el: HTMLElement | null) => {
