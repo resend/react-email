@@ -91,6 +91,17 @@ async function waitForPaddingInputWithValue(expected: string) {
   });
 }
 
+function getPerSidePaddingButton(spacing: HTMLElement) {
+  const tooltip = Array.from(
+    spacing.querySelectorAll<HTMLElement>('[data-re-inspector-tooltip]'),
+  ).find((el) => el.textContent?.includes('Per side'));
+  const button = tooltip?.querySelector<HTMLButtonElement>(
+    '[data-re-inspector-toggle-item]',
+  );
+  if (!button) throw new Error('Per side padding button not rendered yet');
+  return button;
+}
+
 describe('inspector padding input (browser)', () => {
   it('keeps the same value after focus + blur', async () => {
     const editorRef: React.RefObject<EmailEditorRef | null> = {
@@ -143,6 +154,36 @@ describe('inspector padding input (browser)', () => {
     paddingInput.blur();
 
     expect(paddingInput.value).toBe('12');
+  });
+
+  it('keeps the editor focused when expanding per-side padding controls', async () => {
+    const editorRef: React.RefObject<EmailEditorRef | null> = {
+      current: null,
+    };
+    render(<Harness editorRef={editorRef} />);
+
+    const editorElement = page.getByRole('textbox');
+    await expect.element(editorElement).toBeVisible();
+
+    selectSectionNode(editorRef.current);
+
+    const editor = editorRef.current?.editor;
+    if (!editor) throw new Error('Editor not ready');
+    expect(editor.isFocused).toBe(true);
+
+    const spacing = await waitForSpacingSection();
+    await userEvent.click(getPerSidePaddingButton(spacing));
+
+    await vi.waitFor(() => {
+      const inputs = spacing.querySelectorAll<HTMLInputElement>(
+        'input[data-re-inspector-input]',
+      );
+      if (inputs.length < 4) {
+        throw new Error('Per-side padding inputs not rendered yet');
+      }
+    });
+
+    expect(editor.isFocused).toBe(true);
   });
 });
 
