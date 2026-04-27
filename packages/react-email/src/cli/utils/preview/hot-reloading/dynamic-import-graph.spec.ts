@@ -19,6 +19,11 @@ const aliasedFixtureDirectory = path.join(
   './test/aliased-import-graph/src',
 );
 
+const aliasedFallbackFixtureDirectory = path.join(
+  import.meta.dirname,
+  './test/aliased-fallback-graph/src',
+);
+
 describe('createDependencyGraph() with dynamic imports', () => {
   it('exposes the directory of a template-literal `import()` as a glob dependency and resolves runtime files to the importing module', async () => {
     const [, , { resolveDependentsOf, getGlobDependencyDirectories }] =
@@ -34,6 +39,30 @@ describe('createDependencyGraph() with dynamic imports', () => {
     // reloads when it changes.
     expect(
       resolveDependentsOf(path.join(messagesDirectory, 'en', 'common.json')),
+    ).toEqual([templatePath]);
+  });
+
+  it('falls through to a later alias candidate when the first does not exist on disk', async () => {
+    // tsconfig maps `@/*` to `["src/*", "lib/*"]`. The fixture has no
+    // `src/locales` directory but does have `lib/locales`. The resolver must
+    // skip the missing first candidate instead of returning it.
+    const [, , { resolveDependentsOf, getGlobDependencyDirectories }] =
+      await createDependencyGraph(aliasedFallbackFixtureDirectory);
+
+    const localesDirectory = path.join(
+      path.dirname(aliasedFallbackFixtureDirectory),
+      'lib',
+      'locales',
+    );
+    const templatePath = path.join(
+      aliasedFallbackFixtureDirectory,
+      'template.ts',
+    );
+
+    expect(getGlobDependencyDirectories()).toEqual([localesDirectory]);
+
+    expect(
+      resolveDependentsOf(path.join(localesDirectory, 'de', 'common.json')),
     ).toEqual([templatePath]);
   });
 
