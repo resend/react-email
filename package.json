@@ -19,7 +19,7 @@
     "@actions/github": "9.1.0",
     "@actions/http-client": "4.0.0",
     "@biomejs/biome": "2.4.12",
-    "@changesets/cli": "2.30.0",
+    "@changesets/cli": "2.31.0",
     "@changesets/pre": "2.0.2",
     "@manypkg/get-packages": "3.1.0",
     "@octokit/core": "7.0.6",
