@@ -1,5 +1,5 @@
 ---
-"@react-email/preview-server": patch
+"@react-email/ui": patch
 ---
 
 update existing Resend templates instead of creating duplicates
