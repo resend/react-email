@@ -66,6 +66,14 @@ export const getImportedModules = (contents: string): ImportedModules => {
           return;
         }
         if (argument.type === 'TemplateLiteral' && argument.quasis.length > 0) {
+          if (argument.expressions.length === 0) {
+            const onlyQuasi = argument.quasis[0]!;
+            const staticPath = onlyQuasi.value.cooked ?? onlyQuasi.value.raw;
+            if (staticPath.length > 0) {
+              staticImports.push(staticPath);
+            }
+            return;
+          }
           const firstQuasi = argument.quasis[0]!;
           const leadingStatic = firstQuasi.value.cooked ?? firstQuasi.value.raw;
           if (leadingStatic.length > 0) {

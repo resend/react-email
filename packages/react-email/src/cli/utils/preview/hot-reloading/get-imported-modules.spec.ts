@@ -190,4 +190,12 @@ const React = require('react');
       dynamicGlobPrefixes: [],
     });
   });
+
+  it('treats a dynamic import() template literal with no interpolation as a static import', () => {
+    const contents = 'const m = await import(`./my-module.json`);';
+    expect(getImportedModules(contents)).toEqual({
+      staticImports: ['./my-module.json'],
+      dynamicGlobPrefixes: [],
+    });
+  });
 });

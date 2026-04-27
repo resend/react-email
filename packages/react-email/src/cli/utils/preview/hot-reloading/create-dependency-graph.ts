@@ -2,7 +2,10 @@ import { existsSync, promises as fs, statSync } from 'node:fs';
 import path from 'node:path';
 import type { EventName } from 'chokidar/handler.js';
 import { getImportedModules } from './get-imported-modules.js';
-import { resolvePathAliases } from './resolve-path-aliases.js';
+import {
+  resolveAliasedDirectoryPrefix,
+  resolvePathAliases,
+} from './resolve-path-aliases.js';
 
 interface Module {
   path: string;
@@ -77,8 +80,14 @@ const checkFileExtensionsUntilItExists = (
   }
 };
 
-const isUnderDirectory = (filePath: string, directoryPath: string) =>
-  filePath === directoryPath || filePath.startsWith(directoryPath + path.sep);
+export const isUnderDirectory = (filePath: string, directoryPath: string) => {
+  if (filePath === directoryPath) return true;
+  // Avoid double-separator when directoryPath is a root like `/` or `C:\`.
+  const prefix = directoryPath.endsWith(path.sep)
+    ? directoryPath
+    : directoryPath + path.sep;
+  return filePath.startsWith(prefix);
+};
 
 /**
  * Resolves the leading static prefix of a dynamic `import()` template literal
@@ -91,12 +100,24 @@ const resolveGlobPrefixToDirectory = (
   prefix: string,
   modulePath: string,
 ): string | undefined => {
-  // Bail on bare module specifiers (e.g. `import(\`some-pkg/${name}\`)`).
-  const isRelative = prefix.startsWith('.') || path.isAbsolute(prefix);
-  if (!isRelative) return undefined;
-
   const moduleDirectory = path.dirname(modulePath);
-  const resolvedPrefix = path.resolve(moduleDirectory, prefix);
+
+  // Try to resolve tsconfig path aliases (e.g. `@/messages/`) before deciding
+  // a non-relative prefix is a bare module specifier.
+  let resolvedPrefix: string;
+  const isRelative = prefix.startsWith('.') || path.isAbsolute(prefix);
+  if (isRelative) {
+    resolvedPrefix = path.resolve(moduleDirectory, prefix);
+  } else {
+    const trimmed = prefix.replace(/[/\\]+$/, '');
+    if (trimmed.length === 0) return undefined;
+    const aliased = resolveAliasedDirectoryPrefix(trimmed, moduleDirectory);
+    if (aliased === undefined) {
+      // Not an alias — actual bare module specifier. Skip.
+      return undefined;
+    }
+    resolvedPrefix = aliased;
+  }
 
   // Pick the directory portion of the prefix. If the prefix doesn't end in a
   // separator, the last segment is treated as a partial filename and dropped.
