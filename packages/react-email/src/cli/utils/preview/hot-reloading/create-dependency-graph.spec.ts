@@ -162,6 +162,7 @@ import {} from './general-importing-file';
         toAbsolute('file-b.ts'),
         toAbsolute('general-importing-file.ts'),
       ],
+      globDependencyPaths: [],
       moduleDependencies: [],
     } satisfies DependencyGraph[number]);
     expect(dependencyGraph[toAbsolute('file-a.ts')]?.dependentPaths).toContain(
@@ -192,6 +193,7 @@ import {} from './file-b';
       path: pathToTemporaryFile,
       dependentPaths: [],
       dependencyPaths: [toAbsolute('file-a.ts'), toAbsolute('file-b.ts')],
+      globDependencyPaths: [],
       moduleDependencies: [],
     } satisfies DependencyGraph[number]);
     expect(dependencyGraph[toAbsolute('file-a.ts')]?.dependentPaths).toContain(
