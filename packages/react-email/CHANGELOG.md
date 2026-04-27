@@ -1,5 +1,11 @@
 # react-email
 
+## 6.0.1
+
+### Patch Changes
+
+- 599b8c5: fix type issues in starter template and in react-email
+
 ## 6.0.0
 
 ### Major Changes
@@ -19,13 +25,12 @@
   Having separate packages for components (`@react-email/components`), and the CLI (`react-email`) created unnecessary confusion, and a maintenance burden for us.
 
   ### How to migrate
-
   1. Remove `@react-email/components`:
 
      ```diff
      npm remove @react-email/components
      ```
-  
+
   2. Update `react-email`, and move it over to `dependencies`:
 
      ```diff
@@ -38,7 +43,6 @@
      - import { Button, Html, Head, render } from "@react-email/components";
      + import { Button, Html, Head, render } from "react-email";
      ```
-
 
 ### Patch Changes
 
