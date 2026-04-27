@@ -4,11 +4,7 @@ import { NodeSelection, TextSelection } from '@tiptap/pm/state';
 import { useCurrentEditor, useEditorState } from '@tiptap/react';
 import * as React from 'react';
 import type { NodeClickedEvent } from '../../core';
-import {
-  EditorFocusScope,
-  EditorFocusScopeProvider,
-  FocusScopeContext,
-} from '../editor-focus-scope';
+import { EditorFocusScope } from '../editor-focus-scope';
 
 const IGNORED_NODES = ['doc', 'text'];
 
@@ -170,7 +166,6 @@ export function useInspector() {
 export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
   function InspectorRoot({ children, asChild, ...restProps }, forwardedRef) {
     const { editor } = useCurrentEditor();
-    const existingFocusScope = React.useContext(FocusScopeContext);
 
     if (editor) {
       const hasEmailTheming = editor.extensionManager.extensions.some(
@@ -256,13 +251,7 @@ export const InspectorRoot = React.forwardRef<HTMLElement, RootProps>(
 
     return (
       <InspectorContext.Provider value={contextValue}>
-        {existingFocusScope ? (
-          inspectorContent
-        ) : (
-          <EditorFocusScopeProvider>
-            {inspectorContent}
-          </EditorFocusScopeProvider>
-        )}
+        {inspectorContent}
       </InspectorContext.Provider>
     );
   },
