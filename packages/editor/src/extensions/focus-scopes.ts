@@ -113,13 +113,14 @@ export function createFocusScopePlugin({
 
         blur();
       });
+      return;
     }
 
     if (isInsideScope(nextFocus)) {
       return;
     }
+
     blur();
-    return;
   };
 
   const registerScope = (el: HTMLElement | null) => {
