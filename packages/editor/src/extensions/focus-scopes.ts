@@ -48,36 +48,56 @@ export function createFocusScopePlugin({
       return;
     }
 
+    var previous = editor.isFocused;
     editor.isFocused = true;
 
-    const transaction = editor.state.tr
-      .setMeta('focus', { event })
-      .setMeta('addToHistory', false);
+    if (previous !== editor.isFocused) {
+      const transaction = editor.state.tr
+        .setMeta('focus', { event })
+        .setMeta('addToHistory', false);
 
-    editor.view.dispatch(transaction);
+      editor.view.dispatch(transaction);
+    }
   };
 
   const handleFocusOut = (event: FocusEvent) => {
-    const nextFocus = event.relatedTarget as Node | null;
-    const stillInside = [...scopeRefs].some(
-      (el) => nextFocus && el.contains(nextFocus),
-    );
+    // queueMicrotask is needed so that we can determine reliably
+    // whether or not previousFocus is inside of the DOM
+    queueMicrotask(() => {
+      const nextFocus = event.relatedTarget as Node | null;
+      if (!nextFocus) {
+        // a fail safe for when a focused element inside a focus scope is removed from the DOM.
+        // our wanted behavior is that focus kept even after that
+        const previousFocus = event.target as Node | null;
+        if (!previousFocus?.isConnected) {
+          return;
+        }
+      }
 
-    if (stillInside) {
-      return;
-    }
+      if (nextFocus) {
+        const stillInside = [...scopeRefs].some(
+          (el) => nextFocus && el.contains(nextFocus),
+        );
+        if (stillInside) {
+          return;
+        }
+      }
 
-    editor.isFocused = false;
+      var previous = editor.isFocused;
+      editor.isFocused = false;
 
-    const transaction = editor.state.tr
-      .setMeta('blur', { event })
-      .setMeta('addToHistory', false);
+      if (previous !== editor.isFocused) {
+        const transaction = editor.state.tr
+          .setMeta('blur', { event })
+          .setMeta('addToHistory', false);
 
-    if (clearSelectionOnBlur) {
-      transaction.setSelection(TextSelection.create(transaction.doc, 0));
-    }
+        if (clearSelectionOnBlur) {
+          transaction.setSelection(TextSelection.create(transaction.doc, 0));
+        }
 
-    editor.view.dispatch(transaction);
+        editor.view.dispatch(transaction);
+      }
+    });
   };
 
   const registerScope = (el: HTMLElement | null) => {
