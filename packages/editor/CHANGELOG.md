@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.1.1
+
+### Patch Changes
+
+- 2377e89: Emit active EmailTheming link styles in the Link mark's `renderHTML` so plain links carry inline color + underline in exported HTML. User inline styles still take precedence via the CSS cascade. `RESET_MINIMAL.link` now also ships `#0670DB` + underline.
+
 ## 1.1.0
 
 ### Minor Changes
