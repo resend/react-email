@@ -66,7 +66,7 @@ A set of standard components to help you build amazing emails without having to 
 
 ## Editor
 
-React Email also provides an Editor built on top of built on [TipTap](https://tiptap.dev/) and [ProseMirror](https://prosemirror.net/), It serializes to React Email components, and exports email-ready HTML and plain text.
+React Email also provides an Editor built on top of [TipTap](https://tiptap.dev/) and [ProseMirror](https://prosemirror.net/), It serializes to React Email components, and exports email-ready HTML and plain text.
 
 See the [Editor documentation](https://react.email/docs/editor) for more details.
 
