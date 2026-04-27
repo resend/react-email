@@ -22,7 +22,7 @@ declare module '@tiptap/core' {
 
 export const focusScopePluginKey = new PluginKey('reactEmailFocusScopes');
 
-const noop = () => {};
+const noop = () => { };
 
 export function createFocusScopesStorage(): FocusScopesStorage {
   return {
@@ -94,13 +94,13 @@ export function createFocusScopePlugin({
       }
     };
 
-    // queueMicrotask is needed so that we can determine reliably
-    // whether or not previousFocus is inside of the DOM
     const nextFocus = event.relatedTarget as Node | null;
     if (!nextFocus) {
       const previousFocus = event.target as Node | null;
       const fallbackScope = getClosestScope(previousFocus);
 
+      // queueMicrotask is needed so that we can determine reliably
+      // whether or not previousFocus is inside of the DOM
       queueMicrotask(() => {
         if (isInsideScope(event.view?.document.activeElement ?? null)) {
           return;
@@ -113,12 +113,13 @@ export function createFocusScopePlugin({
 
         blur();
       });
-    } else {
-      if (isInsideScope(nextFocus)) {
-        return;
-      }
-      blur();
     }
+
+    if (isInsideScope(nextFocus)) {
+      return;
+    }
+    blur();
+    return;
   };
 
   const registerScope = (el: HTMLElement | null) => {
