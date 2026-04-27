@@ -30,16 +30,19 @@ function Harness({
   editorRef: React.RefObject<EmailEditorRef | null>;
 }) {
   return (
-    <EmailEditor
-      ref={(value) => {
-        editorRef.current = value;
-      }}
-      content={CONTENT}
-    >
-      <Inspector.Root data-testid="inspector">
-        <Inspector.Node />
-      </Inspector.Root>
-    </EmailEditor>
+    <>
+      <EmailEditor
+        ref={(value) => {
+          editorRef.current = value;
+        }}
+        content={CONTENT}
+      >
+        <Inspector.Root data-testid="inspector">
+          <Inspector.Node />
+        </Inspector.Root>
+      </EmailEditor>
+      <button type="button">Outside editor</button>
+    </>
   );
 }
 
@@ -156,7 +159,7 @@ describe('inspector padding input (browser)', () => {
     expect(paddingInput.value).toBe('12');
   });
 
-  it('keeps the editor focused when expanding per-side padding controls', async () => {
+  it('keeps focus after expanding padding controls, then blurs on an outside click', async () => {
     const editorRef: React.RefObject<EmailEditorRef | null> = {
       current: null,
     };
@@ -184,6 +187,42 @@ describe('inspector padding input (browser)', () => {
     });
 
     expect(editor.isFocused).toBe(true);
+
+    await userEvent.click(page.getByRole('button', { name: 'Outside editor' }));
+
+    await vi.waitFor(() => {
+      if (editor.isFocused) {
+        throw new Error('Editor is still focused');
+      }
+    });
+
+    expect(editor.isFocused).toBe(false);
+  });
+
+  it('blurs the editor when focus moves outside the editor and inspector', async () => {
+    const editorRef: React.RefObject<EmailEditorRef | null> = {
+      current: null,
+    };
+    render(<Harness editorRef={editorRef} />);
+
+    const editorElement = page.getByRole('textbox');
+    await expect.element(editorElement).toBeVisible();
+
+    selectSectionNode(editorRef.current);
+
+    const editor = editorRef.current?.editor;
+    if (!editor) throw new Error('Editor not ready');
+    expect(editor.isFocused).toBe(true);
+
+    await userEvent.click(page.getByRole('button', { name: 'Outside editor' }));
+
+    await vi.waitFor(() => {
+      if (editor.isFocused) {
+        throw new Error('Editor is still focused');
+      }
+    });
+
+    expect(editor.isFocused).toBe(false);
   });
 });
 
