@@ -76,8 +76,8 @@ catalogs:
       specifier: 16.2.3
       version: 16.2.3
     nypm:
-      specifier: 0.6.5
-      version: 0.6.5
+      specifier: 0.6.6
+      version: 0.6.6
     ora:
       specifier: ^8.0.0
       version: 8.2.0
@@ -203,7 +203,7 @@ importers:
         version: 4.0.0
       nypm:
         specifier: 'catalog:'
-        version: 0.6.5
+        version: 0.6.6
       pkg-pr-new:
         specifier: 0.0.66
         version: 0.0.66
@@ -484,7 +484,7 @@ importers:
     devDependencies:
       nypm:
         specifier: 'catalog:'
-        version: 0.6.5
+        version: 0.6.6
       react:
         specifier: 19.2.4
         version: 19.2.4
@@ -686,7 +686,7 @@ importers:
         version: 3.0.0
       nypm:
         specifier: 'catalog:'
-        version: 0.6.5
+        version: 0.6.6
       ora:
         specifier: 'catalog:'
         version: 8.2.0
@@ -4588,8 +4588,8 @@ packages:
     peerDependencies:
       devtools-protocol: '*'
 
-  citty@0.2.1:
-    resolution: {integrity: sha512-kEV95lFBhQgtogAPlQfJJ0WGVSokvLr/UEoFPiKKOXF7pl98HfUVUD0ejsuTCld/9xH9vogSywZ5KqHzXrZpqg==}
+  citty@0.2.2:
+    resolution: {integrity: sha512-+6vJA3L98yv+IdfKGZHBNiGW5KHn22e/JwID0Strsz8h4S/csAu/OuICwxrg44k5MRiZHWIo8XXuJgQTriRP4w==}
 
   classnames@2.5.1:
     resolution: {integrity: sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==}
@@ -6787,8 +6787,8 @@ packages:
   nwsapi@2.2.20:
     resolution: {integrity: sha512-/ieB+mDe4MrrKMT8z+mQL8klXydZWGR5Dowt4RAGKbJ3kIGEx3X4ljUo+6V73IXtUPWgfOlU5B9MlGxFO5T+cA==}
 
-  nypm@0.6.5:
-    resolution: {integrity: sha512-K6AJy1GMVyfyMXRVB88700BJqNUkByijGJM8kEHpLdcAt+vSQAVfkWWHYzuRXHSY6xA2sNc5RjTj0p9rE2izVQ==}
+  nypm@0.6.6:
+    resolution: {integrity: sha512-vRyr0r4cbBapw07Xw8xrj9Teq3o7MUD35rSaTcanDbW+aK2XHDgJFiU6ZTj2GBw7Q12ysdsyFss+Vdz4hQ0Y6Q==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -12916,7 +12916,7 @@ snapshots:
       urlpattern-polyfill: 10.0.0
       zod: 3.23.8
 
-  citty@0.2.1: {}
+  citty@0.2.2: {}
 
   classnames@2.5.1: {}
 
@@ -15618,9 +15618,9 @@ snapshots:
 
   nwsapi@2.2.20: {}
 
-  nypm@0.6.5:
+  nypm@0.6.6:
     dependencies:
-      citty: 0.2.1
+      citty: 0.2.2
       pathe: 2.0.3
       tinyexec: 1.1.1
 
