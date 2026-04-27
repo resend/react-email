@@ -26,9 +26,10 @@ with `EditorFocusScope`.
 
 <h2 id="editor-focus-scope-provider">EditorFocusScopeProvider</h2>
 
-`EditorFocusScopeProvider` is deprecated and now renders its children unchanged.
-Focus tracking moved to the `FocusScopes` extension, which is included by
-default in `StarterKit`.
+`EditorFocusScopeProvider` is deprecated. Focus tracking moved to the
+`FocusScopes` extension, which is included by default in `StarterKit`, but the
+provider still installs the same tracking plugin for editors that do not use
+`StarterKit`.
 
 ### Example
 
@@ -74,7 +75,8 @@ being inside the editor UI.
 </ResponseField>
 
 <ResponseField name="clearSelectionOnBlur" type="boolean" default="true">
-  Deprecated and ignored. Configure `FocusScopes` in `StarterKit` instead.
+  Deprecated. Used only by the provider's fallback plugin. Prefer configuring
+  `FocusScopes` in `StarterKit` instead.
 </ResponseField>
 
 ## EditorFocusScope

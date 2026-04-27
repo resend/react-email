@@ -1,10 +1,16 @@
 import { render, screen } from '@testing-library/react';
+import { Editor } from '@tiptap/core';
 import { EditorContext } from '@tiptap/react';
+import TipTapStarterKit from '@tiptap/starter-kit';
 import {
   EditorFocusScope,
   EditorFocusScopeProvider,
   useEditorFocusScope,
 } from './editor-focus-scope';
+
+function waitForCreate() {
+  return new Promise((resolve) => setTimeout(resolve, 0));
+}
 
 describe('EditorFocusScope', () => {
   it('renders children without a provider', () => {
@@ -46,7 +52,7 @@ describe('EditorFocusScope', () => {
 });
 
 describe('EditorFocusScopeProvider', () => {
-  it('is a no-op compatibility wrapper', () => {
+  it('renders children', () => {
     render(
       <EditorFocusScopeProvider clearSelectionOnBlur={false}>
         <button type="button">Inside provider</button>
@@ -56,6 +62,42 @@ describe('EditorFocusScopeProvider', () => {
     expect(
       screen.getByRole('button', { name: 'Inside provider' }),
     ).toBeDefined();
+  });
+
+  it('installs focus scope tracking when the editor does not use StarterKit', async () => {
+    const element = document.createElement('div');
+    document.body.append(element);
+    const editor = new Editor({
+      element,
+      extensions: [TipTapStarterKit],
+      content: '<p>Hello world</p>',
+    });
+    await waitForCreate();
+
+    render(
+      <EditorContext.Provider value={{ editor }}>
+        <EditorFocusScopeProvider>
+          <EditorFocusScope>
+            <button type="button">Scoped action</button>
+          </EditorFocusScope>
+        </EditorFocusScopeProvider>
+      </EditorContext.Provider>,
+    );
+
+    const button = screen.getByRole('button', { name: 'Scoped action' });
+    editor.view.dom.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
+    editor.view.dom.dispatchEvent(
+      new FocusEvent('focusout', {
+        bubbles: true,
+        relatedTarget: button,
+      }),
+    );
+    button.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
+
+    expect(editor.isFocused).toBe(true);
+
+    editor.destroy();
+    element.remove();
   });
 });
 
