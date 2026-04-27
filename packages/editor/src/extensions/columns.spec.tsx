@@ -161,6 +161,65 @@ describe('Column Variants', () => {
     ).toMatchSnapshot();
   });
 
+  it('renders column parent with custom column spacing', async () => {
+    const Parent = TwoColumns.config.renderToReactEmail;
+    const Child = ColumnsColumn.config.renderToReactEmail;
+
+    expect(
+      await render(
+        <Parent
+          node={{ type: 'twoColumns', attrs: { cellspacing: 12 } }}
+          style={columnsStyle}
+          extension={TwoColumns}
+        >
+          <Child
+            node={{ type: 'columnsColumn', attrs: {} }}
+            style={columnsStyle}
+            extension={ColumnsColumn}
+          >
+            Column A
+          </Child>
+          <Child
+            node={{ type: 'columnsColumn', attrs: {} }}
+            style={columnsStyle}
+            extension={ColumnsColumn}
+          >
+            Column B
+          </Child>
+        </Parent>,
+        { pretty: true },
+      ),
+    ).toMatchSnapshot();
+  });
+
+  it('reflects column spacing in editor HTML without inventing a default gap', () => {
+    const renderHTML = TwoColumns.config.renderHTML;
+
+    const defaultHtml = renderHTML?.({
+      HTMLAttributes: {},
+    } as Parameters<NonNullable<typeof renderHTML>>[0]) as [
+      string,
+      Record<string, unknown>,
+      number,
+    ];
+    expect(defaultHtml[1]).not.toHaveProperty('style');
+
+    const spacedHtml = renderHTML?.({
+      HTMLAttributes: { cellspacing: '12', style: 'padding: 10px;' },
+    } as Parameters<NonNullable<typeof renderHTML>>[0]) as [
+      string,
+      Record<string, unknown>,
+      number,
+    ];
+
+    expect(spacedHtml[1]).toMatchObject({
+      'data-type': 'two-columns',
+      class: 'node-columns',
+      style: 'padding: 10px;--re-columns-gap:12px;',
+    });
+    expect(spacedHtml[1]).not.toHaveProperty('cellspacing');
+  });
+
   it('renders ColumnsColumn with inline styles', async () => {
     const Component = ColumnsColumn.config.renderToReactEmail;
 

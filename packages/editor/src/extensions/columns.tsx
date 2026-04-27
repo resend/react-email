@@ -10,6 +10,58 @@ import {
 } from '../utils/attribute-helpers';
 import { inlineCssToJs } from '../utils/styles';
 
+const COLUMN_PARENT_ATTRIBUTES = ['cellspacing'] as const;
+
+function getColumnGapCss(cellspacing: unknown): string | undefined {
+  if (cellspacing === undefined || cellspacing === null || cellspacing === '') {
+    return undefined;
+  }
+
+  const value = String(cellspacing).trim();
+  if (value === '') {
+    return undefined;
+  }
+
+  if (/^\d+(\.\d+)?$/.test(value)) {
+    return `${value}px`;
+  }
+
+  return value;
+}
+
+function getRowCellSpacing(cellspacing: unknown): string | undefined {
+  if (cellspacing === undefined || cellspacing === null || cellspacing === '') {
+    return undefined;
+  }
+
+  const value = String(cellspacing).trim();
+  if (value === '' || value === '0') {
+    return undefined;
+  }
+
+  return value;
+}
+
+function mergeColumnsEditorStyle(
+  spacing: unknown,
+  existingStyle: unknown,
+): string | undefined {
+  const gap = getColumnGapCss(spacing);
+  const currentStyle =
+    typeof existingStyle === 'string' && existingStyle.trim() !== ''
+      ? existingStyle.trim()
+      : '';
+
+  if (!gap) {
+    return currentStyle || undefined;
+  }
+
+  const separator = currentStyle.endsWith(';') ? '' : ';';
+  return currentStyle
+    ? `${currentStyle}${separator}--re-columns-gap:${gap};`
+    : `--re-columns-gap:${gap};`;
+}
+
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     columns: {
@@ -88,6 +140,7 @@ function createColumnsNode(
       return createStandardAttributes([
         ...LAYOUT_ATTRIBUTES,
         ...COMMON_HTML_ATTRIBUTES,
+        ...COLUMN_PARENT_ATTRIBUTES,
       ]);
     },
 
@@ -96,11 +149,21 @@ function createColumnsNode(
     },
 
     renderHTML({ HTMLAttributes }) {
+      const { style, cellspacing, ...attributes } = HTMLAttributes as Record<
+        string,
+        unknown
+      >;
+      const mergedStyle = mergeColumnsEditorStyle(cellspacing, style);
+
       return [
         'div',
         mergeAttributes(
-          { 'data-type': config.dataType, class: 'node-columns' },
-          HTMLAttributes,
+          {
+            'data-type': config.dataType,
+            class: 'node-columns',
+            ...(mergedStyle ? { style: mergedStyle } : {}),
+          },
+          attributes,
         ),
         0,
       ];
@@ -139,10 +202,13 @@ function createColumnsNode(
 
     renderToReactEmail({ children, node, style }) {
       const inlineStyles = inlineCssToJs(node.attrs?.style);
+      const cellSpacing = getRowCellSpacing(node.attrs?.cellspacing);
+
       return (
         <Row
           className={node.attrs?.class || undefined}
           style={{ ...style, ...inlineStyles }}
+          {...(cellSpacing ? { cellSpacing } : {})}
         >
           {children}
         </Row>

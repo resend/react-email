@@ -105,6 +105,20 @@ export function MyEditor() {
   the editor instance from child components.
 </Tip>
 
+## Column spacing
+
+Column layouts render as email-safe tables. Space between columns is stored as the
+`cellspacing` attribute on the column layout and exported as the `cellSpacing`
+prop on the underlying `Row`.
+
+Select a 2, 3, or 4 column layout in the editor and use **Column spacing** in
+the inspector to adjust the gap between columns.
+
+<Tip>
+  Column spacing controls the gap between columns. Padding on an individual
+  column controls the space inside that column.
+</Tip>
+
 ## Slash commands
 
 The default slash commands include column layouts. Type `/` and search for "columns":
