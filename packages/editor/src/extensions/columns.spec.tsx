@@ -215,7 +215,7 @@ describe('Column Variants', () => {
     expect(spacedHtml[1]).toMatchObject({
       'data-type': 'two-columns',
       class: 'node-columns',
-      style: 'padding: 10px;--re-columns-gap:12px;',
+      style: 'padding: 10px;gap:12px;',
     });
     expect(spacedHtml[1]).not.toHaveProperty('cellspacing');
   });

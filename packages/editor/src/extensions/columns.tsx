@@ -58,8 +58,8 @@ function mergeColumnsEditorStyle(
 
   const separator = currentStyle.endsWith(';') ? '' : ';';
   return currentStyle
-    ? `${currentStyle}${separator}--re-columns-gap:${gap};`
-    : `--re-columns-gap:${gap};`;
+    ? `${currentStyle}${separator}gap:${gap};`
+    : `gap:${gap};`;
 }
 
 declare module '@tiptap/core' {
