@@ -23,7 +23,7 @@
     "@react-three/drei": "9.122.0",
     "@react-three/fiber": "9.5.0",
     "@responsive-email/react-email": "catalog:",
-    "@supabase/supabase-js": "2.49.4",
+    "@supabase/supabase-js": "2.103.3",
     "@vercel/analytics": "1.5.0",
     "email-dev": "workspace:*",
     "framer-motion": "catalog:",
