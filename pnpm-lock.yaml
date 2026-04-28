@@ -64,7 +64,7 @@ catalogs:
       specifier: ^13.0.0
       version: 13.1.0
     esbuild:
-      specifier: ^0.28.0
+      specifier: 0.28.0
       version: 0.28.0
     framer-motion:
       specifier: 12.38.0
@@ -664,7 +664,7 @@ importers:
         specifier: ^2.0.0
         version: 2.2.0
       esbuild:
-        specifier: 'catalog:'
+        specifier: ^0.28.0
         version: 0.28.0
       glob:
         specifier: ^13.0.6
