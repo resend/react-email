@@ -10,4 +10,4 @@ export function Email({ url }: EmailProps) {
       <Button href={url}>Click me</Button>
     </Html>
   );
-};
+}

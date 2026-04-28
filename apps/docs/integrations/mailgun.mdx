@@ -7,20 +7,20 @@ description: 'Learn how to send an email using React Email and the Mailgun JavaS
 
 ## 1. Install dependencies
 
-Get the [@react-email/components](https://www.npmjs.com/package/@react-email/components) package, [mailgun.js](https://www.npmjs.com/package/mailgun.js), and [form-data](https://www.npmjs.com/package/form-data).
+Get the [react-email](https://www.npmjs.com/package/react-email), [mailgun.js](https://www.npmjs.com/package/mailgun.js), and [form-data](https://www.npmjs.com/package/form-data) packages.
 
 <CodeGroup>
 
 ```sh npm
-npm install mailgun.js form-data @react-email/components
+npm install mailgun.js form-data react-email
 ```
 
 ```sh yarn
-yarn add mailgun.js form-data @react-email/components
+yarn add mailgun.js form-data react-email
 ```
 
 ```sh pnpm
-pnpm add mailgun.js form-data @react-email/components
+pnpm add mailgun.js form-data react-email
 ```
 
 </CodeGroup>
@@ -30,12 +30,13 @@ pnpm add mailgun.js form-data @react-email/components
 Start by building your email template in a `.jsx` or `.tsx` file.
 
 ```tsx email.tsx
-import * as React from 'react';
-import { Html, Button } from '@react-email/components';
+import { Button, Html } from 'react-email';
 
-export function Email(props) {
-  const { url } = props;
+interface EmailProps {
+  url: string;
+}
 
+export function Email({ url }: EmailProps) {
   return (
     <Html lang="en">
       <Button href={url}>Click me</Button>
@@ -49,8 +50,8 @@ export function Email(props) {
 Import the email template you just built, convert it into an HTML string, and use the Mailgun SDK to send it.
 
 ```tsx
+import { render } from 'react-email';
 import FormData from 'form-data';
-import { render } from '@react-email/components';
 import Mailgun from 'mailgun.js';
 import { Email } from './email';
 
