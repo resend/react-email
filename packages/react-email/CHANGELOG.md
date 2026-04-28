@@ -1,5 +1,11 @@
 # react-email
 
+## 6.0.2
+
+### Patch Changes
+
+- 63b6e71: Fix Markdown component crashing on CommonMark loose lists with paragraph continuations
+
 ## 6.0.1
 
 ### Patch Changes
