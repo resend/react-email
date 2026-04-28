@@ -295,8 +295,9 @@ describe('createDependencyGraph() with dynamic imports', () => {
   });
 
   it('resolves tsconfig path aliases in dynamic import template literals', async () => {
-    const [graph, , { resolveDependentsOf }] =
-      await createDependencyGraph(aliasedFixtureDirectory);
+    const [graph, , { resolveDependentsOf }] = await createDependencyGraph(
+      aliasedFixtureDirectory,
+    );
 
     const localesDirectory = path.join(aliasedFixtureDirectory, 'locales');
     const templatePath = path.join(aliasedFixtureDirectory, 'template.ts');
