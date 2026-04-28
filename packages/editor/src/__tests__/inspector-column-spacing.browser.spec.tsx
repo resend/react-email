@@ -1,4 +1,4 @@
-import { NodeSelection } from '@tiptap/pm/state';
+import { NodeSelection, TextSelection } from '@tiptap/pm/state';
 import { vi } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
@@ -50,6 +50,22 @@ function Harness({
       content={CONTENT}
     >
       <Inspector.Root data-testid="inspector">
+        <Inspector.Breadcrumb>
+          {(segments) => (
+            <nav aria-label="Inspector breadcrumb">
+              {segments.map((segment) => (
+                <button
+                  type="button"
+                  key={`${segment.node.nodeType}-${segment.node.nodePos.pos}`}
+                  data-node-type={segment.node.nodeType}
+                  onClick={segment.focus}
+                >
+                  {segment.node.nodeType}
+                </button>
+              ))}
+            </nav>
+          )}
+        </Inspector.Breadcrumb>
         <Inspector.Node />
       </Inspector.Root>
     </EmailEditor>
@@ -73,15 +89,15 @@ function findNodePos(editorRef: EmailEditorRef | null, nodeType: string) {
   return nodePos;
 }
 
-function selectColumnsNode(editorRef: EmailEditorRef | null) {
+function selectFirstParagraphText(editorRef: EmailEditorRef | null) {
   const editor = editorRef?.editor;
   if (!editor) throw new Error('Editor not ready');
 
-  const columnsPos = findNodePos(editorRef, 'twoColumns');
+  const paragraphPos = findNodePos(editorRef, 'paragraph');
   editor.view.focus();
   editor.view.dispatch(
     editor.state.tr.setSelection(
-      NodeSelection.create(editor.state.doc, columnsPos),
+      TextSelection.create(editor.state.doc, paragraphPos + 1),
     ),
   );
 }
@@ -114,7 +130,22 @@ describe('inspector column spacing input (browser)', () => {
     const editor = page.getByRole('textbox');
     await expect.element(editor).toBeVisible();
 
-    selectColumnsNode(editorRef.current);
+    selectFirstParagraphText(editorRef.current);
+
+    const columnsBreadcrumb = await vi.waitFor(() => {
+      const button = document.querySelector<HTMLButtonElement>(
+        '[data-node-type="twoColumns"]',
+      );
+      if (!button) throw new Error('Columns breadcrumb not rendered yet');
+      return button;
+    });
+    await userEvent.click(columnsBreadcrumb);
+
+    await vi.waitFor(() => {
+      const selection = editorRef.current?.editor?.state.selection;
+      expect(selection).toBeInstanceOf(NodeSelection);
+      expect((selection as NodeSelection).node.type.name).toBe('twoColumns');
+    });
 
     const section = await waitForColumnsSection();
     const input = section.querySelector<HTMLInputElement>(
@@ -125,15 +156,17 @@ describe('inspector column spacing input (browser)', () => {
     expect(input.value).toBe('8');
 
     input.focus();
-    input.select();
-    await userEvent.keyboard('16');
-    await userEvent.keyboard('{Enter}');
+    await userEvent.keyboard('{ArrowUp}');
 
     await vi.waitFor(() => {
       const columnsPos = findNodePos(editorRef.current, 'twoColumns');
       const columnsNode =
         editorRef.current?.editor?.state.doc.nodeAt(columnsPos);
-      expect(columnsNode?.attrs.cellspacing).toBe(16);
+      expect(columnsNode?.attrs.cellspacing).toBe(9);
     });
+
+    const selection = editorRef.current?.editor?.state.selection;
+    expect(selection).toBeInstanceOf(NodeSelection);
+    expect((selection as NodeSelection).node.type.name).toBe('twoColumns');
   });
 });
