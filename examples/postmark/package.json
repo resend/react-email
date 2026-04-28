@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "postmark": "^3",
-    "@react-email/components": "catalog:",
+    "react-email": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
   },

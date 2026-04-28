@@ -7,7 +7,7 @@ Comprehensive styling reference for React Email templates.
 Use the `Tailwind` component for styling if the project uses Tailwind CSS. Otherwise, use inline styles.
 
 ```tsx
-import { Tailwind, pixelBasedPreset } from '@react-email/components';
+import { Tailwind, pixelBasedPreset } from 'react-email';
 
 <Tailwind
   config={{
@@ -30,7 +30,7 @@ import { Tailwind, pixelBasedPreset } from '@react-email/components';
 Email clients don't support `rem` units. Always use `pixelBasedPreset` in your Tailwind configuration to convert rem-based utilities to pixels:
 
 ```tsx
-import { pixelBasedPreset } from '@react-email/components';
+import { pixelBasedPreset } from 'react-email';
 
 <Tailwind config={{ presets: [pixelBasedPreset] }}>
 ```
@@ -228,7 +228,7 @@ Create a centralized Tailwind config file that all email templates import. Using
 
 ```tsx
 // emails/tailwind.config.ts
-import { pixelBasedPreset, type TailwindConfig } from '@react-email/components';
+import { pixelBasedPreset, type TailwindConfig } from 'react-email';
 
 export default {
   presets: [pixelBasedPreset],

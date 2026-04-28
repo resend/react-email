@@ -58,7 +58,7 @@ const CodePreviewHeader = ({
           />
         ))}
       </div>
-      <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2">
+      <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-1">
         <IconFile className="size-4 sm:size-4.5" />
         <span className="text-slate-11 font-mono text-xs sm:text-sm">
           email-template.tsx

@@ -1,5 +1,5 @@
-import { Button, Img, Row, Section, Text } from '@react-email/components';
 import { ResponsiveColumn, ResponsiveRow } from '@responsive-email/react-email';
+import { Button, Img, Row, Section, Text } from 'react-email';
 import { Layout } from '../_components/layout';
 
 export const component = (

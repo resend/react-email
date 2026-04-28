@@ -1,4 +1,4 @@
-import { render } from '@react-email/components';
+import { render } from 'react-email';
 import { checkSpam } from './check-spam';
 import { StripeWelcomeEmail } from './testing/stripe-welcome-email';
 
@@ -54,9 +54,15 @@ describe.skipIf(!host || !port)('checkSpam()', { timeout: 10_000 }, () => {
 
     expect(await checkSpam(html, plainText)).toMatchInlineSnapshot(`
       {
-        "checks": [],
+        "checks": [
+          {
+            "description": "Excessively long line + hidden text",
+            "name": "LONGLN_LOW_CONTRAST",
+            "points": 2.5,
+          },
+        ],
         "isSpam": false,
-        "points": 0,
+        "points": 2.5,
       }
     `);
   });

@@ -14,7 +14,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@react-email/components": "catalog:",
+    "react-email": "catalog:",
     "mailersend": "^2",
     "react": "catalog:",
     "react-dom": "catalog:"

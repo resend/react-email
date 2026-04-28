@@ -1,0 +1,79 @@
+---
+title: "Editor"
+sidebarTitle: "Overview"
+description: "An embeddable visual editor for building React Email templates."
+icon: "pen-nib"
+---
+
+The React Email Editor is a visual editor that you can embed in your app. It's made specifically for composing React Email templates. 
+
+Using the power of React Email, it produces email-ready HTML, and is built on top of [TipTap](https://tiptap.dev/) and [ProseMirror](https://prosemirror.net/).
+
+## Key features
+
+- **Rich text editing** — Paragraphs, headings, lists, code blocks, tables, and more
+- **Bubble menus** — Floating formatting toolbars that appear on text selection
+- **Slash commands** — Insert content blocks by typing `/`
+- **Multi-column layouts** — Two, three, and four-column email layouts
+- **Email theming** — Built-in themes with customizable CSS properties
+- **HTML export** — Convert editor content to email-ready HTML and plain text
+- **Custom extensions** — Create your own email-compatible nodes and marks
+
+## Architecture
+
+The editor is organized into five entry points:
+
+| Import | Purpose |
+|--------|---------|
+| `@react-email/editor/core` | `composeReactEmail` serialization, event bus, types |
+| `@react-email/editor/extensions` | `StarterKit` and 35+ email-aware extensions |
+| `@react-email/editor/ui` | Bubble menus, slash commands |
+| `@react-email/editor/plugins` | Email theming and image upload plugins |
+| `@react-email/editor/utils` | Attribute helpers, style utilities |
+
+<Info>
+  The editor uses [TipTap](https://tiptap.dev/) under the hood, so [TipTap](https://tiptap.dev/) and [ProseMirror](https://prosemirror.net/) concepts apply.
+  Extensions are email-aware versions of TipTap nodes and marks that know how to serialize to React Email components.
+</Info>
+
+## Quick links
+
+<CardGroup cols={2}>
+  <Card title="Getting Started" icon="rocket" href="/editor/getting-started">
+    Set up the editor in under 5 minutes.
+  </Card>
+  <Card title="Bubble Menu" icon="message-lines" href="/editor/features/bubble-menu">
+    Add floating formatting toolbars.
+  </Card>
+  <Card title="Slash Commands" icon="slash-forward" href="/editor/features/slash-commands">
+    Insert content blocks with a command menu.
+  </Card>
+  <Card title="Email Theming" icon="palette" href="/editor/features/theming">
+    Apply visual themes to your email output.
+  </Card>
+  <Card title="Image Upload" icon="image" href="/editor/features/image-upload">
+    Upload images via paste, drop, or slash command.
+  </Card>
+  <Card title="Styling" icon="paintbrush" href="/editor/features/styling">
+    Customize the editor's appearance with CSS.
+  </Card>
+  <Card title="Email Export" icon="file-export" href="/editor/features/email-export">
+    Convert editor content to email-ready HTML.
+  </Card>
+  <Card title="Custom Extensions" icon="wrench" href="/editor/advanced/custom-extensions">
+    Create your own email-compatible nodes.
+  </Card>
+</CardGroup>
+
+## Examples
+
+Runnable examples are available at [react.email/editor/examples](https://react.email/editor/examples). Each example demonstrates a specific feature in isolation:
+
+<CardGroup cols={2}>
+  <Card title="Full Email Builder" icon="code" href="https://react.email/editor/examples/full-email-builder">
+    All features combined — theming, bubble menus, slash commands, and HTML export.
+  </Card>
+  <Card title="All Examples" icon="folder-open" href="https://react.email/editor/examples">
+    Browse the complete set of interactive examples.
+  </Card>
+</CardGroup>

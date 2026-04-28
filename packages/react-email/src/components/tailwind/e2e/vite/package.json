@@ -1,0 +1,25 @@
+{
+  "name": "vite-with-tailwind",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preinstall": "yalc add react-email",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react-email": "file:.yalc/react-email",
+    "react": "^19",
+    "react-dom": "^19"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^5.1.4",
+    "typescript": "^5.2.2",
+    "vite": "^7.3.1",
+    "yalc": "1.0.0-pre.53"
+  }
+}

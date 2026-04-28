@@ -1,9 +1,9 @@
 import { existsSync } from 'node:fs';
 import path from 'node:path';
-import { pretty, render } from '@react-email/components';
 import { parse, stringify } from 'html-to-ast';
 import type { Attr, IDoc as Doc } from 'html-to-ast/dist/types';
 import postcss from 'postcss';
+import { pretty, render } from 'react-email';
 import { getComponentElement } from '../src/app/components/get-imported-components-for';
 import { Layout } from './_components/layout';
 import { componentsStructure, getComponentPathFromSlug } from './structure';

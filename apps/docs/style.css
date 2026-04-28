@@ -1,0 +1,35 @@
+/* Align navbar tabs with the left sidebar edge on desktop */
+@media (min-width: 1024px) {
+  /* Fix logo container width to match sidebar */
+  #navbar .flex-1.flex.items-center.gap-x-4:has(img.nav-logo):has(> a) {
+    /* biome-ignore lint/complexity/noImportantStyles: required to override Mintlify's inline styles */
+    flex: none !important;
+    width: 14.75rem;
+  }
+
+  /* Let tabs fill remaining space */
+  #navbar .flex.items-center.gap-4:has(.nav-tabs) {
+    /* biome-ignore lint/complexity/noImportantStyles: required to override Mintlify's inline styles */
+    flex: 1 !important;
+  }
+
+  /* Spread tabs and push search/icons to the right */
+  #navbar .ml-auto:has(.nav-tabs) {
+    /* biome-ignore lint/complexity/noImportantStyles: required to override Mintlify's inline styles */
+    margin-left: 0 !important;
+    justify-content: space-between;
+    /* biome-ignore lint/complexity/noImportantStyles: required to override Mintlify's inline styles */
+    flex: 1 !important;
+  }
+
+  /* Right-align the search/icons nav */
+  #navbar .gap-x-6:has(.nav-tabs) > nav {
+    /* biome-ignore lint/complexity/noImportantStyles: required to override Mintlify's inline styles */
+    margin-left: auto !important;
+  }
+}
+
+/* Hide Mintlify referral link */
+#footer a[href*="mintlify.com"] {
+  display: none;
+}

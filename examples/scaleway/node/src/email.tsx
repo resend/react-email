@@ -1,3 +1,4 @@
+import type { FC } from 'react';
 import {
   Body,
   Container,
@@ -9,8 +10,7 @@ import {
   Preview,
   Section,
   Text,
-} from '@react-email/components';
-import type { FC } from 'react';
+} from 'react-email';
 
 interface EmailProps {
   url: string;

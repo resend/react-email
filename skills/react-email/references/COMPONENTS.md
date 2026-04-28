@@ -6,7 +6,7 @@ Complete reference for all React Email components. All examples use the Tailwind
 
 ## Available Components
 
-All components are imported from `@react-email/components`:
+All components are imported from `react-email`:
 
 - **Body** - A React component to wrap emails
 - **Button** - A link that is styled to look like a button
@@ -33,7 +33,7 @@ All components are imported from `@react-email/components`:
 The recommended way to style React Email components. Wrap your email content and use utility classes.
 
 ```tsx
-import { Tailwind, pixelBasedPreset, Html, Body, Container, Heading, Text, Button } from '@react-email/components';
+import { Tailwind, pixelBasedPreset, Html, Body, Container, Heading, Text, Button } from 'react-email';
 
 export default function Email() {
   return (
@@ -61,7 +61,7 @@ export default function Email() {
             </Text>
             <Button
               href="https://example.com"
-              className="bg-brand text-white px-6 py-3 rounded-lg block text-center"
+              className="bg-brand text-white px-6 py-3 rounded-lg block text-center box-border"
             >
               Get Started
             </Button>
@@ -85,7 +85,7 @@ export default function Email() {
 **Important:**
 - Always use `pixelBasedPreset` - email clients don't support `rem` units
 - Custom config is optional - defaults work well
-- Responsive classes (sm:, md:, lg:) work via media queries, but should be used with caution due to limited email client support
+- Avoid responsive classes (sm:, md:, lg:). These have limited email client support, and are not reliable across major clients
 
 ## Structural Components
 
@@ -94,7 +94,7 @@ export default function Email() {
 Root wrapper for the email. Always use as the outermost component.
 
 ```tsx
-import { Html, Tailwind, pixelBasedPreset } from '@react-email/components';
+import { Html, Tailwind, pixelBasedPreset } from 'react-email';
 
 <Html lang="en" dir="ltr">
   <Tailwind config={{ presets: [pixelBasedPreset] }}>
@@ -112,7 +112,7 @@ import { Html, Tailwind, pixelBasedPreset } from '@react-email/components';
 Contains head components, related to the document such as style and meta elements. Place inside `<Tailwind>`.
 
 ```tsx
-import { Head } from '@react-email/components';
+import { Head } from 'react-email';
 
 <Head>
   <title>Email Title</title>
@@ -124,7 +124,7 @@ import { Head } from '@react-email/components';
 A React component to wrap emails.
 
 ```tsx
-import { Body } from '@react-email/components';
+import { Body } from 'react-email';
 
 <Body className="bg-gray-100 font-sans">
   {/* email content */}
@@ -136,7 +136,7 @@ import { Body } from '@react-email/components';
 A layout component that centers your content horizontally on a breaking point. Has a max-width constraint of `37.5em`.
 
 ```tsx
-import { Container } from '@react-email/components';
+import { Container } from 'react-email';
 
 <Container className="max-w-xl mx-auto p-5">
   {/* centered content */}
@@ -148,7 +148,7 @@ import { Container } from '@react-email/components';
 Display a section that can also be formatted using rows and columns.
 
 ```tsx
-import { Section } from '@react-email/components';
+import { Section } from 'react-email';
 
 <Section className="p-5 bg-white">
   {/* section content */}
@@ -160,7 +160,7 @@ import { Section } from '@react-email/components';
 Row displays content areas horizontally, Column displays content areas vertically. A Column needs to be used in combination with a Row component.
 
 ```tsx
-import { Section, Row, Column } from '@react-email/components';
+import { Section, Row, Column } from 'react-email';
 
 <Section>
   <Row>
@@ -186,7 +186,7 @@ import { Section, Row, Column } from '@react-email/components';
 A preview text that will be displayed in the inbox of the recipient.
 
 ```tsx
-import { Preview } from '@react-email/components';
+import { Preview } from 'react-email';
 
 <Preview>Welcome to our platform - Get started today!</Preview>
 ```
@@ -201,7 +201,7 @@ import { Preview } from '@react-email/components';
 A block of heading text (h1-h6).
 
 ```tsx
-import { Heading } from '@react-email/components';
+import { Heading } from 'react-email';
 
 <Heading as="h1" className="text-2xl font-bold text-gray-800 mb-4">
   Welcome to Acme
@@ -220,7 +220,7 @@ import { Heading } from '@react-email/components';
 A block of text separated by blank spaces.
 
 ```tsx
-import { Text } from '@react-email/components';
+import { Text } from 'react-email';
 
 <Text className="text-base leading-6 text-gray-800 my-4">
   Your paragraph content here.
@@ -232,12 +232,12 @@ import { Text } from '@react-email/components';
 A link that is styled to look like a button. Has workaround for padding issues in Outlook.
 
 ```tsx
-import { Button } from '@react-email/components';
+import { Button } from 'react-email';
 
 <Button
   href="https://example.com/verify"
   target="_blank"
-  className="bg-blue-600 text-white px-5 py-3 rounded block text-center no-underline font-medium"
+  className="bg-blue-600 text-white px-5 py-3 rounded block text-center no-underline font-medium box-border"
 >
   Verify Email Address
 </Button>
@@ -257,7 +257,7 @@ import { Button } from '@react-email/components';
 A hyperlink to web pages, email addresses, or anything else a URL can address.
 
 ```tsx
-import { Link } from '@react-email/components';
+import { Link } from 'react-email';
 
 <Link href="https://example.com" target="_blank" className="text-blue-600 underline">
   Visit our website
@@ -273,7 +273,7 @@ import { Link } from '@react-email/components';
 Display an image in your email.
 
 ```tsx
-import { Img } from '@react-email/components';
+import { Img } from 'react-email';
 
 <Img
   src="https://example.com/logo.png"
@@ -301,9 +301,9 @@ import { Img } from '@react-email/components';
 Display a divider that separates content areas in your email.
 
 ```tsx
-import { Hr } from '@react-email/components';
+import { Hr } from 'react-email';
 
-<Hr className="border-gray-200 my-5" />
+<Hr className="border-solid border-gray-200 my-5" />
 ```
 
 ## Specialized Components
@@ -313,13 +313,13 @@ import { Hr } from '@react-email/components';
 Display code with a selected theme and regex highlighting using Prism.js.
 
 ```tsx
-import { CodeBlock, dracula } from '@react-email/components';
+import { CodeBlock, dracula } from 'react-email';
 
 const Email = () => {
   const code = `export default async (req, res) => {
   try {
-    const html = await renderAsync(
-      EmailTemplate({ firstName: 'John' })
+    const html = await render(
+      <EmailTemplate firstName="John" />
     );
     return NextResponse.json({ html });
   } catch (error) {
@@ -343,7 +343,7 @@ const Email = () => {
 **Props:**
 - `code` (required) - The actual code to render in the code block. Just a plain string, with the proper indentation included
 - `language` (required) - The language under the supported languages defined in PrismLanguage (e.g., "javascript", "python", "typescript")
-- `theme` (required) - The theme to use for the code block (import from "@react-email/components": dracula, github, nord, etc.)
+- `theme` (required) - The theme to use for the code block (import from "react-email": dracula, github, nord, etc.)
 - `fontFamily` (optional) - The font family to use for the code block (e.g., "monospace")
 - `lineNumbers` (optional) - Whether or not to automatically include line numbers on the rendered code block (boolean, default: false)
 
@@ -356,7 +356,7 @@ const Email = () => {
 Display a predictable inline code HTML element that works on all email clients.
 
 ```tsx
-import { Text, CodeInline } from '@react-email/components';
+import { Text, CodeInline } from 'react-email';
 
 <Text className="text-base text-gray-800">
   Run <CodeInline className="bg-gray-100 px-1 rounded">npm install</CodeInline> to get started.
@@ -368,7 +368,7 @@ import { Text, CodeInline } from '@react-email/components';
 A Markdown component that converts markdown to valid react-email template code.
 
 ```tsx
-import { Html, Markdown } from '@react-email/components';
+import { Html, Markdown } from 'react-email';
 
 const Email = () => {
   return (
@@ -403,7 +403,7 @@ const Email = () => {
 A React Font component to set your fonts.
 
 ```tsx
-import { Head, Font } from '@react-email/components';
+import { Head, Font } from 'react-email';
 
 <Head>
   <Font

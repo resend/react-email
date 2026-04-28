@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@sendgrid/mail": "^7",
-    "@react-email/components": "catalog:",
+    "react-email": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
   },

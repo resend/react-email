@@ -2,7 +2,7 @@
 
 This is a playground for React Email made to experiment with components in realtime.
 
-It includes all components directly from source with a path alias import of `@react-email/components` and hot reloading in the `dev` script.
+It includes all components directly from source with a path alias import of `react-email` and hot reloading in the `dev` script.
 
 ## Development workflow
 
@@ -11,7 +11,7 @@ It includes all components directly from source with a path alias import of `@re
 Create a new file at `playground/emails/testing.tsx` 
 
 ```tsx emails/testing.tsx
-import { Html, Head, Body, Tailwind, Text } from '@react-email/components';
+import { Html, Head, Body, Tailwind, Text } from 'react-email';
 
 export default function Testing() {
   return <Tailwind>

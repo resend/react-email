@@ -26,7 +26,10 @@ export const render = async (node: React.ReactNode, options?: Options) => {
           progressiveChunkSize: Number.POSITIVE_INFINITY,
         },
       )
-      .then(readStream)
+      .then(async (stream) => {
+        await stream.allReady;
+        return readStream(stream);
+      })
       .then(resolve)
       .catch(reject);
   });

@@ -56,7 +56,7 @@ const TabContent: React.FC<{
   className?: string;
 }> = ({ value, children, className = '' }) => (
   <Tabs.Content
-    className={`relative m-4 mx-2 h-fit scroll-m-2 overflow-hidden rounded-2xl border border-slate-4 transition-colors focus:outline-hidden focus:ring-3 focus:ring-slate-8 md:mx-8 ${className}`}
+    className={`relative m-4 mx-2 h-fit scroll-m-2 overflow-hidden rounded-2xl border border-slate-4 transition-colors focus:outline-hidden  md:mx-8 ${className}`}
     value={value}
   >
     {children}

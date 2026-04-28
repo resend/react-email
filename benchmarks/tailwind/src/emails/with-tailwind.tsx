@@ -11,7 +11,7 @@ import {
   Row,
   Section,
   Text,
-} from '@react-email/components';
+} from 'react-email';
 import type { TailwindProps } from '../../../../packages/tailwind/dist';
 
 const baseUrl = process.env.VERCEL_URL

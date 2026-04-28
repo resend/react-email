@@ -68,15 +68,10 @@ const init = async (name, { tag }) => {
   const templatePackageJson = fse.readFileSync(templatePackageJsonPath, 'utf8');
   fse.writeFileSync(
     templatePackageJsonPath,
-    templatePackageJson
-      .replace(
-        'INSERT_COMPONENTS_VERSION',
-        await getLatestVersionOfTag('@react-email/components', tag),
-      )
-      .replaceAll(
-        'INSERT_REACT_EMAIL_VERSION',
-        await getLatestVersionOfTag('react-email', tag),
-      ),
+    templatePackageJson.replaceAll(
+      'INSERT_REACT_EMAIL_VERSION',
+      await getLatestVersionOfTag('react-email', tag),
+    ),
     'utf8',
   );
 

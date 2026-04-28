@@ -1,5 +1,5 @@
-import { render } from '@react-email/components';
 import sendgrid from '@sendgrid/mail';
+import { render } from 'react-email';
 import { Email } from './email';
 
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY || '');

@@ -10,9 +10,11 @@ skills/
     ├── SKILL.md              # Main skill instructions
     └── references/
         ├── COMPONENTS.md     # Complete component reference
+        ├── EDITOR.md         # Visual email editor reference
         ├── I18N.md           # Internationalization guide
         ├── PATTERNS.md       # Common email patterns and examples
-        └── SENDING.md        # Email sending guide
+        ├── SENDING.md        # Email sending guide
+        └── STYLING.md        # Styling and CSS reference
 ```
 
 ## What is an Agent Skill?
@@ -20,6 +22,7 @@ skills/
 Agent Skills are a standardized format for giving AI agents specialized knowledge and workflows. This skill teaches agents how to:
 
 - Build HTML email templates using React Email components
+- Add a visual drag-and-drop email editor to a React application (using `@react-email/editor`)
 - Send emails through Resend and other providers
 - Implement internationalization for multi-language support
 - Follow email development best practices

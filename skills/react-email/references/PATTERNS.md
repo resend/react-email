@@ -2,6 +2,14 @@
 
 Real-world examples of common email templates using React Email with Tailwind CSS styling.
 
+## Table of Contents
+
+- [Password Reset Email](#password-reset-email)
+- [Order Confirmation with Product List](#order-confirmation-with-product-list)
+- [Notification Email with Code Block](#notification-email-with-code-block)
+- [Multi-Column Newsletter](#multi-column-newsletter)
+- [Team Invitation Email](#team-invitation-email)
+
 ## Password Reset Email
 
 ```tsx
@@ -17,7 +25,7 @@ import {
   Hr,
   Tailwind,
   pixelBasedPreset
-} from '@react-email/components';
+} from 'react-email';
 
 interface PasswordResetProps {
   resetUrl: string;
@@ -30,8 +38,8 @@ export default function PasswordReset({ resetUrl, email, expiryHours = 1 }: Pass
     <Html lang="en">
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Head />
-        <Preview>Reset your password - Action required</Preview>
         <Body className="bg-gray-100 font-sans">
+          <Preview>Reset your password - Action required</Preview>
           <Container className="mx-auto py-10 px-5 max-w-xl bg-white">
             <Heading className="text-2xl font-bold text-gray-800 mb-5">
               Reset Your Password
@@ -44,11 +52,11 @@ export default function PasswordReset({ resetUrl, email, expiryHours = 1 }: Pass
             </Text>
             <Button
               href={resetUrl}
-              className="bg-red-600 text-white px-7 py-3.5 rounded block text-center font-bold my-6 no-underline"
+              className="bg-red-600 text-white px-7 py-3.5 rounded block text-center font-bold my-6 no-underline box-border"
             >
               Reset Password
             </Button>
-            <Hr className="border-gray-200 my-6" />
+            <Hr className="border-solid border-gray-200 my-6" />
             <Text className="text-sm text-gray-500 leading-5 my-2">
               If you didn't request this, please ignore this email. Your password will remain unchanged.
             </Text>
@@ -87,7 +95,7 @@ import {
   Hr,
   Tailwind,
   pixelBasedPreset
-} from '@react-email/components';
+} from 'react-email';
 
 interface Product {
   name: string;
@@ -129,8 +137,8 @@ export default function OrderConfirmation({
     <Html lang="en">
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Head />
-        <Preview>Order #{orderNumber} confirmed - Thank you for your purchase!</Preview>
         <Body className="bg-gray-100 font-sans">
+          <Preview>Order #{orderNumber} confirmed - Thank you for your purchase!</Preview>
           <Container className="mx-auto py-10 px-5 max-w-xl">
             <Heading className="text-3xl font-bold text-gray-800 mb-2">
               Order Confirmed
@@ -150,7 +158,7 @@ export default function OrderConfirmation({
               </Row>
             </Section>
 
-            <Hr className="border-gray-200 my-6" />
+            <Hr className="border-solid border-gray-200 my-6" />
 
             <Heading as="h2" className="text-xl font-bold text-gray-800 my-4">
               Order Items
@@ -165,7 +173,7 @@ export default function OrderConfirmation({
                       alt={item.name}
                       width="80"
                       height="80"
-                      className="rounded border border-gray-200"
+                      className="rounded border border-solid border-gray-200"
                     />
                   </Column>
                   <Column className="align-top pl-4">
@@ -184,7 +192,7 @@ export default function OrderConfirmation({
               </Section>
             ))}
 
-            <Hr className="border-gray-200 my-6" />
+            <Hr className="border-solid border-gray-200 my-6" />
 
             <Section className="mt-6">
               <Row>
@@ -205,7 +213,7 @@ export default function OrderConfirmation({
                   <Text className="text-sm text-gray-800 my-2">${tax.toFixed(2)}</Text>
                 </Column>
               </Row>
-              <Hr className="border-gray-200 my-3" />
+              <Hr className="border-solid border-gray-200 my-3" />
               <Row>
                 <Column><Text className="text-lg font-bold text-gray-800 my-2">Total</Text></Column>
                 <Column className="text-right">
@@ -214,7 +222,7 @@ export default function OrderConfirmation({
               </Row>
             </Section>
 
-            <Hr className="border-gray-200 my-6" />
+            <Hr className="border-solid border-gray-200 my-6" />
 
             <Heading as="h2" className="text-xl font-bold text-gray-800 my-4">
               Shipping Address
@@ -290,7 +298,7 @@ import {
   Link,
   Tailwind,
   pixelBasedPreset
-} from '@react-email/components';
+} from 'react-email';
 
 interface NotificationProps {
   title: string;
@@ -329,9 +337,9 @@ export default function Notification({
     <Html lang="en">
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Head />
-        <Preview>{title} - {severity}</Preview>
         <Body className="bg-gray-100 font-mono">
-          <Container className="mx-auto max-w-xl bg-white border border-gray-200 rounded overflow-hidden">
+          <Preview>{title} - {severity}</Preview>
+          <Container className="mx-auto max-w-xl bg-white border border-solid border-gray-200 rounded overflow-hidden">
             <Section className={`h-1 w-full ${severityColors[severity]}`} />
 
             <Heading className="text-2xl font-bold text-gray-800 mx-6 mt-6 mb-4">
@@ -355,16 +363,15 @@ export default function Notification({
 
             {logData && (
               <>
-                <Hr className="border-gray-200 my-6" />
+                <Hr className="border-solid border-gray-200 my-6" />
                 <Heading as="h2" className="text-lg font-bold text-gray-800 mx-6 my-4">
                   Log Details
                 </Heading>
-                <Section className="mx-6">
+                <Section className="overflow-auto mx-6">
                   <CodeBlock
                     code={logData}
                     language="json"
                     theme={dracula}
-                    lineNumbers
                   />
                 </Section>
               </>
@@ -372,7 +379,7 @@ export default function Notification({
 
             {actionUrl && (
               <>
-                <Hr className="border-gray-200 my-6" />
+                <Hr className="border-solid border-gray-200 my-6" />
                 <Link
                   href={actionUrl}
                   className={`inline-block px-6 py-3 text-base font-bold text-white rounded no-underline mx-6 mb-6 ${severityBtnColors[severity]}`}
@@ -382,7 +389,7 @@ export default function Notification({
               </>
             )}
 
-            <Hr className="border-gray-200 my-6" />
+            <Hr className="border-solid border-gray-200 my-6" />
             <Text className="text-xs text-gray-500 mx-6 mb-6">
               This is an automated notification. Please do not reply to this email.
             </Text>
@@ -429,7 +436,7 @@ import {
   Link,
   Tailwind,
   pixelBasedPreset
-} from '@react-email/components';
+} from 'react-email';
 
 interface Article {
   title: string;
@@ -450,8 +457,8 @@ export default function Newsletter({ articles, unsubscribeUrl }: NewsletterProps
     <Html lang="en">
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Head />
-        <Preview>Your weekly roundup of the latest articles</Preview>
         <Body className="bg-white font-sans">
+          <Preview>Your weekly roundup of the latest articles</Preview>
           <Container className="mx-auto max-w-xl">
             {/* Header */}
             <Section className="pt-10 px-5 pb-5 text-center">
@@ -470,7 +477,7 @@ export default function Newsletter({ articles, unsubscribeUrl }: NewsletterProps
               Here are the top articles from this week. Enjoy your reading!
             </Text>
 
-            <Hr className="border-gray-200 mx-5 my-8" />
+            <Hr className="border-solid border-gray-200 mx-5 my-8" />
 
             {/* Featured Article */}
             {articles[0] && (
@@ -492,14 +499,14 @@ export default function Newsletter({ articles, unsubscribeUrl }: NewsletterProps
                 </Text>
                 <Button
                   href={articles[0].url}
-                  className="bg-blue-600 text-white px-6 py-3 rounded font-bold inline-block no-underline"
+                  className="bg-blue-600 text-white px-6 py-3 rounded font-bold inline-block no-underline box-border"
                 >
                   Read More
                 </Button>
               </Section>
             )}
 
-            <Hr className="border-gray-200 mx-5 my-8" />
+            <Hr className="border-solid border-gray-200 mx-5 my-8" />
 
             {/* Two-Column Articles */}
             {articles.slice(1, 5).length > 0 && (
@@ -560,7 +567,7 @@ export default function Newsletter({ articles, unsubscribeUrl }: NewsletterProps
               </>
             )}
 
-            <Hr className="border-gray-200 mx-5 my-8" />
+            <Hr className="border-solid border-gray-200 mx-5 my-8" />
 
             {/* Footer */}
             <Section className="bg-gray-50 p-8 mt-8 text-center">
@@ -628,7 +635,7 @@ import {
   Hr,
   Tailwind,
   pixelBasedPreset
-} from '@react-email/components';
+} from 'react-email';
 
 interface TeamInvitationProps {
   inviterName: string;
@@ -651,8 +658,8 @@ export default function TeamInvitation({
     <Html lang="en">
       <Tailwind config={{ presets: [pixelBasedPreset] }}>
         <Head />
-        <Preview>You've been invited to join {teamName}</Preview>
         <Body className="bg-gray-100 font-sans">
+          <Preview>You've been invited to join {teamName}</Preview>
           <Container className="mx-auto py-10 px-5 max-w-xl bg-white">
             <Heading className="text-3xl font-bold text-gray-800 text-center mb-6">
               You're Invited!
@@ -663,7 +670,7 @@ export default function TeamInvitation({
               <strong>{teamName}</strong> team.
             </Text>
 
-            <Section className="bg-gray-50 p-5 rounded border border-gray-200 my-6">
+            <Section className="bg-gray-50 p-5 rounded border border-solid border-gray-200 my-6">
               <Text className="text-xs text-gray-500 uppercase font-bold mb-2">Role</Text>
               <Text className="text-lg font-bold text-gray-800 m-0">{role}</Text>
             </Section>
@@ -674,12 +681,12 @@ export default function TeamInvitation({
 
             <Button
               href={inviteUrl}
-              className="bg-green-600 text-white px-7 py-3.5 rounded block text-center font-bold text-base my-6 no-underline"
+              className="bg-green-600 text-white px-7 py-3.5 rounded block text-center font-bold text-base my-6 no-underline box-border"
             >
               Accept Invitation
             </Button>
 
-            <Hr className="border-gray-200 my-6" />
+            <Hr className="border-solid border-gray-200 my-6" />
 
             <Text className="text-sm text-gray-500 leading-5 my-2">
               This invitation will expire in {expiryDays} day{expiryDays > 1 ? 's' : ''}.

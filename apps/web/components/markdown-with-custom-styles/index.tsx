@@ -1,4 +1,4 @@
-import { Markdown } from '@react-email/components';
+import { Markdown } from 'react-email';
 import { Layout } from '../_components/layout';
 
 export const component = (

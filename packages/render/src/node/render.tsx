@@ -33,7 +33,10 @@ export const render = async (node: React.ReactNode, options?: Options) => {
             },
           },
         )
-        .then((stream) => readStream(stream))
+        .then(async (stream) => {
+          await stream.allReady;
+          return readStream(stream);
+        })
         .then((result) => {
           html = result;
           resolve();

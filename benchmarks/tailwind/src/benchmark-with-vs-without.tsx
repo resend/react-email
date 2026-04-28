@@ -1,5 +1,5 @@
 import { render } from '@react-email/render';
-import { Tailwind as CurrentTailwind } from '@react-email/tailwind';
+import { Tailwind as CurrentTailwind } from 'react-email';
 import { Bench } from 'tinybench';
 import EmailWithTailwind from './emails/with-tailwind.js';
 import EmailWithoutTailwind from './emails/without-tailwind.js';

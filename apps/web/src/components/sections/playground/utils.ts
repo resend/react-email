@@ -1,4 +1,4 @@
-export const tailwindCSSCode = `import { Body, Button, Container, Head, Heading, Html, Img, Preview, Section, Tailwind, Text } from '@react-email/components';
+export const tailwindCSSCode = `import { Body, Button, Container, Head, Heading, Html, Img, Preview, Section, Tailwind, Text } from 'react-email';
 
 interface WelcomeEmailProps {
   username?: string;
@@ -60,7 +60,7 @@ const WelcomeEmail = ({
 
 export default WelcomeEmail;`;
 
-export const cssCode = `import { Body, Button, Container, Head, Heading, Html, Img, Preview, Section, Text } from '@react-email/components';
+export const cssCode = `import { Body, Button, Container, Head, Heading, Html, Img, Preview, Section, Text } from 'react-email';
 
 interface WelcomeEmailProps {
   username?: string;
