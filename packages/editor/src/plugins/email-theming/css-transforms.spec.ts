@@ -1,5 +1,9 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { injectThemeCss, transformToCssJs } from './css-transforms';
+import {
+  injectGlobalPlainCss,
+  injectThemeCss,
+  transformToCssJs,
+} from './css-transforms';
 import { DEFAULT_INBOX_FONT_SIZE_PX } from './themes';
 import type { CssJs, PanelGroup } from './types';
 
@@ -377,5 +381,88 @@ describe('injectThemeCss', () => {
       '.editor-scope .node-container{width:600px;}',
     );
     expect(styleTag?.textContent).not.toContain('.editor-scope .node-body');
+  });
+});
+
+describe('injectGlobalPlainCss', () => {
+  const STYLE_ID = 'inject-global-plain-css-test';
+  const SCOPE = '.editor-scope';
+
+  afterEach(() => {
+    document.getElementById(STYLE_ID)?.remove();
+  });
+
+  it('injects css into a new <style> element', () => {
+    injectGlobalPlainCss('.foo { color: red; }', {
+      styleId: STYLE_ID,
+      scopeSelector: SCOPE,
+    });
+
+    const styleTag = document.getElementById(STYLE_ID);
+    expect(styleTag).not.toBeNull();
+    expect(styleTag?.textContent).toBe(
+      `${SCOPE} { .foo { color: red; } }`,
+    );
+  });
+
+  it('updates existing <style> textContent on subsequent calls', () => {
+    injectGlobalPlainCss('.foo { color: red; }', {
+      styleId: STYLE_ID,
+      scopeSelector: SCOPE,
+    });
+    injectGlobalPlainCss('.bar { color: blue; }', {
+      styleId: STYLE_ID,
+      scopeSelector: SCOPE,
+    });
+
+    const styleTags = document.querySelectorAll(`#${STYLE_ID}`);
+    expect(styleTags.length).toBe(1);
+    expect(styleTags[0]?.textContent).toBe(
+      `${SCOPE} { .bar { color: blue; } }`,
+    );
+  });
+
+  it('clears existing <style> textContent when css is "" (MES-551)', () => {
+    injectGlobalPlainCss('.foo { color: red; }', {
+      styleId: STYLE_ID,
+      scopeSelector: SCOPE,
+    });
+
+    injectGlobalPlainCss('', { styleId: STYLE_ID, scopeSelector: SCOPE });
+
+    const styleTag = document.getElementById(STYLE_ID);
+    expect(styleTag).not.toBeNull();
+    expect(styleTag?.textContent).toBe('');
+  });
+
+  it('clears existing <style> textContent when css is null', () => {
+    injectGlobalPlainCss('.foo { color: red; }', {
+      styleId: STYLE_ID,
+      scopeSelector: SCOPE,
+    });
+
+    injectGlobalPlainCss(null, { styleId: STYLE_ID, scopeSelector: SCOPE });
+
+    expect(document.getElementById(STYLE_ID)?.textContent).toBe('');
+  });
+
+  it('clears existing <style> textContent when css is undefined', () => {
+    injectGlobalPlainCss('.foo { color: red; }', {
+      styleId: STYLE_ID,
+      scopeSelector: SCOPE,
+    });
+
+    injectGlobalPlainCss(undefined, {
+      styleId: STYLE_ID,
+      scopeSelector: SCOPE,
+    });
+
+    expect(document.getElementById(STYLE_ID)?.textContent).toBe('');
+  });
+
+  it('does not create a <style> element when css is empty and none exists', () => {
+    injectGlobalPlainCss('', { styleId: STYLE_ID, scopeSelector: SCOPE });
+
+    expect(document.getElementById(STYLE_ID)).toBeNull();
   });
 });
