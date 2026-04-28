@@ -13,7 +13,7 @@ import {
   topologicalPublishDryRun,
   topologicalSort,
   type WorkspacePackage,
-} from './release-utils.mts';
+} from './release.mts';
 
 describe('parseNpmViewVersionsOutput', () => {
   it('parses a single published version', () => {
@@ -654,7 +654,7 @@ describe('topologicalPublishDryRun', () => {
   });
 
   it('treats packages without a build script as built when build failed', async () => {
-    const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'release-utils-'));
+    const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'release-'));
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
 
     try {
@@ -686,7 +686,7 @@ describe('topologicalPublishDryRun', () => {
   });
 
   it('treats .next output as a successful build when build failed', async () => {
-    const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'release-utils-'));
+    const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'release-'));
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
 
     try {
