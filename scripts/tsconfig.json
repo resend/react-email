@@ -5,6 +5,8 @@
     "types": ["node"],
     "module": "esnext",
     "target": "esnext",
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
     "moduleResolution": "bundler"
   },
   "include": ["./*.ts", "./*.mts"]

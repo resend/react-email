@@ -33,9 +33,9 @@ export function getChangelogEntry(changelog: string, version: string) {
   const nodes = ast.children;
   let headingStartInfo:
     | {
-      index: number;
-      depth: number;
-    }
+        index: number;
+        depth: number;
+      }
     | undefined;
   let endIndex: number | undefined;
 
@@ -213,7 +213,8 @@ export function parseNpmViewVersionsOutput(
   }
 
   throw new Error(
-    `Failed to check npm registry for ${packageName}: ${combinedOutput || `exit code ${result.exitCode}`
+    `Failed to check npm registry for ${packageName}: ${
+      combinedOutput || `exit code ${result.exitCode}`
     }`,
   );
 }
@@ -522,7 +523,7 @@ async function defaultCheckBuildStatus(dir: string): Promise<boolean> {
     try {
       await fs.access(path.join(dir, buildOutputDir));
       return true;
-    } catch { }
+    } catch {}
   }
 
   return false;
@@ -606,6 +607,8 @@ if (
     }
   }
 
+  let shouldContinueRelease = true;
+
   if (!isDryRun && !skipNpmPublish) {
     const isCanaryBranch = github.context.ref === 'refs/heads/canary';
     const isMainBranch = github.context.ref === 'refs/heads/main';
@@ -618,9 +621,10 @@ if (
         console.log(
           'Was not in prerelease, skipping automated release. To release this you should rebase onto main',
         );
-        return;
+        shouldContinueRelease = false;
+      } else {
+        console.log('Is in prerelease mode, proceeding with automated release');
       }
-      console.log('Is in prerelease mode, proceeding with automated release');
     } else if (isMainBranch) {
       console.log(
         'Detected running in main branch, proceeding with stable release',
@@ -632,76 +636,81 @@ if (
     }
   }
 
-  const npmIdToken =
-    !isDryRun && !skipNpmPublish
-      ? await core.getIDToken('npm:registry.npmjs.org')
-      : '';
+  if (shouldContinueRelease) {
+    const npmIdToken =
+      !isDryRun && !skipNpmPublish
+        ? await core.getIDToken('npm:registry.npmjs.org')
+        : '';
 
-  let buildFailed = false;
-  if (!skipNpmPublish || isDryRun) {
-    try {
-      await exec('pnpm', ['turbo', 'run', 'build', '--filter=./packages/*']);
-    } catch (error) {
-      if (!isDryRun) throw error;
-      buildFailed = true;
-      console.error(`Build failed: ${error}`);
+    let buildFailed = false;
+    if (!skipNpmPublish || isDryRun) {
+      try {
+        await exec('pnpm', ['turbo', 'run', 'build', '--filter=./packages/*']);
+      } catch (error) {
+        if (!isDryRun) throw error;
+        buildFailed = true;
+        console.error(`Build failed: ${error}`);
+      }
     }
-  }
 
-  const preTag = preState?.mode === 'pre' ? preState.tag : undefined;
+    const preTag = preState?.mode === 'pre' ? preState.tag : undefined;
 
-  const { packages } = await getPackages(process.cwd());
-  const publishablePackages = packages.filter(
-    (pkg) => pkg.packageJson.private !== true,
-  );
-  const packagesByName = new Map(packages.map((x) => [x.packageJson.name, x]));
-
-  let releasedPackages: Package[];
-  let failedNames: string[] = [];
-
-  if (skipNpmPublish) {
-    console.log(
-      'SKIP_NPM_PUBLISH is set, skipping npm publish and only ensuring GitHub releases exist',
+    const { packages } = await getPackages(process.cwd());
+    const publishablePackages = packages.filter(
+      (pkg) => pkg.packageJson.private !== true,
     );
-    releasedPackages = publishablePackages;
-  } else if (isDryRun) {
-    await topologicalPublishDryRun({
-      packages,
-      preTag,
-      buildFailed,
-      getPackagePublicationInfo,
-    });
-    return;
-  } else {
-    const result = await topologicalPublish({
-      packages,
-      preTag,
-      getPackagePublicationInfo,
-      publish: createPublisher({ npmIdToken }),
-    });
+    const packagesByName = new Map(
+      packages.map((x) => [x.packageJson.name, x]),
+    );
 
-    failedNames = result.failed;
+    let releasedPackages: Package[] = [];
+    let failedNames: string[] = [];
 
-    if (failedNames.length > 0) {
-      core.error(
-        `Failed to publish ${failedNames.length} package(s): ${failedNames.join(', ')}`,
+    if (skipNpmPublish) {
+      console.log(
+        'SKIP_NPM_PUBLISH is set, skipping npm publish and only ensuring GitHub releases exist',
       );
+      releasedPackages = publishablePackages;
+    } else if (isDryRun) {
+      await topologicalPublishDryRun({
+        packages,
+        preTag,
+        buildFailed,
+        getPackagePublicationInfo,
+      });
+    } else {
+      const result = await topologicalPublish({
+        packages,
+        preTag,
+        getPackagePublicationInfo,
+        publish: createPublisher({ npmIdToken }),
+      });
+
+      failedNames = result.failed;
+
+      if (failedNames.length > 0) {
+        core.error(
+          `Failed to publish ${failedNames.length} package(s): ${failedNames.join(', ')}`,
+        );
+      }
+
+      releasedPackages = result.published.map((n) => packagesByName.get(n)!);
     }
 
-    releasedPackages = result.published.map((n) => packagesByName.get(n)!);
-  }
+    if (!isDryRun) {
+      await exec('git', ['config', 'user.name', `"github-actions[bot]"`]);
+      await exec('git', [
+        'config',
+        'user.email',
+        `"41898282+github-actions[bot]@users.noreply.github.com"`,
+      ]);
+      for (const pkg of releasedPackages) {
+        await ensureReleaseForPackage(pkg);
+      }
 
-  await exec('git', ['config', 'user.name', `"github-actions[bot]"`]);
-  await exec('git', [
-    'config',
-    'user.email',
-    `"41898282+github-actions[bot]@users.noreply.github.com"`,
-  ]);
-  for (const pkg of releasedPackages) {
-    await ensureReleaseForPackage(pkg);
-  }
-
-  if (failedNames.length > 0) {
-    process.exitCode = 1;
+      if (failedNames.length > 0) {
+        process.exitCode = 1;
+      }
+    }
   }
 }
