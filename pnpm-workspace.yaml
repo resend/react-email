@@ -56,9 +56,6 @@ catalog:
   yalc: 1.0.0-pre.53
   zod: 4.3.6
 
-ignoredBuiltDependencies:
-  - sharp
-
 overrides:
   '@mintlify/cli>js-yaml': ^4.1.1
   '@mintlify/common>js-yaml': ^4.1.1
