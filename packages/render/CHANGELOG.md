@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 2.0.8
+
+### Patch Changes
+
+- e0e896f: Strip nul bytes from React 18 `renderToPipeableStream` output to prevent emails with multi-byte characters from being truncated.
+
 ## 2.0.7
 
 ### Patch Changes

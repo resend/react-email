@@ -1,5 +1,14 @@
 # react-email
 
+## 6.0.4
+
+### Patch Changes
+
+- 96af3a7: Replace ora with picospinner for CLI and preview spinner output.
+- 5cf57ae: unpin esbuild
+- Updated dependencies [e0e896f]
+  - @react-email/render@2.0.8
+
 ## 6.0.3
 
 ### Patch Changes

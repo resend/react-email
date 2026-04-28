@@ -1,5 +1,11 @@
 # @react-email/ui
 
+## 6.0.4
+
+### Patch Changes
+
+- 96af3a7: Replace ora with picospinner for CLI and preview spinner output.
+
 ## 6.0.3
 
 ## 6.0.2
