@@ -83,17 +83,15 @@ export function EditorFocusScopeProvider({
   }, [editor, clearSelectionOnBlur]);
 
   const focusScope =
-    fallbackFocusScope ?? editor?.extensionStorage?.focusScope ?? null;
+    fallbackFocusScope ??
+    editor?.extensionStorage?.focusScope ??
+    noopFocusScope;
 
-  if (focusScope) {
-    return (
-      <FocusScopeContext.Provider value={focusScope}>
-        {children}
-      </FocusScopeContext.Provider>
-    );
-  }
-
-  return <>{children}</>;
+  return (
+    <FocusScopeContext.Provider value={focusScope}>
+      {children}
+    </FocusScopeContext.Provider>
+  );
 }
 
 export interface EditorFocusScopeProps {
