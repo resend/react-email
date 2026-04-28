@@ -81,6 +81,9 @@ catalogs:
     ora:
       specifier: ^8.0.0
       version: 8.2.0
+    picospinner:
+      specifier: ^3.0.0
+      version: 3.0.0
     postcss:
       specifier: 8.5.10
       version: 8.5.10
@@ -687,9 +690,9 @@ importers:
       nypm:
         specifier: 'catalog:'
         version: 0.6.6
-      ora:
+      picospinner:
         specifier: 'catalog:'
-        version: 8.2.0
+        version: 3.0.0
       prismjs:
         specifier: ^1.30.0
         version: 1.30.0
@@ -892,9 +895,9 @@ importers:
       node-html-parser:
         specifier: 7.1.0
         version: 7.1.0
-      ora:
+      picospinner:
         specifier: 'catalog:'
-        version: 8.2.0
+        version: 3.0.0
       postcss:
         specifier: 'catalog:'
         version: 8.5.10
@@ -6990,6 +6993,10 @@ packages:
   picomatch@4.0.4:
     resolution: {integrity: sha512-QP88BAKvMam/3NxH6vj2o21R6MjxZUAd6nlwAS/pnGvN9IVLocLHxGYIzFhg6fUQ+5th6P4dv4eW9jX3DSIj7A==}
     engines: {node: '>=12'}
+
+  picospinner@3.0.0:
+    resolution: {integrity: sha512-lGA1TNsmy2bxvRsTI2cV01kfTwKzZjnZSDmF9llYNyMHMrU4sP87lQ5taiIKm88L3cbswjl008nwyGc3WpNvzg==}
+    engines: {node: '>=18.0.0'}
 
   pify@2.3.0:
     resolution: {integrity: sha512-udgsAY+fTnvv7kI7aaxbqwWNb0AHiB0qBO89PZKPkoTmGOgdbrHDKD+0B2X4uTfJ/FT1R09r9gTsjUjNJotuog==}
@@ -15754,6 +15761,8 @@ snapshots:
   picomatch@2.3.2: {}
 
   picomatch@4.0.4: {}
+
+  picospinner@3.0.0: {}
 
   pify@2.3.0: {}
 

@@ -63,7 +63,7 @@
     "module-punycode": "npm:punycode@2.3.1",
     "next-safe-action": "8.5.2",
     "node-html-parser": "7.1.0",
-    "ora": "catalog:",
+    "picospinner": "catalog:",
     "postcss": "catalog:",
     "pretty-bytes": "6.1.1",
     "prism-react-renderer": "catalog:",
