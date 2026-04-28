@@ -1,11 +1,10 @@
-import logSymbols from 'log-symbols';
-import type { Ora } from 'ora';
+import type { Spinner } from './spinner';
 
-const spinners = new Set<Ora>();
+const spinners = new Set<Spinner>();
 
 process.on('SIGINT', () => {
   spinners.forEach((spinner) => {
-    if (spinner.isSpinning) {
+    if (spinner.running) {
       spinner.stop();
     }
   });
@@ -14,15 +13,13 @@ process.on('SIGINT', () => {
 process.on('exit', (code) => {
   if (code !== 0) {
     spinners.forEach((spinner) => {
-      if (spinner.isSpinning) {
-        spinner.stopAndPersist({
-          symbol: logSymbols.error,
-        });
+      if (spinner.running) {
+        spinner.fail();
       }
     });
   }
 });
 
-export const registerSpinnerAutostopping = (spinner: Ora) => {
+export const registerSpinnerAutostopping = (spinner: Spinner) => {
   spinners.add(spinner);
 };

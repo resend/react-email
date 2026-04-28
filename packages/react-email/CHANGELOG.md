@@ -1,5 +1,11 @@
 # react-email
 
+## 6.0.3
+
+### Patch Changes
+
+- bb51e5e: fix missing react and react-dom peer dependencies
+
 ## 6.0.2
 
 ### Patch Changes
