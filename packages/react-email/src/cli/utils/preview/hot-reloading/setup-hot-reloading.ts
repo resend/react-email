@@ -112,8 +112,6 @@ export const setupHotreloading = async (
     }
     filesOutsideEmailsDirectory = newFilesOutsideEmailsDirectory;
 
-    // Glob directories can change as templates are edited (a new dynamic
-    // import is added or removed); reconcile chokidar's set with the graph.
     const newWatchedGlobDirectories = getGlobDependencyDirectories();
     for (const directory of watchedGlobDirectories) {
       if (!newWatchedGlobDirectories.includes(directory)) {

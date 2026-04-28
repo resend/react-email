@@ -9,16 +9,7 @@ const traverse =
       traverseModule.default;
 
 export interface ImportedModules {
-  /** Static `import` declarations, `require(...)` calls, and dynamic `import('literal')` calls. */
   staticImports: string[];
-  /**
-   * Leading static prefixes of dynamic `import(\`...${expr}...\`)` calls.
-   *
-   * Used to discover directories that should be watched for runtime-resolved
-   * imports (e.g. `import(\`./messages/${lng}/${ns}.json\`)`). Each entry is
-   * the substring of the template literal up to the first interpolation; the
-   * caller resolves it to an absolute directory.
-   */
   dynamicGlobPrefixes: string[];
 }
 
@@ -58,7 +49,6 @@ export const getImportedModules = (contents: string): ImportedModules => {
         return;
       }
 
-      // `import(...)` is parsed as a CallExpression whose callee is `Import`.
       if (node.callee.type === 'Import' && node.arguments.length === 1) {
         const argument = node.arguments[0]!;
         if (argument.type === 'StringLiteral') {

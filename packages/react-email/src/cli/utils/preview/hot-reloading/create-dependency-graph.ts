@@ -13,11 +13,6 @@ interface Module {
   dependencyPaths: string[];
   dependentPaths: string[];
 
-  /**
-   * Absolute directory paths discovered from dynamic `import(\`./prefix/${expr}\`)`
-   * call sites. Any file change inside one of these directories should be
-   * treated as a change to this module.
-   */
   globDependencyPaths: string[];
 
   moduleDependencies: string[];
@@ -82,28 +77,18 @@ const checkFileExtensionsUntilItExists = (
 
 export const isUnderDirectory = (filePath: string, directoryPath: string) => {
   if (filePath === directoryPath) return true;
-  // Avoid double-separator when directoryPath is a root like `/` or `C:\`.
   const prefix = directoryPath.endsWith(path.sep)
     ? directoryPath
     : directoryPath + path.sep;
   return filePath.startsWith(prefix);
 };
 
-/**
- * Resolves the leading static prefix of a dynamic `import()` template literal
- * to an absolute directory path on disk.
- *
- * Returns `undefined` when the prefix is too generic (e.g. `./` or `../`) to
- * be useful — watching the entire module directory would over-trigger reloads.
- */
 const resolveGlobPrefixToDirectory = (
   prefix: string,
   modulePath: string,
 ): string | undefined => {
   const moduleDirectory = path.dirname(modulePath);
 
-  // Try to resolve tsconfig path aliases (e.g. `@/messages/`) before deciding
-  // a non-relative prefix is a bare module specifier.
   let resolvedPrefix: string;
   const isRelative = prefix.startsWith('.') || path.isAbsolute(prefix);
   if (isRelative) {
@@ -113,21 +98,16 @@ const resolveGlobPrefixToDirectory = (
     if (trimmed.length === 0) return undefined;
     const aliased = resolveAliasedDirectoryPrefix(trimmed, moduleDirectory);
     if (aliased === undefined) {
-      // Not an alias — actual bare module specifier. Skip.
       return undefined;
     }
     resolvedPrefix = aliased;
   }
 
-  // Pick the directory portion of the prefix. If the prefix doesn't end in a
-  // separator, the last segment is treated as a partial filename and dropped.
   const directory =
     prefix.endsWith('/') || prefix.endsWith(path.sep)
       ? resolvedPrefix
       : path.dirname(resolvedPrefix);
 
-  // Don't watch the module's own directory or any of its ancestors — that
-  // would either be redundant or far too broad.
   if (isUnderDirectory(moduleDirectory, directory)) return undefined;
 
   if (!existsSync(directory)) return undefined;
@@ -426,10 +406,6 @@ export const createDependencyGraph = async (directory: string) => {
         const dependentPaths = new Set<string>();
         const stack: string[] = [pathToModule];
 
-        // Seed the stack with modules that declared a glob covering this path.
-        // We do this even when the path corresponds to a known node, so e.g.
-        // a JSON file that's both statically and dynamically imported reloads
-        // through both routes.
         for (const module of Object.values(graph)) {
           for (const globDirectory of module.globDependencyPaths) {
             if (

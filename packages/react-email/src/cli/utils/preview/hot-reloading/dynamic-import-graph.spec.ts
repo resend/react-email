@@ -34,18 +34,12 @@ describe('createDependencyGraph() with dynamic imports', () => {
 
     expect(getGlobDependencyDirectories()).toEqual([messagesDirectory]);
 
-    // A JSON file matched by the dynamic import has no graph node, but the
-    // importing module should still be reported as a dependent so the preview
-    // reloads when it changes.
     expect(
       resolveDependentsOf(path.join(messagesDirectory, 'en', 'common.json')),
     ).toEqual([templatePath]);
   });
 
   it('falls through to a later alias candidate when the first does not exist on disk', async () => {
-    // tsconfig maps `@/*` to `["src/*", "lib/*"]`. The fixture has no
-    // `src/locales` directory but does have `lib/locales`. The resolver must
-    // skip the missing first candidate instead of returning it.
     const [, , { resolveDependentsOf, getGlobDependencyDirectories }] =
       await createDependencyGraph(aliasedFallbackFixtureDirectory);
 
@@ -70,9 +64,6 @@ describe('createDependencyGraph() with dynamic imports', () => {
     const [, , { resolveDependentsOf, getGlobDependencyDirectories }] =
       await createDependencyGraph(aliasedFixtureDirectory);
 
-    // The template uses `@/locales/${lng}/${ns}.json`, and the fixture's
-    // tsconfig maps `@/*` -> `src/*`. The resolved glob directory must be the
-    // real `src/locales/` folder, not be discarded as a bare specifier.
     const localesDirectory = path.join(aliasedFixtureDirectory, 'locales');
     const templatePath = path.join(aliasedFixtureDirectory, 'template.ts');
 
@@ -113,8 +104,6 @@ describe('isUnderDirectory()', () => {
   });
 
   it('handles root directory paths without producing a double separator', () => {
-    // Regression: previously `'/' + path.sep === '//'`, so `/foo` was reported
-    // as not under `/`.
     expect(isUnderDirectory(path.resolve('/foo/bar'), path.sep)).toBe(true);
     expect(isUnderDirectory(path.sep, path.sep)).toBe(true);
   });
