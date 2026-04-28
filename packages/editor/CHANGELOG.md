@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.3.0
+
+### Minor Changes
+
+- 26849a1: new cellspacing attribute for columns node, remove the gap for columns from default css
+
 ## 1.2.2
 
 ### Patch Changes
