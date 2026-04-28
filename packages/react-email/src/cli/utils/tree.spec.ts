@@ -22,6 +22,7 @@ test('tree(__dirname, 2)', async () => {
     ├── index.ts
     ├── packageJson.ts
     ├── register-spinner-autostopping.ts
+    ├── spinner.ts
     ├── style-text.ts
     ├── tree.spec.ts
     └── tree.ts"
