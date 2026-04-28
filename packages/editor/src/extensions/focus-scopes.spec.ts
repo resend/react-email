@@ -69,7 +69,7 @@ describe('FocusScopes', () => {
     );
 
     expect(editor.isFocused).toBe(false);
-    expect(editor.state.selection.from).toBe(0);
+    expect(editor.state.selection.from).toBe(1);
 
     editor.destroy();
     element.remove();

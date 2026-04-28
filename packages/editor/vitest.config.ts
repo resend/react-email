@@ -32,6 +32,9 @@ export default defineConfig({
             '@react-email/render': renderStub,
           },
         },
+        optimizeDeps: {
+          include: ['react-email > marked', 'react-email > tailwindcss'],
+        },
         test: {
           name: 'browser',
           include: ['src/**/*.browser.spec.tsx'],
