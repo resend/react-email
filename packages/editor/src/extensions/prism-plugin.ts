@@ -77,7 +77,7 @@ function getDecorations({
     try {
       if (!registeredLang(language) && !loadingLanguages.has(language)) {
         loadingLanguages.add(language);
-        import(`prismjs/components/prism-${language}`)
+        import(/* @vite-ignore */ `prismjs/components/prism-${language}`)
           .then(() => {
             loadingLanguages.delete(language);
             onLanguageLoaded(language);
