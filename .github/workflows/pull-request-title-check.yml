@@ -19,5 +19,7 @@ jobs:
           fetch-depth: 1
       - name: pnpm setup
         uses: pnpm/action-setup@738f428026a1f5a72398de22aeed83d859c4a660
+      - name: Install packages
+        run: pnpm install --frozen-lockfile --prefer-offline 
       - name: Check pull request title
-        run: pnpm dlx tsx@4.21.0 ./scripts/pull-request-title-check.ts
+        run: pnpm tsx ./scripts/pull-request-title-check.ts

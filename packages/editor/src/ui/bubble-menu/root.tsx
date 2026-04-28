@@ -2,6 +2,7 @@ import { PluginKey } from '@tiptap/pm/state';
 import { useCurrentEditor } from '@tiptap/react';
 import { BubbleMenu } from '@tiptap/react/menus';
 import * as React from 'react';
+import { EditorFocusScope } from '../editor-focus-scope';
 import { BubbleMenuAlignCenter } from './align-center';
 import { BubbleMenuAlignLeft } from './align-left';
 import { BubbleMenuAlignRight } from './align-right';
@@ -54,26 +55,28 @@ function Root({
   }
 
   return (
-    <BubbleMenu
-      editor={editor}
-      pluginKey={pluginKey}
-      data-re-bubble-menu=""
-      shouldShow={resolvedTrigger}
-      options={{
-        placement,
-        offset,
-        onHide: () => {
-          setIsEditing(false);
-          onHide?.();
-        },
-      }}
-      className={className}
-      {...rest}
-    >
-      <BubbleMenuContext.Provider value={{ editor, isEditing, setIsEditing }}>
-        {children}
-      </BubbleMenuContext.Provider>
-    </BubbleMenu>
+    <EditorFocusScope>
+      <BubbleMenu
+        editor={editor}
+        pluginKey={pluginKey}
+        data-re-bubble-menu=""
+        shouldShow={resolvedTrigger}
+        options={{
+          placement,
+          offset,
+          onHide: () => {
+            setIsEditing(false);
+            onHide?.();
+          },
+        }}
+        className={className}
+        {...rest}
+      >
+        <BubbleMenuContext.Provider value={{ editor, isEditing, setIsEditing }}>
+          {children}
+        </BubbleMenuContext.Provider>
+      </BubbleMenu>
+    </EditorFocusScope>
   );
 }
 

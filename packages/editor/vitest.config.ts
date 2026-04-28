@@ -26,7 +26,7 @@ export default defineConfig({
       },
       {
         extends: true,
-        plugins: [react()],
+        plugins: [react({})],
         resolve: {
           alias: {
             '@react-email/render': renderStub,
