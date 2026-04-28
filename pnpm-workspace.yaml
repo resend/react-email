@@ -5,6 +5,13 @@ packages:
   - packages/*
   - packages/react-email/dev
   - playground
+allowBuilds:
+  esbuild: set this to true or false
+  keytar: set this to true or false
+  puppeteer: set this to true or false
+  sharp: set this to true or false
+
+autoInstallPeers: true
 
 catalog:
   '@babel/parser': 7.27.0
@@ -17,6 +24,8 @@ catalog:
 
   '@responsive-email/react-email': 0.0.4
   '@scaleway/sdk': ^1
+  '@tailwindcss/postcss': ^4.1.18
+  '@tsdown/css': 0.21.9
   '@types/babel__core': 7.20.5
   '@types/babel__traverse': 7.20.7
   '@types/css-tree': 2.3.11
@@ -38,15 +47,11 @@ catalog:
   react-dom: 19.2.4
   resend: 6.4.0
   sonner: 2.0.7
-  '@tailwindcss/postcss': ^4.1.18
   tailwindcss: ^4.1.18
   tinybench: 3.1.0
   tsdown: 0.21.9
-  '@tsdown/css': 0.21.9
   tsx: 4.21.0
   typescript: 5.9.3
   vite: 7.3.2
   yalc: 1.0.0-pre.53
   zod: 4.3.6
-
-autoInstallPeers: true
