@@ -22,6 +22,7 @@ nextBuildProcess.on('exit', (code) => {
 
   fs.rmSync(path.join(previewServerRoot, '.next', 'cache'), {
     recursive: true,
+    force: true,
   });
 
   const nodeModules = path.join(previewServerRoot, '.next', 'node_modules');
