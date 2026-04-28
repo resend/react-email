@@ -1,0 +1,23 @@
+packages/editor/src/plugins/email-theming/css-transforms.spec.ts
+  40fe09aa6bf4fe5f 403,423
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "1a9a75e64fbfecfd2e9edbf4ee7306a6790288b2",
+  "prompts": {
+    "40fe09aa6bf4fe5f": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "6e6fbbbd-ebe9-4945-84bb-380ef449de97",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "João Melo",
+      "messages": [],
+      "total_additions": 3,
+      "total_deletions": 7,
+      "accepted_lines": 4,
+      "overriden_lines": 1
+    }
+  }
+}
