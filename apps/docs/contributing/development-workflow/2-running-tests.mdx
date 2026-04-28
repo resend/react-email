@@ -19,8 +19,8 @@ After you have gone through the [setup](/contributing/development-workflow/1-set
 scripts defined on our packages for testing:
 
 - `pnpm test`: Runs all the tests once. If you run it on the root, it will run the
-  tests for all packages using
-  [turborepo](/contributing/codebase-overview#turborepo)
+  configured [Vitest projects](https://vitest.dev/guide/projects.html) for the
+  workspace in a single Vitest process.
 - `pnpm test:watch`: Runs all the tests and watches for changes. Vitest
   automatically only runs the tests that are affected by the code you've
   changed.

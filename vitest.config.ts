@@ -4,7 +4,13 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
-    globals: true,
-    environment: 'happy-dom',
+    projects: [
+      'apps/web',
+      'packages/create-email',
+      'packages/editor',
+      'packages/react-email',
+      'packages/render',
+      'packages/ui',
+    ],
   },
 });
