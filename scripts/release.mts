@@ -13,6 +13,7 @@ import { remark } from 'remark';
 const octokit = github.getOctokit(process.env.GITHUB_TOKEN || '');
 
 const processor = remark();
+const LATEST_GITHUB_RELEASE_PACKAGE_NAME = 'react-email';
 
 export const BumpLevels = {
   dep: 0,
@@ -95,6 +96,10 @@ const createRelease = async ({
     tag_name: tagName,
     body: changelogEntry.content,
     prerelease: pkg.packageJson.version.includes('-'),
+    make_latest:
+      pkg.packageJson.name === LATEST_GITHUB_RELEASE_PACKAGE_NAME
+        ? 'true'
+        : 'false',
     ...github.context.repo,
   });
 };
