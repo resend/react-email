@@ -1,5 +1,18 @@
 # @react-email/editor
 
+## 1.2.0
+
+### Minor Changes
+
+- f2a8a42: - Add the `FocusScopes` extension to replace provider-based editor focus tracking.
+  - Always wrap bubble menus and slash commands with editor focus scopes.
+  - Improve reliability when handling `focusout` events from menus, inspector controls, and remounted focused elements.
+
+### Patch Changes
+
+- Updated dependencies [63b6e71]
+  - react-email@6.0.2
+
 ## 1.1.2
 
 ### Patch Changes
