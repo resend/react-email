@@ -163,7 +163,7 @@ import {} from './general-importing-file';
         toAbsolute('file-b.ts'),
         toAbsolute('general-importing-file.ts'),
       ],
-      globDependencyPaths: [],
+      dynamicDependencyDirectories: [],
       moduleDependencies: [],
     } satisfies DependencyGraph[number]);
     expect(dependencyGraph[toAbsolute('file-a.ts')]?.dependentPaths).toContain(
@@ -194,7 +194,7 @@ import {} from './file-b';
       path: pathToTemporaryFile,
       dependentPaths: [],
       dependencyPaths: [toAbsolute('file-a.ts'), toAbsolute('file-b.ts')],
-      globDependencyPaths: [],
+      dynamicDependencyDirectories: [],
       moduleDependencies: [],
     } satisfies DependencyGraph[number]);
     expect(dependencyGraph[toAbsolute('file-a.ts')]?.dependentPaths).toContain(
@@ -244,14 +244,26 @@ describe('createDependencyGraph() with dynamic imports', () => {
     './test/aliased-fallback-graph/src',
   );
 
-  it('exposes the directory of a template-literal `import()` as a glob dependency and resolves runtime files to the importing module', async () => {
-    const [, , { resolveDependentsOf, getGlobDependencyDirectories }] =
+  const collectDynamicDependencyDirectories = (graph: DependencyGraph) => {
+    const directories = new Set<string>();
+    for (const module of Object.values(graph)) {
+      for (const directory of module.dynamicDependencyDirectories) {
+        directories.add(directory);
+      }
+    }
+    return [...directories];
+  };
+
+  it('exposes the directory of a template-literal `import()` as a dynamic dependency and resolves runtime files to the importing module', async () => {
+    const [graph, , { resolveDependentsOf }] =
       await createDependencyGraph(fixtureDirectory);
 
     const messagesDirectory = path.join(fixtureDirectory, 'messages');
     const templatePath = path.join(fixtureDirectory, 'template.ts');
 
-    expect(getGlobDependencyDirectories()).toEqual([messagesDirectory]);
+    expect(collectDynamicDependencyDirectories(graph)).toEqual([
+      messagesDirectory,
+    ]);
 
     expect(
       resolveDependentsOf(path.join(messagesDirectory, 'en', 'common.json')),
@@ -259,8 +271,9 @@ describe('createDependencyGraph() with dynamic imports', () => {
   });
 
   it('falls through to a later alias candidate when the first does not exist on disk', async () => {
-    const [, , { resolveDependentsOf, getGlobDependencyDirectories }] =
-      await createDependencyGraph(aliasedFallbackFixtureDirectory);
+    const [graph, , { resolveDependentsOf }] = await createDependencyGraph(
+      aliasedFallbackFixtureDirectory,
+    );
 
     const localesDirectory = path.join(
       path.dirname(aliasedFallbackFixtureDirectory),
@@ -272,7 +285,9 @@ describe('createDependencyGraph() with dynamic imports', () => {
       'template.ts',
     );
 
-    expect(getGlobDependencyDirectories()).toEqual([localesDirectory]);
+    expect(collectDynamicDependencyDirectories(graph)).toEqual([
+      localesDirectory,
+    ]);
 
     expect(
       resolveDependentsOf(path.join(localesDirectory, 'de', 'common.json')),
@@ -280,13 +295,15 @@ describe('createDependencyGraph() with dynamic imports', () => {
   });
 
   it('resolves tsconfig path aliases in dynamic import template literals', async () => {
-    const [, , { resolveDependentsOf, getGlobDependencyDirectories }] =
+    const [graph, , { resolveDependentsOf }] =
       await createDependencyGraph(aliasedFixtureDirectory);
 
     const localesDirectory = path.join(aliasedFixtureDirectory, 'locales');
     const templatePath = path.join(aliasedFixtureDirectory, 'template.ts');
 
-    expect(getGlobDependencyDirectories()).toEqual([localesDirectory]);
+    expect(collectDynamicDependencyDirectories(graph)).toEqual([
+      localesDirectory,
+    ]);
 
     expect(
       resolveDependentsOf(path.join(localesDirectory, 'tr', 'common.json')),

@@ -47,11 +47,8 @@ export const setupHotreloading = async (
     emailDirRelativePath,
   );
 
-  const [
-    dependencyGraph,
-    updateDependencyGraph,
-    { resolveDependentsOf, getGlobDependencyDirectories },
-  ] = await createDependencyGraph(absolutePathToEmailsDirectory);
+  const [dependencyGraph, updateDependencyGraph, { resolveDependentsOf }] =
+    await createDependencyGraph(absolutePathToEmailsDirectory);
 
   const watcher = watch('', {
     ignoreInitial: true,
@@ -72,8 +69,17 @@ export const setupHotreloading = async (
   // Directories targeted by dynamic `import(\`./prefix/${expr}\`)` calls.
   // These files are resolved at runtime so they never appear in the static
   // dependency graph; we still want their changes to refresh the preview.
-  let watchedGlobDirectories: string[] = getGlobDependencyDirectories();
-  for (const directory of watchedGlobDirectories) {
+  const getDynamicDependencyDirectories = () => {
+    const directories = new Set<string>();
+    for (const module of Object.values(dependencyGraph)) {
+      for (const directory of module.dynamicDependencyDirectories) {
+        directories.add(directory);
+      }
+    }
+    return [...directories];
+  };
+  let dynamicDependencyDirectories = getDynamicDependencyDirectories();
+  for (const directory of dynamicDependencyDirectories) {
     watcher.add(directory);
   }
 
@@ -112,18 +118,18 @@ export const setupHotreloading = async (
     }
     filesOutsideEmailsDirectory = newFilesOutsideEmailsDirectory;
 
-    const newWatchedGlobDirectories = getGlobDependencyDirectories();
-    for (const directory of watchedGlobDirectories) {
-      if (!newWatchedGlobDirectories.includes(directory)) {
+    const newDynamicDependencyDirectories = getDynamicDependencyDirectories();
+    for (const directory of dynamicDependencyDirectories) {
+      if (!newDynamicDependencyDirectories.includes(directory)) {
         watcher.unwatch(directory);
       }
     }
-    for (const directory of newWatchedGlobDirectories) {
-      if (!watchedGlobDirectories.includes(directory)) {
+    for (const directory of newDynamicDependencyDirectories) {
+      if (!dynamicDependencyDirectories.includes(directory)) {
         watcher.add(directory);
       }
     }
-    watchedGlobDirectories = newWatchedGlobDirectories;
+    dynamicDependencyDirectories = newDynamicDependencyDirectories;
 
     changes.push({
       event,

@@ -10,12 +10,12 @@ const traverse =
 
 export interface ImportedModules {
   staticImports: string[];
-  dynamicGlobPrefixes: string[];
+  dynamicImportPrefixes: string[];
 }
 
 export const getImportedModules = (contents: string): ImportedModules => {
   const staticImports: string[] = [];
-  const dynamicGlobPrefixes: string[] = [];
+  const dynamicImportPrefixes: string[] = [];
   const parsedContents = parse(contents, {
     sourceType: 'unambiguous',
     strictMode: false,
@@ -67,12 +67,12 @@ export const getImportedModules = (contents: string): ImportedModules => {
           const firstQuasi = argument.quasis[0]!;
           const leadingStatic = firstQuasi.value.cooked ?? firstQuasi.value.raw;
           if (leadingStatic.length > 0) {
-            dynamicGlobPrefixes.push(leadingStatic);
+            dynamicImportPrefixes.push(leadingStatic);
           }
         }
       }
     },
   });
 
-  return { staticImports, dynamicGlobPrefixes };
+  return { staticImports, dynamicImportPrefixes };
 };

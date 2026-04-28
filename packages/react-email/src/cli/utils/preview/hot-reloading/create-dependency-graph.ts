@@ -13,7 +13,7 @@ interface Module {
   dependencyPaths: string[];
   dependentPaths: string[];
 
-  globDependencyPaths: string[];
+  dynamicDependencyDirectories: string[];
 
   moduleDependencies: string[];
 }
@@ -83,18 +83,22 @@ export const isUnderDirectory = (filePath: string, directoryPath: string) => {
   return filePath.startsWith(prefix);
 };
 
-const resolveGlobPrefixToDirectory = (
+const resolveDynamicImportDirectory = (
   prefix: string,
-  modulePath: string,
+  filePath: string,
 ): string | undefined => {
-  const moduleDirectory = path.dirname(modulePath);
+  const moduleDirectory = path.dirname(filePath);
+  const normalizedPrefix = path.normalize(prefix);
+  const endsWithSeparator = normalizedPrefix.endsWith(path.sep);
+  const trimmed = endsWithSeparator
+    ? normalizedPrefix.slice(0, -path.sep.length)
+    : normalizedPrefix;
 
   let resolvedPrefix: string;
   const isRelative = prefix.startsWith('.') || path.isAbsolute(prefix);
   if (isRelative) {
-    resolvedPrefix = path.resolve(moduleDirectory, prefix);
+    resolvedPrefix = path.resolve(moduleDirectory, normalizedPrefix);
   } else {
-    const trimmed = prefix.replace(/[/\\]+$/, '');
     if (trimmed.length === 0) return undefined;
     const aliased = resolveAliasedDirectoryPrefix(trimmed, moduleDirectory);
     if (aliased === undefined) {
@@ -103,10 +107,9 @@ const resolveGlobPrefixToDirectory = (
     resolvedPrefix = aliased;
   }
 
-  const directory =
-    prefix.endsWith('/') || prefix.endsWith(path.sep)
-      ? resolvedPrefix
-      : path.dirname(resolvedPrefix);
+  const directory = endsWithSeparator
+    ? resolvedPrefix
+    : path.dirname(resolvedPrefix);
 
   if (isUnderDirectory(moduleDirectory, directory)) return undefined;
 
@@ -138,7 +141,7 @@ export const createDependencyGraph = async (directory: string) => {
         path,
         dependencyPaths: [],
         dependentPaths: [],
-        globDependencyPaths: [],
+        dynamicDependencyDirectories: [],
         moduleDependencies: [],
       },
     ]),
@@ -148,7 +151,7 @@ export const createDependencyGraph = async (directory: string) => {
     const contents = await fs.readFile(filePath, 'utf8');
     const imports = isJavascriptModule(filePath)
       ? getImportedModules(contents)
-      : { staticImports: [], dynamicGlobPrefixes: [] };
+      : { staticImports: [], dynamicImportPrefixes: [] };
     const importedPaths = isJavascriptModule(filePath)
       ? resolvePathAliases(imports.staticImports, path.dirname(filePath))
       : [];
@@ -237,10 +240,10 @@ export const createDependencyGraph = async (directory: string) => {
           dependencyPath.startsWith('.') || path.isAbsolute(dependencyPath),
       );
 
-    const globDependencyPaths = Array.from(
+    const dynamicDependencyDirectories = Array.from(
       new Set(
-        imports.dynamicGlobPrefixes
-          .map((prefix) => resolveGlobPrefixToDirectory(prefix, filePath))
+        imports.dynamicImportPrefixes
+          .map((prefix) => resolveDynamicImportDirectory(prefix, filePath))
           .filter((d): d is string => typeof d === 'string'),
       ),
     );
@@ -248,7 +251,7 @@ export const createDependencyGraph = async (directory: string) => {
     return {
       dependencyPaths: nonNodeModuleImportPathsRelativeToDirectory,
       moduleDependencies,
-      globDependencyPaths,
+      dynamicDependencyDirectories,
     };
   };
 
@@ -258,7 +261,7 @@ export const createDependencyGraph = async (directory: string) => {
         path: moduleFilePath,
         dependencyPaths: [],
         dependentPaths: [],
-        globDependencyPaths: [],
+        dynamicDependencyDirectories: [],
         moduleDependencies: [],
       };
     }
@@ -266,11 +269,12 @@ export const createDependencyGraph = async (directory: string) => {
     const {
       moduleDependencies,
       dependencyPaths: newDependencyPaths,
-      globDependencyPaths: newGlobDependencyPaths,
+      dynamicDependencyDirectories: newDynamicDependencyDirectories,
     } = await getDependencyPaths(moduleFilePath);
 
     graph[moduleFilePath].moduleDependencies = moduleDependencies;
-    graph[moduleFilePath].globDependencyPaths = newGlobDependencyPaths;
+    graph[moduleFilePath].dynamicDependencyDirectories =
+      newDynamicDependencyDirectories;
 
     // we go through these to remove the ones that don't exist anymore
     for (const dependencyPath of graph[moduleFilePath].dependencyPaths) {
@@ -332,21 +336,6 @@ export const createDependencyGraph = async (directory: string) => {
     }
   };
 
-  /**
-   * Returns the union of all directories any module declared as a glob
-   * dependency. Useful for telling chokidar what to watch on top of the static
-   * dependency graph.
-   */
-  const getGlobDependencyDirectories = (): string[] => {
-    const directories = new Set<string>();
-    for (const module of Object.values(graph)) {
-      for (const directory of module.globDependencyPaths) {
-        directories.add(directory);
-      }
-    }
-    return [...directories];
-  };
-
   return [
     graph,
     async (event: EventName, pathToModified: string) => {
@@ -393,9 +382,9 @@ export const createDependencyGraph = async (directory: string) => {
        * Resolves all modules that depend on the specified module, directly or indirectly.
        *
        * If the path doesn't correspond to a graph node (e.g. a JSON file
-       * loaded via dynamic `import(\`...\`)`), modules whose glob directories
-       * contain the path are treated as direct dependents and their own
-       * dependents are resolved transitively.
+       * loaded via dynamic `import(\`...\`)`), modules whose dynamic-import
+       * directories contain the path are treated as direct dependents and
+       * their own dependents are resolved transitively.
        *
        * @param pathToModule - The path to the module whose dependents we want to find
        * @returns An array of paths to all modules that depend on the specified module
@@ -407,9 +396,9 @@ export const createDependencyGraph = async (directory: string) => {
         const stack: string[] = [pathToModule];
 
         for (const module of Object.values(graph)) {
-          for (const globDirectory of module.globDependencyPaths) {
+          for (const directory of module.dynamicDependencyDirectories) {
             if (
-              isUnderDirectory(pathToModule, globDirectory) &&
+              isUnderDirectory(pathToModule, directory) &&
               module.path !== pathToModule &&
               !dependentPaths.has(module.path)
             ) {
@@ -439,8 +428,6 @@ export const createDependencyGraph = async (directory: string) => {
 
         return [...dependentPaths.values()];
       },
-
-      getGlobDependencyDirectories,
     },
   ] as const;
 };

@@ -12,7 +12,7 @@ describe('getImportedModules()', () => {
 
     expect(getImportedModules(contents)).toEqual({
       staticImports: ['node:fs', './get-imported-modules.js'],
-      dynamicGlobPrefixes: [],
+      dynamicImportPrefixes: [],
     });
   });
 
@@ -24,7 +24,7 @@ describe('getImportedModules()', () => {
     export { ComponentC }`;
     expect(getImportedModules(contents)).toEqual({
       staticImports: ['./component-a', './component-b', './component-c'],
-      dynamicGlobPrefixes: [],
+      dynamicImportPrefixes: [],
     });
   });
 
@@ -57,7 +57,7 @@ import * as React from "react";
         '../../my-component',
         'react',
       ],
-      dynamicGlobPrefixes: [],
+      dynamicImportPrefixes: [],
     });
   });
 
@@ -90,7 +90,7 @@ import * as React from 'react';
         '../../my-component',
         'react',
       ],
-      dynamicGlobPrefixes: [],
+      dynamicImportPrefixes: [],
     });
   });
 
@@ -123,7 +123,7 @@ const React = require("react");
         '../../my-component',
         'react',
       ],
-      dynamicGlobPrefixes: [],
+      dynamicImportPrefixes: [],
     });
   });
 
@@ -156,7 +156,7 @@ const React = require('react');
         '../../my-component',
         'react',
       ],
-      dynamicGlobPrefixes: [],
+      dynamicImportPrefixes: [],
     });
   });
 
@@ -164,7 +164,7 @@ const React = require('react');
     const contents = `const mod = await import('./my-module.json');`;
     expect(getImportedModules(contents)).toEqual({
       staticImports: ['./my-module.json'],
-      dynamicGlobPrefixes: [],
+      dynamicImportPrefixes: [],
     });
   });
 
@@ -178,7 +178,7 @@ const React = require('react');
     `;
     expect(getImportedModules(contents)).toEqual({
       staticImports: [],
-      dynamicGlobPrefixes: ['./messages/'],
+      dynamicImportPrefixes: ['./messages/'],
     });
   });
 
@@ -187,7 +187,7 @@ const React = require('react');
     const contents = 'const m = await import(`${base}/file.json`);';
     expect(getImportedModules(contents)).toEqual({
       staticImports: [],
-      dynamicGlobPrefixes: [],
+      dynamicImportPrefixes: [],
     });
   });
 
@@ -195,7 +195,7 @@ const React = require('react');
     const contents = 'const m = await import(`./my-module.json`);';
     expect(getImportedModules(contents)).toEqual({
       staticImports: ['./my-module.json'],
-      dynamicGlobPrefixes: [],
+      dynamicImportPrefixes: [],
     });
   });
 });
