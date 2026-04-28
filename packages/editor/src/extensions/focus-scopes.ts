@@ -3,7 +3,7 @@ import {
   Extension,
   extensions as nativeTiptapExtensions,
 } from '@tiptap/core';
-import { Plugin, PluginKey, Selection } from '@tiptap/pm/state';
+import { Plugin, PluginKey, TextSelection } from '@tiptap/pm/state';
 
 export interface FocusScopesOptions {
   clearSelectionOnBlur: boolean;
@@ -87,7 +87,7 @@ export function createFocusScopePlugin({
           .setMeta('addToHistory', false);
 
         if (clearSelectionOnBlur) {
-          transaction.setSelection(Selection.atStart(transaction.doc));
+          transaction.setSelection(TextSelection.create(transaction.doc, 0));
         }
 
         editor.view.dispatch(transaction);
