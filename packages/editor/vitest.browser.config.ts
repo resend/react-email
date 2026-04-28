@@ -13,6 +13,9 @@ const renderStub = resolve(__dirname, 'src/__tests__/stub-module.ts');
 
 export default defineConfig({
   plugins: [react({})],
+  optimizeDeps: {
+    noDiscovery: true,
+  },
   resolve: {
     alias: {
       '@react-email/render': renderStub,
