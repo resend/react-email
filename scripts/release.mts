@@ -90,16 +90,17 @@ const createRelease = async ({
       `Could not find changelog entry for ${pkg.packageJson.name}@${pkg.packageJson.version}`,
     );
   }
+  const isPrerelease = pkg.packageJson.version.includes('-');
+  const shouldMarkAsLatest =
+    pkg.packageJson.name === LATEST_GITHUB_RELEASE_PACKAGE_NAME &&
+    !isPrerelease;
 
   await octokit.rest.repos.createRelease({
     name: tagName,
     tag_name: tagName,
     body: changelogEntry.content,
-    prerelease: pkg.packageJson.version.includes('-'),
-    make_latest:
-      pkg.packageJson.name === LATEST_GITHUB_RELEASE_PACKAGE_NAME
-        ? 'true'
-        : 'false',
+    prerelease: isPrerelease,
+    make_latest: shouldMarkAsLatest ? 'true' : 'false',
     ...github.context.repo,
   });
 };
