@@ -1,4 +1,5 @@
 import type { useCurrentEditor } from '@tiptap/react';
+import { NodeSelection } from '@tiptap/pm/state';
 import type { NodeClickedEvent } from '../../../core/event-bus';
 import { SUPPORTED_CSS_PROPERTIES } from '../../../plugins/email-theming/themes';
 import type { KnownCssProperties } from '../../../plugins/email-theming/types';
@@ -34,7 +35,13 @@ export function customUpdateAttributes(
 
   setLocalAttr(attributes);
 
+  const wasNodeSelected =
+    editor.state.selection instanceof NodeSelection &&
+    editor.state.selection.from === pos;
   const transaction = editor.state.tr.setNodeMarkup(pos, null, attributes);
+  if (wasNodeSelected) {
+    transaction.setSelection(NodeSelection.create(transaction.doc, pos));
+  }
   editor.view.dispatch(transaction);
 }
 
@@ -83,10 +90,16 @@ export function customUpdateStyles(
 
   setLocalAttr(attributes);
 
+  const wasNodeSelected =
+    params.editor.state.selection instanceof NodeSelection &&
+    params.editor.state.selection.from === pos;
   const transaction = params.editor.state.tr.setNodeMarkup(
     pos,
     null,
     attributes,
   );
+  if (wasNodeSelected) {
+    transaction.setSelection(NodeSelection.create(transaction.doc, pos));
+  }
   params.editor.view.dispatch(transaction);
 }
