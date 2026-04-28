@@ -4,6 +4,7 @@
     "lib": ["ESNext"],
     "types": ["node"],
     "module": "esnext",
+    "target": "esnext",
     "moduleResolution": "bundler"
   },
   "include": ["./*.ts", "./*.mts"]
