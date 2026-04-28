@@ -7,7 +7,8 @@ export default defineConfig({
     projects: [
       'apps/web',
       'packages/create-email',
-      'packages/editor',
+      'packages/editor/vitest.unit.config.ts',
+      'packages/editor/vitest.browser.config.ts',
       'packages/react-email',
       'packages/render',
       'packages/ui',

@@ -9,8 +9,8 @@
     "lint": "biome check",
     "lint:fix": "biome check --write .",
     "release": "turbo run build --filter=./packages/* && pnpm changeset publish",
-    "test": "vitest run",
-    "test:watch": "vitest",
+    "test": "turbo run build && NODE_OPTIONS=\"--experimental-vm-modules --disable-warning=ExperimentalWarning\" vitest run",
+    "test:watch": "NODE_OPTIONS=\"--experimental-vm-modules --disable-warning=ExperimentalWarning\" vitest",
     "version": "changeset version && pnpm install --no-frozen-lockfile && pnpm lint:fix"
   },
   "devDependencies": {
