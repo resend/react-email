@@ -380,7 +380,6 @@
 
 .tiptap .node-columns {
   display: flex;
-  gap: var(--re-columns-gap, 0px);
   width: 100%;
 }
 
