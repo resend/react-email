@@ -400,9 +400,7 @@ describe('injectGlobalPlainCss', () => {
 
     const styleTag = document.getElementById(STYLE_ID);
     expect(styleTag).not.toBeNull();
-    expect(styleTag?.textContent).toBe(
-      `${SCOPE} { .foo { color: red; } }`,
-    );
+    expect(styleTag?.textContent).toBe(`${SCOPE} { .foo { color: red; } }`);
   });
 
   it('updates existing <style> textContent on subsequent calls', () => {
@@ -422,7 +420,7 @@ describe('injectGlobalPlainCss', () => {
     );
   });
 
-  it('clears existing <style> textContent when css is "" (MES-551)', () => {
+  it('clears existing <style> textContent when css is empty string', () => {
     injectGlobalPlainCss('.foo { color: red; }', {
       styleId: STYLE_ID,
       scopeSelector: SCOPE,
