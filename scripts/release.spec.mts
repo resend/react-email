@@ -1,19 +1,43 @@
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
+import type { Package } from '@manypkg/get-packages';
 import { describe, expect, it, vi } from 'vitest';
 import {
   buildPublishDeps,
   getPublishedState,
   getReleaseTag,
-  type PackageInfo,
   parseNpmViewVersionsOutput,
   publishInOrder,
   topologicalPublish,
   topologicalPublishDryRun,
   topologicalSort,
-  type WorkspacePackage,
 } from './release.mts';
+
+type PackageJsonFixture = Package['packageJson'] & {
+  peerDependenciesMeta?: Record<string, { optional?: boolean }>;
+};
+
+const mkPkg = (
+  name: string,
+  version = '1.0.0',
+  deps?: Record<string, string>,
+  devDeps?: Record<string, string>,
+  extra: Partial<PackageJsonFixture> & { dir?: string } = {},
+): Package => {
+  const { dir, ...packageJsonExtra } = extra;
+
+  return {
+    dir: dir ?? `/fake/${name}`,
+    packageJson: {
+      name,
+      version,
+      dependencies: deps,
+      devDependencies: devDeps,
+      ...packageJsonExtra,
+    },
+  } as Package;
+};
 
 describe('parseNpmViewVersionsOutput', () => {
   it('parses a single published version', () => {
@@ -88,68 +112,51 @@ describe('getReleaseTag', () => {
 
 describe('buildPublishDeps', () => {
   it('returns empty deps for packages with no workspace dependencies', () => {
-    const packages: PackageInfo[] = [
-      { name: 'a', version: '1.0.0' },
-      { name: 'b', version: '1.0.0' },
-    ];
+    const packages = [mkPkg('a'), mkPkg('b')];
     const deps = buildPublishDeps(packages);
     expect(deps.get('a')).toEqual(new Set());
     expect(deps.get('b')).toEqual(new Set());
   });
 
   it('includes dependencies that are in the publish set', () => {
-    const packages: PackageInfo[] = [
-      { name: 'a', version: '1.0.0' },
-      { name: 'b', version: '1.0.0', dependencies: { a: '1.0.0' } },
-    ];
+    const packages = [mkPkg('a'), mkPkg('b', '1.0.0', { a: '1.0.0' })];
     const deps = buildPublishDeps(packages);
     expect(deps.get('a')).toEqual(new Set());
     expect(deps.get('b')).toEqual(new Set(['a']));
   });
 
   it('excludes dependencies not in the publish set', () => {
-    const packages: PackageInfo[] = [
-      {
-        name: 'b',
-        version: '1.0.0',
-        dependencies: { a: '1.0.0', react: '19.0.0' },
-      },
-    ];
+    const packages = [mkPkg('b', '1.0.0', { a: '1.0.0', react: '19.0.0' })];
     const deps = buildPublishDeps(packages);
     expect(deps.get('b')).toEqual(new Set());
   });
 
   it('excludes devDependencies from publish ordering', () => {
-    const packages: PackageInfo[] = [
-      { name: 'a', version: '1.0.0' },
-      { name: 'b', version: '1.0.0', devDependencies: { a: '1.0.0' } },
+    const packages = [
+      mkPkg('a'),
+      mkPkg('b', '1.0.0', undefined, { a: '1.0.0' }),
     ];
     const deps = buildPublishDeps(packages);
     expect(deps.get('b')).toEqual(new Set());
   });
 
   it('merges dependencies and optionalDependencies', () => {
-    const packages: PackageInfo[] = [
-      { name: 'a', version: '1.0.0' },
-      { name: 'c', version: '1.0.0' },
-      {
-        name: 'b',
-        version: '1.0.0',
-        dependencies: { a: '1.0.0' },
+    const packages = [
+      mkPkg('a'),
+      mkPkg('c'),
+      mkPkg('b', '1.0.0', { a: '1.0.0' }, undefined, {
         optionalDependencies: { c: '1.0.0' },
-      },
+      }),
     ];
     const deps = buildPublishDeps(packages);
     expect(deps.get('b')).toEqual(new Set(['a', 'c']));
   });
 
   it('includes required peerDependencies in publish ordering', () => {
-    const packages: PackageInfo[] = [
-      { name: '@react-email/text', version: '1.0.0' },
-      { name: '@react-email/body', version: '1.0.0' },
-      {
-        name: '@react-email/tailwind',
-        version: '1.0.0',
+    const packages = [
+      mkPkg('@react-email/text'),
+      mkPkg('@react-email/body'),
+      mkPkg('@react-email/tailwind', '1.0.0', undefined, undefined, {
         peerDependencies: {
           '@react-email/body': '1.0.0',
           '@react-email/text': '1.0.0',
@@ -157,7 +164,7 @@ describe('buildPublishDeps', () => {
         peerDependenciesMeta: {
           '@react-email/body': { optional: true },
         },
-      },
+      }),
     ];
 
     const deps = buildPublishDeps(packages);
@@ -167,23 +174,22 @@ describe('buildPublishDeps', () => {
   });
 
   it('models the @react-email/components pattern', () => {
-    const leafPackages = ['body', 'button', 'text', 'render'].map((n) => ({
-      name: `@react-email/${n}`,
-      version: '1.0.0',
-    }));
-    const components: PackageInfo = {
-      name: '@react-email/components',
-      version: '1.0.0',
-      dependencies: Object.fromEntries(
-        leafPackages.map((p) => [p.name, p.version]),
+    const leafPackages = ['body', 'button', 'text', 'render'].map((n) =>
+      mkPkg(`@react-email/${n}`),
+    );
+    const components = mkPkg(
+      '@react-email/components',
+      '1.0.0',
+      Object.fromEntries(
+        leafPackages.map((p) => [p.packageJson.name, p.packageJson.version]),
       ),
-    };
+    );
     const deps = buildPublishDeps([...leafPackages, components]);
     expect(deps.get('@react-email/components')).toEqual(
-      new Set(leafPackages.map((p) => p.name)),
+      new Set(leafPackages.map((p) => p.packageJson.name)),
     );
     for (const leaf of leafPackages) {
-      expect(deps.get(leaf.name)).toEqual(new Set());
+      expect(deps.get(leaf.packageJson.name)).toEqual(new Set());
     }
   });
 });
@@ -401,21 +407,6 @@ describe('publishInOrder', () => {
   });
 });
 
-const mkPkg = (
-  name: string,
-  version = '1.0.0',
-  deps?: Record<string, string>,
-  devDeps?: Record<string, string>,
-  extra: Partial<WorkspacePackage> = {},
-): WorkspacePackage => ({
-  name,
-  version,
-  dir: `/fake/${name}`,
-  dependencies: deps,
-  devDependencies: devDeps,
-  ...extra,
-});
-
 describe('topologicalPublish', () => {
   it('skips already-published packages', async () => {
     const packages = [mkPkg('a'), mkPkg('b')];
@@ -427,7 +418,7 @@ describe('topologicalPublish', () => {
         publishedVersions: ['1.0.0'],
       }),
       publish: async (pkg, distTag) => {
-        publishCalls.push(`${pkg.name}:${distTag}`);
+        publishCalls.push(`${pkg.packageJson.name}:${distTag}`);
         return true;
       },
     });
@@ -447,7 +438,7 @@ describe('topologicalPublish', () => {
         publishedVersions: [],
       }),
       publish: async (pkg, distTag) => {
-        publishCalls.push(`${pkg.name}:${distTag}`);
+        publishCalls.push(`${pkg.packageJson.name}:${distTag}`);
         return true;
       },
     });
@@ -471,7 +462,7 @@ describe('topologicalPublish', () => {
         publishedVersions: [],
       }),
       publish: async (pkg, distTag) => {
-        publishCalls.push(`${pkg.name}:${distTag}`);
+        publishCalls.push(`${pkg.packageJson.name}:${distTag}`);
         return true;
       },
     });
@@ -487,7 +478,10 @@ describe('topologicalPublish', () => {
   });
 
   it('skips private packages', async () => {
-    const packages = [{ ...mkPkg('a'), private: true }, mkPkg('b')];
+    const packages = [
+      mkPkg('a', '1.0.0', undefined, undefined, { private: true }),
+      mkPkg('b'),
+    ];
     const publishCalls: string[] = [];
 
     const result = await topologicalPublish({
@@ -496,7 +490,7 @@ describe('topologicalPublish', () => {
         publishedVersions: [],
       }),
       publish: async (pkg, distTag) => {
-        publishCalls.push(`${pkg.name}:${distTag}`);
+        publishCalls.push(`${pkg.packageJson.name}:${distTag}`);
         return true;
       },
     });
@@ -517,7 +511,7 @@ describe('topologicalPublish', () => {
       getPackagePublicationInfo: async () => ({
         publishedVersions: [],
       }),
-      publish: async (pkg) => pkg.name !== 'a',
+      publish: async (pkg) => pkg.packageJson.name !== 'a',
     });
 
     expect(result.published).toEqual([]);
@@ -534,7 +528,7 @@ describe('topologicalPublish', () => {
         publishedVersions: name === 'a' ? ['1.0.0'] : [],
       }),
       publish: async (pkg, distTag) => {
-        publishCalls.push(`${pkg.name}:${distTag}`);
+        publishCalls.push(`${pkg.packageJson.name}:${distTag}`);
         return true;
       },
     });
@@ -558,7 +552,7 @@ describe('topologicalPublish', () => {
         publishedVersions: name === 'existing' ? ['1.0.0-canary.0'] : [],
       }),
       publish: async (pkg, distTag) => {
-        publishCalls.push(`${pkg.name}:${distTag}`);
+        publishCalls.push(`${pkg.packageJson.name}:${distTag}`);
         return true;
       },
     });

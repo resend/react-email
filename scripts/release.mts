@@ -152,54 +152,19 @@ const ensureReleaseForPackage = async (pkg: Package) => {
 const isTruthyEnv = (value: string | undefined) =>
   value !== undefined && /^(1|true|yes)$/i.test(value);
 
-export interface PackageInfo {
-  name: string;
-  version: string;
-  dependencies?: Record<string, string>;
-  optionalDependencies?: Record<string, string>;
-  peerDependencies?: Record<string, string>;
-  peerDependenciesMeta?: Record<string, { optional?: boolean }>;
-  devDependencies?: Record<string, string>;
-}
-
-export interface WorkspacePackage extends PackageInfo {
-  dir: string;
-  private?: boolean;
-}
-
 export interface PackagePublicationInfo {
   publishedVersions: string[];
 }
 
 export type PublishedState = 'never' | 'published' | 'only-pre';
 
+type PackageJsonWithPeerDependenciesMeta = Package['packageJson'] & {
+  peerDependenciesMeta?: Record<string, { optional?: boolean }>;
+};
+
 interface PublishTarget {
   distTag: string;
-  pkg: WorkspacePackage;
-}
-
-export function toWorkspacePackage(pkg: Package): WorkspacePackage {
-  return {
-    name: pkg.packageJson.name,
-    version: pkg.packageJson.version,
-    dir: pkg.dir,
-    private: pkg.packageJson.private ?? undefined,
-    dependencies: pkg.packageJson.dependencies as
-      | Record<string, string>
-      | undefined,
-    optionalDependencies: pkg.packageJson.optionalDependencies as
-      | Record<string, string>
-      | undefined,
-    peerDependencies: pkg.packageJson.peerDependencies as
-      | Record<string, string>
-      | undefined,
-    peerDependenciesMeta: pkg.packageJson.peerDependenciesMeta as
-      | Record<string, { optional?: boolean }>
-      | undefined,
-    devDependencies: pkg.packageJson.devDependencies as
-      | Record<string, string>
-      | undefined,
-  };
+  pkg: Package;
 }
 
 function isNpmNotFoundOutput(output: string): boolean {
@@ -312,7 +277,7 @@ export function getReleaseTag(
  */
 export function createPublisher(options: {
   npmIdToken: string;
-}): (pkg: WorkspacePackage, distTag: string) => Promise<boolean> {
+}): (pkg: Package, distTag: string) => Promise<boolean> {
   const env = {
     ...process.env,
     NPM_ID_TOKEN: options.npmIdToken,
@@ -326,20 +291,23 @@ export function createPublisher(options: {
         ['publish', '--no-git-checks', '--access', 'public', '--tag', distTag],
         { cwd: pkg.dir, env },
       );
-      console.log(`Successfully published ${pkg.name}@${pkg.version}`);
+      console.log(
+        `Successfully published ${pkg.packageJson.name}@${pkg.packageJson.version}`,
+      );
       return true;
     } catch (error) {
-      console.error(`Failed to publish ${pkg.name}@${pkg.version}: ${error}`);
+      console.error(
+        `Failed to publish ${pkg.packageJson.name}@${pkg.packageJson.version}: ${error}`,
+      );
       return false;
     }
   };
 }
 
-function getRequiredPeerDependencies(
-  pkg: Pick<PackageInfo, 'peerDependencies' | 'peerDependenciesMeta'>,
-): Record<string, string> {
-  const peerDependencies = pkg.peerDependencies ?? {};
-  const peerDependenciesMeta = pkg.peerDependenciesMeta ?? {};
+function getRequiredPeerDependencies({
+  peerDependencies = {},
+  peerDependenciesMeta = {},
+}: PackageJsonWithPeerDependenciesMeta): Record<string, string> {
   return Object.fromEntries(
     Object.entries(peerDependencies).filter(
       ([name]) => peerDependenciesMeta[name]?.optional !== true,
@@ -353,16 +321,16 @@ function getRequiredPeerDependencies(
  * required peer deps that are also in the publish set.
  */
 export function buildPublishDeps(
-  packages: PackageInfo[],
+  packages: Package[],
 ): Map<string, Set<string>> {
-  const publishSet = new Set(packages.map((p) => p.name));
+  const publishSet = new Set(packages.map((p) => p.packageJson.name));
   const publishDeps = new Map<string, Set<string>>();
 
   for (const pkg of packages) {
     const runtimeDeps = {
-      ...pkg.dependencies,
-      ...pkg.optionalDependencies,
-      ...getRequiredPeerDependencies(pkg),
+      ...pkg.packageJson.dependencies,
+      ...pkg.packageJson.optionalDependencies,
+      ...getRequiredPeerDependencies(pkg.packageJson),
     };
     const inSetDeps = new Set<string>();
     for (const depName of Object.keys(runtimeDeps)) {
@@ -370,7 +338,7 @@ export function buildPublishDeps(
         inSetDeps.add(depName);
       }
     }
-    publishDeps.set(pkg.name, inSetDeps);
+    publishDeps.set(pkg.packageJson.name, inSetDeps);
   }
 
   return publishDeps;
@@ -459,7 +427,7 @@ export async function publishInOrder(
 }
 
 async function collectPublishTargets(options: {
-  packages: WorkspacePackage[];
+  packages: Package[];
   preTag?: string;
   getPackagePublicationInfo: (name: string) => Promise<PackagePublicationInfo>;
 }): Promise<PublishTarget[]> {
@@ -467,19 +435,23 @@ async function collectPublishTargets(options: {
   const toPublish: PublishTarget[] = [];
 
   for (const pkg of packages) {
-    if (pkg.private) continue;
+    if (pkg.packageJson.private) continue;
 
-    const publicationInfo = await getInfo(pkg.name);
-    if (isVersionPublished(publicationInfo, pkg.version)) {
-      console.log(`${pkg.name}@${pkg.version} already published, skipping`);
+    const publicationInfo = await getInfo(pkg.packageJson.name);
+    if (isVersionPublished(publicationInfo, pkg.packageJson.version)) {
+      console.log(
+        `${pkg.packageJson.name}@${pkg.packageJson.version} already published, skipping`,
+      );
       continue;
     }
 
-    console.log(`${pkg.name}@${pkg.version} needs publishing`);
+    console.log(
+      `${pkg.packageJson.name}@${pkg.packageJson.version} needs publishing`,
+    );
     const distTag = getReleaseTag(publicationInfo, preTag);
     if (preTag !== undefined && distTag !== preTag) {
       console.log(
-        `${pkg.name} will be published to ${distTag} rather than ${preTag} because it has only ${preTag} prereleases on npm`,
+        `${pkg.packageJson.name} will be published to ${distTag} rather than ${preTag} because it has only ${preTag} prereleases on npm`,
       );
     }
     toPublish.push({ distTag, pkg });
@@ -496,10 +468,10 @@ async function collectPublishTargets(options: {
  * the orchestration logic stays testable without mocking modules.
  */
 export async function topologicalPublish(options: {
-  packages: WorkspacePackage[];
+  packages: Package[];
   preTag?: string;
   getPackagePublicationInfo: (name: string) => Promise<PackagePublicationInfo>;
-  publish: (pkg: WorkspacePackage, distTag: string) => Promise<boolean>;
+  publish: (pkg: Package, distTag: string) => Promise<boolean>;
 }): Promise<{ published: string[]; failed: string[] }> {
   const {
     packages,
@@ -526,7 +498,9 @@ export async function topologicalPublish(options: {
     console.log(`  ${name}`);
   }
 
-  const byName = new Map(toPublish.map((target) => [target.pkg.name, target]));
+  const byName = new Map(
+    toPublish.map((target) => [target.pkg.packageJson.name, target]),
+  );
 
   return publishInOrder(sorted, publishDeps, async (name) => {
     const target = byName.get(name)!;
@@ -560,7 +534,7 @@ async function defaultCheckBuildStatus(dir: string): Promise<boolean> {
  * and prints the topological publish plan without actually publishing.
  */
 export async function topologicalPublishDryRun(options: {
-  packages: WorkspacePackage[];
+  packages: Package[];
   preTag?: string;
   buildFailed: boolean;
   getPackagePublicationInfo: (name: string) => Promise<PackagePublicationInfo>;
@@ -590,7 +564,9 @@ export async function topologicalPublishDryRun(options: {
   console.log(
     `\nWould publish ${sorted.length} packages in topological order:`,
   );
-  const byName = new Map(toPublish.map((target) => [target.pkg.name, target]));
+  const byName = new Map(
+    toPublish.map((target) => [target.pkg.packageJson.name, target]),
+  );
 
   for (const name of sorted) {
     const target = byName.get(name)!;
@@ -607,7 +583,7 @@ export async function topologicalPublishDryRun(options: {
     const depStr =
       deps.size > 0 ? ` (depends on: ${[...deps].join(', ')})` : '';
     console.log(
-      `  [${buildStatus}] ${name}@${pkg.version} -> ${distTag}${depStr}`,
+      `  [${buildStatus}] ${name}@${pkg.packageJson.version} -> ${distTag}${depStr}`,
     );
   }
   console.log('\nDry run complete. No packages were published.');
@@ -688,7 +664,7 @@ export async function main() {
     releasedPackages = publishablePackages;
   } else if (isDryRun) {
     await topologicalPublishDryRun({
-      packages: packages.map(toWorkspacePackage),
+      packages,
       preTag,
       buildFailed,
       getPackagePublicationInfo,
@@ -696,7 +672,7 @@ export async function main() {
     return;
   } else {
     const result = await topologicalPublish({
-      packages: packages.map(toWorkspacePackage),
+      packages,
       preTag,
       getPackagePublicationInfo,
       publish: createPublisher({ npmIdToken }),
