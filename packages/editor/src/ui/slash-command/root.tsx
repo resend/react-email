@@ -17,6 +17,7 @@ import {
   useState,
 } from 'react';
 import { createPortal } from 'react-dom';
+import { EditorFocusScope } from '../editor-focus-scope';
 import { CommandList } from './command-list';
 import { defaultSlashCommands } from './commands';
 import { filterAndRankItems } from './search';
@@ -203,9 +204,11 @@ export function SlashCommandRoot({
   }
 
   return createPortal(
-    <div ref={refs.setFloating} style={floatingStyles}>
-      {content}
-    </div>,
+    <EditorFocusScope>
+      <div ref={refs.setFloating} style={floatingStyles}>
+        {content}
+      </div>
+    </EditorFocusScope>,
     document.body,
   );
 }

@@ -153,6 +153,28 @@ console.log(\`Hello, $\{name}!\`);
     `);
   });
 
+  it('renders loose lists with paragraph continuations without crashing', async () => {
+    const actualOutput = await render(
+      <Markdown>
+        {`- item1
+
+  paragraph continuation
+
+- item2`}
+      </Markdown>,
+    );
+    expect(actualOutput).toMatchInlineSnapshot(`
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div data-id="react-email-markdown"><ul>
+      <li><p>item1</p>
+      <p>paragraph continuation</p>
+      </li>
+      <li><p>item2</p>
+      </li>
+      </ul>
+      </div><!--/$-->"
+    `);
+  });
+
   it('renders nested lists in the correct format for browsers', async () => {
     const actualOutput = await render(
       <Markdown>

@@ -39,6 +39,7 @@ import type { DivOptions } from './div';
 import { Div } from './div';
 import type { DividerOptions } from './divider';
 import { Divider } from './divider';
+import { FocusScopes, type FocusScopesOptions } from './focus-scopes';
 import type { GlobalContentOptions } from './global-content';
 import { GlobalContent } from './global-content';
 import { HardBreak } from './hard-break';
@@ -84,6 +85,7 @@ export * from './columns';
 export * from './container';
 export * from './div';
 export * from './divider';
+export * from './focus-scopes';
 export * from './global-content';
 export * from './hard-break';
 export * from './heading';
@@ -146,6 +148,7 @@ const starterKitExtensions: Record<string, AnyExtension> = {
   ClassAttribute,
   MaxNesting,
   UndoRedo,
+  FocusScopes,
 };
 
 export type StarterKitOptions = {
@@ -189,6 +192,7 @@ export type StarterKitOptions = {
   ClassAttribute: Partial<ClassAttributeOptions> | false;
   MaxNesting: Partial<MaxNestingOptions> | false;
   UndoRedo: Partial<UndoRedoOptions> | false;
+  FocusScopes: Partial<FocusScopesOptions> | false;
   TiptapStarterKit: Partial<TipTapStarterKitOptions> | false;
 };
 
@@ -338,6 +342,7 @@ export const StarterKit = Extension.create<StarterKitOptions>({
         nodeTypes: ['section', 'bulletList', 'orderedList'],
       },
       UndoRedo: {},
+      FocusScopes: {},
     };
   },
 
