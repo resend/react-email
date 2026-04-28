@@ -13,6 +13,7 @@ import { remark } from 'remark';
 const octokit = github.getOctokit(process.env.GITHUB_TOKEN || '');
 
 const processor = remark();
+const LATEST_GITHUB_RELEASE_PACKAGE_NAME = 'react-email';
 
 export const BumpLevels = {
   dep: 0,
@@ -89,12 +90,17 @@ const createRelease = async ({
       `Could not find changelog entry for ${pkg.packageJson.name}@${pkg.packageJson.version}`,
     );
   }
+  const isPrerelease = pkg.packageJson.version.includes('-');
+  const shouldMarkAsLatest =
+    pkg.packageJson.name === LATEST_GITHUB_RELEASE_PACKAGE_NAME &&
+    !isPrerelease;
 
   await octokit.rest.repos.createRelease({
     name: tagName,
     tag_name: tagName,
     body: changelogEntry.content,
-    prerelease: pkg.packageJson.version.includes('-'),
+    prerelease: isPrerelease,
+    make_latest: shouldMarkAsLatest ? 'true' : 'false',
     ...github.context.repo,
   });
 };
