@@ -33,9 +33,9 @@ export function getChangelogEntry(changelog: string, version: string) {
   const nodes = ast.children;
   let headingStartInfo:
     | {
-        index: number;
-        depth: number;
-      }
+      index: number;
+      depth: number;
+    }
     | undefined;
   let endIndex: number | undefined;
 
@@ -213,8 +213,7 @@ export function parseNpmViewVersionsOutput(
   }
 
   throw new Error(
-    `Failed to check npm registry for ${packageName}: ${
-      combinedOutput || `exit code ${result.exitCode}`
+    `Failed to check npm registry for ${packageName}: ${combinedOutput || `exit code ${result.exitCode}`
     }`,
   );
 }
@@ -523,7 +522,7 @@ async function defaultCheckBuildStatus(dir: string): Promise<boolean> {
     try {
       await fs.access(path.join(dir, buildOutputDir));
       return true;
-    } catch {}
+    } catch { }
   }
 
   return false;
@@ -589,7 +588,10 @@ export async function topologicalPublishDryRun(options: {
   console.log('\nDry run complete. No packages were published.');
 }
 
-export async function main() {
+if (
+  process.argv[1] !== undefined &&
+  import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href
+) {
   const preState = await readPreState(process.cwd());
   const skipNpmPublish =
     isTruthyEnv(process.env.SKIP_NPM_PUBLISH) ||
@@ -702,11 +704,4 @@ export async function main() {
   if (failedNames.length > 0) {
     process.exitCode = 1;
   }
-}
-
-if (
-  process.argv[1] !== undefined &&
-  import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href
-) {
-  await main();
 }
