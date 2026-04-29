@@ -1,5 +1,59 @@
 # @react-email/editor
 
+## 1.3.1
+
+### Patch Changes
+
+- react-email@6.0.5
+
+## 1.3.0
+
+### Minor Changes
+
+- 26849a1: new cellspacing attribute for columns node, remove the gap for columns from default css
+
+## 1.2.2
+
+### Patch Changes
+
+- 7b8df09: Clear the injected global CSS `<style>` element when the user empties global CSS in the editor. Previously, deleting all global CSS at once left the previously injected rules in the DOM, so the email editor preview kept showing stale styles.
+- Updated dependencies [96af3a7]
+- Updated dependencies [5cf57ae]
+  - react-email@6.0.4
+
+## 1.2.1
+
+### Patch Changes
+
+- Updated dependencies [bb51e5e]
+  - react-email@6.0.3
+
+## 1.2.0
+
+### Minor Changes
+
+- f2a8a42: - Add the `FocusScopes` extension to replace provider-based editor focus tracking.
+  - Always wrap bubble menus and slash commands with editor focus scopes.
+  - Improve reliability when handling `focusout` events from menus, inspector controls, and remounted focused elements.
+
+### Patch Changes
+
+- Updated dependencies [63b6e71]
+  - react-email@6.0.2
+
+## 1.1.2
+
+### Patch Changes
+
+- Updated dependencies [599b8c5]
+  - react-email@6.0.1
+
+## 1.1.1
+
+### Patch Changes
+
+- 2377e89: Emit active EmailTheming link styles in the Link mark's `renderHTML` so plain links carry inline color + underline in exported HTML. User inline styles still take precedence via the CSS cascade. `RESET_MINIMAL.link` now also ships `#0670DB` + underline.
+
 ## 1.1.0
 
 ### Minor Changes

@@ -1,5 +1,34 @@
 # react-email
 
+## 6.0.5
+
+## 6.0.4
+
+### Patch Changes
+
+- 96af3a7: Replace ora with picospinner for CLI and preview spinner output.
+- 5cf57ae: unpin esbuild
+- Updated dependencies [e0e896f]
+  - @react-email/render@2.0.8
+
+## 6.0.3
+
+### Patch Changes
+
+- bb51e5e: fix missing react and react-dom peer dependencies
+
+## 6.0.2
+
+### Patch Changes
+
+- 63b6e71: Fix Markdown component crashing on CommonMark loose lists with paragraph continuations
+
+## 6.0.1
+
+### Patch Changes
+
+- 599b8c5: fix type issues in starter template and in react-email
+
 ## 6.0.0
 
 ### Major Changes
@@ -19,13 +48,12 @@
   Having separate packages for components (`@react-email/components`), and the CLI (`react-email`) created unnecessary confusion, and a maintenance burden for us.
 
   ### How to migrate
-
   1. Remove `@react-email/components`:
 
      ```diff
      npm remove @react-email/components
      ```
-  
+
   2. Update `react-email`, and move it over to `dependencies`:
 
      ```diff
@@ -38,7 +66,6 @@
      - import { Button, Html, Head, render } from "@react-email/components";
      + import { Button, Html, Head, render } from "react-email";
      ```
-
 
 ### Patch Changes
 

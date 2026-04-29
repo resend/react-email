@@ -12,6 +12,7 @@ import {
 } from '../utils/get-emails-directory-metadata.js';
 import { getUiLocation } from '../utils/get-ui-location.js';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping.js';
+import { createSpinner, stopSpinnerAndPersist } from '../utils/spinner.js';
 
 interface Args {
   dir: string;
@@ -182,13 +183,14 @@ export const build = async ({
     const usersProjectLocation = process.cwd();
     const previewServerLocation = await getUiLocation();
 
-    const spinner = ora({
+    const spinner = createSpinner({
       text: 'Starting build process...',
       prefixText: '  ',
-    }).start();
+    });
+    spinner.start();
     registerSpinnerAutostopping(spinner);
 
-    spinner.text = `Checking if ${emailsDirRelativePath} folder exists`;
+    spinner.setText(`Checking if ${emailsDirRelativePath} folder exists`);
     if (!fs.existsSync(emailsDirRelativePath)) {
       process.exit(1);
     }
@@ -202,11 +204,11 @@ export const build = async ({
     const builtPreviewAppPath = path.join(usersProjectLocation, '.react-email');
 
     if (fs.existsSync(builtPreviewAppPath)) {
-      spinner.text = 'Deleting pre-existing `.react-email` folder';
+      spinner.setText('Deleting pre-existing `.react-email` folder');
       await fs.promises.rm(builtPreviewAppPath, { recursive: true });
     }
 
-    spinner.text = 'Copying preview app from CLI to `.react-email`';
+    spinner.setText('Copying preview app from CLI to `.react-email`');
     await fs.promises.cp(previewServerLocation, builtPreviewAppPath, {
       recursive: true,
       filter: (source: string) => {
@@ -220,8 +222,9 @@ export const build = async ({
     });
 
     if (fs.existsSync(staticPath)) {
-      spinner.text =
-        'Copying `static` folder into `.react-email/public/static`';
+      spinner.setText(
+        'Copying `static` folder into `.react-email/public/static`',
+      );
       const builtStaticDirectory = path.resolve(
         builtPreviewAppPath,
         './public/static',
@@ -231,22 +234,25 @@ export const build = async ({
       });
     }
 
-    spinner.text =
-      'Setting Next environment variables for preview app to work properly';
+    spinner.setText(
+      'Setting Next environment variables for preview app to work properly',
+    );
     await setNextEnvironmentVariablesForBuild(
       emailsDirRelativePath,
       builtPreviewAppPath,
       usersProjectLocation,
     );
 
-    spinner.text = 'Setting server side generation for the email preview pages';
+    spinner.setText(
+      'Setting server side generation for the email preview pages',
+    );
     await forceSSGForEmailPreviews(emailsDirPath, builtPreviewAppPath);
 
-    spinner.text = "Updating package.json's build and start scripts";
+    spinner.setText("Updating package.json's build and start scripts");
     await updatePackageJson(builtPreviewAppPath);
 
     if (!isInReactEmailMonorepo) {
-      spinner.text = 'Installing dependencies on `.react-email`';
+      spinner.setText('Installing dependencies on `.react-email`');
       await installDependencies({
         cwd: builtPreviewAppPath,
         silent: true,
@@ -254,7 +260,7 @@ export const build = async ({
       });
     }
 
-    spinner.stopAndPersist({
+    stopSpinnerAndPersist(spinner, {
       text: 'Successfully prepared `.react-email` for `next build`',
       symbol: logSymbols.success,
     });

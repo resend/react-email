@@ -36,5 +36,6 @@ jobs:
         with:
           version: pnpm run version
           title: "chore(root): version packages"
+          commitMode: github-api
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}

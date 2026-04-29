@@ -7,7 +7,6 @@ import { type BuildFailure, build } from 'esbuild';
 import { glob } from 'glob';
 import logSymbols from 'log-symbols';
 import normalize from 'normalize-path';
-import ora, { type Ora } from 'ora';
 import type React from 'react';
 import { getEmailConfig, getEmailConfigPath } from '../../config/index.js';
 import { renderingUtilitiesExporter } from '../utils/esbuild/renderring-utilities-exporter.js';
@@ -17,6 +16,11 @@ import {
 } from '../utils/get-emails-directory-metadata.js';
 import { tree } from '../utils/index.js';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping.js';
+import {
+  createSpinner,
+  type Spinner,
+  stopSpinnerAndPersist,
+} from '../utils/spinner.js';
 
 const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
   const templatePaths = [] as string[];
@@ -49,9 +53,10 @@ export const exportTemplates = async (
   emailsDirectoryPath: string,
   options: ExportTemplatesOptions,
 ) => {
-  let spinner: Ora | undefined;
+  let spinner: Spinner | undefined;
   if (!options.silent) {
-    spinner = ora('Preparing files...\n').start();
+    spinner = createSpinner('Preparing files...\n');
+    spinner.start();
     registerSpinnerAutostopping(spinner);
   }
 
@@ -62,7 +67,7 @@ export const exportTemplates = async (
 
   if (typeof emailsDirectoryMetadata === 'undefined') {
     if (spinner) {
-      spinner.stopAndPersist({
+      stopSpinnerAndPersist(spinner, {
         symbol: logSymbols.error,
         text: `Could not find the directory at ${emailsDirectoryPath}`,
       });
@@ -102,7 +107,7 @@ export const exportTemplates = async (
     });
   } catch (exception) {
     if (spinner) {
-      spinner.stopAndPersist({
+      stopSpinnerAndPersist(spinner, {
         symbol: logSymbols.error,
         text: 'Failed to build emails',
       });
@@ -125,11 +130,15 @@ export const exportTemplates = async (
     },
   );
 
+  if (spinner && allBuiltTemplates.length > 0) {
+    spinner.setText(`rendering ${allBuiltTemplates[0]?.split('/').pop()}`);
+    spinner.start();
+  }
+
   for await (const template of allBuiltTemplates) {
     try {
       if (spinner) {
-        spinner.text = `rendering ${template.split('/').pop()}`;
-        spinner.render();
+        spinner.setText(`rendering ${template.split('/').pop()}`);
       }
       delete require.cache[template];
       const emailModule = require(template) as {
@@ -152,7 +161,7 @@ export const exportTemplates = async (
       unlinkSync(template);
     } catch (exception) {
       if (spinner) {
-        spinner.stopAndPersist({
+        stopSpinnerAndPersist(spinner, {
           symbol: logSymbols.error,
           text: `failed when rendering ${template.split('/').pop()}`,
         });
@@ -163,8 +172,8 @@ export const exportTemplates = async (
   }
   if (spinner) {
     spinner.succeed('Rendered all files');
-    spinner.text = 'Copying static files';
-    spinner.render();
+    spinner.setText('Copying static files');
+    spinner.start();
   }
 
   // ex: emails/static
@@ -187,7 +196,7 @@ export const exportTemplates = async (
     } catch (exception) {
       console.error(exception);
       if (spinner) {
-        spinner.stopAndPersist({
+        stopSpinnerAndPersist(spinner, {
           symbol: logSymbols.error,
           text: 'Failed to copy static files',
         });
@@ -205,10 +214,6 @@ export const exportTemplates = async (
     const fileTree = await tree(pathToWhereEmailMarkupShouldBeDumped, 4);
 
     console.log(fileTree);
-
-    spinner.stopAndPersist({
-      symbol: logSymbols.success,
-      text: 'Successfully exported emails',
-    });
+    console.log(`${logSymbols.success} Successfully exported emails`);
   }
 };
