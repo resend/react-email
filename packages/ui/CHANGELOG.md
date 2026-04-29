@@ -1,5 +1,17 @@
 # @react-email/ui
 
+## 6.0.5
+
+### Patch Changes
+
+- 61df218: Fix the preview server package build so Turbopack's externalized esbuild alias is included in the published tarball.
+
+## 6.0.4
+
+### Patch Changes
+
+- 96af3a7: Replace ora with picospinner for CLI and preview spinner output.
+
 ## 6.0.3
 
 ## 6.0.2

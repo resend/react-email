@@ -1,5 +1,26 @@
 # @react-email/editor
 
+## 1.3.1
+
+### Patch Changes
+
+- react-email@6.0.5
+
+## 1.3.0
+
+### Minor Changes
+
+- 26849a1: new cellspacing attribute for columns node, remove the gap for columns from default css
+
+## 1.2.2
+
+### Patch Changes
+
+- 7b8df09: Clear the injected global CSS `<style>` element when the user empties global CSS in the editor. Previously, deleting all global CSS at once left the previously injected rules in the DOM, so the email editor preview kept showing stale styles.
+- Updated dependencies [96af3a7]
+- Updated dependencies [5cf57ae]
+  - react-email@6.0.4
+
 ## 1.2.1
 
 ### Patch Changes
