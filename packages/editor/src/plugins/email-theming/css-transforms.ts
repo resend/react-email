@@ -123,13 +123,16 @@ export function injectGlobalPlainCss(
   css?: string | null,
   options: { styleId?: string; scopeSelector?: string } = {},
 ) {
-  if (!css) {
-    return;
-  }
-
   const styleId = options.styleId ?? 'global-editor-style';
   const container = options.scopeSelector ?? '.tiptap-extended .ProseMirror';
   let styleElement = document.getElementById(styleId);
+
+  if (!css) {
+    if (styleElement) {
+      styleElement.textContent = '';
+    }
+    return;
+  }
 
   if (!styleElement) {
     styleElement = document.createElement('style');
