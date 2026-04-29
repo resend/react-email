@@ -98,4 +98,27 @@ describe('makeInlineStylesFor()', async () => {
       }
     `);
   });
+
+  it('collapses outer --tw-* var() that becomes empty after inner --tw-* var() collapses', () => {
+    // Regression test for cubic-dev-ai P2 review on PR #3359:
+    // pre-order traversal misses outer var(--tw-X, var(--tw-Y,)) because the
+    // outer's fallback only becomes empty AFTER the inner collapses. Post-order
+    // traversal fixes this.
+    const tailwindStyles = parse(`
+      .nested {
+        font-variant-numeric: var(--tw-outer, var(--tw-inner,)) tabular-nums;
+      }
+    `) as StyleSheet;
+
+    expect(
+      makeInlineStylesFor(
+        tailwindStyles.children.toArray(),
+        getCustomProperties(tailwindStyles),
+      ),
+    ).toMatchInlineSnapshot(`
+      {
+        "fontVariantNumeric": "tabular-nums",
+      }
+    `);
+  });
 });

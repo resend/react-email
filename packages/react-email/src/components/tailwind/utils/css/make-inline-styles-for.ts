@@ -74,7 +74,7 @@ export function makeInlineStylesFor(
         // (even ones used inside tailwind utilities) are left untouched.
         walk(declaration.value, {
           visit: 'Function',
-          enter(func, funcItem, funcList) {
+          leave(func, funcItem, funcList) {
             if (func.name !== 'var') {
               return;
             }
@@ -101,7 +101,21 @@ export function makeInlineStylesFor(
                 return;
               }
 
-              if (generate(child).trim().length > 0) {
+              let childValue = generate(child).trim();
+              if (child.type === 'Raw') {
+                const emptyTailwindVarPattern = /var\(--tw-[^,()]+,\s*\)/g;
+                let nextChildValue = childValue
+                  .replace(emptyTailwindVarPattern, '')
+                  .trim();
+                while (nextChildValue !== childValue) {
+                  childValue = nextChildValue;
+                  nextChildValue = childValue
+                    .replace(emptyTailwindVarPattern, '')
+                    .trim();
+                }
+              }
+
+              if (childValue.length > 0) {
                 hasFallbackContent = true;
               }
             });
