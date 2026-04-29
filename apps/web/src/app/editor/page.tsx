@@ -113,6 +113,12 @@ const sections: Section[] = [
           'Upload images via paste, drop, or the slash command — with a stubbed uploader and an error-path toggle.',
         docsUrl: 'https://react.email/docs/editor/features/image-upload',
       },
+      {
+        slug: 'html-to-tiptap',
+        title: 'HTML to Tiptap',
+        description:
+          'Convert raw HTML into Tiptap JSON and load it into the editor — the same conversion runs when you paste HTML.',
+      },
     ],
   },
   {

@@ -34,6 +34,7 @@
     "react-dom": "catalog:",
     "@tiptap/core": "3.20.1",
     "@tiptap/extension-heading": "3.20.1",
+    "@tiptap/html": "3.20.1",
     "@tiptap/extension-link": "3.20.1",
     "@tiptap/extension-underline": "3.20.1",
     "@tiptap/react": "3.20.1",
