@@ -8,7 +8,6 @@ test('tree(__dirname, 2)', async () => {
     │   └── renderring-utilities-exporter.ts
     ├── preview
     │   ├── hot-reloading
-    │   ├── get-env-variables-for-preview-app.spec.ts
     │   ├── get-env-variables-for-preview-app.ts
     │   ├── index.ts
     │   ├── serve-static-file.ts
