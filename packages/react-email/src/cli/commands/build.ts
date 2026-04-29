@@ -4,7 +4,6 @@ import { fileURLToPath } from 'node:url';
 import { getPackages } from '@manypkg/get-packages';
 import logSymbols from 'log-symbols';
 import { installDependencies, type PackageManagerName, runScript } from 'nypm';
-import ora from 'ora';
 import { getEmailConfigPath } from '../../config/get-email-config-path.js';
 import {
   type EmailsDirectory,
