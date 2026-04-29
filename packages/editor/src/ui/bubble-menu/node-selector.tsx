@@ -227,6 +227,7 @@ export function NodeSelectorTrigger({
     <Popover.Trigger
       data-re-node-selector-trigger=""
       className={className}
+      onMouseDown={(e) => e.preventDefault()}
       onClick={() => setIsOpen(!isOpen)}
     >
       {children ?? (
