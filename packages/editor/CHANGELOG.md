@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.3.2
+
+### Patch Changes
+
+- dbd400d: fix bubble menu's node selector closing bubble menu
+
 ## 1.3.1
 
 ### Patch Changes
