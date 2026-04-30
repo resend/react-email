@@ -101,24 +101,30 @@ export interface EditorFocusScopeProps {
 export function EditorFocusScope({ children }: EditorFocusScopeProps) {
   const context = React.useContext(FocusScopeContext);
   const { editor } = useCurrentEditor();
-  const focusScope = context ?? editor?.extensionStorage?.focusScope;
+  const focusScope = context ?? editor?.extensionStorage?.focusScope ?? null;
+  const attachedElRef = React.useRef<HTMLElement | null>(null);
+
+  const setScopeRef = React.useCallback(
+    (element: HTMLElement | null) => {
+      if (!focusScope) return;
+
+      const prev = attachedElRef.current;
+      if (prev && prev !== element) {
+        focusScope.unregisterScope(prev);
+      }
+
+      attachedElRef.current = element;
+
+      if (element) {
+        focusScope.registerScope(element);
+      }
+    },
+    [focusScope],
+  );
 
   if (!focusScope) {
     return <>{children}</>;
   }
 
-  return (
-    <Slot
-      ref={(element) => {
-        if (!element) return;
-
-        focusScope.registerScope(element);
-        return () => {
-          focusScope.unregisterScope(element);
-        };
-      }}
-    >
-      {children}
-    </Slot>
-  );
+  return <Slot ref={setScopeRef}>{children}</Slot>;
 }
