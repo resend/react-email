@@ -1,5 +1,5 @@
 import { ensureBorderStyleFallback } from '../../utils/styles';
-import type { CssJs, PanelGroup } from './types';
+import type { CssJs, KnownThemeComponents, PanelGroup } from './types';
 
 export function transformToCssJs(
   styleArray: PanelGroup[],
@@ -86,22 +86,78 @@ export function injectThemeCss(
     options.scopeSelector ?? '.tiptap-extended .tiptap.ProseMirror';
   const prefix = '.node-';
   const styleId = options.styleId ?? 'tiptap-extended-theme-css';
+  const resetComponents = new Set<KnownThemeComponents>([
+    'body',
+    'button',
+    'h1',
+    'h2',
+    'h3',
+    'list',
+    'listItem',
+    'listParagraph',
+    'nestedList',
+    'paragraph',
+  ]);
+  const getNodeSelector = (classReference: string) =>
+    `${container} ${prefix}${classReference}`;
+  const getSelectors = (classReference: KnownThemeComponents) => {
+    switch (classReference) {
+      case 'body':
+        return [container];
+      case 'reset':
+        return [];
+      case 'list':
+        return [
+          getNodeSelector('list'),
+          getNodeSelector('bulletList'),
+          getNodeSelector('orderedList'),
+        ];
+      case 'bulletList':
+        return [getNodeSelector('bulletList')];
+      case 'orderedList':
+        return [getNodeSelector('orderedList')];
+      case 'nestedList':
+        return [
+          getNodeSelector('nestedList'),
+          `${container} .node-list .node-list`,
+          `${container} .node-bulletList .node-bulletList`,
+          `${container} .node-bulletList .node-orderedList`,
+          `${container} .node-orderedList .node-bulletList`,
+          `${container} .node-orderedList .node-orderedList`,
+        ];
+      case 'listParagraph':
+        return [`${container} .node-listItem > .node-paragraph`];
+      default:
+        return [getNodeSelector(classReference)];
+    }
+  };
+  const resetStyles = styles.reset ?? {};
 
   const css = Object.entries(styles).reduce((acc, [key, value]) => {
-    const className =
-      key === 'body' ? container : `${container} ${prefix}${key}`;
+    const classReference = key as KnownThemeComponents;
+    const selectors = getSelectors(classReference);
+    if (selectors.length === 0) {
+      return acc;
+    }
 
-    const cssString = Object.entries(value).reduce((acc, [prop, val]) => {
-      const normalizeProp = prop.replace(/([A-Z])/g, '-$1').toLowerCase();
+    const resolvedStyles = resetComponents.has(classReference)
+      ? { ...resetStyles, ...value }
+      : value;
 
-      if (val === undefined) {
-        return acc;
-      }
+    const cssString = Object.entries(resolvedStyles).reduce(
+      (acc, [prop, val]) => {
+        const normalizeProp = prop.replace(/([A-Z])/g, '-$1').toLowerCase();
 
-      return `${acc}${normalizeProp}:${val};`;
-    }, '');
+        if (val === undefined) {
+          return acc;
+        }
 
-    return `${acc}${className}{${cssString}}`;
+        return `${acc}${normalizeProp}:${val};`;
+      },
+      '',
+    );
+
+    return `${acc}${selectors.join(',')}{${cssString}}`;
   }, '');
 
   let styleTag = document.getElementById(styleId) as HTMLStyleElement;

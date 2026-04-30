@@ -13,6 +13,9 @@ export type PanelSectionId =
   | 'h2'
   | 'h3'
   | 'paragraph'
+  | 'list'
+  | 'nested-list'
+  | 'list-item'
   | 'link'
   | 'image'
   | 'button'
@@ -28,6 +31,8 @@ export type KnownThemeComponents =
   | 'paragraph'
   | 'nestedList'
   | 'list'
+  | 'bulletList'
+  | 'orderedList'
   | 'listItem'
   | 'listParagraph'
   | 'blockquote'
@@ -136,6 +141,9 @@ export type ThemeableComponent = Extract<
   | 'button'
   | 'codeBlock'
   | 'inlineCode'
+  | 'listItem'
+  | 'list'
+  | 'nestedList'
   | 'paragraph'
 >;
 
