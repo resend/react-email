@@ -406,10 +406,10 @@ describe('injectThemeCss', () => {
       '.editor-scope .node-list,.editor-scope .node-bulletList,.editor-scope .node-orderedList{margin:0;padding:0;padding-left:1.1em;}',
     );
     expect(styleTag?.textContent).toContain(
-      '.editor-scope .node-bulletList{margin:0;padding:0;list-style-type:disc;}',
+      '.editor-scope .node-bulletList{list-style-type:disc;}',
     );
     expect(styleTag?.textContent).toContain(
-      '.editor-scope .node-orderedList{margin:0;padding:0;list-style-type:decimal;}',
+      '.editor-scope .node-orderedList{list-style-type:decimal;}',
     );
     expect(styleTag?.textContent).toContain(
       '.editor-scope .node-nestedList,.editor-scope .node-list .node-list',

@@ -1,36 +1,6 @@
 import { ensureBorderStyleFallback } from '../../utils/styles';
+import { RESET_NODE_TYPES } from './extension';
 import type { CssJs, KnownThemeComponents, PanelGroup } from './types';
-
-/**
- * Node types and theme component keys that should receive the universal
- * `reset` CSS (e.g. `margin: 0; padding: 0`) layered underneath their own
- * theme styles. Shared between `injectThemeCss` (editor preview) and
- * `getResolvedNodeStyles` (email serializer) so both surfaces stay in sync.
- *
- * Includes both raw tiptap node names (e.g. `bulletList`) and theme
- * component keys (e.g. `list`) because the serializer matches against both.
- */
-export const RESET_NODE_TYPES = new Set<string>([
-  'body',
-  'bulletList',
-  'button',
-  'columns',
-  'div',
-  'h1',
-  'h2',
-  'h3',
-  'list',
-  'listItem',
-  'listParagraph',
-  'nestedList',
-  'orderedList',
-  'table',
-  'paragraph',
-  'tableCell',
-  'tableHeader',
-  'tableRow',
-  'youtube',
-]);
 
 export function transformToCssJs(
   styleArray: PanelGroup[],

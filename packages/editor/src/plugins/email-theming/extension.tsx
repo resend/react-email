@@ -10,7 +10,6 @@ import {
   injectGlobalPlainCss,
   injectThemeCss,
   mergeCssJs,
-  RESET_NODE_TYPES,
   transformToCssJs,
 } from './css-transforms';
 import {
@@ -101,6 +100,40 @@ export function getMergedCssJs(
 
   return merged;
 }
+
+/**
+ * Node types and theme component keys that should receive the universal
+ * `reset` CSS (e.g. `margin: 0; padding: 0`) layered underneath their own
+ * theme styles. Shared between `getResolvedNodeStyles` (email serializer)
+ * and `injectThemeCss` (editor preview) so both surfaces stay in sync.
+ *
+ * Includes both raw tiptap node names (e.g. `tableCell`) and theme
+ * component keys (e.g. `list`) because the serializer matches against both.
+ *
+ * `bulletList` and `orderedList` are intentionally omitted: their elements
+ * already carry the shared `node-list` class, so the `list` reset rule
+ * covers them without forcing the dedicated `.node-bulletList` /
+ * `.node-orderedList` rules to redundantly emit `margin: 0; padding: 0`.
+ */
+export const RESET_NODE_TYPES = new Set<string>([
+  'body',
+  'button',
+  'columns',
+  'div',
+  'h1',
+  'h2',
+  'h3',
+  'list',
+  'listItem',
+  'listParagraph',
+  'nestedList',
+  'table',
+  'paragraph',
+  'tableCell',
+  'tableHeader',
+  'tableRow',
+  'youtube',
+]);
 
 /**
  * Returns resolved React.CSSProperties for a node when you already have merged CssJs
