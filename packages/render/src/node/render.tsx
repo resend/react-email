@@ -20,8 +20,10 @@ export const render = async (node: React.ReactNode, options?: Options) => {
       typeof WritableStream !== 'undefined'
     ) {
       const ErrorBoundary = createErrorBoundary(reject);
-      reactDOMServer
-        .renderToReadableStream(
+
+      let streamPromise: any;
+      try {
+        streamPromise = reactDOMServer.renderToReadableStream(
           <ErrorBoundary>
             <Suspense>{node}</Suspense>
           </ErrorBoundary>,
@@ -32,37 +34,49 @@ export const render = async (node: React.ReactNode, options?: Options) => {
               reject(error);
             },
           },
-        )
-        .then(async (stream) => {
+        );
+      } catch (err) {
+        reject(err);
+        return;
+      }
+      streamPromise
+        .then(async (stream: any) => {
           await stream.allReady;
           return readStream(stream);
         })
-        .then((result) => {
+        .then((result: any) => {
           html = result;
           resolve();
         })
         .catch(reject);
     } else {
       const ErrorBoundary = createErrorBoundary(reject);
-      const stream = reactDOMServer.renderToPipeableStream(
-        <ErrorBoundary>
-          <Suspense>{node}</Suspense>
-        </ErrorBoundary>,
-        {
-          async onAllReady() {
-            html = await readStream(stream).then((s: string) => {
-              // Workaround for https://github.com/facebook/react/pull/26228
-              // (fixed in React 19, not backported to 18)
-              return s.replaceAll('\0', '');
-            });
-            resolve();
+
+      let stream: any;
+
+      try {
+        stream = reactDOMServer.renderToPipeableStream(
+          <ErrorBoundary>
+            <Suspense>{node}</Suspense>
+          </ErrorBoundary>,
+          {
+            async onAllReady() {
+              html = await readStream(stream).then((s: string) => {
+                // Workaround for https://github.com/facebook/react/pull/26228
+                // (fixed in React 19, not backported to 18)
+                return s.replaceAll('\0', '');
+              });
+              resolve();
+            },
+            onError(error) {
+              reject(error);
+            },
+            progressiveChunkSize: Number.POSITIVE_INFINITY,
           },
-          onError(error) {
-            reject(error);
-          },
-          progressiveChunkSize: Number.POSITIVE_INFINITY,
-        },
-      );
+        );
+      } catch (err) {
+        reject(err);
+      }
     }
   });
 
