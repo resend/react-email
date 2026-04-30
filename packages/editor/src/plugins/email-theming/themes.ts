@@ -714,7 +714,7 @@ const RESET_BASIC: ResetTheme = {
     paddingBottom: '0',
   },
   listItem: {
-    paddingLeft: '1em',
+    marginLeft: '1em',
     paddingBottom: '0.3em',
     paddingTop: '0.3em',
   },
