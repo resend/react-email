@@ -104,15 +104,9 @@ export function makeInlineStylesFor(
               let childValue = generate(child).trim();
               if (child.type === 'Raw') {
                 const emptyTailwindVarPattern = /var\(--tw-[^,()]+,\s*\)/g;
-                let nextChildValue = childValue
-                  .replace(emptyTailwindVarPattern, '')
+                childValue = childValue
+                  .replaceAll(emptyTailwindVarPattern, '')
                   .trim();
-                while (nextChildValue !== childValue) {
-                  childValue = nextChildValue;
-                  nextChildValue = childValue
-                    .replace(emptyTailwindVarPattern, '')
-                    .trim();
-                }
               }
 
               if (childValue.length > 0) {
