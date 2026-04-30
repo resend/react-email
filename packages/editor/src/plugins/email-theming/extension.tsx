@@ -10,6 +10,7 @@ import {
   injectGlobalPlainCss,
   injectThemeCss,
   mergeCssJs,
+  RESET_NODE_TYPES,
   transformToCssJs,
 } from './css-transforms';
 import {
@@ -106,28 +107,6 @@ export function getMergedCssJs(
  * (e.g. in the serializer where there is no editor). Centralizes which theme keys
  * apply to which node type.
  */
-const RESET_NODE_TYPES = new Set([
-  'body',
-  'bulletList',
-  'button',
-  'columns',
-  'div',
-  'h1',
-  'h2',
-  'h3',
-  'list',
-  'listItem',
-  'listParagraph',
-  'nestedList',
-  'orderedList',
-  'table',
-  'paragraph',
-  'tableCell',
-  'tableHeader',
-  'tableRow',
-  'youtube',
-]);
-
 export function getResolvedNodeStyles(
   node: JSONContent,
   depth: number,
