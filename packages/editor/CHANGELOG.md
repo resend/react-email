@@ -1,5 +1,13 @@
 # @react-email/editor
 
+## 1.3.3
+
+### Patch Changes
+
+- bbc9293: Source editor node defaults from the email theme reset.
+- Updated dependencies [84bb7ab]
+  - react-email@6.0.6
+
 ## 1.3.2
 
 ### Patch Changes

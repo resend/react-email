@@ -229,12 +229,12 @@ export const StarterKit = Extension.create<StarterKitOptions>({
       },
       BulletList: {
         HTMLAttributes: {
-          class: 'node-bulletList',
+          class: 'node-list node-bulletList',
         },
       },
       OrderedList: {
         HTMLAttributes: {
-          class: 'node-orderedList',
+          class: 'node-list node-orderedList',
         },
       },
       Blockquote: {
@@ -242,7 +242,11 @@ export const StarterKit = Extension.create<StarterKitOptions>({
           class: 'node-blockquote',
         },
       },
-      ListItem: {},
+      ListItem: {
+        HTMLAttributes: {
+          class: 'node-listItem',
+        },
+      },
       HardBreak: {},
       Italic: {},
       PreviewText: {},
