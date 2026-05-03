@@ -1,5 +1,11 @@
 # react-email
 
+## 6.0.6
+
+### Patch Changes
+
+- 84bb7ab: collapse empty-fallback var() refs in inline styles
+
 ## 6.0.5
 
 ## 6.0.4

@@ -167,6 +167,40 @@ describe('themeStylesToPanelOverrides', () => {
     expect(fontSizeInput?.unit).toBe('px');
   });
 
+  it('adds list theme overrides to list panels', () => {
+    const base = EDITOR_THEMES.basic;
+    const result = themeStylesToPanelOverrides(
+      {
+        list: { paddingLeft: '24px' },
+        nestedList: { paddingBottom: '0px' },
+        listItem: { paddingTop: '6px' },
+      },
+      base,
+    );
+    const listInput = result
+      .find((g) => g.id === 'list')
+      ?.inputs.find(
+        (i) => i.prop === 'paddingLeft' && i.classReference === 'list',
+      );
+    const nestedListInput = result
+      .find((g) => g.id === 'nested-list')
+      ?.inputs.find(
+        (i) => i.prop === 'paddingBottom' && i.classReference === 'nestedList',
+      );
+    const listItemInput = result
+      .find((g) => g.id === 'list-item')
+      ?.inputs.find(
+        (i) => i.prop === 'paddingTop' && i.classReference === 'listItem',
+      );
+
+    expect(listInput?.value).toBe(24);
+    expect(listInput?.unit).toBe('px');
+    expect(nestedListInput?.value).toBe(0);
+    expect(nestedListInput?.unit).toBe('px');
+    expect(listItemInput?.value).toBe(6);
+    expect(listItemInput?.unit).toBe('px');
+  });
+
   it('does not mutate base panels', () => {
     const base = EDITOR_THEMES.basic;
     const originalBodyBg = base
