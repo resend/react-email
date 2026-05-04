@@ -1,5 +1,11 @@
 # react-email
 
+## 6.0.7
+
+### Patch Changes
+
+- 87a2486: undo nesting of all media queries, and replace >= <= exxpressions with min-width/max-width on the Tailwind component
+
 ## 6.0.6
 
 ### Patch Changes
