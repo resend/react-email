@@ -1,7 +1,6 @@
-import { pixelBasedPreset } from 'react-email';
-import { Tailwind } from 'react-email';
+import { pixelBasedPreset, Tailwind } from 'react-email';
 
-const config = { wrong: true };
+const _config = { wrong: true };
 
 export default function EmailTemplate() {
   const config = {
