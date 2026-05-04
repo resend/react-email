@@ -1,5 +1,5 @@
 ---
-"@react-email/tailwind": patch
+"react-email": patch
 ---
 
-downlevel at rules for email client compatibility
+undo nesting of all media queries, and replace >= <= exxpressions with min-width/max-width on the Tailwind component
