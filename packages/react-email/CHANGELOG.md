@@ -1,5 +1,11 @@
 # react-email
 
+## 6.0.8
+
+### Patch Changes
+
+- 65525e0: Tailwind: parse non inline configuration variables
+
 ## 6.0.7
 
 ### Patch Changes
