@@ -59,32 +59,35 @@ interface UnnestTransform {
 function unnestMediaQueries(styleSheet: StyleSheet): void {
   const transforms: UnnestTransform[] = [];
 
-  styleSheet.children.forEach((node, item, list) => {
-    if (node.type !== 'Rule' || !node.block) return;
+  walk(styleSheet, {
+    visit: 'Rule',
+    enter(rule, item, list) {
+      if (!rule.block || !item) return;
 
-    const nestedAtrules: Atrule[] = [];
-    const remainingChildren: CssNode[] = [];
+      const nestedAtrules: Atrule[] = [];
+      const remainingChildren: CssNode[] = [];
 
-    node.block.children.forEach((child) => {
-      if (
-        child.type === 'Atrule' &&
-        (child.name === 'media' || child.name === 'supports')
-      ) {
-        nestedAtrules.push(child);
-      } else {
-        remainingChildren.push(child);
-      }
-    });
-
-    if (nestedAtrules.length > 0) {
-      transforms.push({
-        parentRule: node,
-        parentItem: item,
-        parentList: list,
-        nestedAtrules,
-        remainingChildren,
+      rule.block.children.forEach((child) => {
+        if (
+          child.type === 'Atrule' &&
+          (child.name === 'media' || child.name === 'supports')
+        ) {
+          nestedAtrules.push(child);
+        } else {
+          remainingChildren.push(child);
+        }
       });
-    }
+
+      if (nestedAtrules.length > 0) {
+        transforms.push({
+          parentRule: rule,
+          parentItem: item,
+          parentList: list,
+          nestedAtrules,
+          remainingChildren,
+        });
+      }
+    },
   });
 
   // Apply in reverse so list positions stay valid
@@ -95,7 +98,7 @@ function unnestMediaQueries(styleSheet: StyleSheet): void {
       parentList,
       nestedAtrules,
       remainingChildren,
-    } = transforms[i];
+    } = transforms[i]!;
 
     // Build replacement list: [modified parent rule (if any), unnested @media rules...]
     const replacements = new List<CssNode>();
