@@ -10,9 +10,9 @@ function transform(css: string): string {
 describe('downlevelForEmailClients', () => {
   describe('range syntax', () => {
     it('converts width>= to min-width', () => {
-      expect(
-        transform('@media (width>=40rem){.sm_p-4{padding:1rem}}'),
-      ).toBe('@media (min-width:40rem){.sm_p-4{padding:1rem}}');
+      expect(transform('@media (width>=40rem){.sm_p-4{padding:1rem}}')).toBe(
+        '@media (min-width:40rem){.sm_p-4{padding:1rem}}',
+      );
     });
 
     it('converts width<= to max-width', () => {
@@ -28,16 +28,14 @@ describe('downlevelForEmailClients', () => {
     });
 
     it('converts width> to min-width', () => {
-      expect(
-        transform('@media (width>40rem){.sm_p-4{padding:1rem}}'),
-      ).toBe('@media (min-width:40rem){.sm_p-4{padding:1rem}}');
+      expect(transform('@media (width>40rem){.sm_p-4{padding:1rem}}')).toBe(
+        '@media (min-width:40rem){.sm_p-4{padding:1rem}}',
+      );
     });
 
     it('does not affect non-range media queries', () => {
       expect(
-        transform(
-          '@media (prefers-color-scheme:dark){.dark{color:white}}',
-        ),
+        transform('@media (prefers-color-scheme:dark){.dark{color:white}}'),
       ).toBe('@media (prefers-color-scheme:dark){.dark{color:white}}');
     });
   });
@@ -96,12 +94,8 @@ describe('downlevelForEmailClients', () => {
 
     it('preserves already top-level @media rules', () => {
       expect(
-        transform(
-          '@media (min-width:40rem){.sm_p-4{padding:1rem!important}}',
-        ),
-      ).toBe(
-        '@media (min-width:40rem){.sm_p-4{padding:1rem!important}}',
-      );
+        transform('@media (min-width:40rem){.sm_p-4{padding:1rem!important}}'),
+      ).toBe('@media (min-width:40rem){.sm_p-4{padding:1rem!important}}');
     });
 
     it('handles multiple @media nested in one selector', () => {
