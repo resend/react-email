@@ -45,7 +45,6 @@ interface UnnestTransform {
   parentItem: ListItem<CssNode>;
   parentList: List<CssNode>;
   nestedAtrules: Atrule[];
-  remainingChildren: CssNode[];
 }
 
 /**
@@ -65,18 +64,14 @@ function unnestMediaQueries(styleSheet: StyleSheet): void {
       if (!rule.block || !item) return;
 
       const nestedAtrules: Atrule[] = [];
-      const remainingChildren: CssNode[] = [];
-
-      rule.block.children.forEach((child) => {
+      for (const child of rule.block.children) {
         if (
           child.type === 'Atrule' &&
           (child.name === 'media' || child.name === 'supports')
         ) {
           nestedAtrules.push(child);
-        } else {
-          remainingChildren.push(child);
         }
-      });
+      }
 
       if (nestedAtrules.length > 0) {
         transforms.push({
@@ -84,7 +79,6 @@ function unnestMediaQueries(styleSheet: StyleSheet): void {
           parentItem: item,
           parentList: list,
           nestedAtrules,
-          remainingChildren,
         });
       }
     },
@@ -92,20 +86,22 @@ function unnestMediaQueries(styleSheet: StyleSheet): void {
 
   // Apply in reverse so list positions stay valid
   for (let i = transforms.length - 1; i >= 0; i--) {
-    const {
-      parentRule,
-      parentItem,
-      parentList,
-      nestedAtrules,
-      remainingChildren,
-    } = transforms[i]!;
+    const { parentRule, parentItem, parentList, nestedAtrules } =
+      transforms[i]!;
 
     // Build replacement list: [modified parent rule (if any), unnested @media rules...]
     const replacements = new List<CssNode>();
 
-    if (remainingChildren.length > 0) {
+    // What stays inside the parent rule: every direct child that wasn't
+    // pulled out as a nested @media/@supports.
+    const nestedSet = new Set<CssNode>(nestedAtrules);
+    const nonAtruleChildren: CssNode[] = [];
+    for (const child of parentRule.block.children) {
+      if (!nestedSet.has(child)) nonAtruleChildren.push(child);
+    }
+    if (nonAtruleChildren.length > 0) {
       parentRule.block.children = new List<CssNode>().fromArray(
-        remainingChildren,
+        nonAtruleChildren,
       );
       replacements.appendData(parentRule);
     }
