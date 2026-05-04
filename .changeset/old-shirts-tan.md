@@ -2,4 +2,4 @@
 "react-email": patch
 ---
 
-fix(tailwind): parse non inline configuration variables
+Tailwind: parse non inline configuration variables
