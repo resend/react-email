@@ -31,7 +31,7 @@ export const getTailwindConfig = async (
         const initSource = findVariableInitializer(
           ast,
           sourceCode,
-          (configExpressionValue as { name: string }).name,
+          configExpressionValue.name,
         );
 
         if (initSource !== undefined) {
@@ -131,18 +131,18 @@ const findVariableInitializer = (
   let initSource: string | undefined;
 
   traverse(ast, {
-    VariableDeclarator(nodePath) {
+    JSXOpeningElement(nodePath) {
       if (
-        nodePath.node.id.type === 'Identifier' &&
-        nodePath.node.id.name === name &&
-        nodePath.node.init != null &&
-        nodePath.node.init.start != null &&
-        nodePath.node.init.end != null
+        nodePath.node.name.type === 'JSXIdentifier' &&
+        nodePath.node.name.name === 'Tailwind'
       ) {
-        initSource = sourceCode.slice(
-          nodePath.node.init.start,
-          nodePath.node.init.end,
-        );
+        const binding = nodePath.scope.getBinding(name);
+        if (binding?.path.isVariableDeclarator()) {
+          const { init } = binding.path.node;
+          if (init?.start != null && init.end != null) {
+            initSource = sourceCode.slice(init.start, init.end);
+          }
+        }
         nodePath.stop();
       }
     },
