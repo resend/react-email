@@ -17,9 +17,9 @@
 import {
   type Atrule,
   type CssNode,
+  clone,
   type Feature,
   type FeatureRange,
-  clone,
   List,
   type ListItem,
   type Rule,
