@@ -588,7 +588,7 @@ describe('Tailwind component', () => {
         <html lang="en">
           <head>
             <style>
-              .hover_bg-red-600{&:hover{@media (hover:hover){background-color:rgb(231,0,11)!important}}}.focus_bg-red-700{&:focus{background-color:rgb(193,0,7)!important}}@media (min-width:40rem){.sm_bg-red-300{background-color:rgb(255,162,162)!important}}@media (min-width:40rem){.sm_hover_bg-red-200{&:hover{@media (hover:hover){background-color:rgb(255,201,201)!important}}}}@media (min-width:48rem){.md_bg-red-400{background-color:rgb(255,100,103)!important}}@media (min-width:64rem){.lg_bg-red-500{background-color:rgb(251,44,54)!important}}
+              .hover_bg-red-600{@media (hover:hover){&:hover{background-color:rgb(231,0,11)!important}}}.focus_bg-red-700{&:focus{background-color:rgb(193,0,7)!important}}@media (min-width:40rem){.sm_bg-red-300{background-color:rgb(255,162,162)!important}}@media (min-width:40rem){.sm_hover_bg-red-200{@media (hover:hover){&:hover{background-color:rgb(255,201,201)!important}}}}@media (min-width:48rem){.md_bg-red-400{background-color:rgb(255,100,103)!important}}@media (min-width:64rem){.lg_bg-red-500{background-color:rgb(251,44,54)!important}}
             </style>
           </head>
           <body>
