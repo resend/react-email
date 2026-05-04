@@ -17,6 +17,8 @@
 import {
   type Atrule,
   type CssNode,
+  type Feature,
+  type FeatureRange,
   clone,
   List,
   type ListItem,
@@ -24,6 +26,48 @@ import {
   type StyleSheet,
   walk,
 } from 'css-tree';
+
+/**
+ * css-tree 3.x introduced new AST node types for query-related at-rules that
+ * `@types/css-tree` (still on 2.x at the time of writing) doesn't expose.
+ * Augmenting the module here lets the rest of this file work with strong
+ * types instead of scattering `as` casts everywhere.
+ *
+ * - `FeatureRange` is what the parser emits for Media Queries Level 4 range
+ *   syntax: `(width >= 40rem)`.
+ * - `Feature` is the legacy form (`(min-width: 40rem)`) we construct as the
+ *   downleveled output.
+ *
+ * Note: we cannot extend the `CssNode` union itself (it's a `type` alias, not
+ * an interface), so two narrow casts remain in this file:
+ *   1. Widening `node` inside `walk()` so we can narrow against
+ *      `FeatureRange.type` (`CssNode` doesn't list `'FeatureRange'`).
+ *   2. Assigning a constructed `Feature` back to `ListItem<CssNode>.data`.
+ *
+ * Both are flagged inline and reference back to this block.
+ *
+ * See:
+ *   https://github.com/csstree/csstree/blob/master/lib/syntax/node/FeatureRange.js
+ *   https://github.com/csstree/csstree/blob/master/lib/syntax/node/Feature.js
+ */
+declare module 'css-tree' {
+  interface FeatureRange extends CssNodeCommon {
+    type: 'FeatureRange';
+    kind: string;
+    left: CssNode;
+    leftComparison: string;
+    middle: CssNode;
+    rightComparison: string | null;
+    right: CssNode | null;
+  }
+
+  interface Feature extends CssNodeCommon {
+    type: 'Feature';
+    kind: string;
+    name: string;
+    value: CssNode | null;
+  }
+}
 
 /**
  * Unnest @media at-rules from inside regular rules, and downlevel
@@ -45,6 +89,7 @@ interface UnnestTransform {
   parentItem: ListItem<CssNode>;
   parentList: List<CssNode>;
   nestedAtrules: Atrule[];
+  remainingChildren: CssNode[];
 }
 
 /**
@@ -64,14 +109,18 @@ function unnestMediaQueries(styleSheet: StyleSheet): void {
       if (!rule.block || !item) return;
 
       const nestedAtrules: Atrule[] = [];
-      for (const child of rule.block.children) {
+      const remainingChildren: CssNode[] = [];
+
+      rule.block.children.forEach((child) => {
         if (
           child.type === 'Atrule' &&
           (child.name === 'media' || child.name === 'supports')
         ) {
           nestedAtrules.push(child);
+        } else {
+          remainingChildren.push(child);
         }
-      }
+      });
 
       if (nestedAtrules.length > 0) {
         transforms.push({
@@ -79,6 +128,7 @@ function unnestMediaQueries(styleSheet: StyleSheet): void {
           parentItem: item,
           parentList: list,
           nestedAtrules,
+          remainingChildren,
         });
       }
     },
@@ -86,22 +136,20 @@ function unnestMediaQueries(styleSheet: StyleSheet): void {
 
   // Apply in reverse so list positions stay valid
   for (let i = transforms.length - 1; i >= 0; i--) {
-    const { parentRule, parentItem, parentList, nestedAtrules } =
-      transforms[i]!;
+    const {
+      parentRule,
+      parentItem,
+      parentList,
+      nestedAtrules,
+      remainingChildren,
+    } = transforms[i]!;
 
     // Build replacement list: [modified parent rule (if any), unnested @media rules...]
     const replacements = new List<CssNode>();
 
-    // What stays inside the parent rule: every direct child that wasn't
-    // pulled out as a nested @media/@supports.
-    const nestedSet = new Set<CssNode>(nestedAtrules);
-    const nonAtruleChildren: CssNode[] = [];
-    for (const child of parentRule.block.children) {
-      if (!nestedSet.has(child)) nonAtruleChildren.push(child);
-    }
-    if (nonAtruleChildren.length > 0) {
+    if (remainingChildren.length > 0) {
       parentRule.block.children = new List<CssNode>().fromArray(
-        nonAtruleChildren,
+        remainingChildren,
       );
       replacements.appendData(parentRule);
     }
@@ -139,24 +187,21 @@ function unnestMediaQueries(styleSheet: StyleSheet): void {
 // ---------------------------------------------------------------------------
 
 /**
- * Walk all @media at-rules and downlevel range syntax in their preludes.
- *
- * css-tree 3.x parses `(width >= 40rem)` as a `FeatureRange` node:
- *   { type: "FeatureRange", left: Identifier("width"), leftComparison: ">=", middle: Dimension("40rem") }
- *
- * We convert these to `Feature` nodes (legacy syntax):
- *   { type: "Feature", name: "min-width", value: Dimension("40rem") }
+ * Walk all nodes and downlevel range syntax (`FeatureRange`) inside @media
+ * preludes to legacy `Feature` nodes (`min-width` / `max-width`).
  */
 function downlevelRangeMediaQueries(styleSheet: StyleSheet): void {
   const replacements: Array<{
     item: ListItem<CssNode>;
-    replacement: CssNode;
+    replacement: Feature;
   }> = [];
 
-  // FeatureRange is a css-tree 3.x node type not yet in @types/css-tree
   walk(styleSheet, {
-    enter(node: CssNode, item: ListItem<CssNode>) {
-      if ((node.type as string) === 'FeatureRange' && item) {
+    enter(originalNode, item) {
+      // See module augmentation above: `CssNode` (from @types/css-tree 2.x)
+      // doesn't include `FeatureRange`, so widen here to enable narrowing.
+      const node = originalNode as CssNode | FeatureRange;
+      if (item && node.type === 'FeatureRange') {
         const replacement = downlevelFeatureRange(node);
         if (replacement) {
           replacements.push({ item, replacement });
@@ -166,31 +211,20 @@ function downlevelRangeMediaQueries(styleSheet: StyleSheet): void {
   });
 
   for (const { item, replacement } of replacements) {
-    item.data = replacement;
+    // See module augmentation above: `Feature` is not part of the `CssNode`
+    // union, so a single cast is required when handing it back to the AST.
+    item.data = replacement as unknown as CssNode;
   }
 }
 
 /**
- * Convert a FeatureRange node to a Feature node (legacy min-/max- syntax).
+ * Convert a `FeatureRange` node to a `Feature` node (legacy min-/max- syntax).
+ *
+ * For `width >= 40rem`: left=Identifier("width"), leftComparison=">=", middle=Dimension("40","rem")
+ * Result: { type: "Feature", name: "min-width", value: Dimension("40","rem") }
  */
-function downlevelFeatureRange(node: CssNode): CssNode | null {
-  if ((node.type as string) !== 'FeatureRange') return null;
-
-  // css-tree's FeatureRange: { left, leftComparison, middle, rightComparison, right }
-  // For `width >= 40rem`: left=Identifier("width"), leftComparison=">=", middle=Dimension("40","rem")
-  const range = node as CssNode & {
-    left: CssNode | null;
-    leftComparison: string | null;
-    middle: CssNode | null;
-  };
-
-  if (!range.left || !range.leftComparison || !range.middle) return null;
-
-  const featureName =
-    range.left.type === 'Identifier'
-      ? (range.left as CssNode & { name: string }).name
-      : null;
-  if (!featureName) return null;
+function downlevelFeatureRange(range: FeatureRange): Feature | null {
+  if (range.left.type !== 'Identifier') return null;
 
   let prefix: string;
   if (range.leftComparison === '>=' || range.leftComparison === '>') {
@@ -203,9 +237,8 @@ function downlevelFeatureRange(node: CssNode): CssNode | null {
 
   return {
     type: 'Feature',
-    loc: null,
     kind: 'media',
-    name: `${prefix}${featureName}`,
+    name: `${prefix}${range.left.name}`,
     value: range.middle,
-  } as unknown as CssNode;
+  };
 }
