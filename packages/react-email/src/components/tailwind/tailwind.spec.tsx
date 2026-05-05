@@ -13,6 +13,9 @@ import type { TailwindConfig } from './tailwind.js';
 import { Tailwind } from './tailwind.js';
 
 describe('Tailwind component', () => {
+  const headMissingError =
+    'Tailwind: <head> not found inside <Tailwind>.\nMove <Head /> inside <Tailwind>, or remove these classes that require a <head>:';
+
   it('allows for complex children manipulation', async () => {
     const actualOutput = await render(
       <Tailwind>
@@ -638,9 +641,9 @@ describe('Tailwind component', () => {
         );
       }
 
-      await expect(
-        renderComplexEmailWithoutHead,
-      ).rejects.toThrowErrorMatchingSnapshot();
+      await expect(renderComplexEmailWithoutHead).rejects.toThrow(
+        `${headMissingError} sm:h-10 sm:w-10.`,
+      );
     });
 
     it('works with relatively complex media query utilities', async () => {
@@ -668,6 +671,25 @@ describe('Tailwind component', () => {
       `);
     });
 
+    it('throws a clear error when <Head> is outside <Tailwind> and dark: classes are used', async () => {
+      function renderEmailWithHeadOutsideTailwind() {
+        return render(
+          <Html>
+            <Head />
+            <Tailwind>
+              <Body className="dark:bg-white dark:text-gray-100">
+                this is the body
+              </Body>
+            </Tailwind>
+          </Html>,
+        );
+      }
+
+      await expect(renderEmailWithHeadOutsideTailwind).rejects.toThrow(
+        `${headMissingError} dark:bg-white dark:text-gray-100.`,
+      );
+    });
+
     it('throws an error when used without a <head/>', async () => {
       function noHead() {
         return render(
@@ -679,7 +701,9 @@ describe('Tailwind component', () => {
           </Tailwind>,
         ).then(pretty);
       }
-      await expect(noHead).rejects.toThrowErrorMatchingSnapshot();
+      await expect(noHead).rejects.toThrow(
+        `${headMissingError} sm:bg-red-500.`,
+      );
     });
 
     it('persists existing <head/> elements', async () => {
