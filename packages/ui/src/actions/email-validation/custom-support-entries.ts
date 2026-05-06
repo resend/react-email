@@ -5,7 +5,10 @@ import type { SupportEntry } from './check-compatibility';
  * dataset. These get merged with `supportEntries` at runtime, so regenerating
  * `caniemail-data.ts` via `pnpm caniemail:fetch` won't wipe them.
  */
-export const customSupportEntries: SupportEntry[] = [
+export const customSupportEntries: Extract<
+  SupportEntry,
+  { source: 'react-email' }
+>[] = [
   // https://github.com/resend/react-email/issues/2947
   // Outlook (Windows versions using Word's MS rendering engine) silently
   // strips `hsl()`/`hsla()` color functions. Caniemail.com doesn't ship an
@@ -15,13 +18,13 @@ export const customSupportEntries: SupportEntry[] = [
     title: 'hsl(), hsla()',
     description:
       'HSL and HSLA color functions. Outlook on Windows silently drops these declarations, so hex or rgb() is safer for broad email client support.',
-    url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl',
+    source: 'react-email',
+    url: 'https://github.com/resend/react-email/issues/2947',
     category: 'css',
     tags: [],
     keywords: 'color,hsl,hsla',
     last_test_date: '2026-04-19',
-    test_url:
-      'https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl',
+    test_url: 'https://github.com/resend/react-email/issues/2947',
     test_results_url: null,
     stats: {
       outlook: {

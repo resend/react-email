@@ -72,7 +72,7 @@ export type Platform =
 
 export type SupportEntryCategory = 'html' | 'css' | 'image' | 'others';
 
-export interface SupportEntry {
+interface SupportEntryBase {
   slug: string;
   title: string;
   description: string | null;
@@ -110,6 +110,18 @@ export interface SupportEntry {
   notes: string | null;
   notes_by_num: Record<number, string> | null;
 }
+
+export type SupportEntry =
+  | (SupportEntryBase & {
+      /**
+       * Caniemail entries are generated and predate this discriminator, so the
+       * missing value is treated as `caniemail`.
+       */
+      source?: 'caniemail';
+    })
+  | (SupportEntryBase & {
+      source: 'react-email';
+    });
 
 const relevantEmailClients: EmailClient[] = [
   'gmail',

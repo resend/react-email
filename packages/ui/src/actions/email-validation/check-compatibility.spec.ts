@@ -27,6 +27,10 @@ describe('checkCompatibility() — hsl()/hsla() detection', () => {
     expect(hslResult).toBeDefined();
     expect(hslResult?.status).toBe('error');
     expect(hslResult?.statsPerEmailClient.outlook?.status).toBe('error');
+    expect(hslResult?.entry.source).toBe('react-email');
+    expect(hslResult?.entry.url).toBe(
+      'https://github.com/resend/react-email/issues/2947',
+    );
   });
 
   it('flags color: hsla(...) as Outlook-incompatible', async () => {
