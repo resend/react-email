@@ -2,4 +2,4 @@
 "@react-email/ui": minor
 ---
 
-hsl/hsla compatibility detection
+add hsl/hsla compatibility detection
