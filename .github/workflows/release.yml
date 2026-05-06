@@ -4,11 +4,14 @@ on:
     branches:
       - main
       - canary
+permissions:
+  contents: read
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   release:
     # npm trusted publishing (OIDC) is only supported on GitHub-hosted `ubuntu-latest` runners.
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     permissions: 
       id-token: write
       contents: write

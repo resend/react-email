@@ -13,6 +13,9 @@ import type { TailwindConfig } from './tailwind.js';
 import { Tailwind } from './tailwind.js';
 
 describe('Tailwind component', () => {
+  const headMissingError =
+    'Tailwind: <head> not found inside <Tailwind>.\nMove <Head /> inside <Tailwind>, or remove these classes that require a <head>:';
+
   it('allows for complex children manipulation', async () => {
     const actualOutput = await render(
       <Tailwind>
@@ -50,7 +53,7 @@ describe('Tailwind component', () => {
         <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
         <meta name="x-apple-disable-message-reformatting" />
         <style>
-          .md_p-4{@media (width>=48rem){padding:1rem!important}}
+          @media (min-width:48rem){.md_p-4{padding:1rem!important}}
         </style>
       </head>
       <body>
@@ -327,7 +330,7 @@ describe('Tailwind component', () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><hr style="width:3rem;border:none;border-top:1px solid #eaeaea"/><!--/$-->"`,
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><hr style="width:3rem;border:none;border-color:transparent;border-top:1px solid #eaeaea"/><!--/$-->"`,
     );
   });
 
@@ -353,7 +356,7 @@ describe('Tailwind component', () => {
           <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
           <meta name="x-apple-disable-message-reformatting" />
           <style>
-            .sm_bg-red-50{@media (width>=40rem){background-color:rgb(254,242,242)!important}}.sm_text-sm{@media (width>=40rem){font-size:0.875rem!important;line-height:1.4285714285714286!important}}.md_text-lg{@media (width>=48rem){font-size:1.125rem!important;line-height:1.5555555555555556!important}}
+            @media (min-width:40rem){.sm_bg-red-50{background-color:rgb(254,242,242)!important}}@media (min-width:40rem){.sm_text-sm{font-size:0.875rem!important;line-height:1.4285714285714286!important}}@media (min-width:48rem){.md_text-lg{font-size:1.125rem!important;line-height:1.5555555555555556!important}}
           </style></head
         ><!--$--><!--html--><!--head--><span
           ><!--[if mso]><i style="letter-spacing: 10px;mso-font-width:-100%;" hidden>&nbsp;</i><![endif]--></span
@@ -391,7 +394,7 @@ describe('Tailwind component', () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><style>.text-body{@media (prefers-color-scheme:dark){color:orange!important}}</style></head><body class="text-body"><!--$--><!--html--><!--head--><!--body--><table border="0" width="100%" cellPadding="0" cellSpacing="0" role="presentation" align="center"><tbody><tr><td style="color:green">this is the body</td></tr></tbody></table><!--/$--></body></html>"`,
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><style>@media (prefers-color-scheme:dark){.text-body{color:orange!important}}</style></head><body class="text-body"><!--$--><!--html--><!--head--><!--body--><table border="0" width="100%" cellPadding="0" cellSpacing="0" role="presentation" align="center"><tbody><tr><td style="color:green">this is the body</td></tr></tbody></table><!--/$--></body></html>"`,
     );
   });
 
@@ -425,7 +428,7 @@ describe('Tailwind component', () => {
           <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
           <meta name="x-apple-disable-message-reformatting" />
           <style>
-            .xl_bg-green-500{@media (width>=1280px){background-color:rgb(0,201,80)!important}}.twoxl_bg-blue-500{@media (width>=1536px){background-color:rgb(43,127,255)!important}}
+            @media (min-width:1280px){.xl_bg-green-500{background-color:rgb(0,201,80)!important}}@media (min-width:1536px){.twoxl_bg-blue-500{background-color:rgb(43,127,255)!important}}
           </style></head
         ><!--$--><!--html--><!--head-->
         <div class="xl_bg-green-500" style="background-color:rgb(255,226,226)">
@@ -452,7 +455,7 @@ describe('Tailwind component', () => {
       "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <head>
         <style>
-          .lg_max-h-calc50pxplus5rem{@media (width>=64rem){max-height:calc(50px + 5rem)!important}}
+          @media (min-width:64rem){.lg_max-h-calc50pxplus5rem{max-height:calc(50px + 5rem)!important}}
         </style></head
       ><!--$--><!--head-->
       <div
@@ -494,7 +497,7 @@ describe('Tailwind component', () => {
         <html lang="en">
           <head>
             <style>
-              .sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,162,162)!important}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,100,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(251,44,54)!important}}
+              @media (min-width:40rem){.sm_bg-red-300{background-color:rgb(255,162,162)!important}}@media (min-width:48rem){.md_bg-red-400{background-color:rgb(255,100,103)!important}}@media (min-width:64rem){.lg_bg-red-500{background-color:rgb(251,44,54)!important}}
             </style>
           </head>
           <body>
@@ -524,7 +527,7 @@ describe('Tailwind component', () => {
           </Tailwind>,
         ),
       ).toMatchInlineSnapshot(
-        `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><style>.sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,162,162)!important}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,100,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(251,44,54)!important}}</style></head><body><!--$--><!--html--><!--head--><!--body--><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(255,201,201)"></div><!--/$--></body></html>"`,
+        `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><style>@media (min-width:40rem){.sm_bg-red-300{background-color:rgb(255,162,162)!important}}@media (min-width:48rem){.md_bg-red-400{background-color:rgb(255,100,103)!important}}@media (min-width:64rem){.lg_bg-red-500{background-color:rgb(251,44,54)!important}}</style></head><body><!--$--><!--html--><!--head--><!--body--><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(255,201,201)"></div><!--/$--></body></html>"`,
       );
     });
 
@@ -558,7 +561,7 @@ describe('Tailwind component', () => {
         <html lang="en">
           <head>
             <style>
-              .text-body{@media (width>=40rem){color:darkgreen!important}}
+              @media (min-width:40rem){.text-body{color:darkgreen!important}}
             </style>
           </head>
           <body>
@@ -588,7 +591,7 @@ describe('Tailwind component', () => {
         <html lang="en">
           <head>
             <style>
-              .hover_bg-red-600{&:hover{@media (hover:hover){background-color:rgb(231,0,11)!important}}}.focus_bg-red-700{&:focus{background-color:rgb(193,0,7)!important}}.sm_bg-red-300{@media (width>=40rem){background-color:rgb(255,162,162)!important}}.sm_hover_bg-red-200{@media (width>=40rem){&:hover{@media (hover:hover){background-color:rgb(255,201,201)!important}}}}.md_bg-red-400{@media (width>=48rem){background-color:rgb(255,100,103)!important}}.lg_bg-red-500{@media (width>=64rem){background-color:rgb(251,44,54)!important}}
+              .hover_bg-red-600{@media (hover:hover){&:hover{background-color:rgb(231,0,11)!important}}}.focus_bg-red-700{&:focus{background-color:rgb(193,0,7)!important}}@media (min-width:40rem){.sm_bg-red-300{background-color:rgb(255,162,162)!important}}@media (min-width:40rem){.sm_hover_bg-red-200{@media (hover:hover){&:hover{background-color:rgb(255,201,201)!important}}}}@media (min-width:48rem){.md_bg-red-400{background-color:rgb(255,100,103)!important}}@media (min-width:64rem){.lg_bg-red-500{background-color:rgb(251,44,54)!important}}
             </style>
           </head>
           <body>
@@ -638,9 +641,9 @@ describe('Tailwind component', () => {
         );
       }
 
-      await expect(
-        renderComplexEmailWithoutHead,
-      ).rejects.toThrowErrorMatchingSnapshot();
+      await expect(renderComplexEmailWithoutHead).rejects.toThrow(
+        `${headMissingError} sm:h-10 sm:w-10.`,
+      );
     });
 
     it('works with relatively complex media query utilities', async () => {
@@ -659,13 +662,32 @@ describe('Tailwind component', () => {
           <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
           <meta name="x-apple-disable-message-reformatting" />
           <style>
-            .max-sm_text-red-600{@media (width<40rem){color:rgb(231,0,11)!important}}
+            @media (max-width:40rem){.max-sm_text-red-600{color:rgb(231,0,11)!important}}
           </style></head
         ><!--$--><!--head-->
         <p class="max-sm_text-red-600" style="color:rgb(20,71,230)">I am some text</p>
         <!--/$-->
         "
       `);
+    });
+
+    it('throws a clear error when <Head> is outside <Tailwind> and dark: classes are used', async () => {
+      function renderEmailWithHeadOutsideTailwind() {
+        return render(
+          <Html>
+            <Head />
+            <Tailwind>
+              <Body className="dark:bg-white dark:text-gray-100">
+                this is the body
+              </Body>
+            </Tailwind>
+          </Html>,
+        );
+      }
+
+      await expect(renderEmailWithHeadOutsideTailwind).rejects.toThrow(
+        `${headMissingError} dark:bg-white dark:text-gray-100.`,
+      );
     });
 
     it('throws an error when used without a <head/>', async () => {
@@ -679,7 +701,9 @@ describe('Tailwind component', () => {
           </Tailwind>,
         ).then(pretty);
       }
-      await expect(noHead).rejects.toThrowErrorMatchingSnapshot();
+      await expect(noHead).rejects.toThrow(
+        `${headMissingError} sm:bg-red-500.`,
+      );
     });
 
     it('persists existing <head/> elements', async () => {
@@ -702,7 +726,7 @@ describe('Tailwind component', () => {
         <html lang="en">
           <head>
             <style>
-              .sm_bg-red-500{@media (width>=40rem){background-color:rgb(251,44,54)!important}}
+              @media (min-width:40rem){.sm_bg-red-500{background-color:rgb(251,44,54)!important}}
             </style>
             <style></style>
             <link />
@@ -875,6 +899,321 @@ describe('Tailwind component', () => {
     });
   });
 
+  describe('with css configuration', () => {
+    it('handles empty theme string', async () => {
+      const actualOutput = await render(
+        <Tailwind theme="">
+          <div className="bg-red-500 text-white">Default utilities</div>
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div style="background-color:rgb(251,44,54);color:rgb(255,255,255)">
+          Default utilities
+        </div>
+        <!--/$-->
+        "
+      `);
+    });
+
+    it('supports custom colors', async () => {
+      const theme = `
+      @theme {
+        --color-custom: #1fb6ff;
+      }
+      `;
+
+      const actualOutput = await render(
+        <Tailwind theme={theme}>
+          <div className="bg-custom text-custom" />
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div style="background-color:rgb(31,182,255);color:rgb(31,182,255)"></div>
+        <!--/$-->
+        "
+      `);
+    });
+
+    it('supports custom fonts', async () => {
+      const theme = `
+      @theme {
+        --font-sans: "Graphik", sans-serif;
+        --font-serif: "Merriweather", serif;
+      }
+      `;
+
+      const actualOutput = await render(
+        <Tailwind theme={theme}>
+          <div className="font-sans" />
+          <div className="font-serif" />
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div style='font-family:"Graphik",sans-serif'></div>
+        <div style='font-family:"Merriweather",serif'></div>
+        <!--/$-->
+        "
+      `);
+    });
+
+    it('supports custom spacing', async () => {
+      const theme = `
+        @theme {
+          --spacing-8xl: 96rem;
+        }
+      `;
+
+      const actualOutput = await render(
+        <Tailwind theme={theme}>
+          <div className="m-8xl" />
+        </Tailwind>,
+      ).then(pretty);
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div style="margin:96rem"></div>
+        <!--/$-->
+        "
+      `);
+    });
+
+    it('supports custom border radius', async () => {
+      const theme = `
+        @theme {
+          --border-radius-4xl: 2rem;
+        }
+      `;
+
+      const actualOutput = await render(
+        <Tailwind theme={theme}>
+          <div className="rounded-4xl" />
+        </Tailwind>,
+      ).then(pretty);
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div style="border-radius:2rem"></div>
+        <!--/$-->
+        "
+      `);
+    });
+
+    it('supports custom text alignment', async () => {
+      const theme = `
+        @theme {
+          --text-align-justify: justify;
+        }
+      `;
+
+      const actualOutput = await render(
+        <Tailwind theme={theme}>
+          <div className="text-justify" />
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div style="text-align:justify"></div>
+        <!--/$-->
+        "
+      `);
+    });
+
+    it('supports both config and theme props together', async () => {
+      const customConfig = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#ff0000',
+            },
+          },
+        },
+      } satisfies TailwindConfig;
+
+      const customTheme = `
+        @theme {
+          --color-secondary: #00ff00;
+        }
+      `;
+
+      const actualOutput = await render(
+        <Tailwind config={customConfig} theme={customTheme}>
+          <div className="bg-primary text-secondary">Both config and theme</div>
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div style="background-color:rgb(255,0,0);color:rgb(0,255,0)">
+          Both config and theme
+        </div>
+        <!--/$-->
+        "
+      `);
+    });
+  });
+
+  describe('with utilities', () => {
+    it('handles empty utilities string', async () => {
+      const actualOutput = await render(
+        <Tailwind utility="">
+          <div className="bg-red-500 text-white">Default utilities</div>
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div style="background-color:rgb(251,44,54);color:rgb(255,255,255)">
+          Default utilities
+        </div>
+        <!--/$-->
+        "
+      `);
+    });
+
+    it('supports custom utilities', async () => {
+      const utilities = `
+      .custom-shadow {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 16px;
+      }
+      `;
+
+      const actualOutput = await render(
+        <Tailwind utility={utilities}>
+          <div className="custom-shadow" />
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div
+          style="box-shadow:0 4px 6px rgba(0,0,0,0.1);border-radius:8px;padding:16px"></div>
+        <!--/$-->
+        "
+      `);
+    });
+
+    it('supports animations', async () => {
+      const utilities = `
+        .pulse-animation {
+          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+      `;
+
+      const actualOutput = await render(
+        <Tailwind utility={utilities}>
+          <div className="pulse-animation" />
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div style="animation:pulse 2s cubic-bezier(0.4,0,0.6,1) infinite"></div>
+        <!--/$-->
+        "
+      `);
+    });
+
+    it('supports both config and utilities props together', async () => {
+      const customConfig = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#ff0000',
+            },
+          },
+        },
+      } satisfies TailwindConfig;
+
+      const customUtilities = `
+        .card-base {
+          border: 1px solid #e5e7eb;
+          padding: 20px;
+        }
+      `;
+
+      const actualOutput = await render(
+        <Tailwind config={customConfig} utility={customUtilities}>
+          <div className="bg-primary card-base">Config and utilities</div>
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div
+          style="background-color:rgb(255,0,0);border:1px solid rgb(229,231,235);padding:20px">
+          Config and utilities
+        </div>
+        <!--/$-->
+        "
+      `);
+    });
+
+    it('supports config, theme, and utilities together', async () => {
+      const customConfig = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#ff0000',
+            },
+          },
+        },
+      } satisfies TailwindConfig;
+
+      const customTheme = `
+        @theme {
+          --color-secondary: #00ff00;
+        }
+      `;
+
+      const customUtilities = `
+        .special-border {
+          border: 2px dashed #0000ff;
+        }
+      `;
+
+      const actualOutput = await render(
+        <Tailwind
+          config={customConfig}
+          theme={customTheme}
+          utility={customUtilities}
+        >
+          <div className="bg-primary text-secondary special-border">
+            All three props
+          </div>
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div
+          style="background-color:rgb(255,0,0);color:rgb(0,255,0);border:2px dashed rgb(0,0,255)">
+          All three props
+        </div>
+        <!--/$-->
+        "
+      `);
+    });
+  });
+
   describe('with custom plugins config', () => {
     const config = {
       plugins: [
@@ -923,7 +1262,7 @@ describe('Tailwind component', () => {
         <html lang="en">
           <head>
             <style>
-              .sm_border-custom{@media (width>=40rem){border:2px solid!important}}
+              @media (min-width:40rem){.sm_border-custom{border:2px solid!important}}
             </style>
           </head>
           <body>

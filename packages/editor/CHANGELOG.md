@@ -1,5 +1,79 @@
 # @react-email/editor
 
+## 1.4.3
+
+### Patch Changes
+
+- Updated dependencies [1a61cb0]
+  - react-email@6.1.5
+
+## 1.4.2
+
+### Patch Changes
+
+- 962f753: Hide rich text bubble menu options when inline code is active
+
+## 1.4.1
+
+### Patch Changes
+
+- 5c6c805: Blocks typing over the divider block and by mistake removing it from the content.
+- Updated dependencies [1c386ce]
+- Updated dependencies [ad6a9de]
+  - react-email@6.1.4
+
+## 1.4.0
+
+### Minor Changes
+
+- 1718669: Enable single columns deletion, and columns focus improvements.
+
+## 1.3.10
+
+### Patch Changes
+
+- react-email@6.1.3
+
+## 1.3.9
+
+### Patch Changes
+
+- react-email@6.1.2
+
+## 1.3.8
+
+### Patch Changes
+
+- 9e4a577: reset styles for divider
+
+## 1.3.7
+
+### Patch Changes
+
+- Updated dependencies [3c62bd0]
+  - react-email@6.1.1
+
+## 1.3.6
+
+### Patch Changes
+
+- Updated dependencies [47eeece]
+  - react-email@6.1.0
+
+## 1.3.5
+
+### Patch Changes
+
+- Updated dependencies [65525e0]
+  - react-email@6.0.8
+
+## 1.3.4
+
+### Patch Changes
+
+- Updated dependencies [87a2486]
+  - react-email@6.0.7
+
 ## 1.3.3
 
 ### Patch Changes

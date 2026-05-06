@@ -1,13 +1,12 @@
-import fs, { unlinkSync, writeFileSync } from 'node:fs';
-import { createRequire } from 'node:module';
+import fs from 'node:fs';
 import path from 'node:path';
-import url from 'node:url';
+import { Worker } from 'node:worker_threads';
 import type { Options } from '@react-email/render';
-import { type BuildFailure, build } from 'esbuild';
+import { type BuildFailure, build, stop } from 'esbuild';
 import { glob } from 'glob';
 import logSymbols from 'log-symbols';
 import normalize from 'normalize-path';
-import type React from 'react';
+import { inlineCssLoader } from '../utils/esbuild/inline-css-loader.js';
 import { renderingUtilitiesExporter } from '../utils/esbuild/renderring-utilities-exporter.js';
 import {
   type EmailsDirectory,
@@ -38,9 +37,49 @@ type ExportTemplatesOptions = Options & {
   pretty?: boolean;
 };
 
-const filename = url.fileURLToPath(import.meta.url);
+// Batch so esbuild's Go-side dep graph isn't held for every entry at once.
+const BUILD_BATCH_SIZE = 10;
 
-const require = createRequire(filename);
+// Render each batch in a worker so its V8 isolate is freed on exit;
+// require.cache alone doesn't release the inlined react-email bundles.
+const RENDER_BATCH_SIZE = 25;
+
+const renderWorkerSource = `
+const { unlinkSync, writeFileSync } = require('node:fs');
+const { parentPort, workerData } = require('node:worker_threads');
+
+const { templates, options } = workerData;
+
+(async () => {
+  for (const template of templates) {
+    try {
+      const emailModule = require(template);
+      const rendered = await emailModule.render(
+        emailModule.reactEmailCreateReactElement(emailModule.default, {}),
+        options,
+      );
+      const htmlPath = template.replace(
+        '.cjs',
+        options.plainText ? '.txt' : '.html',
+      );
+      writeFileSync(htmlPath, rendered);
+      unlinkSync(template);
+      parentPort.postMessage({ type: 'progress', template });
+    } catch (exception) {
+      parentPort.postMessage({
+        type: 'error',
+        template,
+        message: exception && exception.stack ? exception.stack : String(exception),
+      });
+      process.exit(1);
+    }
+  }
+})();
+`;
+
+type RenderWorkerMessage =
+  | { type: 'progress'; template: string }
+  | { type: 'error'; template: string; message: string };
 
 /*
   This first builds all the templates using esbuild and then puts the output in the `.js`
@@ -83,20 +122,24 @@ export const exportTemplates = async (
   const allTemplates = getEmailTemplatesFromDirectory(emailsDirectoryMetadata);
 
   try {
-    await build({
-      bundle: true,
-      entryPoints: allTemplates,
-      external: ['css-tree'],
-      format: 'cjs',
-      jsx: 'automatic',
-      loader: { '.js': 'jsx' },
-      logLevel: 'silent',
-      outExtension: { '.js': '.cjs' },
-      outdir: pathToWhereEmailMarkupShouldBeDumped,
-      platform: 'node',
-      plugins: [renderingUtilitiesExporter(allTemplates)],
-      write: true,
-    });
+    for (let i = 0; i < allTemplates.length; i += BUILD_BATCH_SIZE) {
+      const batch = allTemplates.slice(i, i + BUILD_BATCH_SIZE);
+      await build({
+        bundle: true,
+        entryPoints: batch,
+        external: ['css-tree'],
+        format: 'cjs',
+        jsx: 'automatic',
+        loader: { '.js': 'jsx' },
+        logLevel: 'silent',
+        outExtension: { '.js': '.cjs' },
+        outdir: pathToWhereEmailMarkupShouldBeDumped,
+        platform: 'node',
+        plugins: [inlineCssLoader(), renderingUtilitiesExporter(batch)],
+        write: true,
+      });
+      await stop();
+    }
   } catch (exception) {
     if (spinner) {
       stopSpinnerAndPersist(spinner, {
@@ -127,35 +170,47 @@ export const exportTemplates = async (
     spinner.start();
   }
 
-  for await (const template of allBuiltTemplates) {
+  for (let i = 0; i < allBuiltTemplates.length; i += RENDER_BATCH_SIZE) {
+    const batch = allBuiltTemplates.slice(i, i + RENDER_BATCH_SIZE);
+    let failedTemplate: string | undefined;
+    let failureMessage: string | undefined;
+
     try {
-      if (spinner) {
-        spinner.setText(`rendering ${template.split('/').pop()}`);
-      }
-      delete require.cache[template];
-      const emailModule = require(template) as {
-        default: React.FC;
-        render: (
-          element: React.ReactElement,
-          options: Record<string, unknown>,
-        ) => Promise<string>;
-        reactEmailCreateReactElement: typeof React.createElement;
-      };
-      const rendered = await emailModule.render(
-        emailModule.reactEmailCreateReactElement(emailModule.default, {}),
-        options,
-      );
-      const htmlPath = template.replace(
-        '.cjs',
-        options.plainText ? '.txt' : '.html',
-      );
-      writeFileSync(htmlPath, rendered);
-      unlinkSync(template);
+      await new Promise<void>((resolve, reject) => {
+        const worker = new Worker(renderWorkerSource, {
+          eval: true,
+          workerData: { templates: batch, options },
+        });
+        worker.on('message', (msg: RenderWorkerMessage) => {
+          if (msg.type === 'progress') {
+            if (spinner) {
+              spinner.setText(`rendering ${msg.template.split('/').pop()}`);
+            }
+          } else if (msg.type === 'error') {
+            failedTemplate = msg.template;
+            failureMessage = msg.message;
+          }
+        });
+        worker.on('error', reject);
+        worker.on('exit', (code) => {
+          if (code !== 0) {
+            reject(
+              new Error(
+                failureMessage ?? `Render worker exited with code ${code}`,
+              ),
+            );
+          } else {
+            resolve();
+          }
+        });
+      });
     } catch (exception) {
       if (spinner) {
         stopSpinnerAndPersist(spinner, {
           symbol: logSymbols.error,
-          text: `failed when rendering ${template.split('/').pop()}`,
+          text: failedTemplate
+            ? `failed when rendering ${failedTemplate.split('/').pop()}`
+            : 'failed when rendering',
         });
       }
       console.error(exception);

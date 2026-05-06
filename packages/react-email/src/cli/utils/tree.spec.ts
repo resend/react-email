@@ -5,6 +5,7 @@ test('tree(__dirname, 2)', async () => {
     "utils
     ├── esbuild
     │   ├── escape-string-for-regex.ts
+    │   ├── inline-css-loader.ts
     │   └── renderring-utilities-exporter.ts
     ├── preview
     │   ├── hot-reloading
@@ -22,6 +23,7 @@ test('tree(__dirname, 2)', async () => {
     ├── index.ts
     ├── packageJson.ts
     ├── register-spinner-autostopping.ts
+    ├── spinner.spec.ts
     ├── spinner.ts
     ├── style-text.ts
     ├── tree.spec.ts

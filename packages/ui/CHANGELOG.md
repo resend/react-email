@@ -1,5 +1,33 @@
 # @react-email/ui
 
+## 6.1.5
+
+## 6.1.4
+
+## 6.1.3
+
+### Patch Changes
+
+- 62417f5: bump nextjs version
+
+## 6.1.2
+
+### Patch Changes
+
+- 8cabf52: fix fs constants warnings on every fs warning
+
+## 6.1.1
+
+## 6.1.0
+
+### Minor Changes
+
+- dee7254: add hsl/hsla compatibility detection
+
+## 6.0.8
+
+## 6.0.7
+
 ## 6.0.6
 
 ## 6.0.5

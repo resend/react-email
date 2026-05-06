@@ -99,6 +99,7 @@
     "build:watch": "tsdown --watch",
     "clean": "rm -rf dist",
     "test": "vitest run",
+    "test:e2e": "vitest run --config vitest.e2e.config.ts",
     "test:watch": "vitest"
   },
   "repository": {
@@ -124,9 +125,15 @@
   "devDependencies": {
     "@edge-runtime/vm": "5.0.0",
     "@types/html-to-text": "9.0.4",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@types/shelljs": "0.10.0",
     "jsdom": "26.1.0",
+    "playwright": "1.59.1",
+    "shelljs": "0.10.0",
     "tsconfig": "workspace:*",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "yalc": "catalog:"
   },
   "publishConfig": {
     "access": "public"

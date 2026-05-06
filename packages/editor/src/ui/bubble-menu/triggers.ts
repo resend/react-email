@@ -1,5 +1,5 @@
 import type { Editor } from '@tiptap/core';
-import type { EditorState } from '@tiptap/pm/state';
+import { type EditorState, NodeSelection } from '@tiptap/pm/state';
 import type { EditorView } from '@tiptap/pm/view';
 
 export interface TriggerParams {
@@ -18,6 +18,12 @@ export const bubbleMenuTriggers = {
     hideWhenActiveMarks: string[] = [],
   ): TriggerFn {
     return ({ editor, state }) => {
+      if (
+        state.selection instanceof NodeSelection &&
+        hideWhenActiveNodes.includes(state.selection.node.type.name)
+      ) {
+        return false;
+      }
       for (const node of hideWhenActiveNodes) {
         if (editor.isActive(node)) {
           return false;
