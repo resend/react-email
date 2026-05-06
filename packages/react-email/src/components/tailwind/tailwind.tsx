@@ -161,7 +161,7 @@ export function Tailwind({ children, config }: TailwindProps) {
       `Tailwind: <head> not found inside <Tailwind>.
 Move <Head /> inside <Tailwind>, or remove these classes that require a <head>: ${Array.from(
         nonInlinableRules.keys(),
-      ).join(' ')}.`
+      ).join(' ')}.`,
     );
   }
 
