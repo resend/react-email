@@ -21,7 +21,7 @@ export const render = async (node: React.ReactNode, options?: Options) => {
     ) {
       const ErrorBoundary = createErrorBoundary(reject);
 
-      let streamPromise: any;
+      let streamPromise: ReturnType<typeof reactDOMServer.renderToReadableStream>;
       try {
         streamPromise = reactDOMServer.renderToReadableStream(
           <ErrorBoundary>
@@ -40,11 +40,11 @@ export const render = async (node: React.ReactNode, options?: Options) => {
         return;
       }
       streamPromise
-        .then(async (stream: any) => {
+        .then(async (stream) => {
           await stream.allReady;
           return readStream(stream);
         })
-        .then((result: any) => {
+        .then((result) => {
           html = result;
           resolve();
         })
@@ -52,10 +52,8 @@ export const render = async (node: React.ReactNode, options?: Options) => {
     } else {
       const ErrorBoundary = createErrorBoundary(reject);
 
-      let stream: any;
-
       try {
-        stream = reactDOMServer.renderToPipeableStream(
+        const stream = reactDOMServer.renderToPipeableStream(
           <ErrorBoundary>
             <Suspense>{node}</Suspense>
           </ErrorBoundary>,
