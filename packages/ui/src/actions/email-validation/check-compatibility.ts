@@ -24,7 +24,7 @@ import { getElementAttributes } from '../../utils/caniemail/get-element-attribut
 import { getElementNames } from '../../utils/caniemail/get-element-names';
 import { snakeToCamel } from '../../utils/snake-to-camel';
 import { supportEntries } from './caniemail-data';
-import { customSupportEntries } from './custom-support-entries';
+import { reactEmailSupportEntries } from './custom-support-entries';
 
 export interface CompatibilityCheckingResult {
   location: SourceLocation;
@@ -159,7 +159,7 @@ export const checkCompatibility = async (
   );
   const readableStream = new ReadableStream<CompatibilityCheckingResult>({
     async start(controller) {
-      for (const entry of [...supportEntries, ...customSupportEntries]) {
+      for (const entry of [...supportEntries, ...reactEmailSupportEntries]) {
         const compatibilityStats = getCompatibilityStatsForEntry(
           entry,
           relevantEmailClients,

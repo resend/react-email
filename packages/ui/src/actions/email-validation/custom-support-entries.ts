@@ -5,7 +5,7 @@ import type { SupportEntry } from './check-compatibility';
  * dataset. These get merged with `supportEntries` at runtime, so regenerating
  * `caniemail-data.ts` via `pnpm caniemail:fetch` won't wipe them.
  */
-export const customSupportEntries: Extract<
+export const reactEmailSupportEntries: Extract<
   SupportEntry,
   { source: 'react-email' }
 >[] = [
