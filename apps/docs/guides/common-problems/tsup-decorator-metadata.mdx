@@ -1,0 +1,35 @@
+---
+title: 'tsup + emitDecoratorMetadata breaks render()'
+sidebarTitle: 'tsup + decorator metadata'
+description: 'render() throws ReferenceError: React is not defined when tsup uses emitDecoratorMetadata together with external: ["react"].'
+'og:image': 'https://react.email/static/covers/react-email.png'
+---
+
+## Symptom
+
+Calling `render()` in a production bundle throws:
+
+```
+ReferenceError: React is not defined
+```
+
+The bundle was built with [tsup](https://tsup.egoist.dev/) and works in
+development but fails at runtime.
+
+## Cause
+
+tsup can route `.tsx` files through SWC when `emitDecoratorMetadata: true` is
+set. SWC may then use the classic JSX runtime, which emits `React.createElement`
+calls. If React is also marked as `external` for that entry, the bundle
+references `React` without importing it.
+
+## Fix
+
+Pick one of:
+
+- Set SWC to use the automatic JSX runtime.
+- Remove `external: ["react"]` for the affected entry point.
+- Force tsup back to esbuild for `.tsx` files.
+
+See the [upstream tsup issue](https://github.com/egoist/tsup/issues/792) for
+details.

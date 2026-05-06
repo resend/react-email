@@ -135,17 +135,6 @@ Click me [https://example.com]
   `html-to-text` [options](https://github.com/html-to-text/node-html-to-text/tree/master/packages/html-to-text#options) used for rendering
 </ResponseField>
 
-## Production builds with tsup and decorator metadata
+## Common problems
 
-If `render()` throws `ReferenceError: React is not defined` in a production
-bundle, check whether your tsup build uses `emitDecoratorMetadata: true` and
-`external: ["react"]`.
-
-tsup can route `.tsx` files through SWC when `emitDecoratorMetadata` is enabled.
-SWC may then use the classic JSX runtime, which emits `React.createElement`
-calls. If React is also marked as external, the bundle can reference `React`
-without importing it.
-
-Set SWC to use the automatic JSX runtime, remove `external: ["react"]` for the
-affected entry point, or force tsup back to esbuild for `.tsx` files. See the
-[upstream tsup issue](https://github.com/egoist/tsup/issues/792) for details.
+- [tsup + `emitDecoratorMetadata` breaks `render()`](/guides/common-problems/tsup-decorator-metadata)

@@ -65,6 +65,11 @@
                   "guides/internationalization/react-i18next",
                   "guides/internationalization/react-intl"
                 ]
+              },
+              {
+                "group": "Common Problems",
+                "icon": "circle-exclamation",
+                "pages": ["guides/common-problems/tsup-decorator-metadata"]
               }
             ]
           },
