@@ -163,7 +163,6 @@ Move <Head /> inside <Tailwind>, or remove these classes that require a <head>: 
         nonInlinableRules.keys(),
       ).join(' ')}.
 
-If you do already have a <head> element at some depth, please file a bug at https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.`,
     );
   }
 
