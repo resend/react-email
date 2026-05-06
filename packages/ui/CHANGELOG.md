@@ -1,5 +1,11 @@
 # @react-email/ui
 
+## 6.1.0
+
+### Minor Changes
+
+- dee7254: add hsl/hsla compatibility detection
+
 ## 6.0.8
 
 ## 6.0.7

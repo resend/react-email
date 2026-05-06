@@ -1,5 +1,11 @@
 # react-email
 
+## 6.1.0
+
+### Patch Changes
+
+- 47eeece: Tailwind: clearer error when `<Head>` is outside `<Tailwind>`
+
 ## 6.0.8
 
 ### Patch Changes
