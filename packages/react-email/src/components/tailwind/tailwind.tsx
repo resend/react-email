@@ -158,17 +158,10 @@ export function Tailwind({ children, config }: TailwindProps) {
 
   if (hasNonInlineStylesToApply && !appliedNonInlineStyles) {
     throw new Error(
-      `You are trying to use the following Tailwind classes that cannot be inlined: ${Array.from(
+      `Tailwind: <head> not found inside <Tailwind>.
+Move <Head /> inside <Tailwind>, or remove these classes that require a <head>: ${Array.from(
         nonInlinableRules.keys(),
-      ).join(' ')}.
-For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
-the Tailwind component tried finding a <head> element but just wasn't able to find it.
-
-Make sure that you have a <head> element at some point inside of the <Tailwind> component at any depth. 
-This can also be our <Head> component.
-
-If you do already have a <head> element at some depth, 
-please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.`,
+      ).join(' ')}.`,
     );
   }
 
