@@ -24,6 +24,7 @@ import { getElementAttributes } from '../../utils/caniemail/get-element-attribut
 import { getElementNames } from '../../utils/caniemail/get-element-names';
 import { snakeToCamel } from '../../utils/snake-to-camel';
 import { supportEntries } from './caniemail-data';
+import { reactEmailSupportEntries } from './custom-support-entries';
 
 export interface CompatibilityCheckingResult {
   location: SourceLocation;
@@ -71,7 +72,7 @@ export type Platform =
 
 export type SupportEntryCategory = 'html' | 'css' | 'image' | 'others';
 
-export interface SupportEntry {
+interface SupportEntryBase {
   slug: string;
   title: string;
   description: string | null;
@@ -110,6 +111,18 @@ export interface SupportEntry {
   notes_by_num: Record<number, string> | null;
 }
 
+export type SupportEntry =
+  | (SupportEntryBase & {
+      /**
+       * Caniemail entries are generated and predate this discriminator, so the
+       * missing value is treated as `caniemail`.
+       */
+      source?: 'caniemail';
+    })
+  | (SupportEntryBase & {
+      source: 'react-email';
+    });
+
 const relevantEmailClients: EmailClient[] = [
   'gmail',
   'apple-mail',
@@ -146,7 +159,7 @@ export const checkCompatibility = async (
   );
   const readableStream = new ReadableStream<CompatibilityCheckingResult>({
     async start(controller) {
-      for (const entry of supportEntries) {
+      for (const entry of [...supportEntries, ...reactEmailSupportEntries]) {
         const compatibilityStats = getCompatibilityStatsForEntry(
           entry,
           relevantEmailClients,
