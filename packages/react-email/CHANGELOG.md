@@ -1,5 +1,11 @@
 # react-email
 
+## 6.1.1
+
+### Patch Changes
+
+- 3c62bd0: fix divider with extra borders around other corners
+
 ## 6.1.0
 
 ### Patch Changes
