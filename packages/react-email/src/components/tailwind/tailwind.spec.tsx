@@ -330,7 +330,7 @@ describe('Tailwind component', () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><hr style="width:3rem;border:none;border-top:1px solid #eaeaea"/><!--/$-->"`,
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><hr style="width:3rem;border:none;border-color:transparent;border-top:1px solid #eaeaea"/><!--/$-->"`,
     );
   });
 
