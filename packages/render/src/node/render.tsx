@@ -21,7 +21,9 @@ export const render = async (node: React.ReactNode, options?: Options) => {
     ) {
       const ErrorBoundary = createErrorBoundary(reject);
 
-      let streamPromise: ReturnType<typeof reactDOMServer.renderToReadableStream>;
+      let streamPromise: ReturnType<
+        typeof reactDOMServer.renderToReadableStream
+      >;
       try {
         streamPromise = reactDOMServer.renderToReadableStream(
           <ErrorBoundary>

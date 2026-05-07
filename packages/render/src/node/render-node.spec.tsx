@@ -55,6 +55,18 @@ describe('render on node environments', () => {
     await expect(render(<ThrowingComponent />)).rejects.toThrow();
   });
 
+  it('properly rejects synchronous render errors', async () => {
+    vi.resetModules();
+    function BrokenComponent() {
+      const value = undefined as any;
+      return value.a;
+    }
+
+    await expect(render(<BrokenComponent />)).rejects.toThrow(
+      'Cannot read properties of undefined',
+    );
+  });
+
   // This is a test to ensure we have no regressions for https://github.com/resend/react-email/issues/1667
   // The error only happens with React 18, and thus is tested on React 18.
   it('handles characters with a higher byte count gracefully in React 18', async () => {
