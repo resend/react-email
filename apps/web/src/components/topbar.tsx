@@ -5,15 +5,26 @@ import { Logo } from './logo';
 import { Menu } from './menu';
 
 async function getRepoStarCount() {
-  const res = await fetch('https://api.github.com/repos/resend/react-email', {
-    next: { revalidate: 3600, tags: ['github-repo-stars'] },
-  });
-  const data = await res.json();
-  const starCount = data.stargazers_count as number;
-  if (starCount > 999) {
-    return `${(starCount / 1000).toFixed(1)}K`;
+  try {
+    const res = await fetch('https://api.github.com/repos/resend/react-email', {
+      next: { revalidate: 3600, tags: ['github-repo-stars'] },
+    });
+
+    // Return fallback if GitHub API is down or rate-limited
+    if (!res.ok) return '—';
+
+    const data = await res.json();
+    const starCount = data.stargazers_count as number;
+
+    // Guard against undefined/NaN if API response shape changes
+    if (typeof starCount !== 'number' || Number.isNaN(starCount)) return '—';
+
+    if (starCount > 999) return `${(starCount / 1000).toFixed(1)}K`;
+    return `${starCount}`;
+  } catch {
+    // Network failure or JSON parse error — fail silently
+    return '—';
   }
-  return `${starCount}`;
 }
 
 export async function Topbar({
