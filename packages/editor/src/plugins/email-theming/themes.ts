@@ -735,7 +735,8 @@ const RESET_BASIC: ResetTheme = {
   hr: {
     paddingBottom: '1em',
     borderStyle: 'solid',
-    borderWidth: '2px',
+    borderWidth: 0,
+    borderTopWidth: '2px',
   },
   image: {
     maxWidth: '100%',
