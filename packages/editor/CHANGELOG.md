@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.3.8
+
+### Patch Changes
+
+- 9e4a577: reset styles for divider
+
 ## 1.3.7
 
 ### Patch Changes
