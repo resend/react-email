@@ -10,20 +10,23 @@ async function getRepoStarCount() {
       next: { revalidate: 3600, tags: ['github-repo-stars'] },
     });
 
-    // Return fallback if GitHub API is down or rate-limited
-    if (!res.ok) return '—';
+    // Avoid caching transient GitHub failures as valid fallback data
+    if (!res.ok) return null;
 
     const data = await res.json();
     const starCount = data.stargazers_count as number;
 
     // Guard against undefined/NaN if API response shape changes
-    if (typeof starCount !== 'number' || Number.isNaN(starCount)) return '—';
+    if (typeof starCount !== 'number' || Number.isNaN(starCount)) {
+      return null;
+    }
 
     if (starCount > 999) return `${(starCount / 1000).toFixed(1)}K`;
+
     return `${starCount}`;
   } catch {
     // Network failure or JSON parse error — fail silently
-    return '—';
+    return null;
   }
 }
 
@@ -48,7 +51,7 @@ export async function Topbar({
         <Logo />
         <span className="sr-only">Home</span>
       </Link>
-      <Menu starCount={starCount} />
+      <Menu starCount={starCount ?? '—'} />
     </header>
   );
 }
