@@ -25,7 +25,7 @@ async function getRepoStarCount() {
 
     return `${starCount}`;
   } catch {
-    // Network failure or JSON parse error — fail silently
+    // Network failure or JSON  parse error — fail silently
     return null;
   }
 }
