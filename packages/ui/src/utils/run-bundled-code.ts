@@ -1,7 +1,10 @@
 import path from 'node:path';
 import vm from 'node:vm';
 import { err, ok, type Result } from './result';
-import { staticNodeModulesForVM } from './static-node-modules-for-vm';
+import {
+  deprecatedKeysByModule,
+  staticNodeModulesForVM,
+} from './static-node-modules-for-vm';
 
 export function createContext(
   filename: string,
@@ -117,8 +120,10 @@ export async function runBundledCode(
 
       if (m in staticNodeModulesForVM) {
         const moduleExports = staticNodeModulesForVM[m];
+        const deprecatedKeys = deprecatedKeysByModule[m];
         const exportKeys = Reflect.ownKeys(moduleExports).filter(
-          (key) => typeof key === 'string',
+          (key) =>
+            typeof key === 'string' && !(deprecatedKeys?.has(key) ?? false),
         ) as string[];
 
         const syntheticModule = new vm.SyntheticModule(
