@@ -54,7 +54,7 @@ const waitForServer = async (url: string, timeout: number) => {
 
 const startWebServer = async (command: string, url: string, cwd: string) => {
   const argsv = command.split(' ');
-  const child = child_process.spawn(argsv[0], argsv.slice(1), {
+  const child = child_process.spawn(`${argsv[0]} ${argsv.slice(1).join(' ')}`, {
     shell: true,
     cwd,
     stdio: 'pipe',
