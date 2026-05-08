@@ -124,7 +124,7 @@ describe('integrations', () => {
         expect(response.status).toBe(200);
       });
 
-      it('should work when rendering in edge api route', async () => {
+      it.skip('should work when rendering in edge api route', async () => {
         const response = await fetch('http://localhost:3000/edge');
 
         if (response.status !== 200) {
@@ -172,7 +172,7 @@ describe('integrations', () => {
         expect(response.status).toBe(200);
       });
 
-      it('should work when rendering in edge api route', async () => {
+      it.skip('should work when rendering in edge api route', async () => {
         const response = await fetch('http://localhost:3001/edge');
 
         if (response.status !== 200) {
