@@ -1,5 +1,11 @@
 # @react-email/ui
 
+## 6.1.2
+
+### Patch Changes
+
+- 8cabf52: fix fs constants warnings on every fs warning
+
 ## 6.1.1
 
 ## 6.1.0
