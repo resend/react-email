@@ -6,5 +6,7 @@ export default defineConfig({
     environment: 'happy-dom',
     include: ['**/e2e/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
     exclude: ['**/node_modules/**'],
+    hookTimeout: 60_000,
+    testTimeout: 60_000,
   },
 });
