@@ -21,7 +21,7 @@
     "react-email": "workspace:*",
     "@react-email/render": "workspace:*",
     "@react-three/drei": "9.122.0",
-    "@react-three/fiber": "9.5.0",
+    "@react-three/fiber": "9.6.0",
     "@responsive-email/react-email": "catalog:",
     "@supabase/supabase-js": "2.49.4",
     "@vercel/analytics": "1.5.0",
