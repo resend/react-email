@@ -27,7 +27,7 @@
     "@vercel/analytics": "1.5.0",
     "email-dev": "workspace:*",
     "framer-motion": "catalog:",
-    "lucide-react": "0.544.0",
+    "lucide-react": "0.577.0",
     "next": "catalog:",
     "prism-react-renderer": "catalog:",
     "react": "catalog:",
