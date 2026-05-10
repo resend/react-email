@@ -112,4 +112,24 @@ describe('EditorEventBus', () => {
     sub.unsubscribe();
     consoleError.mockRestore();
   });
+
+  // Contract test for the public events. If a producer renames or removes
+  // one, this spec breaks at the type level instead of silently changing
+  // behavior. (Subscribers like the dashboard rely on these names.)
+  it('publishes the typed image-upload-error contract', () => {
+    const handler = vi.fn();
+    const sub = editorEventBus.on('image-upload-error', handler);
+
+    editorEventBus.dispatch('image-upload-error', {
+      fileName: 'a.png',
+      error: new Error('boom'),
+    });
+
+    expect(handler).toHaveBeenCalledOnce();
+    const payload = handler.mock.calls[0][0];
+    expect(payload.fileName).toBe('a.png');
+    expect(payload.error).toBeInstanceOf(Error);
+    expect(payload.error.message).toBe('boom');
+    sub.unsubscribe();
+  });
 });
