@@ -87,6 +87,7 @@
     "test": "vitest run",
     "test:unit": "vitest run --project unit",
     "test:browser": "vitest run --project browser",
+    "test:coverage": "vitest run --project unit --coverage",
     "test:watch": "vitest"
   },
   "repository": {
