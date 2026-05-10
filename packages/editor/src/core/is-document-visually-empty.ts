@@ -27,13 +27,13 @@ export function isDocumentVisuallyEmpty(doc: Node): boolean {
   }
 
   if (firstNonGlobalNode!.type.name === 'container') {
-    return hasOnlyEmptyParagraph(firstNonGlobalNode!);
+    return hasOnlyEmptyTextBlock(firstNonGlobalNode!);
   }
 
-  return isEmptyParagraph(firstNonGlobalNode!);
+  return isEmptyTextBlock(firstNonGlobalNode!);
 }
 
-function hasOnlyEmptyParagraph(node: Node): boolean {
+function hasOnlyEmptyTextBlock(node: Node): boolean {
   if (node.childCount === 0) {
     return true;
   }
@@ -42,9 +42,11 @@ function hasOnlyEmptyParagraph(node: Node): boolean {
     return false;
   }
 
-  return isEmptyParagraph(node.child(0));
+  return isEmptyTextBlock(node.child(0));
 }
 
-function isEmptyParagraph(node: Node): boolean {
-  return node.type.name === 'paragraph' && node.content.size === 0;
+const EMPTY_TEXT_BLOCK_TYPES = new Set(['paragraph', 'heading']);
+
+function isEmptyTextBlock(node: Node): boolean {
+  return EMPTY_TEXT_BLOCK_TYPES.has(node.type.name) && node.content.size === 0;
 }
