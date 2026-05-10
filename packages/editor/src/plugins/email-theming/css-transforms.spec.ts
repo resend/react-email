@@ -501,3 +501,94 @@ describe('injectGlobalPlainCss', () => {
     expect(document.getElementById(STYLE_ID)).toBeNull();
   });
 });
+
+// ---------------------------------------------------------------------------
+// Coverage for branches the original spec missed
+// ---------------------------------------------------------------------------
+
+import { mergeCssJs } from './css-transforms';
+
+describe('transformToCssJs h-padding legacy branch', () => {
+  // The @ts-expect-error branch at css-transforms.ts:37 maps the legacy
+  // 'h-padding' prop name to paddingLeft + paddingRight. Without this test
+  // a future refactor that drops that case silently breaks GAB-11
+  // ("Body and container styles missing for HTML imports").
+  it('maps legacy h-padding to paddingLeft and paddingRight', () => {
+    const styleArray = [
+      {
+        inputs: [
+          {
+            prop: 'h-padding',
+            value: 16,
+            unit: 'px',
+            classReference: 'body',
+          },
+        ],
+      },
+    ] as unknown as Parameters<typeof transformToCssJs>[0];
+
+    const result = transformToCssJs(styleArray, DEFAULT_INBOX_FONT_SIZE_PX);
+
+    expect(result.body).toBeDefined();
+    expect(result.body!.paddingLeft).toBe('16px');
+    expect(result.body!.paddingRight).toBe('16px');
+  });
+
+  it('skips inputs without classReference', () => {
+    const styleArray = [
+      {
+        inputs: [
+          { prop: 'color', value: 'red' },
+          { prop: 'fontSize', value: 14, unit: 'px', classReference: 'body' },
+        ],
+      },
+    ] as unknown as Parameters<typeof transformToCssJs>[0];
+
+    const result = transformToCssJs(styleArray, DEFAULT_INBOX_FONT_SIZE_PX);
+    expect(result.body!.fontSize).toBeDefined();
+    // The color entry lacked classReference, so it shouldn't be assigned anywhere.
+    expect(Object.values(result).some((v) => v && (v as { color?: unknown }).color === 'red')).toBe(
+      false,
+    );
+  });
+});
+
+describe('mergeCssJs', () => {
+  it('returns the original when newCssJs is empty', () => {
+    const original = { body: { color: 'red' } } as unknown as CssJs;
+    const merged = mergeCssJs(original, {} as CssJs);
+    expect(merged).toEqual(original);
+  });
+
+  it('merges per-key objects so child wins and parent fills gaps', () => {
+    const original = {
+      body: { color: 'red', fontSize: '14px' },
+    } as unknown as CssJs;
+    const update = { body: { color: 'blue' } } as unknown as CssJs;
+    const merged = mergeCssJs(original, update);
+    expect((merged.body as { color: string }).color).toBe('blue');
+    expect((merged.body as { fontSize: string }).fontSize).toBe('14px');
+  });
+
+  it('adds new keys without touching existing ones', () => {
+    const original = { body: { color: 'red' } } as unknown as CssJs;
+    const update = { heading: { color: 'blue' } } as unknown as CssJs;
+    const merged = mergeCssJs(original, update);
+    expect((merged.body as { color: string }).color).toBe('red');
+    expect((merged.heading as { color: string }).color).toBe('blue');
+  });
+
+  it('overwrites primitive values when new value is not an object', () => {
+    const original = { foo: 'bar' } as unknown as CssJs;
+    const update = { foo: 'baz' } as unknown as CssJs;
+    const merged = mergeCssJs(original, update);
+    expect((merged as unknown as { foo: string }).foo).toBe('baz');
+  });
+
+  it('does not mutate the original input', () => {
+    const original = { body: { color: 'red' } } as unknown as CssJs;
+    const snapshot = JSON.parse(JSON.stringify(original));
+    mergeCssJs(original, { body: { color: 'blue' } } as unknown as CssJs);
+    expect(original).toEqual(snapshot);
+  });
+});
