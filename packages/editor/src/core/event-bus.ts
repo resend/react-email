@@ -18,12 +18,18 @@ const EVENT_PREFIX = '@react-email/editor:';
 export interface EditorEventMap {
   'bubble-menu:add-link': undefined;
   'node-clicked': NodeClickedEvent;
+  'image-upload-error': ImageUploadErrorEvent;
 }
 
 export type NodeClickedEvent = {
   nodeType: string;
   nodeAttrs: Attrs;
   nodePos: { pos: number; inside: number };
+};
+
+export type ImageUploadErrorEvent = {
+  fileName: string;
+  error: Error;
 };
 
 export type EditorEventName = keyof EditorEventMap;
