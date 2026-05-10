@@ -60,4 +60,33 @@ describe('EmailMark', () => {
     expect(configured.config.renderToReactEmail).toBe(Component);
     expect(configured.name).toBe(CustomHighlight.name);
   });
+
+  // Covers the second @ts-expect-error path in email-mark.ts:77 — extend()
+  // must keep the EmailMark identity and the renderToReactEmail component
+  // so subclasses don't lose their renderer at the type/runtime boundary.
+  it('preserves EmailMark identity through extend()', () => {
+    const Component = vi.fn(() => 'rendered');
+    const Base = EmailMark.from(Highlight, Component);
+
+    const Extended = Base.extend({
+      addOptions() {
+        return { HTMLAttributes: { class: 'extended-mark' } };
+      },
+    });
+
+    expect(Extended).toBeInstanceOf(EmailMark);
+    expect(Extended.config).toHaveProperty('renderToReactEmail');
+    expect(Extended.config.renderToReactEmail).toBe(Component);
+  });
+
+  it('configure() can be called twice without losing renderToReactEmail', () => {
+    const Component = vi.fn(() => 'rendered');
+    const Base = EmailMark.from(Highlight, Component);
+
+    const a = Base.configure({ HTMLAttributes: { class: 'a' } });
+    const b = a.configure({ HTMLAttributes: { class: 'b' } });
+
+    expect(b).toBeInstanceOf(EmailMark);
+    expect(b.config.renderToReactEmail).toBe(Component);
+  });
 });

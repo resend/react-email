@@ -42,4 +42,32 @@ describe('EmailNode', () => {
     expect(configured.config.renderToReactEmail).toBe(Component);
     expect(configured.name).toBe(CustomHeader.name);
   });
+
+  // Covers the second @ts-expect-error path in email-node.ts:75 — extend()
+  // must keep the EmailNode identity and the renderToReactEmail component.
+  it('preserves EmailNode identity through extend()', () => {
+    const Component = vi.fn(() => 'rendered');
+    const Base = EmailNode.from(Heading, Component);
+
+    const Extended = Base.extend({
+      addOptions() {
+        return { levels: [1, 2, 3] as const, HTMLAttributes: {} };
+      },
+    });
+
+    expect(Extended).toBeInstanceOf(EmailNode);
+    expect(Extended.config).toHaveProperty('renderToReactEmail');
+    expect(Extended.config.renderToReactEmail).toBe(Component);
+  });
+
+  it('configure() can be called twice without losing renderToReactEmail', () => {
+    const Component = vi.fn(() => 'rendered');
+    const Base = EmailNode.from(Heading, Component);
+
+    const a = Base.configure({ levels: [1, 2] });
+    const b = a.configure({ levels: [1, 2, 3] });
+
+    expect(b).toBeInstanceOf(EmailNode);
+    expect(b.config.renderToReactEmail).toBe(Component);
+  });
 });
