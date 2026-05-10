@@ -9,6 +9,36 @@ vi.mock('@tiptap/html', () => ({
 }));
 
 describe('createDropHandler', () => {
+  function makeView(spy: ReturnType<typeof vi.fn>) {
+    return {
+      state: {
+        doc: { textContent: '' },
+        selection: { from: 0 },
+        schema: {
+          nodeFromJSON: vi.fn().mockReturnValue({ type: 'paragraph' }),
+        },
+        tr: { replaceSelectionWith: vi.fn().mockReturnThis() },
+      },
+      dispatch: spy,
+    } as never;
+  }
+
+  function makeDataTransfer({
+    files = [] as File[],
+    html = '',
+    text = '',
+  }: {
+    files?: File[];
+    html?: string;
+    text?: string;
+  } = {}) {
+    return {
+      files,
+      getData: (type: string) =>
+        type === 'text/html' ? html : type === 'text/plain' ? text : '',
+    };
+  }
+
   it('consumes the drop when onPaste accepts it', () => {
     const handler = createDropHandler({
       onPaste: () => true,
@@ -19,11 +49,11 @@ describe('createDropHandler', () => {
         state: { doc: { textContent: '' } },
       } as never,
       {
-        dataTransfer: {
+        dataTransfer: makeDataTransfer({
           files: [
             new File(['<html></html>'], 'template.html', { type: 'text/html' }),
           ],
-        },
+        }),
         preventDefault,
       } as unknown as DragEvent,
       null,
@@ -45,9 +75,9 @@ describe('createDropHandler', () => {
         posAtCoords: vi.fn().mockReturnValue({ pos: 5 }),
       } as never,
       {
-        dataTransfer: {
+        dataTransfer: makeDataTransfer({
           files: [new File(['image'], 'photo.png', { type: 'image/png' })],
-        },
+        }),
         preventDefault,
         clientX: 10,
         clientY: 20,
@@ -58,6 +88,99 @@ describe('createDropHandler', () => {
 
     expect(handled).toBe(false);
     expect(preventDefault).toHaveBeenCalledTimes(1);
+  });
+
+  it('sanitizes and inserts text/html drops when extensions are provided', () => {
+    // Regression: HTML drops used to fall through to ProseMirror's default
+    // path, bypassing sanitizePastedHtml — the seam behind MES-461
+    // ("Dragging editor block removes callout styling") and the open P0
+    // for drag content blocks.
+    const dispatch = vi.fn();
+    const view = makeView(dispatch);
+    const preventDefault = vi.fn();
+    const handler = createDropHandler({ extensions: [] });
+    const handled = handler(
+      view,
+      {
+        dataTransfer: makeDataTransfer({
+          html: '<p>dropped html</p>',
+        }),
+        preventDefault,
+      } as unknown as DragEvent,
+      null,
+      false,
+    );
+
+    expect(handled).toBe(true);
+    expect(preventDefault).toHaveBeenCalledOnce();
+    expect(dispatch).toHaveBeenCalledOnce();
+  });
+
+  it('sanitizes and inserts plain-text drops as a paragraph', () => {
+    const dispatch = vi.fn();
+    const view = makeView(dispatch);
+    const handler = createDropHandler({ extensions: [] });
+    const handled = handler(
+      view,
+      {
+        dataTransfer: makeDataTransfer({ text: 'hello world' }),
+        preventDefault: vi.fn(),
+      } as unknown as DragEvent,
+      null,
+      false,
+    );
+
+    expect(handled).toBe(true);
+    expect(dispatch).toHaveBeenCalledOnce();
+  });
+
+  it('does not call onPaste on internal block reorders (moved=true)', () => {
+    const onPaste = vi.fn();
+    const handler = createDropHandler({ onPaste, extensions: [] });
+    const handled = handler(
+      {} as never,
+      {
+        dataTransfer: makeDataTransfer({ html: '<p>x</p>' }),
+        preventDefault: vi.fn(),
+      } as unknown as DragEvent,
+      null,
+      true,
+    );
+
+    expect(handled).toBe(false);
+    expect(onPaste).not.toHaveBeenCalled();
+  });
+
+  it('returns false when dataTransfer is missing', () => {
+    const handler = createDropHandler({ extensions: [] });
+    const handled = handler(
+      {} as never,
+      {
+        dataTransfer: null,
+        preventDefault: vi.fn(),
+      } as unknown as DragEvent,
+      null,
+      false,
+    );
+
+    expect(handled).toBe(false);
+  });
+
+  it('falls back to legacy behavior when extensions are omitted', () => {
+    // Backward compat: existing call sites that only configured file drops
+    // should still work without sanitizing HTML drops.
+    const handler = createDropHandler({});
+    const handled = handler(
+      {} as never,
+      {
+        dataTransfer: makeDataTransfer({ html: '<p>x</p>' }),
+        preventDefault: vi.fn(),
+      } as unknown as DragEvent,
+      null,
+      false,
+    );
+
+    expect(handled).toBe(false);
   });
 });
 

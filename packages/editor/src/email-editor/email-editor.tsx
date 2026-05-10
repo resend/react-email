@@ -14,6 +14,7 @@ import {
   useMemo,
   useRef,
 } from 'react';
+import { createDropHandler } from '../core/create-drop-handler';
 import { createPasteHandler } from '../core/create-paste-handler';
 import { composeReactEmail } from '../core/serializer/compose-react-email';
 import { StarterKit } from '../extensions';
@@ -169,6 +170,9 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
     const editorProps: UseEditorOptions['editorProps'] = useMemo(
       () => ({
         handlePaste: createPasteHandler({
+          extensions,
+        }),
+        handleDrop: createDropHandler({
           extensions,
         }),
       }),
