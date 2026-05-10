@@ -1,0 +1,31 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`sanitizePastedHtml > paste-source fixtures > sanitizes apple-mail.html deterministically 1`] = `
+"<meta><div><div>Hello,</div><div><br></div><div>Quoted text:</div><blockquote><div>Original message text.</div></blockquote></div>
+"
+`;
+
+exports[`sanitizePastedHtml > paste-source fixtures > sanitizes gmail.html deterministically 1`] = `
+"<div><div>Hi team,</div><div><br></div><div>Please review the <a href="https://example.com/doc" target="_blank" rel="noopener">attached document</a>.</div><div><br></div><div>Thanks,<br>Sender</div></div>
+"
+`;
+
+exports[`sanitizePastedHtml > paste-source fixtures > sanitizes notion.html deterministically 1`] = `
+"<meta><h2>Project Plan</h2><p><strong>Phase 1:</strong> kickoff</p><ul><li>Research</li><li>Design</li></ul><p>See <a href="https://www.notion.so/page-id">notion link</a>.</p>
+"
+`;
+
+exports[`sanitizePastedHtml > paste-source fixtures > sanitizes view-source.html deterministically 1`] = `
+"<table border="1" cellpadding="2" cellspacing="0"><tbody><tr><td colspan="2">Spans two</td></tr><tr><td>A</td><td>B</td></tr></tbody></table><img src="https://example.com/x.png" alt="x" width="100" height="50">
+"
+`;
+
+exports[`sanitizePastedHtml > paste-source fixtures > sanitizes vscode.html deterministically 1`] = `
+"<div><div><span>function</span> <span>greet</span>(<span>name</span>: <span>string</span>) {</div><div>  <span>return</span> <span>\`Hello, \${</span><span>name</span><span>}\`</span>;</div><div>}</div></div>
+"
+`;
+
+exports[`sanitizePastedHtml > paste-source fixtures > sanitizes word.html deterministically 1`] = `
+"<meta><meta><div><p><span>Hello from Word</span></p><p><b><span>Important note</span></b> with <i>mixed</i> formatting.</p></div>
+"
+`;
