@@ -100,7 +100,8 @@
       "!**/*.d.ts",
       "!**/out",
       "!**/.turbo",
-      "!**/prism.ts"
+      "!**/prism.ts",
+      "!packages/editor/src/__tests__/fixtures"
     ]
   }
 }
