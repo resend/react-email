@@ -32,11 +32,7 @@ export async function snapshotExtensionRender({
   const html = await render(
     // The extension type is loose because each extension declares its own
     // node/mark shape; we only care that `node` and `style` reach it.
-    <Component
-      node={node}
-      style={style ?? {}}
-      extension={extension}
-    >
+    <Component node={node} style={style ?? {}} extension={extension}>
       {children}
     </Component>,
     { pretty: true },

@@ -49,6 +49,10 @@ export async function executeUploadFlow({
     swapImageSrc(editor, blobUrl, url);
   } catch (error) {
     removeImageBySrc(editor, blobUrl);
+    if (signal?.aborted) {
+      // Aborted uploads aren't user-facing failures; don't surface a toast.
+      return;
+    }
     const wrapped = error instanceof Error ? error : new Error(String(error));
     editorEventBus.dispatch('image-upload-error', {
       fileName: file.name,
@@ -60,7 +64,9 @@ export async function executeUploadFlow({
 }
 
 function isEditorAlive(editor: Editor): boolean {
-  return !editor.isDestroyed && Boolean(editor.view) && !editor.view.isDestroyed;
+  return (
+    !editor.isDestroyed && Boolean(editor.view) && !editor.view.isDestroyed
+  );
 }
 
 function swapImageSrc(editor: Editor, oldSrc: string, newSrc: string): void {

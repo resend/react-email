@@ -12,7 +12,9 @@ interface FakeImageNode {
 function makeFakeEditor(images: FakeImageNode[]) {
   const setNodeMarkup = vi.fn(
     (pos: number, _type: unknown, attrs: { src: string }) => {
-      const idx = images.findIndex((img) => img.attrs.src && pos === images.indexOf(img));
+      const idx = images.findIndex(
+        (img) => img.attrs.src && pos === images.indexOf(img),
+      );
       if (idx !== -1) images[idx] = { ...images[idx], attrs };
       return tr;
     },
@@ -28,7 +30,7 @@ function makeFakeEditor(images: FakeImageNode[]) {
 
   const doc = {
     descendants: (
-      cb: (node: FakeImageNode, pos: number) => void | boolean,
+      cb: (node: FakeImageNode, pos: number) => undefined | boolean,
     ) => {
       images.forEach((node, pos) => {
         cb(node, pos);
@@ -123,7 +125,9 @@ describe('executeUploadFlow', () => {
     });
 
     // The blob image should have been deleted by removeImageBySrc.
-    expect(images.find((img) => img.attrs.src === 'blob:fake-url')).toBeUndefined();
+    expect(
+      images.find((img) => img.attrs.src === 'blob:fake-url'),
+    ).toBeUndefined();
   });
 
   it('dispatches image-upload-error on the editor event bus on failure', async () => {
@@ -170,9 +174,7 @@ describe('executeUploadFlow', () => {
     const file = new File(['x'], 'x.png', { type: 'image/png' });
     const controller = new AbortController();
     controller.abort();
-    const uploadImage = vi
-      .fn()
-      .mockResolvedValue({ url: 'https://cdn/x.png' });
+    const uploadImage = vi.fn().mockResolvedValue({ url: 'https://cdn/x.png' });
 
     await executeUploadFlow({
       editor,
@@ -181,7 +183,33 @@ describe('executeUploadFlow', () => {
       signal: controller.signal,
     });
 
-    expect(images.find((img) => img.attrs.src === 'blob:fake-url')).toBeUndefined();
+    expect(
+      images.find((img) => img.attrs.src === 'blob:fake-url'),
+    ).toBeUndefined();
+  });
+
+  it('does not dispatch image-upload-error when upload rejects after abort', async () => {
+    const handler = vi.fn();
+    const sub = editorEventBus.on('image-upload-error', handler);
+    const { editor } = makeFakeEditor([]);
+    const file = new File(['x'], 'x.png', { type: 'image/png' });
+    const controller = new AbortController();
+
+    const uploadImage = () =>
+      new Promise<{ url: string }>((_, reject) => {
+        controller.abort();
+        reject(new Error('aborted'));
+      });
+
+    await executeUploadFlow({
+      editor,
+      file,
+      uploadImage,
+      signal: controller.signal,
+    });
+
+    expect(handler).not.toHaveBeenCalled();
+    sub.unsubscribe();
   });
 
   it('removes all matching nodes (regression for the "first match" bug)', async () => {

@@ -19,20 +19,32 @@ describe('createImageFileHandlerPlugin', () => {
   function getProps() {
     const plugin = createImageFileHandlerPlugin(fakeEditor, uploadImage);
     // Plugin internals are private; we exercise the props directly.
-    return (plugin as unknown as { props: { handlePaste: Function; handleDrop: Function } }).props;
+    return (
+      plugin as unknown as {
+        props: {
+          handlePaste: (
+            view: unknown,
+            event: { clipboardData: unknown; preventDefault: () => void },
+          ) => boolean;
+          handleDrop: (
+            view: unknown,
+            event: { dataTransfer: unknown; preventDefault: () => void },
+            slice: unknown,
+            moved: boolean,
+          ) => boolean;
+        };
+      }
+    ).props;
   }
 
   describe('handlePaste', () => {
     it('triggers the upload flow for image files', () => {
       const file = new File(['x'], 'pic.png', { type: 'image/png' });
       const preventDefault = vi.fn();
-      const handled = getProps().handlePaste(
-        {} as never,
-        {
-          clipboardData: { files: [file] },
-          preventDefault,
-        },
-      );
+      const handled = getProps().handlePaste({} as never, {
+        clipboardData: { files: [file] },
+        preventDefault,
+      });
 
       expect(handled).toBe(true);
       expect(preventDefault).toHaveBeenCalledOnce();
@@ -43,27 +55,27 @@ describe('createImageFileHandlerPlugin', () => {
 
     it('skips non-image MIME types', () => {
       const file = new File(['x'], 'doc.pdf', { type: 'application/pdf' });
-      const handled = getProps().handlePaste(
-        {} as never,
-        { clipboardData: { files: [file] }, preventDefault: vi.fn() },
-      );
+      const handled = getProps().handlePaste({} as never, {
+        clipboardData: { files: [file] },
+        preventDefault: vi.fn(),
+      });
       expect(handled).toBe(false);
       expect(executeUploadFlowMock).not.toHaveBeenCalled();
     });
 
     it('skips when clipboardData is missing', () => {
-      const handled = getProps().handlePaste(
-        {} as never,
-        { clipboardData: null, preventDefault: vi.fn() },
-      );
+      const handled = getProps().handlePaste({} as never, {
+        clipboardData: null,
+        preventDefault: vi.fn(),
+      });
       expect(handled).toBe(false);
     });
 
     it('skips when there are no files', () => {
-      const handled = getProps().handlePaste(
-        {} as never,
-        { clipboardData: { files: [] }, preventDefault: vi.fn() },
-      );
+      const handled = getProps().handlePaste({} as never, {
+        clipboardData: { files: [] },
+        preventDefault: vi.fn(),
+      });
       expect(handled).toBe(false);
     });
   });

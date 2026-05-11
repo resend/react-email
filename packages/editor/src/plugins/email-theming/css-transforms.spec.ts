@@ -543,9 +543,11 @@ describe('transformToCssJs h-padding legacy branch', () => {
     const result = transformToCssJs(styleArray, DEFAULT_INBOX_FONT_SIZE_PX);
     expect(result.body!.fontSize).toBeDefined();
     // The color entry lacked classReference, so it shouldn't be assigned anywhere.
-    expect(Object.values(result).some((v) => v && (v as { color?: unknown }).color === 'red')).toBe(
-      false,
-    );
+    expect(
+      Object.values(result).some(
+        (v) => v && (v as { color?: unknown }).color === 'red',
+      ),
+    ).toBe(false);
   });
 });
 

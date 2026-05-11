@@ -16,9 +16,7 @@ describe('EmailEditor', () => {
     const ref = createRef<EmailEditorRef>();
     const onReady = vi.fn();
 
-    render(
-      <EmailEditor ref={ref} content="<p>hello</p>" onReady={onReady} />,
-    );
+    render(<EmailEditor ref={ref} content="<p>hello</p>" onReady={onReady} />);
 
     // Ready bridge runs in a layout effect.
     await vi.waitFor(() => expect(onReady).toHaveBeenCalled());
@@ -44,11 +42,7 @@ describe('EmailEditor', () => {
     const ref = createRef<EmailEditorRef>();
     const onUpdate = vi.fn();
     render(
-      <EmailEditor
-        ref={ref}
-        content="<p>start</p>"
-        onUpdate={onUpdate}
-      />,
+      <EmailEditor ref={ref} content="<p>start</p>" onUpdate={onUpdate} />,
     );
     await vi.waitFor(() => expect(ref.current?.editor).toBeTruthy());
 
@@ -65,9 +59,7 @@ describe('EmailEditor', () => {
 
   it('respects editable=false', async () => {
     const ref = createRef<EmailEditorRef>();
-    render(
-      <EmailEditor ref={ref} content="<p>x</p>" editable={false} />,
-    );
+    render(<EmailEditor ref={ref} content="<p>x</p>" editable={false} />);
     await vi.waitFor(() => expect(ref.current?.editor).toBeTruthy());
     expect(ref.current?.editor?.isEditable).toBe(false);
   });
@@ -83,9 +75,7 @@ describe('EmailEditor', () => {
     await vi.waitFor(() => expect(ref.current?.editor).toBeTruthy());
     const editorBefore = ref.current?.editor;
 
-    rerender(
-      <EmailEditor ref={ref} content="<p>x</p>" theme="minimal" />,
-    );
+    rerender(<EmailEditor ref={ref} content="<p>x</p>" theme="minimal" />);
 
     await vi.waitFor(() => expect(ref.current?.editor).toBeTruthy());
     expect(ref.current?.editor).toBe(editorBefore);

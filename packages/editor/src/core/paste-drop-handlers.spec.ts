@@ -9,34 +9,8 @@ vi.mock('@tiptap/html', () => ({
 }));
 
 describe('createDropHandler', () => {
-  function makeView(spy: ReturnType<typeof vi.fn>) {
-    return {
-      state: {
-        doc: { textContent: '' },
-        selection: { from: 0 },
-        schema: {
-          nodeFromJSON: vi.fn().mockReturnValue({ type: 'paragraph' }),
-        },
-        tr: { replaceSelectionWith: vi.fn().mockReturnThis() },
-      },
-      dispatch: spy,
-    } as never;
-  }
-
-  function makeDataTransfer({
-    files = [] as File[],
-    html = '',
-    text = '',
-  }: {
-    files?: File[];
-    html?: string;
-    text?: string;
-  } = {}) {
-    return {
-      files,
-      getData: (type: string) =>
-        type === 'text/html' ? html : type === 'text/plain' ? text : '',
-    };
+  function makeDataTransfer({ files = [] as File[] }: { files?: File[] } = {}) {
+    return { files };
   }
 
   it('consumes the drop when onPaste accepts it', () => {
@@ -202,11 +176,9 @@ describe('createPasteHandler', () => {
     const dispatch = vi.fn();
     const view = makeView(dispatch);
     const handler = createPasteHandler({ extensions: [] });
-    handler(
-      view,
-      makeClipboardEvent({ html: '<p>hello</p>' }),
-      { content: { childCount: 3 } } as never,
-    );
+    handler(view, makeClipboardEvent({ html: '<p>hello</p>' }), {
+      content: { childCount: 3 },
+    } as never);
     expect(dispatch).toHaveBeenCalledOnce();
   });
 

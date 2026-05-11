@@ -4,8 +4,8 @@ import {
   BULLET_LIST,
   BUTTON,
   CODE,
-  defaultSlashCommands,
   DIVIDER,
+  defaultSlashCommands,
   FOUR_COLUMNS,
   H1,
   H2,
@@ -33,17 +33,20 @@ function makeFakeEditor() {
   });
   const run = vi.fn(() => true);
 
-  const chainProxy: Record<string, unknown> = new Proxy({}, {
-    get(_t, prop: string) {
-      if (prop === 'setNode') return setNode;
-      if (prop === 'run') return run;
-      return (...args: unknown[]) => {
-        ops.push(prop);
-        calls[prop] = (calls[prop] ?? []).concat([args]);
-        return chainProxy;
-      };
+  const chainProxy: Record<string, unknown> = new Proxy(
+    {},
+    {
+      get(_t, prop: string) {
+        if (prop === 'setNode') return setNode;
+        if (prop === 'run') return run;
+        return (...args: unknown[]) => {
+          ops.push(prop);
+          calls[prop] = (calls[prop] ?? []).concat([args]);
+          return chainProxy;
+        };
+      },
     },
-  }) as Record<string, unknown>;
+  ) as Record<string, unknown>;
 
   return {
     editor: { chain: () => chainProxy } as unknown as Editor,
@@ -75,34 +78,29 @@ const COMMAND_TABLE: Array<{ name: string; cmd: SlashCommandItem }> = [
 describe('slash commands', () => {
   afterEach(() => vi.clearAllMocks());
 
-  it.each(COMMAND_TABLE)(
-    '$name has the required SlashCommandItem fields',
-    ({ cmd }) => {
-      expect(cmd.title).toBeTruthy();
-      expect(cmd.description).toBeTruthy();
-      expect(typeof cmd.command).toBe('function');
-      expect(Array.isArray(cmd.searchTerms)).toBe(true);
-      expect(cmd.searchTerms.length).toBeGreaterThan(0);
-    },
-  );
+  it.each(COMMAND_TABLE)('$name has the required SlashCommandItem fields', ({
+    cmd,
+  }) => {
+    expect(cmd.title).toBeTruthy();
+    expect(cmd.description).toBeTruthy();
+    expect(typeof cmd.command).toBe('function');
+    expect(Array.isArray(cmd.searchTerms)).toBe(true);
+    expect(cmd.searchTerms.length).toBeGreaterThan(0);
+  });
 
-  it.each(COMMAND_TABLE)(
-    '$name dispatches at least one chain operation',
-    ({ cmd }) => {
-      const { editor, ops } = makeFakeEditor();
-      cmd.command({ editor, range: FAKE_RANGE });
-      expect(ops.length).toBeGreaterThan(0);
-    },
-  );
+  it.each(COMMAND_TABLE)('$name dispatches at least one chain operation', ({
+    cmd,
+  }) => {
+    const { editor, ops } = makeFakeEditor();
+    cmd.command({ editor, range: FAKE_RANGE });
+    expect(ops.length).toBeGreaterThan(0);
+  });
 
-  it.each(COMMAND_TABLE)(
-    '$name calls run() exactly once',
-    ({ cmd }) => {
-      const { editor, chain } = makeFakeEditor();
-      cmd.command({ editor, range: FAKE_RANGE });
-      expect(chain.run).toHaveBeenCalledTimes(1);
-    },
-  );
+  it.each(COMMAND_TABLE)('$name calls run() exactly once', ({ cmd }) => {
+    const { editor, chain } = makeFakeEditor();
+    cmd.command({ editor, range: FAKE_RANGE });
+    expect(chain.run).toHaveBeenCalledTimes(1);
+  });
 
   it('defaultSlashCommands includes all canonical commands', () => {
     expect(defaultSlashCommands).toContain(TEXT);

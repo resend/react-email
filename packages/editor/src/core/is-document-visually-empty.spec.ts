@@ -6,7 +6,11 @@ const schema = new Schema({
   nodes: {
     doc: { content: 'block+' },
     paragraph: { group: 'block', content: 'inline*' },
-    heading: { group: 'block', content: 'inline*', attrs: { level: { default: 1 } } },
+    heading: {
+      group: 'block',
+      content: 'inline*',
+      attrs: { level: { default: 1 } },
+    },
     text: { group: 'inline' },
     globalContent: { group: 'block', atom: true },
     container: { group: 'block', content: 'block+' },

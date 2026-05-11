@@ -29,8 +29,9 @@ export function createTestEditor(
       options.content;
   }
   if (options.editorProps !== undefined) {
-    (editorOptions as { editorProps: EditorOptions['editorProps'] }).editorProps =
-      options.editorProps;
+    (
+      editorOptions as { editorProps: EditorOptions['editorProps'] }
+    ).editorProps = options.editorProps;
   }
   return new Editor(editorOptions);
 }

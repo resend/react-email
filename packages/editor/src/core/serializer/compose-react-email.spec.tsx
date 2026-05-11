@@ -525,20 +525,19 @@ describe('round-trip corpus', () => {
     'notification-with-footer.html',
   ];
 
-  it.each(FIXTURES)(
-    '%s renders deterministically through composeReactEmail',
-    async (fixture) => {
-      const html = loadFixture(`emails/${fixture}`);
-      const json = generateJSON(html, [
-        StarterKit,
-        EmailTheming.configure({ theme: 'basic' }),
-      ]) as JSONContent;
-      const wrapped = docWithGlobalContent(json.content ?? []);
-      const ed = createEditorWithContent(wrapped);
-      const result = await composeReactEmail({ editor: ed, preview: '' });
-      expect(result.html).toMatchSnapshot();
-    },
-  );
+  it.each(
+    FIXTURES,
+  )('%s renders deterministically through composeReactEmail', async (fixture) => {
+    const html = loadFixture(`emails/${fixture}`);
+    const json = generateJSON(html, [
+      StarterKit,
+      EmailTheming.configure({ theme: 'basic' }),
+    ]) as JSONContent;
+    const wrapped = docWithGlobalContent(json.content ?? []);
+    const ed = createEditorWithContent(wrapped);
+    const result = await composeReactEmail({ editor: ed, preview: '' });
+    expect(result.html).toMatchSnapshot();
+  });
 });
 
 describe('round-trip property', () => {

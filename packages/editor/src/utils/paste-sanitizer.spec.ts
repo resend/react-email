@@ -5,8 +5,7 @@ import { sanitizePastedHtml } from './paste-sanitizer';
 describe('sanitizePastedHtml', () => {
   describe('editor-origin HTML', () => {
     it('passes through unchanged when a node-* class is present', () => {
-      const html =
-        '<p class="node-paragraph" style="color:red">Hello</p>';
+      const html = '<p class="node-paragraph" style="color:red">Hello</p>';
       expect(sanitizePastedHtml(html)).toBe(html);
     });
 
@@ -110,16 +109,12 @@ describe('sanitizePastedHtml', () => {
     });
 
     it('rejects javascript: URLs in href', () => {
-      const out = sanitizePastedHtml(
-        '<a href="javascript:alert(1)">x</a>',
-      );
+      const out = sanitizePastedHtml('<a href="javascript:alert(1)">x</a>');
       expect(out).not.toMatch(/javascript:/i);
     });
 
     it('rejects javascript: URLs in src', () => {
-      const out = sanitizePastedHtml(
-        '<img src="javascript:alert(1)" alt="x">',
-      );
+      const out = sanitizePastedHtml('<img src="javascript:alert(1)" alt="x">');
       expect(out).not.toMatch(/javascript:/i);
     });
   });
@@ -131,13 +126,11 @@ describe('sanitizePastedHtml', () => {
     });
 
     it('does not throw on malformed HTML', () => {
-      expect(() =>
-        sanitizePastedHtml('<p><span>unterminated'),
-      ).not.toThrow();
+      expect(() => sanitizePastedHtml('<p><span>unterminated')).not.toThrow();
     });
 
     it('handles deeply nested tags', () => {
-      const deep = '<div>'.repeat(50) + 'leaf' + '</div>'.repeat(50);
+      const deep = `${'<div>'.repeat(50)}leaf${'</div>'.repeat(50)}`;
       const out = sanitizePastedHtml(deep);
       expect(out).toContain('leaf');
     });
