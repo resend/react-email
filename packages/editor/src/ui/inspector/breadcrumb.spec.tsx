@@ -45,10 +45,6 @@ describe('InspectorBreadcrumb', () => {
     expect(container.querySelectorAll('button').length).toBe(0);
   });
 
-  // Regression for the open P3 "clicking nested elements opens Page
-  // style panel instead of element settings": the breadcrumb's
-  // setNodeSelection must be called with the *clicked segment's* pos,
-  // not the current selection's pos.
   it('clicking a nested segment selects that node by its pos', () => {
     mockInspector.pathFromRoot = [
       {

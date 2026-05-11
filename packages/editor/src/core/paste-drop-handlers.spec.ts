@@ -91,10 +91,6 @@ describe('createDropHandler', () => {
   });
 
   it('sanitizes and inserts text/html drops when extensions are provided', () => {
-    // Regression: HTML drops used to fall through to ProseMirror's default
-    // path, bypassing sanitizePastedHtml — the seam behind MES-461
-    // ("Dragging editor block removes callout styling") and the open P0
-    // for drag content blocks.
     const dispatch = vi.fn();
     const view = makeView(dispatch);
     const preventDefault = vi.fn();
@@ -273,10 +269,6 @@ describe('createPasteHandler', () => {
   });
 
   it('sanitizes single-node text/html pastes (no childCount short-circuit)', () => {
-    // Regression: previously, slice.content.childCount === 1 caused the
-    // handler to return false and let ProseMirror's default paste run,
-    // bypassing sanitizePastedHtml. This is the bug behind MES-490 and
-    // MES-472.
     const preventDefault = vi.fn();
     const dispatch = vi.fn();
     const view = makeView(dispatch);

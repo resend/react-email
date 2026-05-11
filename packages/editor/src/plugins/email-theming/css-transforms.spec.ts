@@ -509,10 +509,6 @@ describe('injectGlobalPlainCss', () => {
 import { mergeCssJs } from './css-transforms';
 
 describe('transformToCssJs h-padding legacy branch', () => {
-  // The @ts-expect-error branch at css-transforms.ts:37 maps the legacy
-  // 'h-padding' prop name to paddingLeft + paddingRight. Without this test
-  // a future refactor that drops that case silently breaks GAB-11
-  // ("Body and container styles missing for HTML imports").
   it('maps legacy h-padding to paddingLeft and paddingRight', () => {
     const styleArray = [
       {

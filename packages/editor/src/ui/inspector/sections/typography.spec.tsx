@@ -20,9 +20,6 @@ describe('TypographySection', () => {
     expect(container.textContent).toContain('Typography');
   });
 
-  // Regression for MES-491: typography color picker showed a different
-  // hex than the actually-rendered link color. Asserting the prop
-  // round-trip through setStyle locks the contract.
   it('color mutation goes through setStyle', () => {
     const ctx = buildInspectorContext({ styles: { color: '#000000' } });
     render(<TypographySection {...ctx} />);

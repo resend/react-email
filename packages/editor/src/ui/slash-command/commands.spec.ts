@@ -86,9 +86,6 @@ describe('slash commands', () => {
     },
   );
 
-  // Each command must produce some chain mutation when invoked. This is the
-  // regression net for "click on slash command stop working" (ENG-1592) and
-  // the open P0 "Test: SlashCommand buggy in editor V2".
   it.each(COMMAND_TABLE)(
     '$name dispatches at least one chain operation',
     ({ cmd }) => {

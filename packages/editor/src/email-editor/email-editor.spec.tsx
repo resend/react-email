@@ -72,14 +72,9 @@ describe('EmailEditor', () => {
     expect(ref.current?.editor?.isEditable).toBe(false);
   });
 
-  // The current implementation passes `key={JSON.stringify(theme)}` to
-  // EditorProvider, which destroys and re-mounts the editor on every
-  // theme change — wiping the undo stack, scroll, and selection. This
-  // is the seam behind GRO-685 / GRO-353 / MES-378 / open P0
-  // blank-and-scroll-to-top reports. Dropping the key in favor of an
-  // imperative reconfigure is tracked separately because it touches
-  // the EmailTheming extension's option lifecycle and needs careful
-  // testing in the dashboard's collaborative session.
+  // `key={JSON.stringify(theme)}` on EditorProvider re-mounts the editor on
+  // theme change, wiping undo/scroll/selection. Skipped pending an imperative
+  // reconfigure of EmailTheming.
   it.skip('preserves the editor instance when theme changes', async () => {
     const ref = createRef<EmailEditorRef>();
     const { rerender } = render(

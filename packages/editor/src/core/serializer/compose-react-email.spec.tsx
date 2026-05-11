@@ -497,15 +497,9 @@ describe('Button and image reset styles', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Round-trip / regression-corpus block
-// ---------------------------------------------------------------------------
-// HTML fixtures live in src/__tests__/fixtures/emails/. For each one we
-// parse to ProseMirror JSON via @tiptap/html, run composeReactEmail, and
-// snapshot the rendered output. This is the regression net for the
-// "editor and code view show different output" cluster (MES-388, MES-472,
-// MES-488, GAB-5, GAB-11, WORKSPA-1721). Update snapshots only with a
-// justification in the commit message.
+// HTML fixtures live in src/__tests__/fixtures/emails/. Each one is parsed
+// through @tiptap/html, run through composeReactEmail, and snapshotted to
+// pin down editor ↔ rendered-email parity.
 
 import { generateJSON } from '@tiptap/html';
 import * as fc from 'fast-check';

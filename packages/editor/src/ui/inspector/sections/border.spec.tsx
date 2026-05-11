@@ -21,8 +21,6 @@ describe('BorderSection', () => {
     expect(container.textContent).toContain('Border');
   });
 
-  // Regression for the open P0 "Editor - per side border not working":
-  // mutating one side must not reset the other three.
   it('per-side mutations dispatch only the changed side via batchSetStyle', () => {
     const ctx = buildInspectorContext({
       styles: {
