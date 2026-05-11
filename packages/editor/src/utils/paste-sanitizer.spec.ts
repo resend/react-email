@@ -151,6 +151,10 @@ describe('sanitizePastedHtml', () => {
       'vscode.html',
       'apple-mail.html',
       'view-source.html',
+      'outlook-web.html',
+      'chatgpt.html',
+      'github-markdown.html',
+      'linear-comment.html',
     ])('sanitizes %s deterministically', (name) => {
       const html = loadFixture(`paste-sources/${name}`);
       const out = sanitizePastedHtml(html);

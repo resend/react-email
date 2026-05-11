@@ -515,6 +515,14 @@ describe('round-trip corpus', () => {
     'blockquote-and-code.html',
     'inline-styled-typography.html',
     'nested-table.html',
+    'welcome-confirm.html',
+    'password-reset.html',
+    'magic-link.html',
+    'order-receipt.html',
+    'marketing-announcement.html',
+    'team-invite.html',
+    'digest-newsletter.html',
+    'notification-with-footer.html',
   ];
 
   it.each(FIXTURES)(
