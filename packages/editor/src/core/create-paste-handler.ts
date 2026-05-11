@@ -34,10 +34,6 @@ export function createPasteHandler({
       }
     }
 
-    // The previous behavior short-circuited single-node slices (skipping
-    // sanitization), which let pasted HTML from external sources bypass
-    // the paste-sanitizer and corrupt the document. Always sanitize when
-    // text/html is present.
     if (event.clipboardData?.getData?.('text/html')) {
       event.preventDefault();
       const html = event.clipboardData.getData('text/html');
