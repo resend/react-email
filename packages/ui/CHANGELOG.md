@@ -1,5 +1,11 @@
 # @react-email/ui
 
+## 6.1.3
+
+### Patch Changes
+
+- 62417f5: bump nextjs version
+
 ## 6.1.2
 
 ### Patch Changes
