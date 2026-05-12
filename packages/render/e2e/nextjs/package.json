@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "preinstall": "yalc add @react-email/render",
-    "dev": "next dev --turbopack --port 3000",
+    "dev": "next dev --turbopack --hostname 127.0.0.1 --port 3000",
     "build": "next build",
-    "start": "next start --port 3001"
+    "start": "next start --hostname 127.0.0.1 --port 3001"
   },
   "dependencies": {
     "@react-email/render": "file:.yalc/@react-email/render",
