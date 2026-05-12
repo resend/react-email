@@ -17,13 +17,17 @@ import {
 import { createPasteHandler } from '../core/create-paste-handler';
 import { composeReactEmail } from '../core/serializer/compose-react-email';
 import { StarterKit } from '../extensions';
+import { CalendarInvite, CalendarInvitePlugin, calendarInviteSlashCommand, type CalendarPluginOptions } from '../plugins/calendar-invite';
 import { EmailTheming } from '../plugins/email-theming/extension';
 import type { EditorThemeInput } from '../plugins/email-theming/types';
 import { createImageExtension } from '../plugins/image/extension';
 import { BubbleMenu } from '../ui/bubble-menu';
+import { defaultSlashCommands } from '../ui/slash-command/commands';
 import { SlashCommandRoot } from '../ui/slash-command/root';
 import '../ui/themes/default.css';
 import { Placeholder } from '@tiptap/extension-placeholder';
+
+const slashCommands = [...defaultSlashCommands, calendarInviteSlashCommand];
 
 export interface EmailEditorRef {
   getEmail: () => Promise<{ html: string; text: string }>;
@@ -48,6 +52,8 @@ export interface EmailEditorProps {
   onUploadImage?: (file: File) => Promise<{ url: string }>;
   className?: string;
   children?: ReactNode;
+  /** Options forwarded to the built-in CalendarInvitePlugin */
+  calendarInvite?: CalendarPluginOptions;
 }
 
 function buildRef(editor: Editor | null): EmailEditorRef {
@@ -129,6 +135,7 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
       onUploadImage,
       className,
       children,
+      calendarInvite,
     },
     ref,
   ) => {
@@ -146,6 +153,7 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
     const extensions = useMemo(() => {
       const base = extensionsProp ?? [
         StarterKit.configure(),
+        CalendarInvite.configure(),
         Placeholder.configure({
           placeholder:
             placeholder ??
@@ -194,7 +202,8 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
         <BubbleMenu.LinkDefault />
         <BubbleMenu.ButtonDefault />
         <BubbleMenu.ImageDefault />
-        <SlashCommandRoot />
+        <SlashCommandRoot items={slashCommands} />
+        <CalendarInvitePlugin {...(calendarInvite ?? {})} />
         {children}
       </EditorProvider>
     );
