@@ -1,5 +1,7 @@
 # react-email
 
+## 6.1.2
+
 ## 6.1.1
 
 ### Patch Changes
