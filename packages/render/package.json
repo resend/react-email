@@ -125,7 +125,6 @@
   "devDependencies": {
     "@edge-runtime/vm": "5.0.0",
     "@types/html-to-text": "9.0.4",
-    "@types/prettier": "3.0.0",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@types/shelljs": "0.10.0",
