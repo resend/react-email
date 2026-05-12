@@ -1,3 +1,4 @@
+import { randomBytes } from 'crypto';
 import type { CalendarEvent } from './types';
 
 function padZero(n: number): string {
@@ -45,7 +46,7 @@ export function formatDisplayTime(time: string): string {
 }
 
 export function generateICalContent(event: CalendarEvent): string {
-  const uid = `${Date.now()}-${Math.random().toString(36).slice(2)}@react-email`;
+  const uid = `${Date.now()}-${randomBytes(16).toString('hex')}@react-email`;
   const now = new Date();
   const dtstamp = [
     now.getUTCFullYear(),
