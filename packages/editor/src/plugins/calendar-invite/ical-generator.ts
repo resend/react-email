@@ -29,9 +29,13 @@ export function computeEndDateTime(
 
   let endDate = date;
   if (daysOverflow > 0) {
-    const d = new Date(`${date}T12:00:00`);
-    d.setDate(d.getDate() + daysOverflow);
-    endDate = d.toISOString().split('T')[0] ?? date;
+    const [y, mo, dy] = date.split('-').map(Number);
+    const next = new Date(Date.UTC(y!, mo! - 1, dy! + daysOverflow));
+    endDate = [
+      next.getUTCFullYear(),
+      String(next.getUTCMonth() + 1).padStart(2, '0'),
+      String(next.getUTCDate()).padStart(2, '0'),
+    ].join('-');
   }
 
   return { date: endDate, time: `${padZero(endHour)}:${padZero(endMin)}` };
@@ -63,9 +67,13 @@ export function generateICalContent(event: CalendarEvent): string {
   let dtend: string;
 
   if (event.duration === -1) {
-    const nextDayDate = new Date(`${event.date}T12:00:00`);
-    nextDayDate.setDate(nextDayDate.getDate() + 1);
-    const nextDay = nextDayDate.toISOString().split('T')[0] ?? event.date;
+    const [y, m, d] = event.date.split('-').map(Number);
+    const next = new Date(Date.UTC(y!, m! - 1, d! + 1));
+    const nextDay = [
+      next.getUTCFullYear(),
+      String(next.getUTCMonth() + 1).padStart(2, '0'),
+      String(next.getUTCDate()).padStart(2, '0'),
+    ].join('-');
     dtstart = `DTSTART;VALUE=DATE:${formatDateOnly(event.date)}`;
     dtend = `DTEND;VALUE=DATE:${formatDateOnly(nextDay)}`;
   } else {

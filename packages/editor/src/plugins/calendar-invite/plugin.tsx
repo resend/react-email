@@ -16,6 +16,7 @@ export function CalendarInvitePlugin({
 
   useEffect(() => {
     const sub = editorEventBus.on('calendar-invite:open', (payload) => {
+      if (payload.editorRef !== editor) return;
       setPendingRange(payload.range);
       setIsOpen(true);
     });

@@ -96,10 +96,17 @@ function buildCalendarGrid(month: number, year: number): (number | null)[][] {
 }
 
 function getDefaultStartTime(): string {
-  const next = new Date();
-  next.setHours(next.getHours() + 1, 0, 0, 0);
-  const h = Math.max(6, Math.min(23, next.getHours()));
-  return `${String(h).padStart(2, '0')}:00`;
+  const now = new Date();
+  // Snap forward 1 hour then round up to the next :00/:30 boundary
+  const msAhead = now.getTime() + 60 * 60 * 1000;
+  const snapped = new Date(Math.ceil(msAhead / (30 * 60 * 1000)) * (30 * 60 * 1000));
+  const h = snapped.getHours();
+  const m = snapped.getMinutes();
+  // If still on today and within TIME_SLOTS range (06:00–23:00), use it
+  if (snapped.getDate() === now.getDate() && h >= 6 && h <= 23) {
+    return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+  }
+  return '09:00';
 }
 
 interface SelectedDate {
@@ -120,10 +127,19 @@ interface FormState {
   description: string;
 }
 
+function isValidTimezone(tz: string): boolean {
+  try {
+    Intl.DateTimeFormat('en', { timeZone: tz });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 function makeInitialState(defaultTimezone?: string): FormState {
   const now = new Date();
   const rawTz = defaultTimezone ?? detectTimezone();
-  const tz = CALENDAR_TIMEZONES.some((t) => t.value === rawTz) ? rawTz : 'UTC';
+  const tz = isValidTimezone(rawTz) ? rawTz : 'UTC';
   return {
     title: '',
     selected: {
@@ -708,6 +724,13 @@ export function CalendarModal({
                       backgroundPosition: 'right 10px center',
                     }}
                   >
+                    {/* If the active timezone isn't in the curated list, show it first */}
+                    {!CALENDAR_TIMEZONES.some((t) => t.value === form.timezone) && (
+                      <option value={form.timezone}>
+                        {form.timezone.split('/').pop()?.replace(/_/g, ' ') ?? form.timezone}
+                        {getGmtOffset(form.timezone) ? `  ·  ${getGmtOffset(form.timezone)}` : ''}
+                      </option>
+                    )}
                     {CALENDAR_TIMEZONES.map((tz) => {
                       const offset = getGmtOffset(tz.value);
                       return (

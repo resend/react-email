@@ -72,8 +72,8 @@ export const CalendarInvite = EmailNode.create({
 
       openCalendarInviteModal:
         (range: Range) =>
-        () => {
-          editorEventBus.dispatch('calendar-invite:open', { range });
+        ({ editor }) => {
+          editorEventBus.dispatch('calendar-invite:open', { range, editorRef: editor });
           return true;
         },
     };

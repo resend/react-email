@@ -27,7 +27,6 @@ import { SlashCommandRoot } from '../ui/slash-command/root';
 import '../ui/themes/default.css';
 import { Placeholder } from '@tiptap/extension-placeholder';
 
-const slashCommands = [...defaultSlashCommands, calendarInviteSlashCommand];
 
 export interface EmailEditorRef {
   getEmail: () => Promise<{ html: string; text: string }>;
@@ -174,6 +173,19 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
       return imageExtension ? [...base, imageExtension] : base;
     }, [extensionsProp, theme, placeholder, imageExtension]);
 
+    const hasCalendarInvite = useMemo(
+      () => extensions.some((ext) => ext.name === 'calendarInvite'),
+      [extensions],
+    );
+
+    const slashCommands = useMemo(
+      () =>
+        hasCalendarInvite
+          ? [...defaultSlashCommands, calendarInviteSlashCommand]
+          : defaultSlashCommands,
+      [hasCalendarInvite],
+    );
+
     const editorProps: UseEditorOptions['editorProps'] = useMemo(
       () => ({
         handlePaste: createPasteHandler({
@@ -203,7 +215,7 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
         <BubbleMenu.ButtonDefault />
         <BubbleMenu.ImageDefault />
         <SlashCommandRoot items={slashCommands} />
-        <CalendarInvitePlugin {...(calendarInvite ?? {})} />
+        {hasCalendarInvite && <CalendarInvitePlugin {...(calendarInvite ?? {})} />}
         {children}
       </EditorProvider>
     );

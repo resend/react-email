@@ -18,7 +18,7 @@ const EVENT_PREFIX = '@react-email/editor:';
 export interface EditorEventMap {
   'bubble-menu:add-link': undefined;
   'node-clicked': NodeClickedEvent;
-  'calendar-invite:open': { range: { from: number; to: number } };
+  'calendar-invite:open': { range: { from: number; to: number }; editorRef: object };
 }
 
 export type NodeClickedEvent = {
