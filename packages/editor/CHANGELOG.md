@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.4.0
+
+### Minor Changes
+
+- 1718669: Enable single columns deletion, and columns focus improvements.
+
 ## 1.3.10
 
 ### Patch Changes
