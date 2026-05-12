@@ -22,6 +22,10 @@ jobs:
         with:
           fetch-depth: 1
       - run: git config --global --add safe.directory $GITHUB_WORKSPACE
+      - name: Setup Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
+        with:
+          node-version: 24
       - name: pnpm setup
         uses: pnpm/action-setup@738f428026a1f5a72398de22aeed83d859c4a660
       - name: Install packages
