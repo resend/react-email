@@ -38,7 +38,7 @@ catalog:
   esbuild: 0.28.0
   framer-motion: 12.38.0
   log-symbols: ^7.0.0
-  next: 16.2.3
+  next: 16.2.6
   nypm: 0.6.6
   ora: ^8.0.0
   picospinner: ^3.0.0
