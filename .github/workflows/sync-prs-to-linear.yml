@@ -125,7 +125,7 @@ jobs:
               const issue = res.data.issueCreate.issue;
 
               // Attach the PR URL to the Linear issue (used for deduplication)
-              await linearFetch(`
+              const attachRes = await linearFetch(`
                 mutation CreateAttachment($input: AttachmentCreateInput!) {
                   attachmentCreate(input: $input) {
                     success
@@ -138,6 +138,11 @@ jobs:
                   title: `GitHub PR #${pr.number}`,
                 },
               });
+
+              if (!attachRes.data?.attachmentCreate?.success) {
+                core.warning(`Failed to attach PR #${pr.number} to Linear ticket — skipping label to allow retry`);
+                continue;
+              }
 
               // Add label to PR (signals the PR is tracked; no Linear URL posted publicly)
               await github.rest.issues.addLabels({
