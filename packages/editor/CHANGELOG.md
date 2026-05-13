@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.4.2
+
+### Patch Changes
+
+- 962f753: Hide rich text bubble menu options when inline code is active
+
 ## 1.4.1
 
 ### Patch Changes
