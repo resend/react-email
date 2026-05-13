@@ -5,14 +5,16 @@ on:
       - main
       - canary
   pull_request:
+permissions:
+  contents: read
+  pull-requests: read
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-permissions: 
-  contents: read
-  pull-requests: read
 jobs:
   tests:
+    # Org secrets in step env: push + same-repo PRs only; fork PRs evaluate to empty (explicit for review).
+    timeout-minutes: 45
     runs-on: depot-ubuntu-22.04-8
     container:
       image: mcr.microsoft.com/playwright:v1.59.1-noble
@@ -34,16 +36,16 @@ jobs:
         run: pnpm build
         env:
           REDIS_URL: redis://localhost:6379
-          SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
-          SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+          SPAM_ASSASSIN_HOST: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.SPAM_ASSASSIN_HOST || '' }}
+          SPAM_ASSASSIN_PORT: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.SPAM_ASSASSIN_PORT || '' }}
+          TURBO_TOKEN: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.TURBO_TOKEN || '' }}
+          TURBO_TEAM: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.TURBO_TEAM || '' }}
       - name: Run Tests
         run: pnpm test
         env:
           PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
           REDIS_URL: redis://localhost:6379
-          SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
-          SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+          SPAM_ASSASSIN_HOST: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.SPAM_ASSASSIN_HOST || '' }}
+          SPAM_ASSASSIN_PORT: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.SPAM_ASSASSIN_PORT || '' }}
+          TURBO_TOKEN: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.TURBO_TOKEN || '' }}
+          TURBO_TEAM: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.TURBO_TEAM || '' }}
