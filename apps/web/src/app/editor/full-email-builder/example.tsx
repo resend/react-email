@@ -169,7 +169,7 @@ export function FullEmailBuilder() {
             />
 
             <BubbleMenu
-              hideWhenActiveNodes={['button']}
+              hideWhenActiveNodes={['button', 'horizontalRule']}
               hideWhenActiveMarks={['link']}
             />
             <BubbleMenu.LinkDefault />
