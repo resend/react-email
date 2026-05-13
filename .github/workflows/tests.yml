@@ -33,6 +33,7 @@ jobs:
       - name: Run Build
         run: pnpm build
         env:
+          REDIS_URL: redis://localhost:6379
           SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
           SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
@@ -41,6 +42,7 @@ jobs:
         run: pnpm test
         env:
           PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
+          REDIS_URL: redis://localhost:6379
           SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
           SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}

@@ -35,6 +35,7 @@ jobs:
       - name: Run Build
         run: pnpm build
         env:
+          REDIS_URL: redis://localhost:6379
           SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
           SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
@@ -42,6 +43,7 @@ jobs:
       - name: Run Tailwind integration tests
         run: pnpm turbo test:e2e
         env:
+          REDIS_URL: redis://localhost:6379
           SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
           SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
