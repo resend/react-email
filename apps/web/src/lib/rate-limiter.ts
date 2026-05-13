@@ -32,8 +32,8 @@ export const sendTestIpRatelimit = new RateLimiterRedis({
 export const sendTestRecipientRatelimit = new RateLimiterRedis({
   storeClient: redis,
   keyPrefix: 'react-email:send-test:recipient',
-  points: 2,
-  duration: 600,
+  points: 3,
+  duration: 60,
 });
 
 export async function tryConsume(
