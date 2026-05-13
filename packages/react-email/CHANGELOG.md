@@ -1,5 +1,13 @@
 # react-email
 
+## 6.1.4
+
+### Patch Changes
+
+- 1c386ce: Avoid spamming each spinner frame as a new line on non-TTY streams (CI logs, pipes, dumb terminals). The spinner now logs each status text once instead of redrawing animated frames when the output is not a TTY.
+- ad6a9de: - deprecate packageManager CLI option for `email build`, only supporting npm
+  - ensure `email build` dependency installation includes dev dependencies
+
 ## 6.1.3
 
 ## 6.1.2

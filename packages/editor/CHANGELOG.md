@@ -1,5 +1,14 @@
 # @react-email/editor
 
+## 1.4.1
+
+### Patch Changes
+
+- 5c6c805: Blocks typing over the divider block and by mistake removing it from the content.
+- Updated dependencies [1c386ce]
+- Updated dependencies [ad6a9de]
+  - react-email@6.1.4
+
 ## 1.4.0
 
 ### Minor Changes
