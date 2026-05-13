@@ -49,23 +49,6 @@ jobs:
               if (e.status !== 422) throw e;
             }
 
-            // Look up the triage state for this team (type="triage" is a Linear first-class concept)
-            const stateData = await linearFetch(`
-              query GetTriageState($teamId: ID!) {
-                workflowStates(filter: {
-                  team: { id: { eq: $teamId } },
-                  type: { eq: "triage" }
-                }) {
-                  nodes { id name }
-                }
-              }
-            `, { teamId: process.env.LINEAR_TEAM_ID });
-
-            const triageStateId = stateData.data?.workflowStates?.nodes?.[0]?.id;
-            if (!triageStateId) {
-              core.warning('No triage state found for this team — issues will use the default state');
-            }
-
             // Paginate all open PRs, filter out already-labeled and drafts
             const allPrs = await github.paginate(github.rest.pulls.list, {
               owner: context.repo.owner,
@@ -109,7 +92,6 @@ jobs:
                 teamId: process.env.LINEAR_TEAM_ID,
                 title: pr.title,
                 description: `GitHub PR by @${pr.user.login}: ${pr.html_url}\n\n${pr.body ?? ''}`,
-                ...(triageStateId && { stateId: triageStateId }),
               };
 
               const res = await linearFetch(`
