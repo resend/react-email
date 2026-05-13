@@ -27,8 +27,6 @@ export const sendTestIpRatelimit = new RateLimiterRedis({
   keyPrefix: 'react-email:send-test:ip',
   points: 3,
   duration: 60,
-  inMemoryBlockOnConsumed: 3,
-  inMemoryBlockDuration: 60,
 });
 
 export const sendTestRecipientRatelimit = new RateLimiterRedis({
@@ -36,8 +34,6 @@ export const sendTestRecipientRatelimit = new RateLimiterRedis({
   keyPrefix: 'react-email:send-test:recipient',
   points: 2,
   duration: 600,
-  inMemoryBlockOnConsumed: 2,
-  inMemoryBlockDuration: 600,
 });
 
 /**
