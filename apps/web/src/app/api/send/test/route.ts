@@ -8,11 +8,14 @@ export function OPTIONS() {
   return Promise.resolve(NextResponse.json({}));
 }
 
-const bodySchema = z.object({
-  to: z.string(),
-  subject: z.string(),
-  html: z.string(),
+export const bodySchema = z.object({
+  to: z.string().trim().pipe(z.string().email()),
+  subject: z.string().trim().min(1).max(200),
+  html: z.string().min(1).max(100_000),
 });
+
+const invalidRequestBodyResponse = () =>
+  NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
 
 export async function POST(req: NextRequest) {
   const { rateLimited, error } = await checkRateLimit('test-email-sending', {
@@ -46,7 +49,21 @@ export async function POST(req: NextRequest) {
   const supabase = createClient(supabaseUrl, supabaseKey);
 
   try {
-    const { to, subject, html } = bodySchema.parse(await req.json());
+    let body: unknown;
+
+    try {
+      body = await req.json();
+    } catch {
+      return invalidRequestBodyResponse();
+    }
+
+    const result = bodySchema.safeParse(body);
+
+    if (!result.success) {
+      return invalidRequestBodyResponse();
+    }
+
+    const { to, subject, html } = result.data;
 
     const ip = req.headers.get('x-vercel-forwarded-for');
     const latitude = req.headers.get('x-vercel-ip-latitude');
