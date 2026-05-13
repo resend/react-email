@@ -9,7 +9,7 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     permissions:
-      pull-requests: write
+      pull-requests: read
       issues: write
 
     steps:
