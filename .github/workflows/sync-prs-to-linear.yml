@@ -81,7 +81,7 @@ jobs:
               const attachmentData = await linearFetch(`
                 query FindAttachment($url: String!) {
                   attachments(filter: { url: { eq: $url } }) {
-                    nodes { id issue { identifier url } }
+                    nodes { id issue { identifier } }
                   }
                 }
               `, { url: pr.html_url });
@@ -112,7 +112,7 @@ jobs:
                 mutation CreateIssue($input: IssueCreateInput!) {
                   issueCreate(input: $input) {
                     success
-                    issue { id identifier url }
+                    issue { id identifier }
                   }
                 }
               `, { input });
