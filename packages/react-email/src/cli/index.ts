@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { spawn } from 'node:child_process';
-import { program } from 'commander';
+import { Option, program } from 'commander';
 import { build } from './commands/build.js';
 import { dev } from './commands/dev.js';
 import { exportTemplates } from './commands/export.js';
@@ -60,10 +60,9 @@ if (!hasRequiredFlags) {
       'Directory with your email templates',
       './emails',
     )
-    .option(
-      '-p --packageManager <name>',
-      'Package name to use on installation on `.react-email`',
-      'npm',
+    .addOption(
+      // deprecated
+      new Option('-p, --packageManager <name>').hideHelp(),
     )
     .action(build);
 

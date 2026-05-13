@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getPackages } from '@manypkg/get-packages';
 import logSymbols from 'log-symbols';
-import { installDependencies, type PackageManagerName, runScript } from 'nypm';
+import { installDependencies, runScript } from 'nypm';
 import {
   type EmailsDirectory,
   getEmailsDirectoryMetadata,
@@ -14,7 +14,7 @@ import { createSpinner, stopSpinnerAndPersist } from '../utils/spinner.js';
 
 interface Args {
   dir: string;
-  packageManager: PackageManagerName;
+  packageManager?: string;
 }
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -174,6 +174,12 @@ export const build = async ({
   dir: emailsDirRelativePath,
   packageManager,
 }: Args) => {
+  if (packageManager) {
+    console.warn(
+      'The --packageManager option is deprecated and ignored. The build command now just uses npm.',
+    );
+  }
+
   try {
     const usersProjectLocation = process.cwd();
     const previewServerLocation = await getUiLocation();
@@ -248,11 +254,22 @@ export const build = async ({
 
     if (!isInReactEmailMonorepo) {
       spinner.setText('Installing dependencies on `.react-email`');
-      await installDependencies({
-        cwd: builtPreviewAppPath,
-        silent: true,
-        packageManager,
-      });
+      const previousInclude = process.env.NPM_CONFIG_INCLUDE;
+      process.env.NPM_CONFIG_INCLUDE = 'dev';
+
+      try {
+        await installDependencies({
+          cwd: builtPreviewAppPath,
+          silent: true,
+          packageManager: 'npm',
+        });
+      } finally {
+        if (previousInclude === undefined) {
+          delete process.env.NPM_CONFIG_INCLUDE;
+        } else {
+          process.env.NPM_CONFIG_INCLUDE = previousInclude;
+        }
+      }
     }
 
     stopSpinnerAndPersist(spinner, {
@@ -261,7 +278,7 @@ export const build = async ({
     });
 
     await runScript('build', {
-      packageManager,
+      packageManager: 'npm',
       cwd: builtPreviewAppPath,
     });
   } catch (error) {
