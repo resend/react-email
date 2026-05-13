@@ -2,7 +2,7 @@ name: Sync Open PRs to Linear
 
 on:
   schedule:
-    - cron: '0 8 * * *'
+    - cron: '0 10 * * *'
   workflow_dispatch:
 
 jobs:
