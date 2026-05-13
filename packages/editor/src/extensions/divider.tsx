@@ -1,13 +1,14 @@
 import { InputRule } from '@tiptap/core';
 import type { HorizontalRuleOptions } from '@tiptap/extension-horizontal-rule';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
-import { Hr } from 'react-email';
-
-export type DividerOptions = HorizontalRuleOptions;
-
+import { NodeSelection, Plugin } from '@tiptap/pm/state';
+import { ReplaceStep } from '@tiptap/pm/transform';
 import { NodeViewWrapper, ReactNodeViewRenderer } from '@tiptap/react';
+import { Hr } from 'react-email';
 import { EmailNode } from '../core';
 import { inlineCssToJs } from '../utils/styles';
+
+export type DividerOptions = HorizontalRuleOptions;
 
 export const Divider: EmailNode<HorizontalRuleOptions, any> = EmailNode.from(
   HorizontalRule.extend({
@@ -34,6 +35,27 @@ export const Divider: EmailNode<HorizontalRuleOptions, any> = EmailNode.from(
               tr.mapping.map(start),
               tr.mapping.map(end),
             );
+          },
+        }),
+      ];
+    },
+    addProseMirrorPlugins() {
+      return [
+        new Plugin({
+          filterTransaction(tr, state) {
+            const { selection } = state;
+            const isDividerNodeSelection =
+              selection instanceof NodeSelection &&
+              selection.node.type.name === 'horizontalRule';
+
+            if (!isDividerNodeSelection || !tr.docChanged) return true;
+
+            const isTypingOverDivider = tr.steps.some(
+              (step) =>
+                step instanceof ReplaceStep && step.slice.content.size > 0,
+            );
+
+            return !isTypingOverDivider;
           },
         }),
       ];
