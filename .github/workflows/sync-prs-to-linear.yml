@@ -1,0 +1,151 @@
+name: Sync Open PRs to Linear
+
+on:
+  schedule:
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Sync untracked PRs to Linear
+        uses: actions/github-script@v7
+        env:
+          LINEAR_API_KEY: ${{ secrets.LINEAR_API_KEY }}
+          LINEAR_TEAM_ID: ${{ secrets.LINEAR_TEAM_ID }}
+        with:
+          script: |
+            const LABEL = 'linear-synced';
+            const LINEAR_API_URL = 'https://api.linear.app/graphql';
+            const linearFetch = (query, variables) =>
+              fetch(LINEAR_API_URL, {
+                method: 'POST',
+                headers: {
+                  Authorization: process.env.LINEAR_API_KEY,
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ query, variables }),
+              }).then(r => r.json());
+
+            // Ensure label exists (idempotent — ignores 422 if already present)
+            try {
+              await github.rest.issues.createLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: LABEL,
+                color: '5E6AD2',
+                description: 'Linear ticket has been created for this PR',
+              });
+            } catch (e) {
+              if (e.status !== 422) throw e;
+            }
+
+            // Look up the triage state for this team (type="triage" is a Linear first-class concept)
+            const stateData = await linearFetch(`
+              query GetTriageState($teamId: ID!) {
+                workflowStates(filter: {
+                  team: { id: { eq: $teamId } },
+                  type: { eq: "triage" }
+                }) {
+                  nodes { id name }
+                }
+              }
+            `, { teamId: process.env.LINEAR_TEAM_ID });
+
+            const triageStateId = stateData.data?.workflowStates?.nodes?.[0]?.id;
+            if (!triageStateId) {
+              core.warning('No triage state found for this team — issues will use the default state');
+            }
+
+            // Paginate all open PRs, filter out already-labeled and drafts
+            const allPrs = await github.paginate(github.rest.pulls.list, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100,
+            });
+
+            const untracked = allPrs.filter(
+              pr => !pr.draft && !pr.labels.some(l => l.name === LABEL)
+            );
+
+            core.info(`${untracked.length} PR(s) without the label — checking Linear for existing tickets`);
+
+            for (const pr of untracked) {
+              // Guard against removed labels: query Linear attachments by PR URL
+              const attachmentData = await linearFetch(`
+                query FindAttachment($url: String!) {
+                  attachments(filter: { url: { eq: $url } }) {
+                    nodes { id issue { identifier url } }
+                  }
+                }
+              `, { url: pr.html_url });
+
+              const existing = attachmentData.data?.attachments?.nodes?.[0];
+
+              if (existing) {
+                // Ticket already exists — re-attach the label and skip creation
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: pr.number,
+                  labels: [LABEL],
+                });
+                core.info(`PR #${pr.number} already has ${existing.issue.identifier} — re-added label`);
+                continue;
+              }
+
+              // Create the Linear issue
+              const input = {
+                teamId: process.env.LINEAR_TEAM_ID,
+                title: pr.title,
+                description: `GitHub PR by @${pr.user.login}: ${pr.html_url}\n\n${pr.body ?? ''}`,
+                ...(triageStateId && { stateId: triageStateId }),
+              };
+
+              const res = await linearFetch(`
+                mutation CreateIssue($input: IssueCreateInput!) {
+                  issueCreate(input: $input) {
+                    success
+                    issue { id identifier url }
+                  }
+                }
+              `, { input });
+
+              if (!res.data?.issueCreate?.success) {
+                core.warning(`Failed for PR #${pr.number}: ${JSON.stringify(res)}`);
+                continue; // skip labeling so next run retries
+              }
+
+              const issue = res.data.issueCreate.issue;
+
+              // Attach the PR URL to the Linear issue (used for deduplication)
+              await linearFetch(`
+                mutation CreateAttachment($input: AttachmentCreateInput!) {
+                  attachmentCreate(input: $input) {
+                    success
+                  }
+                }
+              `, {
+                input: {
+                  issueId: issue.id,
+                  url: pr.html_url,
+                  title: `GitHub PR #${pr.number}`,
+                },
+              });
+
+              // Add label to PR (signals the PR is tracked; no Linear URL posted publicly)
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                labels: [LABEL],
+              });
+
+              core.info(`Created ${issue.identifier} for PR #${pr.number}`);
+            }
