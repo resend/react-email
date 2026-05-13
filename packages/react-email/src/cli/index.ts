@@ -61,8 +61,8 @@ if (!hasRequiredFlags) {
       './emails',
     )
     .addOption(
-      // Deprecated and hidden from --help; the runtime warning lives in build.ts.
-      new Option('-p, --packageManager <name>').default('npm').hideHelp(),
+      // deprecated
+      new Option('-p, --packageManager <name>').hideHelp(),
     )
     .action(build);
 
