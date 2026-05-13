@@ -1,38 +1,65 @@
 import { createClient } from '@supabase/supabase-js';
 import { checkRateLimit } from '@vercel/firewall';
+import { ipAddress } from '@vercel/functions';
 import { type NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { z } from 'zod';
+import {
+  sendTestIpRatelimit,
+  sendTestRecipientRatelimit,
+  tryConsume,
+} from '@/lib/rate-limiter';
 
 export function OPTIONS() {
   return Promise.resolve(NextResponse.json({}));
 }
 
 const bodySchema = z.object({
-  to: z.string(),
+  to: z.string().email(),
   subject: z.string(),
   html: z.string(),
 });
 
 export async function POST(req: NextRequest) {
-  const { rateLimited, error } = await checkRateLimit('test-email-sending', {
-    request: req,
-  });
-
-  if (error === 'not-found') {
+  // Layer 1: Vercel firewall edge pre-filter. Cheap, denies obvious floods before
+  // we touch Redis or parse the body. Also a backstop if Upstash fails open.
+  const { rateLimited, error: firewallError } = await checkRateLimit(
+    'test-email-sending',
+    { request: req },
+  );
+  if (firewallError === 'not-found') {
     throw new Error(
       'Firewall rule not found, failing all requests going forward to guard our reputation.',
     );
   }
   if (rateLimited) {
+    return NextResponse.json({ error: 'Rate limit exceeded' }, { status: 429 });
+  }
+
+  let body: z.infer<typeof bodySchema>;
+  try {
+    body = bodySchema.parse(await req.json());
+  } catch (error) {
     return NextResponse.json(
       {
-        error: 'Rate limit exceeded',
+        error: error instanceof Error ? error.message : 'Invalid request body',
       },
-      {
-        status: 429,
-      },
+      { status: 400 },
     );
+  }
+  const { to, subject, html } = body;
+
+  // Layer 2: atomic Redis limiters via rate-limiter-flexible. Enforces the
+  // threshold under parallel bursts, and the per-recipient cap closes the
+  // phishing-campaign attack regardless of how many IPs an attacker rotates
+  // through. Falls open on Redis errors (see tryConsume).
+  const ip = ipAddress(req) ?? 'unknown';
+  const [ipCheck, recipientCheck] = await Promise.all([
+    tryConsume(sendTestIpRatelimit, ip),
+    tryConsume(sendTestRecipientRatelimit, to.toLowerCase()),
+  ]);
+  if (!ipCheck.allowed || !recipientCheck.allowed) {
+    return NextResponse.json({ error: 'Rate limit exceeded' }, { status: 429 });
   }
 
   const resend = new Resend(process.env.RESEND_API_KEY);
@@ -46,9 +73,7 @@ export async function POST(req: NextRequest) {
   const supabase = createClient(supabaseUrl, supabaseKey);
 
   try {
-    const { to, subject, html } = bodySchema.parse(await req.json());
-
-    const ip = req.headers.get('x-vercel-forwarded-for');
+    const forwardedIp = req.headers.get('x-vercel-forwarded-for');
     const latitude = req.headers.get('x-vercel-ip-latitude');
     const longitude = req.headers.get('x-vercel-ip-longitude');
     const city = req.headers.get('x-vercel-ip-city');
@@ -59,7 +84,7 @@ export async function POST(req: NextRequest) {
       to: [to],
       subject,
       html,
-      ip,
+      ip: forwardedIp,
       latitude,
       longitude,
       city,
