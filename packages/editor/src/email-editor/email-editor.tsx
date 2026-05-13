@@ -188,7 +188,9 @@ export const EmailEditor = forwardRef<EmailEditorRef, EmailEditorProps>(
         <RefBridge editorRef={ref} onUpdateRef={onUpdateRef} />
         <EmailEditorReadyBridge onReadyRef={onReadyRef} />
         <BubbleMenu
-          hideWhenActiveNodes={bubbleMenu?.hideWhenActiveNodes ?? ['button', 'horizontalRule']}
+          hideWhenActiveNodes={
+            bubbleMenu?.hideWhenActiveNodes ?? ['button', 'horizontalRule']
+          }
           hideWhenActiveMarks={bubbleMenu?.hideWhenActiveMarks ?? ['link']}
         />
         <BubbleMenu.LinkDefault />

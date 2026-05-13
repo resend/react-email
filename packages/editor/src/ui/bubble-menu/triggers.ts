@@ -1,5 +1,5 @@
 import type { Editor } from '@tiptap/core';
-import { NodeSelection, type EditorState } from '@tiptap/pm/state';
+import { type EditorState, NodeSelection } from '@tiptap/pm/state';
 import type { EditorView } from '@tiptap/pm/view';
 
 export interface TriggerParams {
