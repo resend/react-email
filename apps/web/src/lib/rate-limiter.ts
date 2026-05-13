@@ -36,12 +36,8 @@ export const sendTestRecipientRatelimit = new RateLimiterRedis({
   duration: 600,
 });
 
-/**
- * Wraps RateLimiterRedis#consume so the route handler can stay branch-light.
- * Fails open if the Redis client itself errors (network, auth, etc.) so a Redis
- * incident doesn't take down the legitimate Send button — the Layer-1 firewall
- * still gates volume.
- */
+// Fails open on Redis errors so a Redis incident doesn't take down the Send
+// button. The Vercel firewall rule is the fallback gate while Redis is down.
 export async function tryConsume(
   limiter: Limiter,
   key: string,

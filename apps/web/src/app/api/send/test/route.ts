@@ -21,8 +21,6 @@ const bodySchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
-  // Layer 1: Vercel firewall edge pre-filter. Cheap, denies obvious floods before
-  // we touch Redis or parse the body. Also a backstop if Upstash fails open.
   const { rateLimited, error: firewallError } = await checkRateLimit(
     'test-email-sending',
     { request: req },
@@ -49,10 +47,6 @@ export async function POST(req: NextRequest) {
   }
   const { to, subject, html } = body;
 
-  // Layer 2: atomic Redis limiters via rate-limiter-flexible. Enforces the
-  // threshold under parallel bursts, and the per-recipient cap closes the
-  // phishing-campaign attack regardless of how many IPs an attacker rotates
-  // through. Falls open on Redis errors (see tryConsume).
   const ip = ipAddress(req) ?? 'unknown';
   const [ipCheck, recipientCheck] = await Promise.all([
     tryConsume(sendTestIpRatelimit, ip),
