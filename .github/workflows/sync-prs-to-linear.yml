@@ -140,7 +140,13 @@ jobs:
               });
 
               if (!attachRes.data?.attachmentCreate?.success) {
-                core.warning(`Failed to attach PR #${pr.number} to Linear ticket — skipping label to allow retry`);
+                core.warning(`Failed to attach PR #${pr.number} to Linear ticket — adding label to avoid duplicate issue creation`);
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: pr.number,
+                  labels: [LABEL],
+                });
                 continue;
               }
 
