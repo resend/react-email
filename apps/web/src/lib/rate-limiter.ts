@@ -18,7 +18,6 @@ const redis = new IORedis(redisUrl, {
     }
     return Math.min(times * 50, 2000);
   },
-  enableOfflineQueue: false,
 }).on('error', (error) => {
   console.error('[REDIS] Caught error event', error);
 });
