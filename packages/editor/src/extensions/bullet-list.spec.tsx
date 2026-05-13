@@ -3,7 +3,7 @@ import { snapshotExtensionRender } from './__tests__/extension-test-helpers';
 import { BulletList } from './bullet-list';
 
 describe('BulletList Node', () => {
-  it('wraps children in <ul> with the inherited style', async () => {
+  it('renders the snapshot', async () => {
     await snapshotExtensionRender({
       extension: BulletList as unknown as Parameters<
         typeof snapshotExtensionRender

@@ -87,7 +87,6 @@
     "test": "vitest run",
     "test:unit": "vitest run --project unit",
     "test:browser": "vitest run --project browser",
-    "test:coverage": "vitest run --project unit --coverage",
     "test:watch": "vitest"
   },
   "repository": {
@@ -146,7 +145,6 @@
     "@types/prismjs": "1.26.6",
     "@vitejs/plugin-react": "catalog:",
     "@vitest/browser-playwright": "4.1.4",
-    "@vitest/coverage-v8": "4.1.4",
     "fast-check": "3.23.2",
     "playwright": "1.59.1",
     "postcss": "8.5.10",

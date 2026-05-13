@@ -3,7 +3,7 @@ import { snapshotExtensionRender } from './__tests__/extension-test-helpers';
 import { Blockquote } from './blockquote';
 
 describe('Blockquote Node', () => {
-  it('renders a blockquote with the inherited style and class', async () => {
+  it('renders the snapshot', async () => {
     await snapshotExtensionRender({
       extension: Blockquote as unknown as Parameters<
         typeof snapshotExtensionRender

@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Blockquote Node > renders a blockquote with the inherited style and class 1`] = `
+exports[`Blockquote Node > renders the snapshot 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--$-->
 <blockquote class="node-blockquote" style="border-left:3px solid">

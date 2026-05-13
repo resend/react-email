@@ -3,7 +3,7 @@ import { snapshotExtensionRender } from './__tests__/extension-test-helpers';
 import { Italic } from './italic';
 
 describe('Italic Mark', () => {
-  it('wraps children in <em> with the inherited style', async () => {
+  it('renders the snapshot', async () => {
     await snapshotExtensionRender({
       extension: Italic as unknown as Parameters<
         typeof snapshotExtensionRender

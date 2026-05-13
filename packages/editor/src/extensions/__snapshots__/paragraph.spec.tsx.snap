@@ -1,14 +1,14 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Paragraph Node > applies inline style and alignment 1`] = `
+exports[`Paragraph Node > renders the snapshot when empty 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--$-->
-<p style="color:red;text-align:center">centered</p>
+<p><br /></p>
 <!--/$-->
 "
 `;
 
-exports[`Paragraph Node > renders class attribute when present 1`] = `
+exports[`Paragraph Node > renders the snapshot with class and content 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--$-->
 <p class="node-paragraph">hello</p>
@@ -16,10 +16,10 @@ exports[`Paragraph Node > renders class attribute when present 1`] = `
 "
 `;
 
-exports[`Paragraph Node > renders empty paragraph with a <br> placeholder 1`] = `
+exports[`Paragraph Node > renders the snapshot with inline style and alignment 1`] = `
 "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--$-->
-<p><br /></p>
+<p style="color:red;text-align:center">centered</p>
 <!--/$-->
 "
 `;

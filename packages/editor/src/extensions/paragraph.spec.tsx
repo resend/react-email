@@ -3,7 +3,7 @@ import { snapshotExtensionRender } from './__tests__/extension-test-helpers';
 import { Paragraph } from './paragraph';
 
 describe('Paragraph Node', () => {
-  it('renders empty paragraph with a <br> placeholder', async () => {
+  it('renders the snapshot when empty', async () => {
     await snapshotExtensionRender({
       extension: Paragraph as unknown as Parameters<
         typeof snapshotExtensionRender
@@ -12,7 +12,7 @@ describe('Paragraph Node', () => {
     });
   });
 
-  it('renders class attribute when present', async () => {
+  it('renders the snapshot with class and content', async () => {
     await snapshotExtensionRender({
       extension: Paragraph as unknown as Parameters<
         typeof snapshotExtensionRender
@@ -26,7 +26,7 @@ describe('Paragraph Node', () => {
     });
   });
 
-  it('applies inline style and alignment', async () => {
+  it('renders the snapshot with inline style and alignment', async () => {
     await snapshotExtensionRender({
       extension: Paragraph as unknown as Parameters<
         typeof snapshotExtensionRender

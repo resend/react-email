@@ -1,5 +1,6 @@
 import type { Editor } from '@tiptap/core';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { createTestEditor } from '../../__tests__/editor-test-helpers';
 import {
   BULLET_LIST,
   BUTTON,
@@ -21,66 +22,58 @@ import type { SlashCommandItem } from './types';
 
 vi.mock('@/actions/ai', () => ({ uploadImageViaAI: vi.fn() }));
 
-function makeFakeEditor() {
-  const ops: string[] = [];
-  const calls: Record<string, unknown[][]> = {};
-
-  // Proxy chain so any tiptap command name is auto-tracked. `run` and
-  // `setNode` are explicit so we can assert their args directly.
-  const setNode = vi.fn((node: string, _attrs?: unknown) => {
-    ops.push(`setNode:${node}`);
-    return chainProxy;
-  });
-  const run = vi.fn(() => true);
-
-  const chainProxy: Record<string, unknown> = new Proxy(
-    {},
-    {
-      get(_t, prop: string) {
-        if (prop === 'setNode') return setNode;
-        if (prop === 'run') return run;
-        return (...args: unknown[]) => {
-          ops.push(prop);
-          calls[prop] = (calls[prop] ?? []).concat([args]);
-          return chainProxy;
-        };
-      },
-    },
-  ) as Record<string, unknown>;
-
-  return {
-    editor: { chain: () => chainProxy } as unknown as Editor,
-    ops,
-    calls,
-    chain: { setNode, run } as { setNode: typeof setNode; run: typeof run },
-  };
+interface NodeShape {
+  type?: string;
+  attrs?: Record<string, unknown>;
+  content?: NodeShape[];
 }
 
-const FAKE_RANGE = { from: 0, to: 0 };
+function findNodeOfType(editor: Editor, type: string): NodeShape | undefined {
+  const walk = (nodes: NodeShape[] | undefined): NodeShape | undefined => {
+    if (!nodes) return undefined;
+    for (const n of nodes) {
+      if (n.type === type) return n;
+      const inner = walk(n.content);
+      if (inner) return inner;
+    }
+    return undefined;
+  };
+  return walk((editor.getJSON() as NodeShape).content);
+}
 
-const COMMAND_TABLE: Array<{ name: string; cmd: SlashCommandItem }> = [
-  { name: 'TEXT', cmd: TEXT },
-  { name: 'H1', cmd: H1 },
-  { name: 'H2', cmd: H2 },
-  { name: 'H3', cmd: H3 },
-  { name: 'BULLET_LIST', cmd: BULLET_LIST },
-  { name: 'NUMBERED_LIST', cmd: NUMBERED_LIST },
-  { name: 'QUOTE', cmd: QUOTE },
-  { name: 'CODE', cmd: CODE },
-  { name: 'BUTTON', cmd: BUTTON },
-  { name: 'DIVIDER', cmd: DIVIDER },
-  { name: 'SECTION', cmd: SECTION },
-  { name: 'TWO_COLUMNS', cmd: TWO_COLUMNS },
-  { name: 'THREE_COLUMNS', cmd: THREE_COLUMNS },
-  { name: 'FOUR_COLUMNS', cmd: FOUR_COLUMNS },
+function hasNodeOfType(editor: Editor, type: string): boolean {
+  return findNodeOfType(editor, type) !== undefined;
+}
+
+const COMMAND_TABLE: Array<{
+  name: string;
+  cmd: SlashCommandItem;
+  expectedNode: string;
+}> = [
+  { name: 'TEXT', cmd: TEXT, expectedNode: 'paragraph' },
+  { name: 'H1', cmd: H1, expectedNode: 'heading' },
+  { name: 'H2', cmd: H2, expectedNode: 'heading' },
+  { name: 'H3', cmd: H3, expectedNode: 'heading' },
+  { name: 'BULLET_LIST', cmd: BULLET_LIST, expectedNode: 'bulletList' },
+  { name: 'NUMBERED_LIST', cmd: NUMBERED_LIST, expectedNode: 'orderedList' },
+  { name: 'QUOTE', cmd: QUOTE, expectedNode: 'blockquote' },
+  { name: 'CODE', cmd: CODE, expectedNode: 'codeBlock' },
+  { name: 'BUTTON', cmd: BUTTON, expectedNode: 'button' },
+  { name: 'DIVIDER', cmd: DIVIDER, expectedNode: 'horizontalRule' },
+  { name: 'SECTION', cmd: SECTION, expectedNode: 'section' },
+  { name: 'TWO_COLUMNS', cmd: TWO_COLUMNS, expectedNode: 'twoColumns' },
+  { name: 'THREE_COLUMNS', cmd: THREE_COLUMNS, expectedNode: 'threeColumns' },
+  { name: 'FOUR_COLUMNS', cmd: FOUR_COLUMNS, expectedNode: 'fourColumns' },
 ];
 
-describe('slash commands', () => {
-  afterEach(() => vi.clearAllMocks());
+describe.each(COMMAND_TABLE)('slash command $name', ({ cmd, expectedNode }) => {
+  let editor: Editor | null = null;
+  afterEach(() => {
+    editor?.destroy();
+    editor = null;
+  });
 
-  it.each(COMMAND_TABLE)('$name has the required SlashCommandItem fields', ({
-    cmd,
-  }) => {
+  it('has the required SlashCommandItem shape', () => {
     expect(cmd.title).toBeTruthy();
     expect(cmd.description).toBeTruthy();
     expect(typeof cmd.command).toBe('function');
@@ -88,45 +81,38 @@ describe('slash commands', () => {
     expect(cmd.searchTerms.length).toBeGreaterThan(0);
   });
 
-  it.each(COMMAND_TABLE)('$name dispatches at least one chain operation', ({
-    cmd,
-  }) => {
-    const { editor, ops } = makeFakeEditor();
-    cmd.command({ editor, range: FAKE_RANGE });
-    expect(ops.length).toBeGreaterThan(0);
+  it(`inserts a ${expectedNode} node into the editor`, () => {
+    editor = createTestEditor();
+    const { from, to } = editor.state.selection;
+    cmd.command({ editor, range: { from, to } });
+    expect(hasNodeOfType(editor, expectedNode)).toBe(true);
+  });
+});
+
+describe('slash commands — heading levels', () => {
+  let editor: Editor | null = null;
+  afterEach(() => {
+    editor?.destroy();
+    editor = null;
   });
 
-  it.each(COMMAND_TABLE)('$name calls run() exactly once', ({ cmd }) => {
-    const { editor, chain } = makeFakeEditor();
-    cmd.command({ editor, range: FAKE_RANGE });
-    expect(chain.run).toHaveBeenCalledTimes(1);
+  it.each([
+    { cmd: H1, level: 1 },
+    { cmd: H2, level: 2 },
+    { cmd: H3, level: 3 },
+  ])('$cmd.title sets heading level to $level', ({ cmd, level }) => {
+    editor = createTestEditor();
+    const { from, to } = editor.state.selection;
+    cmd.command({ editor, range: { from, to } });
+    const heading = findNodeOfType(editor, 'heading');
+    expect(heading?.attrs?.level).toBe(level);
   });
+});
 
-  it('defaultSlashCommands includes all canonical commands', () => {
-    expect(defaultSlashCommands).toContain(TEXT);
-    expect(defaultSlashCommands).toContain(H1);
-    expect(defaultSlashCommands).toContain(BULLET_LIST);
-    expect(defaultSlashCommands).toContain(BUTTON);
-    expect(defaultSlashCommands).toContain(SECTION);
-    expect(defaultSlashCommands).toContain(TWO_COLUMNS);
-    expect(defaultSlashCommands.length).toBeGreaterThanOrEqual(
-      COMMAND_TABLE.length,
-    );
-  });
-
-  // Heading levels must be distinct: H1/H2/H3 setNode calls carry the
-  // appropriate level attr.
-  it('H1/H2/H3 use distinct heading levels', () => {
-    const f1 = makeFakeEditor();
-    H1.command({ editor: f1.editor, range: FAKE_RANGE });
-    expect(f1.chain.setNode).toHaveBeenCalledWith('heading', { level: 1 });
-
-    const f2 = makeFakeEditor();
-    H2.command({ editor: f2.editor, range: FAKE_RANGE });
-    expect(f2.chain.setNode).toHaveBeenCalledWith('heading', { level: 2 });
-
-    const f3 = makeFakeEditor();
-    H3.command({ editor: f3.editor, range: FAKE_RANGE });
-    expect(f3.chain.setNode).toHaveBeenCalledWith('heading', { level: 3 });
+describe('defaultSlashCommands', () => {
+  it('includes all canonical commands', () => {
+    for (const { cmd } of COMMAND_TABLE) {
+      expect(defaultSlashCommands).toContain(cmd);
+    }
   });
 });

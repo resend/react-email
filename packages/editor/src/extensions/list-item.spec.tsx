@@ -3,7 +3,7 @@ import { snapshotExtensionRender } from './__tests__/extension-test-helpers';
 import { ListItem } from './list-item';
 
 describe('ListItem Node', () => {
-  it('wraps children in <li> with style', async () => {
+  it('renders the snapshot', async () => {
     await snapshotExtensionRender({
       extension: ListItem as unknown as Parameters<
         typeof snapshotExtensionRender

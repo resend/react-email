@@ -3,7 +3,7 @@ import { snapshotExtensionRender } from './__tests__/extension-test-helpers';
 import { Underline } from './underline';
 
 describe('Underline Mark', () => {
-  it('wraps children in the underline element with style', async () => {
+  it('renders the snapshot', async () => {
     await snapshotExtensionRender({
       extension: Underline as unknown as Parameters<
         typeof snapshotExtensionRender

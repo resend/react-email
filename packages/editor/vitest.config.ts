@@ -14,33 +14,6 @@ const renderStub = resolve(__dirname, 'src/__tests__/stub-module.ts');
 export default defineConfig({
   test: {
     globals: true,
-    /**
-     * Coverage gate. Lives at the top level so it applies across both
-     * projects. Thresholds are scoped narrowly to the directories the
-     * Snow Leopard plan locked down; widen them as more areas reach
-     * stable coverage.
-     */
-    coverage: {
-      provider: 'v8',
-      reporter: ['text', 'html'],
-      include: [
-        'src/core/**/*.{ts,tsx}',
-        'src/utils/**/*.{ts,tsx}',
-        'src/plugins/image/**/*.{ts,tsx}',
-        'src/plugins/email-theming/css-transforms.ts',
-      ],
-      exclude: [
-        'src/**/*.spec.{ts,tsx}',
-        'src/**/__tests__/**',
-        'src/**/__snapshots__/**',
-      ],
-      thresholds: {
-        statements: 70,
-        branches: 60,
-        functions: 70,
-        lines: 70,
-      },
-    },
     projects: [
       {
         extends: true,

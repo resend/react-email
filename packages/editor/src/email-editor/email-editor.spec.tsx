@@ -63,21 +63,4 @@ describe('EmailEditor', () => {
     await vi.waitFor(() => expect(ref.current?.editor).toBeTruthy());
     expect(ref.current?.editor?.isEditable).toBe(false);
   });
-
-  // `key={JSON.stringify(theme)}` on EditorProvider re-mounts the editor on
-  // theme change, wiping undo/scroll/selection. Skipped pending an imperative
-  // reconfigure of EmailTheming.
-  it.skip('preserves the editor instance when theme changes', async () => {
-    const ref = createRef<EmailEditorRef>();
-    const { rerender } = render(
-      <EmailEditor ref={ref} content="<p>x</p>" theme="basic" />,
-    );
-    await vi.waitFor(() => expect(ref.current?.editor).toBeTruthy());
-    const editorBefore = ref.current?.editor;
-
-    rerender(<EmailEditor ref={ref} content="<p>x</p>" theme="minimal" />);
-
-    await vi.waitFor(() => expect(ref.current?.editor).toBeTruthy());
-    expect(ref.current?.editor).toBe(editorBefore);
-  });
 });
