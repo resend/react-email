@@ -96,7 +96,7 @@ jobs:
                   issue_number: pr.number,
                   labels: [LABEL],
                 });
-                core.info(`PR #${pr.number} already has ${existing.issue.identifier} — re-added label`);
+                core.info(`PR #${pr.number} already has a Linear ticket — re-added label`);
                 continue;
               }
 
@@ -118,7 +118,7 @@ jobs:
               `, { input });
 
               if (!res.data?.issueCreate?.success) {
-                core.warning(`Failed for PR #${pr.number}: ${JSON.stringify(res)}`);
+                core.warning(`Failed to create Linear ticket for PR #${pr.number}`);
                 continue; // skip labeling so next run retries
               }
 
@@ -147,5 +147,5 @@ jobs:
                 labels: [LABEL],
               });
 
-              core.info(`Created ${issue.identifier} for PR #${pr.number}`);
+              core.info(`Created Linear ticket for PR #${pr.number}`);
             }
