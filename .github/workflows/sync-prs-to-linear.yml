@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
-      pull-requests: read
+      pull-requests: write
       issues: write
 
     steps:
