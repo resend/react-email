@@ -13,11 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
-      pull-requests: read
+      pull-requests: write
       issues: write
 
     steps:
-      - uses: resend/public-shared-workflows/.github/actions/sync_prs_to_linear@3eb5c6b385a32cbef0551f50f4b6b01651cf1644
+      - uses: resend/public-shared-workflows/.github/actions/sync_prs_to_linear@8e1157bc66378899c7e80a49b45b1a0a0067f7a5
         with:
           linear-api-key: ${{ secrets.LINEAR_API_KEY }}
           linear-team-id: ${{ secrets.LINEAR_TEAM_ID }}
