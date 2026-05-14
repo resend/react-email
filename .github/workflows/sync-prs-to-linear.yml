@@ -17,7 +17,7 @@ jobs:
       issues: write
 
     steps:
-      - uses: resend/public-shared-workflows/.github/actions/sync_prs_to_linear@a25ae88674e3c8650510065401a899e323c2d1eb
+      - uses: resend/public-shared-workflows/.github/actions/sync_prs_to_linear@13c71d228b49123ff7731a45d56bce4540948814
         with:
           linear-api-key: ${{ secrets.LINEAR_API_KEY }}
           linear-team-id: ${{ secrets.LINEAR_TEAM_ID }}
