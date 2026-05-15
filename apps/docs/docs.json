@@ -67,9 +67,9 @@
                 ]
               },
               {
-                "group": "Common Problems",
+                "group": "Troubleshooting",
                 "icon": "circle-exclamation",
-                "pages": ["guides/common-problems/tsup-decorator-metadata"]
+                "pages": ["guides/troubleshooting/tsup-decorator-metadata"]
               }
             ]
           },
