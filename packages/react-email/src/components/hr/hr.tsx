@@ -10,6 +10,7 @@ export const Hr = React.forwardRef<HTMLHRElement, HrProps>(
       style={{
         width: '100%',
         border: 'none',
+        borderColor: 'transparent',
         borderTop: '1px solid #eaeaea',
         ...style,
       }}

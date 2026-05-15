@@ -382,6 +382,43 @@ describe('injectThemeCss', () => {
     );
     expect(styleTag?.textContent).not.toContain('.editor-scope .node-body');
   });
+
+  it('applies reset styles through concrete node selectors', () => {
+    injectThemeCss(
+      {
+        reset: { margin: '0', padding: '0' },
+        paragraph: { fontSize: '1em' },
+        list: { paddingLeft: '1.1em' },
+        bulletList: { listStyleType: 'disc' },
+        orderedList: { listStyleType: 'decimal' },
+        nestedList: { paddingBottom: '0' },
+        listParagraph: { padding: '0', margin: '0' },
+      } as CssJs,
+      { styleId: STYLE_ID, scopeSelector: '.editor-scope' },
+    );
+
+    const styleTag = document.getElementById(STYLE_ID);
+
+    expect(styleTag?.textContent).toContain(
+      '.editor-scope .node-paragraph{margin:0;padding:0;font-size:1em;}',
+    );
+    expect(styleTag?.textContent).toContain(
+      '.editor-scope .node-list,.editor-scope .node-bulletList,.editor-scope .node-orderedList{margin:0;padding:0;padding-left:1.1em;}',
+    );
+    expect(styleTag?.textContent).toContain(
+      '.editor-scope .node-bulletList{list-style-type:disc;}',
+    );
+    expect(styleTag?.textContent).toContain(
+      '.editor-scope .node-orderedList{list-style-type:decimal;}',
+    );
+    expect(styleTag?.textContent).toContain(
+      '.editor-scope .node-nestedList,.editor-scope .node-list .node-list',
+    );
+    expect(styleTag?.textContent).toContain(
+      '.editor-scope .node-listItem > .node-paragraph{margin:0;padding:0;}',
+    );
+    expect(styleTag?.textContent).not.toContain('.node-reset');
+  });
 });
 
 describe('injectGlobalPlainCss', () => {

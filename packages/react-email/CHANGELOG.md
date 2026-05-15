@@ -1,5 +1,47 @@
 # react-email
 
+## 6.1.4
+
+### Patch Changes
+
+- 1c386ce: Avoid spamming each spinner frame as a new line on non-TTY streams (CI logs, pipes, dumb terminals). The spinner now logs each status text once instead of redrawing animated frames when the output is not a TTY.
+- ad6a9de: - deprecate packageManager CLI option for `email build`, only supporting npm
+  - ensure `email build` dependency installation includes dev dependencies
+
+## 6.1.3
+
+## 6.1.2
+
+## 6.1.1
+
+### Patch Changes
+
+- 3c62bd0: fix divider with extra borders around other corners
+
+## 6.1.0
+
+### Patch Changes
+
+- 47eeece: Tailwind: clearer error when `<Head>` is outside `<Tailwind>`
+
+## 6.0.8
+
+### Patch Changes
+
+- 65525e0: Tailwind: parse non inline configuration variables
+
+## 6.0.7
+
+### Patch Changes
+
+- 87a2486: undo nesting of all media queries, and replace >= <= exxpressions with min-width/max-width on the Tailwind component
+
+## 6.0.6
+
+### Patch Changes
+
+- 84bb7ab: collapse empty-fallback var() refs in inline styles
+
 ## 6.0.5
 
 ## 6.0.4

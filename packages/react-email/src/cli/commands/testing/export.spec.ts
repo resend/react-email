@@ -197,7 +197,7 @@ test('email export', { retry: 3 }, async () => {
                             target="_blank"></a>
                         </p>
                         <hr
-                          style="width:100%;border:none;border-top:1px solid #eaeaea;margin-right:0;margin-left:0;margin-bottom:26px;margin-top:26px;border-style:solid;border-width:1px;border-color:rgb(234,234,234)" />
+                          style="width:100%;border:none;border-color:rgb(234,234,234);border-top:1px solid #eaeaea;margin-right:0;margin-left:0;margin-bottom:26px;margin-top:26px;border-style:solid;border-width:1px" />
                         <p
                           style="font-size:12px;line-height:24px;color:rgb(102,102,102);margin-top:16px;margin-bottom:16px">
                           This invitation was intended for<!-- -->

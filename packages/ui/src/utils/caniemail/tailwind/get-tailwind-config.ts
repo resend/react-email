@@ -22,10 +22,22 @@ export const getTailwindConfig = async (
         ? configAttribute.value.expression
         : undefined;
     if (configExpressionValue?.start && configExpressionValue.end) {
-      const configSourceValue = sourceCode.slice(
+      let configSourceValue = sourceCode.slice(
         configExpressionValue.start,
         configExpressionValue.end,
       );
+
+      if (configExpressionValue.type === 'Identifier') {
+        const initSource = findVariableInitializer(
+          ast,
+          sourceCode,
+          configExpressionValue.name,
+        );
+
+        if (initSource !== undefined) {
+          configSourceValue = initSource;
+        }
+      }
 
       try {
         return getConfigFromCode(
@@ -109,6 +121,34 @@ export { reactEmailTailwindConfigInternal };`,
       },
     },
   );
+};
+
+const findVariableInitializer = (
+  ast: AST,
+  sourceCode: string,
+  name: string,
+): string | undefined => {
+  let initSource: string | undefined;
+
+  traverse(ast, {
+    JSXOpeningElement(nodePath) {
+      if (
+        nodePath.node.name.type === 'JSXIdentifier' &&
+        nodePath.node.name.name === 'Tailwind'
+      ) {
+        const binding = nodePath.scope.getBinding(name);
+        if (binding?.path.isVariableDeclarator()) {
+          const { init } = binding.path.node;
+          if (init?.start != null && init.end != null) {
+            initSource = sourceCode.slice(init.start, init.end);
+          }
+        }
+        nodePath.stop();
+      }
+    },
+  });
+
+  return initSource;
 };
 
 type JSXAttribute = Node & { type: 'JSXAttribute' };

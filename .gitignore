@@ -11,6 +11,7 @@ coverage
 **/__screenshots__/
 **/*/package-lock.json
 **/*/yalc.lock
+.yalc*
 
 # next.js
 .next/

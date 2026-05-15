@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "react-email": "file:.yalc/react-email",
-    "next": "^15",
+    "next": "^16",
     "react": "^19",
     "react-dom": "^19"
   },
