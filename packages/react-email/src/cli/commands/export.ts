@@ -36,21 +36,13 @@ type ExportTemplatesOptions = Options & {
   pretty?: boolean;
 };
 
-// esbuild bundles each entry's full dep graph in-memory, so building all
-// templates in one call OOMs at high counts (#2887). Batching caps peak
-// memory at BUILD_BATCH_SIZE × per-entry cost.
+// Batch so esbuild's Go-side dep graph isn't held for every entry at once.
 const BUILD_BATCH_SIZE = 10;
 
-// Each bundled .cjs is ~1.5MB of self-contained code (inlined react-email,
-// tailwind, css-tree, react). Requiring many in one process accumulates V8
-// state that `delete require.cache[...]` cannot release. Renders run in
-// worker_threads, RENDER_BATCH_SIZE templates per worker, so each batch's
-// V8 isolate is reclaimed when the worker exits.
+// Render each batch in a worker so its V8 isolate is freed on exit;
+// require.cache alone doesn't release the inlined react-email bundles.
 const RENDER_BATCH_SIZE = 25;
 
-// Inlined as a string so we don't need a separate worker file (which would
-// require path/extension juggling between dev source and bundled dist).
-// CommonJS because `new Worker(code, { eval: true })` evaluates as CJS.
 const renderWorkerSource = `
 const { unlinkSync, writeFileSync } = require('node:fs');
 const { parentPort, workerData } = require('node:worker_threads');
@@ -145,8 +137,6 @@ export const exportTemplates = async (
         plugins: [renderingUtilitiesExporter(batch)],
         write: true,
       });
-      // Kill the esbuild service between batches so Go releases its RSS;
-      // the next build() spawns a fresh process.
       await stop();
     }
   } catch (exception) {
