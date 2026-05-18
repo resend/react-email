@@ -179,7 +179,6 @@ export const exportTemplates = async (
         const worker = new Worker(renderWorkerSource, {
           eval: true,
           workerData: { templates: batch, options },
-          execArgv: process.execArgv,
         });
         worker.on('message', (msg: RenderWorkerMessage) => {
           if (msg.type === 'progress') {
