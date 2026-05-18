@@ -40,6 +40,7 @@ jobs:
           SPAM_ASSASSIN_PORT: ${{ github.event.pull_request.head.repo.full_name == github.repository && secrets.SPAM_ASSASSIN_PORT || '' }}
           TURBO_TOKEN: ${{ github.event.pull_request.head.repo.full_name == github.repository && secrets.TURBO_TOKEN || '' }}
           TURBO_TEAM: ${{ github.event.pull_request.head.repo.full_name == github.repository && secrets.TURBO_TEAM || '' }}
+          REDIS_URL: redis://localhost:6379
       - name: Publish changed packages to pkg.pr.new
         if: steps.changed_packages.outputs.all_changed_and_modified_files != ''
         run: pnpm pkg-pr-new publish ${{ steps.changed_packages.outputs.all_changed_and_modified_files }} --pnpm
