@@ -6,6 +6,7 @@ import { type BuildFailure, build, stop } from 'esbuild';
 import { glob } from 'glob';
 import logSymbols from 'log-symbols';
 import normalize from 'normalize-path';
+import { inlineCssLoader } from '../utils/esbuild/inline-css-loader.js';
 import { renderingUtilitiesExporter } from '../utils/esbuild/renderring-utilities-exporter.js';
 import {
   type EmailsDirectory,
@@ -134,7 +135,7 @@ export const exportTemplates = async (
         outExtension: { '.js': '.cjs' },
         outdir: pathToWhereEmailMarkupShouldBeDumped,
         platform: 'node',
-        plugins: [renderingUtilitiesExporter(batch)],
+        plugins: [inlineCssLoader(), renderingUtilitiesExporter(batch)],
         write: true,
       });
       await stop();

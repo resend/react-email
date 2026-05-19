@@ -6,6 +6,7 @@ import type { TailwindConfig } from 'react-email';
 import type { RawSourceMap } from 'source-map-js';
 import type { AST } from '../../../actions/email-validation/check-compatibility';
 import { convertStackWithSourceMap } from '../../convert-stack-with-sourcemap';
+import { inlineCssLoader } from '../../esbuild/inline-css-loader';
 import { isErr } from '../../result';
 import { runBundledCode } from '../../run-bundled-code';
 
@@ -67,12 +68,13 @@ const getConfigFromCode = async (
   const configBuildResult = await esbuild.build({
     bundle: true,
     stdin: {
-      contents: `${code} 
+      contents: `${code}
 export { reactEmailTailwindConfigInternal };`,
       sourcefile: filepath,
       loader: 'tsx',
       resolveDir: configDirpath,
     },
+    plugins: [inlineCssLoader()],
     platform: 'node',
     sourcemap: 'external',
     jsx: 'automatic',

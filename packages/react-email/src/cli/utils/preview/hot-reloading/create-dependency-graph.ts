@@ -99,7 +99,9 @@ export const createDependencyGraph = async (directory: string) => {
       ? resolvePathAliases(getImportedModules(contents), path.dirname(filePath))
       : [];
     const importedPathsRelativeToDirectory = importedPaths.map(
-      (dependencyPath) => {
+      (rawDependencyPath) => {
+        // Strip bundler suffixes like `?inline` / `?raw` so the path resolves to a real file.
+        const dependencyPath = rawDependencyPath.split('?')[0]!;
         const isModulePath = !dependencyPath.startsWith('.');
 
         /*
