@@ -5,7 +5,11 @@ import {
   type TailwindSetup,
 } from 'react-email';
 import type { AST } from '../../../actions/email-validation/check-compatibility';
-import { getTailwindConfig } from './get-tailwind-config';
+import {
+  getTailwindConfig,
+  getTailwindCSSConfigs,
+  type TailwindCSSConfigs,
+} from './get-tailwind-config';
 
 export const getTailwindMetadata = async (
   ast: AST,
@@ -18,6 +22,7 @@ export const getTailwindMetadata = async (
   | {
       hasTailwind: true;
       config: TailwindConfig;
+      cssConfigs: TailwindCSSConfigs;
       tailwindSetup: TailwindSetup;
     }
 > => {
@@ -37,12 +42,19 @@ export const getTailwindMetadata = async (
     return { hasTailwind: false };
   }
 
-  const config = await getTailwindConfig(sourceCode, ast, sourcePath);
-  const tailwindSetup = await setupTailwind({ config });
+  const [config, cssConfigs] = await Promise.all([
+    getTailwindConfig(sourceCode, ast, sourcePath),
+    getTailwindCSSConfigs(sourceCode, ast, sourcePath),
+  ]);
+  const tailwindSetup = await setupTailwind({
+    config,
+    cssConfigs,
+  });
 
   return {
     hasTailwind: true,
     config,
+    cssConfigs,
     tailwindSetup,
   };
 };

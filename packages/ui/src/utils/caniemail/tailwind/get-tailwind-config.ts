@@ -10,12 +10,17 @@ import { inlineCssLoader } from '../../esbuild/inline-css-loader';
 import { isErr } from '../../result';
 import { runBundledCode } from '../../run-bundled-code';
 
+export interface TailwindCSSConfigs {
+  theme?: string;
+  utility?: string;
+}
+
 export const getTailwindConfig = async (
   sourceCode: string,
   ast: AST,
   sourcePath: string,
 ): Promise<TailwindConfig> => {
-  const configAttribute = getTailwindConfigNode(ast);
+  const { config: configAttribute } = getTailwindAttributes(ast);
 
   if (configAttribute) {
     const configExpressionValue =
@@ -155,29 +160,182 @@ const findVariableInitializer = (
 
 type JSXAttribute = Node & { type: 'JSXAttribute' };
 
-const getTailwindConfigNode = (ast: AST) => {
-  let tailwindConfigNode: JSXAttribute | undefined;
+interface TailwindAttributes {
+  config?: JSXAttribute;
+  theme?: JSXAttribute;
+  utility?: JSXAttribute;
+}
+
+const RECOGNIZED_ATTRIBUTES = new Set(['config', 'theme', 'utility'] as const);
+
+const getTailwindAttributes = (ast: AST): TailwindAttributes => {
+  const result: TailwindAttributes = {};
   traverse(ast, {
     JSXOpeningElement(nodePath) {
       if (
         nodePath.node.name.type === 'JSXIdentifier' &&
         nodePath.node.name.name === 'Tailwind'
       ) {
-        const configAttribute = nodePath.node.attributes.find(
-          (
-            attribute,
-          ): attribute is Node & {
-            type: 'JSXAttribute';
-          } =>
-            attribute.type === 'JSXAttribute' &&
-            attribute.name.type === 'JSXIdentifier' &&
-            attribute.name.name === 'config',
-        );
-        if (configAttribute) {
-          tailwindConfigNode = configAttribute;
+        for (const attribute of nodePath.node.attributes) {
+          if (
+            attribute.type !== 'JSXAttribute' ||
+            attribute.name.type !== 'JSXIdentifier'
+          ) {
+            continue;
+          }
+          const name = attribute.name.name;
+          if (
+            (RECOGNIZED_ATTRIBUTES as Set<string>).has(name) &&
+            !result[name as keyof TailwindAttributes]
+          ) {
+            result[name as keyof TailwindAttributes] =
+              attribute as JSXAttribute;
+          }
         }
       }
     },
   });
-  return tailwindConfigNode;
+  return result;
+};
+
+export const getTailwindCSSConfigs = async (
+  sourceCode: string,
+  ast: AST,
+  sourcePath: string,
+): Promise<TailwindCSSConfigs> => {
+  const attrs = getTailwindAttributes(ast);
+  if (!attrs.theme && !attrs.utility) {
+    return {};
+  }
+
+  // Direct string-literal values (e.g. theme="@theme {...}") never need bundling.
+  // Anything inside braces — variables, template literals, ?inline imports — does.
+  const themeLiteral = stringAttributeLiteral(attrs.theme);
+  const utilityLiteral = stringAttributeLiteral(attrs.utility);
+  const themeExpr =
+    themeLiteral === undefined
+      ? expressionSource(attrs.theme, sourceCode)
+      : undefined;
+  const utilityExpr =
+    utilityLiteral === undefined
+      ? expressionSource(attrs.utility, sourceCode)
+      : undefined;
+
+  if (themeExpr === undefined && utilityExpr === undefined) {
+    return {
+      ...(themeLiteral !== undefined ? { theme: themeLiteral } : {}),
+      ...(utilityLiteral !== undefined ? { utility: utilityLiteral } : {}),
+    };
+  }
+
+  try {
+    const resolved = await getStringsFromCode(
+      `${sourceCode}
+
+const reactEmailTailwindThemeInternal = ${themeExpr ?? 'undefined'};
+const reactEmailTailwindUtilityInternal = ${utilityExpr ?? 'undefined'};`,
+      sourcePath,
+    );
+    return {
+      ...(themeLiteral !== undefined
+        ? { theme: themeLiteral }
+        : resolved.theme !== undefined
+          ? { theme: resolved.theme }
+          : {}),
+      ...(utilityLiteral !== undefined
+        ? { utility: utilityLiteral }
+        : resolved.utility !== undefined
+          ? { utility: resolved.utility }
+          : {}),
+    };
+  } catch (exception) {
+    console.warn(exception);
+    console.warn(
+      'Could not resolve the theme/utility props on <Tailwind>. The caniemail compatibility check will not see styles produced by these props.',
+    );
+    return themeLiteral !== undefined || utilityLiteral !== undefined
+      ? {
+          ...(themeLiteral !== undefined ? { theme: themeLiteral } : {}),
+          ...(utilityLiteral !== undefined ? { utility: utilityLiteral } : {}),
+        }
+      : {};
+  }
+};
+
+const stringAttributeLiteral = (
+  attr: JSXAttribute | undefined,
+): string | undefined => {
+  if (!attr?.value) return undefined;
+  // Bare attribute form: `theme="..."` — `value` is the StringLiteral itself.
+  if (attr.value.type === 'StringLiteral') return attr.value.value;
+  return undefined;
+};
+
+const expressionSource = (
+  attr: JSXAttribute | undefined,
+  sourceCode: string,
+): string | undefined => {
+  if (!attr?.value || attr.value.type !== 'JSXExpressionContainer') {
+    return undefined;
+  }
+  const expr = attr.value.expression;
+  if (expr.start == null || expr.end == null) return undefined;
+  return sourceCode.slice(expr.start, expr.end);
+};
+
+const getStringsFromCode = async (
+  code: string,
+  filepath: string,
+): Promise<{ theme?: string; utility?: string }> => {
+  const dirpath = path.dirname(filepath);
+
+  const buildResult = await esbuild.build({
+    bundle: true,
+    stdin: {
+      contents: `${code}
+export { reactEmailTailwindThemeInternal, reactEmailTailwindUtilityInternal };`,
+      sourcefile: filepath,
+      loader: 'tsx',
+      resolveDir: dirpath,
+    },
+    plugins: [inlineCssLoader()],
+    platform: 'node',
+    sourcemap: 'external',
+    jsx: 'automatic',
+    outdir: 'stdout',
+    write: false,
+    format: 'esm',
+    logLevel: 'silent',
+  });
+  const sourceMapFile = buildResult.outputFiles[0]!;
+  const codeFile = buildResult.outputFiles[1];
+  if (codeFile === undefined) {
+    throw new Error(
+      'Could not build the theme/utility resolution bundle; this is most likely a bug, please open an issue.',
+    );
+  }
+
+  const moduleResult = await runBundledCode(codeFile.text, filepath);
+  if (isErr(moduleResult)) {
+    const sourceMap = JSON.parse(sourceMapFile.text) as RawSourceMap;
+    sourceMap.sourceRoot = path.resolve(sourceMapFile.path, '../..');
+    sourceMap.sources = sourceMap.sources.map((source) =>
+      path.resolve(sourceMapFile.path, '..', source),
+    );
+    const error = moduleResult.error as Error;
+    error.stack = convertStackWithSourceMap(error.stack, filepath, sourceMap);
+    throw error;
+  }
+
+  const value = moduleResult.value as Record<string, unknown>;
+  return {
+    theme:
+      typeof value.reactEmailTailwindThemeInternal === 'string'
+        ? value.reactEmailTailwindThemeInternal
+        : undefined,
+    utility:
+      typeof value.reactEmailTailwindUtilityInternal === 'string'
+        ? value.reactEmailTailwindUtilityInternal
+        : undefined,
+  };
 };
