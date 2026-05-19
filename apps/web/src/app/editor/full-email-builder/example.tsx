@@ -30,7 +30,7 @@ const content = `
 
 function Sidebar() {
   return (
-    <aside className="w-56 shrink-0 border-l border-(--re-border) p-3 flex flex-col gap-3 overflow-y-auto text-xs">
+    <aside className="w-56 shrink-0 border-l border-(--re-border) p-3 flex flex-col gap-3 text-xs">
       <Inspector.Root>
         <nav>
           <ol className="flex items-center gap-1 list-none m-0 p-0 mb-4">
@@ -104,11 +104,9 @@ function ExportPanel() {
         {exporting ? 'Exporting...' : 'Export HTML'}
       </button>
       {html && (
-        <textarea
-          readOnly
-          value={html}
-          className="mt-3 w-full h-64 p-3 font-mono text-xs bg-(--re-bg) text-(--re-text) border border-(--re-border) rounded-lg resize-y"
-        />
+        <pre className="mt-3 w-full p-3 font-mono text-xs bg-(--re-bg) text-(--re-text) border border-(--re-border) rounded-lg whitespace-pre-wrap break-all select-all">
+          {html}
+        </pre>
       )}
     </div>
   );
@@ -158,11 +156,8 @@ export function FullEmailBuilder() {
         </button>
       </div>
       <EditorContext.Provider value={{ editor }}>
-        <div
-          className="flex overflow-hidden -mx-4 -mb-4 border-t border-(--re-border)"
-          style={{ height: '32rem' }}
-        >
-          <div className="flex-1 min-w-0 m-4 mt-0 overflow-y-auto">
+        <div className="flex -mx-4 -mb-4 border-t border-(--re-border) min-h-0">
+          <div className="flex-1 min-w-0 m-4 mt-0">
             <EditorContent
               className="p-4 pt-0 bg-white rounded-md"
               editor={editor}

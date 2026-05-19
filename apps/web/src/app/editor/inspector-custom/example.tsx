@@ -30,14 +30,14 @@ export function InspectorCustom() {
       description="Build the entire inspector UI from scratch using only render-props data and plain HTML. No primitives or section components."
     >
       <EditorContext.Provider value={{ editor }}>
-        <div className="flex flex-1 min-h-0 overflow-hidden -m-4">
-          <div className="flex-1 min-w-0 m-4 mt-0 overflow-y-auto">
+        <div className="flex -m-4">
+          <div className="flex-1 min-w-0 m-4 mt-0">
             <EditorContent
               className="p-4 pt-0 bg-white rounded-md"
               editor={editor}
             />
           </div>
-          <aside className="w-60 shrink-0 border-l border-(--re-border) p-4 flex flex-col gap-3 overflow-y-auto text-xs">
+          <aside className="w-60 shrink-0 border-l border-(--re-border) p-4 flex flex-col gap-3 text-xs">
             <Inspector.Root>
               <Inspector.Document>
                 {({ findStyleValue, setGlobalStyle }) => (

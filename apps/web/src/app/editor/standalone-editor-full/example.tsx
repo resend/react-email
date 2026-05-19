@@ -77,11 +77,9 @@ export function StandaloneEditorFull() {
       />
 
       {output && (
-        <textarea
-          readOnly
-          value={output}
-          className="mt-4 w-full h-64 p-3 font-mono text-xs bg-(--re-bg) text-(--re-text) border border-(--re-border) rounded-lg resize-y"
-        />
+        <pre className="mt-4 w-full p-3 font-mono text-xs bg-(--re-bg) text-(--re-text) border border-(--re-border) rounded-lg whitespace-pre-wrap break-all select-all">
+          {output}
+        </pre>
       )}
     </ExampleShell>
   );
