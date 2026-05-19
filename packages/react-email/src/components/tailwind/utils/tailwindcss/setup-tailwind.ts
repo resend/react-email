@@ -25,7 +25,7 @@ export async function setupTailwind(props: SetupTailwindProps = {}) {
   if (stray.length > 0) {
     throw new Error(
       `setupTailwind now takes { config, cssConfigs } — received unexpected keys: ${stray.join(', ')}. ` +
-        `If you used to call setupTailwind(config), wrap it: setupTailwind({ config }).`,
+        'If you used to call setupTailwind(config), wrap it: setupTailwind({ config }).',
     );
   }
   const { config, cssConfigs } = props;
