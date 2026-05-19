@@ -77,7 +77,7 @@ export function StandaloneEditorFull() {
       />
 
       {output && (
-        <pre className="mt-4 w-full p-3 font-mono text-xs bg-(--re-bg) text-(--re-text) border border-(--re-border) rounded-lg whitespace-pre-wrap break-all select-all">
+        <pre className="mt-4 w-full p-3 font-mono text-xs bg-(--re-bg) text-(--re-text) border border-(--re-border) rounded-lg whitespace-pre-wrap break-words select-all">
           {output}
         </pre>
       )}
