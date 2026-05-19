@@ -81,9 +81,7 @@ export const pixelBasedPreset: TailwindConfig = {
 export interface TailwindProps {
   children: React.ReactNode;
   config?: TailwindConfig;
-  /** Tailwind theme in CSS. Used in Tailwind v4. */
   theme?: string;
-  /** Tailwind utilities in CSS. Used in Tailwind v4. */
   utility?: string;
 }
 
