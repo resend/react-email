@@ -6,17 +6,13 @@ import { join } from 'shlex';
 const filename = url.fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
-const root = path.resolve(dirname, '../src/index.ts');
+const root = path.resolve(dirname, '../src/cli/index.ts');
 
 const tsx = child_process.spawn(
   `pnpm tsx ${root} ${join(process.argv.slice(2))}`,
   {
     cwd: process.cwd(),
     shell: true,
-    env: {
-      ...process.env,
-      NODE_OPTIONS: `${process.env.NODE_OPTIONS ?? ''} --experimental-vm-modules --disable-warning=ExperimentalWarning`,
-    },
     stdio: 'inherit',
   },
 );

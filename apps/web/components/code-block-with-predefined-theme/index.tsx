@@ -1,4 +1,4 @@
-import { CodeBlock, dracula, Font } from '@react-email/components';
+import { CodeBlock, dracula, Font } from 'react-email';
 import { Layout } from '../_components/layout';
 
 export const component = (

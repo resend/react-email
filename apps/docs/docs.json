@@ -1,21 +1,29 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "almond",
   "name": "React Email",
   "colors": {
     "primary": "#06BCEE",
     "light": "#81D7F7",
-    "dark": "#06A6D1"
+    "dark": "#0E7490"
+  },
+  "styling": {
+    "codeblocks": {
+      "theme": {
+        "light": "github-light",
+        "dark": "vesper"
+      }
+    }
   },
   "contextual": {
     "options": ["copy", "chatgpt", "claude"]
   },
   "favicon": "/favicon.png",
   "navigation": {
-    "anchors": [
+    "tabs": [
       {
-        "anchor": "Documentation",
-        "icon": "book-open",
+        "tab": "Primitives",
+        "icon": "cubes",
         "groups": [
           {
             "group": "Overview",
@@ -94,6 +102,7 @@
               "integrations/resend",
               "integrations/inbound",
               "integrations/nodemailer",
+              "integrations/mailgun",
               "integrations/sendgrid",
               "integrations/postmark",
               "integrations/aws-ses",
@@ -124,6 +133,61 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Editor",
+        "icon": "pen-to-square",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": ["editor/overview", "editor/getting-started"]
+          },
+          {
+            "group": "Features",
+            "pages": [
+              "editor/features/bubble-menu",
+              "editor/features/inspector",
+              "editor/features/slash-commands",
+              "editor/features/theming",
+              "editor/features/styling",
+              "editor/features/buttons",
+              "editor/features/column-layouts",
+              "editor/features/link-editing",
+              "editor/features/email-export",
+              "editor/features/image-upload"
+            ]
+          },
+          {
+            "group": "Advanced",
+            "pages": [
+              "editor/advanced/extensions",
+              "editor/advanced/event-bus",
+              "editor/advanced/custom-extensions"
+            ]
+          },
+          {
+            "group": "API Reference",
+            "pages": [
+              "editor/api-reference/email-editor",
+              "editor/api-reference/compose-react-email",
+              "editor/api-reference/email-node",
+              "editor/api-reference/email-mark",
+              "editor/api-reference/extensions-list",
+              "editor/api-reference/theming-api",
+              "editor/api-reference/image-upload-api",
+              {
+                "group": "UI Components",
+                "icon": "window",
+                "pages": [
+                  "editor/api-reference/ui/bubble-menu",
+                  "editor/api-reference/ui/editor-focus-scope",
+                  "editor/api-reference/ui/inspector",
+                  "editor/api-reference/ui/slash-command"
+                ]
+              }
+            ]
+          }
+        ]
       }
     ],
     "global": {
@@ -135,13 +199,8 @@
         },
         {
           "anchor": "Templates",
-          "href": "https://demo.react.email/preview/notifications/vercel-invite-user",
+          "href": "https://demo.react.email/preview/Community/notifications/vercel-invite-user",
           "icon": "arrow-pointer"
-        },
-        {
-          "anchor": "GitHub",
-          "href": "https://github.com/resend/react-email",
-          "icon": "github"
         }
       ]
     }
@@ -150,13 +209,10 @@
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
   },
-  "appearance": {
-    "default": "dark",
-    "strict": true
-  },
   "background": {
     "image": "/images/background.png",
     "color": {
+      "light": "#FFFFFF",
       "dark": "#111111"
     }
   },

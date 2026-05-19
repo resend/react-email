@@ -36,7 +36,7 @@ const Line = () => {
   return (
     <div
       aria-hidden
-      className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-96 bg-gradient-to-l from-transparent via-cyan-12/50 via-50% to-transparent"
+      className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-96 bg-linear-to-l from-transparent via-cyan-12/50 via-50% to-transparent"
     />
   );
 };
@@ -58,7 +58,7 @@ const CodePreviewHeader = ({
           />
         ))}
       </div>
-      <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2">
+      <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-1">
         <IconFile className="size-4 sm:size-4.5" />
         <span className="text-slate-11 font-mono text-xs sm:text-sm">
           email-template.tsx

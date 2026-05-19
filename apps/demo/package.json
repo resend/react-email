@@ -9,15 +9,15 @@
     "export": "email-dev export"
   },
   "dependencies": {
-    "@react-email/components": "workspace:*",
+    "react-email": "workspace:*",
     "email-dev": "workspace:*",
-    "react": "^19",
-    "react-dom": "^19"
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
-    "@react-email/preview-server": "workspace:*",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "next": "16.0.10"
+    "tailwindcss": "catalog:",
+    "tsconfig": "workspace:*",
+    "@react-email/ui": "workspace:*",
+    "next": "catalog:"
   }
 }

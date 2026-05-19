@@ -1,5 +1,210 @@
 # react-email
 
+## 6.1.5
+
+### Patch Changes
+
+- 1a61cb0: Avoid OOM when running `email export` on projects with many templates. esbuild builds now run in batches of 10 entry points, and the render phase runs each batch of 25 templates inside a `worker_threads` worker so V8 isolate memory is reclaimed between batches.
+
+## 6.1.4
+
+### Patch Changes
+
+- 1c386ce: Avoid spamming each spinner frame as a new line on non-TTY streams (CI logs, pipes, dumb terminals). The spinner now logs each status text once instead of redrawing animated frames when the output is not a TTY.
+- ad6a9de: - deprecate packageManager CLI option for `email build`, only supporting npm
+  - ensure `email build` dependency installation includes dev dependencies
+
+## 6.1.3
+
+## 6.1.2
+
+## 6.1.1
+
+### Patch Changes
+
+- 3c62bd0: fix divider with extra borders around other corners
+
+## 6.1.0
+
+### Patch Changes
+
+- 47eeece: Tailwind: clearer error when `<Head>` is outside `<Tailwind>`
+
+## 6.0.8
+
+### Patch Changes
+
+- 65525e0: Tailwind: parse non inline configuration variables
+
+## 6.0.7
+
+### Patch Changes
+
+- 87a2486: undo nesting of all media queries, and replace >= <= exxpressions with min-width/max-width on the Tailwind component
+
+## 6.0.6
+
+### Patch Changes
+
+- 84bb7ab: collapse empty-fallback var() refs in inline styles
+
+## 6.0.5
+
+## 6.0.4
+
+### Patch Changes
+
+- 96af3a7: Replace ora with picospinner for CLI and preview spinner output.
+- 5cf57ae: unpin esbuild
+- Updated dependencies [e0e896f]
+  - @react-email/render@2.0.8
+
+## 6.0.3
+
+### Patch Changes
+
+- bb51e5e: fix missing react and react-dom peer dependencies
+
+## 6.0.2
+
+### Patch Changes
+
+- 63b6e71: Fix Markdown component crashing on CommonMark loose lists with paragraph continuations
+
+## 6.0.1
+
+### Patch Changes
+
+- 599b8c5: fix type issues in starter template and in react-email
+
+## 6.0.0
+
+### Major Changes
+
+- d0a7a52: Move all components and utilities into the `react-email` package
+
+  All components (previously in `@react-email/components` or individual packages like `@react-email/button`) and rendering utilities (previously in `@react-email/render`) are now exported directly from `react-email`. This unifies the install and import experience into a single package.
+
+  We're going to deprecate all packages except `@react-email/render` and `@react-email/ui`, and they will not be updated anymore.
+
+  ### Breaking change
+
+  Imports from `@react-email/components`, `@react-email/render`, or individual component packages (e.g. `@react-email/button`) are no longer the recommended path and they will all be deprecated with the exception of `@react-email/render` and `@react-email/editor`, and `render` will remain exported from `react-email`. Consumers should import everything from `react-email`.
+
+  ### Why
+
+  Having separate packages for components (`@react-email/components`), and the CLI (`react-email`) created unnecessary confusion, and a maintenance burden for us.
+
+  ### How to migrate
+  1. Remove `@react-email/components`:
+
+     ```diff
+     npm remove @react-email/components
+     ```
+
+  2. Update `react-email`, and move it over to `dependencies`:
+
+     ```diff
+     npm install react-email@latest
+     ```
+
+  3. **Update your imports**:
+
+     ```diff
+     - import { Button, Html, Head, render } from "@react-email/components";
+     + import { Button, Html, Head, render } from "react-email";
+     ```
+
+### Patch Changes
+
+- a3a15ea: replace deprecated `url.parse()` with WHATWG URL API in the preview dev server.
+- Updated dependencies [7fc539d]
+  - @react-email/render@2.0.7
+
+## 6.0.0-canary.2
+
+## 6.0.0-canary.1
+
+### Patch Changes
+
+- Updated dependencies [7fc539d]
+  - @react-email/render@2.0.7-canary.0
+
+## 6.0.0-canary.0
+
+### Major Changes
+
+- d0a7a52: Move all components and utilities into the `react-email` package
+
+  All components (previously in `@react-email/components` or individual packages like `@react-email/button`) and rendering utilities (previously in `@react-email/render`) are now exported directly from `react-email`. This unifies the install and import experience into a single package.
+
+  We're going to deprecate all packages except `@react-email/render` and `@react-email/preview-server`, and they will not be updated anymore.
+
+  ### Breaking change
+
+  Imports from `@react-email/components`, `@react-email/render`, or individual component packages (e.g. `@react-email/button`) are no longer the recommended path and they will all be deprecated with the exception of `@react-email/render` and `@react-email/editor`, and `render` will remain exported from `react-email`. Consumers should import everything from `react-email`.
+
+  ### Why
+
+  Having separate packages for components (`@react-email/components`), and the CLI (`react-email`) created unnecessary confusion, and a maintenance burden for us.
+
+  ### How to migrate
+  1. **Update your dependencies** -- remove `@react-email/components`, keep `react-email`:
+
+     ```diff
+     - npm install @react-email/components react-email @react-email/preview-server
+     + npm install react-email @react-email/preview-server
+     ```
+
+  2. **Update your imports**:
+
+     ```diff
+     - import { Button, Html, Head, render } from "@react-email/components";
+     + import { Button, Html, Head, render } from "react-email";
+     ```
+
+  3. The `@react-email/preview-server` and `@react-email/editor` packages are not included in `react-email`
+
+### Patch Changes
+
+- a3a15ea: replace deprecated `url.parse()` with WHATWG URL API in the preview dev server.
+
+## 5.2.10
+
+## 5.2.9
+
+### Patch Changes
+
+- 79bb7cc: manually determine esbuild binary path to avoid forcing a host version
+
+## 5.2.8
+
+## 5.2.7
+
+## 5.2.6
+
+### Patch Changes
+
+- 11f56c5: fix RESEND_API_KEY being overwritten in email preview
+
+## 5.3.0-canary.2
+
+### Patch Changes
+
+- 1b9df29: ensure that installed preview server also has dev dependencies
+
+## 5.3.0-canary.1
+
+### Patch Changes
+
+- 0289914: fix random errors due to root directory not being the preview's path
+
+## 5.3.0-canary.0
+
+### Minor Changes
+
+- 7c18bd3: don't require installing @react-email/preview-server in the project, pack it into `$HOME/.react-email`
+
 ## 5.2.5
 
 ### Patch Changes
@@ -537,7 +742,6 @@
   ## Why
 
   Three reasons:
-
   1. Better support of NextJS's latest versions
   2. Being ready for future React API deprecations
   3. Support for Suspense which allows for using async inside components
@@ -570,7 +774,6 @@
   ## Why
 
   Three reasons:
-
   1. Better support of NextJS's latest versions
   2. Being ready for future React API deprecations
   3. Support for Suspense which allows for using async inside components

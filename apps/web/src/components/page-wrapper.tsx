@@ -11,7 +11,7 @@ interface PageWrapperProps {
 export function PageWrapper({ children, className = '' }: PageWrapperProps) {
   return (
     <div
-      className={`relative mx-auto flex min-h-[100dvh] flex-col justify-between px-2 md:max-w-7xl md:px-4 ${className}`}
+      className={`relative mx-auto flex min-h-dvh flex-col justify-between px-2 md:max-w-7xl md:px-4 ${className}`}
       vaul-drawer-wrapper=""
     >
       {children}

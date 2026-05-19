@@ -1,11 +1,11 @@
 {
   "name": "@react-email/render",
-  "version": "2.0.2",
+  "version": "2.0.8",
   "description": "Transform React components into HTML email templates",
   "sideEffects": false,
-  "main": "./dist/browser/index.js",
+  "main": "./dist/browser/index.cjs",
   "module": "./dist/browser/index.mjs",
-  "types": "./dist/browser/index.d.ts",
+  "types": "./dist/browser/index.d.cts",
   "files": [
     "dist/**"
   ],
@@ -17,8 +17,8 @@
           "default": "./dist/edge/index.mjs"
         },
         "require": {
-          "types": "./dist/edge/index.d.ts",
-          "default": "./dist/edge/index.js"
+          "types": "./dist/edge/index.d.cts",
+          "default": "./dist/edge/index.cjs"
         }
       },
       "deno": {
@@ -27,8 +27,8 @@
           "default": "./dist/browser/index.mjs"
         },
         "require": {
-          "types": "./dist/browser/index.d.ts",
-          "default": "./dist/browser/index.js"
+          "types": "./dist/browser/index.d.cts",
+          "default": "./dist/browser/index.cjs"
         }
       },
       "worker": {
@@ -37,8 +37,8 @@
           "default": "./dist/browser/index.mjs"
         },
         "require": {
-          "types": "./dist/browser/index.d.ts",
-          "default": "./dist/browser/index.js"
+          "types": "./dist/browser/index.d.cts",
+          "default": "./dist/browser/index.cjs"
         }
       },
       "edge-light": {
@@ -47,18 +47,8 @@
           "default": "./dist/edge/index.mjs"
         },
         "require": {
-          "types": "./dist/edge/index.d.ts",
-          "default": "./dist/edge/index.js"
-        }
-      },
-      "convex": {
-        "import": {
-          "types": "./dist/edge/index.d.mts",
-          "default": "./dist/edge/index.mjs"
-        },
-        "require": {
-          "types": "./dist/edge/index.d.ts",
-          "default": "./dist/edge/index.js"
+          "types": "./dist/edge/index.d.cts",
+          "default": "./dist/edge/index.cjs"
         }
       },
       "node": {
@@ -67,8 +57,18 @@
           "default": "./dist/node/index.mjs"
         },
         "require": {
-          "types": "./dist/node/index.d.ts",
-          "default": "./dist/node/index.js"
+          "types": "./dist/node/index.d.cts",
+          "default": "./dist/node/index.cjs"
+        }
+      },
+      "convex": {
+        "import": {
+          "types": "./dist/edge/index.d.mts",
+          "default": "./dist/edge/index.mjs"
+        },
+        "require": {
+          "types": "./dist/edge/index.d.cts",
+          "default": "./dist/edge/index.cjs"
         }
       },
       "browser": {
@@ -77,8 +77,8 @@
           "default": "./dist/browser/index.mjs"
         },
         "require": {
-          "types": "./dist/browser/index.d.ts",
-          "default": "./dist/browser/index.js"
+          "types": "./dist/browser/index.d.cts",
+          "default": "./dist/browser/index.cjs"
         }
       },
       "default": {
@@ -87,8 +87,8 @@
           "default": "./dist/node/index.mjs"
         },
         "require": {
-          "types": "./dist/node/index.d.ts",
-          "default": "./dist/node/index.js"
+          "types": "./dist/node/index.d.cts",
+          "default": "./dist/node/index.cjs"
         }
       }
     }
@@ -99,6 +99,7 @@
     "build:watch": "tsdown --watch",
     "clean": "rm -rf dist",
     "test": "vitest run",
+    "test:e2e": "vitest run --config vitest.e2e.config.ts",
     "test:watch": "vitest"
   },
   "repository": {
@@ -124,11 +125,15 @@
   "devDependencies": {
     "@edge-runtime/vm": "5.0.0",
     "@types/html-to-text": "9.0.4",
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@types/shelljs": "0.10.0",
     "jsdom": "26.1.0",
+    "playwright": "1.59.1",
+    "shelljs": "0.10.0",
     "tsconfig": "workspace:*",
-    "typescript": "5.8.3"
+    "typescript": "catalog:",
+    "yalc": "catalog:"
   },
   "publishConfig": {
     "access": "public"

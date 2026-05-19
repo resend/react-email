@@ -10,7 +10,7 @@ import {
   Preview,
   Section,
   Text,
-} from '@react-email/components';
+} from 'react-email';
 
 const baseUrl = 'https://react-email-demo-iiiiiiiii-users-projects.vercel.app';
 

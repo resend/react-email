@@ -77,7 +77,7 @@ const getColorClassNames = (color: HeadingColor) => {
     case 'white':
       return 'text-slate-12';
     case 'gradient':
-      return 'bg-clip-text text-transparent bg-gradient-to-br from-white/90 via-white/80 to-95% to-cyan-11/70';
+      return 'bg-clip-text text-transparent bg-linear-to-br from-white/90 via-white/80 to-95% to-cyan-11/70';
     default:
       return unreachable(color);
   }

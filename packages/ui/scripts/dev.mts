@@ -1,0 +1,57 @@
+import child_process from 'node:child_process';
+import { promises as fs } from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import url from 'node:url';
+import logSymbols from 'log-symbols';
+
+console.info(
+  '  ',
+  logSymbols.warning,
+  'This is only running the development server for the UI, this does not run the CLI part of the preview server.',
+  os.EOL,
+);
+
+const filename = url.fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
+
+const previewServerRoot = path.resolve(dirname, '..');
+const emailsDirectoryPath = path.join(previewServerRoot, 'emails');
+
+const envPath = path.join(previewServerRoot, '.env.local');
+
+await fs.writeFile(
+  envPath,
+  `REACT_EMAIL_INTERNAL_EMAILS_DIR_RELATIVE_PATH=./emails
+REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH=${emailsDirectoryPath}
+REACT_EMAIL_INTERNAL_USER_PROJECT_LOCATION=${previewServerRoot}
+REACT_EMAIL_INTERNAL_PREVIEW_SERVER_LOCATION=${previewServerRoot}
+NEXT_PUBLIC_IS_PREVIEW_DEVELOPMENT=true`,
+  'utf8',
+);
+
+const webServerProcess = child_process.spawn('pnpm next dev', {
+  cwd: previewServerRoot,
+  shell: true,
+  stdio: 'inherit',
+});
+
+webServerProcess.on('exit', async () => {
+  await fs.rm(envPath);
+});
+
+process.on('SIGINT', () => {
+  webServerProcess.kill('SIGINT');
+});
+process.on('SIGUSR1', () => {
+  webServerProcess.kill('SIGUSR1');
+});
+process.on('SIGUSR2', () => {
+  webServerProcess.kill('SIGUSR2');
+});
+process.on('uncaughtExceptionMonitor', () => {
+  webServerProcess.kill();
+});
+process.on('exit', () => {
+  webServerProcess.kill();
+});

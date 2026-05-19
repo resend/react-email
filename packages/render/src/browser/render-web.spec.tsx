@@ -2,7 +2,7 @@
  * @vitest-environment jsdom
  */
 
-import { createElement, use } from 'react';
+import { createElement, Suspense, use } from 'react';
 import { Preview } from '../shared/utils/testing/preview';
 import { Template } from '../shared/utils/testing/template';
 import { render } from './render';
@@ -56,6 +56,14 @@ describe('render on the browser environment', () => {
     expect(actualOutput).toMatchInlineSnapshot(
       `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><link rel="preload" as="image" href="img/test.png"/><!--$--><h1>Welcome, <!-- -->Jim<!-- -->!</h1><img alt="test" src="img/test.png"/><p>Thanks for trying our product. We&#x27;re thrilled to have you on board!</p><!--/$-->"`,
     );
+  });
+
+  it('properly handles component throw error', async () => {
+    function ThrowingComponent(): React.ReactNode {
+      throw new Error('This should be trown by render');
+    }
+
+    await expect(render(<ThrowingComponent />)).rejects.toThrow();
   });
 
   // This is a test to ensure we have no regressions for https://github.com/resend/react-email/issues/1667
@@ -127,7 +135,15 @@ describe('render on the browser environment', () => {
   });
 
   it('waits for Suspense boundaries to ending before resolving', async () => {
-    const htmlPromise = fetch('https://example.com').then((res) => res.text());
+    const htmlPromise = new Promise<string>((resolve) =>
+      setTimeout(
+        () =>
+          resolve(
+            '<p>example content with some multibyte characters: 情報Ⅰ</p>',
+          ),
+        500,
+      ),
+    );
     const EmailTemplate = () => {
       const html = use(htmlPromise);
 
@@ -136,10 +152,33 @@ describe('render on the browser environment', () => {
 
     const renderedTemplate = await render(<EmailTemplate />);
 
-    expect(renderedTemplate).toMatchInlineSnapshot(`
-      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$?--><template id="B:0"></template><!--/$--><div hidden id="S:0"><div><!doctype html><html lang="en"><head><title>Example Domain</title><meta name="viewport" content="width=device-width, initial-scale=1"><style>body{background:#eee;width:60vw;margin:15vh auto;font-family:system-ui,sans-serif}h1{font-size:1.5em}div{opacity:0.8}a:link,a:visited{color:#348}</style><body><div><h1>Example Domain</h1><p>This domain is for use in documentation examples without needing permission. Avoid use in operations.<p><a href="https://iana.org/domains/example">Learn more</a></div></body></html>
-      </div></div><script>$RC=function(b,c,e){c=document.getElementById(c);c.parentNode.removeChild(c);var a=document.getElementById(b);if(a){b=a.previousSibling;if(e)b.data="$!",a.setAttribute("data-dgst",e);else{e=b.parentNode;a=b.nextSibling;var f=0;do{if(a&&8===a.nodeType){var d=a.data;if("/$"===d)if(0===f)break;else f--;else"$"!==d&&"$?"!==d&&"$!"!==d||f++}d=a.nextSibling;e.removeChild(a);a=d}while(a);for(;c.firstChild;)e.insertBefore(c.firstChild,a);b.data="$"}b._reactRetry&&b._reactRetry()}};$RC("B:0","S:0")</script>"
-    `);
+    expect(renderedTemplate).toContain(
+      'example content with some multibyte characters: 情報Ⅰ',
+    );
+  });
+
+  // https://github.com/resend/react-email/issues/3090
+  it('waits for Suspense boundaries to resolve before resolving', async () => {
+    const htmlPromise = new Promise<string>((resolve) =>
+      setTimeout(
+        () => resolve('<p>content rendered after suspension</p>'),
+        500,
+      ),
+    );
+    const EmailTemplate = () => {
+      const html = use(htmlPromise);
+      return <div dangerouslySetInnerHTML={{ __html: html }} />;
+    };
+
+    const renderedTemplate = await render(
+      <Suspense>
+        <EmailTemplate />
+      </Suspense>,
+    );
+
+    expect(renderedTemplate).not.toContain('$RC');
+    expect(renderedTemplate).not.toContain('<!--$?-->');
+    expect(renderedTemplate).toContain('content rendered after suspension');
   });
 
   // See https://github.com/resend/react-email/issues/2263

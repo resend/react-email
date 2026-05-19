@@ -65,11 +65,11 @@ export function Code({ children, className, language = 'html' }: CodeProps) {
         >
           <CopyCode
             code={value}
-            className="absolute right-1 shadow-none hover:text-white hover:[&_svg]:text-white enabled:hover:!bg-transparent focus:ring-0"
+            className="absolute right-1 shadow-none hover:text-white [&_svg]:hover:text-white enabled:hover:bg-transparent! focus:ring-0"
           />
 
           <div
-            className="absolute top-0 right-0 h-px w-[12.5rem]"
+            className="absolute top-0 right-0 h-px w-50"
             style={{
               background:
                 'linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)',
@@ -103,7 +103,7 @@ export function Code({ children, className, language = 'html' }: CodeProps) {
             );
           })}
           <div
-            className="absolute bottom-0 left-0 h-px w-[12.5rem]"
+            className="absolute bottom-0 left-0 h-px w-50"
             style={{
               background:
                 'linear-gradient(90deg, rgba(56, 189, 248, 0) 0%, rgba(56, 189, 248, 0) 0%, rgba(232, 232, 232, 0.2) 33.02%, rgba(143, 143, 143, 0.6719) 64.41%, rgba(236, 72, 153, 0) 98.93%)',

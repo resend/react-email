@@ -7,9 +7,10 @@ import type { MouseEvent, ReactNode } from 'react';
 interface SpotlightProps {
   children: ReactNode;
   className?: string;
+  hue?: number;
 }
 
-export function Spotlight({ children, className }: SpotlightProps) {
+export function Spotlight({ children, className, hue = 185 }: SpotlightProps) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -23,7 +24,7 @@ export function Spotlight({ children, className }: SpotlightProps) {
   const background = useMotionTemplate`
     radial-gradient(
       12rem circle at ${mouseX}px ${mouseY}px,
-      rgba(37, 174, 186, 30%),
+      hsla(${hue}, 67%, 44%, 0.3),
       transparent 80%
     )
   `;

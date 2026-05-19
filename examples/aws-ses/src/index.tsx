@@ -1,6 +1,6 @@
 import type { SendEmailCommandInput } from '@aws-sdk/client-ses';
 import { SES } from '@aws-sdk/client-ses';
-import { render } from '@react-email/components';
+import { render } from 'react-email';
 import { Email } from './email';
 
 const ses = new SES({ region: process.env.AWS_SES_REGION });

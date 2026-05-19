@@ -1,19 +1,32 @@
 {
   "name": "react-email",
-  "version": "5.2.5",
+  "version": "6.1.5",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
-    "email": "./dist/index.js"
+    "email": "./dist/cli/index.mjs"
   },
   "type": "module",
+  "types": "./dist/index.d.mts",
   "scripts": {
     "build": "tsdown",
     "build:watch": "tsdown --watch src",
     "clean": "rm -rf dist",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:e2e": "vitest run --config vitest.e2e.config.ts",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
   },
   "license": "MIT",
+  "exports": {
+    "import": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "require": {
+      "types": "./dist/index.d.cts",
+      "default": "./dist/index.cjs"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/resend/react-email.git",
@@ -26,36 +39,50 @@
   "engines": {
     "node": ">=20.0.0"
   },
+  "peerDependencies": {
+    "react": "^18.0 || ^19.0 || ^19.0.0-rc",
+    "react-dom": "^18.0 || ^19.0 || ^19.0.0-rc"
+  },
   "dependencies": {
-    "@babel/parser": "^7.27.0",
-    "@babel/traverse": "^7.27.0",
+    "@babel/parser": "catalog:",
+    "@babel/traverse": "catalog:",
+    "@react-email/render": "workspace:>=2.0.8",
     "chokidar": "^4.0.3",
-    "commander": "^13.0.0",
+    "commander": "catalog:",
     "conf": "^15.0.2",
+    "css-tree": "3.2.1",
     "debounce": "^2.0.0",
-    "esbuild": "^0.25.0",
-    "glob": "^11.0.0",
+    "esbuild": "^0.28.0",
+    "glob": "^13.0.6",
     "jiti": "2.4.2",
-    "log-symbols": "^7.0.0",
+    "log-symbols": "catalog:",
+    "marked": "^15.0.12",
     "mime-types": "^3.0.0",
     "normalize-path": "^3.0.0",
-    "nypm": "0.6.2",
-    "ora": "^8.0.0",
+    "nypm": "catalog:",
+    "picospinner": "catalog:",
+    "prismjs": "^1.30.0",
     "prompts": "2.4.2",
     "socket.io": "^4.8.1",
+    "tailwindcss": "catalog:",
     "tsconfig-paths": "4.2.0"
   },
   "devDependencies": {
-    "@react-email/components": "workspace:*",
-    "@types/babel__core": "7.20.5",
-    "@types/babel__traverse": "7.20.7",
-    "@types/mime-types": "2.1.4",
+    "@react-email/render": "workspace:*",
+    "@responsive-email/react-email": "catalog:",
+    "@types/babel__core": "catalog:",
+    "@types/babel__traverse": "catalog:",
+    "@types/css-tree": "catalog:",
+    "@types/mime-types": "catalog:",
     "@types/prompts": "2.4.9",
-    "next": "16.0.10",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "@types/shelljs": "0.10.0",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "shelljs": "0.10.0",
     "shlex": "3.0.0",
-    "tsx": "4.21.0",
-    "typescript": "5.8.3"
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "yalc": "catalog:"
   }
 }

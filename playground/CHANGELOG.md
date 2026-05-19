@@ -1,5 +1,73 @@
 # playground
 
+## 0.0.20
+
+### Patch Changes
+
+- Updated dependencies [f6cfef0]
+  - @react-email/render@2.0.6
+  - @react-email/tailwind@2.0.7
+
+## 0.0.19
+
+### Patch Changes
+
+- Updated dependencies [5a23505]
+- Updated dependencies [ecfc141]
+  - @react-email/tailwind@2.0.7
+  - @react-email/render@2.0.5
+
+## 0.0.18
+
+### Patch Changes
+
+- Updated dependencies [444d9df]
+  - @react-email/tailwind@2.0.6
+
+## 0.0.17
+
+### Patch Changes
+
+- @react-email/tailwind@3.0.0
+
+## 0.0.16
+
+### Patch Changes
+
+- Updated dependencies [698f962]
+- Updated dependencies [6ff41b7]
+  - @react-email/tailwind@2.0.5
+
+## 0.0.15
+
+### Patch Changes
+
+- Updated dependencies [a8764ee]
+  - @react-email/tailwind@2.0.4
+
+## 0.0.15-canary.0
+
+### Patch Changes
+
+- Updated dependencies [a8764ee]
+  - @react-email/tailwind@2.0.4-canary.0
+
+## 0.0.14
+
+### Patch Changes
+
+- Updated dependencies [635dc8f]
+  - @react-email/render@2.0.4
+  - @react-email/tailwind@2.0.3
+
+## 0.0.13
+
+### Patch Changes
+
+- Updated dependencies [366ae71]
+  - @react-email/render@2.0.3
+  - @react-email/tailwind@2.0.3
+
 ## 0.0.12
 
 ### Patch Changes

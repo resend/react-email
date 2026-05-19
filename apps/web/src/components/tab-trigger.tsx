@@ -36,7 +36,7 @@ export function TabTrigger({
     >
       {activeView === value && (
         <motion.span
-          className="pointer-events-none absolute inset-0 z-[2] rounded-lg bg-slate-6 group-focus:outline-none"
+          className="pointer-events-none absolute inset-0 z-2 rounded-lg bg-slate-6 group-focus:outline-hidden"
           initial={false}
           layoutId={layoutId}
           transition={{

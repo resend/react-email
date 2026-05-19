@@ -15,27 +15,15 @@ Install component from your command line.
 <CodeGroup>
 
 ```sh npm
-npm install @react-email/components -E
-
-# or get the individual package
-
-npm install @react-email/tailwind -E
+npm install react-email -E
 ```
 
 ```sh yarn
-yarn add @react-email/components -E
-
-# or get the individual package
-
-yarn add @react-email/tailwind -E
+yarn add react-email -E
 ```
 
 ```sh pnpm
-pnpm add @react-email/components -E
-
-# or get the individual package
-
-pnpm add @react-email/tailwind -E
+pnpm add react-email -E
 ```
 
 </CodeGroup>
@@ -47,7 +35,7 @@ pnpm add @react-email/tailwind -E
 Add the component around your email body content.
 
 ```jsx
-import { Tailwind, pixelBasedPreset, Button } from "@react-email/components";
+import { Tailwind, pixelBasedPreset, Button } from "react-email";
 
 const Email = () => {
   return (
@@ -95,7 +83,7 @@ const Email = () => {
   title="Tailwind Demo"
   icon="arrow-up-right-from-square"
   iconType="duotone"
-  href="https://demo.react.email/preview/notifications/vercel-invite-user"
+  href="https://demo.react.email/preview/Community/notifications/vercel-invite-user"
 >
   See the full demo and source code.
 </Card>

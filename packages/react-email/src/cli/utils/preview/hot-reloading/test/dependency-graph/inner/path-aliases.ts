@@ -1,0 +1,1 @@
+import '@/some-file';

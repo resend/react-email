@@ -1,4 +1,4 @@
-import { Heading } from '@react-email/components';
+import { Heading } from 'react-email';
 import { Layout } from '../_components/layout';
 
 export const component = (

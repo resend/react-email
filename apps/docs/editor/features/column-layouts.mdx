@@ -1,0 +1,140 @@
+---
+title: "Column Layouts"
+sidebarTitle: "Column Layouts"
+description: "Insert responsive multi-column layouts."
+icon: "columns-3"
+---
+
+## Quick start
+
+Column extensions are included in `StarterKit` by default; no extra imports are needed.
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+import { EditorProvider } from '@tiptap/react';
+
+const extensions = [StarterKit];
+
+export function MyEditor() {
+  return <EditorProvider extensions={extensions} content={content} />;
+}
+```
+
+## Inserting columns programmatically
+
+Use the `insertColumns` command to add a column layout.
+
+```tsx
+// Insert a 2-column layout
+editor.chain().focus().insertColumns(2).run();
+
+// Insert a 3-column layout
+editor.chain().focus().insertColumns(3).run();
+
+// Insert a 4-column layout
+editor.chain().focus().insertColumns(4).run();
+```
+
+## Building a toolbar
+
+Here's a complete example with a toolbar for inserting column layouts. It uses the `slotBefore`
+prop to position the toolbar above the editor.
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+import { EditorProvider, useCurrentEditor } from '@tiptap/react';
+import { Columns2, Columns3, Columns4 } from 'lucide-react';
+
+const extensions = [StarterKit];
+
+function ToolbarButton({
+  label,
+  icon,
+  onClick,
+}: {
+  label: string;
+  icon?: React.ReactNode;
+  onClick: () => void;
+}) {
+  return (
+    <button type="button" onClick={onClick}>
+      {icon}
+      {label}
+    </button>
+  );
+}
+
+function Toolbar() {
+  const { editor } = useCurrentEditor();
+  if (!editor) return null;
+
+  return (
+    <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
+      <ToolbarButton
+        label="2 columns"
+        icon={<Columns2 size={16} />}
+        onClick={() => editor.chain().focus().insertColumns(2).run()}
+      />
+      <ToolbarButton
+        label="3 columns"
+        icon={<Columns3 size={16} />}
+        onClick={() => editor.chain().focus().insertColumns(3).run()}
+      />
+      <ToolbarButton
+        label="4 columns"
+        icon={<Columns4 size={16} />}
+        onClick={() => editor.chain().focus().insertColumns(4).run()}
+      />
+    </div>
+  );
+}
+
+export function MyEditor() {
+  return (
+    <EditorProvider
+      extensions={extensions}
+      content={content}
+      slotBefore={<Toolbar />}
+    />
+  );
+}
+```
+
+<Tip>
+  Use `slotBefore` to render custom UI above the editor, and `useCurrentEditor()` to access
+  the editor instance from child components.
+</Tip>
+
+## Column spacing
+
+Column layouts render as email-safe tables. Space between columns is stored as the
+`cellspacing` attribute on the column layout and exported as the `cellSpacing`
+prop on the underlying `Row`.
+
+Select a 2, 3, or 4 column layout in the editor and use **Column spacing** in
+the inspector to adjust the gap between columns.
+
+<Tip>
+  Column spacing controls the gap between columns. Padding on an individual
+  column controls the space inside that column.
+</Tip>
+
+## Slash commands
+
+The default slash commands include column layouts. Type `/` and search for "columns":
+
+- **Two Columns**: `TWO_COLUMNS`
+- **Three Columns**: `THREE_COLUMNS`
+- **Four Columns**: `FOUR_COLUMNS`
+
+See [Slash Commands](/editor/features/slash-commands) for setup details.
+
+## Examples
+
+See column layouts in action with a runnable example:
+
+<CardGroup cols={2}>
+  <Card title="Column Layouts" icon="code" href="https://react.email/editor/examples/column-layouts">
+    Toolbar-driven 2/3/4 column insertion.
+  </Card>
+</CardGroup>

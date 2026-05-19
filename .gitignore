@@ -7,8 +7,11 @@ node_modules
 
 # testing
 coverage
+**/.vitest-attachments/
+**/__screenshots__/
 **/*/package-lock.json
 **/*/yalc.lock
+.yalc*
 
 # next.js
 .next/
@@ -36,5 +39,13 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-# turbo
 .turbo
+.worktrees
+.serena/
+
+# cursor
+.cursor/hooks/state/
+
+# mintlify exports (generated locally)
+apps/docs/export.zip
+apps/docs/export/

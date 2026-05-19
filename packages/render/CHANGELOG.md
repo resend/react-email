@@ -1,5 +1,47 @@
 # @react-email/render
 
+## 2.0.8
+
+### Patch Changes
+
+- e0e896f: Strip nul bytes from React 18 `renderToPipeableStream` output to prevent emails with multi-byte characters from being truncated.
+
+## 2.0.7
+
+### Patch Changes
+
+- 7fc539d: fix export map ordering between convex and node
+
+## 2.0.7-canary.0
+
+### Patch Changes
+
+- 7fc539d: fix export map ordering between convex and node
+
+## 2.0.6
+
+### Patch Changes
+
+- f6cfef0: fix: await stream.allReady before reading renderToReadableStream output
+
+## 2.0.5
+
+### Patch Changes
+
+- ecfc141: fix process crashes in client errors
+
+## 2.0.4
+
+### Patch Changes
+
+- 635dc8f: fix ErrorBoundary breaking server rendering
+
+## 2.0.3
+
+### Patch Changes
+
+- 366ae71: fix render going into client side rendering and breaking emails silently
+
 ## 2.0.2
 
 ### Patch Changes
@@ -269,7 +311,6 @@
   ## Why
 
   Three reasons:
-
   1. Better support of NextJS's latest versions
   2. Being ready for future React API deprecations
   3. Support for Suspense which allows for using async inside components
@@ -295,7 +336,6 @@
   ## Why
 
   Three reasons:
-
   1. Better support of NextJS's latest versions
   2. Being ready for future React API deprecations
   3. Support for Suspense which allows for using async inside components

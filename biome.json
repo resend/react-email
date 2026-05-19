@@ -18,6 +18,7 @@
     "useIgnoreFile": false
   },
   "formatter": {
+    "lineEnding": "auto",
     "indentStyle": "space",
     "indentWidth": 2,
     "lineWidth": 80
@@ -93,7 +94,7 @@
       "!**/pnpm-lock.yaml",
       "!**/.next",
       "!**/public",
-      "!packages/preview-server/src/actions/email-validation/caniemail-data.ts",
+      "!packages/ui/src/actions/email-validation/caniemail-data.ts",
       "!**/.react-email/**/*",
       "!**/node_modules/**/*",
       "!**/*.d.ts",

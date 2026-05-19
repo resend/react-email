@@ -1,4 +1,4 @@
-import { Button } from '@react-email/components';
+import { Button } from 'react-email';
 import { Layout } from '../_components/layout';
 
 export const component = (

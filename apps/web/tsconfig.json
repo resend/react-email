@@ -2,6 +2,7 @@
   "extends": "tsconfig/nextjs.json",
   "compilerOptions": {
     "target": "ES2018",
+    "moduleResolution": "bundler",
     "plugins": [{ "name": "next" }],
     "paths": { "@/*": ["./src/*"] },
     "types": ["vitest/globals"]
