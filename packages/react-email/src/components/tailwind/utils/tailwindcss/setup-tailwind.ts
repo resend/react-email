@@ -17,10 +17,18 @@ interface SetupTailwindProps {
   config?: TailwindConfig;
   cssConfigs?: CSSConfigs;
 }
-export async function setupTailwind({
-  config,
-  cssConfigs,
-}: SetupTailwindProps) {
+
+const SETUP_TAILWIND_KEYS = new Set(['config', 'cssConfigs']);
+
+export async function setupTailwind(props: SetupTailwindProps = {}) {
+  const stray = Object.keys(props).filter((k) => !SETUP_TAILWIND_KEYS.has(k));
+  if (stray.length > 0) {
+    throw new Error(
+      `setupTailwind now takes { config, cssConfigs } — received unexpected keys: ${stray.join(', ')}. ` +
+        `If you used to call setupTailwind(config), wrap it: setupTailwind({ config }).`,
+    );
+  }
+  const { config, cssConfigs } = props;
   const baseCss = `
 @layer theme, base, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
