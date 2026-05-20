@@ -80,17 +80,19 @@ describe('extractRulesPerClass()', async () => {
 
   it('splits mixed rules (base + media) into inlinable base and non-inlinable media', async () => {
     const tailwind = await setupTailwind({
-      plugins: [
-        {
-          handler: (api) => {
-            api.addUtilities({
-              '.text-body': {
-                '@apply text-[green] sm:text-[darkgreen]': {},
-              },
-            });
+      config: {
+        plugins: [
+          {
+            handler: (api) => {
+              api.addUtilities({
+                '.text-body': {
+                  '@apply text-[green] sm:text-[darkgreen]': {},
+                },
+              });
+            },
           },
-        },
-      ],
+        ],
+      },
     });
     const classes = ['text-body'];
     tailwind.addUtilities(classes);
@@ -115,17 +117,19 @@ describe('extractRulesPerClass()', async () => {
 
   it('treats rules with pseudo-selectors as fully non-inlinable', async () => {
     const tailwind = await setupTailwind({
-      plugins: [
-        {
-          handler: (api) => {
-            api.addUtilities({
-              '.btn:hover': {
-                color: 'red',
-              },
-            });
+      config: {
+        plugins: [
+          {
+            handler: (api) => {
+              api.addUtilities({
+                '.btn:hover': {
+                  color: 'red',
+                },
+              });
+            },
           },
-        },
-      ],
+        ],
+      },
     });
     const classes = ['btn'];
     tailwind.addUtilities(classes);
