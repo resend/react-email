@@ -22,8 +22,14 @@ export const Send = ({ markup, defaultSubject, storageKey }: SendProps) => {
   const [cachedSubject, setCachedSubject] = useCachedState<string>(
     `test-email-subject-${(storageKey ?? '').replaceAll('/', '-')}`,
   );
+  // The recipient is intentionally cached under a single workspace-wide key —
+  // testers usually send to the same address regardless of which template
+  // they're on, so per-template scoping would just make them retype it.
+  const [cachedRecipient, setCachedRecipient] = useCachedState<string>(
+    'test-email-recipient',
+  );
 
-  const [to, setTo] = useState('');
+  const [to, setTo] = useState(cachedRecipient ?? '');
   const [subject, setSubject] = useState(cachedSubject ?? fallbackSubject);
   const [isSending, setIsSending] = useState(false);
   const [isPopOverOpen, setIsPopOverOpen] = useState(false);
@@ -36,20 +42,6 @@ export const Send = ({ markup, defaultSubject, storageKey }: SendProps) => {
     // synced, further edits flow through `handleSubjectChange`.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [storageKey, fallbackSubject]);
-
-  const handleSubjectChange = (next: string) => {
-    setSubject(next);
-    if (!storageKey) return;
-
-    // Persist the override only when the user diverges from the inferred
-    // title; if they revert to the default (or clear the field), drop the
-    // override so future changes to the inferred title can take effect.
-    if (next === fallbackSubject || next.length === 0) {
-      setCachedSubject(undefined);
-    } else {
-      setCachedSubject(next);
-    }
-  };
 
   const onFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -121,10 +113,16 @@ export const Send = ({ markup, defaultSubject, storageKey }: SendProps) => {
             <input
               autoFocus
               className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-sm text-slate-12 placeholder-slate-10 outline-hidden transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
-              defaultValue={to}
+              value={to}
               id={toId}
               onChange={(e) => {
-                setTo(e.target.value);
+                const next = e.target.value;
+                setTo(next);
+                if (next.length === 0) {
+                  setCachedRecipient(undefined);
+                } else {
+                  setCachedRecipient(next);
+                }
               }}
               placeholder="you@example.com"
               required
@@ -141,7 +139,18 @@ export const Send = ({ markup, defaultSubject, storageKey }: SendProps) => {
               value={subject}
               id={subjectId}
               onChange={(e) => {
-                handleSubjectChange(e.target.value);
+                const next = e.target.value;
+                setSubject(next);
+                if (!storageKey) return;
+
+                // Persist the override only when the user diverges from the inferred
+                // title; if they revert to the default (or clear the field), drop the
+                // override so future changes to the inferred title can take effect.
+                if (next === fallbackSubject || next.length === 0) {
+                  setCachedSubject(undefined);
+                } else {
+                  setCachedSubject(next);
+                }
               }}
               placeholder="My Email"
               required
