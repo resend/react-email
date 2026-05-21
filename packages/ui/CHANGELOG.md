@@ -1,5 +1,18 @@
 # @react-email/ui
 
+## 6.3.0
+
+### Minor Changes
+
+- 99cadf3: support previewing HTML email templates
+
+### Patch Changes
+
+- fd140fc: quality of life improvements to the send email flow:
+  - infer a proper title based on the file name
+  - store preferred subject per email when modified
+  - store recipient for testing in local storage as well
+
 ## 6.2.0
 
 ## 6.1.5
