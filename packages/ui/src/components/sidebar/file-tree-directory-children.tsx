@@ -87,7 +87,7 @@ export const FileTreeDirectoryChildren = (props: {
                       targetSearchParams.get('toolbar-panel') ===
                         'compatibility'
                     ) {
-                      targetSearchParams.delete('toolbar-panel');
+                      targetSearchParams.set('toolbar-panel', 'linter');
                     }
                     const targetSearch = targetSearchParams.toString();
 
