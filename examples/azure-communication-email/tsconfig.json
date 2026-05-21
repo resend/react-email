@@ -18,7 +18,7 @@
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "target": "ESNext",
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals", "node"]
   },
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"]
