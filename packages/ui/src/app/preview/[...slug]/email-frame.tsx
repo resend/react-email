@@ -331,7 +331,7 @@ export function EmailFrame({
         // scripts, forms, popups, and top-level navigation while keeping
         // `allow-same-origin` so the parent can still inspect/modify the
         // iframe document for color inversion and event bubbling.
-        sandbox="allow-same-origin"
+        sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"
         onLoad={(event) => {
           const iframe = event.currentTarget;
           if (darkMode) {
