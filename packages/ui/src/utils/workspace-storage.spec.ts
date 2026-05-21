@@ -92,6 +92,25 @@ describe('workspace-storage', () => {
     });
   });
 
+  it('does not surface inherited Object prototype members', () => {
+    // Reading a missing key whose name matches an Object.prototype member
+    // (`toString`, `hasOwnProperty`, etc.) must return undefined, not the
+    // inherited function — `in` would incorrectly report it as present.
+    writeWorkspaceValue(WORKSPACE_A, 'recipient', 'a@example.com');
+
+    expect(readWorkspaceValue(WORKSPACE_A, 'toString')).toBeUndefined();
+    expect(readWorkspaceValue(WORKSPACE_A, 'hasOwnProperty')).toBeUndefined();
+    expect(readWorkspaceValue(WORKSPACE_A, '__proto__')).toBeUndefined();
+  });
+
+  it('still allows explicitly stored prototype-named keys to round-trip', () => {
+    // If a caller really does store under a name like `toString`, we must
+    // return that stored value rather than the inherited function.
+    writeWorkspaceValue(WORKSPACE_A, 'toString', 'stored value');
+
+    expect(readWorkspaceValue(WORKSPACE_A, 'toString')).toBe('stored value');
+  });
+
   it('ignores corrupt stored payloads', () => {
     window.localStorage.setItem(REACT_EMAIL_DATA_STORAGE_KEY, 'not valid json');
 

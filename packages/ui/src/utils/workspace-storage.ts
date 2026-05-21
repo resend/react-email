@@ -61,7 +61,9 @@ export const readWorkspaceValue = <T>(
   key: string,
 ): T | undefined => {
   const bucket = readAll()[workspaceId];
-  if (!bucket || !(key in bucket)) return undefined;
+  // `Object.hasOwn` (not `in`) so prototype members like `toString` aren't
+  // mistaken for stored values.
+  if (!bucket || !Object.hasOwn(bucket, key)) return undefined;
   return bucket[key] as T;
 };
 
@@ -74,7 +76,7 @@ export const writeWorkspaceValue = <T>(
   const bucket = { ...(all[workspaceId] ?? {}) };
 
   if (value === undefined) {
-    if (!(key in bucket)) return;
+    if (!Object.hasOwn(bucket, key)) return;
     delete bucket[key];
   } else {
     bucket[key] = value;
