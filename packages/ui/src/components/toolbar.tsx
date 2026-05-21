@@ -84,10 +84,8 @@ const ToolbarInner = ({
     router.push(`${pathname}?${params.toString()}${location.hash}`);
   };
 
-  const slugSuffix = emailSlug.replaceAll('/', '-');
-
   const [cachedSpamCheckingResult, setCachedSpamCheckingResult] =
-    useCachedWorkspaceState<SpamCheckingResult>(`spam-assassin-${slugSuffix}`);
+    useCachedWorkspaceState<SpamCheckingResult>(`spam-assassin:${emailSlug}`);
   const [spamCheckingResult, { load: loadSpamChecking, loading: spamLoading }] =
     useSpamAssassin({
       markup: prettyMarkup,
@@ -98,7 +96,7 @@ const ToolbarInner = ({
 
   const [cachedLintingRows, setCachedLintingRows] = useCachedWorkspaceState<
     LintingRow[]
-  >(`linter-${slugSuffix}`);
+  >(`linter:${emailSlug}`);
   const [lintingRows, { load: loadLinting, loading: lintLoading }] = useLinter({
     markup: prettyMarkup,
 
@@ -106,7 +104,7 @@ const ToolbarInner = ({
   });
   const [cachedCompatibilityResults, setCachedCompatibilityResults] =
     useCachedWorkspaceState<CompatibilityCheckingResult[]>(
-      `compatibility-${slugSuffix}`,
+      `compatibility:${emailSlug}`,
     );
   const [
     compatibilityCheckingResults,

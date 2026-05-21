@@ -20,7 +20,7 @@ export const Send = ({ markup, defaultSubject, storageKey }: SendProps) => {
   const fallbackSubject = defaultSubject?.trim() || 'Testing React Email';
 
   const [cachedSubject, setCachedSubject] = useCachedWorkspaceState<string>(
-    `test-email-subject-${(storageKey ?? '').replaceAll('/', '-')}`,
+    `test-email-subject:${storageKey ?? ''}`,
   );
   // The recipient is cached under a single workspace-wide key — testers
   // usually send to the same address regardless of which template they're
