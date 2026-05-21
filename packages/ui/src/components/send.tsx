@@ -1,7 +1,7 @@
 import * as Popover from '@radix-ui/react-popover';
 import { useId, useState } from 'react';
 import { toast } from 'sonner';
-import { useCachedState } from '../hooks/use-cached-state';
+import { useCachedWorkspaceState } from '../hooks/use-cached-workspace-state';
 import { Button } from './button';
 import { Text } from './text';
 
@@ -19,15 +19,14 @@ interface SendProps {
 export const Send = ({ markup, defaultSubject, storageKey }: SendProps) => {
   const fallbackSubject = defaultSubject?.trim() || 'Testing React Email';
 
-  const [cachedSubject, setCachedSubject] = useCachedState<string>(
+  const [cachedSubject, setCachedSubject] = useCachedWorkspaceState<string>(
     `test-email-subject-${(storageKey ?? '').replaceAll('/', '-')}`,
   );
-  // The recipient is intentionally cached under a single workspace-wide key —
-  // testers usually send to the same address regardless of which template
-  // they're on, so per-template scoping would just make them retype it.
-  const [cachedRecipient, setCachedRecipient] = useCachedState<string>(
-    'test-email-recipient',
-  );
+  // The recipient is cached under a single workspace-wide key — testers
+  // usually send to the same address regardless of which template they're
+  // on, so per-template scoping would just make them retype it.
+  const [cachedRecipient, setCachedRecipient] =
+    useCachedWorkspaceState<string>('test-email-recipient');
 
   const [to, setTo] = useState(cachedRecipient ?? '');
   const [subject, setSubject] = useState(cachedSubject ?? fallbackSubject);

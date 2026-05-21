@@ -9,7 +9,7 @@ import type { CompatibilityCheckingResult } from '../actions/email-validation/ch
 import { isBuilding } from '../app/env';
 import { usePreviewContext } from '../contexts/preview';
 import { useToolbarContext } from '../contexts/toolbar';
-import { useCachedState } from '../hooks/use-cached-state';
+import { useCachedWorkspaceState } from '../hooks/use-cached-workspace-state';
 import { cn } from '../utils';
 import CodeSnippet from './code-snippet';
 import { IconArrowDown } from './icons/icon-arrow-down';
@@ -84,10 +84,10 @@ const ToolbarInner = ({
     router.push(`${pathname}?${params.toString()}${location.hash}`);
   };
 
+  const slugSuffix = emailSlug.replaceAll('/', '-');
+
   const [cachedSpamCheckingResult, setCachedSpamCheckingResult] =
-    useCachedState<SpamCheckingResult>(
-      `spam-assassin-${emailSlug.replaceAll('/', '-')}`,
-    );
+    useCachedWorkspaceState<SpamCheckingResult>(`spam-assassin-${slugSuffix}`);
   const [spamCheckingResult, { load: loadSpamChecking, loading: spamLoading }] =
     useSpamAssassin({
       markup: prettyMarkup,
@@ -96,17 +96,17 @@ const ToolbarInner = ({
       initialResult: serverSpamCheckingResult ?? cachedSpamCheckingResult,
     });
 
-  const [cachedLintingRows, setCachedLintingRows] = useCachedState<
+  const [cachedLintingRows, setCachedLintingRows] = useCachedWorkspaceState<
     LintingRow[]
-  >(`linter-${emailSlug.replaceAll('/', '-')}`);
+  >(`linter-${slugSuffix}`);
   const [lintingRows, { load: loadLinting, loading: lintLoading }] = useLinter({
     markup: prettyMarkup,
 
     initialRows: serverLintingRows ?? cachedLintingRows,
   });
   const [cachedCompatibilityResults, setCachedCompatibilityResults] =
-    useCachedState<CompatibilityCheckingResult[]>(
-      `compatibility-${emailSlug.replaceAll('/', '-')}`,
+    useCachedWorkspaceState<CompatibilityCheckingResult[]>(
+      `compatibility-${slugSuffix}`,
     );
   const [
     compatibilityCheckingResults,
