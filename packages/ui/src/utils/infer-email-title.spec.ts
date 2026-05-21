@@ -31,6 +31,14 @@ describe('inferEmailTitle()', () => {
     expect(inferEmailTitle('APIKey.tsx')).toBe('API Key');
     expect(inferEmailTitle('MFAEmail.tsx')).toBe('MFA Email');
     expect(inferEmailTitle('NewAPIToken.tsx')).toBe('New API Token');
+    expect(inferEmailTitle('IOError.tsx')).toBe('IO Error');
+  });
+
+  it('does not mis-split PascalCase tokens that start with a single capital', () => {
+    // `OAuth` is a single PascalCase token, not an acronym `O` followed by
+    // a word `Auth`, so the leading `O` must stay attached.
+    expect(inferEmailTitle('OAuthEmail.tsx')).toBe('OAuth Email');
+    expect(inferEmailTitle('IPhoneOrder.tsx')).toBe('IPhone Order');
   });
 
   it('handles single-word filenames', () => {
