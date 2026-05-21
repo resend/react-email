@@ -293,10 +293,11 @@ describe('Container Node', () => {
                     cellpadding="0"
                     cellspacing="0"
                     role="presentation"
-                    style="max-width:600px;align:left;width:100%;color:#000000;background-color:#ffffff;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-radius:0px;border-color:#000000;line-height:155%">
+                    style="max-width:600px;align:left;width:100%;color:#000000;background-color:#ffffff;border-radius:0px;border-color:#000000;line-height:155%">
                     <tbody>
                       <tr style="width:100%">
-                        <td>
+                        <td
+                          style="padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px">
                           <p
                             style="margin:0;padding:0;font-size:1em;padding-top:0.5em;padding-bottom:0.5em">
                             Hello world
@@ -1594,10 +1595,11 @@ describe('Container Node', () => {
                     cellpadding="0"
                     cellspacing="0"
                     role="presentation"
-                    style="max-width:600px;align:left;width:100%;color:#000000;background-color:#ffffff;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;border-radius:0px;border-color:#000000;line-height:155%">
+                    style="max-width:600px;align:left;width:100%;color:#000000;background-color:#ffffff;border-radius:0px;border-color:#000000;line-height:155%">
                     <tbody>
                       <tr style="width:100%">
-                        <td>
+                        <td
+                          style="padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px">
                           <p
                             style="margin:0;padding:0;font-size:1em;padding-top:0.5em;padding-bottom:0.5em">
                             Inside container

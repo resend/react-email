@@ -11,10 +11,10 @@ exports[`Section Node > renders React Email properly 1`] = `
   cellspacing="0"
   role="presentation"
   class="node-section"
-  style="padding:10px 20px 10px 20px;box-sizing:border-box;text-align:center">
+  style="box-sizing:border-box;text-align:center">
   <tbody>
     <tr>
-      <td>Section content</td>
+      <td style="padding:10px 20px 10px 20px">Section content</td>
     </tr>
   </tbody>
 </table>
