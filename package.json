@@ -37,7 +37,7 @@
     "tsdown": "catalog:",
     "@tsdown/css": "catalog:",
     "tsx": "catalog:",
-    "turbo": "2.9.6",
+    "turbo": "2.9.14",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vitest": "4.1.4"
