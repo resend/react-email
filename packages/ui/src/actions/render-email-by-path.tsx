@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import logSymbols from 'log-symbols';
 import type React from 'react';
+import { pretty, toPlainText } from 'react-email';
 import {
   isBuilding,
   isPreviewDevelopment,
@@ -116,6 +117,31 @@ export const renderEmailByPath = async (
     });
     spinner.start();
     registerSpinnerAutostopping(spinner);
+  }
+
+  if (path.extname(emailPath) === '.html') {
+    const renderingResult = await renderRawHtmlEmailByPath(emailPath);
+    if ('error' in renderingResult) {
+      stopSpinnerAndPersist(spinner, {
+        symbol: logSymbols.error,
+        text: `Failed while rendering ${emailFilename}`,
+      });
+    } else {
+      stopSpinnerAndPersist(spinner, {
+        symbol: logSymbols.success,
+        text: `Successfully rendered ${emailFilename}`,
+      });
+    }
+    logBufferer.flush();
+    errorBufferer.flush();
+    infoBufferer.flush();
+    warnBufferer.flush();
+
+    if (!('error' in renderingResult)) {
+      cache.set(emailPath, renderingResult);
+    }
+
+    return renderingResult;
   }
 
   const originalJsxRuntimePath = path.resolve(
@@ -305,6 +331,47 @@ export const renderEmailByPath = async (
           emailPath,
           sourceMapToOriginalFile,
         ),
+        cause: error.cause
+          ? JSON.parse(JSON.stringify(error.cause))
+          : undefined,
+      },
+    };
+  }
+};
+
+const renderRawHtmlEmailByPath = async (
+  emailPath: string,
+): Promise<EmailRenderingResult> => {
+  try {
+    const source = await fs.promises.readFile(emailPath, 'utf-8');
+    const markup = source.replaceAll('\0', '');
+
+    let prettyMarkup = markup;
+    try {
+      prettyMarkup = await pretty(markup);
+    } catch (_) {
+      // Fall back to the raw markup if prettier cannot parse the HTML so the
+      // preview still renders something the user can iterate on.
+    }
+
+    const plainText = toPlainText(markup);
+
+    return {
+      prettyMarkup,
+      markup,
+      plainText,
+      reactMarkup: source,
+
+      basename: path.basename(emailPath, path.extname(emailPath)),
+      extname: path.extname(emailPath).slice(1),
+    };
+  } catch (exception) {
+    const error = exception as Error;
+    return {
+      error: {
+        name: error.name,
+        message: error.message,
+        stack: error.stack,
         cause: error.cause
           ? JSON.parse(JSON.stringify(error.cause))
           : undefined,

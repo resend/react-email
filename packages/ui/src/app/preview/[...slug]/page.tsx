@@ -89,13 +89,16 @@ This is most likely not an issue with the preview server. Maybe there was a typo
       return 0;
     });
     compatibilityCheckingResults = [];
-    for await (const result of loadStream(
-      await checkCompatibility(
-        serverEmailRenderingResult.reactMarkup,
-        emailPath,
-      ),
-    )) {
-      compatibilityCheckingResults.push(result);
+    // Compatibility checks parse JSX/TS — they don't apply to raw .html emails.
+    if (serverEmailRenderingResult.extname !== 'html') {
+      for await (const result of loadStream(
+        await checkCompatibility(
+          serverEmailRenderingResult.reactMarkup,
+          emailPath,
+        ),
+      )) {
+        compatibilityCheckingResults.push(result);
+      }
     }
 
     const response = await fetch('https://react.email/api/check-spam', {

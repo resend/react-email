@@ -57,10 +57,13 @@ export const FileTreeDirectoryChildren = (props: {
                       : `${props.emailsDirectoryMetadata.relativePath}/${emailFilename}`;
 
                     const removeExtensionFrom = (path: string) => {
+                      const ext = path.split('.').pop();
                       if (
-                        path.split('.').pop() === 'tsx' ||
-                        path.split('.').pop() === 'jsx' ||
-                        path.split('.').pop() === 'js'
+                        ext === 'tsx' ||
+                        ext === 'jsx' ||
+                        ext === 'ts' ||
+                        ext === 'js' ||
+                        ext === 'html'
                       ) {
                         return path.split('.').slice(0, -1).join('.');
                       }
