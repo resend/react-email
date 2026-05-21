@@ -75,15 +75,31 @@ export const FileTreeDirectoryChildren = (props: {
                         emailSlug
                       : false;
 
+                    // Raw .html templates don't expose a Compatibility tab, so
+                    // dropping the param prevents the toolbar from opening on
+                    // a hidden tab when navigating from a .tsx email.
+                    const isHtmlTarget = emailFilename.endsWith('.html');
+                    const targetSearchParams = new URLSearchParams(
+                      searchParams,
+                    );
+                    if (
+                      isHtmlTarget &&
+                      targetSearchParams.get('toolbar-panel') ===
+                        'compatibility'
+                    ) {
+                      targetSearchParams.delete('toolbar-panel');
+                    }
+                    const targetSearch = targetSearchParams.toString();
+
                     return (
                       <Link
                         href={{
                           pathname: `/preview/${emailSlug}`,
-                          search: searchParams.toString(),
+                          search: targetSearch,
                         }}
                         onMouseOver={() => {
                           router.prefetch(
-                            `/preview/${emailSlug}?${searchParams.toString()}`,
+                            `/preview/${emailSlug}${targetSearch ? `?${targetSearch}` : ''}`,
                           );
                         }}
                         key={emailSlug}
