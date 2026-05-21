@@ -36,7 +36,16 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
 
   const isDarkModeEnabled = searchParams.get('dark') !== null;
   const activeView = searchParams.get('view') ?? 'preview';
-  const activeLang = searchParams.get('lang') ?? 'tsx';
+  const isRawHtmlEmail = renderedEmailMetadata?.extname === 'html';
+  const requestedLang = searchParams.get('lang');
+  const defaultLang = isRawHtmlEmail ? 'html' : 'tsx';
+  // Raw HTML templates only expose `html` and `markdown` tabs, so coerce any
+  // lingering `tsx` selection from URL state to the HTML tab to avoid the
+  // "No markup found for the active language!" error in CodeContainer.
+  const activeLang =
+    requestedLang === null || (isRawHtmlEmail && requestedLang === 'tsx')
+      ? defaultLang
+      : requestedLang;
 
   const handleDarkModeChange = (enabled: boolean) => {
     const params = new URLSearchParams(searchParams);
@@ -208,22 +217,37 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
                     <CodeContainer
                       activeLang={activeLang}
                       basename={renderedEmailMetadata.basename}
-                      markups={[
-                        {
-                          language: 'tsx',
-                          extension: renderedEmailMetadata.extname,
-                          content: renderedEmailMetadata.reactMarkup,
-                        },
-                        {
-                          language: 'html',
-                          content: renderedEmailMetadata.prettyMarkup,
-                        },
-                        {
-                          language: 'markdown',
-                          extension: 'md',
-                          content: renderedEmailMetadata.plainText,
-                        },
-                      ]}
+                      markups={
+                        isRawHtmlEmail
+                          ? [
+                              {
+                                language: 'html',
+                                extension: 'html',
+                                content: renderedEmailMetadata.prettyMarkup,
+                              },
+                              {
+                                language: 'markdown',
+                                extension: 'md',
+                                content: renderedEmailMetadata.plainText,
+                              },
+                            ]
+                          : [
+                              {
+                                language: 'tsx',
+                                extension: renderedEmailMetadata.extname,
+                                content: renderedEmailMetadata.reactMarkup,
+                              },
+                              {
+                                language: 'html',
+                                content: renderedEmailMetadata.prettyMarkup,
+                              },
+                              {
+                                language: 'markdown',
+                                extension: 'md',
+                                content: renderedEmailMetadata.plainText,
+                              },
+                            ]
+                      }
                       setActiveLang={handleLangChange}
                     />
                   </Tooltip.Provider>

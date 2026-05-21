@@ -6,7 +6,7 @@ import { cache } from 'react';
 import { emailsDirectoryAbsolutePath } from '../app/env';
 
 export const getEmailPathFromSlug = cache(async (slug: string) => {
-  if (['.tsx', '.jsx', '.ts', '.js'].includes(path.extname(slug)))
+  if (['.tsx', '.jsx', '.ts', '.js', '.html'].includes(path.extname(slug)))
     return path.join(emailsDirectoryAbsolutePath, slug);
 
   const pathWithoutExtension = path.join(emailsDirectoryAbsolutePath, slug);
@@ -22,6 +22,9 @@ export const getEmailPathFromSlug = cache(async (slug: string) => {
   }
   if (fs.existsSync(`${pathWithoutExtension}.js`)) {
     return `${pathWithoutExtension}.js`;
+  }
+  if (fs.existsSync(`${pathWithoutExtension}.html`)) {
+    return `${pathWithoutExtension}.html`;
   }
 
   return undefined;

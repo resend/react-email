@@ -57,12 +57,14 @@ const ToolbarInner = ({
   plainText,
   emailPath,
   emailSlug,
+  isRawHtmlEmail,
 }: ToolbarProps & {
   prettyMarkup: string;
   reactMarkup: string;
   plainText: string;
   emailSlug: string;
   emailPath: string;
+  isRawHtmlEmail: boolean;
 }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -125,8 +127,12 @@ const ToolbarInner = ({
         const spamCheckingResult = await loadSpamChecking();
         setCachedSpamCheckingResult(spamCheckingResult);
 
-        const compatibilityCheckingResults = await loadCompatibility();
-        setCachedCompatibilityResults(compatibilityCheckingResults);
+        // Compatibility checks rely on parsing JSX/TS, so they don't apply to
+        // raw .html templates and would only produce noise.
+        if (!isRawHtmlEmail) {
+          const compatibilityCheckingResults = await loadCompatibility();
+          setCachedCompatibilityResults(compatibilityCheckingResults);
+        }
       })();
     }, []);
   }
@@ -157,11 +163,13 @@ const ToolbarInner = ({
                   Linter
                 </ToolbarButton>
               </Tabs.Trigger>
-              <Tabs.Trigger asChild value="compatibility">
-                <ToolbarButton active={activeTab === 'compatibility'}>
-                  Compatibility
-                </ToolbarButton>
-              </Tabs.Trigger>
+              {isRawHtmlEmail ? null : (
+                <Tabs.Trigger asChild value="compatibility">
+                  <ToolbarButton active={activeTab === 'compatibility'}>
+                    Compatibility
+                  </ToolbarButton>
+                </Tabs.Trigger>
+              )}
               <Tabs.Trigger asChild value="spam-assassin">
                 <ToolbarButton active={activeTab === 'spam-assassin'}>
                   Spam
@@ -179,6 +187,7 @@ const ToolbarInner = ({
                 compatibilityResults={compatibilityCheckingResults}
                 spamResult={spamCheckingResult}
                 reactMarkup={reactMarkup}
+                isRawHtmlEmail={isRawHtmlEmail}
                 activeTab={activeTab}
               />
               <ToolbarButton
@@ -209,7 +218,10 @@ const ToolbarInner = ({
                       await loadSpamChecking();
                     } else if (activeTab === 'linter') {
                       await loadLinting();
-                    } else if (activeTab === 'compatibility') {
+                    } else if (
+                      activeTab === 'compatibility' &&
+                      !isRawHtmlEmail
+                    ) {
                       await loadCompatibility();
                     }
                   }}
@@ -258,7 +270,15 @@ const ToolbarInner = ({
               )}
             </Tabs.Content>
             <Tabs.Content value="compatibility">
-              {compatibilityLoading ? (
+              {isRawHtmlEmail ? (
+                <SuccessWrapper>
+                  <SuccessTitle>Compatibility unavailable</SuccessTitle>
+                  <SuccessDescription>
+                    Compatibility checks rely on the React Email source and are
+                    skipped for raw HTML templates.
+                  </SuccessDescription>
+                </SuccessWrapper>
+              ) : compatibilityLoading ? (
                 <LoadingState message="Checking email compatibility..." />
               ) : compatibilityCheckingResults?.length === 0 ? (
                 <SuccessWrapper>
@@ -398,7 +418,8 @@ export function Toolbar({
   const { emailPath, emailSlug, renderedEmailMetadata } = usePreviewContext();
 
   if (renderedEmailMetadata === undefined) return null;
-  const { prettyMarkup, plainText, reactMarkup } = renderedEmailMetadata;
+  const { prettyMarkup, plainText, reactMarkup, extname } =
+    renderedEmailMetadata;
 
   return (
     <ToolbarInner
@@ -407,6 +428,7 @@ export function Toolbar({
       prettyMarkup={prettyMarkup}
       reactMarkup={reactMarkup}
       plainText={plainText}
+      isRawHtmlEmail={extname === 'html'}
       serverLintingRows={serverLintingRows}
       serverSpamCheckingResult={serverSpamCheckingResult}
       serverCompatibilityResults={serverCompatibilityResults}
