@@ -19,8 +19,11 @@ describe('renderEmailByPath() with raw .html templates', () => {
     expect(result.reactMarkup).toContain(
       '<h1>Hello from a raw HTML email</h1>',
     );
-    expect(result.prettyMarkup).toContain(
-      'Hello from a raw HTML email',
+    // The fixture ships as a single minified line; prettyMarkup should be
+    // formatted across multiple lines so the source view is readable.
+    expect(result.prettyMarkup).toContain('Hello from a raw HTML email');
+    expect(result.prettyMarkup.split('\n').length).toBeGreaterThan(
+      result.markup.split('\n').length,
     );
     // html-to-text uppercases <h1> content by default
     expect(result.plainText.toLowerCase()).toContain(
