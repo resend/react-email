@@ -20,6 +20,7 @@ import { ViewSizeControls } from '../../../components/topbar/view-size-controls'
 import { usePreviewContext } from '../../../contexts/preview';
 import { useClampedState } from '../../../hooks/use-clamped-state';
 import { cn } from '../../../utils';
+import { inferEmailTitle } from '../../../utils/infer-email-title';
 import { EmailFrame } from './email-frame';
 import { ErrorOverlay } from './error-overlay';
 
@@ -137,7 +138,10 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
         />
         {hasRenderingMetadata ? (
           <div className="flex justify-end">
-            <Send markup={renderedEmailMetadata.markup} />
+            <Send
+              markup={renderedEmailMetadata.markup}
+              defaultSubject={inferEmailTitle(emailTitle)}
+            />
           </div>
         ) : null}
       </Topbar>

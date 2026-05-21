@@ -4,9 +4,16 @@ import { toast } from 'sonner';
 import { Button } from './button';
 import { Text } from './text';
 
-export const Send = ({ markup }: { markup: string }) => {
+interface SendProps {
+  markup: string;
+  defaultSubject?: string;
+}
+
+export const Send = ({ markup, defaultSubject }: SendProps) => {
   const [to, setTo] = useState('');
-  const [subject, setSubject] = useState('Testing React Email');
+  const [subject, setSubject] = useState(
+    defaultSubject?.trim() || 'Testing React Email',
+  );
   const [isSending, setIsSending] = useState(false);
   const [isPopOverOpen, setIsPopOverOpen] = useState(false);
 
