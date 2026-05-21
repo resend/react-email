@@ -274,8 +274,8 @@ const ToolbarInner = ({
                 <SuccessWrapper>
                   <SuccessTitle>Compatibility unavailable</SuccessTitle>
                   <SuccessDescription>
-                    Compatibility checks rely on the React Email source and
-                    are skipped for raw HTML templates.
+                    Compatibility checks rely on the React Email source and are
+                    skipped for raw HTML templates.
                   </SuccessDescription>
                 </SuccessWrapper>
               ) : compatibilityLoading ? (
