@@ -325,6 +325,13 @@ export function EmailFrame({
         srcDoc={markup}
         width={width}
         height={height}
+        // `srcDoc` content inherits the parent's origin, so a `<script>` in a
+        // template (especially raw `.html` files read from disk) would execute
+        // with same-origin access to the preview app. Sandboxing disables
+        // scripts, forms, popups, and top-level navigation while keeping
+        // `allow-same-origin` so the parent can still inspect/modify the
+        // iframe document for color inversion and event bubbling.
+        sandbox="allow-same-origin"
         onLoad={(event) => {
           const iframe = event.currentTarget;
           if (darkMode) {
