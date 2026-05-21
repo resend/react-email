@@ -14,13 +14,13 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@azure/communication-email": "^1",
-    "@react-email/components": "catalog:",
-    "react": "catalog:",
-    "react-dom": "catalog:"
+    "@azure/communication-email": "1.1.0",
+    "react-email": "6.0.3",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
   },
   "devDependencies": {
-    "tsdown": "catalog:",
-    "typescript": "catalog:"
+    "tsdown": "0.21.9",
+    "typescript": "5.9.3"
   }
 }

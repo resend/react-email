@@ -1,5 +1,5 @@
 import { EmailClient } from '@azure/communication-email';
-import { render } from '@react-email/components';
+import { render } from 'react-email';
 import { Email } from './email';
 
 const client = new EmailClient(process.env.AZURE_EMAIL_CONNECTION_STRING);
