@@ -1,21 +1,55 @@
 import * as Popover from '@radix-ui/react-popover';
-import { useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { toast } from 'sonner';
+import { useCachedState } from '../hooks/use-cached-state';
 import { Button } from './button';
 import { Text } from './text';
 
 interface SendProps {
   markup: string;
   defaultSubject?: string;
+  /**
+   * Stable identifier for the email template (typically the slug/relative
+   * path). When provided, user edits to the subject are persisted in
+   * localStorage so the next visit reuses what they typed.
+   */
+  storageKey?: string;
 }
 
-export const Send = ({ markup, defaultSubject }: SendProps) => {
-  const [to, setTo] = useState('');
-  const [subject, setSubject] = useState(
-    defaultSubject?.trim() || 'Testing React Email',
+export const Send = ({ markup, defaultSubject, storageKey }: SendProps) => {
+  const fallbackSubject = defaultSubject?.trim() || 'Testing React Email';
+
+  const [cachedSubject, setCachedSubject] = useCachedState<string>(
+    `test-email-subject-${(storageKey ?? '').replaceAll('/', '-')}`,
   );
+
+  const [to, setTo] = useState('');
+  const [subject, setSubject] = useState(cachedSubject ?? fallbackSubject);
   const [isSending, setIsSending] = useState(false);
   const [isPopOverOpen, setIsPopOverOpen] = useState(false);
+
+  // Resync the local subject when the email (and thus the storage key) changes,
+  // so navigating between templates picks up the right cached or inferred title.
+  useEffect(() => {
+    setSubject(cachedSubject ?? fallbackSubject);
+    // We intentionally key off `storageKey`/`fallbackSubject` only — once
+    // synced, further edits flow through `handleSubjectChange`.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [storageKey, fallbackSubject]);
+
+  const handleSubjectChange = (next: string) => {
+    setSubject(next);
+    if (!storageKey) return;
+
+    // Persist the override only when the user diverges from the inferred
+    // title; if they revert to the default (or clear the field), drop the
+    // override so future changes to the inferred title can take effect.
+    if (next === fallbackSubject || next.length === 0) {
+      setCachedSubject(undefined);
+    } else {
+      setCachedSubject(next);
+    }
+  };
 
   const onFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -104,10 +138,10 @@ export const Send = ({ markup, defaultSubject }: SendProps) => {
             </label>
             <input
               className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-sm text-slate-12 placeholder-slate-10 outline-hidden transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
-              defaultValue={subject}
+              value={subject}
               id={subjectId}
               onChange={(e) => {
-                setSubject(e.target.value);
+                handleSubjectChange(e.target.value);
               }}
               placeholder="My Email"
               required

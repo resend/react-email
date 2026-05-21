@@ -25,7 +25,7 @@ import {
   useSpamAssassin,
 } from './toolbar/spam-assassin';
 import { ToolbarButton } from './toolbar/toolbar-button';
-import { useCachedState } from './toolbar/use-cached-state';
+import { useCachedState } from '../hooks/use-cached-state';
 
 export type ToolbarTabValue =
   | 'linter'

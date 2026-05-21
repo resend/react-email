@@ -29,7 +29,8 @@ interface PreviewProps extends React.ComponentProps<'div'> {
 }
 
 const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
-  const { renderingResult, renderedEmailMetadata } = usePreviewContext();
+  const { renderingResult, renderedEmailMetadata, emailSlug } =
+    usePreviewContext();
 
   const router = useRouter();
   const pathname = usePathname();
@@ -141,6 +142,7 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
             <Send
               markup={renderedEmailMetadata.markup}
               defaultSubject={inferEmailTitle(emailTitle)}
+              storageKey={emailSlug}
             />
           </div>
         ) : null}
