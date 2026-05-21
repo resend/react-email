@@ -25,8 +25,9 @@ export const Send = ({ markup, defaultSubject, storageKey }: SendProps) => {
   // The recipient is cached under a single workspace-wide key — testers
   // usually send to the same address regardless of which template they're
   // on, so per-template scoping would just make them retype it.
-  const [cachedRecipient, setCachedRecipient] =
-    useCachedWorkspaceState<string>('test-email-recipient');
+  const [cachedRecipient, setCachedRecipient] = useCachedWorkspaceState<string>(
+    'test-email-recipient',
+  );
 
   const [to, setTo] = useState(cachedRecipient ?? '');
   const [subject, setSubject] = useState(cachedSubject ?? fallbackSubject);

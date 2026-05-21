@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import {
-  readWorkspaceValue,
   REACT_EMAIL_DATA_STORAGE_KEY,
+  readWorkspaceValue,
   writeWorkspaceValue,
 } from './workspace-storage';
 
@@ -25,9 +25,9 @@ describe('workspace-storage', () => {
   it('stores and retrieves a value under a workspace + key', () => {
     writeWorkspaceValue(WORKSPACE_A, 'test-email-recipient', 'me@example.com');
 
-    expect(readWorkspaceValue<string>(WORKSPACE_A, 'test-email-recipient')).toBe(
-      'me@example.com',
-    );
+    expect(
+      readWorkspaceValue<string>(WORKSPACE_A, 'test-email-recipient'),
+    ).toBe('me@example.com');
   });
 
   it('keeps non-string values intact (objects, arrays, numbers, booleans)', () => {
