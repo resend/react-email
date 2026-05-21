@@ -1,5 +1,5 @@
 import * as Popover from '@radix-ui/react-popover';
-import { useEffect, useId, useState } from 'react';
+import { useId, useState } from 'react';
 import { toast } from 'sonner';
 import { useCachedState } from '../hooks/use-cached-state';
 import { Button } from './button';
@@ -33,15 +33,6 @@ export const Send = ({ markup, defaultSubject, storageKey }: SendProps) => {
   const [subject, setSubject] = useState(cachedSubject ?? fallbackSubject);
   const [isSending, setIsSending] = useState(false);
   const [isPopOverOpen, setIsPopOverOpen] = useState(false);
-
-  // Resync the local subject when the email (and thus the storage key) changes,
-  // so navigating between templates picks up the right cached or inferred title.
-  useEffect(() => {
-    setSubject(cachedSubject ?? fallbackSubject);
-    // We intentionally key off `storageKey`/`fallbackSubject` only — once
-    // synced, further edits flow through `handleSubjectChange`.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [storageKey, fallbackSubject]);
 
   const onFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

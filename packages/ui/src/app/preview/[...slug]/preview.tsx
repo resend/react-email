@@ -140,6 +140,7 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
         {hasRenderingMetadata ? (
           <div className="flex justify-end">
             <Send
+              key={emailSlug}
               markup={renderedEmailMetadata.markup}
               defaultSubject={inferEmailTitle(emailTitle)}
               storageKey={emailSlug}
