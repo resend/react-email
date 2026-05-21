@@ -9,6 +9,7 @@ import type { CompatibilityCheckingResult } from '../actions/email-validation/ch
 import { isBuilding } from '../app/env';
 import { usePreviewContext } from '../contexts/preview';
 import { useToolbarContext } from '../contexts/toolbar';
+import { useCachedState } from '../hooks/use-cached-state';
 import { cn } from '../utils';
 import CodeSnippet from './code-snippet';
 import { IconArrowDown } from './icons/icon-arrow-down';
@@ -25,7 +26,6 @@ import {
   useSpamAssassin,
 } from './toolbar/spam-assassin';
 import { ToolbarButton } from './toolbar/toolbar-button';
-import { useCachedState } from '../hooks/use-cached-state';
 
 export type ToolbarTabValue =
   | 'linter'
