@@ -7,20 +7,20 @@ description: 'Learn how to send an email using React Email and the Azure Communi
 
 ## 1. Install dependencies
 
-Get the [@react-email/components](https://www.npmjs.com/package/@react-email/components) package and the [Azure Communication Email SDK](https://www.npmjs.com/package/@azure/communication-email).
+Get the [react-email](https://www.npmjs.com/package/react-email) package and the [Azure Communication Email SDK](https://www.npmjs.com/package/@azure/communication-email).
 
 <CodeGroup>
 
 ```sh npm
-npm install @azure/communication-email @react-email/components
+npm install @azure/communication-email react-email
 ```
 
 ```sh yarn
-yarn add @azure/communication-email @react-email/components
+yarn add @azure/communication-email react-email
 ```
 
 ```sh pnpm
-pnpm add @azure/communication-email @react-email/components
+pnpm add @azure/communication-email react-email
 ```
 
 </CodeGroup>
@@ -31,7 +31,7 @@ Start by building your email template in a `.jsx` or `.tsx` file.
 
 ```tsx email.tsx
 import * as React from 'react';
-import { Html, Button } from "@react-email/components";
+import { Html, Button } from "react-email";
 
 export function Email(props) {
   const { url } = props;
@@ -50,7 +50,7 @@ Import the email template you just built, convert into an HTML string, and use t
 
 ```tsx
 import { EmailClient } from '@azure/communication-email';
-import { render } from '@react-email/components';
+import { render } from 'react-email';
 import { Email } from './email';
 
 const client = new EmailClient(process.env.AZURE_EMAIL_CONNECTION_STRING);
