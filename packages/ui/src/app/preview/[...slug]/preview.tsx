@@ -20,6 +20,7 @@ import { ViewSizeControls } from '../../../components/topbar/view-size-controls'
 import { usePreviewContext } from '../../../contexts/preview';
 import { useClampedState } from '../../../hooks/use-clamped-state';
 import { cn } from '../../../utils';
+import { inferEmailTitle } from '../../../utils/infer-email-title';
 import { EmailFrame } from './email-frame';
 import { ErrorOverlay } from './error-overlay';
 
@@ -28,7 +29,8 @@ interface PreviewProps extends React.ComponentProps<'div'> {
 }
 
 const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
-  const { renderingResult, renderedEmailMetadata } = usePreviewContext();
+  const { renderingResult, renderedEmailMetadata, emailSlug } =
+    usePreviewContext();
 
   const router = useRouter();
   const pathname = usePathname();
@@ -137,7 +139,12 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
         />
         {hasRenderingMetadata ? (
           <div className="flex justify-end">
-            <Send markup={renderedEmailMetadata.markup} />
+            <Send
+              key={emailSlug}
+              markup={renderedEmailMetadata.markup}
+              defaultSubject={inferEmailTitle(emailTitle)}
+              storageKey={emailSlug}
+            />
           </div>
         ) : null}
       </Topbar>
