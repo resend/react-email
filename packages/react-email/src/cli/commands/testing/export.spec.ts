@@ -54,10 +54,10 @@ test('email export', { retry: 3 }, async () => {
                   cellpadding="0"
                   cellspacing="0"
                   role="presentation"
-                  style="max-width:465px;margin-right:auto;margin-left:auto;margin-bottom:40px;margin-top:40px;border-radius:0.25rem;border-style:solid;border-width:1px;border-color:rgb(234,234,234);padding:20px">
+                  style="max-width:465px;margin-right:auto;margin-left:auto;margin-bottom:40px;margin-top:40px;border-radius:0.25rem;border-style:solid;border-width:1px;border-color:rgb(234,234,234)">
                   <tbody>
                     <tr style="width:100%">
-                      <td>
+                      <td style="padding:20px">
                         <table
                           align="center"
                           width="100%"
