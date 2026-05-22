@@ -1,5 +1,11 @@
 # react-email
 
+## 6.3.1
+
+### Patch Changes
+
+- c610dc0: fix: padding in Container/Section failing on Klavyio and Outlook desktop
+
 ## 6.3.0
 
 ## 6.2.0

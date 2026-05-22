@@ -13,7 +13,7 @@ export const Section = React.forwardRef<HTMLTableElement, SectionProps>(
     const styleRecord = style as Record<string, unknown>;
 
     for (const key in styleRecord) {
-      if (!Object.prototype.hasOwnProperty.call(styleRecord, key)) {
+      if (!Object.hasOwn(styleRecord, key)) {
         continue;
       }
 
