@@ -1,5 +1,11 @@
 # react-email
 
+## 6.3.2
+
+### Patch Changes
+
+- fbda5c8: increase whitespace padding to 200 characters for better Gmail preview text rendering
+
 ## 6.3.1
 
 ### Patch Changes
