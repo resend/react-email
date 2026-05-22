@@ -4,7 +4,7 @@ export type ContainerProps = Readonly<React.ComponentPropsWithoutRef<'table'>>;
 
 export const Container = React.forwardRef<HTMLTableElement, ContainerProps>(
   ({ children, style = {}, ...props }, ref) => {
-    // Split padding styles to improve compatibility with Klavyio and Outlook,
+    // Split padding styles to improve compatibility with Klaviyo and Outlook,
     // while preserving user-provided style property order without allocating
     // entry arrays on each render.
     const tdStyle: React.CSSProperties = {};

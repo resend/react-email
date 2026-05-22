@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- c610dc0: fix: padding in Container/Section failing on Klavyio and Outlook desktop
+- c610dc0: fix: padding in Container/Section failing on Klaviyo and Outlook desktop
 
 ## 6.3.0
 
