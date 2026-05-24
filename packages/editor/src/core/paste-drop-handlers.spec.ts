@@ -2,7 +2,17 @@ import { describe, expect, it, vi } from 'vitest';
 import { createDropHandler } from './create-drop-handler';
 import { createPasteHandler } from './create-paste-handler';
 
+// Stub out generateJSON: it needs a real schema that includes a `doc` node.
+// We're testing the handler's control flow, not JSON generation.
+vi.mock('@tiptap/html', () => ({
+  generateJSON: vi.fn().mockReturnValue({ type: 'doc', content: [] }),
+}));
+
 describe('createDropHandler', () => {
+  function makeDataTransfer({ files = [] as File[] }: { files?: File[] } = {}) {
+    return { files };
+  }
+
   it('consumes the drop when onPaste accepts it', () => {
     const handler = createDropHandler({
       onPaste: () => true,
@@ -13,11 +23,11 @@ describe('createDropHandler', () => {
         state: { doc: { textContent: '' } },
       } as never,
       {
-        dataTransfer: {
+        dataTransfer: makeDataTransfer({
           files: [
             new File(['<html></html>'], 'template.html', { type: 'text/html' }),
           ],
-        },
+        }),
         preventDefault,
       } as unknown as DragEvent,
       null,
@@ -39,9 +49,9 @@ describe('createDropHandler', () => {
         posAtCoords: vi.fn().mockReturnValue({ pos: 5 }),
       } as never,
       {
-        dataTransfer: {
+        dataTransfer: makeDataTransfer({
           files: [new File(['image'], 'photo.png', { type: 'image/png' })],
-        },
+        }),
         preventDefault,
         clientX: 10,
         clientY: 20,
@@ -56,6 +66,40 @@ describe('createDropHandler', () => {
 });
 
 describe('createPasteHandler', () => {
+  function makeView(spy: ReturnType<typeof vi.fn>) {
+    const fakeNode = { type: 'paragraph' };
+    return {
+      state: {
+        doc: { textContent: '' },
+        selection: { from: 2 },
+        schema: { nodeFromJSON: vi.fn().mockReturnValue(fakeNode) },
+        tr: { replaceSelectionWith: vi.fn().mockReturnThis() },
+      },
+      dispatch: spy,
+    } as never;
+  }
+
+  function makeClipboardEvent({
+    text = '',
+    html = '',
+    files = [] as File[],
+    preventDefault = vi.fn(),
+  }: {
+    text?: string;
+    html?: string;
+    files?: File[];
+    preventDefault?: ReturnType<typeof vi.fn>;
+  } = {}) {
+    return {
+      clipboardData: {
+        getData: (type: string) =>
+          type === 'text/plain' ? text : type === 'text/html' ? html : '',
+        files,
+      },
+      preventDefault,
+    } as unknown as ClipboardEvent;
+  }
+
   it('lets plain text fall through when the caller explicitly declines it', () => {
     const preventDefault = vi.fn();
     const handler = createPasteHandler({
@@ -69,17 +113,82 @@ describe('createPasteHandler', () => {
           selection: { from: 2 },
         },
       } as never,
-      {
-        clipboardData: {
-          getData: (type: string) =>
-            type === 'text/plain' ? 'hello world' : '',
-          files: [],
-        },
+      makeClipboardEvent({ text: 'hello world', preventDefault }),
+      { content: { childCount: 1 } } as never,
+    );
+
+    expect(handled).toBe(false);
+    expect(preventDefault).not.toHaveBeenCalled();
+  });
+
+  it('short-circuits and prevents default when onPaste consumes plain text', () => {
+    const preventDefault = vi.fn();
+    const handler = createPasteHandler({
+      onPaste: () => true,
+      extensions: [],
+    });
+    const handled = handler(
+      {} as never,
+      makeClipboardEvent({ text: 'hello', preventDefault }),
+      { content: { childCount: 1 } } as never,
+    );
+
+    expect(handled).toBe(true);
+    expect(preventDefault).toHaveBeenCalledOnce();
+  });
+
+  it('routes file payloads through onPaste', () => {
+    const preventDefault = vi.fn();
+    const onPaste = vi.fn().mockReturnValue(true);
+    const file = new File(['x'], 'x.png', { type: 'image/png' });
+    const handler = createPasteHandler({ onPaste, extensions: [] });
+    const handled = handler(
+      {} as never,
+      makeClipboardEvent({ files: [file], preventDefault }),
+      { content: { childCount: 1 } } as never,
+    );
+
+    expect(handled).toBe(true);
+    expect(onPaste).toHaveBeenCalledWith(file, expect.anything());
+    expect(preventDefault).toHaveBeenCalledOnce();
+  });
+
+  it('sanitizes single-node text/html pastes (no childCount short-circuit)', () => {
+    const preventDefault = vi.fn();
+    const dispatch = vi.fn();
+    const view = makeView(dispatch);
+    const handler = createPasteHandler({ extensions: [] });
+    const handled = handler(
+      view,
+      makeClipboardEvent({
+        html: '<p style="color:red" onclick="alert(1)">x</p>',
         preventDefault,
-      } as unknown as ClipboardEvent,
-      {
-        content: { childCount: 1 },
-      } as never,
+      }),
+      { content: { childCount: 1 } } as never,
+    );
+
+    expect(handled).toBe(true);
+    expect(preventDefault).toHaveBeenCalledOnce();
+    expect(dispatch).toHaveBeenCalledOnce();
+  });
+
+  it('dispatches exactly one transaction per text/html paste', () => {
+    const dispatch = vi.fn();
+    const view = makeView(dispatch);
+    const handler = createPasteHandler({ extensions: [] });
+    handler(view, makeClipboardEvent({ html: '<p>hello</p>' }), {
+      content: { childCount: 3 },
+    } as never);
+    expect(dispatch).toHaveBeenCalledOnce();
+  });
+
+  it('returns false and does not preventDefault when clipboardData is missing', () => {
+    const preventDefault = vi.fn();
+    const handler = createPasteHandler({ extensions: [] });
+    const handled = handler(
+      {} as never,
+      { clipboardData: undefined, preventDefault } as unknown as ClipboardEvent,
+      { content: { childCount: 0 } } as never,
     );
 
     expect(handled).toBe(false);

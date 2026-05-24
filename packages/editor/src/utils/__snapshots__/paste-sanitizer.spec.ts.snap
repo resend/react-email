@@ -1,0 +1,53 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`sanitizePastedHtml > paste-source fixtures > sanitizes apple-mail.html deterministically 1`] = `
+"<meta><div><div>Hello,</div><div><br></div><div>Quoted text:</div><blockquote><div>Original message text.</div></blockquote></div>
+"
+`;
+
+exports[`sanitizePastedHtml > paste-source fixtures > sanitizes chatgpt.html deterministically 1`] = `
+"<div><p>Here's a draft welcome email for your beta users. Tone is friendly but concise.</p><hr><p><strong>Subject:</strong> Welcome to Acme — let's get you set up</p><p>Hi {{firstName}},</p><p>Thanks for joining the Acme beta! You're one of the first 100 people to try the new mobile app, and your feedback is going to shape what we build next.</p><p>Three things to try this week:</p><ol><li><strong>Set up your first audience</strong> — paste a CSV or connect your CRM.</li><li><strong>Send a test broadcast</strong> — see how delivery feels with our infrastructure.</li><li><strong>Reply to this email</strong> with anything that surprised you, good or bad.</li></ol><p>Real humans read every reply. I'll personally respond within 24 hours.</p><p>— Sarah, founder</p><p>P.S. If you'd rather opt out of beta-only emails, <a href="#" target="_new" rel="noreferrer">use this link</a>.</p></div>
+"
+`;
+
+exports[`sanitizePastedHtml > paste-source fixtures > sanitizes github-markdown.html deterministically 1`] = `
+"<article><h2 id="user-content-changelog-v240"><a href="#changelog-v240"><span></span></a>Changelog v2.4.0</h2><h3 id="user-content-new"><a href="#new"></a>New</h3><ul><li>Granular API key permissions: scope a key to a single domain or audience.</li><li>2048-bit DKIM keys are now the default for new domains.</li></ul><h3 id="user-content-fixed"><a href="#fixed"></a>Fixed</h3><ul><li>Pasted content from Word no longer leaks <code>Mso*</code> classes into the editor.</li><li>Image upload errors now surface a toast instead of failing silently.</li></ul><div><pre>curl -X POST https://api.acme.example/v1/emails \\
+  -H <span>"</span>Authorization: Bearer <span>$</span>API_KEY<span>"</span> \\
+  --data <span><span>'</span>{"to":"hi@example.com","from":"team@acme.example","subject":"Hi"}<span>'</span></span></pre></div></article>
+"
+`;
+
+exports[`sanitizePastedHtml > paste-source fixtures > sanitizes gmail.html deterministically 1`] = `
+"<div><div>Hi team,</div><div><br></div><div>Please review the <a href="https://example.com/doc" target="_blank" rel="noopener">attached document</a>.</div><div><br></div><div>Thanks,<br>Sender</div></div>
+"
+`;
+
+exports[`sanitizePastedHtml > paste-source fixtures > sanitizes linear-comment.html deterministically 1`] = `
+"<div><p>Quick triage notes from this morning's review:</p><ul><li><p>The image-upload regression looks like an abort-controller issue when the editor unmounts mid-upload. Repro in Safari is ~1 in 4.</p></li><li><p>Slash command flicker is fixed on the latest <code>main</code>.</p></li></ul><blockquote><p>For Safari specifically — does the new event-bus path solve it, or do we still need to land the imperative theme reconfigure?</p></blockquote><p>cc <span>@sarah</span> — want to pair on this Thursday?</p></div>
+"
+`;
+
+exports[`sanitizePastedHtml > paste-source fixtures > sanitizes notion.html deterministically 1`] = `
+"<meta><h1>Q2 Launch Plan</h1><p>Owner: Sarah · Status: <span>In progress</span></p><div><span>💡</span><div><p>Goal: cut activation time from 14 days to under 5 by shipping the mobile app + onboarding rewrite.</p></div></div><h2>Milestones</h2><div><label><input><span>Audit current onboarding funnel</span></label></div><div><label><input><span>Design new welcome flow</span></label></div><div><label><input><span>Ship mobile beta to first 100 users</span></label></div><div><label><input><span>Cut email template setup from 10 minutes to 2</span></label></div><h2>Risks</h2><ul><li>Mobile push notification setup may slip; iOS review cycles are unpredictable.</li><li>Liveblocks limits at the current tier — we'll cross that line around 250 concurrent rooms.</li></ul><p>See <a href="https://www.notion.so/acme/launch-plan-d4b91f02">full launch plan</a> for sub-tasks.</p>
+"
+`;
+
+exports[`sanitizePastedHtml > paste-source fixtures > sanitizes outlook-web.html deterministically 1`] = `
+"<div><p>Hi team,<o:p></o:p></p><p><o:p>&nbsp;</o:p></p><p>Quick update on the migration. We finished the audit on Friday and the report is attached. Headline numbers:<o:p></o:p></p><p><span>·<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><!--[if !supportLists]--><!--[endif]-->p95 latency down 38%<o:p></o:p></p><p><span>·<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><!--[if !supportLists]--><!--[endif]-->error rate held steady at 0.02%<o:p></o:p></p><p>Thanks,<o:p></o:p></p><p>Sarah<o:p></o:p></p></div>
+"
+`;
+
+exports[`sanitizePastedHtml > paste-source fixtures > sanitizes view-source.html deterministically 1`] = `
+"<table border="1" cellpadding="2" cellspacing="0"><tbody><tr><td colspan="2">Spans two</td></tr><tr><td>A</td><td>B</td></tr></tbody></table><img src="https://example.com/x.png" alt="x" width="100" height="50">
+"
+`;
+
+exports[`sanitizePastedHtml > paste-source fixtures > sanitizes vscode.html deterministically 1`] = `
+"<div><div><span>function</span> <span>greet</span>(<span>name</span>: <span>string</span>) {</div><div>  <span>return</span> <span>\`Hello, \${</span><span>name</span><span>}\`</span>;</div><div>}</div></div>
+"
+`;
+
+exports[`sanitizePastedHtml > paste-source fixtures > sanitizes word.html deterministically 1`] = `
+"<meta><meta><div><p><span>Hello from Word</span></p><p><b><span>Important note</span></b> with <i>mixed</i> formatting.</p></div>
+"
+`;

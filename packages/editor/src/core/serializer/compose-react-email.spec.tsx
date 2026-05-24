@@ -496,3 +496,70 @@ describe('Button and image reset styles', () => {
     expect(result.html).toContain('test image');
   });
 });
+
+// HTML fixtures live in src/__tests__/fixtures/emails/. Each one is parsed
+// through @tiptap/html, run through composeReactEmail, and snapshotted to
+// pin down editor ↔ rendered-email parity.
+
+import { generateJSON } from '@tiptap/html';
+import * as fc from 'fast-check';
+import { proseMirrorDocArbitrary } from '../../__tests__/arbitraries';
+import { loadFixture } from '../../__tests__/fixtures/load-fixture';
+
+describe('round-trip corpus', () => {
+  const FIXTURES = [
+    'simple-paragraph.html',
+    'mixed-marks.html',
+    'headings-and-lists.html',
+    'links-and-images.html',
+    'blockquote-and-code.html',
+    'inline-styled-typography.html',
+    'nested-table.html',
+    'welcome-confirm.html',
+    'password-reset.html',
+    'magic-link.html',
+    'order-receipt.html',
+    'marketing-announcement.html',
+    'team-invite.html',
+    'digest-newsletter.html',
+    'notification-with-footer.html',
+  ];
+
+  it.each(
+    FIXTURES,
+  )('%s renders deterministically through composeReactEmail', async (fixture) => {
+    const html = loadFixture(`emails/${fixture}`);
+    const json = generateJSON(html, [
+      StarterKit,
+      EmailTheming.configure({ theme: 'basic' }),
+    ]) as JSONContent;
+    const wrapped = docWithGlobalContent(json.content ?? []);
+    const ed = createEditorWithContent(wrapped);
+    const result = await composeReactEmail({ editor: ed, preview: '' });
+    expect(result.html).toMatchSnapshot();
+  });
+});
+
+describe('round-trip property', () => {
+  it('composeReactEmail does not throw on arbitrary valid JSON', async () => {
+    await fc.assert(
+      fc.asyncProperty(
+        proseMirrorDocArbitrary({ maxBlocks: 4 }),
+        async (doc) => {
+          const wrapped = docWithGlobalContent(doc.content ?? []);
+          const ed = createEditorWithContent(wrapped);
+          try {
+            const result = await composeReactEmail({
+              editor: ed,
+              preview: '',
+            });
+            expect(typeof result.html).toBe('string');
+          } finally {
+            ed.destroy();
+          }
+        },
+      ),
+      { numRuns: 25 },
+    );
+  });
+});

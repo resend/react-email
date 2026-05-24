@@ -6,6 +6,11 @@ const schema = new Schema({
   nodes: {
     doc: { content: 'block+' },
     paragraph: { group: 'block', content: 'inline*' },
+    heading: {
+      group: 'block',
+      content: 'inline*',
+      attrs: { level: { default: 1 } },
+    },
     text: { group: 'inline' },
     globalContent: { group: 'block', atom: true },
     container: { group: 'block', content: 'block+' },
@@ -89,6 +94,49 @@ describe('isDocumentVisuallyEmpty', () => {
 
       expect(isDocumentVisuallyEmpty(doc)).toBe(false);
     });
+
+    // Empty headings used to render the placeholder predicate as non-empty,
+    // which broke the "Press / for commands" hint when the doc started as
+    // a heading. See email-editor.tsx:153 TODO.
+    it('returns true when document contains a single empty heading', () => {
+      const doc = schema.node('doc', null, [schema.node('heading')]);
+
+      expect(isDocumentVisuallyEmpty(doc)).toBe(true);
+    });
+
+    it('returns true when global content precedes a single empty heading', () => {
+      const doc = schema.node('doc', null, [
+        schema.node('globalContent'),
+        schema.node('heading'),
+      ]);
+
+      expect(isDocumentVisuallyEmpty(doc)).toBe(true);
+    });
+
+    it('returns false when heading has text', () => {
+      const doc = schema.node('doc', null, [
+        schema.node('heading', null, [schema.text('title')]),
+      ]);
+
+      expect(isDocumentVisuallyEmpty(doc)).toBe(false);
+    });
+
+    it('returns false when heading contains a variable node', () => {
+      const doc = schema.node('doc', null, [
+        schema.node('heading', null, [schema.node('variable')]),
+      ]);
+
+      expect(isDocumentVisuallyEmpty(doc)).toBe(false);
+    });
+
+    it('returns false when document has an empty heading and a variable paragraph', () => {
+      const doc = schema.node('doc', null, [
+        schema.node('heading'),
+        schema.node('paragraph', null, [schema.node('variable')]),
+      ]);
+
+      expect(isDocumentVisuallyEmpty(doc)).toBe(false);
+    });
   });
 
   describe('with container', () => {
@@ -142,6 +190,24 @@ describe('isDocumentVisuallyEmpty', () => {
       const doc = schema.node('doc', null, [
         schema.node('container', null, [
           schema.node('paragraph', null, [schema.node('variable')]),
+        ]),
+      ]);
+
+      expect(isDocumentVisuallyEmpty(doc)).toBe(false);
+    });
+
+    it('returns true when container holds one empty heading', () => {
+      const doc = schema.node('doc', null, [
+        schema.node('container', null, [schema.node('heading')]),
+      ]);
+
+      expect(isDocumentVisuallyEmpty(doc)).toBe(true);
+    });
+
+    it('returns false when container holds heading with text', () => {
+      const doc = schema.node('doc', null, [
+        schema.node('container', null, [
+          schema.node('heading', null, [schema.text('hi')]),
         ]),
       ]);
 

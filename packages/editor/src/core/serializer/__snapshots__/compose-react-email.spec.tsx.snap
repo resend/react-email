@@ -1,0 +1,1148 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`round-trip corpus > blockquote-and-code.html renders deterministically through composeReactEmail 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="width=device-width" name="viewport" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta
+      content="telephone=no,address=no,email=no,date=no,url=no"
+      name="format-detection" />
+  </head>
+  <body>
+    <!--$--><!--html--><!--head--><!--body-->
+    <table
+      border="0"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      role="presentation"
+      align="center">
+      <tbody>
+        <tr>
+          <td>
+            <table
+              align="center"
+              width="100%"
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              role="presentation"
+              style="width:100%">
+              <tbody>
+                <tr style="width:100%">
+                  <td>
+                    <blockquote><p>To be, or not to be.</p></blockquote>
+                    <p>Inline <code>code()</code> mid-sentence.</p>
+                    <pre
+                      style='color:#1e293b;background:#f1f5f9;line-height:1.5;font-family:"Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;padding:0.75rem 1rem;border-radius:0.125rem;width:auto'><code><span>const</span><span> ‍​x ‍​</span><span>=</span><span> ‍​</span><span>1</span><span>;</span><br/><span>const</span><span> ‍​y ‍​</span><span>=</span><span> ‍​</span><span>2</span><span>;</span><br/><span></span><br/></code></pre>
+                    <p><br /></p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--/$-->
+  </body>
+</html>
+"
+`;
+
+exports[`round-trip corpus > digest-newsletter.html renders deterministically through composeReactEmail 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="width=device-width" name="viewport" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta
+      content="telephone=no,address=no,email=no,date=no,url=no"
+      name="format-detection" />
+  </head>
+  <body>
+    <!--$--><!--html--><!--head--><!--body-->
+    <table
+      border="0"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      role="presentation"
+      align="center">
+      <tbody>
+        <tr>
+          <td>
+            <table
+              align="center"
+              width="100%"
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              role="presentation"
+              style="width:100%">
+              <tbody>
+                <tr style="width:100%">
+                  <td>
+                    <h1 style="font-size:22px;color:#1d1c1d;margin:0 0 8px">
+                      The Weekly Digest
+                    </h1>
+                    <p style="font-size:14px;color:#6b7280;margin:0 0 32px">
+                      Issue #84 · May 11, 2026
+                    </p>
+                    <h3 style="font-size:18px;color:#1d1c1d;margin:0 0 8px">
+                      What&#x27;s new
+                    </h3>
+                    <p
+                      style="font-size:16px;line-height:24px;color:#1d1c1d;margin:0 0 16px">
+                      We shipped granular API key permissions this week. You can
+                      now scope a key to a single domain or audience.
+                      <a
+                        href="https://acme.example/changelog/api-keys"
+                        rel="noopener noreferrer nofollow"
+                        style="color:#0670DB;text-decoration-line:none"
+                        target="_blank"
+                        >Read the changelog →</a
+                      >
+                    </p>
+                    <h3 style="font-size:18px;color:#1d1c1d;margin:24px 0 8px">
+                      From the blog
+                    </h3>
+                    <ul
+                      style="font-size:16px;line-height:24px;color:#1d1c1d;padding-left:20px">
+                      <li>
+                        <p>
+                          <a
+                            href="https://acme.example/blog/dkim-2048"
+                            rel="noopener noreferrer nofollow"
+                            style="color:#0670DB;text-decoration-line:none"
+                            target="_blank"
+                            >2048-bit DKIM keys are now the default</a
+                          >
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          <a
+                            href="https://acme.example/blog/inbox-placement"
+                            rel="noopener noreferrer nofollow"
+                            style="color:#0670DB;text-decoration-line:none"
+                            target="_blank"
+                            >A field guide to inbox placement in 2026</a
+                          >
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          <a
+                            href="https://acme.example/blog/transactional-vs-marketing"
+                            rel="noopener noreferrer nofollow"
+                            style="color:#0670DB;text-decoration-line:none"
+                            target="_blank"
+                            >Transactional vs marketing: which IP pool fits</a
+                          >
+                        </p>
+                      </li>
+                    </ul>
+                    <h3 style="font-size:18px;color:#1d1c1d;margin:24px 0 8px">
+                      Customer spotlight
+                    </h3>
+                    <blockquote
+                      style="border-left:3px solid #e5e7eb;padding-left:16px;margin:0;font-size:15px;line-height:22px;color:#4b5563;font-style:italic">
+                      <p>
+                        <em
+                          >&quot;Switching to Acme cut our delivery latency by
+                          60% on the first day. Setup took less time than
+                          reading our last vendor&#x27;s docs.&quot;</em
+                        >
+                      </p>
+                    </blockquote>
+                    <p style="font-size:14px;color:#6b7280;margin:8px 0 0">
+                      — Priya N., CTO at Linear-not-actually-Linear
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--/$-->
+  </body>
+</html>
+"
+`;
+
+exports[`round-trip corpus > headings-and-lists.html renders deterministically through composeReactEmail 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="width=device-width" name="viewport" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta
+      content="telephone=no,address=no,email=no,date=no,url=no"
+      name="format-detection" />
+  </head>
+  <body>
+    <!--$--><!--html--><!--head--><!--body-->
+    <table
+      border="0"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      role="presentation"
+      align="center">
+      <tbody>
+        <tr>
+          <td>
+            <table
+              align="center"
+              width="100%"
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              role="presentation"
+              style="width:100%">
+              <tbody>
+                <tr style="width:100%">
+                  <td>
+                    <h1>Welcome</h1>
+                    <h2>Subheader</h2>
+                    <p>Intro paragraph.</p>
+                    <ul>
+                      <li><p>One</p></li>
+                      <li><p>Two</p></li>
+                    </ul>
+                    <ol start="1">
+                      <li><p>First</p></li>
+                      <li><p>Second</p></li>
+                    </ol>
+                    <p><br /></p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--/$-->
+  </body>
+</html>
+"
+`;
+
+exports[`round-trip corpus > inline-styled-typography.html renders deterministically through composeReactEmail 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="width=device-width" name="viewport" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta
+      content="telephone=no,address=no,email=no,date=no,url=no"
+      name="format-detection" />
+  </head>
+  <body>
+    <!--$--><!--html--><!--head--><!--body-->
+    <table
+      border="0"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      role="presentation"
+      align="center">
+      <tbody>
+        <tr>
+          <td>
+            <table
+              align="center"
+              width="100%"
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              role="presentation"
+              style="width:100%">
+              <tbody>
+                <tr style="width:100%">
+                  <td>
+                    <p style="color:rgb(255, 0, 0);font-weight:700">
+                      Red bold paragraph.
+                    </p>
+                    <h2 style="color:#1f3864">Heading with color.</h2>
+                    <p>Plain after.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--/$-->
+  </body>
+</html>
+"
+`;
+
+exports[`round-trip corpus > links-and-images.html renders deterministically through composeReactEmail 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="width=device-width" name="viewport" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta
+      content="telephone=no,address=no,email=no,date=no,url=no"
+      name="format-detection" />
+  </head>
+  <body>
+    <!--$--><!--html--><!--head--><!--body-->
+    <table
+      border="0"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      role="presentation"
+      align="center">
+      <tbody>
+        <tr>
+          <td>
+            <table
+              align="center"
+              width="100%"
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              role="presentation"
+              style="width:100%">
+              <tbody>
+                <tr style="width:100%">
+                  <td>
+                    <p>
+                      Visit
+                      <a
+                        href="https://example.com"
+                        rel="noopener noreferrer nofollow"
+                        style="color:#067df7;text-decoration-line:none"
+                        target="_blank"
+                        >our site</a
+                      >
+                      for more.
+                    </p>
+                    <p><br /></p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--/$-->
+  </body>
+</html>
+"
+`;
+
+exports[`round-trip corpus > magic-link.html renders deterministically through composeReactEmail 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="width=device-width" name="viewport" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta
+      content="telephone=no,address=no,email=no,date=no,url=no"
+      name="format-detection" />
+  </head>
+  <body>
+    <!--$--><!--html--><!--head--><!--body-->
+    <table
+      border="0"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      role="presentation"
+      align="center">
+      <tbody>
+        <tr>
+          <td>
+            <table
+              align="center"
+              width="100%"
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              role="presentation"
+              style="width:100%">
+              <tbody>
+                <tr style="width:100%">
+                  <td>
+                    <p style="font-size:16px;line-height:24px;color:#1d1c1d">
+                      Hi Sarah,
+                    </p>
+                    <p style="font-size:16px;line-height:24px;color:#1d1c1d">
+                      Click below to sign in to Acme. The link is good for the
+                      next 10 minutes.
+                    </p>
+                    <p style="margin:24px 0">
+                      <a
+                        href="https://acme.example/auth/magic?t=longtokenhere"
+                        rel="noopener noreferrer nofollow"
+                        style="color:#ffffff;text-decoration-line:none;display:inline-block;background-color:#1d1c1d;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:600"
+                        target="_blank"
+                        >Sign in to Acme</a
+                      >
+                    </p>
+                    <p style="font-size:14px;line-height:20px;color:#6b7280">
+                      If you didn&#x27;t try to sign in, you can ignore this
+                      email. No action is needed.
+                    </p>
+                    <p style="font-size:14px;line-height:20px;color:#6b7280">
+                      For security reasons, this link expires after one use.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--/$-->
+  </body>
+</html>
+"
+`;
+
+exports[`round-trip corpus > marketing-announcement.html renders deterministically through composeReactEmail 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="width=device-width" name="viewport" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta
+      content="telephone=no,address=no,email=no,date=no,url=no"
+      name="format-detection" />
+  </head>
+  <body>
+    <!--$--><!--html--><!--head--><!--body-->
+    <table
+      border="0"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      role="presentation"
+      align="center">
+      <tbody>
+        <tr>
+          <td>
+            <table
+              align="center"
+              width="100%"
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              role="presentation"
+              style="width:100%">
+              <tbody>
+                <tr style="width:100%">
+                  <td>
+                    <p style="text-align:center"><br /></p>
+                    <h1
+                      style="font-size:28px;line-height:36px;color:#1d1c1d;text-align:center;margin:32px 0 12px">
+                      Introducing Acme Mobile
+                    </h1>
+                    <p
+                      style="font-size:16px;line-height:24px;color:#4b5563;text-align:center;margin:0 0 24px">
+                      Everything you love about Acme, now on iPhone and Android.
+                      Same workspace, same teammates, same data — wherever you
+                      are.
+                    </p>
+                    <p style="text-align:center;margin:0 0 32px">
+                      <a
+                        href="https://acme.example/mobile"
+                        rel="noopener noreferrer nofollow"
+                        style="color:#ffffff;text-decoration-line:none;display:inline-block;background-color:#0670DB;padding:14px 32px;border-radius:6px;text-decoration:none;font-weight:600"
+                        target="_blank"
+                        >Download the app</a
+                      >
+                    </p>
+                    <h3 style="font-size:18px;color:#1d1c1d;margin:32px 0 12px">
+                      What you get
+                    </h3>
+                    <ul
+                      style="font-size:16px;line-height:24px;color:#1d1c1d;padding-left:20px">
+                      <li>
+                        <p>
+                          Real-time push notifications for replies and mentions
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          Offline drafting that syncs the moment you reconnect
+                        </p>
+                      </li>
+                      <li><p>Biometric sign-in (Face ID / fingerprint)</p></li>
+                    </ul>
+                    <p><br /></p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--/$-->
+  </body>
+</html>
+"
+`;
+
+exports[`round-trip corpus > mixed-marks.html renders deterministically through composeReactEmail 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="width=device-width" name="viewport" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta
+      content="telephone=no,address=no,email=no,date=no,url=no"
+      name="format-detection" />
+  </head>
+  <body>
+    <!--$--><!--html--><!--head--><!--body-->
+    <table
+      border="0"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      role="presentation"
+      align="center">
+      <tbody>
+        <tr>
+          <td>
+            <table
+              align="center"
+              width="100%"
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              role="presentation"
+              style="width:100%">
+              <tbody>
+                <tr style="width:100%">
+                  <td>
+                    <p>
+                      Some <strong>bold</strong>, <em>italic</em>,
+                      <u>underline</u>, and <s>strike</s> text.
+                    </p>
+                    <p>
+                      And
+                      <em><strong>both bold and italic</strong></em> together.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--/$-->
+  </body>
+</html>
+"
+`;
+
+exports[`round-trip corpus > nested-table.html renders deterministically through composeReactEmail 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="width=device-width" name="viewport" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta
+      content="telephone=no,address=no,email=no,date=no,url=no"
+      name="format-detection" />
+  </head>
+  <body>
+    <!--$--><!--html--><!--head--><!--body-->
+    <table
+      border="0"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      role="presentation"
+      align="center">
+      <tbody>
+        <tr>
+          <td>
+            <table
+              align="center"
+              width="100%"
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              role="presentation"
+              style="width:100%">
+              <tbody>
+                <tr style="width:100%">
+                  <td>
+                    <table
+                      border="0"
+                      cellpadding="0"
+                      cellspacing="0"
+                      role="presentation">
+                      <tbody>
+                        <tr>
+                          <td data-id="__react-email-column"><p>Cell A</p></td>
+                          <td data-id="__react-email-column"><p>Cell B</p></td>
+                        </tr>
+                        <tr>
+                          <td data-id="__react-email-column">
+                            <p>Spans both</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p><br /></p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--/$-->
+  </body>
+</html>
+"
+`;
+
+exports[`round-trip corpus > notification-with-footer.html renders deterministically through composeReactEmail 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="width=device-width" name="viewport" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta
+      content="telephone=no,address=no,email=no,date=no,url=no"
+      name="format-detection" />
+  </head>
+  <body>
+    <!--$--><!--html--><!--head--><!--body-->
+    <table
+      border="0"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      role="presentation"
+      align="center">
+      <tbody>
+        <tr>
+          <td>
+            <table
+              align="center"
+              width="100%"
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              role="presentation"
+              style="width:100%">
+              <tbody>
+                <tr style="width:100%">
+                  <td>
+                    <p style="font-size:16px;line-height:24px;color:#1d1c1d">
+                      Hi Sarah,
+                    </p>
+                    <p style="font-size:16px;line-height:24px;color:#1d1c1d">
+                      <strong>James Liu</strong> commented on your pull request
+                      <a
+                        href="https://acme.example/pr/482"
+                        rel="noopener noreferrer nofollow"
+                        style="color:#0670DB;text-decoration-line:none"
+                        target="_blank"
+                        ><em>feat: rate-limited webhook retries</em></a
+                      >:
+                    </p>
+                    <blockquote
+                      style="border-left:3px solid #0670DB;padding:12px 16px;margin:16px 0;background-color:#f9fafb;font-size:15px;line-height:22px;color:#1d1c1d">
+                      <p>
+                        Could we use the same backoff schedule as the SMS retry
+                        path? Otherwise this is great — ship it.
+                      </p>
+                    </blockquote>
+                    <p style="margin:24px 0">
+                      <a
+                        href="https://acme.example/pr/482#comment-3219"
+                        rel="noopener noreferrer nofollow"
+                        style="color:#ffffff;text-decoration-line:none;display:inline-block;background-color:#1d1c1d;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600"
+                        target="_blank"
+                        >View comment</a
+                      >
+                    </p>
+                    <hr
+                      style="width:100%;border:0;border-color:transparent;border-top:1px solid #e5e7eb;margin:40px 0 24px" />
+                    <p
+                      style="font-size:12px;line-height:18px;color:#6b7280;margin:0 0 8px">
+                      Acme · 100 Market St, San Francisco, CA 94103
+                    </p>
+                    <p
+                      style="font-size:12px;line-height:18px;color:#6b7280;margin:0">
+                      You&#x27;re receiving this because you authored the PR.
+                      <a
+                        href="https://acme.example/notifications"
+                        rel="noopener noreferrer nofollow"
+                        style="color:#6b7280;text-decoration-line:none;text-decoration:underline"
+                        target="_blank"
+                        ><u>Manage notification preferences</u></a
+                      >
+                      ·
+                      <a
+                        href="https://acme.example/unsubscribe"
+                        rel="noopener noreferrer nofollow"
+                        style="color:#6b7280;text-decoration-line:none;text-decoration:underline"
+                        target="_blank"
+                        ><u>Unsubscribe</u></a
+                      >
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--/$-->
+  </body>
+</html>
+"
+`;
+
+exports[`round-trip corpus > order-receipt.html renders deterministically through composeReactEmail 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="width=device-width" name="viewport" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta
+      content="telephone=no,address=no,email=no,date=no,url=no"
+      name="format-detection" />
+  </head>
+  <body>
+    <!--$--><!--html--><!--head--><!--body-->
+    <table
+      border="0"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      role="presentation"
+      align="center">
+      <tbody>
+        <tr>
+          <td>
+            <table
+              align="center"
+              width="100%"
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              role="presentation"
+              style="width:100%">
+              <tbody>
+                <tr style="width:100%">
+                  <td>
+                    <h2 style="font-size:20px;color:#1d1c1d;margin:0 0 8px">
+                      Thanks for your order
+                    </h2>
+                    <p style="font-size:14px;color:#6b7280;margin:0 0 24px">
+                      Order #AC-10847 · Placed on May 11, 2026
+                    </p>
+                    <table
+                      width="100%"
+                      border="0"
+                      cellpadding="0"
+                      cellspacing="0"
+                      role="presentation"
+                      style="width:100%;border-collapse:collapse">
+                      <tbody>
+                        <tr>
+                          <td
+                            data-id="__react-email-column"
+                            style="padding:12px 0;border-bottom:1px solid #e5e7eb;font-size:14px">
+                            <p>Espresso Beans, 1lb</p>
+                          </td>
+                          <td
+                            align="right"
+                            data-id="__react-email-column"
+                            style="padding:12px 0;border-bottom:1px solid #e5e7eb;font-size:14px;text-align:right">
+                            <p>2 × $18.00</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            data-id="__react-email-column"
+                            style="padding:12px 0;border-bottom:1px solid #e5e7eb;font-size:14px">
+                            <p>Stainless steel French press</p>
+                          </td>
+                          <td
+                            align="right"
+                            data-id="__react-email-column"
+                            style="padding:12px 0;border-bottom:1px solid #e5e7eb;font-size:14px;text-align:right">
+                            <p>$42.00</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            data-id="__react-email-column"
+                            style="padding:12px 0;font-size:14px;color:#6b7280">
+                            <p>Shipping</p>
+                          </td>
+                          <td
+                            align="right"
+                            data-id="__react-email-column"
+                            style="padding:12px 0;font-size:14px;text-align:right;color:#6b7280">
+                            <p>$5.00</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td
+                            data-id="__react-email-column"
+                            style="padding:12px 0;font-size:16px;font-weight:700">
+                            <p>Total</p>
+                          </td>
+                          <td
+                            align="right"
+                            data-id="__react-email-column"
+                            style="padding:12px 0;font-size:16px;font-weight:700;text-align:right">
+                            <p>$83.00</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p
+                      style="font-size:14px;line-height:20px;color:#6b7280;margin:24px 0 0">
+                      Tracking will be emailed when your order ships, usually
+                      within two business days.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--/$-->
+  </body>
+</html>
+"
+`;
+
+exports[`round-trip corpus > password-reset.html renders deterministically through composeReactEmail 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="width=device-width" name="viewport" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta
+      content="telephone=no,address=no,email=no,date=no,url=no"
+      name="format-detection" />
+  </head>
+  <body>
+    <!--$--><!--html--><!--head--><!--body-->
+    <table
+      border="0"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      role="presentation"
+      align="center">
+      <tbody>
+        <tr>
+          <td>
+            <table
+              align="center"
+              width="100%"
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              role="presentation"
+              style="width:100%">
+              <tbody>
+                <tr style="width:100%">
+                  <td>
+                    <h2 style="font-size:20px;color:#1d1c1d;margin:0 0 16px">
+                      Reset your password
+                    </h2>
+                    <p style="font-size:16px;line-height:24px;color:#1d1c1d">
+                      We received a request to reset the password for
+                      <strong>sarah@example.com</strong>. Click the button below
+                      to choose a new one. This link expires in 30 minutes.
+                    </p>
+                    <p style="margin:24px 0">
+                      <a
+                        href="https://acme.example/reset?token=xyz"
+                        rel="noopener noreferrer nofollow"
+                        style="color:#ffffff;text-decoration-line:none;display:inline-block;background-color:#0670DB;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600"
+                        target="_blank"
+                        >Reset password</a
+                      >
+                    </p>
+                    <p style="font-size:14px;line-height:20px;color:#6b7280">
+                      Didn&#x27;t request this? You can ignore this email — your
+                      password won&#x27;t change.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--/$-->
+  </body>
+</html>
+"
+`;
+
+exports[`round-trip corpus > simple-paragraph.html renders deterministically through composeReactEmail 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="width=device-width" name="viewport" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta
+      content="telephone=no,address=no,email=no,date=no,url=no"
+      name="format-detection" />
+  </head>
+  <body>
+    <!--$--><!--html--><!--head--><!--body-->
+    <table
+      border="0"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      role="presentation"
+      align="center">
+      <tbody>
+        <tr>
+          <td>
+            <table
+              align="center"
+              width="100%"
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              role="presentation"
+              style="width:100%">
+              <tbody>
+                <tr style="width:100%">
+                  <td><p>Hello world.</p></td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--/$-->
+  </body>
+</html>
+"
+`;
+
+exports[`round-trip corpus > team-invite.html renders deterministically through composeReactEmail 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="width=device-width" name="viewport" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta
+      content="telephone=no,address=no,email=no,date=no,url=no"
+      name="format-detection" />
+  </head>
+  <body>
+    <!--$--><!--html--><!--head--><!--body-->
+    <table
+      border="0"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      role="presentation"
+      align="center">
+      <tbody>
+        <tr>
+          <td>
+            <table
+              align="center"
+              width="100%"
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              role="presentation"
+              style="width:100%">
+              <tbody>
+                <tr style="width:100%">
+                  <td>
+                    <h2 style="font-size:20px;color:#1d1c1d;margin:0 0 16px">
+                      Sarah invited you to Acme
+                    </h2>
+                    <p style="font-size:16px;line-height:24px;color:#1d1c1d">
+                      <strong>sarah@example.com</strong> wants you to join the
+                      <strong>Engineering</strong> workspace on Acme.
+                    </p>
+                    <p style="margin:24px 0">
+                      <a
+                        href="https://acme.example/invite/eng-9f3a"
+                        rel="noopener noreferrer nofollow"
+                        style="color:#ffffff;text-decoration-line:none;display:inline-block;background-color:#0670DB;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600"
+                        target="_blank"
+                        >Accept invitation</a
+                      >
+                    </p>
+                    <p style="font-size:14px;line-height:20px;color:#6b7280">
+                      You&#x27;ll be able to see Engineering&#x27;s projects,
+                      threads, and shared files. You can leave the workspace at
+                      any time from your profile.
+                    </p>
+                    <p style="font-size:14px;line-height:20px;color:#6b7280">
+                      This invitation expires in 7 days.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--/$-->
+  </body>
+</html>
+"
+`;
+
+exports[`round-trip corpus > welcome-confirm.html renders deterministically through composeReactEmail 1`] = `
+"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+  <head>
+    <meta content="width=device-width" name="viewport" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta
+      content="telephone=no,address=no,email=no,date=no,url=no"
+      name="format-detection" />
+  </head>
+  <body>
+    <!--$--><!--html--><!--head--><!--body-->
+    <table
+      border="0"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      role="presentation"
+      align="center">
+      <tbody>
+        <tr>
+          <td>
+            <table
+              align="center"
+              width="100%"
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              role="presentation"
+              style="width:100%">
+              <tbody>
+                <tr style="width:100%">
+                  <td>
+                    <h1 style="font-size:24px;color:#1d1c1d;margin:0 0 16px">
+                      Welcome to Acme, Sarah
+                    </h1>
+                    <p
+                      style="font-size:16px;line-height:24px;color:#1d1c1d;margin:0 0 16px">
+                      Thanks for signing up. Your account is ready to go.
+                      Confirm your email to start sending.
+                    </p>
+                    <p>
+                      <a
+                        href="https://acme.example/confirm?token=abc123"
+                        rel="noopener noreferrer nofollow"
+                        style="color:#ffffff;text-decoration-line:none;display:inline-block;background-color:#0670DB;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600"
+                        target="_blank"
+                        >Confirm email</a
+                      >
+                    </p>
+                    <p
+                      style="font-size:14px;line-height:20px;color:#6b7280;margin:24px 0 0">
+                      Or paste this link into your browser:
+                      https://acme.example/confirm?token=abc123
+                    </p>
+                    <hr
+                      style="width:100%;border:0;border-color:transparent;border-top:1px solid #e5e7eb;margin:32px 0" />
+                    <p
+                      style="font-size:12px;line-height:18px;color:#6b7280;margin:0">
+                      If you didn&#x27;t sign up, you can safely ignore this
+                      email.
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--/$-->
+  </body>
+</html>
+"
+`;

@@ -22,6 +22,25 @@ const PRESERVED_ATTRIBUTES: Record<string, string[]> = {
   '*': ['id'],
 };
 
+/**
+ * Attributes whose value carries a URL. Stripped if the value uses an unsafe
+ * scheme (javascript:, vbscript:, data:, file:). Whitespace and C0 control
+ * characters are dropped before the prefix check so attackers can't bypass
+ * with e.g. "\tjavascript:" or embedded NULLs.
+ */
+const URL_ATTRIBUTES: Record<string, Set<string>> = {
+  a: new Set(['href']),
+  img: new Set(['src']),
+};
+
+const UNSAFE_URL_SCHEMES = /^(?:javascript|vbscript|data|file):/i;
+// biome-ignore lint/suspicious/noControlCharactersInRegex: intentional defense against scheme-bypass via C0 control chars.
+const URL_IGNORED_CHARS = /[\s\u0000-\u001f]/g;
+
+function hasUnsafeUrl(value: string): boolean {
+  return UNSAFE_URL_SCHEMES.test(value.replace(URL_IGNORED_CHARS, ''));
+}
+
 function isFromEditor(html: string): boolean {
   return EDITOR_CLASS_PATTERN.test(html);
 }
@@ -56,6 +75,7 @@ function sanitizeElement(el: HTMLElement): void {
   const allowedForTag = PRESERVED_ATTRIBUTES[tagName] || [];
   const allowedGlobal = PRESERVED_ATTRIBUTES['*'] || [];
   const allowed = new Set([...allowedForTag, ...allowedGlobal]);
+  const urlAttrs = URL_ATTRIBUTES[tagName];
 
   const attributesToRemove: string[] = [];
 
@@ -66,6 +86,11 @@ function sanitizeElement(el: HTMLElement): void {
     }
 
     if (!allowed.has(attr.name)) {
+      attributesToRemove.push(attr.name);
+      continue;
+    }
+
+    if (urlAttrs?.has(attr.name) && hasUnsafeUrl(attr.value)) {
       attributesToRemove.push(attr.name);
     }
   }

@@ -16,7 +16,7 @@ export function createPasteHandler({
   onPaste?: PasteHandler;
   extensions: Extensions;
 }) {
-  return (view: EditorView, event: ClipboardEvent, slice: Slice): boolean => {
+  return (view: EditorView, event: ClipboardEvent, _slice: Slice): boolean => {
     const text = event.clipboardData?.getData('text/plain');
 
     if (text && onPaste?.(text, view)) {
@@ -32,10 +32,6 @@ export function createPasteHandler({
 
         return true;
       }
-    }
-
-    if (slice.content.childCount === 1) {
-      return false;
     }
 
     if (event.clipboardData?.getData?.('text/html')) {
