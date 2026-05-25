@@ -53,6 +53,13 @@ const getResponseSizeInBytes = async (res: IncomingMessage) => {
 export const checkImages = async (code: string, base: string) => {
   const ast = parse(code);
 
+  let baseOrigin: string | undefined;
+  try {
+    if (base) baseOrigin = new URL(base).origin;
+  } catch {
+    baseOrigin = undefined;
+  }
+
   const readableStream = new ReadableStream<ImageCheckingResult>({
     async start(controller) {
       const images = ast.querySelectorAll('img');
@@ -103,44 +110,53 @@ export const checkImages = async (code: string, base: string) => {
             });
           }
 
-          let res: IncomingMessage | undefined;
-          try {
-            res = await quickFetch(url);
-            const hasSucceeded =
-              res.statusCode?.toString().startsWith('2') ?? false;
-            result.checks.push({
-              type: 'fetch_attempt',
-              passed: hasSucceeded,
-              metadata: {
-                fetchStatusCode: res.statusCode,
-              },
-            });
-            if (!hasSucceeded) {
-              result.status = res.statusCode?.toString().startsWith('3')
-                ? 'warning'
-                : 'error';
-            }
+          // Same-origin assets are served by the dev server we're already
+          // talking to — the user sees whether they render in the preview
+          // iframe directly. Skip the network probe to avoid the SSRF guard
+          // refusing legitimate loopback reads against our own host.
+          const isSameOrigin =
+            baseOrigin !== undefined && url.origin === baseOrigin;
 
-            const responseSizeBytes = await getResponseSizeInBytes(res);
-            result.checks.push({
-              type: 'image_size',
-              passed: responseSizeBytes < 1_048_576, // 1024 x 1024 bytes
-              metadata: {
-                byteCount: responseSizeBytes,
-              },
-            });
-            if (responseSizeBytes > 1_048_576 && result.status !== 'error') {
-              result.status = 'warning';
+          if (!isSameOrigin) {
+            let res: IncomingMessage | undefined;
+            try {
+              res = await quickFetch(url);
+              const hasSucceeded =
+                res.statusCode?.toString().startsWith('2') ?? false;
+              result.checks.push({
+                type: 'fetch_attempt',
+                passed: hasSucceeded,
+                metadata: {
+                  fetchStatusCode: res.statusCode,
+                },
+              });
+              if (!hasSucceeded) {
+                result.status = res.statusCode?.toString().startsWith('3')
+                  ? 'warning'
+                  : 'error';
+              }
+
+              const responseSizeBytes = await getResponseSizeInBytes(res);
+              result.checks.push({
+                type: 'image_size',
+                passed: responseSizeBytes < 1_048_576, // 1024 x 1024 bytes
+                metadata: {
+                  byteCount: responseSizeBytes,
+                },
+              });
+              if (responseSizeBytes > 1_048_576 && result.status !== 'error') {
+                result.status = 'warning';
+              }
+            } catch {
+              result.checks.push({
+                type: 'fetch_attempt',
+                passed: false,
+                metadata: {
+                  fetchStatusCode: undefined,
+                },
+              });
+              result.status = 'error';
             }
-          } catch {
-            result.checks.push({
-              type: 'fetch_attempt',
-              passed: false,
-              metadata: {
-                fetchStatusCode: undefined,
-              },
-            });
-            result.status = 'error';
           }
         } catch {
           result.checks.push({

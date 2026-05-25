@@ -102,20 +102,6 @@ test('checkImages()', async () => {
             "passed": true,
             "type": "security",
           },
-          {
-            "metadata": {
-              "fetchStatusCode": 200,
-            },
-            "passed": true,
-            "type": "fetch_attempt",
-          },
-          {
-            "metadata": {
-              "byteCount": 111922,
-            },
-            "passed": true,
-            "type": "image_size",
-          },
         ],
         "codeLocation": {
           "column": 3,
