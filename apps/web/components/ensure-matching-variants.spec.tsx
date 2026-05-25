@@ -7,8 +7,6 @@ import { getComponentElement } from '../src/app/components/get-imported-componen
 import { Layout } from './_components/layout';
 import { componentsStructure, getComponentPathFromSlug } from './structure';
 
-// `html-to-ast` does not expose its internal `IDoc`/`Attr` types via a public
-// subpath, so derive them from the functions it does export.
 type MaybeDoc = ReturnType<typeof parse>[number];
 type Doc = Parameters<typeof stringify>[0][number];
 type Attr = NonNullable<MaybeDoc['attrs']>;

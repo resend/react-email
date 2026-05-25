@@ -195,10 +195,6 @@ describe('Column Variants', () => {
   });
 
   it('reflects column spacing in editor HTML without inventing a default gap', () => {
-    // `renderHTML` declares a typed `this` (the tiptap extension context) that
-    // we don't bind in tests — strip it with `OmitThisParameter` so we can
-    // call it as a free function. The implementation in `columns.ts` does not
-    // reference `this`, so this is safe at runtime.
     type RenderHTMLFn = NonNullable<typeof TwoColumns.config.renderHTML>;
     const renderHTML = TwoColumns.config.renderHTML as
       | OmitThisParameter<RenderHTMLFn>
