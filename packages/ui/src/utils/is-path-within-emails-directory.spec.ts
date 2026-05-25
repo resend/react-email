@@ -55,9 +55,7 @@ describe('isPathWithinEmailsDirectory()', () => {
     expect(isPathWithinEmailsDirectory('../secret.txt')).toBe(false);
     expect(isPathWithinEmailsDirectory('../../etc/passwd')).toBe(false);
     expect(
-      isPathWithinEmailsDirectory(
-        path.join(emailsRoot, '..', 'secret.txt'),
-      ),
+      isPathWithinEmailsDirectory(path.join(emailsRoot, '..', 'secret.txt')),
     ).toBe(false);
   });
 
