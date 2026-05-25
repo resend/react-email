@@ -1,5 +1,11 @@
 # @react-email/ui
 
+## 6.3.3
+
+### Patch Changes
+
+- 86745ec: reject paths that resolve outside the configured emails directory in `renderEmailByPath` and `getEmailPathFromSlug` to close a path-traversal vector in the preview server
+
 ## 6.3.2
 
 ## 6.3.1
