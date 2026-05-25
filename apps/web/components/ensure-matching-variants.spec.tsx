@@ -1,14 +1,17 @@
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { parse, stringify } from 'html-to-ast';
-import type { Attr, IDoc as Doc } from 'html-to-ast/dist/types';
 import postcss from 'postcss';
 import { pretty, render } from 'react-email';
 import { getComponentElement } from '../src/app/components/get-imported-components-for';
 import { Layout } from './_components/layout';
 import { componentsStructure, getComponentPathFromSlug } from './structure';
 
+// `html-to-ast` does not expose its internal `IDoc`/`Attr` types via a public
+// subpath, so derive them from the functions it does export.
 type MaybeDoc = ReturnType<typeof parse>[number];
+type Doc = Parameters<typeof stringify>[0][number];
+type Attr = NonNullable<MaybeDoc['attrs']>;
 
 const walkAst = <T extends MaybeDoc>(ast: T[], callback: (doc: T) => void) => {
   for (const doc of ast) {
