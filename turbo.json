@@ -50,6 +50,9 @@
       "outputs": ["dist/**"]
     },
     "lint": {},
+    "typecheck": {
+      "dependsOn": ["^build"]
+    },
     "//#format": {},
     "//#format:check": {},
     "test:e2e": {

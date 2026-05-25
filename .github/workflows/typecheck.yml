@@ -1,0 +1,33 @@
+name: Typecheck
+on:
+  push:
+    branches:
+      - main
+      - canary
+  pull_request:
+permissions:
+  contents: read
+  pull-requests: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  typecheck:
+    timeout-minutes: 20
+    runs-on: depot-ubuntu-22.04-2
+    container:
+      image: node:24-slim
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
+        with:
+          fetch-depth: 1
+      - name: pnpm setup
+        uses: pnpm/action-setup@738f428026a1f5a72398de22aeed83d859c4a660
+      - name: Install packages
+        run: pnpm install --frozen-lockfile --prefer-offline
+      - name: Run Typecheck
+        run: pnpm typecheck
+        env:
+          TURBO_TOKEN: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.TURBO_TOKEN || '' }}
+          TURBO_TEAM: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.TURBO_TEAM || '' }}
