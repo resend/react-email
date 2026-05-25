@@ -497,33 +497,31 @@ describe('Button and image reset styles', () => {
   });
 });
 
-describe('unformattedHtml', () => {
-  it('returns the pre-pretty render() output alongside html and text', async () => {
-    const content = docWithGlobalContent([
-      {
-        type: 'paragraph',
-        content: [{ type: 'text', text: 'Hello world' }],
-      },
-    ]);
+it('exposes unformattedHtml alongside the prettified html and text', async () => {
+  const content = docWithGlobalContent([
+    {
+      type: 'paragraph',
+      content: [{ type: 'text', text: 'Hello world' }],
+    },
+  ]);
 
-    const ed = createEditorWithContent(content, [EmailTheming]);
-    const result = await composeReactEmail({ editor: ed });
+  const ed = createEditorWithContent(content, [EmailTheming]);
+  const result = await composeReactEmail({ editor: ed });
 
-    // Field is present and non-empty.
-    expect(typeof result.unformattedHtml).toBe('string');
-    expect(result.unformattedHtml.length).toBeGreaterThan(0);
+  // Field is present and non-empty.
+  expect(typeof result.unformattedHtml).toBe('string');
+  expect(result.unformattedHtml.length).toBeGreaterThan(0);
 
-    // Same body content as the pretty version (both contain the text).
-    expect(result.unformattedHtml).toContain('Hello world');
+  // Same body content as the pretty version (both contain the text).
+  expect(result.unformattedHtml).toContain('Hello world');
 
-    // No Prettier indentation artifacts: no inter-tag whitespace runs.
-    expect(result.unformattedHtml).not.toMatch(/>\s+</);
+  // No Prettier indentation artifacts: no inter-tag whitespace runs.
+  expect(result.unformattedHtml).not.toMatch(/>\s+</);
 
-    // The pretty version, by contrast, does indent between tags.
-    expect(result.html).toMatch(/>\s+</);
+  // The pretty version, by contrast, does indent between tags.
+  expect(result.html).toMatch(/>\s+</);
 
-    // And the unformatted version is shorter precisely because indentation
-    // is the only difference.
-    expect(result.unformattedHtml.length).toBeLessThan(result.html.length);
-  });
+  // And the unformatted version is shorter precisely because indentation
+  // is the only difference.
+  expect(result.unformattedHtml.length).toBeLessThan(result.html.length);
 });
