@@ -1,5 +1,12 @@
 # @react-email/editor
 
+## 1.4.8
+
+### Patch Changes
+
+- f355fba: prevent prototype pollution in the email-theming plugin by building `cssJS` and merged theme objects from `Object.create(null)` so attacker-controlled `__proto__`, `constructor`, or `prototype` keys in panel-style input become regular own properties instead of mutating `Object.prototype`
+  - react-email@6.3.3
+
 ## 1.4.7
 
 ### Patch Changes
