@@ -518,32 +518,31 @@ describe('prototype pollution resistance', () => {
     ];
   });
 
-  it.each(POISON_KEYS)(
-    'transformToCssJs does not pollute Object.prototype via classReference="%s"',
-    (poisonKey) => {
-      const styles = [
-        {
-          title: 'attack',
-          inputs: [
-            {
-              classReference: poisonKey,
-              prop: POLLUTION_MARKER,
-              value: 'pwned',
-            },
-          ],
-        },
-      ] as unknown as PanelGroup[];
-
-      transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
-
-      expect(({} as Record<string, unknown>)[POLLUTION_MARKER]).toBeUndefined();
-      expect(
-        (Object.prototype as unknown as Record<string, unknown>)[
-          POLLUTION_MARKER
+  it.each(
+    POISON_KEYS,
+  )('transformToCssJs does not pollute Object.prototype via classReference="%s"', (poisonKey) => {
+    const styles = [
+      {
+        title: 'attack',
+        inputs: [
+          {
+            classReference: poisonKey,
+            prop: POLLUTION_MARKER,
+            value: 'pwned',
+          },
         ],
-      ).toBeUndefined();
-    },
-  );
+      },
+    ] as unknown as PanelGroup[];
+
+    transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
+
+    expect(({} as Record<string, unknown>)[POLLUTION_MARKER]).toBeUndefined();
+    expect(
+      (Object.prototype as unknown as Record<string, unknown>)[
+        POLLUTION_MARKER
+      ],
+    ).toBeUndefined();
+  });
 
   it('transformToCssJs stores poison keys as own properties on a prototype-less root', () => {
     const styles = [
