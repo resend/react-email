@@ -1,11 +1,27 @@
 import path from 'node:path';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { renderEmailByPath } from './render-email-by-path';
 
 describe('renderEmailByPath() with raw .html templates', () => {
-  const htmlPath = path.resolve(
-    __dirname,
-    '../utils/testing/raw-html-email.html',
-  );
+  const emailsRoot = path.resolve(__dirname, '../utils/testing');
+  const htmlPath = path.join(emailsRoot, 'raw-html-email.html');
+
+  let previousEnvValue: string | undefined;
+
+  beforeAll(() => {
+    previousEnvValue =
+      process.env.REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH;
+    process.env.REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH = emailsRoot;
+  });
+
+  afterAll(() => {
+    if (previousEnvValue === undefined) {
+      delete process.env.REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH;
+    } else {
+      process.env.REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH =
+        previousEnvValue;
+    }
+  });
 
   it('renders raw HTML without bundling a React component', async () => {
     const result = await renderEmailByPath(htmlPath, true);
@@ -32,5 +48,22 @@ describe('renderEmailByPath() with raw .html templates', () => {
     expect(result.plainText).toContain(
       'This template has no JavaScript exports.',
     );
+  });
+
+  it('refuses to render a path outside the configured emails directory', async () => {
+    const result = await renderEmailByPath('/etc/passwd', true);
+
+    expect('error' in result).toBe(true);
+    if (!('error' in result)) return;
+    expect(result.error.message).toMatch(/outside of the configured emails/);
+  });
+
+  it('refuses to escape via traversal segments', async () => {
+    const result = await renderEmailByPath(
+      path.join(emailsRoot, '..', '..', '..', 'etc', 'passwd'),
+      true,
+    );
+
+    expect('error' in result).toBe(true);
   });
 });
