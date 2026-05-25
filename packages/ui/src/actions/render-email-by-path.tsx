@@ -14,6 +14,7 @@ import {
 import { convertStackWithSourceMap } from '../utils/convert-stack-with-sourcemap';
 import { createJsxRuntime } from '../utils/create-jsx-runtime';
 import { getEmailComponent } from '../utils/get-email-component';
+import { isPathWithinEmailsDirectory } from '../utils/is-path-within-emails-directory';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
 import {
   createSpinner,
@@ -95,6 +96,16 @@ export const renderEmailByPath = async (
   emailPath: string,
   invalidatingCache = false,
 ): Promise<EmailRenderingResult> => {
+  if (!isPathWithinEmailsDirectory(emailPath)) {
+    return {
+      error: {
+        name: 'Error',
+        message: `Refusing to render ${path.basename(emailPath)} because it resolves outside of the configured emails directory.`,
+        stack: undefined,
+      },
+    };
+  }
+
   if (invalidatingCache) {
     cache.delete(emailPath);
   }
