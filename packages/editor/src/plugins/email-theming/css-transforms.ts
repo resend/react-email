@@ -6,7 +6,11 @@ export function transformToCssJs(
   styleArray: PanelGroup[],
   baseFontSize: number,
 ): CssJs {
-  const cssJS = {} as CssJs;
+  // Use prototype-less objects so attacker-supplied keys like `__proto__`,
+  // `constructor`, or `prototype` are stored as plain own properties instead
+  // of routing through the Object.prototype setter, which would mutate the
+  // global prototype.
+  const cssJS = Object.create(null) as CssJs;
 
   if (!Array.isArray(styleArray)) {
     return cssJS;
@@ -31,7 +35,7 @@ export function transformToCssJs(
       }
 
       if (!cssJS[input.classReference]) {
-        cssJS[input.classReference] = {};
+        cssJS[input.classReference] = Object.create(null);
       }
 
       // @ts-expect-error -- backward compatibility: 'h-padding' is a legacy prop not in KnownCssProperties
@@ -57,7 +61,10 @@ export function transformToCssJs(
 }
 
 export function mergeCssJs(original: CssJs, newCssJs: CssJs) {
-  const merged = { ...original };
+  // Same defensive pattern as `transformToCssJs`: a prototype-less root keeps
+  // a hostile `__proto__` key in the input from triggering the
+  // Object.prototype setter during assignment.
+  const merged = Object.assign(Object.create(null), original) as CssJs;
 
   for (const key in newCssJs) {
     const keyType = key as keyof CssJs;
@@ -67,10 +74,11 @@ export function mergeCssJs(original: CssJs, newCssJs: CssJs) {
       typeof merged[keyType] === 'object' &&
       !Array.isArray(merged[keyType])
     ) {
-      merged[keyType] = {
-        ...merged[keyType],
-        ...newCssJs[keyType],
-      };
+      merged[keyType] = Object.assign(
+        Object.create(null),
+        merged[keyType],
+        newCssJs[keyType],
+      );
     } else {
       merged[keyType] = newCssJs[keyType];
     }
