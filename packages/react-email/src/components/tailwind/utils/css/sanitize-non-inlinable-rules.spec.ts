@@ -31,6 +31,23 @@ describe('sanitizeNonInlinableRules()', () => {
     );
   });
 
+  it('strips Tailwind v4 variant-stacking var() refs with empty fallbacks inside print: media queries', async () => {
+    // Mirrors the inline-style behavior asserted in make-inline-styles-for.spec.ts.
+    // `print:invert` compiles to a filter value that is a chain of var(--tw-...,)
+    // with empty fallbacks. Email clients do not support CSS custom properties
+    // reliably, so the empty-fallback ones must collapse here too (per CSS spec,
+    // an empty fallback resolves to empty string).
+    const tailwind = await setupTailwind({});
+    tailwind.addUtilities(['md:block', 'print:invert']);
+    const stylesheet = tailwind.getStyleSheet();
+
+    sanitizeNonInlinableRules(stylesheet);
+    const result = generate(stylesheet);
+
+    expect(result).not.toMatch(/var\(--tw-[^,()]+,\s*\)/);
+    expect(result).toMatchInlineSnapshot(`"/*! tailwindcss v4.1.18 | MIT License | https://tailwindcss.com */@layer theme,base,components,utilities;@layer utilities{.md_block{@media (width>=48rem){display:block!important}}.print_invert{@media print{--tw-invert: invert(100%)!important;filter:!important}}}@property --tw-blur{syntax:"*";inherits:false}@property --tw-brightness{syntax:"*";inherits:false}@property --tw-contrast{syntax:"*";inherits:false}@property --tw-grayscale{syntax:"*";inherits:false}@property --tw-hue-rotate{syntax:"*";inherits:false}@property --tw-invert{syntax:"*";inherits:false}@property --tw-opacity{syntax:"*";inherits:false}@property --tw-saturate{syntax:"*";inherits:false}@property --tw-sepia{syntax:"*";inherits:false}@property --tw-drop-shadow{syntax:"*";inherits:false}@property --tw-drop-shadow-color{syntax:"*";inherits:false}@property --tw-drop-shadow-alpha{syntax:"<percentage>";inherits:false;initial-value:100%}@property --tw-drop-shadow-size{syntax:"*";inherits:false}"`);
+  });
+
   it('supports basic media query rules', async () => {
     const tailwind = await setupTailwind({});
     tailwind.addUtilities([
