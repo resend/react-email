@@ -1,96 +1,61 @@
 import * as React from 'react';
-import type { PrismLanguage } from './languages-available.js';
-import { Prism } from './prism.js';
-import type { Theme } from './themes.js';
-
-type PrismToken = InstanceType<typeof Prism.Token>;
+import {
+  getHighlighter,
+  isLanguageLoaded,
+  isThemeLoaded,
+  registerTheme,
+  resolveLanguageAlias,
+} from './highlighter.js';
+import type { CodeBlockLanguage } from './languages-available.js';
+import type { Theme } from './themes/_helper.js';
 
 export interface CodeBlockProps extends React.ComponentPropsWithoutRef<'pre'> {
   lineNumbers?: boolean;
 
   /**
-   * This applies a certain font family on all elements render in this component,
-   * it is mostly meant to override a global font that has already been used with
-   * our `<Font>` component
+   * Applies a font family to every element rendered inside the block. Mainly
+   * exists so a global font from `<Font>` can be overridden for code.
    */
   fontFamily?: string;
 
   theme: Theme;
-  language: PrismLanguage;
+  language: CodeBlockLanguage;
   code: string;
 }
 
-const stylesForToken = (token: PrismToken, theme: Theme) => {
-  let styles = { ...theme[token.type] };
+const NBSP_ZWJ_ZWSP = '\xA0‍​';
 
-  const aliases = Array.isArray(token.alias) ? token.alias : [token.alias];
-
-  for (const alias of aliases) {
-    styles = { ...styles, ...theme[alias] };
-  }
-
-  return styles;
-};
-
-const CodeBlockLine = ({
-  token,
-  theme,
-  inheritedStyles,
-}: {
-  token: string | PrismToken;
-  theme: Theme;
-  inheritedStyles?: React.CSSProperties;
-}) => {
-  if (token instanceof Prism.Token) {
-    const styleForToken = {
-      ...inheritedStyles,
-      ...stylesForToken(token, theme),
-    };
-
-    if (token.content instanceof Prism.Token) {
-      return (
-        <span style={styleForToken}>
-          <CodeBlockLine theme={theme} token={token.content} />
-        </span>
-      );
-    }
-    if (typeof token.content === 'string') {
-      return <span style={styleForToken}>{token.content}</span>;
-    }
-    return (
-      <>
-        {token.content.map((subToken, i) => (
-          <CodeBlockLine
-            inheritedStyles={styleForToken}
-            key={i}
-            theme={theme}
-            token={subToken}
-          />
-        ))}
-      </>
-    );
-  }
-
-  return (
-    <span style={inheritedStyles}>
-      {token.replaceAll(' ', '\xA0\u200D\u200B')}
-    </span>
-  );
-};
+// Bit flags from vscode-textmate's FontStyle enum, inlined here so we don't
+// have to import the runtime enum (only its type is exported from shiki).
+const FONT_STYLE_ITALIC = 1;
+const FONT_STYLE_BOLD = 2;
+const FONT_STYLE_UNDERLINE = 4;
 
 export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
   ({ code, fontFamily, lineNumbers, theme, language, ...rest }, ref) => {
-    const languageGrammar = Prism.languages[language];
-    if (typeof languageGrammar === 'undefined') {
+    const highlighter = getHighlighter();
+    const resolvedLang = resolveLanguageAlias(language);
+
+    if (!isLanguageLoaded(resolvedLang)) {
       throw new Error(
-        `CodeBlock: There is no language defined on Prism called ${language}`,
+        `CodeBlock: language "${language}" is not loaded. Pre-bundled languages: ${highlighter
+          .getLoadedLanguages()
+          .join(
+            ', ',
+          )}. Use registerLanguage() from "react-email" to add additional languages.`,
       );
     }
 
-    const lines = code.split(/\r\n|\r|\n/gm);
-    const tokensPerLine = lines.map((line) =>
-      Prism.tokenize(line, languageGrammar),
-    );
+    const themeName = theme.shikiTheme.name;
+    if (!isThemeLoaded(themeName)) {
+      registerTheme(theme.shikiTheme);
+    }
+
+    const lines = highlighter.codeToTokensBase(code, {
+      lang: resolvedLang as CodeBlockLanguage,
+      theme: themeName,
+      includeExplanation: false,
+    });
 
     return (
       <pre
@@ -99,7 +64,8 @@ export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
         style={{ ...theme.base, width: '100%', ...rest.style }}
       >
         <code>
-          {tokensPerLine.map((tokensForLine, lineIndex) => (
+          {lines.map((tokens, lineIndex) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: lines are stable for a given render
             <React.Fragment key={lineIndex}>
               {lineNumbers ? (
                 <span
@@ -107,21 +73,36 @@ export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
                     width: '2em',
                     height: '1em',
                     display: 'inline-block',
-                    fontFamily: fontFamily,
+                    fontFamily,
                   }}
                 >
                   {lineIndex + 1}
                 </span>
               ) : null}
-
-              {tokensForLine.map((token, i) => (
-                <CodeBlockLine
-                  inheritedStyles={{ fontFamily: fontFamily }}
-                  key={i}
-                  theme={theme}
-                  token={token}
-                />
-              ))}
+              {tokens.map((token, i) => {
+                const fs = token.fontStyle ?? 0;
+                const italic = (fs & FONT_STYLE_ITALIC) !== 0;
+                const bold = (fs & FONT_STYLE_BOLD) !== 0;
+                const underline = (fs & FONT_STYLE_UNDERLINE) !== 0;
+                return (
+                  // biome-ignore lint/suspicious/noArrayIndexKey: tokens within a line are positionally stable
+                  <span
+                    key={i}
+                    style={{
+                      fontFamily,
+                      color: token.color,
+                      ...(token.bgColor
+                        ? { backgroundColor: token.bgColor }
+                        : null),
+                      ...(italic ? { fontStyle: 'italic' } : null),
+                      ...(bold ? { fontWeight: 'bold' } : null),
+                      ...(underline ? { textDecoration: 'underline' } : null),
+                    }}
+                  >
+                    {token.content.replaceAll(' ', NBSP_ZWJ_ZWSP)}
+                  </span>
+                );
+              })}
               <br />
             </React.Fragment>
           ))}

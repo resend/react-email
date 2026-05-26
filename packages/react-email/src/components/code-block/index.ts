@@ -1,3 +1,13 @@
 export * from './code-block.js';
-export * from './languages-available.js';
-export * from './themes.js';
+export {
+  getHighlighter,
+  isLanguageLoaded,
+  isThemeLoaded,
+  loadShikiLanguage,
+  registerLanguage,
+  registerTheme,
+  resolveLanguageAlias,
+} from './highlighter.js';
+export type { CodeBlockLanguage, PrismLanguage } from './languages-available.js';
+export type { Theme } from './themes/_helper.js';
+export * from './themes/index.js';
