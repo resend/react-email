@@ -61,8 +61,8 @@
     "normalize-path": "^3.0.0",
     "nypm": "catalog:",
     "picospinner": "catalog:",
-    "prismjs": "^1.30.0",
     "prompts": "2.4.2",
+    "shiki": "^3.13.0",
     "socket.io": "^4.8.1",
     "tailwindcss": "catalog:",
     "tsconfig-paths": "4.2.0"

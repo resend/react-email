@@ -135,14 +135,11 @@
     "@tiptap/pm": "^3.17.1",
     "@tiptap/react": "^3.17.1",
     "@tiptap/starter-kit": "^3.17.1",
-    "@tiptap/suggestion": "^3.17.1",
-    "hast-util-from-html": "^2.0.3",
-    "prismjs": "^1.30.0"
+    "@tiptap/suggestion": "^3.17.1"
   },
   "devDependencies": {
     "@testing-library/react": "16.3.2",
     "@types/node": "catalog:",
-    "@types/prismjs": "1.26.6",
     "@vitejs/plugin-react": "catalog:",
     "@vitest/browser-playwright": "4.1.4",
     "playwright": "1.59.1",

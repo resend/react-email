@@ -602,12 +602,6 @@ importers:
       '@tiptap/suggestion':
         specifier: ^3.17.1
         version: 3.20.1(@tiptap/core@3.20.1(@tiptap/pm@3.20.1))(@tiptap/pm@3.20.1)
-      hast-util-from-html:
-        specifier: ^2.0.3
-        version: 2.0.3
-      prismjs:
-        specifier: ^1.30.0
-        version: 1.30.0
       react:
         specifier: 19.2.4
         version: 19.2.4
@@ -624,9 +618,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 22.19.17
-      '@types/prismjs':
-        specifier: 1.26.6
-        version: 1.26.6
       '@vitejs/plugin-react':
         specifier: 'catalog:'
         version: 5.2.0(vite@7.3.2(@types/node@22.19.17)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0)(yaml@2.8.3))
@@ -708,12 +699,12 @@ importers:
       picospinner:
         specifier: 'catalog:'
         version: 3.0.0
-      prismjs:
-        specifier: ^1.30.0
-        version: 1.30.0
       prompts:
         specifier: 2.4.2
         version: 2.4.2
+      shiki:
+        specifier: ^3.13.0
+        version: 3.15.0
       socket.io:
         specifier: ^4.8.1
         version: 4.8.3
@@ -7208,10 +7199,6 @@ packages:
     resolution: {integrity: sha512-ey8Ls/+Di31eqzUxC46h8MksNuGx/n0AAC8uKpwFau4RPDYLuE3EXTp8N8G2vX2N7UC/+IXeNUnlWBGGcAG+Ig==}
     peerDependencies:
       react: 19.2.4
-
-  prismjs@1.30.0:
-    resolution: {integrity: sha512-DEvV2ZF2r2/63V+tK8hQvrR2ZGn10srHbXviTlcv7Kpzw8jWiNTqbVgjO3IY8RxrrOUF8VPMQQFysYYYv0YZxw==}
-    engines: {node: '>=6'}
 
   process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
@@ -16000,8 +15987,6 @@ snapshots:
       '@types/prismjs': 1.26.6
       clsx: 2.1.1
       react: 19.2.4
-
-  prismjs@1.30.0: {}
 
   process-nextick-args@2.0.1: {}
 
