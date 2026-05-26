@@ -22,16 +22,6 @@ const FONT_STYLE_ITALIC = 1;
 const FONT_STYLE_BOLD = 2;
 const FONT_STYLE_UNDERLINE = 4;
 
-function lookupTheme(name: string | undefined | null): Theme | undefined {
-  if (!name) return undefined;
-  // biome-ignore lint/performance/noDynamicNamespaceImportAccess: theme names are user-selected at runtime
-  // biome-ignore lint/suspicious/noExplicitAny: dynamic lookup, value validated below
-  const candidate = (ReactEmailComponents as Record<string, any>)[name];
-  return candidate && typeof candidate === 'object' && 'shikiTheme' in candidate
-    ? (candidate as Theme)
-    : undefined;
-}
-
 function buildStyle(token: {
   color?: string;
   bgColor?: string;
@@ -85,7 +75,16 @@ function getDecorations({
         });
     }
 
-    const theme = lookupTheme(themeName);
+    // biome-ignore lint/performance/noDynamicNamespaceImportAccess: theme names are user-selected at runtime
+    const themeCandidate = themeName
+      ? (ReactEmailComponents as Record<string, unknown>)[themeName]
+      : undefined;
+    const theme =
+      themeCandidate &&
+      typeof themeCandidate === 'object' &&
+      'shikiTheme' in themeCandidate
+        ? (themeCandidate as Theme)
+        : undefined;
     if (theme && !isThemeLoaded(theme.shikiTheme.name)) {
       registerTheme(theme.shikiTheme);
     }

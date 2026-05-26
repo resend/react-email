@@ -17,18 +17,6 @@ import { EmailNode } from '../core/serializer/email-node';
 import { jsToInlineCss } from '../utils/styles';
 import { ShikiPlugin } from './shiki-plugin';
 
-function lookupTheme(name: string | undefined | null): Theme | undefined {
-  if (!name) return undefined;
-  // biome-ignore lint/performance/noDynamicNamespaceImportAccess: theme is user-selected at runtime
-  const candidate = (ReactEmailComponents as Record<string, unknown>)[name];
-  return candidate &&
-    typeof candidate === 'object' &&
-    'shikiTheme' in candidate &&
-    'base' in candidate
-    ? (candidate as Theme)
-    : undefined;
-}
-
 function preStyleFor(theme: Theme): React.CSSProperties {
   if (!isThemeLoaded(theme.shikiTheme.name)) {
     registerTheme(theme.shikiTheme);
@@ -100,7 +88,17 @@ export const CodeBlockPrism = EmailNode.from(
     },
 
     renderHTML({ node, HTMLAttributes }) {
-      const theme = lookupTheme(node.attrs.theme) ?? defaultTheme;
+      const themeName = node.attrs.theme as string | undefined;
+      // biome-ignore lint/performance/noDynamicNamespaceImportAccess: theme is user-selected at runtime
+      const candidate = themeName
+        ? (ReactEmailComponents as Record<string, unknown>)[themeName]
+        : undefined;
+      const theme =
+        candidate &&
+        typeof candidate === 'object' &&
+        'shikiTheme' in candidate
+          ? (candidate as Theme)
+          : defaultTheme;
       return [
         'pre',
         mergeAttributes(
