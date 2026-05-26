@@ -1,7 +1,6 @@
 import { findChildren } from '@tiptap/core';
 import type { Node as ProsemirrorNode } from '@tiptap/pm/model';
 import { Plugin, PluginKey } from '@tiptap/pm/state';
-import type { EditorView } from '@tiptap/pm/view';
 import { Decoration, DecorationSet } from '@tiptap/pm/view';
 import * as ReactEmailComponents from 'react-email';
 import {
@@ -9,13 +8,10 @@ import {
   getHighlighter,
   isLanguageLoaded,
   isThemeLoaded,
-  loadShikiLanguage,
   registerTheme,
   resolveLanguageAlias,
   type Theme,
 } from 'react-email';
-
-const SHIKI_UPDATE_META = 'shikiUpdate';
 
 // Bit flags from vscode-textmate's FontStyle enum.
 const FONT_STYLE_ITALIC = 1;
@@ -44,15 +40,11 @@ function getDecorations({
   name,
   defaultLanguage,
   defaultTheme,
-  loadingLanguages,
-  onAsyncUpdate,
 }: {
   doc: ProsemirrorNode;
   name: string;
   defaultLanguage: string | null | undefined;
   defaultTheme: string | null | undefined;
-  loadingLanguages: Set<string>;
-  onAsyncUpdate: () => void;
 }) {
   const decorations: Decoration[] = [];
   const highlighter = getHighlighter();
@@ -62,18 +54,6 @@ function getDecorations({
     const rawLanguage = block.node.attrs.language || defaultLanguage;
     const themeName = block.node.attrs.theme || defaultTheme;
     const language = resolveLanguageAlias(rawLanguage);
-
-    if (!isLanguageLoaded(language) && !loadingLanguages.has(language)) {
-      loadingLanguages.add(language);
-      loadShikiLanguage(language)
-        .then(() => {
-          loadingLanguages.delete(language);
-          onAsyncUpdate();
-        })
-        .catch(() => {
-          loadingLanguages.delete(language);
-        });
-    }
 
     // biome-ignore lint/performance/noDynamicNamespaceImportAccess: theme names are user-selected at runtime
     const themeCandidate = themeName
@@ -136,39 +116,12 @@ export function ShikiPlugin({
     throw Error('You must specify the defaultLanguage parameter');
   }
 
-  const loadingLanguages = new Set<string>();
-  let pluginView: EditorView | null = null;
-
-  const onAsyncUpdate = () => {
-    if (pluginView) {
-      pluginView.dispatch(
-        pluginView.state.tr.setMeta(SHIKI_UPDATE_META, true),
-      );
-    }
-  };
-
   const plugin: Plugin<DecorationSet> = new Plugin({
     key: new PluginKey('shiki'),
 
-    view(view) {
-      pluginView = view;
-      return {
-        destroy() {
-          pluginView = null;
-        },
-      };
-    },
-
     state: {
       init: (_, { doc }) =>
-        getDecorations({
-          doc,
-          name,
-          defaultLanguage,
-          defaultTheme,
-          loadingLanguages,
-          onAsyncUpdate,
-        }),
+        getDecorations({ doc, name, defaultLanguage, defaultTheme }),
       apply: (transaction, decorationSet, oldState, newState) => {
         const oldNodeName = oldState.selection.$head.parent.type.name;
         const newNodeName = newState.selection.$head.parent.type.name;
@@ -183,34 +136,31 @@ export function ShikiPlugin({
         );
 
         if (
-          transaction.getMeta(SHIKI_UPDATE_META) ||
-          (transaction.docChanged &&
-            ([oldNodeName, newNodeName].includes(name) ||
-              newNodes.length !== oldNodes.length ||
-              transaction.steps.some((step) => {
-                const rangeStep = step as unknown as {
-                  from?: number;
-                  to?: number;
-                };
-                return (
-                  rangeStep.from !== undefined &&
-                  rangeStep.to !== undefined &&
-                  oldNodes.some((node) => {
-                    return (
-                      node.pos >= rangeStep.from! &&
-                      node.pos + node.node.nodeSize <= rangeStep.to!
-                    );
-                  })
-                );
-              })))
+          transaction.docChanged &&
+          ([oldNodeName, newNodeName].includes(name) ||
+            newNodes.length !== oldNodes.length ||
+            transaction.steps.some((step) => {
+              const rangeStep = step as unknown as {
+                from?: number;
+                to?: number;
+              };
+              return (
+                rangeStep.from !== undefined &&
+                rangeStep.to !== undefined &&
+                oldNodes.some((node) => {
+                  return (
+                    node.pos >= rangeStep.from! &&
+                    node.pos + node.node.nodeSize <= rangeStep.to!
+                  );
+                })
+              );
+            }))
         ) {
           return getDecorations({
             doc: transaction.doc,
             name,
             defaultLanguage,
             defaultTheme,
-            loadingLanguages,
-            onAsyncUpdate,
           });
         }
 

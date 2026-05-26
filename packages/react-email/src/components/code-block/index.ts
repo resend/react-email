@@ -3,7 +3,6 @@ export {
   getHighlighter,
   isLanguageLoaded,
   isThemeLoaded,
-  loadShikiLanguage,
   registerLanguage,
   registerTheme,
   resolveLanguageAlias,

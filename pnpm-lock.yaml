@@ -611,6 +611,9 @@ importers:
       react-email:
         specifier: workspace:*
         version: link:../react-email
+      shiki:
+        specifier: ^3.13.0
+        version: 3.15.0
     devDependencies:
       '@testing-library/react':
         specifier: 16.3.2

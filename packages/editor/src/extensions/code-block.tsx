@@ -15,6 +15,7 @@ import {
 } from 'react-email';
 import { EmailNode } from '../core/serializer/email-node';
 import { jsToInlineCss } from '../utils/styles';
+import './shiki-languages';
 import { ShikiPlugin } from './shiki-plugin';
 
 function preStyleFor(theme: Theme): React.CSSProperties {

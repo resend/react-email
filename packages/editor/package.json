@@ -135,7 +135,8 @@
     "@tiptap/pm": "^3.17.1",
     "@tiptap/react": "^3.17.1",
     "@tiptap/starter-kit": "^3.17.1",
-    "@tiptap/suggestion": "^3.17.1"
+    "@tiptap/suggestion": "^3.17.1",
+    "shiki": "^3.13.0"
   },
   "devDependencies": {
     "@testing-library/react": "16.3.2",
