@@ -1,4 +1,4 @@
-import { generate, parse, walk, type StyleSheet } from 'css-tree';
+import { generate, parse, type StyleSheet, walk } from 'css-tree';
 import { sanitizeStyleSheet } from '../../sanitize-stylesheet.js';
 import { setupTailwind } from '../tailwindcss/setup-tailwind.js';
 import { isRuleInlinable } from './is-rule-inlinable.js';
