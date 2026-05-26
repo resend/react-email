@@ -1,13 +1,22 @@
 /**
  * Sanitizes pasted HTML.
- * - From editor (has node-* classes): pass through as-is
- * - From external: strip all styles/classes, keep only semantic HTML
+ * - Always: drop dangerous elements (script, iframe, ...) and unsafe URL schemes (javascript:, ...).
+ * - From editor (has node-* classes): preserve attributes so node identity round-trips.
+ * - From external: strip all styles/classes, keep only semantic HTML.
  */
 
-/**
- * Detects content from the Resend editor by checking for node-* class names.
- */
 const EDITOR_CLASS_PATTERN = /class="[^"]*node-/;
+
+const FORBIDDEN_TAGS = new Set([
+  'script',
+  'iframe',
+  'object',
+  'embed',
+  'meta',
+  'base',
+]);
+
+const URL_ATTRIBUTES = new Set(['href', 'src']);
 
 /**
  * Attributes to preserve on specific elements for EXTERNAL content.
@@ -27,16 +36,57 @@ function isFromEditor(html: string): boolean {
 }
 
 export function sanitizePastedHtml(html: string): string {
-  if (isFromEditor(html)) {
-    return html;
-  }
-
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
+
+  removeForbiddenElements(doc.body);
+  scrubUnsafeUrlAttributes(doc.body);
+
+  if (isFromEditor(html)) {
+    return doc.body.innerHTML;
+  }
 
   sanitizeNode(doc.body);
 
   return doc.body.innerHTML;
+}
+
+function removeForbiddenElements(root: Element): void {
+  const toRemove: Element[] = [];
+  for (const tag of FORBIDDEN_TAGS) {
+    for (const el of Array.from(root.getElementsByTagName(tag))) {
+      toRemove.push(el);
+    }
+  }
+  for (const el of toRemove) {
+    el.remove();
+  }
+}
+
+function scrubUnsafeUrlAttributes(node: Node): void {
+  if (node.nodeType === Node.ELEMENT_NODE) {
+    const el = node as HTMLElement;
+    const allowDataImage = el.tagName.toLowerCase() === 'img';
+    for (const attr of URL_ATTRIBUTES) {
+      const value = el.getAttribute(attr);
+      if (value !== null && !isSafeUrl(value, allowDataImage)) {
+        el.removeAttribute(attr);
+      }
+    }
+  }
+  for (const child of Array.from(node.childNodes)) {
+    scrubUnsafeUrlAttributes(child);
+  }
+}
+
+function isSafeUrl(value: string, allowDataImage: boolean): boolean {
+  const trimmed = value.trim().toLowerCase();
+  if (trimmed.startsWith('javascript:')) return false;
+  if (trimmed.startsWith('vbscript:')) return false;
+  if (trimmed.startsWith('data:')) {
+    return allowDataImage && trimmed.startsWith('data:image/');
+  }
+  return true;
 }
 
 function sanitizeNode(node: Node): void {
