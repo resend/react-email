@@ -2,6 +2,7 @@ import { mergeAttributes } from '@tiptap/core';
 import type { CodeBlockOptions } from '@tiptap/extension-code-block';
 import CodeBlock from '@tiptap/extension-code-block';
 import { TextSelection } from '@tiptap/pm/state';
+import type React from 'react';
 import * as ReactEmailComponents from 'react-email';
 import {
   type CodeBlockLanguage,
@@ -11,6 +12,28 @@ import {
 } from 'react-email';
 import { EmailNode } from '../core/serializer/email-node';
 import { ShikiPlugin } from './shiki-plugin';
+
+function lookupTheme(name: string | undefined | null): Theme | undefined {
+  if (!name) return undefined;
+  // biome-ignore lint/performance/noDynamicNamespaceImportAccess: theme is user-selected at runtime
+  const candidate = (ReactEmailComponents as Record<string, unknown>)[name];
+  return candidate &&
+    typeof candidate === 'object' &&
+    'shikiTheme' in candidate &&
+    'base' in candidate
+    ? (candidate as Theme)
+    : undefined;
+}
+
+function cssPropertiesToString(style: React.CSSProperties): string {
+  return Object.entries(style)
+    .filter(([, value]) => value !== undefined && value !== null)
+    .map(([key, value]) => {
+      const cssKey = key.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
+      return `${cssKey}: ${value}`;
+    })
+    .join('; ');
+}
 
 export interface CodeBlockPrismOptions extends CodeBlockOptions {
   defaultLanguage: string;
@@ -71,6 +94,7 @@ export const CodeBlockPrism = EmailNode.from(
     },
 
     renderHTML({ node, HTMLAttributes }) {
+      const theme = lookupTheme(node.attrs.theme) ?? defaultTheme;
       return [
         'pre',
         mergeAttributes(
@@ -81,7 +105,10 @@ export const CodeBlockPrism = EmailNode.from(
               ? `${this.options.languageClassPrefix}${node.attrs.language}`
               : null,
           },
-          { 'data-theme': node.attrs.theme },
+          {
+            'data-theme': node.attrs.theme,
+            style: cssPropertiesToString(theme.base),
+          },
         ),
         [
           'code',
