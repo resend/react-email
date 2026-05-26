@@ -1,5 +1,5 @@
 import type React from 'react';
-import type { ThemeRegistration } from 'shiki/core';
+import type { ThemeRegistration, ThemeRegistrationRaw } from 'shiki/core';
 
 export interface Theme {
   /**
@@ -176,5 +176,31 @@ export function defineTheme(opts: {
       colors,
       tokenColors,
     },
+  };
+}
+
+/**
+ * Wraps a theme bundled with shiki (loaded via `import x from 'shiki/themes/<name>.mjs'`)
+ * in our `{ shikiTheme, base }` shape. Pulls `editor.background` and
+ * `editor.foreground` from the bundled theme so the `<pre>` chrome matches
+ * the token palette; `chromeStyles` carries the additional inline styles
+ * (font family, padding, border-radius, etc.) that the original prism
+ * theme port set on `base`.
+ */
+export function fromBundled(
+  bundled: ThemeRegistration | ThemeRegistrationRaw,
+  chromeStyles: React.CSSProperties,
+): Theme {
+  const bg = bundled.colors?.['editor.background'];
+  const fg = bundled.colors?.['editor.foreground'];
+  return {
+    base: {
+      ...(fg ? { color: fg } : null),
+      ...(bg ? { background: bg } : null),
+      ...chromeStyles,
+    },
+    // Bundled themes always set `name` and `type` even though their
+    // declared TS types mark both as optional — assert the narrower shape.
+    shikiTheme: bundled as Theme['shikiTheme'],
   };
 }
