@@ -1,5 +1,12 @@
 # @react-email/editor
 
+## 1.5.1
+
+### Patch Changes
+
+- Updated dependencies [ba99365]
+  - react-email@6.4.0
+
 ## 1.5.0
 
 ### Minor Changes
