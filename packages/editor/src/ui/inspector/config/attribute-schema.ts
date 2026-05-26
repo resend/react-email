@@ -1,5 +1,3 @@
-import { loadPrismTheme } from '../../../utils/prism-utils';
-
 interface LocalPropConfig {
   label: string;
   type: 'text' | 'number' | 'select' | 'textarea';
@@ -118,9 +116,6 @@ export const LOCAL_PROPS_SCHEMA: Record<string, LocalPropConfig> = {
       vesper: 'Vesper',
       vs: 'VSCode Light',
       vscDarkPlus: 'VSCode Dark',
-    },
-    customUpdate: ({ newValue }: { newValue: string }) => {
-      loadPrismTheme(newValue);
     },
   },
 };

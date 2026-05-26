@@ -4,11 +4,13 @@ import CodeBlock from '@tiptap/extension-code-block';
 import { TextSelection } from '@tiptap/pm/state';
 import * as ReactEmailComponents from 'react-email';
 import {
-  type PrismLanguage,
+  type CodeBlockLanguage,
   CodeBlock as ReactEmailCodeBlock,
+  defaultTheme,
+  type Theme,
 } from 'react-email';
 import { EmailNode } from '../core/serializer/email-node';
-import { PrismPlugin } from './prism-plugin';
+import { ShikiPlugin } from './shiki-plugin';
 
 export interface CodeBlockPrismOptions extends CodeBlockOptions {
   defaultLanguage: string;
@@ -128,7 +130,7 @@ export const CodeBlockPrism = EmailNode.from(
     addProseMirrorPlugins() {
       return [
         ...(this.parent?.() || []),
-        PrismPlugin({
+        ShikiPlugin({
           name: this.name,
           defaultLanguage: this.options.defaultLanguage,
           defaultTheme: this.options.defaultTheme,
@@ -141,12 +143,19 @@ export const CodeBlockPrism = EmailNode.from(
       ? `${node.attrs.language}`
       : 'javascript';
 
-    // @ts-expect-error -- react-email does not export theme objects by name; dynamic access needed for user-selected themes
     // biome-ignore lint/performance/noDynamicNamespaceImportAccess: dynamic access needed for user-selected themes
-    const userTheme = ReactEmailComponents[node.attrs?.theme];
+    const candidate = (ReactEmailComponents as Record<string, unknown>)[
+      node.attrs?.theme as string
+    ];
+    const userTheme =
+      candidate &&
+      typeof candidate === 'object' &&
+      'shikiTheme' in candidate &&
+      'base' in candidate
+        ? (candidate as Theme)
+        : undefined;
 
-    // Without theme, render a gray code block
-    const theme = userTheme
+    const theme: Theme = userTheme
       ? {
           ...userTheme,
           base: {
@@ -155,22 +164,12 @@ export const CodeBlockPrism = EmailNode.from(
             padding: '0.75rem 1rem',
           },
         }
-      : {
-          base: {
-            color: '#1e293b',
-            background: '#f1f5f9',
-            lineHeight: '1.5',
-            fontFamily:
-              '"Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace',
-            padding: '0.75rem 1rem',
-            borderRadius: '0.125rem',
-          },
-        };
+      : defaultTheme;
 
     return (
       <ReactEmailCodeBlock
         code={node.content?.[0]?.text ?? ''}
-        language={language as PrismLanguage}
+        language={language as CodeBlockLanguage}
         theme={theme}
         style={{
           width: 'auto',
