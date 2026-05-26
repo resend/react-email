@@ -1,5 +1,11 @@
 # react-email
 
+## 6.4.0
+
+### Minor Changes
+
+- ba99365: resolve and strip unresolved `--tw-*` CSS variables in non-inlinable rules so Tailwind media query utilities no longer break Gmail
+
 ## 6.3.3
 
 ## 6.3.2
