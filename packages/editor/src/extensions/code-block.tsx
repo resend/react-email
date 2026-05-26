@@ -6,8 +6,11 @@ import type React from 'react';
 import * as ReactEmailComponents from 'react-email';
 import {
   type CodeBlockLanguage,
-  CodeBlock as ReactEmailCodeBlock,
   defaultTheme,
+  getHighlighter,
+  isThemeLoaded,
+  CodeBlock as ReactEmailCodeBlock,
+  registerTheme,
   type Theme,
 } from 'react-email';
 import { EmailNode } from '../core/serializer/email-node';
@@ -23,6 +26,18 @@ function lookupTheme(name: string | undefined | null): Theme | undefined {
     'base' in candidate
     ? (candidate as Theme)
     : undefined;
+}
+
+function preStyleFor(theme: Theme): React.CSSProperties {
+  if (!isThemeLoaded(theme.shikiTheme.name)) {
+    registerTheme(theme.shikiTheme);
+  }
+  const resolved = getHighlighter().getTheme(theme.shikiTheme.name);
+  return {
+    ...(resolved.bg ? { background: resolved.bg } : null),
+    ...(resolved.fg ? { color: resolved.fg } : null),
+    ...theme.base,
+  };
 }
 
 function cssPropertiesToString(style: React.CSSProperties): string {
@@ -107,7 +122,7 @@ export const CodeBlockPrism = EmailNode.from(
           },
           {
             'data-theme': node.attrs.theme,
-            style: cssPropertiesToString(theme.base),
+            style: cssPropertiesToString(preStyleFor(theme)),
           },
         ),
         [

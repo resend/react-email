@@ -57,11 +57,19 @@ export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
       includeExplanation: false,
     });
 
+    const resolvedTheme = highlighter.getTheme(themeName);
+
     return (
       <pre
         {...rest}
         ref={ref}
-        style={{ ...theme.base, width: '100%', ...rest.style }}
+        style={{
+          ...(resolvedTheme.bg ? { background: resolvedTheme.bg } : null),
+          ...(resolvedTheme.fg ? { color: resolvedTheme.fg } : null),
+          ...theme.base,
+          width: '100%',
+          ...rest.style,
+        }}
       >
         <code>
           {lines.map((tokens, lineIndex) => (

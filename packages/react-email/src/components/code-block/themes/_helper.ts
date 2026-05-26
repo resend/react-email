@@ -3,13 +3,14 @@ import type { ThemeRegistration, ThemeRegistrationRaw } from 'shiki/core';
 
 export interface Theme {
   /**
-   * Inline CSS applied to the wrapping `<pre>` element. Carries
-   * background, padding, font, border, etc.
+   * Chrome styles for the wrapping `<pre>` — padding, font family,
+   * border-radius, margin, etc. Background and foreground are not set
+   * here; they come from the resolved shiki theme (`bg` / `fg`) at
+   * render time so the `<pre>` always matches the token palette.
    */
   base: React.CSSProperties;
   /**
-   * The TextMate theme used by shiki to color tokens. Token colors
-   * come from here; the visual chrome comes from `base`.
+   * The TextMate theme shiki uses to tokenize and color the code.
    */
   shikiTheme: ThemeRegistration & { name: string; type: 'light' | 'dark' };
 }
@@ -168,8 +169,18 @@ export function defineTheme(opts: {
   const fg = colorOrSkip(opts.base.color);
   if (fg) colors['editor.foreground'] = fg;
 
+  // Move bg/fg out of base and into the shiki theme — shiki becomes the
+  // single source of truth for the palette, and `base` carries only the
+  // wrapper chrome.
+  const {
+    color: _fgChrome,
+    background: _bgChrome,
+    backgroundColor: _bgcChrome,
+    ...chrome
+  } = opts.base;
+
   return {
-    base: opts.base,
+    base: chrome,
     shikiTheme: {
       name: opts.name,
       type: opts.type,
@@ -191,14 +202,8 @@ export function fromBundled(
   bundled: ThemeRegistration | ThemeRegistrationRaw,
   chromeStyles: React.CSSProperties,
 ): Theme {
-  const bg = bundled.colors?.['editor.background'];
-  const fg = bundled.colors?.['editor.foreground'];
   return {
-    base: {
-      ...(fg ? { color: fg } : null),
-      ...(bg ? { background: bg } : null),
-      ...chromeStyles,
-    },
+    base: chromeStyles,
     // Bundled themes always set `name` and `type` even though their
     // declared TS types mark both as optional — assert the narrower shape.
     shikiTheme: bundled as Theme['shikiTheme'],
