@@ -1,4 +1,12 @@
-import { generate, parse, type StyleSheet, walk } from 'css-tree';
+import {
+  type Atrule,
+  type Declaration,
+  generate,
+  parse,
+  type Rule,
+  type StyleSheet,
+  walk,
+} from 'css-tree';
 import { sanitizeStyleSheet } from '../../sanitize-stylesheet.js';
 import { setupTailwind } from '../tailwindcss/setup-tailwind.js';
 import { isRuleInlinable } from './is-rule-inlinable.js';
@@ -13,7 +21,8 @@ describe('stripEmptyTailwindVars()', () => {
       }
     `) as StyleSheet;
 
-    const declaration = stylesheet.children.first!.block!.children.first!;
+    const rule = stylesheet.children.first as Rule;
+    const declaration = rule.block.children.first as Declaration;
     stripEmptyTailwindVars(declaration.value);
 
     expect(generate(declaration.value)).toBe('tabular-nums');
@@ -27,9 +36,9 @@ describe('stripEmptyTailwindVars()', () => {
       }
     `) as StyleSheet;
 
-    const block = stylesheet.children.first!.block!;
-    const leading = block.children.first!;
-    const color = block.children.last!;
+    const rule = stylesheet.children.first as Rule;
+    const leading = rule.block.children.first as Declaration;
+    const color = rule.block.children.last as Declaration;
 
     stripEmptyTailwindVars(leading.value);
     stripEmptyTailwindVars(color.value);
@@ -50,9 +59,10 @@ describe('stripEmptyTailwindVars()', () => {
       }
     `) as StyleSheet;
 
-    const atrule = stylesheet.children.first!.block!.children.first!;
-    const twDeclaration = atrule.block!.children.first!;
-    const borderDeclaration = atrule.block!.children.last!;
+    const rule = stylesheet.children.first as Rule;
+    const atrule = rule.block.children.first as Atrule;
+    const twDeclaration = atrule.block!.children.first as Declaration;
+    const borderDeclaration = atrule.block!.children.last as Declaration;
 
     stripEmptyTailwindVars(borderDeclaration.value);
 
@@ -100,7 +110,7 @@ describe('stripEmptyTailwindVars() with non-inlinable print: rules', () => {
 
 function walkDeclarationsInNonInlinableRules(
   node: StyleSheet,
-  onDeclaration: (declaration: { property: string; value: unknown }) => void,
+  onDeclaration: (declaration: Declaration) => void,
 ) {
   walk(node, {
     visit: 'Rule',
