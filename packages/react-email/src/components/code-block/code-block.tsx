@@ -1,12 +1,10 @@
 import * as React from 'react';
+import type { LanguageRegistration } from 'shiki/core';
 import {
+  ensureLanguage,
+  ensureTheme,
   getHighlighter,
-  isLanguageLoaded,
-  isThemeLoaded,
-  registerTheme,
-  resolveLanguageAlias,
 } from './highlighter.js';
-import type { CodeBlockLanguage } from './languages-available.js';
 import type { Theme } from './themes/_helper.js';
 
 export interface CodeBlockProps extends React.ComponentPropsWithoutRef<'pre'> {
@@ -19,7 +17,19 @@ export interface CodeBlockProps extends React.ComponentPropsWithoutRef<'pre'> {
   fontFamily?: string;
 
   theme: Theme;
-  language: CodeBlockLanguage;
+
+  /**
+   * A shiki language module. Import the language you want to highlight
+   * from `shiki/langs/<name>.mjs` and pass the default export.
+   *
+   * @example
+   * ```tsx
+   * import javascript from 'shiki/langs/javascript.mjs';
+   *
+   * <CodeBlock language={javascript} theme={dracula} code="..." />
+   * ```
+   */
+  language: LanguageRegistration | LanguageRegistration[];
   code: string;
 }
 
@@ -34,25 +44,11 @@ const FONT_STYLE_UNDERLINE = 4;
 export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
   ({ code, fontFamily, lineNumbers, theme, language, ...rest }, ref) => {
     const highlighter = getHighlighter();
-    const resolvedLang = resolveLanguageAlias(language);
-
-    if (!isLanguageLoaded(resolvedLang)) {
-      throw new Error(
-        `CodeBlock: language "${language}" is not loaded. Pre-bundled languages: ${highlighter
-          .getLoadedLanguages()
-          .join(
-            ', ',
-          )}. Use registerLanguage() from "react-email" to add additional languages.`,
-      );
-    }
-
-    const themeName = theme.shikiTheme.name;
-    if (!isThemeLoaded(themeName)) {
-      registerTheme(theme.shikiTheme);
-    }
+    const langName = ensureLanguage(language);
+    const themeName = ensureTheme(theme.shikiTheme);
 
     const lines = highlighter.codeToTokensBase(code, {
-      lang: resolvedLang as CodeBlockLanguage,
+      lang: langName,
       theme: themeName,
       includeExplanation: false,
     });

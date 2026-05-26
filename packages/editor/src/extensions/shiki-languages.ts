@@ -1,5 +1,4 @@
-import { registerLanguage } from 'react-email';
-import bash from 'shiki/langs/bash.mjs';
+import type { LanguageRegistration } from 'shiki/core';
 import css from 'shiki/langs/css.mjs';
 import go from 'shiki/langs/go.mjs';
 import html from 'shiki/langs/html.mjs';
@@ -17,29 +16,33 @@ import typescript from 'shiki/langs/typescript.mjs';
 import xml from 'shiki/langs/xml.mjs';
 
 /**
- * Eagerly registers the set of languages the editor's inspector dropdown
- * exposes (plus the aliases shiki resolves through them: `js` → javascript,
- * `shell` → bash, `svg` → xml, etc). Importing this module is a side
- * effect — it loads each grammar into the shared shiki highlighter on
- * first evaluation.
+ * The set of shiki language modules the inspector's language dropdown
+ * exposes, keyed by the string stored in `node.attrs.language`. Each
+ * value is the default export of a `shiki/langs/<name>.mjs` import
+ * (statically — bundlers ship exactly this set and nothing else).
  *
- * Languages are imported statically so bundlers ship exactly this set
- * with no dynamic chunks (turbopack pulls entire directories when it
- * encounters a dynamic shiki import, which makes consumer apps slow).
+ * Aliases shiki already resolves natively (e.g. `bash`/`sh`/`zsh` →
+ * shellscript, `js` → javascript) are intentionally not duplicated
+ * here; the highlighter handles them once the parent grammar is
+ * registered.
  */
-registerLanguage(bash);
-registerLanguage(css);
-registerLanguage(go);
-registerLanguage(html);
-registerLanguage(javascript);
-registerLanguage(json);
-registerLanguage(jsx);
-registerLanguage(markdown);
-registerLanguage(php);
-registerLanguage(python);
-registerLanguage(ruby);
-registerLanguage(shellscript);
-registerLanguage(sql);
-registerLanguage(tsx);
-registerLanguage(typescript);
-registerLanguage(xml);
+export const EDITOR_LANGUAGES: Record<
+  string,
+  LanguageRegistration | LanguageRegistration[]
+> = {
+  css,
+  go,
+  html,
+  javascript,
+  json,
+  jsx,
+  markdown,
+  php,
+  python,
+  ruby,
+  shell: shellscript,
+  sql,
+  svg: xml,
+  tsx,
+  typescript,
+};

@@ -5,24 +5,20 @@ import { TextSelection } from '@tiptap/pm/state';
 import type React from 'react';
 import * as ReactEmailComponents from 'react-email';
 import {
-  type CodeBlockLanguage,
   defaultTheme,
+  ensureTheme,
   getHighlighter,
-  isThemeLoaded,
   CodeBlock as ReactEmailCodeBlock,
-  registerTheme,
   type Theme,
 } from 'react-email';
 import { EmailNode } from '../core/serializer/email-node';
 import { jsToInlineCss } from '../utils/styles';
-import './shiki-languages';
+import { EDITOR_LANGUAGES } from './shiki-languages';
 import { ShikiPlugin } from './shiki-plugin';
 
 function preStyleFor(theme: Theme): React.CSSProperties {
-  if (!isThemeLoaded(theme.shikiTheme.name)) {
-    registerTheme(theme.shikiTheme);
-  }
-  const resolved = getHighlighter().getTheme(theme.shikiTheme.name);
+  const themeName = ensureTheme(theme.shikiTheme);
+  const resolved = getHighlighter().getTheme(themeName);
   return {
     ...(resolved.bg ? { background: resolved.bg } : null),
     ...(resolved.fg ? { color: resolved.fg } : null),
@@ -166,14 +162,17 @@ export const CodeBlockPrism = EmailNode.from(
           name: this.name,
           defaultLanguage: this.options.defaultLanguage,
           defaultTheme: this.options.defaultTheme,
+          languages: EDITOR_LANGUAGES,
         }),
       ];
     },
   }),
   ({ node, style }) => {
-    const language = node.attrs?.language
+    const languageName = node.attrs?.language
       ? `${node.attrs.language}`
       : 'javascript';
+    const languageModule =
+      EDITOR_LANGUAGES[languageName] ?? EDITOR_LANGUAGES.javascript;
 
     // biome-ignore lint/performance/noDynamicNamespaceImportAccess: dynamic access needed for user-selected themes
     const candidate = (ReactEmailComponents as Record<string, unknown>)[
@@ -201,7 +200,7 @@ export const CodeBlockPrism = EmailNode.from(
     return (
       <ReactEmailCodeBlock
         code={node.content?.[0]?.text ?? ''}
-        language={language as CodeBlockLanguage}
+        language={languageModule}
         theme={theme}
         style={{
           width: 'auto',

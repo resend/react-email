@@ -10,9 +10,9 @@ let _highlighter: HighlighterCore | null = null;
 
 /**
  * Returns the shared shiki highlighter singleton. The highlighter starts
- * with zero languages and zero themes loaded — consumers register what
- * they need via `registerLanguage` and `registerTheme` so the bundler
- * can tree-shake away anything that isn't used.
+ * with zero languages and zero themes loaded — `<CodeBlock>` registers
+ * what it needs lazily from the props it receives, so the bundler can
+ * tree-shake away anything that isn't used.
  */
 export function getHighlighter(): HighlighterCore {
   if (_highlighter) return _highlighter;
@@ -24,38 +24,39 @@ export function getHighlighter(): HighlighterCore {
   return _highlighter;
 }
 
-const ALIASES: Record<string, string> = {
-  shell: 'bash',
-  sh: 'bash',
-  zsh: 'bash',
-  svg: 'xml',
-  htm: 'html',
-  yml: 'yaml',
-  md: 'markdown',
-  js: 'javascript',
-  ts: 'typescript',
-};
-
-export function resolveLanguageAlias(language: string): string {
-  return ALIASES[language] ?? language;
-}
-
-export function isLanguageLoaded(language: string): boolean {
-  return getHighlighter()
-    .getLoadedLanguages()
-    .includes(resolveLanguageAlias(language));
-}
-
-export function isThemeLoaded(themeName: string): boolean {
-  return getHighlighter().getLoadedThemes().includes(themeName);
-}
-
-export function registerLanguage(
+/**
+ * Idempotently loads a language module into the shared highlighter and
+ * returns the canonical name shiki knows it by. Pass the default export
+ * of a `shiki/langs/<name>.mjs` import.
+ */
+export function ensureLanguage(
   language: LanguageRegistration | LanguageRegistration[],
-): void {
-  getHighlighter().loadLanguageSync(language);
+): string {
+  const modules = Array.isArray(language) ? language : [language];
+  const name = modules[0]?.name;
+  if (!name) {
+    throw new Error(
+      'CodeBlock: `language` prop is missing a `name` — pass the default export of a shiki language module, e.g. `import javascript from "shiki/langs/javascript.mjs"`.',
+    );
+  }
+  const hl = getHighlighter();
+  if (!hl.getLoadedLanguages().includes(name)) {
+    hl.loadLanguageSync(modules);
+  }
+  return name;
 }
 
-export function registerTheme(theme: ThemeRegistrationAny): void {
-  getHighlighter().loadThemeSync(theme);
+/**
+ * Idempotently loads a theme into the shared highlighter.
+ */
+export function ensureTheme(theme: ThemeRegistrationAny): string {
+  const name = (theme as { name?: string }).name;
+  if (!name) {
+    throw new Error('CodeBlock: `theme.shikiTheme` is missing a `name`.');
+  }
+  const hl = getHighlighter();
+  if (!hl.getLoadedThemes().includes(name)) {
+    hl.loadThemeSync(theme);
+  }
+  return name;
 }

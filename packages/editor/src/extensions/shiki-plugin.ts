@@ -3,15 +3,8 @@ import type { Node as ProsemirrorNode } from '@tiptap/pm/model';
 import { Plugin, PluginKey } from '@tiptap/pm/state';
 import { Decoration, DecorationSet } from '@tiptap/pm/view';
 import * as ReactEmailComponents from 'react-email';
-import {
-  type CodeBlockLanguage,
-  getHighlighter,
-  isLanguageLoaded,
-  isThemeLoaded,
-  registerTheme,
-  resolveLanguageAlias,
-  type Theme,
-} from 'react-email';
+import { ensureLanguage, ensureTheme, getHighlighter, type Theme } from 'react-email';
+import type { LanguageRegistration } from 'shiki/core';
 
 // Bit flags from vscode-textmate's FontStyle enum.
 const FONT_STYLE_ITALIC = 1;
@@ -40,11 +33,13 @@ function getDecorations({
   name,
   defaultLanguage,
   defaultTheme,
+  languages,
 }: {
   doc: ProsemirrorNode;
   name: string;
   defaultLanguage: string | null | undefined;
   defaultTheme: string | null | undefined;
+  languages: Record<string, LanguageRegistration | LanguageRegistration[]>;
 }) {
   const decorations: Decoration[] = [];
   const highlighter = getHighlighter();
@@ -53,7 +48,9 @@ function getDecorations({
     const startPos = block.pos + 1;
     const rawLanguage = block.node.attrs.language || defaultLanguage;
     const themeName = block.node.attrs.theme || defaultTheme;
-    const language = resolveLanguageAlias(rawLanguage);
+
+    const langModule = rawLanguage ? languages[rawLanguage] : undefined;
+    if (!langModule) return;
 
     // biome-ignore lint/performance/noDynamicNamespaceImportAccess: theme names are user-selected at runtime
     const themeCandidate = themeName
@@ -65,19 +62,16 @@ function getDecorations({
       'shikiTheme' in themeCandidate
         ? (themeCandidate as Theme)
         : undefined;
-    if (theme && !isThemeLoaded(theme.shikiTheme.name)) {
-      registerTheme(theme.shikiTheme);
-    }
+    if (!theme) return;
 
-    if (!isLanguageLoaded(language) || !theme) {
-      return;
-    }
+    const langName = ensureLanguage(langModule);
+    const resolvedThemeName = ensureTheme(theme.shikiTheme);
 
     let lines: ReturnType<typeof highlighter.codeToTokensBase>;
     try {
       lines = highlighter.codeToTokensBase(block.node.textContent, {
-        lang: language as CodeBlockLanguage,
-        theme: theme.shikiTheme.name,
+        lang: langName,
+        theme: resolvedThemeName,
         includeExplanation: false,
       });
     } catch {
@@ -107,10 +101,12 @@ export function ShikiPlugin({
   name,
   defaultLanguage,
   defaultTheme,
+  languages,
 }: {
   name: string;
   defaultLanguage: string;
   defaultTheme: string;
+  languages: Record<string, LanguageRegistration | LanguageRegistration[]>;
 }) {
   if (!defaultLanguage) {
     throw Error('You must specify the defaultLanguage parameter');
@@ -121,7 +117,13 @@ export function ShikiPlugin({
 
     state: {
       init: (_, { doc }) =>
-        getDecorations({ doc, name, defaultLanguage, defaultTheme }),
+        getDecorations({
+          doc,
+          name,
+          defaultLanguage,
+          defaultTheme,
+          languages,
+        }),
       apply: (transaction, decorationSet, oldState, newState) => {
         const oldNodeName = oldState.selection.$head.parent.type.name;
         const newNodeName = newState.selection.$head.parent.type.name;
@@ -161,6 +163,7 @@ export function ShikiPlugin({
             name,
             defaultLanguage,
             defaultTheme,
+            languages,
           });
         }
 
