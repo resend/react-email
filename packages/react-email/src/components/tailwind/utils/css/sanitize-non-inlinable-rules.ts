@@ -11,7 +11,9 @@ import { stripEmptyTailwindVars } from './strip-empty-tailwind-vars.js';
  * What it does:
  * 1. Converts all declarations in all rules into important ones
  * 2. Sanitizes class selectors of all non-inlinable rules
- * 3. Strips empty-fallback var(--tw-*,) refs that Tailwind v4 emits for
+ * 3. Removes --tw-* custom property declarations — by this point all CSS
+ *    variables have been resolved, so these are dead weight in email HTML.
+ * 4. Strips empty-fallback var(--tw-*,) refs that Tailwind v4 emits for
  *    variant-stacking idioms (filter, font-variant-numeric, etc.) — email
  *    clients can't resolve CSS custom properties reliably, so any --tw-*
  *    left as a bare empty-fallback ref would reach the client broken.
@@ -30,11 +32,14 @@ export function sanitizeNonInlinableRules(node: CssNode) {
 
         walk(rule, {
           visit: 'Declaration',
-          enter(declaration) {
-            declaration.important = true;
-            if (!declaration.property.startsWith('--')) {
-              stripEmptyTailwindVars(declaration.value);
+          enter(declaration, item, list) {
+            if (declaration.property.startsWith('--tw-')) {
+              list.remove(item);
+              return;
             }
+
+            declaration.important = true;
+            stripEmptyTailwindVars(declaration.value);
           },
         });
       }
