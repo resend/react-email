@@ -237,6 +237,22 @@ describe('resolveAllCSSVariables', () => {
     );
   });
 
+  it('does not leak variables across sibling nested at-rules within the same rule', () => {
+    const root = parse(`.print_invert {
+  @media print {
+    --tw-invert: invert(100%);
+    filter: var(--tw-invert, none);
+  }
+  @media screen {
+    filter: var(--tw-invert, none);
+  }
+}`);
+    resolveAllCssVariables(root);
+    expect(generate(root)).toMatchInlineSnapshot(
+      `".print_invert{@media print{--tw-invert: invert(100%);filter:invert(100%)}@media screen{filter:none}}"`,
+    );
+  });
+
   it('handles selectors with asterisks in attribute selectors and pseudo-functions', () => {
     const root = parse(`* {
   --global-color: red;
