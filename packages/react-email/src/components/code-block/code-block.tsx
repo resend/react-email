@@ -1,9 +1,9 @@
 import * as React from 'react';
-import type { LanguageRegistration } from 'shiki/core';
 import {
   ensureLanguage,
   ensureTheme,
   getHighlighter,
+  type LanguageInput,
 } from './highlighter.js';
 import type { Theme } from './themes/_helper.js';
 
@@ -19,17 +19,20 @@ export interface CodeBlockProps extends React.ComponentPropsWithoutRef<'pre'> {
   theme: Theme;
 
   /**
-   * A shiki language module. Import the language you want to highlight
-   * from `shiki/langs/<name>.mjs` and pass the default export.
+   * Either a built-in language name (e.g. `"javascript"`, `"tsx"`,
+   * `"bash"`) or a shiki language module imported from
+   * `shiki/langs/<name>.mjs`. String names not in the built-in set can
+   * be registered via `registerLanguage(name, module)`.
    *
    * @example
    * ```tsx
-   * import javascript from 'shiki/langs/javascript.mjs';
-   *
-   * <CodeBlock language={javascript} theme={dracula} code="..." />
+   * <CodeBlock language="javascript" theme={dracula} code="..." />
+   * // or, for a language outside the built-in set:
+   * import zig from 'shiki/langs/zig.mjs';
+   * <CodeBlock language={zig} theme={dracula} code="..." />
    * ```
    */
-  language: LanguageRegistration | LanguageRegistration[];
+  language: LanguageInput;
   code: string;
 }
 
@@ -45,7 +48,7 @@ export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
   ({ code, fontFamily, lineNumbers, theme, language, ...rest }, ref) => {
     const highlighter = getHighlighter();
     const langName = ensureLanguage(language);
-    const themeName = ensureTheme(theme.shikiTheme);
+    const themeName = ensureTheme(theme);
 
     const lines = highlighter.codeToTokensBase(code, {
       lang: langName,

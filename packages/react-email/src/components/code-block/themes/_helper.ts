@@ -1,19 +1,23 @@
 import type React from 'react';
 import type { ThemeRegistration, ThemeRegistrationRaw } from 'shiki/core';
 
-export interface Theme {
-  /**
-   * Chrome styles for the wrapping `<pre>` — padding, font family,
-   * border-radius, margin, etc. Background and foreground are not set
-   * here; they come from the resolved shiki theme (`bg` / `fg`) at
-   * render time so the `<pre>` always matches the token palette.
-   */
+/**
+ * A `<CodeBlock>` theme. Carries:
+ *
+ * - `base`: chrome CSS applied to the wrapping `<pre>` (font, padding,
+ *   border-radius, background, color, etc.).
+ * - `shikiTheme`: the TextMate theme shiki uses for tokenization.
+ * - A flat `[tokenType: string]` index — kept so legacy code that reads
+ *   `theme.comment.color` (prism-style) keeps working. Values are
+ *   `React.CSSProperties` for known token types.
+ */
+export type Theme = {
   base: React.CSSProperties;
-  /**
-   * The TextMate theme shiki uses to tokenize and color the code.
-   */
   shikiTheme: ThemeRegistration & { name: string; type: 'light' | 'dark' };
-}
+} & {
+  // biome-ignore lint/suspicious/noExplicitAny: index signature must accept both CSSProperties and shikiTheme shapes
+  [tokenType: string]: any;
+};
 
 type Settings = {
   foreground?: string;
@@ -110,6 +114,17 @@ const SCOPE_MAP: Record<string, string | string[]> = {
   color: 'constant.other.color',
 };
 
+// scope (e.g. "comment") → prism token names that map to it (e.g. ["comment", "prolog", "cdata"]).
+const REVERSE_SCOPE_MAP: Record<string, string[]> = (() => {
+  const out: Record<string, string[]> = {};
+  for (const [prismType, scopes] of Object.entries(SCOPE_MAP)) {
+    for (const scope of Array.isArray(scopes) ? scopes : [scopes]) {
+      (out[scope] ??= []).push(prismType);
+    }
+  }
+  return out;
+})();
+
 function toFontStyle(
   css: React.CSSProperties | undefined,
 ): string | undefined {
@@ -120,6 +135,15 @@ function toFontStyle(
   const td = css.textDecoration;
   if (typeof td === 'string' && td.includes('underline')) parts.push('underline');
   return parts.length > 0 ? parts.join(' ') : undefined;
+}
+
+function fromFontStyle(fontStyle: string | undefined): React.CSSProperties {
+  const out: React.CSSProperties = {};
+  if (!fontStyle) return out;
+  if (fontStyle.includes('bold')) out.fontWeight = 'bold';
+  if (fontStyle.includes('italic')) out.fontStyle = 'italic';
+  if (fontStyle.includes('underline')) out.textDecoration = 'underline';
+  return out;
 }
 
 function looksLikeColor(value: string): boolean {
@@ -137,10 +161,40 @@ function colorOrSkip(value: unknown): string | undefined {
 }
 
 /**
- * Builds a Theme object from a Prism-style palette. The palette uses the
- * same token-type keys that prismjs emits (e.g. `comment`, `keyword`,
- * `attr-name`), and the helper maps each one to the equivalent TextMate
- * scope(s) that shiki recognizes.
+ * Walks the shiki theme's tokenColors and produces a flat record keyed by
+ * the prism token type names (`comment`, `keyword`, `attr-name`, etc.).
+ * First match wins, since the prism shape only has one CSS block per
+ * token type. Used to keep legacy reads like `theme.comment.color` alive
+ * for themes that didn't ship a hand-authored palette.
+ */
+function flatPaletteFromShiki(
+  shikiTheme: { tokenColors?: ReadonlyArray<{ scope?: string | string[]; settings: Settings }> },
+): Record<string, React.CSSProperties> {
+  const out: Record<string, React.CSSProperties> = {};
+  for (const { scope, settings } of shikiTheme.tokenColors ?? []) {
+    if (scope === undefined) continue;
+    const scopes = Array.isArray(scope) ? scope : [scope];
+    for (const s of scopes) {
+      const prismTypes = REVERSE_SCOPE_MAP[s];
+      if (!prismTypes) continue;
+      for (const prismType of prismTypes) {
+        if (prismType in out) continue;
+        const css: React.CSSProperties = { ...fromFontStyle(settings.fontStyle) };
+        if (settings.foreground) css.color = settings.foreground;
+        if (settings.background) css.backgroundColor = settings.background;
+        if (Object.keys(css).length > 0) out[prismType] = css;
+      }
+    }
+  }
+  return out;
+}
+
+/**
+ * Builds a Theme object from a prism-style palette. The palette uses the
+ * same token-type keys that prismjs emitted (e.g. `comment`, `keyword`,
+ * `attr-name`); the helper maps each one to the equivalent TextMate
+ * scope(s) shiki recognizes, and also spreads the palette onto the
+ * returned theme so legacy reads like `theme.comment.color` keep working.
  */
 export function defineTheme(opts: {
   name: string;
@@ -169,43 +223,41 @@ export function defineTheme(opts: {
   const fg = colorOrSkip(opts.base.color);
   if (fg) colors['editor.foreground'] = fg;
 
-  // Move bg/fg out of base and into the shiki theme — shiki becomes the
-  // single source of truth for the palette, and `base` carries only the
-  // wrapper chrome.
-  const {
-    color: _fgChrome,
-    background: _bgChrome,
-    backgroundColor: _bgcChrome,
-    ...chrome
-  } = opts.base;
-
   return {
-    base: chrome,
+    base: opts.base,
     shikiTheme: {
       name: opts.name,
       type: opts.type,
       colors,
       tokenColors,
     },
+    ...opts.palette,
   };
 }
 
 /**
  * Wraps a theme bundled with shiki (loaded via `import x from 'shiki/themes/<name>.mjs'`)
- * in our `{ shikiTheme, base }` shape. Pulls `editor.background` and
- * `editor.foreground` from the bundled theme so the `<pre>` chrome matches
- * the token palette; `chromeStyles` carries the additional inline styles
- * (font family, padding, border-radius, etc.) that the original prism
- * theme port set on `base`.
+ * in our `{ shikiTheme, base, ...palette }` shape. Pulls `editor.background`
+ * and `editor.foreground` from the bundled theme into `base` so reads
+ * like `theme.base.background` still resolve to a real color, and
+ * synthesizes flat per-token entries from the bundled tokenColors so
+ * `theme.comment.color` keeps working.
  */
 export function fromBundled(
   bundled: ThemeRegistration | ThemeRegistrationRaw,
   chromeStyles: React.CSSProperties,
 ): Theme {
+  const shikiTheme = bundled as Theme['shikiTheme'];
+  const editorBg = shikiTheme.colors?.['editor.background'];
+  const editorFg = shikiTheme.colors?.['editor.foreground'];
+  const base: React.CSSProperties = {
+    ...chromeStyles,
+    ...(editorBg ? { background: editorBg } : null),
+    ...(editorFg ? { color: editorFg } : null),
+  };
   return {
-    base: chromeStyles,
-    // Bundled themes always set `name` and `type` even though their
-    // declared TS types mark both as optional — assert the narrower shape.
-    shikiTheme: bundled as Theme['shikiTheme'],
+    base,
+    shikiTheme,
+    ...flatPaletteFromShiki(shikiTheme),
   };
 }
