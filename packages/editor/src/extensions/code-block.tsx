@@ -14,6 +14,7 @@ import {
   type Theme,
 } from 'react-email';
 import { EmailNode } from '../core/serializer/email-node';
+import { jsToInlineCss } from '../utils/styles';
 import { ShikiPlugin } from './shiki-plugin';
 
 function lookupTheme(name: string | undefined | null): Theme | undefined {
@@ -38,16 +39,6 @@ function preStyleFor(theme: Theme): React.CSSProperties {
     ...(resolved.fg ? { color: resolved.fg } : null),
     ...theme.base,
   };
-}
-
-function cssPropertiesToString(style: React.CSSProperties): string {
-  return Object.entries(style)
-    .filter(([, value]) => value !== undefined && value !== null)
-    .map(([key, value]) => {
-      const cssKey = key.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
-      return `${cssKey}: ${value}`;
-    })
-    .join('; ');
 }
 
 export interface CodeBlockPrismOptions extends CodeBlockOptions {
@@ -122,7 +113,7 @@ export const CodeBlockPrism = EmailNode.from(
           },
           {
             'data-theme': node.attrs.theme,
-            style: cssPropertiesToString(preStyleFor(theme)),
+            style: jsToInlineCss(preStyleFor(theme)),
           },
         ),
         [
