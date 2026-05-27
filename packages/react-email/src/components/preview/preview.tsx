@@ -15,22 +15,25 @@ export const Preview = React.forwardRef<HTMLDivElement, PreviewProps>(
     ).substring(0, PREVIEW_MAX_LENGTH);
 
     return (
-      <div
-        style={{
-          display: 'none',
-          overflow: 'hidden',
-          lineHeight: '1px',
-          opacity: 0,
-          maxHeight: 0,
-          maxWidth: 0,
-        }}
-        data-skip-in-text={true}
-        {...props}
-        ref={ref}
-      >
-        {text}
-        {renderWhiteSpace(text)}
-      </div>
+      <>
+        <title>{text}</title>
+        <div
+          style={{
+            display: 'none',
+            overflow: 'hidden',
+            lineHeight: '1px',
+            opacity: 0,
+            maxHeight: 0,
+            maxWidth: 0,
+          }}
+          data-skip-in-text={true}
+          {...props}
+          ref={ref}
+        >
+          {text}
+          {renderWhiteSpace(text)}
+        </div>
+      </>
     );
   },
 );
