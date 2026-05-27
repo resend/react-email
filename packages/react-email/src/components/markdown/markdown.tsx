@@ -191,7 +191,7 @@ export const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(
       const thead = `<thead${styleThead ? ` style="${styleThead}"` : ''}>\n${theadRow}</thead>`;
       const tbody = `<tbody${styleTbody ? ` style="${styleTbody}"` : ''}>${tbodyRows}</tbody>`;
 
-      return `<table${styleTable ? ` style="${styleTable}"` : ''}>\n${thead}\n${tbody}</table>\n`;
+      return `<table role="presentation"${styleTable ? ` style="${styleTable}"` : ''}>\n${thead}\n${tbody}</table>\n`;
     };
 
     renderer.tablecell = ({ tokens, align, header }) => {

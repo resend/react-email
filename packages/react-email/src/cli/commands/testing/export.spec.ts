@@ -24,8 +24,11 @@ test('email export', { retry: 3 }, async () => {
         <link rel="preload" as="image" href="/static/vercel-arrow.png" />
         <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
         <meta name="x-apple-disable-message-reformatting" />
+        <title>Join undefined on Vercel</title>
       </head>
       <body
+        dir="ltr"
+        lang="en"
         style="background-color:rgb(255,255,255);margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-right:0;padding-left:0">
         <!--$--><!--html--><!--head--><!--body-->
         <table
@@ -38,6 +41,8 @@ test('email export', { retry: 3 }, async () => {
           <tbody>
             <tr>
               <td
+                dir="ltr"
+                lang="en"
                 style='margin-right:auto;margin-left:auto;margin-bottom:auto;margin-top:auto;background-color:rgb(255,255,255);padding-right:8px;padding-left:8px;font-family:ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"'>
                 <div
                   style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0"
