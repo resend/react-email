@@ -49,3 +49,7 @@ jobs:
           SPAM_ASSASSIN_PORT: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.SPAM_ASSASSIN_PORT || '' }}
           TURBO_TOKEN: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.TURBO_TOKEN || '' }}
           TURBO_TEAM: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.TURBO_TEAM || '' }}
+      # The release script lives outside the workspaces, so `turbo run test`
+      # doesn't cover it. Run its unit tests explicitly.
+      - name: Run release script tests
+        run: pnpm vitest run scripts/release.spec.mts
