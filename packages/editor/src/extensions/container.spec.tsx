@@ -273,7 +273,7 @@ describe('Container Node', () => {
             content="telephone=no,address=no,email=no,date=no,url=no"
             name="format-detection" />
         </head>
-        <body style="background-color:#ffffff">
+        <body dir="ltr" lang="en" style="background-color:#ffffff">
           <!--$--><!--html--><!--head--><!--body-->
           <table
             border="0"
@@ -285,6 +285,8 @@ describe('Container Node', () => {
             <tbody>
               <tr>
                 <td
+                  dir="ltr"
+                  lang="en"
                   style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%;background-color:#ffffff">
                   <table
                     align="left"
@@ -1381,7 +1383,7 @@ describe('Container Node', () => {
             content="telephone=no,address=no,email=no,date=no,url=no"
             name="format-detection" />
         </head>
-        <body>
+        <body dir="ltr" lang="en">
           <!--$--><!--html--><!--head--><!--body-->
           <table
             border="0"
@@ -1393,6 +1395,8 @@ describe('Container Node', () => {
             <tbody>
               <tr>
                 <td
+                  dir="ltr"
+                  lang="en"
                   style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:14px;min-height:100%;line-height:155%">
                   <table
                     align="center"
@@ -1494,7 +1498,7 @@ describe('Container Node', () => {
             content="telephone=no,address=no,email=no,date=no,url=no"
             name="format-detection" />
         </head>
-        <body>
+        <body dir="ltr" lang="en">
           <!--$--><!--html--><!--head--><!--body-->
           <table
             border="0"
@@ -1506,6 +1510,8 @@ describe('Container Node', () => {
             <tbody>
               <tr>
                 <td
+                  dir="ltr"
+                  lang="en"
                   style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:14px;min-height:100%;line-height:155%">
                   <table
                     align="left"
@@ -1575,7 +1581,7 @@ describe('Container Node', () => {
             content="telephone=no,address=no,email=no,date=no,url=no"
             name="format-detection" />
         </head>
-        <body style="background-color:#ffffff">
+        <body dir="ltr" lang="en" style="background-color:#ffffff">
           <!--$--><!--html--><!--head--><!--body-->
           <table
             border="0"
@@ -1587,6 +1593,8 @@ describe('Container Node', () => {
             <tbody>
               <tr>
                 <td
+                  dir="ltr"
+                  lang="en"
                   style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%;background-color:#ffffff">
                   <table
                     align="left"
