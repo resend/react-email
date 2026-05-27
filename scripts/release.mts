@@ -437,7 +437,15 @@ const publishPackage = async (
   try {
     await exec(
       'pnpm',
-      ['publish', '--no-git-checks', '--access', 'public', '--tag', distTag],
+      [
+        'publish',
+        '--no-git-checks',
+        '--access',
+        'public',
+        '--provenance',
+        '--tag',
+        distTag,
+      ],
       { cwd: pkg.dir, env },
     );
     console.log(`Published ${pkg.packageJson.name}@${pkg.packageJson.version}`);
@@ -511,12 +519,11 @@ const main = async () => {
     await exec('pnpm', ['release']);
 
     // https://docs.npmjs.com/generating-provenance-statements#publishing-packages-with-provenance-via-github-actions
+    // Provenance itself is requested per-publish via `pnpm publish --provenance`.
     const npmIdToken = await core.getIDToken('npm:registry.npmjs.org');
     const publishEnv: Record<string, string> = {
       ...(process.env as Record<string, string>),
       NPM_ID_TOKEN: npmIdToken,
-      // https://docs.npmjs.com/generating-provenance-statements#using-third-party-package-publishing-tools
-      NPM_CONFIG_PROVENANCE: 'true',
     };
 
     const { published, failed } = await publishPackages({
