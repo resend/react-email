@@ -296,6 +296,7 @@ import { Img } from 'react-email';
 - Always use absolute URLs hosted on CDN
 - **Meaningful images**: write descriptive `alt` text covering purpose and key details (e.g., `alt="Red bicycle leaning against a brick wall"`, not `alt="image"`)
 - **Decorative images** (spacers, dividers, background flourishes): pass an explicit `alt=""` so screen readers skip them cleanly — never omit the attribute
+- **Linked images are never decorative.** When `<Img>` sits inside a `<Link>` or `<Button>`, its `alt` must describe where the link goes (e.g., `alt="View order #123"`). An empty `alt=""` on a linked image leaves the link with no accessible name for screen readers
 - Specify width and height to prevent layout shift
 - Use `block` class to avoid spacing issues
 

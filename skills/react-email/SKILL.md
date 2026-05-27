@@ -365,7 +365,7 @@ See [references/PATTERNS.md](references/PATTERNS.md) for complete examples inclu
 
 ### Accessibility
 
-The [Email Markup Consortium's 2026 report](https://emailmarkup.org/en/reports/accessibility/2026/) found that only 0.002% of emails pass basic accessibility checks. React Email handles the structural defaults; the rest is content.
+React Email handles the structural defaults; the rest is content.
 
 **What React Email gives you for free:**
 - `<Html>` sets `lang` and `dir` (defaults: `lang="en" dir="ltr"` — override per locale)
@@ -376,12 +376,15 @@ The [Email Markup Consortium's 2026 report](https://emailmarkup.org/en/reports/a
 Upgrade with `npm install react-email@latest` to get these defaults.
 
 **What you still have to do (content choices):**
-- Open with a single `<Heading as="h1">`, nest subheadings in order, never skip levels
+- Open with a single `<Heading as="h1">`, nest subheadings in order, never skip levels (very short SMS-style emails may skip the heading entirely)
 - Set descriptive `alt` on meaningful images; pass an explicit `alt=""` on decorative images — never omit the attribute
+- **Linked images are never decorative.** When an `<Img>` is inside a `<Link>` or `<Button>`, the `alt` must describe where the link goes — `alt=""` on a linked image leaves the link with no accessible name
 - Write link text that describes the destination (`<Button>Read the report</Button>`, not `click here`)
 - Hit 4.5:1 text contrast (WCAG AA); preview in dark mode
 - For layout tables you build by hand (outside `<Markdown>`), add `role="presentation"`
 - For non-English emails, pass the locale: `<Html lang={locale} dir={isRTL ? 'rtl' : 'ltr'}>` (see [I18N.md](references/I18N.md))
+
+For the full rule set, severity ranking, and authoring checklist, see the [accessibility reference](https://github.com/resend/email-best-practices/blob/main/references/accessibility.md) in the `email-best-practices` skill.
 
 ## Additional Resources
 
