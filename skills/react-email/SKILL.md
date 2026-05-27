@@ -19,7 +19,7 @@ metadata:
 
 # React Email
 
-Build and send HTML emails using React components - a modern, component-based approach to email development that works across all major email clients.
+Build and send HTML emails using React components. A modern, component-based approach to email development that works across all major email clients.
 
 ## Installation
 
