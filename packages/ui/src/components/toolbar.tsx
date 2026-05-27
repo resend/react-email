@@ -5,6 +5,7 @@ import { LayoutGroup } from 'framer-motion';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import type { ComponentProps } from 'react';
 import * as React from 'react';
+import { nicenames } from '../actions/email-validation/caniemail-data';
 import type { CompatibilityCheckingResult } from '../actions/email-validation/check-compatibility';
 import { isBuilding } from '../app/env';
 import { usePreviewContext } from '../contexts/preview';
@@ -51,6 +52,7 @@ const ToolbarInner = ({
   serverLintingRows,
   serverSpamCheckingResult,
   serverCompatibilityResults,
+  serverCompatibilityClients,
 
   prettyMarkup,
   reactMarkup,
@@ -71,6 +73,10 @@ const ToolbarInner = ({
   const router = useRouter();
 
   const { hasSetupResendIntegration } = useToolbarContext();
+
+  const compatibilityClientsLabel = serverCompatibilityClients
+    .map((client) => nicenames.family[client] ?? client)
+    .join(', ');
 
   const { activeTab, toggled } = useToolbarState();
 
@@ -283,7 +289,8 @@ const ToolbarInner = ({
                   <SuccessIcon />
                   <SuccessTitle>Great compatibility</SuccessTitle>
                   <SuccessDescription>
-                    Template should render properly everywhere.
+                    Template should render properly in{' '}
+                    {compatibilityClientsLabel}.
                   </SuccessDescription>
                 </SuccessWrapper>
               ) : (
@@ -406,12 +413,14 @@ interface ToolbarProps {
   serverSpamCheckingResult: SpamCheckingResult | undefined;
   serverLintingRows: LintingRow[] | undefined;
   serverCompatibilityResults: CompatibilityCheckingResult[] | undefined;
+  serverCompatibilityClients: readonly string[];
 }
 
 export function Toolbar({
   serverLintingRows,
   serverSpamCheckingResult,
   serverCompatibilityResults,
+  serverCompatibilityClients,
 }: ToolbarProps) {
   const { emailPath, emailSlug, renderedEmailMetadata } = usePreviewContext();
 
@@ -430,6 +439,7 @@ export function Toolbar({
       serverLintingRows={serverLintingRows}
       serverSpamCheckingResult={serverSpamCheckingResult}
       serverCompatibilityResults={serverCompatibilityResults}
+      serverCompatibilityClients={serverCompatibilityClients}
     />
   );
 }

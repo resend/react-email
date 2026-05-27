@@ -13,6 +13,7 @@ import type { LintingRow } from '../../../components/toolbar/linter';
 import type { SpamCheckingResult } from '../../../components/toolbar/spam-assassin';
 import { PreviewProvider } from '../../../contexts/preview';
 import { ToolbarProvider } from '../../../contexts/toolbar';
+import { getRelevantEmailClients } from '../../../utils/caniemail/email-clients';
 import { getEmailsDirectoryMetadata } from '../../../utils/get-emails-directory-metadata';
 import { getLintingSources, loadLintingRowsFrom } from '../../../utils/linting';
 import { loadStream } from '../../../utils/load-stream';
@@ -139,6 +140,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
               serverLintingRows={lintingRows}
               serverSpamCheckingResult={spamCheckingResult}
               serverCompatibilityResults={compatibilityCheckingResults}
+              serverCompatibilityClients={getRelevantEmailClients()}
             />
           </ToolbarProvider>
         </Suspense>
