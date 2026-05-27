@@ -377,7 +377,7 @@ Upgrade with `npm install react-email@latest` to get these defaults.
 
 **What you still have to do (content choices):**
 - Open with a single `<Heading as="h1">`, nest subheadings in order, never skip levels
-- Set descriptive `alt` on meaningful images; leave decorative images with `alt=""`
+- Set descriptive `alt` on meaningful images; pass an explicit `alt=""` on decorative images — never omit the attribute
 - Write link text that describes the destination (`<Button>Read the report</Button>`, not `click here`)
 - Hit 4.5:1 text contrast (WCAG AA); preview in dark mode
 - For layout tables you build by hand (outside `<Markdown>`), add `role="presentation"`

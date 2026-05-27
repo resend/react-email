@@ -153,7 +153,7 @@ Use consistent spacing that respects content hierarchy. Larger margins for headi
 - Never distort user-provided images
 - Never create SVG images
 - Always use absolute URLs
-- Set descriptive `alt` text on meaningful images; leave decorative images with the default `alt=""` so screen readers skip them
+- Set descriptive `alt` text on meaningful images; pass an explicit `alt=""` on decorative images so screen readers skip them — never omit the attribute
 
 ```tsx
 {/* Meaningful image — describe purpose and details */}
@@ -163,8 +163,12 @@ Use consistent spacing that respects content hierarchy. Larger margins for headi
   className="w-full h-auto"
 />
 
-{/* Decorative image — omit alt or pass empty string */}
-<Img src="https://example.com/divider.png" className="w-full" />
+{/* Decorative image — always pass an empty alt string so screen readers skip it */}
+<Img
+  src="https://example.com/divider.png"
+  alt=""
+  className="w-full"
+/>
 ```
 
 ## Buttons

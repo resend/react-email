@@ -295,7 +295,7 @@ import { Img } from 'react-email';
 **Best practices:**
 - Always use absolute URLs hosted on CDN
 - **Meaningful images**: write descriptive `alt` text covering purpose and key details (e.g., `alt="Red bicycle leaning against a brick wall"`, not `alt="image"`)
-- **Decorative images** (spacers, dividers, background flourishes): leave the default `alt=""` so screen readers skip them cleanly
+- **Decorative images** (spacers, dividers, background flourishes): pass an explicit `alt=""` so screen readers skip them cleanly — never omit the attribute
 - Specify width and height to prevent layout shift
 - Use `block` class to avoid spacing issues
 
