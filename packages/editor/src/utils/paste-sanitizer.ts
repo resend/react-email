@@ -60,7 +60,9 @@ function removeForbiddenElements(root: Element): void {
 }
 
 function scrubUnsafeUrlAttributes(root: Element): void {
-  for (const el of Array.from(root.querySelectorAll<HTMLElement>('[href], [src]'))) {
+  for (const el of Array.from(
+    root.querySelectorAll<HTMLElement>('[href], [src]'),
+  )) {
     const allowDataImage = el.tagName.toLowerCase() === 'img';
     for (const attr of URL_ATTRIBUTES) {
       const value = el.getAttribute(attr);
