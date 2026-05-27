@@ -52,20 +52,15 @@ export function sanitizePastedHtml(html: string): string {
 }
 
 function removeForbiddenElements(root: Element): void {
-  const toRemove: Element[] = [];
   for (const tag of FORBIDDEN_TAGS) {
     for (const el of Array.from(root.getElementsByTagName(tag))) {
-      toRemove.push(el);
+      el.remove();
     }
-  }
-  for (const el of toRemove) {
-    el.remove();
   }
 }
 
-function scrubUnsafeUrlAttributes(node: Node): void {
-  if (node.nodeType === Node.ELEMENT_NODE) {
-    const el = node as HTMLElement;
+function scrubUnsafeUrlAttributes(root: Element): void {
+  for (const el of Array.from(root.querySelectorAll<HTMLElement>('[href], [src]'))) {
     const allowDataImage = el.tagName.toLowerCase() === 'img';
     for (const attr of URL_ATTRIBUTES) {
       const value = el.getAttribute(attr);
@@ -73,9 +68,6 @@ function scrubUnsafeUrlAttributes(node: Node): void {
         el.removeAttribute(attr);
       }
     }
-  }
-  for (const child of Array.from(node.childNodes)) {
-    scrubUnsafeUrlAttributes(child);
   }
 }
 
