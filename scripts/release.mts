@@ -516,7 +516,7 @@ const main = async () => {
     return;
   } else {
     // Build every publishable package before touching the registry.
-    await exec('pnpm', ['release']);
+    await exec('pnpm', ['release:build']);
 
     // https://docs.npmjs.com/generating-provenance-statements#publishing-packages-with-provenance-via-github-actions
     // Provenance itself is requested per-publish via `pnpm publish --provenance`.
