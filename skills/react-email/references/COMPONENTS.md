@@ -155,6 +155,8 @@ import { Section } from 'react-email';
 </Section>
 ```
 
+Layout components (`<Section>`, `<Row>`, `<Container>`, `<Markdown>` tables) render `<table role="presentation">` by default so screen readers don't announce them as data tables. If you drop in a raw `<table>` for layout, add `role="presentation"` yourself.
+
 ### Row & Column
 
 Row displays content areas horizontally, Column displays content areas vertically. A Column needs to be used in combination with a Row component.
@@ -286,13 +288,15 @@ import { Img } from 'react-email';
 
 **Props:**
 - `src` (required) - Image URL (must be absolute)
-- `alt` (required) - Alt text for accessibility
+- `alt` - Alt text for accessibility (defaults to `""`; set a descriptive value for meaningful images)
 - `width` - Image width in pixels
 - `height` - Image height in pixels
 
 **Best practices:**
 - Always use absolute URLs hosted on CDN
-- Always include alt text
+- **Meaningful images**: write descriptive `alt` text covering purpose and key details (e.g., `alt="Red bicycle leaning against a brick wall"`, not `alt="image"`)
+- **Decorative images** (spacers, dividers, background flourishes): pass an explicit `alt=""` so screen readers skip them cleanly — never omit the attribute
+- **Linked images are never decorative.** When `<Img>` sits inside a `<Link>` or `<Button>`, its `alt` must describe where the link goes (e.g., `alt="View order #123"`). An empty `alt=""` on a linked image leaves the link with no accessible name for screen readers
 - Specify width and height to prevent layout shift
 - Use `block` class to avoid spacing issues
 
