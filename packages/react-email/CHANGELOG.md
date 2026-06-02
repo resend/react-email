@@ -1,5 +1,11 @@
 # react-email
 
+## 6.6.0
+
+### Minor Changes
+
+- 16ff94c: add a useTitleTag in Preview component so users can disable it if they want to
+
 ## 6.5.0
 
 ### Minor Changes
