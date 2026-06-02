@@ -2,6 +2,10 @@ import * as React from 'react';
 
 export type PreviewProps = Readonly<
   React.ComponentPropsWithoutRef<'div'> & {
+    /**
+     * @default true
+     */
+    useTitleTag?: boolean;
     children: string | string[];
   }
 >;
@@ -9,14 +13,14 @@ export type PreviewProps = Readonly<
 const PREVIEW_MAX_LENGTH = 200;
 
 export const Preview = React.forwardRef<HTMLDivElement, PreviewProps>(
-  ({ children = '', ...props }, ref) => {
+  ({ children = '', useTitleTag = true, ...props }, ref) => {
     const text = (
       Array.isArray(children) ? children.join('') : children
     ).substring(0, PREVIEW_MAX_LENGTH);
 
     return (
       <>
-        <title>{text}</title>
+        {useTitleTag ? <title>{text}</title> : null}
         <div
           style={{
             display: 'none',
