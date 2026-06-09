@@ -1,5 +1,67 @@
 # react-email
 
+## 6.5.0
+
+### Minor Changes
+
+- 3875d2a: add a `--clients` option to `email dev` and a `COMPATIBILITY_EMAIL_CLIENTS` environment variable to narrow which email clients trigger compatibility warnings. By default the preview still warns for `gmail`, `apple-mail`, `outlook`, and `yahoo`. Teams that only target one or two clients can now skip the noise: `email dev --clients outlook,apple-mail`. The CLI flag wins over the env var; an empty or fully-invalid list falls back to the defaults so warnings can't be silently switched off. Builds on #2797 by @ReemX.
+
+### Patch Changes
+
+- d47825a: Add accessibility defaults to components: `dir`/`lang` on `Body`, an empty `alt` fallback on `Img`, `role="presentation"` on the `Markdown` table, and a `<title>` from `Preview`.
+
+## 6.4.0
+
+### Minor Changes
+
+- ba99365: resolve and strip unresolved `--tw-*` CSS variables in non-inlinable rules so Tailwind media query utilities no longer break Gmail
+
+## 6.3.3
+
+## 6.3.2
+
+### Patch Changes
+
+- fbda5c8: increase whitespace padding to 200 characters for better Gmail preview text rendering
+
+## 6.3.1
+
+### Patch Changes
+
+- c610dc0: fix: padding in Container/Section failing on Klaviyo and Outlook desktop
+
+## 6.3.0
+
+## 6.2.0
+
+### Minor Changes
+
+- 192d82a: Add `theme` and `utility` props to `<Tailwind>` for Tailwind v4 CSS-first configuration. Both accept a CSS string and can be combined with the existing `config` prop.
+
+  ```tsx
+  import themeCss from "./theme.css?inline";
+
+  <Tailwind theme={themeCss}>
+    <div className="bg-brand font-display">Custom themed content</div>
+  </Tailwind>;
+  ```
+
+  Empty strings are no-ops. The base Tailwind theme and utilities are still loaded — `theme` and `utility` layer on top.
+
+  The preview server, `email export`, and the caniemail compatibility check all understand the Vite-style `?inline` and `?raw` suffixes on CSS imports, so the pattern above works the same in your project and inside the preview UI. The compatibility check also extracts the `theme` and `utility` props (in addition to `config`) when analyzing your template, so any caniemail incompatibilities in CSS produced by those props will surface as warnings.
+
+  Internal note: the exported `setupTailwind` helper now takes `{ config, cssConfigs }` instead of a positional `TailwindConfig`. Calling it with the old shape throws with a migration hint.
+
+### Patch Changes
+
+- 06f1d05: Watch directories targeted by dynamic `import()` template literals so changes to runtime-resolved files trigger preview reloads.
+
+## 6.1.5
+
+### Patch Changes
+
+- 1a61cb0: Avoid OOM when running `email export` on projects with many templates. esbuild builds now run in batches of 10 entry points, and the render phase runs each batch of 25 templates inside a `worker_threads` worker so V8 isolate memory is reclaimed between batches.
+
 ## 6.1.4
 
 ### Patch Changes

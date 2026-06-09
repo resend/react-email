@@ -195,11 +195,14 @@ describe('Column Variants', () => {
   });
 
   it('reflects column spacing in editor HTML without inventing a default gap', () => {
-    const renderHTML = TwoColumns.config.renderHTML;
+    type RenderHTMLFn = NonNullable<typeof TwoColumns.config.renderHTML>;
+    const renderHTML = TwoColumns.config.renderHTML as
+      | OmitThisParameter<RenderHTMLFn>
+      | undefined;
 
     const defaultHtml = renderHTML?.({
       HTMLAttributes: {},
-    } as Parameters<NonNullable<typeof renderHTML>>[0]) as [
+    } as unknown as Parameters<RenderHTMLFn>[0]) as [
       string,
       Record<string, unknown>,
       number,
@@ -208,7 +211,7 @@ describe('Column Variants', () => {
 
     const spacedHtml = renderHTML?.({
       HTMLAttributes: { cellspacing: '12', style: 'padding: 10px;' },
-    } as Parameters<NonNullable<typeof renderHTML>>[0]) as [
+    } as unknown as Parameters<RenderHTMLFn>[0]) as [
       string,
       Record<string, unknown>,
       number,
@@ -259,7 +262,7 @@ describe('Column Deletion', () => {
   }
 
   function findColDepth(
-    $from: ReturnType<typeof Editor.prototype.state.selection.$from>,
+    $from: typeof Editor.prototype.state.selection.$from,
   ): number | undefined {
     for (let d = $from.depth; d >= 0; d--) {
       if ($from.node(d).type.name === 'columnsColumn') return d;

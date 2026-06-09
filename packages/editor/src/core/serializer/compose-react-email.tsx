@@ -34,8 +34,18 @@ function sortMarksBySchema(
 }
 
 interface ComposeReactEmailResult {
+  /** Prettier-formatted HTML, suitable for displaying in a source-code view. */
   html: string;
+  /** Plain-text version of the email body. */
   text: string;
+  /**
+   * Unformatted HTML as produced by `render()` before `pretty()` runs.
+   * Use this when persisting or sending the email — Prettier indentation
+   * can inflate the byte size by 5–10× on deeply-nested table layouts
+   * (e.g. exports from Stripo, Mailchimp), and adds nothing for clients
+   * that parse HTML to render it.
+   */
+  unformattedHtml: string;
 }
 
 export const composeReactEmail = async ({
@@ -150,5 +160,5 @@ export const composeReactEmail = async ({
     toPlainText(unformattedHtml),
   ]);
 
-  return { html: prettyHtml, text };
+  return { html: prettyHtml, text, unformattedHtml };
 };

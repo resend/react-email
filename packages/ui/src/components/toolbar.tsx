@@ -5,10 +5,12 @@ import { LayoutGroup } from 'framer-motion';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import type { ComponentProps } from 'react';
 import * as React from 'react';
+import { nicenames } from '../actions/email-validation/caniemail-data';
 import type { CompatibilityCheckingResult } from '../actions/email-validation/check-compatibility';
 import { isBuilding } from '../app/env';
 import { usePreviewContext } from '../contexts/preview';
 import { useToolbarContext } from '../contexts/toolbar';
+import { useCachedWorkspaceState } from '../hooks/use-cached-workspace-state';
 import { cn } from '../utils';
 import CodeSnippet from './code-snippet';
 import { IconArrowDown } from './icons/icon-arrow-down';
@@ -25,7 +27,6 @@ import {
   useSpamAssassin,
 } from './toolbar/spam-assassin';
 import { ToolbarButton } from './toolbar/toolbar-button';
-import { useCachedState } from './toolbar/use-cached-state';
 
 export type ToolbarTabValue =
   | 'linter'
@@ -51,24 +52,31 @@ const ToolbarInner = ({
   serverLintingRows,
   serverSpamCheckingResult,
   serverCompatibilityResults,
+  serverCompatibilityClients,
 
   prettyMarkup,
   reactMarkup,
   plainText,
   emailPath,
   emailSlug,
+  isRawHtmlEmail,
 }: ToolbarProps & {
   prettyMarkup: string;
   reactMarkup: string;
   plainText: string;
   emailSlug: string;
   emailPath: string;
+  isRawHtmlEmail: boolean;
 }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
 
   const { hasSetupResendIntegration } = useToolbarContext();
+
+  const compatibilityClientsLabel = serverCompatibilityClients
+    .map((client) => nicenames.family[client] ?? client)
+    .join(', ');
 
   const { activeTab, toggled } = useToolbarState();
 
@@ -83,9 +91,7 @@ const ToolbarInner = ({
   };
 
   const [cachedSpamCheckingResult, setCachedSpamCheckingResult] =
-    useCachedState<SpamCheckingResult>(
-      `spam-assassin-${emailSlug.replaceAll('/', '-')}`,
-    );
+    useCachedWorkspaceState<SpamCheckingResult>(`spam-assassin:${emailSlug}`);
   const [spamCheckingResult, { load: loadSpamChecking, loading: spamLoading }] =
     useSpamAssassin({
       markup: prettyMarkup,
@@ -94,17 +100,17 @@ const ToolbarInner = ({
       initialResult: serverSpamCheckingResult ?? cachedSpamCheckingResult,
     });
 
-  const [cachedLintingRows, setCachedLintingRows] = useCachedState<
+  const [cachedLintingRows, setCachedLintingRows] = useCachedWorkspaceState<
     LintingRow[]
-  >(`linter-${emailSlug.replaceAll('/', '-')}`);
+  >(`linter:${emailSlug}`);
   const [lintingRows, { load: loadLinting, loading: lintLoading }] = useLinter({
     markup: prettyMarkup,
 
     initialRows: serverLintingRows ?? cachedLintingRows,
   });
   const [cachedCompatibilityResults, setCachedCompatibilityResults] =
-    useCachedState<CompatibilityCheckingResult[]>(
-      `compatibility-${emailSlug.replaceAll('/', '-')}`,
+    useCachedWorkspaceState<CompatibilityCheckingResult[]>(
+      `compatibility:${emailSlug}`,
     );
   const [
     compatibilityCheckingResults,
@@ -125,8 +131,12 @@ const ToolbarInner = ({
         const spamCheckingResult = await loadSpamChecking();
         setCachedSpamCheckingResult(spamCheckingResult);
 
-        const compatibilityCheckingResults = await loadCompatibility();
-        setCachedCompatibilityResults(compatibilityCheckingResults);
+        // Compatibility checks rely on parsing JSX/TS, so they don't apply to
+        // raw .html templates and would only produce noise.
+        if (!isRawHtmlEmail) {
+          const compatibilityCheckingResults = await loadCompatibility();
+          setCachedCompatibilityResults(compatibilityCheckingResults);
+        }
       })();
     }, []);
   }
@@ -157,11 +167,13 @@ const ToolbarInner = ({
                   Linter
                 </ToolbarButton>
               </Tabs.Trigger>
-              <Tabs.Trigger asChild value="compatibility">
-                <ToolbarButton active={activeTab === 'compatibility'}>
-                  Compatibility
-                </ToolbarButton>
-              </Tabs.Trigger>
+              {isRawHtmlEmail ? null : (
+                <Tabs.Trigger asChild value="compatibility">
+                  <ToolbarButton active={activeTab === 'compatibility'}>
+                    Compatibility
+                  </ToolbarButton>
+                </Tabs.Trigger>
+              )}
               <Tabs.Trigger asChild value="spam-assassin">
                 <ToolbarButton active={activeTab === 'spam-assassin'}>
                   Spam
@@ -179,6 +191,7 @@ const ToolbarInner = ({
                 compatibilityResults={compatibilityCheckingResults}
                 spamResult={spamCheckingResult}
                 reactMarkup={reactMarkup}
+                isRawHtmlEmail={isRawHtmlEmail}
                 activeTab={activeTab}
               />
               <ToolbarButton
@@ -209,7 +222,10 @@ const ToolbarInner = ({
                       await loadSpamChecking();
                     } else if (activeTab === 'linter') {
                       await loadLinting();
-                    } else if (activeTab === 'compatibility') {
+                    } else if (
+                      activeTab === 'compatibility' &&
+                      !isRawHtmlEmail
+                    ) {
                       await loadCompatibility();
                     }
                   }}
@@ -258,14 +274,23 @@ const ToolbarInner = ({
               )}
             </Tabs.Content>
             <Tabs.Content value="compatibility">
-              {compatibilityLoading ? (
+              {isRawHtmlEmail ? (
+                <SuccessWrapper>
+                  <SuccessTitle>Compatibility unavailable</SuccessTitle>
+                  <SuccessDescription>
+                    Compatibility checks rely on the React Email source and are
+                    skipped for raw HTML templates.
+                  </SuccessDescription>
+                </SuccessWrapper>
+              ) : compatibilityLoading ? (
                 <LoadingState message="Checking email compatibility..." />
               ) : compatibilityCheckingResults?.length === 0 ? (
                 <SuccessWrapper>
                   <SuccessIcon />
                   <SuccessTitle>Great compatibility</SuccessTitle>
                   <SuccessDescription>
-                    Template should render properly everywhere.
+                    Template should render properly in{' '}
+                    {compatibilityClientsLabel}.
                   </SuccessDescription>
                 </SuccessWrapper>
               ) : (
@@ -388,17 +413,20 @@ interface ToolbarProps {
   serverSpamCheckingResult: SpamCheckingResult | undefined;
   serverLintingRows: LintingRow[] | undefined;
   serverCompatibilityResults: CompatibilityCheckingResult[] | undefined;
+  serverCompatibilityClients: readonly string[];
 }
 
 export function Toolbar({
   serverLintingRows,
   serverSpamCheckingResult,
   serverCompatibilityResults,
+  serverCompatibilityClients,
 }: ToolbarProps) {
   const { emailPath, emailSlug, renderedEmailMetadata } = usePreviewContext();
 
   if (renderedEmailMetadata === undefined) return null;
-  const { prettyMarkup, plainText, reactMarkup } = renderedEmailMetadata;
+  const { prettyMarkup, plainText, reactMarkup, extname } =
+    renderedEmailMetadata;
 
   return (
     <ToolbarInner
@@ -407,9 +435,11 @@ export function Toolbar({
       prettyMarkup={prettyMarkup}
       reactMarkup={reactMarkup}
       plainText={plainText}
+      isRawHtmlEmail={extname === 'html'}
       serverLintingRows={serverLintingRows}
       serverSpamCheckingResult={serverSpamCheckingResult}
       serverCompatibilityResults={serverCompatibilityResults}
+      serverCompatibilityClients={serverCompatibilityClients}
     />
   );
 }

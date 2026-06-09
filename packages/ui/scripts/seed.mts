@@ -23,7 +23,7 @@ if (existsSync(emailsDirectoryPath)) {
   }
 }
 
-console.info('Copying over the defalt seed to the emails directory');
+console.info('Copying over the default seed to the emails directory');
 await fs.cp(seedPath, emailsDirectoryPath, {
   recursive: true,
 });

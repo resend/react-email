@@ -1,5 +1,51 @@
 # @react-email/ui
 
+## 6.5.0
+
+### Minor Changes
+
+- 3875d2a: add a `--clients` option to `email dev` and a `COMPATIBILITY_EMAIL_CLIENTS` environment variable to narrow which email clients trigger compatibility warnings. By default the preview still warns for `gmail`, `apple-mail`, `outlook`, and `yahoo`. Teams that only target one or two clients can now skip the noise: `email dev --clients outlook,apple-mail`. The CLI flag wins over the env var; an empty or fully-invalid list falls back to the defaults so warnings can't be silently switched off. Builds on #2797 by @ReemX.
+
+## 6.4.0
+
+## 6.3.3
+
+### Patch Changes
+
+- 86745ec: reject paths that resolve outside the configured emails directory in `renderEmailByPath` and `getEmailPathFromSlug` to close a path-traversal vector in the preview server
+
+## 6.3.2
+
+## 6.3.1
+
+### Patch Changes
+
+- 27587f1: stop accepting the emails directory path as a server-action argument
+
+  The `getEmailsDirectoryMetadataAction` server action used to take an
+  absolute filesystem path from the client and walk that directory on the
+  server, which allowed any caller of the endpoint to enumerate arbitrary
+  directories on the host. The action now reads the path from the server-only
+  `REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH` env variable and ignores
+  client input.
+
+## 6.3.0
+
+### Minor Changes
+
+- 99cadf3: support previewing HTML email templates
+
+### Patch Changes
+
+- fd140fc: quality of life improvements to the send email flow:
+  - infer a proper title based on the file name
+  - store preferred subject per email when modified
+  - store recipient for testing in local storage as well
+
+## 6.2.0
+
+## 6.1.5
+
 ## 6.1.4
 
 ## 6.1.3

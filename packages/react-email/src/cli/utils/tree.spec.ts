@@ -5,6 +5,7 @@ test('tree(__dirname, 2)', async () => {
     "utils
     ├── esbuild
     │   ├── escape-string-for-regex.ts
+    │   ├── inline-css-loader.ts
     │   └── renderring-utilities-exporter.ts
     ├── preview
     │   ├── hot-reloading
@@ -16,6 +17,7 @@ test('tree(__dirname, 2)', async () => {
     │   ├── hot-reload-change.ts
     │   └── hot-reload-event.ts
     ├── conf.ts
+    ├── email-clients.ts
     ├── get-emails-directory-metadata.spec.ts
     ├── get-emails-directory-metadata.ts
     ├── get-ui-location.ts

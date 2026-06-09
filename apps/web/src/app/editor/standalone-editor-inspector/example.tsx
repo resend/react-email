@@ -18,13 +18,10 @@ export function StandaloneEditorInspector() {
       title="Standalone editor — inspector"
       description="Add an inspector sidebar alongside the standalone EmailEditor — no manual EditorProvider setup needed."
     >
-      <div
-        className="flex flex-1 min-h-0 overflow-hidden"
-        style={{ height: '32rem' }}
-      >
+      <div className="flex">
         <EmailEditor
           content={content}
-          className="flex-1 min-w-0 overflow-y-auto mr-4 p-4 bg-white rounded-md"
+          className="flex-1 min-w-0 mr-4 p-4 bg-white rounded-md"
         >
           <Sidebar />
         </EmailEditor>
@@ -35,7 +32,7 @@ export function StandaloneEditorInspector() {
 
 function Sidebar() {
   return (
-    <Inspector.Root className="w-60 shrink-0 border-l border-(--re-border) pt-8 p-4 flex flex-col overflow-y-auto text-xs">
+    <Inspector.Root className="w-60 shrink-0 border-l border-(--re-border) pt-8 p-4 flex flex-col text-xs">
       <Breadcrumb />
       <Inspector.Document />
       <Inspector.Node />

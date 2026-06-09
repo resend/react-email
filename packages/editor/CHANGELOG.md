@@ -1,5 +1,74 @@
 # @react-email/editor
 
+## 1.5.3
+
+### Patch Changes
+
+- Updated dependencies [d47825a]
+- Updated dependencies [3875d2a]
+  - react-email@6.5.0
+
+## 1.5.2
+
+### Patch Changes
+
+- 0963d30: scrub `javascript:`, `vbscript:`, and non-image `data:` URLs from pasted HTML and drop `script`, `iframe`, `object`, `embed`, `meta`, and `base` elements. This pass now runs on every paste; previously, content carrying the editor's `node-*` class marker took a fast-path that skipped sanitization entirely and could be spoofed by hosting attacker HTML with the same class name. Legitimate intra-editor copy/paste still round-trips `class`, `style`, and `data-*` attributes as before.
+
+## 1.5.1
+
+### Patch Changes
+
+- Updated dependencies [ba99365]
+  - react-email@6.4.0
+
+## 1.5.0
+
+### Minor Changes
+
+- 3353e03: expose the unformatted (non-prettified) HTML from `composeReactEmail` as a new `unformattedHtml` field on the result. The existing `html` field is unchanged and still Prettier-formatted. Consumers that persist or send the email should prefer `unformattedHtml`, since `pretty()` indentation can inflate the byte size by 5–10× on deeply-nested table layouts (e.g. exports from Stripo or Mailchimp) and pushes the output past Gmail's 102 KB clipping threshold.
+
+## 1.4.8
+
+### Patch Changes
+
+- f355fba: prevent prototype pollution in the email-theming plugin by building `cssJS` and merged theme objects from `Object.create(null)` so attacker-controlled `__proto__`, `constructor`, or `prototype` keys in panel-style input become regular own properties instead of mutating `Object.prototype`
+  - react-email@6.3.3
+
+## 1.4.7
+
+### Patch Changes
+
+- Updated dependencies [fbda5c8]
+  - react-email@6.3.2
+
+## 1.4.6
+
+### Patch Changes
+
+- Updated dependencies [c610dc0]
+  - react-email@6.3.1
+
+## 1.4.5
+
+### Patch Changes
+
+- react-email@6.3.0
+
+## 1.4.4
+
+### Patch Changes
+
+- Updated dependencies [06f1d05]
+- Updated dependencies [192d82a]
+  - react-email@6.2.0
+
+## 1.4.3
+
+### Patch Changes
+
+- Updated dependencies [1a61cb0]
+  - react-email@6.1.5
+
 ## 1.4.2
 
 ### Patch Changes

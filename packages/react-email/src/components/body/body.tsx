@@ -19,7 +19,13 @@ export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
       }
     }
     return (
-      <body {...props} style={bodyStyle} ref={ref}>
+      <body
+        {...props}
+        dir={props.dir ?? 'ltr'}
+        lang={props.lang ?? 'en'}
+        style={bodyStyle}
+        ref={ref}
+      >
         <table
           border={0}
           width="100%"
@@ -36,7 +42,13 @@ export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
 
                 See https://github.com/resend/react-email/issues/662.
               */}
-              <td style={style}>{children}</td>
+              <td
+                dir={props.dir ?? 'ltr'}
+                lang={props.lang ?? 'en'}
+                style={style}
+              >
+                {children}
+              </td>
             </tr>
           </tbody>
         </table>

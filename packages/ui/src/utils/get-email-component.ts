@@ -7,6 +7,7 @@ import type { RawSourceMap } from 'source-map-js';
 import { z } from 'zod';
 import { emailConfigPath } from '../app/env';
 import { convertStackWithSourceMap } from './convert-stack-with-sourcemap';
+import { inlineCssLoader } from './esbuild/inline-css-loader';
 import { renderingUtilitiesExporter } from './esbuild/renderring-utilities-exporter';
 import { isErr } from './result';
 import { createContext, runBundledCode } from './run-bundled-code';
@@ -65,7 +66,11 @@ export const getEmailComponent = async (
     const buildData = await build({
       bundle: true,
       entryPoints: [emailPath],
-      plugins: [renderingUtilitiesExporter([emailPath]), ...emailConfigPlugins],
+      plugins: [
+        inlineCssLoader(),
+        renderingUtilitiesExporter([emailPath]),
+        ...emailConfigPlugins,
+      ],
       platform: 'node',
       write: false,
 

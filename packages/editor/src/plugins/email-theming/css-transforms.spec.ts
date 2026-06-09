@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it } from 'vitest';
 import {
   injectGlobalPlainCss,
   injectThemeCss,
+  mergeCssJs,
   transformToCssJs,
 } from './css-transforms';
 import { DEFAULT_INBOX_FONT_SIZE_PX } from './themes';
@@ -499,5 +500,96 @@ describe('injectGlobalPlainCss', () => {
     injectGlobalPlainCss('', { styleId: STYLE_ID, scopeSelector: SCOPE });
 
     expect(document.getElementById(STYLE_ID)).toBeNull();
+  });
+});
+
+describe('prototype pollution resistance', () => {
+  const POISON_KEYS = ['__proto__', 'constructor', 'prototype'] as const;
+  const POLLUTION_MARKER = 'polluted_marker_8b9c1f';
+
+  afterEach(() => {
+    // Belt-and-braces: scrub any pollution that may have leaked so a
+    // failing assertion doesn't bleed into the rest of the suite.
+    delete (Object.prototype as unknown as Record<string, unknown>)[
+      POLLUTION_MARKER
+    ];
+    delete (Array.prototype as unknown as Record<string, unknown>)[
+      POLLUTION_MARKER
+    ];
+  });
+
+  it.each(
+    POISON_KEYS,
+  )('transformToCssJs does not pollute Object.prototype via classReference="%s"', (poisonKey) => {
+    const styles = [
+      {
+        title: 'attack',
+        inputs: [
+          {
+            classReference: poisonKey,
+            prop: POLLUTION_MARKER,
+            value: 'pwned',
+          },
+        ],
+      },
+    ] as unknown as PanelGroup[];
+
+    transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
+
+    expect(({} as Record<string, unknown>)[POLLUTION_MARKER]).toBeUndefined();
+    expect(
+      (Object.prototype as unknown as Record<string, unknown>)[
+        POLLUTION_MARKER
+      ],
+    ).toBeUndefined();
+  });
+
+  it('transformToCssJs stores poison keys as own properties on a prototype-less root', () => {
+    const styles = [
+      {
+        title: 'attack',
+        inputs: [
+          {
+            classReference: '__proto__',
+            prop: 'color',
+            value: 'red',
+          },
+        ],
+      },
+    ] as unknown as PanelGroup[];
+
+    const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
+
+    expect(Object.getPrototypeOf(result)).toBeNull();
+    expect(Object.hasOwn(result, '__proto__')).toBe(true);
+  });
+
+  it('mergeCssJs does not mutate Object.prototype when fed a hostile __proto__ key', () => {
+    // JSON.parse is the realistic vector: a payload with "__proto__" becomes
+    // an own enumerable property on the parsed object, which `for...in` then
+    // exposes.
+    const hostile = JSON.parse(
+      `{"__proto__":{"${POLLUTION_MARKER}":"pwned"}}`,
+    ) as CssJs;
+
+    const original = { body: { color: 'black' } } as unknown as CssJs;
+    const merged = mergeCssJs(original, hostile);
+
+    expect(
+      (Object.prototype as unknown as Record<string, unknown>)[
+        POLLUTION_MARKER
+      ],
+    ).toBeUndefined();
+    expect(({} as Record<string, unknown>)[POLLUTION_MARKER]).toBeUndefined();
+    expect(Object.getPrototypeOf(merged)).toBeNull();
+  });
+
+  it('mergeCssJs preserves legitimate keys when input contains a poison key', () => {
+    const hostile = JSON.parse(
+      `{"__proto__":{"x":1},"body":{"color":"blue"}}`,
+    ) as CssJs;
+    const merged = mergeCssJs({} as CssJs, hostile);
+
+    expect(merged.body).toEqual({ color: 'blue' });
   });
 });
