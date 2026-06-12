@@ -107,6 +107,9 @@
     "url": "https://github.com/resend/react-email.git",
     "directory": "packages/render"
   },
+  "bugs": {
+    "url": "https://github.com/resend/react-email/issues"
+  },
   "keywords": [
     "react",
     "email"
