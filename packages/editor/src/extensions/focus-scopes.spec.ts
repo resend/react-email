@@ -1,4 +1,5 @@
 import { Editor, extensions as nativeTiptapExtensions } from '@tiptap/core';
+import { vi } from 'vitest';
 import { StarterKit } from '.';
 import { focusScopePluginKey } from './focus-scopes';
 
@@ -69,10 +70,44 @@ describe('FocusScopes', () => {
     );
 
     expect(editor.isFocused).toBe(false);
-    expect(editor.state.selection.from).toBe(0);
+    // The selection is reset to the start of the document. It must resolve
+    // into a node with inline content (not the doc node at position 0), so
+    // the first valid cursor position is used.
+    expect(editor.state.selection.$from.parent.inlineContent).toBe(true);
 
     editor.destroy();
     element.remove();
     externalScope.remove();
+  });
+
+  it('clears the selection on blur without an invalid TextSelection warning', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const { editor, element } = createEditor();
+    await waitForCreate();
+
+    editor.commands.setTextSelection({ from: 2, to: 7 });
+    editor.view.dom.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
+
+    editor.view.dom.dispatchEvent(
+      new FocusEvent('focusout', {
+        bubbles: true,
+        relatedTarget: document.body,
+      }),
+    );
+
+    expect(editor.isFocused).toBe(false);
+    expect(editor.state.selection.empty).toBe(true);
+    expect(editor.state.selection.$from.parent.inlineContent).toBe(true);
+    // Position 0 resolves to the doc node, which has no inline content, and
+    // ProseMirror warns when a TextSelection endpoint lands there.
+    expect(warn).not.toHaveBeenCalledWith(
+      expect.stringContaining(
+        'TextSelection endpoint not pointing into a node with inline content',
+      ),
+    );
+
+    warn.mockRestore();
+    editor.destroy();
+    element.remove();
   });
 });
