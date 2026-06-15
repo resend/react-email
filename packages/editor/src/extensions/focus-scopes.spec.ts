@@ -82,32 +82,46 @@ describe('FocusScopes', () => {
 
   it('clears the selection on blur without an invalid TextSelection warning', async () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-    const { editor, element } = createEditor();
-    await waitForCreate();
+    let editor: Editor | undefined;
+    let element: HTMLElement | undefined;
 
-    editor.commands.setTextSelection({ from: 2, to: 7 });
-    editor.view.dom.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
+    try {
+      ({ editor, element } = createEditor());
+      await waitForCreate();
 
-    editor.view.dom.dispatchEvent(
-      new FocusEvent('focusout', {
-        bubbles: true,
-        relatedTarget: document.body,
-      }),
-    );
+      editor.commands.setTextSelection({ from: 2, to: 7 });
+      editor.view.dom.dispatchEvent(
+        new FocusEvent('focusin', { bubbles: true }),
+      );
 
-    expect(editor.isFocused).toBe(false);
-    expect(editor.state.selection.empty).toBe(true);
-    expect(editor.state.selection.$from.parent.inlineContent).toBe(true);
-    // Position 0 resolves to the doc node, which has no inline content, and
-    // ProseMirror warns when a TextSelection endpoint lands there.
-    expect(warn).not.toHaveBeenCalledWith(
-      expect.stringContaining(
-        'TextSelection endpoint not pointing into a node with inline content',
-      ),
-    );
+      editor.view.dom.dispatchEvent(
+        new FocusEvent('focusout', {
+          bubbles: true,
+          relatedTarget: document.body,
+        }),
+      );
 
-    warn.mockRestore();
-    editor.destroy();
-    element.remove();
+      expect(editor.isFocused).toBe(false);
+      expect(editor.state.selection.empty).toBe(true);
+      expect(editor.state.selection.$from.parent.inlineContent).toBe(true);
+      // Position 0 resolves to the doc node, which has no inline content, and
+      // ProseMirror warns when a TextSelection endpoint lands there. Scan every
+      // argument of every recorded call for the warning substring so additional
+      // ProseMirror arguments cannot turn this into a false negative.
+      const warnedAboutInvalidEndpoint = warn.mock.calls.some((args) =>
+        args.some((arg) =>
+          String(arg).includes(
+            'TextSelection endpoint not pointing into a node with inline content',
+          ),
+        ),
+      );
+      expect(warnedAboutInvalidEndpoint).toBe(false);
+    } finally {
+      // Clean up in `finally` so a failed assertion above cannot leak the
+      // console.warn spy or a live editor instance into later tests.
+      warn.mockRestore();
+      editor?.destroy();
+      element?.remove();
+    }
   });
 });
