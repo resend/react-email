@@ -385,11 +385,6 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
               opacity
             ) {
               if (opacity.type === 'Percentage') {
-                // Tailwind emits the opacity modifier (e.g. `bg-blue-600/50`) as a
-                // percentage, but the comma-based `rgb()` syntax we downlevel to
-                // expects a unitless decimal alpha. A percentage alpha here is
-                // invalid and breaks in several email clients, so normalize it the
-                // same way the `rgb()` handling above does.
                 const alpha = Number.parseFloat(opacity.value) / 100;
                 if (alpha < 1) {
                   color.children.appendData({
