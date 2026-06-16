@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { getPackages } from '@manypkg/get-packages';
 import logSymbols from 'log-symbols';
 import { installDependencies, runScript } from 'nypm';
 import {
@@ -11,6 +10,7 @@ import {
 import { getUiLocation } from '../utils/get-ui-location.js';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping.js';
 import { createSpinner, stopSpinnerAndPersist } from '../utils/spinner.js';
+import { getTracingRootExpression } from './utils/get-tracing-root-expression.js';
 
 interface Args {
   dir: string;
@@ -25,10 +25,10 @@ const setNextEnvironmentVariablesForBuild = async (
   builtPreviewAppPath: string,
   usersProjectLocation: string,
 ) => {
-  let rootDir = 'previewServerLocation';
-  if (isInReactEmailMonorepo) {
-    rootDir = `'${await getPackages(usersProjectLocation).then((p) => p.rootDir.replaceAll('\\', '/'))}'`;
-  }
+  const rootDir = await getTracingRootExpression(
+    isInReactEmailMonorepo,
+    usersProjectLocation,
+  );
   const nextConfigContents = `
 import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
