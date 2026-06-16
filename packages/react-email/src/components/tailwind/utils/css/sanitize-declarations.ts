@@ -384,11 +384,25 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
               color?.name === 'rgb' &&
               opacity
             ) {
-              color.children.appendData({
-                type: 'Operator',
-                value: ',',
-              });
-              color.children.appendData(opacity);
+              if (opacity.type === 'Percentage') {
+                const alpha = Number.parseFloat(opacity.value) / 100;
+                if (alpha < 1) {
+                  color.children.appendData({
+                    type: 'Operator',
+                    value: ',',
+                  });
+                  color.children.appendData({
+                    type: 'Number',
+                    value: alpha.toString(),
+                  });
+                }
+              } else {
+                color.children.appendData({
+                  type: 'Operator',
+                  value: ',',
+                });
+                color.children.appendData(opacity);
+              }
               parentListItem.data = color;
             }
           }
