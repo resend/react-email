@@ -53,7 +53,7 @@ catalog:
   tsdown: 0.21.9
   tsx: 4.21.0
   typescript: 5.9.3
-  vite: 7.3.2
+  vite: 7.3.5
   yalc: 1.0.0-pre.53
   zod: 4.3.6
 minimumReleaseAgeExclude:
