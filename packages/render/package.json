@@ -110,6 +110,7 @@
   "bugs": {
     "url": "https://github.com/resend/react-email/issues"
   },
+  "homepage": "https://react.email",
   "keywords": [
     "react",
     "email"
