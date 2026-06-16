@@ -664,7 +664,7 @@ importers:
         specifier: 'catalog:'
         version: 7.27.0
       '@react-email/render':
-        specifier: workspace:>=2.0.8
+        specifier: workspace:>=2.0.9
         version: link:../render
       chokidar:
         specifier: ^4.0.3
@@ -951,7 +951,7 @@ importers:
         version: link:../react-email
       resend:
         specifier: 'catalog:'
-        version: 6.4.0(@react-email/render@2.0.8(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
+        version: 6.4.0(@react-email/render@packages+render)
       rimraf:
         specifier: 6.1.3
         version: 6.1.3
@@ -3061,13 +3061,6 @@ packages:
 
   '@radix-ui/rect@1.1.1':
     resolution: {integrity: sha512-HPwpGIzkl28mWyZqG52jiqDJ12waP11Pa1lGoiyUkIEuMLBP0oeK/C89esbXrxsky5we7dfd8U58nm0SgAWpVw==}
-
-  '@react-email/render@2.0.8':
-    resolution: {integrity: sha512-5udvVr3U/WuGJZfLdLBOhkzrqRWd2Q5ZYmF7ppcy7FzWcwgshdqLMNqJOXcVzAXJXg/2bm7D+WGJzTtZOZMQnQ==}
-    engines: {node: '>=20.0.0'}
-    peerDependencies:
-      react: 19.2.4
-      react-dom: 19.2.4
 
   '@react-email/section@0.0.14':
     resolution: {integrity: sha512-+fYWLb4tPU1A/+GE5J1+SEMA7/wR3V30lQ+OR9t2kAJqNrARDbMx0bLnYnR1QL5TiFRz0pCF05SQUobk6gHEDQ==}
@@ -11306,14 +11299,6 @@ snapshots:
 
   '@radix-ui/rect@1.1.1': {}
 
-  '@react-email/render@2.0.8(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
-    dependencies:
-      html-to-text: 9.0.5
-      prettier: 3.8.3
-      react: 19.2.4
-      react-dom: 19.2.4(react@19.2.4)
-    optional: true
-
   '@react-email/section@0.0.14(react@19.2.4)':
     dependencies:
       react: 19.2.4
@@ -16549,12 +16534,6 @@ snapshots:
   require-from-string@2.0.2: {}
 
   requires-port@1.0.0: {}
-
-  resend@6.4.0(@react-email/render@2.0.8(react-dom@19.2.4(react@19.2.4))(react@19.2.4)):
-    dependencies:
-      svix: 1.76.1
-    optionalDependencies:
-      '@react-email/render': 2.0.8(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
 
   resend@6.4.0(@react-email/render@packages+render):
     dependencies:

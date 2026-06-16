@@ -1,5 +1,13 @@
 # @react-email/editor
 
+## 1.5.5
+
+### Patch Changes
+
+- d6956c8: Fix the Strikethrough button in the typography inspector throwing "There is no mark type named 'line-through'". The `FORMAT_ITEMS` entry now uses the tiptap mark name `strike` instead of the CSS `text-decoration` value `line-through`.
+- Updated dependencies [21bac49]
+  - react-email@6.6.1
+
 ## 1.5.4
 
 ### Patch Changes
