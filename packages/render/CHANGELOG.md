@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 2.0.9
+
+### Patch Changes
+
+- 60a5b09: Add npm support metadata for the package homepage and issue tracker.
+
 ## 2.0.8
 
 ### Patch Changes
