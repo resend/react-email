@@ -1,5 +1,13 @@
 # react-email
 
+## 6.6.1
+
+### Patch Changes
+
+- 21bac49: Fix `Markdown` corrupting double quotes in `markdownCustomStyles`. Inline style values containing a `"` (e.g. `fontFamily: '"Times New Roman", serif'`) were escaped to the apostrophe entity `&#x27;` instead of `&quot;`, silently rewriting the quoted value. Double quotes are now escaped as `&quot;`.
+- Updated dependencies [60a5b09]
+  - @react-email/render@2.0.9
+
 ## 6.6.0
 
 ### Minor Changes
