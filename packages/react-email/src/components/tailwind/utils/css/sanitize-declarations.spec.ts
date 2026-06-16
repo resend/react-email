@@ -348,7 +348,39 @@ describe('sanitizeDeclarations', () => {
     sanitizeDeclarations(stylesheet);
     const result = generate(stylesheet);
     expect(result).toMatchInlineSnapshot(
-      `".bg-blue-600/50{background-color:rgb(21,93,252,60%)}"`,
+      `".bg-blue-600/50{background-color:rgb(21,93,252,0.6)}"`,
+    );
+  });
+
+  it('converts the color-mix opacity percentage into a decimal alpha', () => {
+    let stylesheet = parse(`
+      .bg-blue-600\\/50 {
+        background-color: color-mix(in oklab, oklch(54.6% 0.245 262.881) 50%, transparent);
+      }
+    `);
+    sanitizeDeclarations(stylesheet);
+    expect(generate(stylesheet), 'half opacity').toMatchInlineSnapshot(
+      `".bg-blue-600\\/50{background-color:rgb(21,93,252,0.5)}"`,
+    );
+
+    stylesheet = parse(`
+      .bg-blue-600\\/12\\.5 {
+        background-color: color-mix(in oklab, oklch(54.6% 0.245 262.881) 12.5%, transparent);
+      }
+    `);
+    sanitizeDeclarations(stylesheet);
+    expect(generate(stylesheet), 'fractional opacity').toMatchInlineSnapshot(
+      `".bg-blue-600\\/12\\.5{background-color:rgb(21,93,252,0.125)}"`,
+    );
+
+    stylesheet = parse(`
+      .bg-blue-600\\/100 {
+        background-color: color-mix(in oklab, oklch(54.6% 0.245 262.881) 100%, transparent);
+      }
+    `);
+    sanitizeDeclarations(stylesheet);
+    expect(generate(stylesheet), 'full opacity').toMatchInlineSnapshot(
+      `".bg-blue-600\\/100{background-color:rgb(21,93,252)}"`,
     );
   });
 
