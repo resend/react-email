@@ -1,5 +1,11 @@
 # react-email
 
+## 6.6.2
+
+### Patch Changes
+
+- 437c414: Fix Tailwind opacity modifiers (e.g. `bg-blue-600/50`) rendering an invalid percentage alpha that breaks in some email clients.
+
 ## 6.6.1
 
 ### Patch Changes
