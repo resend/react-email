@@ -17,15 +17,20 @@ const initialContent = {
   content: [
     {
       type: 'heading',
-      attrs: { level: 2 },
+      attrs: { level: 1 },
       content: [{ type: 'text', text: 'Welcome to our newsletter' }],
     },
     {
+      type: 'heading',
+      attrs: { level: 2 },
+      content: [{ type: 'text', text: 'The new release is live' }],
+    },
+    {
       type: 'paragraph',
       content: [
         {
           type: 'text',
-          text: 'This is a themed email editor. Toggle between Basic, Minimal, and Custom themes to see how styles change.',
+          text: 'This editor showcases the built-in themes abstracted from the react-email demo templates (Barebone, Matte, Protocol, Arcane, Studio) alongside the original Basic, Minimal, and a Custom example.',
         },
       ],
     },
@@ -34,9 +39,14 @@ const initialContent = {
       content: [
         {
           type: 'text',
-          text: 'Try editing this content and switching themes to see the difference.',
+          text: 'Switch between themes to see how the container, typography, links, and buttons change.',
         },
       ],
+    },
+    {
+      type: 'button',
+      attrs: { url: 'https://react.email' },
+      content: [{ type: 'text', text: 'Read the docs' }],
     },
   ],
 };
@@ -55,16 +65,40 @@ const customTheme = extendTheme('basic', {
   },
 });
 
-type ThemeOption = 'basic' | 'minimal' | 'custom';
+type ThemeOption =
+  | 'basic'
+  | 'minimal'
+  | 'barebone'
+  | 'matte'
+  | 'protocol'
+  | 'arcane'
+  | 'studio'
+  | 'custom';
 
 const themeMap: Record<ThemeOption, EditorThemeInput> = {
   basic: 'basic',
   minimal: 'minimal',
+  barebone: 'barebone',
+  matte: 'matte',
+  protocol: 'protocol',
+  arcane: 'arcane',
+  studio: 'studio',
   custom: customTheme,
 };
 
+const themeOrder: ThemeOption[] = [
+  'basic',
+  'minimal',
+  'barebone',
+  'matte',
+  'protocol',
+  'arcane',
+  'studio',
+  'custom',
+];
+
 export function EmailThemingExample() {
-  const [selected, setSelected] = useState<ThemeOption>('basic');
+  const [selected, setSelected] = useState<ThemeOption>('barebone');
   const contentRef = useRef<JSONContent>(initialContent);
   const theme = themeMap[selected];
 
@@ -83,10 +117,10 @@ export function EmailThemingExample() {
   return (
     <ExampleShell
       title="Email theming"
-      description="Switch between Basic, Minimal, and Custom themes to see how email styles change."
+      description="Switch between the built-in themes (including the five abstracted from the demo email templates) to see how email styles change."
     >
-      <div className="flex gap-2 mb-4">
-        {(['basic', 'minimal', 'custom'] as const).map((option) => (
+      <div className="flex flex-wrap gap-2 mb-4">
+        {themeOrder.map((option) => (
           <button
             key={option}
             type="button"

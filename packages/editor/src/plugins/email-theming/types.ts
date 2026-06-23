@@ -4,7 +4,14 @@ type InputType = 'color' | 'number' | 'select' | 'text' | 'textarea';
 type InputUnit = 'px' | '%';
 type Options = Record<string, string>;
 
-export type EditorTheme = 'basic' | 'minimal';
+export type EditorTheme =
+  | 'basic'
+  | 'minimal'
+  | 'barebone'
+  | 'matte'
+  | 'protocol'
+  | 'arcane'
+  | 'studio';
 export type PanelSectionId =
   | 'body'
   | 'container'
