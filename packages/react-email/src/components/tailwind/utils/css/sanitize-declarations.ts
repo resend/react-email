@@ -133,11 +133,11 @@ function separteShorthandDeclaration(
     shorthandToReplace.value.type === 'Value'
       ? shorthandToReplace.value.children
           .toArray()
+          // Count every real value component, not just numeric ones, so a
+          // two-value shorthand with `auto`/`var()`/`calc()` (e.g.
+          // `margin-inline: 1rem auto`) still splits into two longhands.
           .filter(
-            (child) =>
-              child.type === 'Dimension' ||
-              child.type === 'Number' ||
-              child.type === 'Percentage',
+            (child) => child.type !== 'Operator' && child.type !== 'WhiteSpace',
           )
       : [shorthandToReplace.value];
   let endValue = shorthandToReplace.value;
