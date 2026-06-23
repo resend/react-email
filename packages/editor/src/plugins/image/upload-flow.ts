@@ -1,10 +1,29 @@
 import type { Editor } from '@tiptap/core';
+import { NodeSelection } from '@tiptap/pm/state';
 import type { UseEditorImageOptions } from './types';
 
 interface ExecuteUploadFlowParams {
   editor: Editor;
   file: File;
   uploadImage: UseEditorImageOptions['uploadImage'];
+}
+
+/**
+ * Returns the attributes of the currently selected image node, or `undefined`
+ * when the selection isn't a single image. Used to carry custom styling (e.g.
+ * border radius, width/height/alignment/href/alt) over when replacing an image.
+ */
+function getSelectedImageAttrs(
+  editor: Editor,
+): Record<string, unknown> | undefined {
+  const { selection } = editor.state;
+  if (
+    selection instanceof NodeSelection &&
+    selection.node.type.name === 'image'
+  ) {
+    return selection.node.attrs;
+  }
+  return undefined;
 }
 
 export async function executeUploadFlow({
@@ -14,7 +33,15 @@ export async function executeUploadFlow({
 }: ExecuteUploadFlowParams): Promise<void> {
   const blobUrl = URL.createObjectURL(file);
 
-  editor.chain().focus().setImage({ src: blobUrl }).run();
+  // When replacing a selected image, preserve its existing attributes (custom
+  // styling like border radius, etc.) and only override the src.
+  const selectedImageAttrs = getSelectedImageAttrs(editor);
+
+  editor
+    .chain()
+    .focus()
+    .setImage({ ...selectedImageAttrs, src: blobUrl })
+    .run();
 
   try {
     const { url } = await uploadImage(file);
