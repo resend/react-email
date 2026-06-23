@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { getEmailConfigPath } from '../../../config/get-email-config-path.js';
 
 export const getEnvVariablesForPreviewApp = (
   relativePathToEmailsDirectory: string,
@@ -16,6 +17,7 @@ export const getEnvVariablesForPreviewApp = (
     ),
     REACT_EMAIL_INTERNAL_PREVIEW_SERVER_LOCATION: previewServerLocation,
     REACT_EMAIL_INTERNAL_USER_PROJECT_LOCATION: cwd,
+    REACT_EMAIL_INTERNAL_EMAIL_CONFIG_PATH: getEmailConfigPath(cwd),
     REACT_EMAIL_INTERNAL_RESEND_API_KEY: resendApiKey,
     // Only spread the key when set so a user-provided env var isn't clobbered.
     ...(compatibilityClients !== undefined && {

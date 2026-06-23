@@ -6,6 +6,7 @@ import { type BuildFailure, build, stop } from 'esbuild';
 import { glob } from 'glob';
 import logSymbols from 'log-symbols';
 import normalize from 'normalize-path';
+import { getEmailConfig, getEmailConfigPath } from '../../config/index.js';
 import { inlineCssLoader } from '../utils/esbuild/inline-css-loader.js';
 import { renderingUtilitiesExporter } from '../utils/esbuild/renderring-utilities-exporter.js';
 import {
@@ -122,6 +123,10 @@ export const exportTemplates = async (
   const allTemplates = getEmailTemplatesFromDirectory(emailsDirectoryMetadata);
 
   try {
+    const emailConfigPath = getEmailConfigPath(process.cwd());
+    const emailConfig = await getEmailConfig(emailConfigPath);
+    const emailConfigPlugins = emailConfig.esbuild?.plugins ?? [];
+
     for (let i = 0; i < allTemplates.length; i += BUILD_BATCH_SIZE) {
       const batch = allTemplates.slice(i, i + BUILD_BATCH_SIZE);
       await build({
@@ -135,7 +140,11 @@ export const exportTemplates = async (
         outExtension: { '.js': '.cjs' },
         outdir: pathToWhereEmailMarkupShouldBeDumped,
         platform: 'node',
-        plugins: [inlineCssLoader(), renderingUtilitiesExporter(batch)],
+        plugins: [
+          inlineCssLoader(),
+          renderingUtilitiesExporter(batch),
+          ...emailConfigPlugins,
+        ],
         write: true,
       });
       await stop();
