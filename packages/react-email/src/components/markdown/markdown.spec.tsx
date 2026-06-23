@@ -131,6 +131,18 @@ console.log(\`Hello, $\{name}!\`);
     `);
   });
 
+  it('escapes double quotes in link/image href and title attributes', async () => {
+    const actualOutput = await render(
+      <Markdown>
+        {`[guide](https://example.com/?q="a" 'The "Complete" Guide') and ![logo](https://cdn.example.com/a.png 'Acme "logo"')`}
+      </Markdown>,
+    );
+    expect(actualOutput).toMatchInlineSnapshot(`
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div data-id="react-email-markdown"><p><a href="https://example.com/?q=&quot;a&quot;" target="_blank" title="The &quot;Complete&quot; Guide" style="color:#007bff;text-decoration:underline;background-color:transparent">guide</a> and <img src="https://cdn.example.com/a.png" alt="logo" title="Acme &quot;logo&quot;"></p>
+      </div><!--/$-->"
+    `);
+  });
+
   it('renders lists in the correct format for browsers', async () => {
     const actualOutput = await render(
       <Markdown>
