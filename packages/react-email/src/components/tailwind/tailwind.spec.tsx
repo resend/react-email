@@ -9,6 +9,7 @@ import { Heading } from '../heading/index.js';
 import { Hr } from '../hr/index.js';
 import { Html } from '../html/index.js';
 import { Link } from '../link/index.js';
+import { Section } from '../section/index.js';
 import type { TailwindConfig } from './tailwind.js';
 import { Tailwind } from './tailwind.js';
 
@@ -259,6 +260,17 @@ describe('Tailwind component', () => {
     expect(await render(<EmailTemplate />)).toMatchInlineSnapshot(
       `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$-->Hello<h1>My testing heading</h1>friends<!--/$-->"`,
     );
+  });
+
+  it('routes Tailwind padding on <Section> to the inner <td>', async () => {
+    const html = await render(
+      <Tailwind>
+        <Section className="bg-white p-4">x</Section>
+      </Tailwind>,
+    );
+
+    expect(html).toContain('<td style="padding:1rem">');
+    expect(html).not.toMatch(/<table[^>]*style="[^"]*padding:1rem/);
   });
 
   it('works with components that use React.forwardRef', async () => {

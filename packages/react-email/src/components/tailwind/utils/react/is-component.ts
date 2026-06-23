@@ -8,6 +8,7 @@ import { Hr } from '../../../hr/index.js';
 import { Img } from '../../../img/index.js';
 import { Link } from '../../../link/index.js';
 import { Preview } from '../../../preview/index.js';
+import { Section } from '../../../section/index.js';
 import { Text } from '../../../text/index.js';
 
 const componentsToTreatAsElements: React.ReactElement['type'][] = [
@@ -21,6 +22,7 @@ const componentsToTreatAsElements: React.ReactElement['type'][] = [
   Img,
   Link,
   Preview,
+  Section,
   Text,
 ];
 
