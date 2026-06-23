@@ -206,4 +206,25 @@ describe('extractRulesPerClass()', async () => {
       }
     `);
   });
+
+  it('does not emit a bare nested rule for group/peer marker classes', async () => {
+    const tailwind = await setupTailwind({});
+    const classes = ['group', 'group-hover:underline'];
+    tailwind.addUtilities(classes);
+
+    const stylesheet = tailwind.getStyleSheet();
+    const { inlinable, nonInlinable } = extractRulesPerClass(
+      stylesheet,
+      classes,
+    );
+
+    // Only the real utility is keyed; the `group` marker must not produce a
+    // duplicate, parentless `&:is(...)` rule.
+    expect(Object.keys(convertToComparable(inlinable))).toEqual([]);
+    expect(convertToComparable(nonInlinable)).toMatchInlineSnapshot(`
+      {
+        "group-hover:underline": ".group-hover\\:underline{&:is(:where(.group):hover *){@media (hover:hover){text-decoration-line:underline}}}",
+      }
+    `);
+  });
 });
