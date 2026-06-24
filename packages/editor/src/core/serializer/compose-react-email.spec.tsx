@@ -326,6 +326,21 @@ describe('StarterKit node wrappers', () => {
     expect(result.html).toContain('List item');
   });
 
+  it('should inject dark-mode CSS into the email head', async () => {
+    const content = docWithGlobalContent([
+      {
+        type: 'paragraph',
+        content: [{ type: 'text', text: 'Hello world' }],
+      },
+    ]);
+
+    const editor = createEditorWithContent(content);
+    const result = await composeReactEmail({ editor, preview: '' });
+
+    expect(result.html).toContain('@media (prefers-color-scheme: dark)');
+    expect(result.html).toContain('li::marker');
+  });
+
   it('should render hard breaks using the extension renderer', async () => {
     const content = docWithGlobalContent([
       {

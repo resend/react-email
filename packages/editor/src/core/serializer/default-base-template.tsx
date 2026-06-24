@@ -1,5 +1,6 @@
 import type * as React from 'react';
 import { Body, Head, Html, Preview } from 'react-email';
+import { DARK_MODE_CSS } from '../../utils/dark-mode';
 
 type BaseTemplateProps = {
   children: React.ReactNode;
@@ -20,6 +21,7 @@ export function DefaultBaseTemplate({
           content="telephone=no,address=no,email=no,date=no,url=no"
           name="format-detection"
         />
+        <style>{DARK_MODE_CSS}</style>
       </Head>
       {previewText && previewText !== '' && <Preview>{previewText}</Preview>}
 
