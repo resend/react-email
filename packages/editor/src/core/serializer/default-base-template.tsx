@@ -5,11 +5,13 @@ import { DARK_MODE_CSS } from '../../utils/dark-mode';
 type BaseTemplateProps = {
   children: React.ReactNode;
   previewText?: string;
+  previewMode?: boolean;
 };
 
 export function DefaultBaseTemplate({
   children,
   previewText,
+  previewMode = false,
 }: BaseTemplateProps) {
   return (
     <Html>
@@ -21,7 +23,7 @@ export function DefaultBaseTemplate({
           content="telephone=no,address=no,email=no,date=no,url=no"
           name="format-detection"
         />
-        <style>{DARK_MODE_CSS}</style>
+        {!previewMode && <style>{DARK_MODE_CSS}</style>}
       </Head>
       {previewText && previewText !== '' && <Preview>{previewText}</Preview>}
 

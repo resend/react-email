@@ -291,7 +291,7 @@ export const EmailTheming = Extension.create<{
             getMergedCssJs(theming.theme, theming.styles),
           );
         },
-        BaseTemplate({ previewText, children, editor }) {
+        BaseTemplate({ previewText, children, editor, previewMode = false }) {
           const { css: globalCss, styles, theme } = getEmailTheming(editor);
           const mergedStyles = getMergedCssJs(theme, styles);
 
@@ -306,7 +306,7 @@ export const EmailTheming = Extension.create<{
                   name="format-detection"
                 />
 
-                <style>{DARK_MODE_CSS}</style>
+                {!previewMode && <style>{DARK_MODE_CSS}</style>}
                 {globalCss && <style>{globalCss}</style>}
               </Head>
               {previewText && previewText !== '' && (

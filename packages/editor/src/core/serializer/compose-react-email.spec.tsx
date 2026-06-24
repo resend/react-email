@@ -341,6 +341,25 @@ describe('StarterKit node wrappers', () => {
     expect(result.html).toContain('li::marker');
   });
 
+  it('omits dark-mode CSS when previewMode is set', async () => {
+    const content = docWithGlobalContent([
+      {
+        type: 'paragraph',
+        content: [{ type: 'text', text: 'Hello world' }],
+      },
+    ]);
+
+    const editor = createEditorWithContent(content);
+    const result = await composeReactEmail({
+      editor,
+      preview: '',
+      previewMode: true,
+    });
+
+    expect(result.html).not.toContain('prefers-color-scheme');
+    expect(result.html).not.toContain('li::marker');
+  });
+
   it('renders hard breaks using the extension renderer', async () => {
     const content = docWithGlobalContent([
       {

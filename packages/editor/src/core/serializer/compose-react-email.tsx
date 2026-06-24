@@ -51,9 +51,11 @@ interface ComposeReactEmailResult {
 export const composeReactEmail = async ({
   editor,
   preview,
+  previewMode = false,
 }: {
   editor: Editor;
   preview?: string;
+  previewMode?: boolean;
 }): Promise<ComposeReactEmailResult> => {
   const data = editor.getJSON();
   const extensions = editor.extensionManager.extensions;
@@ -150,7 +152,7 @@ export const composeReactEmail = async ({
 
   const parsedContent = parseContent(data.content);
   const unformattedHtml = await render(
-    <BaseTemplate previewText={preview} editor={editor}>
+    <BaseTemplate previewText={preview} editor={editor} previewMode={previewMode}>
       {parsedContent}
     </BaseTemplate>,
   );
