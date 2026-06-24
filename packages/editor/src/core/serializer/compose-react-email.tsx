@@ -152,7 +152,11 @@ export const composeReactEmail = async ({
 
   const parsedContent = parseContent(data.content);
   const unformattedHtml = await render(
-    <BaseTemplate previewText={preview} editor={editor} previewMode={previewMode}>
+    <BaseTemplate
+      previewText={preview}
+      editor={editor}
+      previewMode={previewMode}
+    >
       {parsedContent}
     </BaseTemplate>,
   );
