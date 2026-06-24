@@ -1,0 +1,77 @@
+---
+title: "Send email using Bird"
+sidebarTitle: "Bird"
+description: "Learn how to send an email using React Email and the Bird TypeScript SDK."
+"og:image": "https://react.email/static/covers/react-email.png"
+---
+
+## 1. Install dependencies
+
+Get the [react-email](https://www.npmjs.com/package/react-email) package and the [Bird TypeScript SDK](https://www.npmjs.com/package/@messagebird/sdk).
+
+<CodeGroup>
+
+```sh npm
+npm install @messagebird/sdk react-email
+```
+
+```sh yarn
+yarn add @messagebird/sdk react-email
+```
+
+```sh pnpm
+pnpm add @messagebird/sdk react-email
+```
+
+</CodeGroup>
+
+## 2. Create an email using React
+
+Start by building your email template in a `.jsx` or `.tsx` file.
+
+```tsx email.tsx
+import * as React from "react";
+import { Html, Button } from "react-email";
+
+export function Email(props) {
+  const { url } = props;
+
+  return (
+    <Html lang="en">
+      <Button href={url}>Click me</Button>
+    </Html>
+  );
+}
+```
+
+## 3. Convert to HTML and send email
+
+Import the email template you just built, convert it into an HTML string, and use the Bird SDK to send it.
+
+```tsx
+import { render } from "react-email";
+import { BirdClient } from "@messagebird/sdk";
+import { Email } from "./email";
+
+const bird = new BirdClient({ apiKey: process.env.BIRD_API_KEY });
+
+const emailHtml = await render(<Email url="https://example.com" />);
+
+await bird.email.send({
+  from: { email: "you@example.com", name: "You" },
+  to: ["user@gmail.com"],
+  subject: "hello world",
+  html: emailHtml,
+});
+```
+
+## Try it yourself
+
+<Card
+  title="Bird example"
+  icon="arrow-up-right-from-square"
+  iconType="duotone"
+  href="https://github.com/resend/react-email/tree/main/examples/bird"
+>
+  See the full source code.
+</Card>
