@@ -61,6 +61,8 @@
     "framer-motion": "catalog:",
     "log-symbols": "catalog:",
     "module-punycode": "npm:punycode@2.3.1",
+    "motion-dom": "catalog:",
+    "motion-utils": "catalog:",
     "next-safe-action": "8.5.2",
     "node-html-parser": "7.1.0",
     "picospinner": "catalog:",

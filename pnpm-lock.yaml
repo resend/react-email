@@ -72,6 +72,12 @@ catalogs:
     log-symbols:
       specifier: ^7.0.0
       version: 7.0.1
+    motion-dom:
+      specifier: 12.38.0
+      version: 12.38.0
+    motion-utils:
+      specifier: 12.36.0
+      version: 12.36.0
     next:
       specifier: 16.2.6
       version: 16.2.6
@@ -922,6 +928,12 @@ importers:
       module-punycode:
         specifier: npm:punycode@2.3.1
         version: punycode@2.3.1
+      motion-dom:
+        specifier: 'catalog:'
+        version: 12.38.0
+      motion-utils:
+        specifier: 'catalog:'
+        version: 12.36.0
       next-safe-action:
         specifier: 8.5.2
         version: 8.5.2(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)

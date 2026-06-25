@@ -38,6 +38,13 @@ catalog:
   esbuild: 0.28.0
   framer-motion: 12.38.0
   log-symbols: ^7.0.0
+  # motion-dom and motion-utils are framer-motion's lockstep siblings: they
+  # rely on internal cross-package symbols only guaranteed to match at the same
+  # release. framer-motion is pinned exact, so these must be pinned too or the
+  # generated .react-email app's fresh npm install floats them to an
+  # incompatible minor and Turbopack fails on a missing export (see #3599).
+  motion-dom: 12.38.0
+  motion-utils: 12.36.0
   next: 16.2.6
   nypm: 0.6.6
   ora: ^8.0.0
