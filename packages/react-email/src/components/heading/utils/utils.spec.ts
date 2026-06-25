@@ -67,4 +67,12 @@ describe('withSpace', () => {
     const result = withSpace(15, ['marginTop', 'marginLeft']);
     expect(result).toEqual({ marginTop: '15px', marginLeft: '15px' });
   });
+
+  it('keeps the unit on values that already have one', () => {
+    expect(withSpace('2rem', ['margin'])).toEqual({ margin: '2rem' });
+    expect(withSpace('10%', ['marginTop'])).toEqual({ marginTop: '10%' });
+    expect(withSpace('-1.5em', ['marginLeft'])).toEqual({
+      marginLeft: '-1.5em',
+    });
+  });
 });

@@ -56,8 +56,15 @@ export const withSpace = (
     return styles;
   }
 
+  // Pass unit-bearing strings like "2rem" through untouched; only bare
+  // numbers get a px suffix, so "2rem" doesn't become an invalid "2rempx".
+  const dimension =
+    typeof value === 'string' && !/^-?\d*\.?\d+$/.test(value.trim())
+      ? value
+      : `${value}px`;
+
   for (const property of properties) {
-    styles[property] = `${value}px` as React.CSSProperties[MarginCSSProperty];
+    styles[property] = dimension as React.CSSProperties[MarginCSSProperty];
   }
 
   return styles;
