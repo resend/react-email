@@ -1,5 +1,11 @@
 # @react-email/ui
 
+## 6.6.5
+
+### Patch Changes
+
+- 1213e82: fix mismatch between motion dependencies causing problems in build for some users
+
 ## 6.6.4
 
 ## 6.6.3
