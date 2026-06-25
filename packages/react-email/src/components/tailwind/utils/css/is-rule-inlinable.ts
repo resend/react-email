@@ -11,5 +11,16 @@ export function isRuleInlinable(rule: Rule): boolean {
         node.type === 'PseudoElementSelector',
     ) !== null;
 
-  return !hasAtRuleInside && !hasPseudoSelector;
+  // css-tree leaves a nested rule body (space-y/divide compile to
+  // `:where(& > :not(:last-child)) { … }`) as an unparsed Raw block child that
+  // find() can't descend into; such a rule can't be inlined as flat styles.
+  let hasNestedRuleBlock = false;
+  for (const child of rule.block.children) {
+    if (child.type === 'Raw') {
+      hasNestedRuleBlock = true;
+      break;
+    }
+  }
+
+  return !hasAtRuleInside && !hasPseudoSelector && !hasNestedRuleBlock;
 }

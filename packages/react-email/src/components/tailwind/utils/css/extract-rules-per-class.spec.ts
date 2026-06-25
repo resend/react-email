@@ -147,4 +147,25 @@ describe('extractRulesPerClass()', async () => {
       }
     `);
   });
+
+  it('keeps nested-rule utilities (space-y/divide) instead of dropping them', async () => {
+    const tailwind = await setupTailwind({});
+    const classes = ['space-y-4', 'divide-y'];
+    tailwind.addUtilities(classes);
+
+    const stylesheet = tailwind.getStyleSheet();
+
+    const { inlinable, nonInlinable } = extractRulesPerClass(
+      stylesheet,
+      classes,
+    );
+
+    // The bodies compile to an unparsed nested rule; they must not be treated
+    // as inlinable (which silently produced an empty style and dropped them).
+    expect(Object.keys(convertToComparable(inlinable))).toEqual([]);
+    expect(Object.keys(convertToComparable(nonInlinable))).toEqual([
+      'space-y-4',
+      'divide-y',
+    ]);
+  });
 });
