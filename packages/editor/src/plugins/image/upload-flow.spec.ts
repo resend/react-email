@@ -41,8 +41,6 @@ describe('executeUploadFlow', () => {
   it('preserves the existing image attributes (e.g. style) when replacing a selected image', async () => {
     const editor = createEditor();
 
-    // Insert an image carrying a custom style attribute. `style` is a global
-    // attribute (from StyleAttribute), so insert via explicit content to set it.
     editor
       .chain()
       .focus()
@@ -60,7 +58,6 @@ describe('executeUploadFlow', () => {
     const inserted = findImageNode(editor);
     expect(inserted).not.toBeNull();
 
-    // Select the image via a NodeSelection (as clicking the atom would).
     const { tr } = editor.state;
     tr.setSelection(NodeSelection.create(editor.state.doc, inserted!.pos));
     editor.view.dispatch(tr);
@@ -75,9 +72,7 @@ describe('executeUploadFlow', () => {
 
     const replaced = findImageNode(editor);
     expect(replaced).not.toBeNull();
-    // src is updated to the uploaded url ...
     expect(replaced!.node.attrs.src).toBe('https://example.com/new.png');
-    // ... while the custom styling and other attrs are preserved.
     expect(replaced!.node.attrs.style).toBe('border-radius: 12px');
     expect(replaced!.node.attrs.width).toBe('300');
     expect(replaced!.node.attrs.alt).toBe('logo');
@@ -99,7 +94,6 @@ describe('executeUploadFlow', () => {
     const inserted = findImageNode(editor);
     expect(inserted).not.toBeNull();
     expect(inserted!.node.attrs.src).toBe('https://example.com/fresh.png');
-    // Default style (empty) since nothing was selected.
     expect(inserted!.node.attrs.style).toBe('');
 
     editor.destroy();

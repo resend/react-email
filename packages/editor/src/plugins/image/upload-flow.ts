@@ -8,11 +8,6 @@ interface ExecuteUploadFlowParams {
   uploadImage: UseEditorImageOptions['uploadImage'];
 }
 
-/**
- * Returns the attributes of the currently selected image node, or `undefined`
- * when the selection isn't a single image. Used to carry custom styling (e.g.
- * border radius, width/height/alignment/href/alt) over when replacing an image.
- */
 function getSelectedImageAttrs(
   editor: Editor,
 ): Record<string, unknown> | undefined {
@@ -33,8 +28,6 @@ export async function executeUploadFlow({
 }: ExecuteUploadFlowParams): Promise<void> {
   const blobUrl = URL.createObjectURL(file);
 
-  // When replacing a selected image, preserve its existing attributes (custom
-  // styling like border radius, etc.) and only override the src.
   const selectedImageAttrs = getSelectedImageAttrs(editor);
 
   editor
