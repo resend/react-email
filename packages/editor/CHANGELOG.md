@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.6.0
+
+### Minor Changes
+
+- b897235: preserve image styles when replacing an image node
+
 ## 1.5.10
 
 ### Patch Changes
