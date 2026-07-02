@@ -325,9 +325,11 @@ const ToolbarInner = ({
                 <SpamAssassin result={spamCheckingResult} />
               )}
             </Tabs.Content>
-            <Tabs.Content className="h-full" value="props">
-              <PreviewPropsEditor />
-            </Tabs.Content>
+            {isRawHtmlEmail || isBuilding ? null : (
+              <Tabs.Content className="h-full" value="props">
+                <PreviewPropsEditor />
+              </Tabs.Content>
+            )}
             <Tabs.Content value="resend">
               {hasSetupResendIntegration ? (
                 <ResendIntegration

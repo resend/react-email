@@ -10,6 +10,14 @@ import { useEmails } from '../contexts/emails';
 import { planHotReloadRerender } from '../utils/plan-hot-reload-rerender';
 import { useHotreload } from './use-hot-reload';
 
+const getRenderingKey = (
+  emailPath: string,
+  previewPropsOverride: Record<string, unknown> | undefined,
+) =>
+  previewPropsOverride === undefined
+    ? emailPath
+    : `${emailPath}\0${JSON.stringify(previewPropsOverride)}`;
+
 export const useEmailRenderingResult = (
   emailPath: string,
   serverEmailRenderedResult: EmailRenderingResult,
@@ -24,14 +32,14 @@ export const useEmailRenderingResult = (
   const previewPropsOverrideRef = useRef(previewPropsOverride);
   previewPropsOverrideRef.current = previewPropsOverride;
 
-  const isFirstOverrideRun = useRef(true);
+  // The server render already covers the initial (path, default props) pair;
+  // re-rendering is only needed when the pair changes. A key comparison keeps
+  // Strict Mode's double-invoked effect from issuing a redundant render.
+  const lastRenderedKey = useRef(getRenderingKey(emailPath, undefined));
   useEffect(() => {
-    // The server-rendered result already covers the initial default props.
-    if (isFirstOverrideRun.current && previewPropsOverride === undefined) {
-      isFirstOverrideRun.current = false;
-      return;
-    }
-    isFirstOverrideRun.current = false;
+    const key = getRenderingKey(emailPath, previewPropsOverride);
+    if (key === lastRenderedKey.current) return;
+    lastRenderedKey.current = key;
 
     let cancelled = false;
     renderEmailByPath(emailPath, false, previewPropsOverride).then((result) => {
