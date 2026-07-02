@@ -102,24 +102,31 @@ This is most likely not an issue with the preview server. Maybe there was a typo
       }
     }
 
-    const response = await fetch('https://react.email/api/check-spam', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        html: serverEmailRenderingResult.prettyMarkup,
-        plainText: serverEmailRenderingResult.plainText,
-      }),
-    });
-    const responseBody = (await response.json()) as
-      | { error: string }
-      | SpamCheckingResult;
-    if ('error' in responseBody) {
-      throw new Error(`Failed doing Spam Check. ${responseBody.error}`, {
-        cause: responseBody,
+    try {
+      const response = await fetch('https://react.email/api/check-spam', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          html: serverEmailRenderingResult.prettyMarkup,
+          plainText: serverEmailRenderingResult.plainText,
+        }),
+        signal: AbortSignal.timeout(20_000),
       });
-    }
+      const responseBody = (await response.json()) as
+        | { error: string }
+        | SpamCheckingResult;
+      if ('error' in responseBody) {
+        throw new Error(responseBody.error);
+      }
 
-    spamCheckingResult = responseBody;
+      spamCheckingResult = responseBody;
+    } catch (exception) {
+      console.warn(
+        `Skipping spam check for ${slug}: ${
+          exception instanceof Error ? exception.message : String(exception)
+        }`,
+      );
+    }
   }
 
   return (
