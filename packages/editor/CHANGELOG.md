@@ -1,5 +1,30 @@
 # @react-email/editor
 
+## 1.6.0
+
+### Minor Changes
+
+- b897235: preserve image styles when replacing an image node
+
+## 1.5.10
+
+### Patch Changes
+
+- f5eae02: Keep native list markers visible in dark-mode mail clients. Apple Mail / iOS auto-darken light emails by recoloring text but leave `list-style` markers at their original color, so bullets vanished on the darkened background. The serialized email head now ships a `prefers-color-scheme: dark` rule that gives `li::marker` an explicit color.
+
+## 1.5.9
+
+### Patch Changes
+
+- react-email@6.6.5
+
+## 1.5.8
+
+### Patch Changes
+
+- Updated dependencies [f8279be]
+  - react-email@6.6.4
+
 ## 1.5.7
 
 ### Patch Changes
