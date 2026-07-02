@@ -32,6 +32,27 @@ describe('sanitizeDeclarations', () => {
     expect(generate(root)).toBe('.rounded-full{border-radius:9999px}');
   });
 
+  it('converts calc(infinity * 1px) for corner and logical border-radius longhands', () => {
+    let root = parse(`.rounded-tl-full {
+  border-top-left-radius: calc(infinity * 1px);
+}
+`);
+    sanitizeDeclarations(root);
+    expect(generate(root)).toBe(
+      '.rounded-tl-full{border-top-left-radius:9999px}',
+    );
+
+    root = parse(`.rounded-e-full {
+  border-start-end-radius: calc(infinity * 1px);
+  border-end-end-radius: calc(infinity * 1px);
+}
+`);
+    sanitizeDeclarations(root);
+    expect(generate(root)).toBe(
+      '.rounded-e-full{border-start-end-radius:9999px;border-end-end-radius:9999px}',
+    );
+  });
+
   it('separates padding-block and padding-inline', () => {
     let root = parse(`.box {
   padding-inline: 4px 14;

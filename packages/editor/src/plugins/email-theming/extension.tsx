@@ -6,6 +6,7 @@ import type * as React from 'react';
 import { Body, Head, Html, Preview } from 'react-email';
 import type { SerializerPlugin } from '../../core/serializer/serializer-plugin';
 import { getGlobalContent } from '../../extensions/global-content';
+import { DARK_MODE_CSS } from '../../utils/dark-mode';
 import {
   injectGlobalPlainCss,
   injectThemeCss,
@@ -290,7 +291,7 @@ export const EmailTheming = Extension.create<{
             getMergedCssJs(theming.theme, theming.styles),
           );
         },
-        BaseTemplate({ previewText, children, editor }) {
+        BaseTemplate({ previewText, children, editor, previewMode = false }) {
           const { css: globalCss, styles, theme } = getEmailTheming(editor);
           const mergedStyles = getMergedCssJs(theme, styles);
 
@@ -305,6 +306,7 @@ export const EmailTheming = Extension.create<{
                   name="format-detection"
                 />
 
+                {!previewMode && <style>{DARK_MODE_CSS}</style>}
                 {globalCss && <style>{globalCss}</style>}
               </Head>
               {previewText && previewText !== '' && (

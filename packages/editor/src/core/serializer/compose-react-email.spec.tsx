@@ -65,7 +65,7 @@ function docWithGlobalContent(
 }
 
 describe('Text marks', () => {
-  it('should nest bold and italic by schema mark rank (same as ProseMirror)', async () => {
+  it('nests bold and italic by schema mark rank (same as ProseMirror)', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -101,7 +101,7 @@ describe('Text marks', () => {
     expect(emClose).toBeGreaterThan(strongClose);
   });
 
-  it('should nest link and bold by schema mark rank (link extension priority 1000)', async () => {
+  it('nests link and bold by schema mark rank (link extension priority 1000)', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -182,7 +182,7 @@ describe('Text marks', () => {
     expect(result.html).toContain('<strong><span>Hello</span></strong>');
   });
 
-  it('should render uppercase marks using the extension renderer', async () => {
+  it('renders uppercase marks using the extension renderer', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -206,7 +206,7 @@ describe('Text marks', () => {
     expect(result.html).toContain('Hello world');
   });
 
-  it('should render sup marks using the extension renderer', async () => {
+  it('renders sup marks using the extension renderer', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -230,7 +230,7 @@ describe('Text marks', () => {
     expect(result.html).toContain('>2</sup>');
   });
 
-  it('should apply inline styles to code marks only', async () => {
+  it('applies inline styles to code marks only', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -256,7 +256,7 @@ describe('Text marks', () => {
     expect(result.html).toMatch(/<code[^>]*>\s*Code\s*<\/code\s*>/s);
   });
 
-  it('should not apply inline text styles to link-only marks', async () => {
+  it('does not apply inline text styles to link-only marks', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -292,7 +292,7 @@ describe('Text marks', () => {
 });
 
 describe('StarterKit node wrappers', () => {
-  it('should render bullet lists using the extension renderer', async () => {
+  it('renders bullet lists using the extension renderer', async () => {
     const content = docWithGlobalContent([
       {
         type: 'bulletList',
@@ -326,7 +326,41 @@ describe('StarterKit node wrappers', () => {
     expect(result.html).toContain('List item');
   });
 
-  it('should render hard breaks using the extension renderer', async () => {
+  it('injects dark-mode CSS into the email head', async () => {
+    const content = docWithGlobalContent([
+      {
+        type: 'paragraph',
+        content: [{ type: 'text', text: 'Hello world' }],
+      },
+    ]);
+
+    const editor = createEditorWithContent(content);
+    const result = await composeReactEmail({ editor, preview: '' });
+
+    expect(result.html).toContain('@media (prefers-color-scheme: dark)');
+    expect(result.html).toContain('li::marker');
+  });
+
+  it('omits dark-mode CSS when previewMode is set', async () => {
+    const content = docWithGlobalContent([
+      {
+        type: 'paragraph',
+        content: [{ type: 'text', text: 'Hello world' }],
+      },
+    ]);
+
+    const editor = createEditorWithContent(content);
+    const result = await composeReactEmail({
+      editor,
+      preview: '',
+      previewMode: true,
+    });
+
+    expect(result.html).not.toContain('prefers-color-scheme');
+    expect(result.html).not.toContain('li::marker');
+  });
+
+  it('renders hard breaks using the extension renderer', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -359,7 +393,7 @@ describe('StarterKit node wrappers', () => {
 });
 
 describe('Button and image reset styles', () => {
-  it('should include display:inline-block on buttons with the basic theme', async () => {
+  it('includes display:inline-block on buttons with the basic theme', async () => {
     const content = docWithGlobalContent(
       [
         {
@@ -379,7 +413,7 @@ describe('Button and image reset styles', () => {
     expect(result.html).toContain('Click me');
   });
 
-  it('should include display:inline-block on buttons with the minimal theme', async () => {
+  it('includes display:inline-block on buttons with the minimal theme', async () => {
     const content = docWithGlobalContent(
       [
         {
@@ -399,7 +433,7 @@ describe('Button and image reset styles', () => {
     expect(result.html).toContain('Click me');
   });
 
-  it('should include line-height:100% on buttons with the minimal theme', async () => {
+  it('includes line-height:100% on buttons with the minimal theme', async () => {
     const content = docWithGlobalContent(
       [
         {
@@ -418,7 +452,7 @@ describe('Button and image reset styles', () => {
     expect(result.html).toMatch(/line-height:\s*100%/);
   });
 
-  it('should include max-width:100% on images with the basic theme', async () => {
+  it('includes max-width:100% on images with the basic theme', async () => {
     const ImageNode = EmailNode.create({
       name: 'image',
       group: 'block',
@@ -457,7 +491,7 @@ describe('Button and image reset styles', () => {
     expect(result.html).toContain('test image');
   });
 
-  it('should include max-width:100% on images with the minimal theme', async () => {
+  it('includes max-width:100% on images with the minimal theme', async () => {
     const ImageNode = EmailNode.create({
       name: 'image',
       group: 'block',
