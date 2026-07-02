@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 import type {
   EmailRenderingResult,
   RenderedEmailMetadata,
@@ -14,6 +14,15 @@ export const PreviewContext = createContext<
   | {
       renderedEmailMetadata: RenderedEmailMetadata | undefined;
       renderingResult: EmailRenderingResult;
+
+      /**
+       * Props the preview renders with instead of the template's own
+       * `PreviewProps`. `undefined` means the template defaults are used.
+       */
+      previewPropsOverride: Record<string, unknown> | undefined;
+      setPreviewPropsOverride: (
+        props: Record<string, unknown> | undefined,
+      ) => void;
 
       emailSlug: string;
       emailPath: string;
@@ -38,9 +47,14 @@ export const PreviewProvider = ({
 }: PreviewProvider) => {
   const router = useRouter();
 
+  const [previewPropsOverride, setPreviewPropsOverride] = useState<
+    Record<string, unknown> | undefined
+  >(undefined);
+
   const renderingResult = useEmailRenderingResult(
     emailPath,
     serverRenderingResult,
+    previewPropsOverride,
   );
 
   const renderedEmailMetadata = useRenderingMetadata(
@@ -70,6 +84,8 @@ export const PreviewProvider = ({
         emailSlug,
         renderedEmailMetadata,
         renderingResult,
+        previewPropsOverride,
+        setPreviewPropsOverride,
       }}
     >
       {children}
