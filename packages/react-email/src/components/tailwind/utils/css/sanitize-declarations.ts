@@ -183,7 +183,7 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
         }) as Value | Raw;
       }
       if (
-        /border-radius\s*:\s*calc\s*\(\s*infinity\s*\*\s*1px\s*\)/i.test(
+        /border-(?:[a-z]+-){0,2}radius\s*:\s*calc\s*\(\s*infinity\s*\*\s*1px\s*\)/i.test(
           generate(declaration),
         )
       ) {
