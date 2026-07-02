@@ -1,5 +1,11 @@
 # @react-email/ui
 
+## 6.6.6
+
+### Patch Changes
+
+- b68009f: Stop failing `email build` when the spam check API errors or times out — the build now logs a warning and continues without a baked-in spam score.
+
 ## 6.6.5
 
 ### Patch Changes
