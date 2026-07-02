@@ -239,6 +239,55 @@ Content-Type: text/html; charset="UTF-8"
     `);
   });
 
+  test('works when a wrapped description line falls outside the columns', () => {
+    const partialSpamResponse = `
+ pts rule name              description
+---- ---------------------- --------------------------------------------------
+ 1.8 MISSING_SUBJECT        Missing Subject: header
+ 0.0 URIBL_BLOCKED          ADMINISTRATOR NOTICE: The query to URIBL was blocked.
+                            See
+                            http://wiki.apache.org/spamassassin/DnsBlocklists#dnsbl-block
+                             for more information.
+                            [URI:
+react-email-vercel-repro-n0vqufobp-felipefreitag-5792s-projects.vercel.app]
+ 0.0 HTML_MESSAGE           BODY: HTML included in message`;
+
+    expect(parsePointingTableRows(partialSpamResponse)).toEqual([
+      {
+        pts: 1.8,
+        ruleName: 'MISSING_SUBJECT',
+        description: 'Missing Subject: header',
+      },
+      {
+        pts: 0,
+        ruleName: 'URIBL_BLOCKED',
+        description:
+          'ADMINISTRATOR NOTICE: The query to URIBL was blocked. See http://wiki.apache.org/spamassassin/DnsBlocklists#dnsbl-block for more information. [URI: react-email-vercel-repro-n0vqufobp-felipefreitag-5792s-projects.vercel.app]',
+      },
+      {
+        pts: 0,
+        ruleName: 'HTML_MESSAGE',
+        description: 'BODY: HTML included in message',
+      },
+    ]);
+  });
+
+  test('skips unrecognizable lines that appear before any row', () => {
+    const partialSpamResponse = `
+ pts rule name              description
+---- ---------------------- --------------------------------------------------
+some stray line that is not a row
+ 1.8 MISSING_SUBJECT        Missing Subject: header`;
+
+    expect(parsePointingTableRows(partialSpamResponse)).toEqual([
+      {
+        pts: 1.8,
+        ruleName: 'MISSING_SUBJECT',
+        description: 'Missing Subject: header',
+      },
+    ]);
+  });
+
   test('works with a multiline description', () => {
     const partialSpamResponse = `â€Œâ [...]
 

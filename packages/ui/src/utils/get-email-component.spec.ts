@@ -181,7 +181,7 @@ describe('getEmailComponent()', () => {
                                       style="line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;border-radius:0.25rem;background-color:rgb(0,0,0);padding-right:20px;padding-left:20px;padding-bottom:12px;padding-top:12px;text-align:center;font-weight:600;font-size:12px;color:rgb(255,255,255);text-decoration-line:none"
                                       target="_blank"
                                       ><span
-                                        ><!--[if mso]><i style="mso-font-width:500%;mso-text-raise:18" hidden>&#8202;&#8202;</i><![endif]--></span
+                                        ><!--[if mso]><i style="mso-font-width:500%;mso-text-raise:18px" hidden>&#8202;&#8202;</i><![endif]--></span
                                       ><span
                                         style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:9px"
                                         >Join the team</span

@@ -1,5 +1,14 @@
 # @react-email/editor
 
+## 1.6.1
+
+### Patch Changes
+
+- 94bd4c8: Fix invalid `TextSelection` on blur. Clearing the selection on blur used `TextSelection.create(doc, 0)`, which resolves to the doc node (no inline content) and made ProseMirror log "TextSelection endpoint not pointing into a node with inline content (doc)". It now uses `Selection.atStart(doc)`, which resolves to the first valid cursor position.
+- Updated dependencies [b4ac0d5]
+- Updated dependencies [cb3c468]
+  - react-email@6.6.6
+
 ## 1.6.0
 
 ### Minor Changes

@@ -25,7 +25,7 @@ const setNextEnvironmentVariablesForBuild = async (
   builtPreviewAppPath: string,
   usersProjectLocation: string,
 ) => {
-  let rootDir = 'previewServerLocation';
+  let rootDir = 'userProjectLocation';
   if (isInReactEmailMonorepo) {
     rootDir = `'${await getPackages(usersProjectLocation).then((p) => p.rootDir.replaceAll('\\', '/'))}'`;
   }
