@@ -165,6 +165,13 @@ describe('pretty', () => {
     `);
   });
 
+  test('strips null bytes before formatting', async () => {
+    expect(await pretty('<p>hello\0world</p>')).toMatchInlineSnapshot(`
+      "<p>helloworld</p>
+      "
+    `);
+  });
+
   test('if mso syntax does not wrap', async () => {
     expect(
       await pretty(
