@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.6.2
+
+### Patch Changes
+
+- 6313b3c: Avoid React key warnings when exporting editor content containing marked text. Serialized email nodes are now keyed at the mapped result boundary, so marks like bold, italic, and links no longer produce missing-key warnings during email export.
+
 ## 1.6.1
 
 ### Patch Changes
