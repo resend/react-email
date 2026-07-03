@@ -1,5 +1,6 @@
 import type { Editor, JSONContent } from '@tiptap/core';
 import type { MarkType, Schema } from '@tiptap/pm/model';
+import { Fragment } from 'react';
 import { pretty, render, toPlainText } from 'react-email';
 import { inlineCssToJs } from '../../utils/styles';
 import { DefaultBaseTemplate } from './default-base-template';
@@ -101,7 +102,6 @@ export const composeReactEmail = async ({
         node.text
       ) : (
         <NodeComponent
-          key={index}
           node={
             node.type === 'table' && inlineStyles.width && !node.attrs?.width
               ? {
@@ -144,7 +144,7 @@ export const composeReactEmail = async ({
         }
       }
 
-      return renderedNode;
+      return <Fragment key={index}>{renderedNode}</Fragment>;
     });
   }
 
