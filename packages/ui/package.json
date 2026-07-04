@@ -1,6 +1,6 @@
 {
   "name": "@react-email/ui",
-  "version": "6.6.4",
+  "version": "6.6.6",
   "description": "A live preview of your emails right in your browser.",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --disable-warning=ExperimentalWarning\" tsx ./scripts/build.mts",
@@ -61,6 +61,8 @@
     "framer-motion": "catalog:",
     "log-symbols": "catalog:",
     "module-punycode": "npm:punycode@2.3.1",
+    "motion-dom": "catalog:",
+    "motion-utils": "catalog:",
     "next-safe-action": "8.5.2",
     "node-html-parser": "7.1.0",
     "picospinner": "catalog:",

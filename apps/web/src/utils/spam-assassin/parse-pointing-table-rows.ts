@@ -31,42 +31,33 @@ export const parsePointingTableRows = (response: string) => {
   for (const line of responseFromTableStart.split(/\r\n|\n|\r/)) {
     if (line.trim().length === 0) break;
 
-    const match = line.match(columnsRegex);
-
     // This means the description column was done with multi columns.
     if (currentRow && line.startsWith('  ')) {
       currentRow.description += ` ${line.trimStart()}`;
       continue;
     }
 
-    if (match?.groups === undefined) {
-      throw new Error('Could not match the columns in the row', {
-        cause: {
-          line,
-          match,
-        },
-      });
+    const match = line.match(columnsRegex);
+    const parsedPoints = match?.groups
+      ? Number.parseFloat(match.groups.pts!)
+      : Number.NaN;
+
+    // Lines that don't look like a row are wrapping artifacts — SpamAssassin
+    // word-wraps long descriptions (e.g. long URIs) at unpredictable indents.
+    if (match?.groups === undefined || Number.isNaN(parsedPoints)) {
+      if (currentRow) {
+        currentRow.description += ` ${line.trim()}`;
+      }
+      continue;
     }
-    const pts = match.groups.pts!;
-    const ruleName = match.groups.ruleName!.trim();
-    const description = match.groups.description!;
 
     if (currentRow) {
       rows.push(currentRow);
     }
-    const parsedPoints = Number.parseFloat(pts);
-    if (Number.isNaN(parsedPoints)) {
-      throw new Error('could not parse points to insert into rows array', {
-        cause: {
-          line,
-          match,
-        },
-      });
-    }
     currentRow = {
       pts: parsedPoints,
-      ruleName: ruleName.trim(),
-      description: description.trim(),
+      ruleName: match.groups.ruleName!.trim(),
+      description: match.groups.description!.trim(),
     };
   }
   if (currentRow) {

@@ -1,5 +1,16 @@
 # react-email
 
+## 6.6.6
+
+### Patch Changes
+
+- b4ac0d5: Fix `Button` emitting `mso-text-raise` without a unit on its Outlook padding spacer (e.g. `mso-text-raise:18`), which Outlook treats as invalid. The value now carries `px`, matching the unit React already adds on the button label.
+- cb3c468: Fix `email build` so the generated preview app deploys on Vercel by tracing files from the user's project root instead of the `.react-email` subfolder.
+- Updated dependencies [c300cfb]
+  - @react-email/render@2.0.10
+
+## 6.6.5
+
 ## 6.6.4
 
 ### Patch Changes
