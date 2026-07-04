@@ -4,11 +4,13 @@ import React from 'react';
 import plugin from 'tailwindcss/plugin';
 import { Body } from '../body/index.js';
 import { Button } from '../button/index.js';
+import { Column } from '../column/index.js';
 import { Head } from '../head/index.js';
 import { Heading } from '../heading/index.js';
 import { Hr } from '../hr/index.js';
 import { Html } from '../html/index.js';
 import { Link } from '../link/index.js';
+import { Row } from '../row/index.js';
 import { Section } from '../section/index.js';
 import type { TailwindConfig } from './tailwind.js';
 import { Tailwind } from './tailwind.js';
@@ -271,6 +273,34 @@ describe('Tailwind component', () => {
 
     expect(html).toContain('<td style="padding:1rem">');
     expect(html).not.toMatch(/<table[^>]*style="[^"]*padding:1rem/);
+  });
+
+  it('inlines Tailwind classes on <Column> onto its <td>', async () => {
+    const html = await render(
+      <Tailwind>
+        <Row>
+          <Column className="bg-white p-4">x</Column>
+        </Row>
+      </Tailwind>,
+    );
+
+    expect(html).toMatch(
+      /<td[^>]*data-id="__react-email-column"[^>]*style="[^"]*padding:1rem/,
+    );
+  });
+
+  it('inlines Tailwind classes on <Row> onto its <table>', async () => {
+    const html = await render(
+      <Tailwind>
+        <Row className="bg-white p-4">
+          <Column>x</Column>
+        </Row>
+      </Tailwind>,
+    );
+
+    expect(html).toMatch(
+      /<table[^>]*role="presentation"[^>]*style="[^"]*padding:1rem/,
+    );
   });
 
   it('works with components that use React.forwardRef', async () => {

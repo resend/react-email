@@ -2,4 +2,4 @@
 "react-email": patch
 ---
 
-Fix Tailwind padding classes on `<Section>` (e.g. `<Section className="p-4">`) landing on the outer `<table>` instead of the inner `<td>`. Section is now treated like `Container`, so its existing padding-to-`<td>` split (for Outlook/Klaviyo) also applies to Tailwind utilities.
+Fix Tailwind classes on `<Section>` padding landing on the outer `<table>` instead of the inner `<td>`. `Section`, `Column`, and `Row` are now treated as elements so Tailwind inlines their utilities onto the right tag, and Section keeps its padding-to-`<td>` split for Outlook/Klaviyo.
