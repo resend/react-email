@@ -250,6 +250,27 @@ describe('sanitizeDeclarations', () => {
       generate(stylesheet),
       'treatment for already supported rgb syntax',
     ).toMatchInlineSnapshot(`"div{color:rgb(255,0,128)}"`);
+
+    stylesheet = parse('div { color: rgba(255 0 128 / 0.5); }');
+    sanitizeDeclarations(stylesheet);
+    expect(
+      generate(stylesheet),
+      'rgba() space syntax with alpha',
+    ).toMatchInlineSnapshot(`"div{color:rgb(255,0,128,0.5)}"`);
+
+    stylesheet = parse('div { color: rgba(100% 0% 50% / 100%); }');
+    sanitizeDeclarations(stylesheet);
+    expect(
+      generate(stylesheet),
+      'rgba() percentage syntax with full alpha',
+    ).toMatchInlineSnapshot(`"div{color:rgb(255,0,128)}"`);
+
+    stylesheet = parse('div { color: rgba(255, 0, 128, 0.5); }');
+    sanitizeDeclarations(stylesheet);
+    expect(
+      generate(stylesheet),
+      'legacy comma rgba() is left untouched',
+    ).toMatchInlineSnapshot(`"div{color:rgb(255,0,128,0.5)}"`);
   });
 
   test('hex to rgb conversion', () => {

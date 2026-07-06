@@ -252,7 +252,7 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
             funcParentListItem.data = rgbNode(rgb.r, rgb.g, rgb.b, a);
           }
 
-          if (func.name === 'rgb') {
+          if (func.name === 'rgb' || func.name === 'rgba') {
             let r: number | undefined;
             let g: number | undefined;
             let b: number | undefined;
