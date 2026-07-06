@@ -1144,7 +1144,7 @@ describe('Tailwind component', () => {
         "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <!--$-->
         <div
-          style="box-shadow:0 4px 6px rgba(0,0,0,0.1);border-radius:8px;padding:16px"></div>
+          style="box-shadow:0 4px 6px rgb(0,0,0,0.1);border-radius:8px;padding:16px"></div>
         <!--/$-->
         "
       `);

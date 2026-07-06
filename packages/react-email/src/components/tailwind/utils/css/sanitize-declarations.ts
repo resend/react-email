@@ -252,14 +252,7 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
             funcParentListItem.data = rgbNode(rgb.r, rgb.g, rgb.b, a);
           }
 
-          // Convert rgba() only in modern space/slash syntax; legacy comma
-          // rgba(r,g,b,a) already renders and is better supported than rgb().
-          const rgbaNeedsConversion =
-            func.name === 'rgba' &&
-            !children.some(
-              (child) => child.type === 'Operator' && child.value === ',',
-            );
-          if (func.name === 'rgb' || rgbaNeedsConversion) {
+          if (func.name === 'rgb' || func.name === 'rgba') {
             let r: number | undefined;
             let g: number | undefined;
             let b: number | undefined;

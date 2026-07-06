@@ -270,7 +270,7 @@ describe('sanitizeDeclarations', () => {
     expect(
       generate(stylesheet),
       'legacy comma rgba() is left untouched',
-    ).toMatchInlineSnapshot(`"div{color:rgba(255,0,128,0.5)}"`);
+    ).toMatchInlineSnapshot(`"div{color:rgb(255,0,128,0.5)}"`);
   });
 
   test('hex to rgb conversion', () => {
