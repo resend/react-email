@@ -4,6 +4,7 @@ import type { Options } from '../shared/options';
 import { pretty } from '../shared/utils/pretty';
 import { stripImagePreloadLinks } from '../shared/utils/strip-image-preload-links';
 import { toPlainText } from '../shared/utils/to-plain-text';
+import { toPlainTextUnstable } from '../shared/utils/to-plain-text-unstable';
 import { readStream } from './read-stream';
 
 export const render = async (node: React.ReactNode, options?: Options) => {
@@ -70,7 +71,9 @@ export const render = async (node: React.ReactNode, options?: Options) => {
   html = stripImagePreloadLinks(html);
 
   if (options?.plainText) {
-    return toPlainText(html, options.htmlToTextOptions);
+    return options.unstableTextConversion
+      ? toPlainTextUnstable(html)
+      : toPlainText(html, options.htmlToTextOptions);
   }
 
   const doctype =
