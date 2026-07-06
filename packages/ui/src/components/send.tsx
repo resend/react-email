@@ -34,7 +34,7 @@ export const Send = ({ markup, defaultSubject, storageKey }: SendProps) => {
   const [isSending, setIsSending] = useState(false);
   const [isPopOverOpen, setIsPopOverOpen] = useState(false);
 
-  const onFormSubmit = async (e: React.FormEvent) => {
+  const onFormSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSending(true);
 
