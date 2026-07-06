@@ -52,7 +52,7 @@
     "conf": "^15.0.2",
     "css-tree": "3.2.1",
     "debounce": "^2.0.0",
-    "esbuild": "^0.28.0",
+    "esbuild": "^0.28.1",
     "glob": "^13.0.6",
     "jiti": "2.4.2",
     "log-symbols": "catalog:",
