@@ -129,6 +129,26 @@ describe('sanitizeDeclarations', () => {
     );
   });
 
+  it('separates two-value logical shorthands with auto, var, or calc', () => {
+    let root = parse('.x { margin-inline: 1rem auto; }');
+    sanitizeDeclarations(root);
+    expect(generate(root)).toMatchInlineSnapshot(
+      `".x{margin-right:auto;margin-left:1rem}"`,
+    );
+
+    root = parse('.x { margin-inline: 0 auto; }');
+    sanitizeDeclarations(root);
+    expect(generate(root)).toMatchInlineSnapshot(
+      `".x{margin-right:auto;margin-left:0}"`,
+    );
+
+    root = parse('.x { padding-inline: 10px calc(1rem + 2px); }');
+    sanitizeDeclarations(root);
+    expect(generate(root)).toMatchInlineSnapshot(
+      `".x{padding-right:calc(1rem + 2px);padding-left:10px}"`,
+    );
+  });
+
   test('oklch to rgb conversion', () => {
     let stylesheet = parse('div { color: oklch(90.5% 0.2 180); }');
     sanitizeDeclarations(stylesheet);
