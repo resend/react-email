@@ -440,6 +440,33 @@ describe('Tailwind component', () => {
     );
   });
 
+  // See https://github.com/resend/react-email/pull/3594
+  it('does not leak a bare nested group/peer rule into the <head> <style>', async () => {
+    const html = await render(
+      <Html>
+        <Tailwind>
+          <Head />
+          <div className="group">
+            <a className="group-hover:underline" href="https://react.email">
+              link
+            </a>
+          </div>
+        </Tailwind>
+      </Html>,
+    );
+
+    const styleContent = html.match(/<style>([\s\S]*?)<\/style>/)?.[1] ?? '';
+
+    // The utility is emitted once, keyed under its own class...
+    expect(styleContent).toContain(
+      '.group-hover_underline{@media (hover:hover){&:is(:where(.group):hover *){text-decoration-line:underline!important}}}',
+    );
+    // ...and its nested `&:is(...)` marker rule is not also emitted standalone.
+    expect(
+      styleContent.match(/&:is\(:where\(\.group\):hover \*\)/g),
+    ).toHaveLength(1);
+  });
+
   it('recognizes custom responsive screen', async () => {
     const actualOutput = await render(
       <Html>
