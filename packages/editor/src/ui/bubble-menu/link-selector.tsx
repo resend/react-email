@@ -178,7 +178,7 @@ function LinkForm({
     };
   }, [editor, setIsOpen]);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const value = inputValue.trim();
