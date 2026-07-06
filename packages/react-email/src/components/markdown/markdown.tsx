@@ -98,7 +98,7 @@ export const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(
 
     renderer.image = ({ href, text, title }) => {
       return `<img src="${href.replaceAll('"', '&quot;')}" alt="${text.replaceAll('"', '&quot;')}"${
-        title ? ` title="${title}"` : ''
+        title ? ` title="${title.replaceAll('"', '&quot;')}"` : ''
       }${
         parseCssInJsToInlineCss(finalStyles.image) !== ''
           ? ` style="${parseCssInJsToInlineCss(finalStyles.image)}"`
@@ -109,8 +109,8 @@ export const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(
     renderer.link = ({ href, title, tokens }) => {
       const text = renderer.parser.parseInline(tokens);
 
-      return `<a href="${href}" target="_blank"${
-        title ? ` title="${title}"` : ''
+      return `<a href="${href.replaceAll('"', '&quot;')}" target="_blank"${
+        title ? ` title="${title.replaceAll('"', '&quot;')}"` : ''
       }${
         parseCssInJsToInlineCss(finalStyles.link) !== ''
           ? ` style="${parseCssInJsToInlineCss(finalStyles.link)}"`
