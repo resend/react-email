@@ -119,12 +119,17 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
-    "html-to-text": "^9.0.5",
-    "prettier": "^3.5.3"
+    "html-to-text": "^9.0.5"
   },
   "peerDependencies": {
+    "prettier": "^3.5.3",
     "react": "^18.0 || ^19.0 || ^19.0.0-rc",
     "react-dom": "^18.0 || ^19.0 || ^19.0.0-rc"
+  },
+  "peerDependenciesMeta": {
+    "prettier": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@edge-runtime/vm": "5.0.0",
@@ -134,6 +139,7 @@
     "@types/shelljs": "0.10.0",
     "jsdom": "26.1.0",
     "playwright": "1.59.1",
+    "prettier": "^3.5.3",
     "shelljs": "0.10.0",
     "tsconfig": "workspace:*",
     "typescript": "catalog:",

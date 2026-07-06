@@ -1,7 +1,5 @@
 import type { Options, Plugin } from 'prettier';
 import type { builders } from 'prettier/doc';
-import * as html from 'prettier/plugins/html';
-import { format } from 'prettier/standalone';
 
 interface HtmlNode {
   type?: 'element' | 'text' | 'ieConditionalComment';
@@ -86,46 +84,95 @@ function recursivelyMapDoc(
   return callback(doc);
 }
 
-const modifiedHtml = { ...html } as Plugin;
-if (modifiedHtml.printers) {
-  const previousPrint = modifiedHtml.printers.html.print;
-  modifiedHtml.printers.html.print = (path, options, print, args) => {
-    const node = getHtmlNode(
-      path as Parameters<NonNullable<Plugin['printers']>['html']['print']>[0],
-    );
-
-    const rawPrintingResult = previousPrint(path, options, print, args);
-
-    if (
-      node?.type === 'ieConditionalComment' ||
-      node?.kind === 'ieConditionalComment'
-    ) {
-      const printingResult = recursivelyMapDoc(rawPrintingResult, (doc) => {
-        if (typeof doc === 'object' && doc.type === 'line') {
-          return doc.soft ? '' : ' ';
-        }
-
-        return doc;
-      });
-
-      return printingResult;
-    }
-
-    return rawPrintingResult;
-  };
+// prettier is an optional peer dependency. It is only needed when rendering with
+// `pretty: true` (off by default), so importing it unconditionally forced an
+// ~8MB dependency on every consumer, including backends that never prettify. We
+// load it lazily so it stays out of installs and bundles unless it is actually
+// installed and a caller opts into pretty output.
+interface LoadedPrettier {
+  format: typeof import('prettier/standalone').format;
+  defaults: Options;
 }
 
-const defaults: Options = {
-  endOfLine: 'lf',
-  tabWidth: 2,
-  plugins: [modifiedHtml],
-  bracketSameLine: true,
-  parser: 'html',
-};
+let loaded: LoadedPrettier | null | undefined;
+let warnedMissingPrettier = false;
 
-export const pretty = (str: string, options: Options = {}) => {
-  return format(str.replaceAll('\0', ''), {
-    ...defaults,
+async function loadPrettier(): Promise<LoadedPrettier | null> {
+  if (loaded !== undefined) {
+    return loaded;
+  }
+
+  try {
+    const [{ format }, html] = await Promise.all([
+      import('prettier/standalone'),
+      import('prettier/plugins/html'),
+    ]);
+
+    const modifiedHtml = { ...html } as Plugin;
+    if (modifiedHtml.printers) {
+      const previousPrint = modifiedHtml.printers.html.print;
+      modifiedHtml.printers.html.print = (path, options, print, args) => {
+        const node = getHtmlNode(
+          path as Parameters<
+            NonNullable<Plugin['printers']>['html']['print']
+          >[0],
+        );
+
+        const rawPrintingResult = previousPrint(path, options, print, args);
+
+        if (
+          node?.type === 'ieConditionalComment' ||
+          node?.kind === 'ieConditionalComment'
+        ) {
+          return recursivelyMapDoc(rawPrintingResult, (doc) => {
+            if (typeof doc === 'object' && doc.type === 'line') {
+              return doc.soft ? '' : ' ';
+            }
+
+            return doc;
+          });
+        }
+
+        return rawPrintingResult;
+      };
+    }
+
+    loaded = {
+      format,
+      defaults: {
+        endOfLine: 'lf',
+        tabWidth: 2,
+        plugins: [modifiedHtml],
+        bracketSameLine: true,
+        parser: 'html',
+      },
+    };
+  } catch {
+    loaded = null;
+  }
+
+  return loaded;
+}
+
+export const pretty = async (str: string, options: Options = {}) => {
+  const sanitized = str.replaceAll('\0', '');
+  const prettier = await loadPrettier();
+
+  // prettier is not installed: return the HTML unformatted (semantically
+  // identical, only cosmetic whitespace is skipped) and warn once so it is
+  // clear why `pretty` had no effect.
+  if (!prettier) {
+    if (!warnedMissingPrettier) {
+      warnedMissingPrettier = true;
+      console.warn(
+        '[@react-email/render] `pretty` was requested but `prettier` is not installed, so the HTML is returned unformatted. Install `prettier` to enable pretty output.',
+      );
+    }
+    return sanitized;
+  }
+
+  return prettier.format(sanitized, {
+    ...prettier.defaults,
     ...options,
   });
 };
