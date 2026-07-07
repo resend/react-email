@@ -47,6 +47,11 @@ export type EmailRenderingResult =
 
 const cache = new Map<string, EmailRenderingResult>();
 
+export const invalidateEmailRenderingCache = async (emailPath: string) => {
+  if (!isPathWithinEmailsDirectory(emailPath)) return;
+  cache.delete(emailPath);
+};
+
 const createLogBufferer = (
   originalLogger: (...args: any[]) => void,
   overwriteLogger: (logger: (...args: any[]) => void) => void,

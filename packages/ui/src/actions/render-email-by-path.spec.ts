@@ -1,6 +1,10 @@
+import fs from 'node:fs';
 import path from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { renderEmailByPath } from './render-email-by-path';
+import {
+  invalidateEmailRenderingCache,
+  renderEmailByPath,
+} from './render-email-by-path';
 
 describe('renderEmailByPath() with raw .html templates', () => {
   const emailsRoot = path.resolve(__dirname, '../utils/testing');
@@ -65,5 +69,64 @@ describe('renderEmailByPath() with raw .html templates', () => {
     );
 
     expect('error' in result).toBe(true);
+  });
+});
+
+describe('invalidateEmailRenderingCache()', () => {
+  const emailsRoot = path.resolve(__dirname, '../utils/testing');
+  const temporaryHtmlPath = path.join(
+    emailsRoot,
+    '.invalidate-cache-email.html',
+  );
+
+  let previousEnvValue: string | undefined;
+
+  beforeAll(() => {
+    previousEnvValue =
+      process.env.REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH;
+    process.env.REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH = emailsRoot;
+  });
+
+  afterAll(() => {
+    if (previousEnvValue === undefined) {
+      delete process.env.REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH;
+    } else {
+      process.env.REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH =
+        previousEnvValue;
+    }
+    if (fs.existsSync(temporaryHtmlPath)) {
+      fs.rmSync(temporaryHtmlPath);
+    }
+  });
+
+  const markupOf = (result: Awaited<ReturnType<typeof renderEmailByPath>>) => {
+    if ('error' in result) throw new Error(result.error.message);
+    return result.markup;
+  };
+
+  it('drops the cached render so the next render reflects new content', async () => {
+    fs.writeFileSync(temporaryHtmlPath, '<h1>first</h1>', 'utf-8');
+    // Populate the cache (first render).
+    expect(markupOf(await renderEmailByPath(temporaryHtmlPath))).toContain(
+      'first',
+    );
+
+    fs.writeFileSync(temporaryHtmlPath, '<h1>second</h1>', 'utf-8');
+    // Without invalidation the cached (stale) markup is returned.
+    expect(markupOf(await renderEmailByPath(temporaryHtmlPath))).toContain(
+      'first',
+    );
+
+    await invalidateEmailRenderingCache(temporaryHtmlPath);
+    // After invalidation the next render re-reads the file.
+    expect(markupOf(await renderEmailByPath(temporaryHtmlPath))).toContain(
+      'second',
+    );
+  });
+
+  it('is a no-op for paths outside the configured emails directory', async () => {
+    await expect(
+      invalidateEmailRenderingCache('/etc/passwd'),
+    ).resolves.toBeUndefined();
   });
 });

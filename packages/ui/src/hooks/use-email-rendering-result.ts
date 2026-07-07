@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { getEmailPathFromSlug } from '../actions/get-email-path-from-slug';
 import {
   type EmailRenderingResult,
+  invalidateEmailRenderingCache,
   renderEmailByPath,
 } from '../actions/render-email-by-path';
 import { isBuilding, isPreviewDevelopment } from '../app/env';
 import { useEmails } from '../contexts/emails';
-import { containsEmailTemplate } from '../utils/contains-email-template';
+import { planHotReloadRerender } from '../utils/plan-hot-reload-rerender';
 import { useHotreload } from './use-hot-reload';
 
 export const useEmailRenderingResult = (
@@ -21,37 +22,19 @@ export const useEmailRenderingResult = (
 
   if (!isBuilding && !isPreviewDevelopment) {
     useHotreload(async (changes) => {
-      for await (const change of changes) {
-        const relativePathForChangedFile =
-          // ex: apple-receipt.tsx
-          // it will be the path relative to the emails directory, so it is already
-          // going to be equivalent to the slug
-          change.filename;
+      const { pathToRerender, pathsToInvalidate } = await planHotReloadRerender(
+        changes,
+        emailPath,
+        emailsDirectoryMetadata,
+        getEmailPathFromSlug,
+      );
 
-        if (
-          !containsEmailTemplate(
-            relativePathForChangedFile,
-            emailsDirectoryMetadata,
-          )
-        ) {
-          continue;
-        }
+      for (const staleEmailPath of pathsToInvalidate) {
+        await invalidateEmailRenderingCache(staleEmailPath);
+      }
 
-        const pathForChangedEmail = await getEmailPathFromSlug(
-          relativePathForChangedFile,
-        );
-        if (!pathForChangedEmail) {
-          continue;
-        }
-
-        const newRenderingResult = await renderEmailByPath(
-          pathForChangedEmail,
-          true,
-        );
-
-        if (pathForChangedEmail === emailPath) {
-          setRenderingResult(newRenderingResult);
-        }
+      if (pathToRerender) {
+        setRenderingResult(await renderEmailByPath(pathToRerender, true));
       }
     });
   }
