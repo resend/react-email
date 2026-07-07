@@ -5,10 +5,8 @@ import { splitMixedRule } from './split-mixed-rule.js';
 export function extractRulesPerClass(root: CssNode, classes: string[]) {
   const classSet = new Set(classes);
 
-  // A class can be targeted by more than one rule (e.g. a base preset and a
-  // child config both defining `.box`). We keep every matching rule, in
-  // document order, so the CSS cascade can be replayed when inlining instead
-  // of the last rule silently clobbering the earlier ones.
+  // A class can be defined by multiple rules (e.g. a preset and a child config
+  // override), so keep them all to merge instead of the last one clobbering.
   const inlinableRules = new Map<string, Rule[]>();
   const nonInlinableRules = new Map<string, Rule[]>();
 

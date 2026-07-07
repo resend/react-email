@@ -17,10 +17,7 @@ describe('inlineStyles()', () => {
   });
 
   it('merges declarations when the same class is defined across multiple rules', () => {
-    // Mirrors a Tailwind preset defining `.box` and a child config overriding
-    // only one property of the same class. CSS cascade keeps the untouched
-    // declarations from the earlier rule and lets the later rule win on
-    // conflicting properties.
+    // Regression for #3628: a Tailwind preset and a child config both defining `.box`.
     const styleSheet = parse(`
       .box { border-radius: 8px; background-color: white; padding: 16px; }
       .box { background-color: red; }
@@ -36,9 +33,6 @@ describe('inlineStyles()', () => {
   });
 
   it("keeps a class's own cascade order when its rules are split by another class", () => {
-    // The two `.box` rules are interleaved with an unrelated `.other` rule.
-    // Collecting `.box`'s rules must not reorder them relative to the
-    // stylesheet, so the later `.box` declaration still wins.
     const styleSheet = parse(`
       .box { color: red; }
       .other { font-weight: bold; }
