@@ -1,5 +1,15 @@
 # react-email
 
+## 6.6.7
+
+### Patch Changes
+
+- 6a5ff2a: Escape double quotes in `Markdown` link `href`/`title` and image `title` attributes, matching the escaping already applied to image `src`/`alt`. A markdown title like `'The "Complete" Guide'` no longer breaks out of the attribute in the rendered HTML.
+- 4cf4c72: Fix two-value logical shorthands whose values aren't all numeric (e.g. `margin-inline: 1rem auto`, `padding-inline: 10px calc(1rem + 2px)`) producing invalid duplicated longhands. They are now split into the correct per-side declarations.
+- fa77d55: Merge declarations when the same class is defined by multiple Tailwind rules (e.g. a preset and a child config override).
+- fa52a04: Convert Tailwind's `rgba(r g b / a)` syntax to `rgb(r,g,b,a)` syntax for better email client support.
+- fc8318c: Fix Tailwind classes not being inlined into styles for `<Section>`, `<Column>` and `<Row>`.
+
 ## 6.6.6
 
 ### Patch Changes
