@@ -1,13 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { getPackages } from '@manypkg/get-packages';
 import logSymbols from 'log-symbols';
 import { installDependencies, runScript } from 'nypm';
 import {
   type EmailsDirectory,
   getEmailsDirectoryMetadata,
 } from '../utils/get-emails-directory-metadata.js';
+import { getTracingRootDir } from '../utils/get-tracing-root-dir.js';
 import { getUiLocation } from '../utils/get-ui-location.js';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping.js';
 import { createSpinner, stopSpinnerAndPersist } from '../utils/spinner.js';
@@ -25,16 +25,13 @@ const setNextEnvironmentVariablesForBuild = async (
   builtPreviewAppPath: string,
   usersProjectLocation: string,
 ) => {
-  let rootDir = 'userProjectLocation';
-  if (isInReactEmailMonorepo) {
-    rootDir = `'${await getPackages(usersProjectLocation).then((p) => p.rootDir.replaceAll('\\', '/'))}'`;
-  }
+  const rootDir = await getTracingRootDir(usersProjectLocation);
   const nextConfigContents = `
 import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
 const userProjectLocation = '${process.cwd().replaceAll('\\', '/')}';
 const previewServerLocation = '${builtPreviewAppPath.replaceAll('\\', '/')}';
-const rootDir = ${rootDir};
+const rootDir = '${rootDir}';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
