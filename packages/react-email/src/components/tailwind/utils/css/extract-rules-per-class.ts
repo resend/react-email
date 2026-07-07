@@ -5,8 +5,24 @@ import { splitMixedRule } from './split-mixed-rule.js';
 export function extractRulesPerClass(root: CssNode, classes: string[]) {
   const classSet = new Set(classes);
 
-  const inlinableRules = new Map<string, Rule>();
-  const nonInlinableRules = new Map<string, Rule>();
+  // A class can be defined by multiple rules (e.g. a preset and a child config
+  // override), so keep them all to merge instead of the last one clobbering.
+  const inlinableRules = new Map<string, Rule[]>();
+  const nonInlinableRules = new Map<string, Rule[]>();
+
+  const appendRule = (
+    map: Map<string, Rule[]>,
+    className: string,
+    rule: Rule,
+  ) => {
+    const existing = map.get(className);
+    if (existing) {
+      existing.push(rule);
+    } else {
+      map.set(className, [rule]);
+    }
+  };
+
   walk(root, {
     visit: 'Rule',
     enter(rule) {
@@ -20,7 +36,7 @@ export function extractRulesPerClass(root: CssNode, classes: string[]) {
       if (isRuleInlinable(rule)) {
         for (const className of selectorClasses) {
           if (classSet.has(className)) {
-            inlinableRules.set(className, rule);
+            appendRule(inlinableRules, className, rule);
           }
         }
       } else {
@@ -28,10 +44,10 @@ export function extractRulesPerClass(root: CssNode, classes: string[]) {
         for (const className of selectorClasses) {
           if (!classSet.has(className)) continue;
           if (inlinablePart) {
-            inlinableRules.set(className, inlinablePart);
+            appendRule(inlinableRules, className, inlinablePart);
           }
           if (nonInlinablePart) {
-            nonInlinableRules.set(className, nonInlinablePart);
+            appendRule(nonInlinableRules, className, nonInlinablePart);
           }
         }
       }

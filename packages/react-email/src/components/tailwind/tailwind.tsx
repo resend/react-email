@@ -124,7 +124,7 @@ export function Tailwind({ children, config, theme, utility }: TailwindProps) {
   const nonInlineStyles: StyleSheet = {
     type: 'StyleSheet',
     children: new List<CssNode>().fromArray(
-      Array.from(nonInlinableRules.values()),
+      Array.from(nonInlinableRules.values()).flat(),
     ),
   };
   sanitizeNonInlinableRules(nonInlineStyles);
