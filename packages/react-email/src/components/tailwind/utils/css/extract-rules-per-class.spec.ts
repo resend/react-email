@@ -61,7 +61,14 @@ describe('extractRulesPerClass()', async () => {
     const stylesheet = tailwind.getStyleSheet();
     const { inlinable } = extractRulesPerClass(stylesheet, classes);
 
-    expect(inlinable.get('box')).toHaveLength(2);
+    expect(convertToComparable(inlinable)).toMatchInlineSnapshot(`
+      {
+        "box": [
+          ".box{border-radius:var(--radius-lg);background-color:var(--color-white);padding:calc(var(--spacing)*4)}",
+          ".box{background-color:var(--color-red-500)}",
+        ],
+      }
+    `);
   });
 
   it('handles non-inlinable utilities', async () => {
