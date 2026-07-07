@@ -7,7 +7,9 @@ describe('extractRulesPerClass()', async () => {
     map: Map<string, Rule[]>,
   ): Record<string, string[]> {
     return Object.fromEntries(
-      map.entries().map(([k, rules]) => [k, rules.map((rule) => generate(rule))]),
+      map
+        .entries()
+        .map(([k, rules]) => [k, rules.map((rule) => generate(rule))]),
     );
   }
 

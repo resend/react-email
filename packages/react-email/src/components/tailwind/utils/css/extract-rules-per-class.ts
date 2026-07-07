@@ -12,7 +12,11 @@ export function extractRulesPerClass(root: CssNode, classes: string[]) {
   const inlinableRules = new Map<string, Rule[]>();
   const nonInlinableRules = new Map<string, Rule[]>();
 
-  const appendRule = (map: Map<string, Rule[]>, className: string, rule: Rule) => {
+  const appendRule = (
+    map: Map<string, Rule[]>,
+    className: string,
+    rule: Rule,
+  ) => {
     const existing = map.get(className);
     if (existing) {
       existing.push(rule);
