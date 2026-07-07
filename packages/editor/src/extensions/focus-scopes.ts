@@ -142,6 +142,17 @@ export function createFocusScopePlugin({
   storage.registerScope = registerScope;
   storage.unregisterScope = unregisterScope;
 
+  const cleanup = () => {
+    for (const scope of [...scopeRefs]) {
+      unregisterScope(scope);
+    }
+    storage.registerScope = noop;
+    storage.unregisterScope = noop;
+    editor.off('destroy', cleanup);
+  };
+
+  editor.on('destroy', cleanup);
+
   return new Plugin({
     key: focusScopePluginKey,
     view(view) {
@@ -151,11 +162,18 @@ export function createFocusScopePlugin({
 
       return {
         destroy() {
-          for (const scope of [...scopeRefs]) {
-            unregisterScope(scope);
-          }
-          storage.registerScope = noop;
-          storage.unregisterScope = noop;
+          // ProseMirror destroys plugin views on every reconfiguration, with
+          // view.state already pointing at the new state. Only clean up when
+          // this plugin was actually removed; editor destroy is handled by the
+          // 'destroy' event above (isDestroyed is still false at this point).
+          const stillRegistered =
+            !editor.isDestroyed &&
+            editor.state.plugins.some(
+              (plugin) => plugin.spec.key === focusScopePluginKey,
+            );
+          if (stillRegistered) return;
+
+          cleanup();
         },
       };
     },
