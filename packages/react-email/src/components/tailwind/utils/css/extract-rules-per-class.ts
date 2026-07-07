@@ -5,8 +5,22 @@ import { splitMixedRule } from './split-mixed-rule.js';
 export function extractRulesPerClass(root: CssNode, classes: string[]) {
   const classSet = new Set(classes);
 
-  const inlinableRules = new Map<string, Rule>();
-  const nonInlinableRules = new Map<string, Rule>();
+  // A class can be targeted by more than one rule (e.g. a base preset and a
+  // child config both defining `.box`). We keep every matching rule, in
+  // document order, so the CSS cascade can be replayed when inlining instead
+  // of the last rule silently clobbering the earlier ones.
+  const inlinableRules = new Map<string, Rule[]>();
+  const nonInlinableRules = new Map<string, Rule[]>();
+
+  const appendRule = (map: Map<string, Rule[]>, className: string, rule: Rule) => {
+    const existing = map.get(className);
+    if (existing) {
+      existing.push(rule);
+    } else {
+      map.set(className, [rule]);
+    }
+  };
+
   walk(root, {
     visit: 'Rule',
     enter(rule) {
@@ -20,7 +34,7 @@ export function extractRulesPerClass(root: CssNode, classes: string[]) {
       if (isRuleInlinable(rule)) {
         for (const className of selectorClasses) {
           if (classSet.has(className)) {
-            inlinableRules.set(className, rule);
+            appendRule(inlinableRules, className, rule);
           }
         }
       } else {
@@ -28,10 +42,10 @@ export function extractRulesPerClass(root: CssNode, classes: string[]) {
         for (const className of selectorClasses) {
           if (!classSet.has(className)) continue;
           if (inlinablePart) {
-            inlinableRules.set(className, inlinablePart);
+            appendRule(inlinableRules, className, inlinablePart);
           }
           if (nonInlinablePart) {
-            nonInlinableRules.set(className, nonInlinablePart);
+            appendRule(nonInlinableRules, className, nonInlinablePart);
           }
         }
       }

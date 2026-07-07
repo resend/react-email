@@ -784,6 +784,42 @@ describe('Tailwind component', () => {
     });
   });
 
+  describe('with duplicate classes across presets and plugins', () => {
+    it('merges declarations from a preset and a child override for the same class', async () => {
+      const base: TailwindConfig = {
+        plugins: [
+          plugin(({ addComponents }) => {
+            addComponents({ '.box': { '@apply rounded-lg bg-white p-4': {} } });
+          }),
+        ],
+      };
+      const config: TailwindConfig = {
+        presets: [base],
+        plugins: [
+          plugin(({ addComponents }) => {
+            addComponents({ '.box': { '@apply bg-red-500': {} } });
+          }),
+        ],
+      };
+
+      const actualOutput = await render(
+        <Tailwind config={config}>
+          <div className="box">hi</div>
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div style="border-radius:0.5rem;background-color:rgb(251,44,54);padding:1rem">
+          hi
+        </div>
+        <!--/$-->
+        "
+      `);
+    });
+  });
+
   describe('with custom theme config', () => {
     it('supports custom colors', async () => {
       const config: TailwindConfig = {
