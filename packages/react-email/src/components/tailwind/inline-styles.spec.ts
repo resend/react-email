@@ -34,4 +34,22 @@ describe('inlineStyles()', () => {
       }
     `);
   });
+
+  it("keeps a class's own cascade order when its rules are split by another class", () => {
+    // The two `.box` rules are interleaved with an unrelated `.other` rule.
+    // Collecting `.box`'s rules must not reorder them relative to the
+    // stylesheet, so the later `.box` declaration still wins.
+    const styleSheet = parse(`
+      .box { color: red; }
+      .other { font-weight: bold; }
+      .box { color: blue; }
+    `) as StyleSheet;
+
+    expect(inlineStyles(styleSheet, ['box', 'other'])).toMatchInlineSnapshot(`
+      {
+        "color": "blue",
+        "fontWeight": "bold",
+      }
+    `);
+  });
 });
