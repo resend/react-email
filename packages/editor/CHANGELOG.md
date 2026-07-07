@@ -1,5 +1,13 @@
 # @react-email/editor
 
+## 1.6.4
+
+### Patch Changes
+
+- d89be14: Fix bubble menus and the Inspector losing the editor selection on click. The `FocusScopes` registry was wiped on every plugin reconfiguration; it now persists until the plugin is removed or the editor is destroyed.
+- Updated dependencies [dca3c01]
+  - react-email@6.6.8
+
 ## 1.6.3
 
 ### Patch Changes

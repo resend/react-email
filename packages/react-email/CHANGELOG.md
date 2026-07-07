@@ -1,5 +1,11 @@
 # react-email
 
+## 6.6.8
+
+### Patch Changes
+
+- dca3c01: Fix `email build` computing the wrong output file tracing root in nested-workspace monorepos (e.g. a package one or more directories below the true repo root), which caused Vercel deploys to fail with an ENOENT error on the routes manifest.
+
 ## 6.6.7
 
 ### Patch Changes

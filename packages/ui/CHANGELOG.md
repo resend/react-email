@@ -1,5 +1,11 @@
 # @react-email/ui
 
+## 6.6.8
+
+### Patch Changes
+
+- cb2e3d0: Fix out-of-memory crashes when saving a shared component during `email dev`. Hot reload now re-renders only the preview you have open and invalidates the cache for the other affected templates, instead of eagerly re-rendering every dependent template on each save.
+
 ## 6.6.7
 
 ## 6.6.6
