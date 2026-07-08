@@ -67,7 +67,35 @@ function tokenize(tree: Root): Token[] {
     const node = top.parent.children[top.index];
     if (node === undefined) {
       stack.pop();
-      if (top.parent.type === 'element') exitElement(top.parent, top.textFrom);
+      if (top.parent.type === 'element') {
+        if (top.parent.tagName === 'a') {
+          const href =
+            typeof top.parent.properties.href === 'string'
+              ? top.parent.properties.href.replace(/^mailto:/, '')
+              : '';
+          // fragment-only hrefs are suppressed (html-to-text's noAnchorUrl)
+          if (href.length > 0 && !href.startsWith('#')) {
+            // The token stream doubles as the buffer of the anchor's text: the
+            // words emitted since the anchor opened are compared against the
+            // href to decide whether to append it (html-to-text's
+            // hideLinkHrefIfSameAsText, which `toPlainText` enables).
+            let anchorText = '';
+            for (let i = top.textFrom; i < tokens.length; i++) {
+              const token = tokens[i];
+              if (token.type === 'word') anchorText += token.value;
+            }
+            if (anchorText !== href) {
+              if (anchorText.length > 0) tokens.push({ type: 'space' });
+              tokens.push({ type: 'word', value: href });
+            }
+          }
+        }
+
+        if (BLOCK_TAGS.has(top.parent.tagName)) {
+          tokens.push({ type: 'close-block', breaks: 2 });
+        }
+      }
+
       continue;
     }
     top.index += 1;
@@ -100,34 +128,6 @@ function tokenize(tree: Root): Token[] {
       }
 
       stack.push({ parent: node, index: 0, textFrom: tokens.length });
-    }
-  }
-
-  function exitElement(element: Element, textFrom: number) {
-    if (element.tagName === 'a') {
-      const href =
-        typeof element.properties.href === 'string'
-          ? element.properties.href.replace(/^mailto:/, '')
-          : '';
-      // fragment-only hrefs are suppressed (html-to-text's noAnchorUrl)
-      if (href.length > 0 && !href.startsWith('#')) {
-        // The token stream doubles as the buffer of the anchor's text: the
-        // words emitted since the anchor opened are compared against the
-        // href to decide whether to append it (html-to-text's
-        // hideLinkHrefIfSameAsText, which `toPlainText` enables).
-        let anchorText = '';
-        for (let i = textFrom; i < tokens.length; i++) {
-          const token = tokens[i];
-          if (token.type === 'word') anchorText += token.value;
-        }
-        if (anchorText !== href) {
-          if (anchorText.length > 0) tokens.push({ type: 'space' });
-          tokens.push({ type: 'word', value: href });
-        }
-      }
-    }
-    if (BLOCK_TAGS.has(element.tagName)) {
-      tokens.push({ type: 'close-block', breaks: 2 });
     }
   }
 
