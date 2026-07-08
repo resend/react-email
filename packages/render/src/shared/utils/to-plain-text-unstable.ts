@@ -127,9 +127,9 @@ export async function toPlainTextUnstable(html: string): Promise<string> {
   let node = firstChild(body ?? tree);
   while (node !== undefined) {
     if (node.type === 'text') {
-      for (const segment of node.value.split(/([ \t\n\r\f]+)/)) {
+      for (const segment of node.value.split(/([ \t\n\r\f\u200b]+)/)) {
         if (segment.length > 0) {
-          if (/^[ \t\n\r\f]/.test(segment)) {
+          if (/^[ \t\n\r\f\u200b]/.test(segment)) {
             pendingSpace = true;
           } else {
             writeWord(segment);
