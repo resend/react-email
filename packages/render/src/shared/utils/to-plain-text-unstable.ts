@@ -112,8 +112,31 @@ function tokenize(tree: Root): Token[] {
 
   const tokens: Token[] = [];
   let uppercase = 0;
+  // Where each <a>'s content started in the token stream. The stream itself
+  // is the buffer of the anchor's text: on exit, the words since that index
+  // are compared against the href to decide whether to append it
+  // (html-to-text's hideLinkHrefIfSameAsText, which `toPlainText` enables).
+  const anchorTextFrom = new WeakMap<Element, number>();
 
   function exitElement(element: Element) {
+    if (element.tagName === 'a') {
+      const textFrom = anchorTextFrom.get(element);
+      const href =
+        typeof element.properties.href === 'string'
+          ? element.properties.href.replace(/^mailto:/, '')
+          : '';
+      // fragment-only hrefs are suppressed (html-to-text's noAnchorUrl)
+      if (textFrom !== undefined && href.length > 0 && !href.startsWith('#')) {
+        let anchorText = '';
+        for (const token of tokens.slice(textFrom)) {
+          if (token.type === 'word') anchorText += token.value;
+        }
+        if (anchorText !== href) {
+          if (anchorText.length > 0) tokens.push({ type: 'space' });
+          tokens.push({ type: 'word', value: href });
+        }
+      }
+    }
     const breaks = BLOCK_BREAKS[element.tagName];
     if (breaks) tokens.push({ type: 'close-block', breaks: breaks[1] });
     if (HEADING_TAGS.has(element.tagName)) uppercase -= 1;
@@ -145,6 +168,10 @@ function tokenize(tree: Root): Token[] {
 
         if (HEADING_TAGS.has(node.tagName)) {
           uppercase += 1;
+        }
+
+        if (node.tagName === 'a') {
+          anchorTextFrom.set(node, tokens.length);
         }
 
         if (node.tagName === 'hr') {
