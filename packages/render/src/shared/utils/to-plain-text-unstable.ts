@@ -107,14 +107,19 @@ export async function toPlainTextUnstable(html: string): Promise<string> {
   let pendingBreaks = 0;
   let pendingSpace = false;
   let uppercase = 0;
+  // <br> is a hard break, not a block boundary: unlike `pendingBreaks`, it
+  // stacks additively (two <br> in a row is two newlines) and it survives
+  // at the very start/end of the output, so it's tracked separately and
+  // flushed on top of whatever `pendingBreaks` contributes.
+  let hardBreaks = 0;
 
   function writeWord(word: string) {
-    if (text.length > 0) {
-      if (pendingBreaks > 0) text.push('\n'.repeat(pendingBreaks));
-      else if (pendingSpace) text.push(' ');
-    }
+    const breaks = hardBreaks + (text.length > 0 ? pendingBreaks : 0);
+    if (breaks > 0) text.push('\n'.repeat(breaks));
+    else if (text.length > 0 && pendingSpace) text.push(' ');
     pendingBreaks = 0;
     pendingSpace = false;
+    hardBreaks = 0;
     text.push(uppercase > 0 ? word.toUpperCase() : word);
   }
 
@@ -152,6 +157,8 @@ export async function toPlainTextUnstable(html: string): Promise<string> {
 
         if (node.tagName === 'hr') {
           writeWord('-'.repeat(40));
+        } else if (node.tagName === 'br') {
+          hardBreaks += 1;
         }
 
         const child = firstChild(node);
@@ -165,5 +172,8 @@ export async function toPlainTextUnstable(html: string): Promise<string> {
 
     node = nextSibling(node, exitElement);
   }
+  // A trailing <br> has no next word to pay for it, but it still survives
+  // (unlike a trailing block break), so it's flushed directly here.
+  if (hardBreaks > 0) text.push('\n'.repeat(hardBreaks));
   return text.join('');
 }
