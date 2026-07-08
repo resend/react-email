@@ -147,10 +147,7 @@ describe('toPlainTextUnstable', () => {
   });
 
   it('commits breaks from empty blocks between content', () => {
-    for (const html of [
-      '<p>A</p><p></p><p>B</p>',
-      'A<div><p></p></div>B',
-    ]) {
+    for (const html of ['<p>A</p><p></p><p>B</p>', 'A<div><p></p></div>B']) {
       expect(toPlainTextUnstable(html)).toBe(toPlainText(html));
     }
   });
