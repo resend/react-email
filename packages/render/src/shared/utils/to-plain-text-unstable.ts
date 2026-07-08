@@ -41,9 +41,22 @@ const SKIPPED_TAGS = new Set([
   'template',
 ]);
 
-export async function toPlainTextUnstable(html: string): Promise<string> {
-  const tree = fromHtml(html);
+// The conversion is split in two so that break semantics can be reasoned
+// about (and tested) over a flat sequence instead of mid-traversal state:
+// `tokenize` walks the tree and only says what separates content and by how
+// much; `joinTokens` owns every rule about how separations collapse.
+type Token =
+  | { type: 'word'; value: string }
+  | { type: 'space' }
+  | { type: 'hard-break' }
+  | { type: 'open-block'; breaks: number }
+  | { type: 'close-block'; breaks: number };
 
+export async function toPlainTextUnstable(html: string): Promise<string> {
+  return joinTokens(tokenize(fromHtml(html)));
+}
+
+function tokenize(tree: Root): Token[] {
   // hast nodes only carry `children` arrays: no parent or sibling links. So a
   // pointer-chasing walk has to record, on the way down, how it reached each
   // node — `firstChild` writes that link, `nextSibling` reads it back to move
@@ -97,35 +110,12 @@ export async function toPlainTextUnstable(html: string): Promise<string> {
     }
   }
 
-  const text: string[] = [];
-  // Separation between two pieces of text is the max of every block
-  // boundary crossed between them, never the sum: `</p><p>` is two breaks,
-  // not four. And breaks bordering the start or end of the output never
-  // materialize. Both fall out of making closes and opens only *raise*
-  // `pendingBreaks`, with the next word paying it — at the moment a block
-  // ends there's no way to know yet whether more text follows.
-  let pendingBreaks = 0;
-  let pendingSpace = false;
+  const tokens: Token[] = [];
   let uppercase = 0;
-  // <br> is a hard break, not a block boundary: unlike `pendingBreaks`, it
-  // stacks additively (two <br> in a row is two newlines) and it survives
-  // at the very start/end of the output, so it's tracked separately and
-  // flushed on top of whatever `pendingBreaks` contributes.
-  let hardBreaks = 0;
-
-  function writeWord(word: string) {
-    const breaks = hardBreaks + (text.length > 0 ? pendingBreaks : 0);
-    if (breaks > 0) text.push('\n'.repeat(breaks));
-    else if (text.length > 0 && pendingSpace) text.push(' ');
-    pendingBreaks = 0;
-    pendingSpace = false;
-    hardBreaks = 0;
-    text.push(uppercase > 0 ? word.toUpperCase() : word);
-  }
 
   function exitElement(element: Element) {
     const breaks = BLOCK_BREAKS[element.tagName];
-    if (breaks) pendingBreaks = Math.max(pendingBreaks, breaks[1]);
+    if (breaks) tokens.push({ type: 'close-block', breaks: breaks[1] });
     if (HEADING_TAGS.has(element.tagName)) uppercase -= 1;
   }
 
@@ -133,12 +123,14 @@ export async function toPlainTextUnstable(html: string): Promise<string> {
   while (node !== undefined) {
     if (node.type === 'text') {
       for (const segment of node.value.split(/([ \t\n\r\f\u200b]+)/)) {
-        if (segment.length > 0) {
-          if (/^[ \t\n\r\f\u200b]/.test(segment)) {
-            pendingSpace = true;
-          } else {
-            writeWord(segment);
-          }
+        if (segment.length === 0) continue;
+        if (/^[ \t\n\r\f\u200b]/.test(segment)) {
+          tokens.push({ type: 'space' });
+        } else {
+          tokens.push({
+            type: 'word',
+            value: uppercase > 0 ? segment.toUpperCase() : segment,
+          });
         }
       }
     } else if (node.type === 'element') {
@@ -148,7 +140,7 @@ export async function toPlainTextUnstable(html: string): Promise<string> {
       if (!skipped) {
         const breaks = BLOCK_BREAKS[node.tagName];
         if (breaks) {
-          pendingBreaks = Math.max(pendingBreaks, breaks[0]);
+          tokens.push({ type: 'open-block', breaks: breaks[0] });
         }
 
         if (HEADING_TAGS.has(node.tagName)) {
@@ -156,9 +148,9 @@ export async function toPlainTextUnstable(html: string): Promise<string> {
         }
 
         if (node.tagName === 'hr') {
-          writeWord('-'.repeat(40));
+          tokens.push({ type: 'word', value: '-'.repeat(40) });
         } else if (node.tagName === 'br') {
-          hardBreaks += 1;
+          tokens.push({ type: 'hard-break' });
         }
 
         const child = firstChild(node);
@@ -166,14 +158,63 @@ export async function toPlainTextUnstable(html: string): Promise<string> {
           node = child;
           continue;
         }
+
         exitElement(node);
       }
     }
 
     node = nextSibling(node, exitElement);
   }
-  // A trailing <br> has no next word to pay for it, but it still survives
-  // (unlike a trailing block break), so it's flushed directly here.
-  if (hardBreaks > 0) text.push('\n'.repeat(hardBreaks));
-  return text.join('');
+  return tokens;
+}
+
+// Block separation between two words is the max of every boundary crossed
+// (`</p><p>` is two breaks, not four) and never materializes at the output's
+// edges; both fall out of breaks staying pending until the next word pays
+// them. Two exceptions: hard breaks (<br>) stack additively and survive the
+// edges, and an empty block sitting between content acts like a zero-width
+// word — it pays the pending breaks itself, so the separation on each side
+// of it commits instead of collapsing into one max
+// (`<p>A</p><p></p><p>B</p>` is four newlines, not two).
+function joinTokens(tokens: Token[]): string {
+  const text: string[] = [];
+  let pendingBreaks = 0;
+  let pendingSpace = false;
+  let hardBreaks = 0;
+  // one entry per currently open block: has anything been written inside it
+  const wroteMarks: boolean[] = [];
+
+  function payPending() {
+    const breaks = hardBreaks + (text.length > 0 ? pendingBreaks : 0);
+    if (breaks > 0) text.push('\n'.repeat(breaks));
+    else if (text.length > 0 && pendingSpace) text.push(' ');
+    pendingBreaks = 0;
+    pendingSpace = false;
+    hardBreaks = 0;
+    wroteMarks.fill(true);
+  }
+
+  for (const token of tokens) {
+    switch (token.type) {
+      case 'word':
+        payPending();
+        text.push(token.value);
+        break;
+      case 'space':
+        pendingSpace = true;
+        break;
+      case 'hard-break':
+        hardBreaks += 1;
+        break;
+      case 'open-block':
+        pendingBreaks = Math.max(pendingBreaks, token.breaks);
+        wroteMarks.push(false);
+        break;
+      case 'close-block':
+        if (!wroteMarks.pop() && text.length > 0) payPending();
+        pendingBreaks = Math.max(pendingBreaks, token.breaks);
+        break;
+    }
+  }
+  return text.join('') + '\n'.repeat(hardBreaks);
 }
