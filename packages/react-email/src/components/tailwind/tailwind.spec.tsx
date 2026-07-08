@@ -453,18 +453,25 @@ describe('Tailwind component', () => {
           </div>
         </Tailwind>
       </Html>,
-    );
+    ).then(pretty);
 
-    const styleContent = html.match(/<style>([\s\S]*?)<\/style>/)?.[1] ?? '';
-
-    // The utility is emitted once, keyed under its own class...
-    expect(styleContent).toContain(
-      '.group-hover_underline{@media (hover:hover){&:is(:where(.group):hover *){text-decoration-line:underline!important}}}',
-    );
-    // ...and its nested `&:is(...)` marker rule is not also emitted standalone.
-    expect(
-      styleContent.match(/&:is\(:where\(\.group\):hover \*\)/g),
-    ).toHaveLength(1);
+    expect(html).toMatchInlineSnapshot(`
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html dir="ltr" lang="en">
+        <head>
+          <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+          <meta name="x-apple-disable-message-reformatting" />
+          <style>
+            .group-hover_underline{@media (hover:hover){&:is(:where(.group):hover *){text-decoration-line:underline!important}}}
+          </style></head
+        ><!--$--><!--html--><!--head-->
+        <div class="group">
+          <a class="group-hover_underline" href="https://react.email">link</a>
+        </div>
+        <!--/$-->
+      </html>
+      "
+    `);
   });
 
   it('recognizes custom responsive screen', async () => {
