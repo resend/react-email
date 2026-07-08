@@ -157,9 +157,9 @@ export async function toPlainTextUnstable(html: string): Promise<string> {
         const child = firstChild(node);
         if (child !== undefined) {
           node = child;
-        } else {
-          exitElement(node);
+          continue;
         }
+        exitElement(node);
       }
     }
 
