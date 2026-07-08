@@ -21,6 +21,7 @@ const BLOCK_TAGS = new Set([
   'main',
   'nav',
   'p',
+  'pre',
   'section',
   'table',
 ]);
@@ -59,9 +60,12 @@ function findBody(node: ParentNode): Element | undefined {
 function tokenize(tree: Root): Token[] {
   const tokens: Token[] = [];
 
-  const stack: { parent: ParentNode; index: number; textFrom: number }[] = [
-    { parent: findBody(tree) ?? tree, index: 0, textFrom: 0 },
-  ];
+  const stack: {
+    parent: ParentNode;
+    index: number;
+    textFrom: number;
+    pre: boolean;
+  }[] = [{ parent: findBody(tree) ?? tree, index: 0, textFrom: 0, pre: false }];
   while (stack.length > 0) {
     const top = stack[stack.length - 1];
     const node = top.parent.children[top.index];
@@ -101,12 +105,20 @@ function tokenize(tree: Root): Token[] {
     top.index += 1;
 
     if (node.type === 'text') {
-      for (const segment of node.value.split(/([ \t\n\r\f\u200b]+)/)) {
-        if (segment.length === 0) continue;
-        if (/^[ \t\n\r\f\u200b]/.test(segment)) {
-          tokens.push({ type: 'space' });
-        } else {
-          tokens.push({ type: 'word', value: segment });
+      if (top.pre) {
+        // whitespace is significant inside <pre>: one verbatim word,
+        // newlines and all, so the reducer never collapses it
+        if (node.value.length > 0) {
+          tokens.push({ type: 'word', value: node.value });
+        }
+      } else {
+        for (const segment of node.value.split(/([ \t\n\r\f\u200b]+)/)) {
+          if (segment.length === 0) continue;
+          if (/^[ \t\n\r\f\u200b]/.test(segment)) {
+            tokens.push({ type: 'space' });
+          } else {
+            tokens.push({ type: 'word', value: segment });
+          }
         }
       }
     } else if (node.type === 'element') {
@@ -127,7 +139,12 @@ function tokenize(tree: Root): Token[] {
         tokens.push({ type: 'hard-break' });
       }
 
-      stack.push({ parent: node, index: 0, textFrom: tokens.length });
+      stack.push({
+        parent: node,
+        index: 0,
+        textFrom: tokens.length,
+        pre: top.pre || node.tagName === 'pre',
+      });
     }
   }
 
