@@ -57,11 +57,16 @@ describe('toPlainTextUnstable', () => {
     expect(result).toBe(toPlainText(html));
   });
 
-  it('sets headings uppercase and separate blocks like paragraphs and divs', () => {
+  it('preserves heading case and separates every block with one blank line', () => {
+    // Intentional deviations from toPlainText: html-to-text uppercases
+    // headings, which destroys casing ("iPhone" → "IPHONE") and trips
+    // all-caps spam heuristics; and it varies separation per tag (div 1
+    // newline, p 2), so spacing depends on which element a component
+    // happens to render. Headings keep their extra leading break.
     const html = '<h1>Title</h1><p>Body text</p><div>One</div><div>Two</div>';
     const result = toPlainTextUnstable(html);
 
-    expect(result).toBe(toPlainText(html));
+    expect(result).toBe('Title\n\nBody text\n\nOne\n\nTwo');
   });
 
   it('renders nested unordered lists with indentation', () => {
