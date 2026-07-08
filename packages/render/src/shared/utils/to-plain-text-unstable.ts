@@ -40,7 +40,7 @@ type Token =
   | { type: 'word'; value: string }
   | { type: 'space' }
   | { type: 'hard-break' }
-  | { type: 'open-block'; breaks: number }
+  | { type: 'open-block'; breaks: number; linePrefix?: string }
   | { type: 'close-block'; breaks: number };
 
 export function toPlainTextUnstable(html: string): string {
@@ -130,6 +130,7 @@ function tokenize(tree: Root): Token[] {
         tokens.push({
           type: 'open-block',
           breaks: HEADING_TAGS.has(node.tagName) ? 3 : 2,
+          linePrefix: node.tagName === 'blockquote' ? '> ' : undefined,
         });
       }
 
@@ -164,10 +165,10 @@ function joinTokens(tokens: Token[]): string {
   let pendingBreaks = 0;
   let pendingSpace = false;
   let hardBreaks = 0;
-  let writes = 0;
-  // the value of `writes` when each currently open block was entered; a
-  // block closing while it still matches was empty
-  const writesOnOpen: number[] = [];
+  // Per open block: where its content starts in `text`. Serves double duty —
+  // a block closing while `text` hasn't grown past it was empty, and prefixed
+  // blocks transform everything from there on close.
+  const openBlocks: { textFrom: number; linePrefix?: string }[] = [];
 
   function payPending() {
     const breaks = hardBreaks + (text.length > 0 ? pendingBreaks : 0);
@@ -176,7 +177,6 @@ function joinTokens(tokens: Token[]): string {
     pendingBreaks = 0;
     pendingSpace = false;
     hardBreaks = 0;
-    writes += 1;
   }
 
   for (const token of tokens) {
@@ -193,14 +193,38 @@ function joinTokens(tokens: Token[]): string {
         break;
       case 'open-block':
         pendingBreaks = Math.max(pendingBreaks, token.breaks);
-        writesOnOpen.push(writes);
+        openBlocks.push({
+          textFrom: text.length,
+          linePrefix: token.linePrefix,
+        });
         break;
-      case 'close-block':
-        if (writesOnOpen.pop() === writes && text.length > 0) {
-          payPending();
+      case 'close-block': {
+        const block = openBlocks.pop();
+        if (block !== undefined) {
+          if (block.textFrom === text.length && text.length > 0) {
+            payPending();
+          }
+          const prefix = block.linePrefix;
+          if (prefix !== undefined) {
+            let from = block.textFrom;
+            // the separation paid by the block's first word sits at the start
+            // of its range but belongs outside the prefix
+            if (/^\n+$/.test(text[from] ?? '')) from += 1;
+            const content = text
+              .splice(from)
+              .join('')
+              .replace(/^\n+|\n+$/g, '');
+            text.push(
+              content
+                .split('\n')
+                .map((line) => prefix + line)
+                .join('\n'),
+            );
+          }
         }
         pendingBreaks = Math.max(pendingBreaks, token.breaks);
         break;
+      }
     }
   }
   return text.join('') + '\n'.repeat(hardBreaks);
