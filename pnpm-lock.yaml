@@ -780,6 +780,9 @@ importers:
 
   packages/render:
     dependencies:
+      hast-util-from-html:
+        specifier: ^2.0.3
+        version: 2.0.3
       html-to-text:
         specifier: ^9.0.5
         version: 9.0.5
@@ -796,6 +799,9 @@ importers:
       '@edge-runtime/vm':
         specifier: 5.0.0
         version: 5.0.0
+      '@types/hast':
+        specifier: ^3.0.4
+        version: 3.0.4
       '@types/html-to-text':
         specifier: 9.0.4
         version: 9.0.4

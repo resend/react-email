@@ -23,6 +23,10 @@ export type Options = {
        * These are options you can pass down directly to the library we use for
        * converting the rendered email's HTML into plain text.
        *
+       * @deprecated Plain text conversion no longer relies on the unmaintained
+       * `html-to-text` package unless these options are passed. This escape
+       * hatch will be removed in the next major version.
+       *
        * @see https://github.com/html-to-text/node-html-to-text
        */
       htmlToTextOptions?: HtmlToTextOptions;
