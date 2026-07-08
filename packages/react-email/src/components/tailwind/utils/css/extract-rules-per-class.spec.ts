@@ -223,7 +223,9 @@ describe('extractRulesPerClass()', async () => {
     expect(Object.keys(convertToComparable(inlinable))).toEqual([]);
     expect(convertToComparable(nonInlinable)).toMatchInlineSnapshot(`
       {
-        "group-hover:underline": ".group-hover\\:underline{&:is(:where(.group):hover *){@media (hover:hover){text-decoration-line:underline}}}",
+        "group-hover:underline": [
+          ".group-hover\\:underline{&:is(:where(.group):hover *){@media (hover:hover){text-decoration-line:underline}}}",
+        ],
       }
     `);
   });
