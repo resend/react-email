@@ -1,7 +1,6 @@
-import type { Element, ElementContent, Root, RootContent } from 'hast';
+import type { Element, Root } from 'hast';
 import { fromHtml } from 'hast-util-from-html';
 
-type TreeNode = ElementContent | RootContent;
 type ParentNode = Root | Element;
 
 // html-to-text's default leading/trailing line-break counts for the block
@@ -52,98 +51,41 @@ type Token =
   | { type: 'open-block'; breaks: number }
   | { type: 'close-block'; breaks: number };
 
-export async function toPlainTextUnstable(html: string): Promise<string> {
+export function toPlainTextUnstable(html: string): string {
   return joinTokens(tokenize(fromHtml(html)));
 }
 
+function findBody(node: ParentNode): Element | undefined {
+  for (const child of node.children) {
+    if (child.type !== 'element') continue;
+    if (child.tagName === 'body') return child;
+    const body = findBody(child);
+    if (body !== undefined) return body;
+  }
+  return undefined;
+}
+
 function tokenize(tree: Root): Token[] {
-  // hast nodes only carry `children` arrays: no parent or sibling links. So a
-  // pointer-chasing walk has to record, on the way down, how it reached each
-  // node — `firstChild` writes that link, `nextSibling` reads it back to move
-  // forward, climbing out of ancestors whose children are exhausted. Each
-  // ancestor climbed out of is reported through `onExit`: that climb is the
-  // only moment the walk knows an element has ended.
-  const positions = new WeakMap<
-    object,
-    { parent: ParentNode; index: number }
-  >();
-
-  function firstChild(node: ParentNode | TreeNode): TreeNode | undefined {
-    if (!('children' in node)) return undefined;
-    const child = node.children[0];
-    if (child === undefined) return undefined;
-    positions.set(child, { parent: node as ParentNode, index: 0 });
-    return child;
-  }
-
-  function nextSibling(
-    node: TreeNode,
-    onExit?: (element: Element) => void,
-  ): TreeNode | undefined {
-    for (
-      let position = positions.get(node);
-      position !== undefined;
-      position = positions.get(position.parent)
-    ) {
-      const sibling = position.parent.children[position.index + 1];
-      if (sibling !== undefined) {
-        positions.set(sibling, {
-          parent: position.parent,
-          index: position.index + 1,
-        });
-        return sibling;
-      }
-      if (position.parent.type === 'element') onExit?.(position.parent);
-    }
-    return undefined;
-  }
-
-  let body: Element | undefined;
-  for (
-    let node = firstChild(tree);
-    node !== undefined;
-    node = firstChild(node) ?? nextSibling(node)
-  ) {
-    if (node.type === 'element' && node.tagName === 'body') {
-      body = node;
-      break;
-    }
-  }
-
   const tokens: Token[] = [];
   let uppercase = 0;
-  // Where each <a>'s content started in the token stream. The stream itself
-  // is the buffer of the anchor's text: on exit, the words since that index
-  // are compared against the href to decide whether to append it
-  // (html-to-text's hideLinkHrefIfSameAsText, which `toPlainText` enables).
-  const anchorTextFrom = new WeakMap<Element, number>();
 
-  function exitElement(element: Element) {
-    if (element.tagName === 'a') {
-      const textFrom = anchorTextFrom.get(element);
-      const href =
-        typeof element.properties.href === 'string'
-          ? element.properties.href.replace(/^mailto:/, '')
-          : '';
-      // fragment-only hrefs are suppressed (html-to-text's noAnchorUrl)
-      if (textFrom !== undefined && href.length > 0 && !href.startsWith('#')) {
-        let anchorText = '';
-        for (const token of tokens.slice(textFrom)) {
-          if (token.type === 'word') anchorText += token.value;
-        }
-        if (anchorText !== href) {
-          if (anchorText.length > 0) tokens.push({ type: 'space' });
-          tokens.push({ type: 'word', value: href });
-        }
-      }
+  // One frame per element whose children are being walked; a frame's index
+  // running past its children is the moment the walk knows the element has
+  // ended. `textFrom` records where the element's content started in the
+  // token stream, for the anchor handling above.
+  const stack: { parent: ParentNode; index: number; textFrom: number }[] = [
+    { parent: findBody(tree) ?? tree, index: 0, textFrom: 0 },
+  ];
+  while (stack.length > 0) {
+    const top = stack[stack.length - 1];
+    const node = top.parent.children[top.index];
+    if (node === undefined) {
+      stack.pop();
+      if (top.parent.type === 'element') exitElement(top.parent, top.textFrom);
+      continue;
     }
-    const breaks = BLOCK_BREAKS[element.tagName];
-    if (breaks) tokens.push({ type: 'close-block', breaks: breaks[1] });
-    if (HEADING_TAGS.has(element.tagName)) uppercase -= 1;
-  }
+    top.index += 1;
 
-  let node = firstChild(body ?? tree);
-  while (node !== undefined) {
     if (node.type === 'text') {
       for (const segment of node.value.split(/([ \t\n\r\f\u200b]+)/)) {
         if (segment.length === 0) continue;
@@ -157,41 +99,57 @@ function tokenize(tree: Root): Token[] {
         }
       }
     } else if (node.type === 'element') {
-      const skipped =
-        SKIPPED_TAGS.has(node.tagName) || node.properties.dataSkipInText;
+      if (SKIPPED_TAGS.has(node.tagName) || node.properties.dataSkipInText) {
+        continue;
+      }
 
-      if (!skipped) {
-        const breaks = BLOCK_BREAKS[node.tagName];
-        if (breaks) {
-          tokens.push({ type: 'open-block', breaks: breaks[0] });
+      const breaks = BLOCK_BREAKS[node.tagName];
+      if (breaks) {
+        tokens.push({ type: 'open-block', breaks: breaks[0] });
+      }
+
+      if (HEADING_TAGS.has(node.tagName)) {
+        uppercase += 1;
+      }
+
+      if (node.tagName === 'hr') {
+        tokens.push({ type: 'word', value: '-'.repeat(40) });
+      } else if (node.tagName === 'br') {
+        tokens.push({ type: 'hard-break' });
+      }
+
+      stack.push({ parent: node, index: 0, textFrom: tokens.length });
+    }
+  }
+
+  function exitElement(element: Element, textFrom: number) {
+    if (element.tagName === 'a') {
+      const href =
+        typeof element.properties.href === 'string'
+          ? element.properties.href.replace(/^mailto:/, '')
+          : '';
+      // fragment-only hrefs are suppressed (html-to-text's noAnchorUrl)
+      if (href.length > 0 && !href.startsWith('#')) {
+        // The token stream doubles as the buffer of the anchor's text: the
+        // words emitted since the anchor opened are compared against the
+        // href to decide whether to append it (html-to-text's
+        // hideLinkHrefIfSameAsText, which `toPlainText` enables).
+        let anchorText = '';
+        for (let i = textFrom; i < tokens.length; i++) {
+          const token = tokens[i];
+          if (token.type === 'word') anchorText += token.value;
         }
-
-        if (HEADING_TAGS.has(node.tagName)) {
-          uppercase += 1;
+        if (anchorText !== href) {
+          if (anchorText.length > 0) tokens.push({ type: 'space' });
+          tokens.push({ type: 'word', value: href });
         }
-
-        if (node.tagName === 'a') {
-          anchorTextFrom.set(node, tokens.length);
-        }
-
-        if (node.tagName === 'hr') {
-          tokens.push({ type: 'word', value: '-'.repeat(40) });
-        } else if (node.tagName === 'br') {
-          tokens.push({ type: 'hard-break' });
-        }
-
-        const child = firstChild(node);
-        if (child !== undefined) {
-          node = child;
-          continue;
-        }
-
-        exitElement(node);
       }
     }
-
-    node = nextSibling(node, exitElement);
+    const breaks = BLOCK_BREAKS[element.tagName];
+    if (breaks) tokens.push({ type: 'close-block', breaks: breaks[1] });
+    if (HEADING_TAGS.has(element.tagName)) uppercase -= 1;
   }
+
   return tokens;
 }
 
@@ -208,8 +166,10 @@ function joinTokens(tokens: Token[]): string {
   let pendingBreaks = 0;
   let pendingSpace = false;
   let hardBreaks = 0;
-  // one entry per currently open block: has anything been written inside it
-  const wroteMarks: boolean[] = [];
+  let writes = 0;
+  // the value of `writes` when each currently open block was entered; a
+  // block closing while it still matches was empty
+  const writesOnOpen: number[] = [];
 
   function payPending() {
     const breaks = hardBreaks + (text.length > 0 ? pendingBreaks : 0);
@@ -218,7 +178,7 @@ function joinTokens(tokens: Token[]): string {
     pendingBreaks = 0;
     pendingSpace = false;
     hardBreaks = 0;
-    wroteMarks.fill(true);
+    writes += 1;
   }
 
   for (const token of tokens) {
@@ -235,10 +195,10 @@ function joinTokens(tokens: Token[]): string {
         break;
       case 'open-block':
         pendingBreaks = Math.max(pendingBreaks, token.breaks);
-        wroteMarks.push(false);
+        writesOnOpen.push(writes);
         break;
       case 'close-block':
-        if (!wroteMarks.pop() && text.length > 0) payPending();
+        if (writesOnOpen.pop() === writes && text.length > 0) payPending();
         pendingBreaks = Math.max(pendingBreaks, token.breaks);
         break;
     }

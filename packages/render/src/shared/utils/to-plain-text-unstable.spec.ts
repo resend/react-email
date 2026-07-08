@@ -2,214 +2,214 @@ import { toPlainText } from './to-plain-text';
 import { toPlainTextUnstable } from './to-plain-text-unstable';
 
 describe('toPlainTextUnstable', () => {
-  it('skips images by default', async () => {
+  it('skips images by default', () => {
     const html =
       '<p>Hello</p><img src="test.jpg" alt="Test Image"><p>World</p>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('inserts line breaks for text in between paragraphs too', async () => {
+  it('inserts line breaks for text in between paragraphs too', () => {
     const html = '<p>He</p>ll<p>o</p>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('does not separate inline tags inside a block', async () => {
+  it('does not separate inline tags inside a block', () => {
     const html = '<p>He<b>ll</b>o</p>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('skips elements with data-skip-in-text="true"', async () => {
+  it('skips elements with data-skip-in-text="true"', () => {
     const html =
       '<p>Visible</p><span data-skip-in-text="true">Hidden</span><p>Also visible</p>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('formats links without brackets', async () => {
+  it('formats links without brackets', () => {
     const html = '<a href="https://example.com">Click here</a>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('hides link href if same as text', async () => {
+  it('hides link href if same as text', () => {
     const html = '<a href="https://example.com">https://example.com</a>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('drops <head> content, including <style>, from the output', async () => {
+  it('drops <head> content, including <style>, from the output', () => {
     // React always renders a real <head>/<body> for a full email document,
     // and Tailwind/global CSS ends up as a <style> tag inside it — this
     // must never leak into plain text as raw CSS.
     const html =
       '<html><head><style>.foo { color: red; }</style><title>Subject</title></head><body><p>Hello world</p></body></html>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('sets headings uppercase and separate blocks like paragraphs and divs', async () => {
+  it('sets headings uppercase and separate blocks like paragraphs and divs', () => {
     const html = '<h1>Title</h1><p>Body text</p><div>One</div><div>Two</div>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('renders nested unordered lists with indentation', async () => {
+  it('renders nested unordered lists with indentation', () => {
     const html =
       '<ul><li>One<ul><li>Nested A</li><li>Nested B</li></ul></li><li>Two</li></ul>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('numbers ordered lists, honoring a start offset', async () => {
+  it('numbers ordered lists, honoring a start offset', () => {
     const html = '<ol start="5"><li>One</li><li>Two</li></ol>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('has no separation between table cells, matching the current default', async () => {
+  it('has no separation between table cells, matching the current default', () => {
     // Not "fixed" here on purpose: react-email's own Row/Column/Section
     // render as tables, and this is what toPlainText already does today.
     const html =
       '<table><tr><td>A</td><td>B</td></tr><tr><td>C</td><td>D</td></tr></table>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('separates a nested table from its siblings inside the same cell', async () => {
+  it('separates a nested table from its siblings inside the same cell', () => {
     const html =
       '<table><tr>' +
       '<td><table><tr><td>Col A</td></tr></table></td>' +
       '<td><table><tr><td>Col B</td></tr></table></td>' +
       '</tr></table>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('quotes blockquote content and draw a horizontal rule', async () => {
+  it('quotes blockquote content and draw a horizontal rule', () => {
     const html = '<blockquote>Quoted text</blockquote><hr><p>After</p>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('does not wrap long lines — toPlainText sets wordwrap: false', async () => {
+  it('does not wrap long lines — toPlainText sets wordwrap: false', () => {
     // html-to-text wraps at 80 columns by default, but toPlainText turns
     // that off, so long paragraphs and long URLs stay on one line.
     for (const html of [
       '<p>The quick brown fox jumps over the lazy dog and then keeps on running through the quiet green field until sunset.</p>',
       '<p>see https://example.com/a/very/long/path/that/never/ever/ends/and/keeps/going/forever/and/ever okay</p>',
     ]) {
-      expect(await toPlainTextUnstable(html)).toBe(toPlainText(html));
+      expect(toPlainTextUnstable(html)).toBe(toPlainText(html));
     }
   });
 
-  it('prefixes long blockquote content without wrapping it', async () => {
+  it('prefixes long blockquote content without wrapping it', () => {
     const html =
       '<blockquote>The quick brown fox jumps over the lazy dog and then keeps on running through the quiet green field until sunset.</blockquote>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('stacks <br> breaks additively on top of block separation', async () => {
+  it('stacks <br> breaks additively on top of block separation', () => {
     // <br> is a hard break: "a<br><br>b" is two newlines (added, not
     // maxed), and it stacks on top of the surrounding blocks' separation.
     for (const html of ['a<br>b<br><br>c', '<p>a<br></p><p>b</p>']) {
-      expect(await toPlainTextUnstable(html)).toBe(toPlainText(html));
+      expect(toPlainTextUnstable(html)).toBe(toPlainText(html));
     }
   });
 
-  it('keeps <br> breaks at the start and end of the output', async () => {
+  it('keeps <br> breaks at the start and end of the output', () => {
     // Unlike block separation, hard breaks survive at the output's edges.
     for (const html of ['<p><br>a</p>', 'a<br>', '<p><br><br>a</p>']) {
-      expect(await toPlainTextUnstable(html)).toBe(toPlainText(html));
+      expect(toPlainTextUnstable(html)).toBe(toPlainText(html));
     }
   });
 
-  it('commits breaks from empty blocks between content', async () => {
+  it('commits breaks from empty blocks between content', () => {
     for (const html of [
       '<p>A</p><p></p><p>B</p>',
       'A<div><p></p></div>B',
     ]) {
-      expect(await toPlainTextUnstable(html)).toBe(toPlainText(html));
+      expect(toPlainTextUnstable(html)).toBe(toPlainText(html));
     }
   });
 
-  it('suppresses the href of fragment-only links', async () => {
+  it('suppresses the href of fragment-only links', () => {
     const html = '<a href="#section">jump</a>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('renders anchors without an href as plain text', async () => {
+  it('renders anchors without an href as plain text', () => {
     const html = '<a>bare</a>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('strips the mailto: scheme from link hrefs', async () => {
+  it('strips the mailto: scheme from link hrefs', () => {
     const html = '<a href="mailto:x@y.com">mail me</a>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('preserves whitespace inside <pre>', async () => {
+  it('preserves whitespace inside <pre>', () => {
     const html = '<pre>line  one\n  indented</pre>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('collapses zero-width spaces like whitespace', async () => {
+  it('collapses zero-width spaces like whitespace', () => {
     const html = '<p>a​​b</p>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('preserves non-breaking spaces verbatim', async () => {
+  it('preserves non-breaking spaces verbatim', () => {
     const html = '<p>a&nbsp;&nbsp;b</p>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('runs th and caption together with cells, like td', async () => {
+  it('runs th and caption together with cells, like td', () => {
     const html =
       '<table><caption>Cap</caption><tr><th>H</th><td>D</td></tr></table>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('runs definition lists together', async () => {
+  it('runs definition lists together', () => {
     const html = '<dl><dt>Term</dt><dd>Def</dd></dl>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('renders <wbr> as nothing', async () => {
+  it('renders <wbr> as nothing', () => {
     const html = '<p>side<wbr>walk</p>';
-    const result = await toPlainTextUnstable(html);
+    const result = toPlainTextUnstable(html);
 
     expect(result).toBe(toPlainText(html));
   });
