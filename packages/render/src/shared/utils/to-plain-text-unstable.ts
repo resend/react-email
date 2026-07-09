@@ -70,19 +70,17 @@ interface Frame {
 function walk<T extends object>(options: {
   root: ParentNode;
   rootData: T;
-  // frame data for an element the walk is about to descend into
+  // frame data for an element the walk is about to descend into; computed
+  // from the frame it's entered from, so facts about an element's own
+  // parent (e.g. its tag) only ever need deriving once, here, rather than
+  // wherever they're later needed
   init(node: Element, parentFrame: Frame & T): T;
   // returning false skips the element's entire subtree
   enter(
     node: Element | Comment | Doctype | Text,
     frame: Frame & T,
-    enclosingFrame: (Frame & T) | undefined,
   ): boolean | undefined;
-  exit(
-    node: ParentNode,
-    frame: Frame & T,
-    enclosingFrame: (Frame & T) | undefined,
-  ): void;
+  exit(node: ParentNode, frame: Frame & T): void;
 }) {
   const stack: (Frame & T)[] = [
     { parent: options.root, index: 0, ...options.rootData },
@@ -92,32 +90,46 @@ function walk<T extends object>(options: {
     const node = frame.parent.children[frame.index];
     if (node === undefined) {
       stack.pop();
-      options.exit(frame.parent, frame, stack[stack.length - 1]);
+      options.exit(frame.parent, frame);
       continue;
     }
 
     frame.index += 1;
-    const descend = options.enter(node, frame, stack[stack.length - 2]);
+    const descend = options.enter(node, frame);
     if (node.type === 'element' && descend !== false) {
       stack.push({ parent: node, index: 0, ...options.init(node, frame) });
     }
   }
 }
 
+interface TokenizeFrameData {
+  textFrom: number;
+  pre: boolean;
+  // the tag of this frame's own parent element, if any — an <li> under a
+  // nested <ul> reads this off the ul's frame to learn about its grandparent
+  // without walking the stack itself
+  parentTag: string | undefined;
+}
+
 function tokenize(tree: Root): Token[] {
   const tokens: Token[] = [];
 
-  walk({
+  walk<TokenizeFrameData>({
     root: findBody(tree) ?? tree,
     rootData: {
       textFrom: 0,
       pre: false,
+      parentTag: undefined,
     },
     init: (node, parentFrame) => ({
       textFrom: tokens.length,
       pre: parentFrame.pre || node.tagName === 'pre',
+      parentTag:
+        parentFrame.parent.type === 'element'
+          ? parentFrame.parent.tagName
+          : undefined,
     }),
-    enter(node, frame, enclosingFrame) {
+    enter(node, frame) {
       if (node.type === 'text') {
         if (frame.pre) {
           // whitespace is significant inside <pre>: one verbatim word,
@@ -140,12 +152,6 @@ function tokenize(tree: Root): Token[] {
           return false;
         }
 
-        // a list directly inside an <li> sits closer to its parent item:
-        // single line breaks and a prefix without the leading pad
-        // (html-to-text's isNestedList)
-        const nestedList =
-          frame.parent.type === 'element' && frame.parent.tagName === 'li';
-
         if (BLOCK_TAGS.has(node.tagName)) {
           tokens.push({
             type: 'open-block',
@@ -156,17 +162,20 @@ function tokenize(tree: Root): Token[] {
                 : undefined,
           });
         } else if (node.tagName === 'ul') {
-          tokens.push({ type: 'open-block', breaks: nestedList ? 1 : 2 });
+          // a list directly inside an <li> sits closer to its parent item:
+          // single line breaks (html-to-text's isNestedList). `frame` is
+          // this <ul>'s own enclosing frame, so its parent is one hop away.
+          const nested =
+            frame.parent.type === 'element' && frame.parent.tagName === 'li';
+          tokens.push({ type: 'open-block', breaks: nested ? 1 : 2 });
         } else if (
           node.tagName === 'li' &&
           frame.parent.type === 'element' &&
           frame.parent.tagName === 'ul'
         ) {
-          // whether this item's list is itself nested decides the prefix:
-          // the list's own parent sits one frame further up
-          const grandparent = enclosingFrame?.parent;
-          const inNestedList =
-            grandparent?.type === 'element' && grandparent.tagName === 'li';
+          // `frame` is the enclosing <ul>'s own frame, so its `parentTag`
+          // (the ul's parent) tells us whether that ul is itself nested
+          const inNestedList = frame.parentTag === 'li';
           tokens.push({
             type: 'open-block',
             breaks: 1,
@@ -183,7 +192,7 @@ function tokenize(tree: Root): Token[] {
         }
       }
     },
-    exit(node, frame, enclosingFrame) {
+    exit(node, frame) {
       if (node.type === 'element') {
         if (node.tagName === 'a') {
           const href =
@@ -211,15 +220,12 @@ function tokenize(tree: Root): Token[] {
         if (BLOCK_TAGS.has(node.tagName)) {
           tokens.push({ type: 'close-block', breaks: 2 });
         } else if (node.tagName === 'ul') {
-          const nested =
-            enclosingFrame?.parent.type === 'element' &&
-            enclosingFrame.parent.tagName === 'li';
-          tokens.push({ type: 'close-block', breaks: nested ? 1 : 2 });
-        } else if (node.tagName === 'li') {
-          const list = enclosingFrame?.parent;
-          if (list?.type === 'element' && list.tagName === 'ul') {
-            tokens.push({ type: 'close-block', breaks: 1 });
-          }
+          tokens.push({
+            type: 'close-block',
+            breaks: frame.parentTag === 'li' ? 1 : 2,
+          });
+        } else if (node.tagName === 'li' && frame.parentTag === 'ul') {
+          tokens.push({ type: 'close-block', breaks: 1 });
         }
       }
     },
