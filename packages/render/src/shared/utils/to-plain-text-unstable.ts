@@ -1,4 +1,4 @@
-import type { Element, Root } from 'hast';
+import type { Comment, Doctype, Element, Node, Root, Text } from 'hast';
 import { fromHtml } from 'hast-util-from-html';
 
 type ParentNode = Root | Element;
@@ -36,11 +36,16 @@ const SKIPPED_TAGS = new Set([
   'template',
 ]);
 
+// A block prefix puts `first` before the block's content and `rest` at the
+// start of every following line: blockquote marks every line ("> "), a list
+// item marks the first (" * ") and indents the rest to align nested content.
+type BlockPrefix = { first: string; rest: string };
+
 type Token =
   | { type: 'word'; value: string }
   | { type: 'space' }
   | { type: 'hard-break' }
-  | { type: 'open-block'; breaks: number; linePrefix?: string }
+  | { type: 'open-block'; breaks: number; prefix?: BlockPrefix }
   | { type: 'close-block'; breaks: number };
 
 export function toPlainTextUnstable(html: string): string {
@@ -57,25 +62,133 @@ function findBody(node: ParentNode): Element | undefined {
   return undefined;
 }
 
+interface Frame {
+  parent: ParentNode;
+  index: number;
+}
+
+function walk<T extends object>(options: {
+  root: ParentNode;
+  rootData: T;
+  // frame data for an element the walk is about to descend into
+  init(node: Element, parentFrame: Frame & T): T;
+  // returning false skips the element's entire subtree
+  enter(
+    node: Element | Comment | Doctype | Text,
+    frame: Frame & T,
+    enclosingFrame: (Frame & T) | undefined,
+  ): boolean | undefined;
+  exit(
+    node: ParentNode,
+    frame: Frame & T,
+    enclosingFrame: (Frame & T) | undefined,
+  ): void;
+}) {
+  const stack: (Frame & T)[] = [
+    { parent: options.root, index: 0, ...options.rootData },
+  ];
+  while (stack.length > 0) {
+    const frame = stack[stack.length - 1];
+    const node = frame.parent.children[frame.index];
+    if (node === undefined) {
+      stack.pop();
+      options.exit(frame.parent, frame, stack[stack.length - 1]);
+      continue;
+    }
+
+    frame.index += 1;
+    const descend = options.enter(node, frame, stack[stack.length - 2]);
+    if (node.type === 'element' && descend !== false) {
+      stack.push({ parent: node, index: 0, ...options.init(node, frame) });
+    }
+  }
+}
+
 function tokenize(tree: Root): Token[] {
   const tokens: Token[] = [];
 
-  const stack: {
-    parent: ParentNode;
-    index: number;
-    textFrom: number;
-    pre: boolean;
-  }[] = [{ parent: findBody(tree) ?? tree, index: 0, textFrom: 0, pre: false }];
-  while (stack.length > 0) {
-    const top = stack[stack.length - 1];
-    const node = top.parent.children[top.index];
-    if (node === undefined) {
-      stack.pop();
-      if (top.parent.type === 'element') {
-        if (top.parent.tagName === 'a') {
+  walk({
+    root: findBody(tree) ?? tree,
+    rootData: {
+      textFrom: 0,
+      pre: false,
+    },
+    init: (node, parentFrame) => ({
+      textFrom: tokens.length,
+      pre: parentFrame.pre || node.tagName === 'pre',
+    }),
+    enter(node, frame, enclosingFrame) {
+      if (node.type === 'text') {
+        if (frame.pre) {
+          // whitespace is significant inside <pre>: one verbatim word,
+          // newlines and all, so the reducer never collapses it
+          if (node.value.length > 0) {
+            tokens.push({ type: 'word', value: node.value });
+          }
+        } else {
+          for (const segment of node.value.split(/([ \t\n\r\f\u200b]+)/)) {
+            if (segment.length === 0) continue;
+            if (/^[ \t\n\r\f\u200b]/.test(segment)) {
+              tokens.push({ type: 'space' });
+            } else {
+              tokens.push({ type: 'word', value: segment });
+            }
+          }
+        }
+      } else if (node.type === 'element') {
+        if (SKIPPED_TAGS.has(node.tagName) || node.properties.dataSkipInText) {
+          return false;
+        }
+
+        // a list directly inside an <li> sits closer to its parent item:
+        // single line breaks and a prefix without the leading pad
+        // (html-to-text's isNestedList)
+        const nestedList =
+          frame.parent.type === 'element' && frame.parent.tagName === 'li';
+
+        if (BLOCK_TAGS.has(node.tagName)) {
+          tokens.push({
+            type: 'open-block',
+            breaks: HEADING_TAGS.has(node.tagName) ? 3 : 2,
+            prefix:
+              node.tagName === 'blockquote'
+                ? { first: '> ', rest: '> ' }
+                : undefined,
+          });
+        } else if (node.tagName === 'ul') {
+          tokens.push({ type: 'open-block', breaks: nestedList ? 1 : 2 });
+        } else if (
+          node.tagName === 'li' &&
+          frame.parent.type === 'element' &&
+          frame.parent.tagName === 'ul'
+        ) {
+          // whether this item's list is itself nested decides the prefix:
+          // the list's own parent sits one frame further up
+          const grandparent = enclosingFrame?.parent;
+          const inNestedList =
+            grandparent?.type === 'element' && grandparent.tagName === 'li';
+          tokens.push({
+            type: 'open-block',
+            breaks: 1,
+            prefix: inNestedList
+              ? { first: '* ', rest: '  ' }
+              : { first: ' * ', rest: '   ' },
+          });
+        }
+
+        if (node.tagName === 'hr') {
+          tokens.push({ type: 'word', value: '-'.repeat(40) });
+        } else if (node.tagName === 'br') {
+          tokens.push({ type: 'hard-break' });
+        }
+      }
+    },
+    exit(node, frame, enclosingFrame) {
+      if (node.type === 'element') {
+        if (node.tagName === 'a') {
           const href =
-            typeof top.parent.properties.href === 'string'
-              ? top.parent.properties.href.replace(/^mailto:/, '')
+            typeof node.properties.href === 'string'
+              ? node.properties.href.replace(/^mailto:/, '')
               : '';
           // fragment-only hrefs are suppressed (html-to-text's noAnchorUrl)
           if (href.length > 0 && !href.startsWith('#')) {
@@ -84,7 +197,7 @@ function tokenize(tree: Root): Token[] {
             // href to decide whether to append it (html-to-text's
             // hideLinkHrefIfSameAsText, which `toPlainText` enables).
             let anchorText = '';
-            for (let i = top.textFrom; i < tokens.length; i++) {
+            for (let i = frame.textFrom; i < tokens.length; i++) {
               const token = tokens[i];
               if (token.type === 'word') anchorText += token.value;
             }
@@ -95,59 +208,22 @@ function tokenize(tree: Root): Token[] {
           }
         }
 
-        if (BLOCK_TAGS.has(top.parent.tagName)) {
+        if (BLOCK_TAGS.has(node.tagName)) {
           tokens.push({ type: 'close-block', breaks: 2 });
-        }
-      }
-
-      continue;
-    }
-    top.index += 1;
-
-    if (node.type === 'text') {
-      if (top.pre) {
-        // whitespace is significant inside <pre>: one verbatim word,
-        // newlines and all, so the reducer never collapses it
-        if (node.value.length > 0) {
-          tokens.push({ type: 'word', value: node.value });
-        }
-      } else {
-        for (const segment of node.value.split(/([ \t\n\r\f\u200b]+)/)) {
-          if (segment.length === 0) continue;
-          if (/^[ \t\n\r\f\u200b]/.test(segment)) {
-            tokens.push({ type: 'space' });
-          } else {
-            tokens.push({ type: 'word', value: segment });
+        } else if (node.tagName === 'ul') {
+          const nested =
+            enclosingFrame?.parent.type === 'element' &&
+            enclosingFrame.parent.tagName === 'li';
+          tokens.push({ type: 'close-block', breaks: nested ? 1 : 2 });
+        } else if (node.tagName === 'li') {
+          const list = enclosingFrame?.parent;
+          if (list?.type === 'element' && list.tagName === 'ul') {
+            tokens.push({ type: 'close-block', breaks: 1 });
           }
         }
       }
-    } else if (node.type === 'element') {
-      if (SKIPPED_TAGS.has(node.tagName) || node.properties.dataSkipInText) {
-        continue;
-      }
-
-      if (BLOCK_TAGS.has(node.tagName)) {
-        tokens.push({
-          type: 'open-block',
-          breaks: HEADING_TAGS.has(node.tagName) ? 3 : 2,
-          linePrefix: node.tagName === 'blockquote' ? '> ' : undefined,
-        });
-      }
-
-      if (node.tagName === 'hr') {
-        tokens.push({ type: 'word', value: '-'.repeat(40) });
-      } else if (node.tagName === 'br') {
-        tokens.push({ type: 'hard-break' });
-      }
-
-      stack.push({
-        parent: node,
-        index: 0,
-        textFrom: tokens.length,
-        pre: top.pre || node.tagName === 'pre',
-      });
-    }
-  }
+    },
+  });
 
   return tokens;
 }
@@ -168,7 +244,7 @@ function joinTokens(tokens: Token[]): string {
   // Per open block: where its content starts in `text`. Serves double duty —
   // a block closing while `text` hasn't grown past it was empty, and prefixed
   // blocks transform everything from there on close.
-  const openBlocks: { textFrom: number; linePrefix?: string }[] = [];
+  const openBlocks: { textFrom: number; prefix?: BlockPrefix }[] = [];
 
   function payPending() {
     const breaks = hardBreaks + (text.length > 0 ? pendingBreaks : 0);
@@ -193,10 +269,7 @@ function joinTokens(tokens: Token[]): string {
         break;
       case 'open-block':
         pendingBreaks = Math.max(pendingBreaks, token.breaks);
-        openBlocks.push({
-          textFrom: text.length,
-          linePrefix: token.linePrefix,
-        });
+        openBlocks.push({ textFrom: text.length, prefix: token.prefix });
         break;
       case 'close-block': {
         const block = openBlocks.pop();
@@ -204,7 +277,7 @@ function joinTokens(tokens: Token[]): string {
           if (block.textFrom === text.length && text.length > 0) {
             payPending();
           }
-          const prefix = block.linePrefix;
+          const prefix = block.prefix;
           if (prefix !== undefined) {
             let from = block.textFrom;
             // the separation paid by the block's first word sits at the start
@@ -215,10 +288,7 @@ function joinTokens(tokens: Token[]): string {
               .join('')
               .replace(/^\n+|\n+$/g, '');
             text.push(
-              content
-                .split('\n')
-                .map((line) => prefix + line)
-                .join('\n'),
+              prefix.first + content.replaceAll('\n', `\n${prefix.rest}`),
             );
           }
         }
