@@ -6,7 +6,7 @@ import { EmailThemingExample as Example } from './example';
 export const metadata: Metadata = {
   title: 'Email theming — Editor examples',
   description:
-    'Switch between Basic and Minimal themes to see how email styles change.',
+    'Switch between the built-in editor themes — Basic, Minimal, Barebone, Matte, Protocol, Arcane, Studio, and a Custom example — to see how email styles change.',
   alternates: { canonical: '/editor/email-theming' },
 };
 
