@@ -36,6 +36,8 @@ const SKIPPED_TAGS = new Set([
   'template',
 ]);
 
+const WHITESPACE_RUN = /([ \t\n\r\f\u200b]+)/;
+
 // A block prefix puts `first` before the block's content and `rest` at the
 // start of every following line: blockquote marks every line ("> "), a list
 // item marks the first (" * ") and indents the rest to align nested content.
@@ -138,9 +140,15 @@ function tokenize(tree: Root): Token[] {
             tokens.push({ type: 'word', value: node.value });
           }
         } else {
-          for (const segment of node.value.split(/([ \t\n\r\f\u200b]+)/)) {
+          // splitting on a capturing group alternates strictly: even
+          // indices are the words, odd indices are the whitespace runs
+          // between them — so parity alone says which, no need to
+          // re-match each segment against the whitespace class
+          const segments = node.value.split(WHITESPACE_RUN);
+          for (let i = 0; i < segments.length; i++) {
+            const segment = segments[i];
             if (segment.length === 0) continue;
-            if (/^[ \t\n\r\f\u200b]/.test(segment)) {
+            if (i % 2 === 1) {
               tokens.push({ type: 'space' });
             } else {
               tokens.push({ type: 'word', value: segment });
