@@ -4,7 +4,7 @@ import type { Options } from '../shared/options';
 import { pretty } from '../shared/utils/pretty';
 import { stripImagePreloadLinks } from '../shared/utils/strip-image-preload-links';
 import { toPlainText } from '../shared/utils/to-plain-text';
-import { unstableToPlainText } from '../shared/utils/to-plain-text-unstable';
+import { unstableToPlainText } from '../shared/utils/unstable-to-plain-text';
 import { readStream } from './read-stream';
 
 export const render = async (node: React.ReactNode, options?: Options) => {

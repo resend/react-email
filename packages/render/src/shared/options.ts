@@ -1,7 +1,7 @@
 import type { HtmlToTextOptions } from 'html-to-text';
 import type { pretty } from './utils/pretty';
 import type { toPlainText } from './utils/to-plain-text';
-import type { unstableToPlainText } from './utils/to-plain-text-unstable';
+import type { unstableToPlainText } from './utils/unstable-to-plain-text';
 
 export type Options = {
   /**
