@@ -45,22 +45,5 @@
     "vite": "catalog:",
     "vitest": "4.1.4"
   },
-  "packageManager": "pnpm@11.0.0+sha512.5bd187500e49cc6c3d891d973b432c02b844a5eb7209172c90a517a3ef4f579ed5c23d409b699e6a9dc418ff7b2b1890e63f6d74f1d3fc49848f37779c89c84c",
-  "description": "![React email cover](https://react.email/static/covers/react-email.png)",
-  "main": "index.js",
-  "directories": {
-    "example": "examples"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/resend/react-email.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/resend/react-email/issues"
-  },
-  "homepage": "https://github.com/resend/react-email#readme"
+  "packageManager": "pnpm@11.0.0+sha512.5bd187500e49cc6c3d891d973b432c02b844a5eb7209172c90a517a3ef4f579ed5c23d409b699e6a9dc418ff7b2b1890e63f6d74f1d3fc49848f37779c89c84c"
 }
