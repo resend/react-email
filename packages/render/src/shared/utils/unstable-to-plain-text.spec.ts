@@ -84,6 +84,14 @@ describe('toPlainTextUnstable', () => {
     expect(result).toBe(toPlainText(html));
   });
 
+  it('defaults empty or malformed ordered list starts to 1', () => {
+    for (const start of ['', 'invalid']) {
+      const html = `<ol start="${start}"><li>One</li><li>Two</li></ol>`;
+
+      expect(unstableToPlainText(html)).toBe(' 1. One\n 2. Two');
+    }
+  });
+
   it('has no separation between table cells, matching the current default', () => {
     // Not "fixed" here on purpose: react-email's own Row/Column/Section
     // render as tables, and this is what toPlainText already does today.

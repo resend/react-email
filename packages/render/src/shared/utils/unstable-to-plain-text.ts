@@ -188,9 +188,11 @@ export function unstableToPlainText(html: string): string {
       };
     } else if (node.name === 'ol') {
       const nested = parentTag === 'li';
-      const start = Number(
+      const parsedStart = Number.parseInt(
         decodeHTMLAttribute(node.attributeMap?.start?.value?.value ?? '1'),
+        10,
       );
+      const start = Number.isNaN(parsedStart) ? 1 : parsedStart;
       const itemCount =
         node.body?.filter(
           (child) => child.type === SyntaxKind.Tag && child.name === 'li',
