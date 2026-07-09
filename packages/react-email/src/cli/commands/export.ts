@@ -33,6 +33,7 @@ const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
 };
 
 type ExportTemplatesOptions = Options & {
+  extension?: string;
   silent?: boolean;
   pretty?: boolean;
 };
@@ -48,7 +49,7 @@ const renderWorkerSource = `
 const { unlinkSync, writeFileSync } = require('node:fs');
 const { parentPort, workerData } = require('node:worker_threads');
 
-const { templates, options } = workerData;
+const { templates, options, extension } = workerData;
 
 (async () => {
   for (const template of templates) {
@@ -58,10 +59,7 @@ const { templates, options } = workerData;
         emailModule.reactEmailCreateReactElement(emailModule.default, {}),
         options,
       );
-      const htmlPath = template.replace(
-        '.cjs',
-        options.plainText ? '.txt' : '.html',
-      );
+      const htmlPath = template.replace('.cjs', extension);
       writeFileSync(htmlPath, rendered);
       unlinkSync(template);
       parentPort.postMessage({ type: 'progress', template });
@@ -165,6 +163,15 @@ export const exportTemplates = async (
     },
   );
 
+  const extension =
+    options.extension && options.extension.length > 0
+      ? options.extension.startsWith('.')
+        ? options.extension
+        : `.${options.extension}`
+      : options.plainText
+        ? '.txt'
+        : '.html';
+
   if (spinner && allBuiltTemplates.length > 0) {
     spinner.setText(`rendering ${allBuiltTemplates[0]?.split('/').pop()}`);
     spinner.start();
@@ -179,7 +186,7 @@ export const exportTemplates = async (
       await new Promise<void>((resolve, reject) => {
         const worker = new Worker(renderWorkerSource, {
           eval: true,
-          workerData: { templates: batch, options },
+          workerData: { templates: batch, options, extension },
         });
         worker.on('message', (msg: RenderWorkerMessage) => {
           if (msg.type === 'progress') {
