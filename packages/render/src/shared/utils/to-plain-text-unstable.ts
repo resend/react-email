@@ -47,24 +47,11 @@ const TAG_BLOCKS: Record<string, Block> = {
   table: { open: 2, close: 2 },
 };
 
-// A block being built accumulates its own content and nothing else — the
-// separation between it and its siblings lives in the parent as `stash`, so
-// a close transform (blockquote's "> ", list item prefixes) operates on
-// exactly the block's text. Between two pieces of content, separation is
-// the max of the breaks that meet at the join (`</p><p>` is two breaks, not
-// four), and it never materializes at the output's edges: the root's
-// `leading` and its final `stash` are simply never rendered. Hard breaks
-// (<br>) are the exception — written as literal newlines straight into the
-// content, they stack additively and survive at the edges.
 interface OpenBlock {
   block: Block;
-  // this block's own content, in pieces
   text: string[];
-  // breaks owed before the content when this block joins its parent
   leading: number;
-  // breaks owed after the current content, max-collapsed at the next write
   stash: number;
-  // a collapsed space is pending; any breaks win over it
   space: boolean;
 }
 
@@ -241,7 +228,9 @@ export function toPlainTextUnstable(html: string): string {
       }
     }
 
-    if (frame.opened) closeBlock();
+    if (frame.opened) {
+      closeBlock();
+    }
   }
 
   function closeBlock() {
