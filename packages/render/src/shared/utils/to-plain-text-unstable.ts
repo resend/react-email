@@ -55,6 +55,12 @@ interface OpenBlock {
   space: boolean;
 }
 
+interface OrderedList {
+  next: number;
+  prefixLength: number;
+  nested: boolean;
+}
+
 interface WalkFrame {
   // the element whose children this frame is iterating, or undefined at root
   parent: ITag | undefined;
@@ -66,6 +72,7 @@ interface WalkFrame {
   // content length of the enclosing block when this element was entered;
   // exit of an <a> reads back the text written since
   textFrom: number;
+  orderedList: OrderedList | undefined;
 }
 
 export function toPlainTextUnstable(html: string): string {
@@ -89,6 +96,7 @@ export function toPlainTextUnstable(html: string): string {
       pre: false,
       opened: false,
       textFrom: 0,
+      orderedList: undefined,
     },
   ];
 
@@ -159,6 +167,7 @@ export function toPlainTextUnstable(html: string): string {
     const parentTag = frame.parent?.name;
 
     let block: Block | undefined = TAG_BLOCKS[node.name];
+    let orderedList: OrderedList | undefined;
     if (node.name === 'ul') {
       // a list directly inside an <li> sits closer to its parent item:
       // single line breaks both ways (html-to-text's isNestedList)
@@ -176,6 +185,33 @@ export function toPlainTextUnstable(html: string): string {
         prefix: inNestedList
           ? { first: '* ', rest: '  ' }
           : { first: ' * ', rest: '   ' },
+      };
+    } else if (node.name === 'ol') {
+      const nested = parentTag === 'li';
+      const start = Number(
+        decodeHTMLAttribute(node.attributeMap?.start?.value?.value ?? '1'),
+      );
+      const itemCount =
+        node.body?.filter(
+          (child) => child.type === SyntaxKind.Tag && child.name === 'li',
+        ).length ?? 0;
+      let prefixLength = 0;
+      for (let index = start; index < start + itemCount; index++) {
+        const prefix = `${nested ? '' : ' '}${index}. `;
+        prefixLength = Math.max(prefixLength, prefix.length);
+      }
+      const breaks = nested ? 1 : 2;
+      block = { open: breaks, close: breaks };
+      orderedList = { next: start, prefixLength, nested };
+    } else if (node.name === 'li' && parentTag === 'ol' && frame.orderedList) {
+      const list = frame.orderedList;
+      const prefix = `${list.nested ? '' : ' '}${list.next++}. `.padEnd(
+        list.prefixLength,
+      );
+      block = {
+        open: 1,
+        close: 1,
+        prefix: { first: prefix, rest: ' '.repeat(list.prefixLength) },
       };
     }
 
@@ -203,6 +239,7 @@ export function toPlainTextUnstable(html: string): string {
       pre: frame.pre || node.name === 'pre',
       opened: block !== undefined,
       textFrom: top().text.length,
+      orderedList,
     });
   }
 
