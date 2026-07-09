@@ -1,4 +1,4 @@
-import type { Comment, Doctype, Element, Node, Root, Text } from 'hast';
+import type { Comment, Doctype, Element, Root, Text } from 'hast';
 import { fromHtml } from 'hast-util-from-html';
 
 type ParentNode = Root | Element;
