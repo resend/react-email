@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { pretty, toPlainText, toPlainTextUnstable } from '../node';
+import { pretty, toPlainText, unstableToPlainText } from '../node';
 import { createErrorBoundary } from '../shared/error-boundary';
 import type { Options } from '../shared/options';
 import { readStream } from '../shared/read-stream.browser';
@@ -37,7 +37,7 @@ export const render = async (node: React.ReactNode, options?: Options) => {
 
   if (options?.plainText) {
     return options.unstableTextConversion
-      ? toPlainTextUnstable(html)
+      ? unstableToPlainText(html)
       : toPlainText(html, options.htmlToTextOptions);
   }
 

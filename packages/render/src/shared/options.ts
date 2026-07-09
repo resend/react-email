@@ -1,7 +1,7 @@
 import type { HtmlToTextOptions } from 'html-to-text';
 import type { pretty } from './utils/pretty';
 import type { toPlainText } from './utils/to-plain-text';
-import type { toPlainTextUnstable } from './utils/to-plain-text-unstable';
+import type { unstableToPlainText } from './utils/to-plain-text-unstable';
 
 export type Options = {
   /**
@@ -37,7 +37,7 @@ export type Options = {
        * path we intend to make the default in a future major version — try
        * it and report anything that renders differently.
        *
-       * @see {@link toPlainTextUnstable}
+       * @see {@link unstableToPlainText}
        */
       unstableTextConversion: true;
     }

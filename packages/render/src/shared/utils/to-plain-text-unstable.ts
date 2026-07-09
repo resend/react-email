@@ -75,7 +75,7 @@ interface WalkFrame {
   orderedList: OrderedList | undefined;
 }
 
-export function toPlainTextUnstable(html: string): string {
+export function unstableToPlainText(html: string): string {
   const tree = parse(html, { setAttributeMap: true });
   const body = findBody(tree);
 

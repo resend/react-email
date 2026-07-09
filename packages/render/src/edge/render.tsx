@@ -5,7 +5,7 @@ import type { Options } from '../shared/options';
 import { readStream } from '../shared/read-stream.browser';
 import { stripImagePreloadLinks } from '../shared/utils/strip-image-preload-links';
 import { toPlainText } from '../shared/utils/to-plain-text';
-import { toPlainTextUnstable } from '../shared/utils/to-plain-text-unstable';
+import { unstableToPlainText } from '../shared/utils/to-plain-text-unstable';
 import { importReactDom } from './import-react-dom';
 
 export const render = async (
@@ -44,7 +44,7 @@ export const render = async (
 
   if (options?.plainText) {
     return options.unstableTextConversion
-      ? toPlainTextUnstable(html)
+      ? unstableToPlainText(html)
       : toPlainText(html, options.htmlToTextOptions);
   }
 
