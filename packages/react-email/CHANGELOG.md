@@ -1,5 +1,11 @@
 # react-email
 
+## 6.6.9
+
+### Patch Changes
+
+- bc2f7e3: Fix `group` utilities including bad rules that don't work
+
 ## 6.6.8
 
 ### Patch Changes
