@@ -119,8 +119,9 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
-    "hast-util-from-html": "^2.0.3",
+    "entities": "4.5.0",
     "html-to-text": "^9.0.5",
+    "html5parser": "^3.0.0",
     "prettier": "^3.5.3"
   },
   "peerDependencies": {
@@ -129,7 +130,6 @@
   },
   "devDependencies": {
     "@edge-runtime/vm": "5.0.0",
-    "@types/hast": "^3.0.4",
     "@types/html-to-text": "9.0.4",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",

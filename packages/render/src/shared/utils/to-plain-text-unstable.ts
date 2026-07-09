@@ -1,7 +1,5 @@
-import type { Comment, Doctype, Element, Root, Text } from 'hast';
-import { fromHtml } from 'hast-util-from-html';
-
-type ParentNode = Root | Element;
+import { decodeHTML, decodeHTMLAttribute } from 'entities/lib/decode.js';
+import { type INode, type ITag, parse, SyntaxKind } from 'html5parser';
 
 const SKIPPED_TAGS = new Set([
   'img',
@@ -18,9 +16,7 @@ const WHITESPACE_RUN = /([ \t\n\r\f\u200b]+)/;
 // item marks the first (" * ") and indents the rest to align nested content.
 type BlockPrefix = { first: string; rest: string };
 
-// Everything tag-specific about how a block separates from its
-// surroundings. Decided once when the element is entered and carried whole
-// on its open-block token; the close token stays bare.
+// Everything tag-specific about how a block separates from its surroundings.
 type Block = { open: number; close: number; prefix?: BlockPrefix };
 
 // html-to-text's default separation for the block tags implemented so far.
@@ -51,248 +47,238 @@ const TAG_BLOCKS: Record<string, Block> = {
   table: { open: 2, close: 2 },
 };
 
-type Token =
-  | { type: 'word'; value: string }
-  | { type: 'space' }
-  | { type: 'hard-break' }
-  | { type: 'open-block'; block: Block }
-  | { type: 'close-block' };
+// A block being built accumulates its own content and nothing else — the
+// separation between it and its siblings lives in the parent as `stash`, so
+// a close transform (blockquote's "> ", list item prefixes) operates on
+// exactly the block's text. Between two pieces of content, separation is
+// the max of the breaks that meet at the join (`</p><p>` is two breaks, not
+// four), and it never materializes at the output's edges: the root's
+// `leading` and its final `stash` are simply never rendered. Hard breaks
+// (<br>) are the exception — written as literal newlines straight into the
+// content, they stack additively and survive at the edges.
+interface OpenBlock {
+  block: Block;
+  // this block's own content, in pieces
+  text: string[];
+  // breaks owed before the content when this block joins its parent
+  leading: number;
+  // breaks owed after the current content, max-collapsed at the next write
+  stash: number;
+  // a collapsed space is pending; any breaks win over it
+  space: boolean;
+}
+
+interface WalkFrame {
+  // the element whose children this frame is iterating, or undefined at root
+  parent: ITag | undefined;
+  children: INode[];
+  index: number;
+  pre: boolean;
+  // whether this element opened a block, to be closed back on exit
+  opened: boolean;
+  // content length of the enclosing block when this element was entered;
+  // exit of an <a> reads back the text written since
+  textFrom: number;
+}
 
 export function toPlainTextUnstable(html: string): string {
-  return joinTokens(tokenize(fromHtml(html)));
-}
+  const tree = parse(html, { setAttributeMap: true });
+  const body = findBody(tree);
 
-// fromHtml always parses a full document, so the shape is fixed:
-// the root holds <html>, which holds <head> and <body> directly
-function findBody(tree: Root): Element {
-  for (const child of tree.children) {
-    if (child.type !== 'element' || child.tagName !== 'html') continue;
-    for (const inner of child.children) {
-      if (inner.type === 'element' && inner.tagName === 'body') return inner;
-    }
-  }
-  throw new Error('there is no body, this can never happen');
-}
-
-interface TokenizeFrame {
-  // the element whose children this frame is iterating
-  parent: ParentNode;
-  index: number;
-  // where this element's content starts in the token stream
-  textFrom: number;
-  pre: boolean;
-  // the block this element opened, if any, closed back on exit
-  block: Block | undefined;
-}
-
-function tokenize(tree: Root): Token[] {
-  const tokens: Token[] = [];
-  const stack: TokenizeFrame[] = [
+  const blocks: OpenBlock[] = [
     {
-      parent: findBody(tree),
+      block: { open: 0, close: 0 },
+      text: [],
+      leading: 0,
+      stash: 0,
+      space: false,
+    },
+  ];
+  const stack: WalkFrame[] = [
+    {
+      parent: body,
+      children: body?.body ?? tree,
       index: 0,
-      textFrom: 0,
       pre: false,
-      block: undefined,
+      opened: false,
+      textFrom: 0,
     },
   ];
 
   while (stack.length > 0) {
     const frame = stack[stack.length - 1];
-    const node = frame.parent.children[frame.index];
+    const node = frame.children[frame.index];
     if (node === undefined) {
       // children exhausted: the element ends here, the only moment its
-      // exit effects can go out — they must follow the subtree's tokens
+      // exit effects can go out — they must follow the subtree's content
       stack.pop();
       exitElement(frame.parent, frame);
-    } else {
-      enterNode(node, frame);
-
-      frame.index += 1;
+      continue;
     }
+    frame.index += 1;
+    enterNode(node, frame);
+  }
+
+  function top(): OpenBlock {
+    return blocks[blocks.length - 1];
+  }
+
+  function writeWord(value: string) {
+    const block = top();
+    if (block.stash > 0) block.text.push('\n'.repeat(block.stash));
+    else if (block.space && block.text.length > 0) block.text.push(' ');
+    block.stash = 0;
+    block.space = false;
+    block.text.push(value);
   }
 
   // enterNode descends into an element by pushing its frame; skipped
   // subtrees are skipped by simply not pushing
-  function enterNode(
-    node: Element | Comment | Doctype | Text,
-    frame: TokenizeFrame,
-  ) {
-    if (node.type === 'text') {
+  function enterNode(node: INode, frame: WalkFrame) {
+    if (node.type === SyntaxKind.Text) {
+      const value = decodeHTML(node.value);
       if (frame.pre) {
         // whitespace is significant inside <pre>: one verbatim word,
-        // newlines and all, so the reducer never collapses it
-        if (node.value.length > 0) {
-          tokens.push({ type: 'word', value: node.value });
+        // newlines and all, so it never goes through collapsing
+        if (value.length > 0) {
+          writeWord(value);
         }
       } else {
-        // splitting on a capturing group alternates strictly: even
-        // indices are the words, odd indices are the whitespace runs
-        // between them — so parity alone says which, no need to
-        // re-match each segment against the whitespace class
-        const segments = node.value.split(WHITESPACE_RUN);
+        // splitting on a capturing group alternates strictly: even indices
+        // are the words, odd indices are the whitespace runs between them —
+        // so parity alone says which, no need to re-match each segment
+        const segments = value.split(WHITESPACE_RUN);
         for (let i = 0; i < segments.length; i++) {
           const segment = segments[i];
           if (segment.length === 0) continue;
           if (i % 2 === 1) {
-            tokens.push({ type: 'space' });
+            top().space = true;
           } else {
-            tokens.push({ type: 'word', value: segment });
+            writeWord(segment);
           }
         }
       }
-    } else if (node.type === 'element') {
-      if (SKIPPED_TAGS.has(node.tagName) || node.properties.dataSkipInText) {
-        return;
-      }
+      return;
+    }
+    if (
+      SKIPPED_TAGS.has(node.name) ||
+      decodeHTMLAttribute(
+        node.attributeMap?.['data-skip-in-text']?.value?.value ?? '',
+      ) === 'true'
+    ) {
+      return;
+    }
 
-      const parentTag =
-        frame.parent.type === 'element' ? frame.parent.tagName : undefined;
+    const parentTag = frame.parent?.name;
 
-      let block: Block | undefined = TAG_BLOCKS[node.tagName];
-      if (node.tagName === 'ul') {
-        // a list directly inside an <li> sits closer to its parent item:
-        // single line breaks both ways (html-to-text's isNestedList)
-        const breaks = parentTag === 'li' ? 1 : 2;
-        block = { open: breaks, close: breaks };
-      } else if (node.tagName === 'li' && parentTag === 'ul') {
-        // whether the enclosing list is itself nested decides the item's
-        // prefix; `frame` belongs to that list, so the list's own parent is
-        // one frame below the top of the stack
-        const grandparent = stack[stack.length - 2]?.parent;
-        const inNestedList =
-          grandparent?.type === 'element' && grandparent.tagName === 'li';
-        block = {
-          open: 1,
-          close: 1,
-          prefix: inNestedList
-            ? { first: '* ', rest: '  ' }
-            : { first: ' * ', rest: '   ' },
-        };
-      }
+    let block: Block | undefined = TAG_BLOCKS[node.name];
+    if (node.name === 'ul') {
+      // a list directly inside an <li> sits closer to its parent item:
+      // single line breaks both ways (html-to-text's isNestedList)
+      const breaks = parentTag === 'li' ? 1 : 2;
+      block = { open: breaks, close: breaks };
+    } else if (node.name === 'li' && parentTag === 'ul') {
+      // whether the enclosing list is itself nested decides the item's
+      // prefix; `frame` belongs to that list, so the list's own parent is
+      // one frame below the top of the stack
+      const grandparent = stack[stack.length - 2]?.parent;
+      const inNestedList = grandparent?.name === 'li';
+      block = {
+        open: 1,
+        close: 1,
+        prefix: inNestedList
+          ? { first: '* ', rest: '  ' }
+          : { first: ' * ', rest: '   ' },
+      };
+    }
 
-      if (block) {
-        tokens.push({ type: 'open-block', block });
-      }
-
-      if (node.tagName === 'hr') {
-        tokens.push({ type: 'word', value: '-'.repeat(40) });
-      } else if (node.tagName === 'br') {
-        tokens.push({ type: 'hard-break' });
-      }
-
-      stack.push({
-        parent: node,
-        index: 0,
-        textFrom: tokens.length,
-        pre: frame.pre || node.tagName === 'pre',
+    if (block) {
+      blocks.push({
         block,
+        text: [],
+        leading: block.open,
+        stash: 0,
+        space: false,
       });
     }
+
+    if (node.name === 'hr') {
+      writeWord('-'.repeat(40));
+    } else if (node.name === 'br') {
+      top().space = false;
+      top().text.push('\n');
+    }
+
+    stack.push({
+      parent: node,
+      children: node.body ?? [],
+      index: 0,
+      pre: frame.pre || node.name === 'pre',
+      opened: block !== undefined,
+      textFrom: top().text.length,
+    });
   }
 
-  function exitElement(element: ParentNode, frame: TokenizeFrame) {
-    if (element.type !== 'element') return;
+  function exitElement(element: ITag | undefined, frame: WalkFrame) {
+    if (element === undefined) return;
 
-    if (element.tagName === 'a') {
-      const href =
-        typeof element.properties.href === 'string'
-          ? element.properties.href.replace(/^mailto:/, '')
-          : '';
+    if (element.name === 'a') {
+      const href = decodeHTMLAttribute(
+        element.attributeMap?.href?.value?.value ?? '',
+      ).replace(/^mailto:/, '');
       // fragment-only hrefs are suppressed (html-to-text's noAnchorUrl)
       if (href.length > 0 && !href.startsWith('#')) {
-        // The token stream doubles as the buffer of the anchor's text: the
-        // words emitted since the anchor opened are compared against the
-        // href to decide whether to append it (html-to-text's
-        // hideLinkHrefIfSameAsText, which `toPlainText` enables).
-        let anchorText = '';
-        for (let i = frame.textFrom; i < tokens.length; i++) {
-          const token = tokens[i];
-          if (token.type === 'word') anchorText += token.value;
-        }
+        // the enclosing block's content doubles as the buffer of the
+        // anchor's text: what was written since the anchor opened is
+        // compared against the href to decide whether to append it
+        // (html-to-text's hideLinkHrefIfSameAsText, which `toPlainText`
+        // enables)
+        const anchorText = top().text.slice(frame.textFrom).join('');
         if (anchorText !== href) {
-          if (anchorText.length > 0) tokens.push({ type: 'space' });
-          tokens.push({ type: 'word', value: href });
+          if (anchorText.length > 0) top().space = true;
+          writeWord(href);
         }
       }
     }
 
-    if (frame.block) {
-      tokens.push({ type: 'close-block' });
-    }
+    if (frame.opened) closeBlock();
   }
 
-  return tokens;
+  function closeBlock() {
+    const child = blocks.pop();
+    if (child === undefined) return;
+    const parent = blocks[blocks.length - 1];
+
+    let content = child.text.join('');
+    const prefix = child.block.prefix;
+    if (prefix !== undefined) {
+      const trimmed = content.replace(/^\n+|\n+$/g, '');
+      content = prefix.first + trimmed.replaceAll('\n', `\n${prefix.rest}`);
+    }
+
+    const breaks = Math.max(parent.stash, child.leading);
+    if (parent.text.length > 0) {
+      parent.text.push('\n'.repeat(breaks));
+      if (content.length > 0) parent.text.push(content);
+    } else {
+      // nothing to separate from yet: the separation propagates upward
+      // instead of materializing — this is edge suppression, and also how
+      // empty blocks nested in empty blocks still commit their breaks
+      if (content.length > 0) parent.text.push(content);
+      parent.leading = breaks;
+    }
+    parent.stash = Math.max(child.stash, child.block.close);
+  }
+
+  return blocks[0].text.join('');
 }
 
-// Block separation between two words is the max of every boundary crossed
-// (`</p><p>` is two breaks, not four) and never materializes at the output's
-// edges; both fall out of breaks staying pending until the next word pays
-// them. Two exceptions: hard breaks (<br>) stack additively and survive the
-// edges, and an empty block sitting between content acts like a zero-width
-// word — it pays the pending breaks itself, so the separation on each side
-// of it commits instead of collapsing into one max
-// (`<p>A</p><p></p><p>B</p>` is four newlines, not two).
-function joinTokens(tokens: Token[]): string {
-  const text: string[] = [];
-  let pendingBreaks = 0;
-  let pendingSpace = false;
-  let hardBreaks = 0;
-  // Per open block: its descriptor (close tokens are bare, so the close
-  // breaks ride here) and where its content starts in `text` — a block
-  // closing while `text` hasn't grown past it was empty, and prefixed
-  // blocks transform everything from there on close.
-  const openBlocks: { textFrom: number; block: Block }[] = [];
-
-  function payPending() {
-    const breaks = hardBreaks + (text.length > 0 ? pendingBreaks : 0);
-    if (breaks > 0) text.push('\n'.repeat(breaks));
-    else if (text.length > 0 && pendingSpace) text.push(' ');
-    pendingBreaks = 0;
-    pendingSpace = false;
-    hardBreaks = 0;
-  }
-
-  for (const token of tokens) {
-    switch (token.type) {
-      case 'word':
-        payPending();
-        text.push(token.value);
-        break;
-      case 'space':
-        pendingSpace = true;
-        break;
-      case 'hard-break':
-        hardBreaks += 1;
-        break;
-      case 'open-block':
-        pendingBreaks = Math.max(pendingBreaks, token.block.open);
-        openBlocks.push({ textFrom: text.length, block: token.block });
-        break;
-      case 'close-block': {
-        const open = openBlocks.pop();
-        if (open === undefined) break;
-        if (open.textFrom === text.length && text.length > 0) {
-          payPending();
-        }
-        const prefix = open.block.prefix;
-        if (prefix !== undefined) {
-          let from = open.textFrom;
-          // the separation paid by the block's first word sits at the start
-          // of its range but belongs outside the prefix
-          if (/^\n+$/.test(text[from] ?? '')) from += 1;
-          const content = text
-            .splice(from)
-            .join('')
-            .replace(/^\n+|\n+$/g, '');
-          text.push(
-            prefix.first + content.replaceAll('\n', `\n${prefix.rest}`),
-          );
-        }
-        pendingBreaks = Math.max(pendingBreaks, open.block.close);
-        break;
-      }
+function findBody(tree: INode[]): ITag | undefined {
+  for (const child of tree) {
+    if (child.type !== SyntaxKind.Tag || child.name !== 'html') continue;
+    for (const inner of child.body ?? []) {
+      if (inner.type === SyntaxKind.Tag && inner.name === 'body') return inner;
     }
   }
-  return text.join('') + '\n'.repeat(hardBreaks);
+  return undefined;
 }
