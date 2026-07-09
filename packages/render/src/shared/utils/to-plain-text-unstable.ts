@@ -141,56 +141,54 @@ function tokenize(tree: Root): Token[] {
           }
         }
       }
-      return;
+    } else if (node.type === 'element') {
+      if (SKIPPED_TAGS.has(node.tagName) || node.properties.dataSkipInText) {
+        return;
+      }
+
+      const parentTag =
+        frame.parent.type === 'element' ? frame.parent.tagName : undefined;
+
+      let block: Block | undefined = TAG_BLOCKS[node.tagName];
+      if (node.tagName === 'ul') {
+        // a list directly inside an <li> sits closer to its parent item:
+        // single line breaks both ways (html-to-text's isNestedList)
+        const breaks = parentTag === 'li' ? 1 : 2;
+        block = { open: breaks, close: breaks };
+      } else if (node.tagName === 'li' && parentTag === 'ul') {
+        // whether the enclosing list is itself nested decides the item's
+        // prefix; `frame` belongs to that list, so the list's own parent is
+        // one frame below the top of the stack
+        const grandparent = stack[stack.length - 2]?.parent;
+        const inNestedList =
+          grandparent?.type === 'element' && grandparent.tagName === 'li';
+        block = {
+          open: 1,
+          close: 1,
+          prefix: inNestedList
+            ? { first: '* ', rest: '  ' }
+            : { first: ' * ', rest: '   ' },
+        };
+      }
+
+      if (block) {
+        tokens.push({ type: 'open-block', block });
+      }
+
+      if (node.tagName === 'hr') {
+        tokens.push({ type: 'word', value: '-'.repeat(40) });
+      } else if (node.tagName === 'br') {
+        tokens.push({ type: 'hard-break' });
+      }
+
+      stack.push({
+        parent: node,
+        index: 0,
+        textFrom: tokens.length,
+        pre: frame.pre || node.tagName === 'pre',
+        block,
+      });
     }
-    if (node.type !== 'element') return;
-
-    if (SKIPPED_TAGS.has(node.tagName) || node.properties.dataSkipInText) {
-      return;
-    }
-
-    const parentTag =
-      frame.parent.type === 'element' ? frame.parent.tagName : undefined;
-
-    let block: Block | undefined = TAG_BLOCKS[node.tagName];
-    if (node.tagName === 'ul') {
-      // a list directly inside an <li> sits closer to its parent item:
-      // single line breaks both ways (html-to-text's isNestedList)
-      const breaks = parentTag === 'li' ? 1 : 2;
-      block = { open: breaks, close: breaks };
-    } else if (node.tagName === 'li' && parentTag === 'ul') {
-      // whether the enclosing list is itself nested decides the item's
-      // prefix; `frame` belongs to that list, so the list's own parent is
-      // one frame below the top of the stack
-      const grandparent = stack[stack.length - 2]?.parent;
-      const inNestedList =
-        grandparent?.type === 'element' && grandparent.tagName === 'li';
-      block = {
-        open: 1,
-        close: 1,
-        prefix: inNestedList
-          ? { first: '* ', rest: '  ' }
-          : { first: ' * ', rest: '   ' },
-      };
-    }
-
-    if (block) {
-      tokens.push({ type: 'open-block', block });
-    }
-
-    if (node.tagName === 'hr') {
-      tokens.push({ type: 'word', value: '-'.repeat(40) });
-    } else if (node.tagName === 'br') {
-      tokens.push({ type: 'hard-break' });
-    }
-
-    stack.push({
-      parent: node,
-      index: 0,
-      textFrom: tokens.length,
-      pre: frame.pre || node.tagName === 'pre',
-      block,
-    });
   }
 
   function exitElement(element: ParentNode, frame: TokenizeFrame) {
