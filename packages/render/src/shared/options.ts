@@ -33,9 +33,7 @@ export type Options = {
       plainText?: true;
       /**
        * Converts to plain text with an in-house formatter instead of
-       * html-to-text, so it doesn't take `htmlToTextOptions`. This is the
-       * path we intend to make the default in a future major version — try
-       * it and report anything that renders differently.
+       * html-to-text, so it doesn't take `htmlToTextOptions`.
        *
        * @see {@link unstableToPlainText}
        */
