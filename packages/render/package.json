@@ -1,6 +1,6 @@
 {
   "name": "@react-email/render",
-  "version": "2.0.7",
+  "version": "2.1.0",
   "description": "Transform React components into HTML email templates",
   "sideEffects": false,
   "main": "./dist/browser/index.cjs",
@@ -99,6 +99,7 @@
     "build:watch": "tsdown --watch",
     "clean": "rm -rf dist",
     "test": "vitest run",
+    "test:e2e": "vitest run --config vitest.e2e.config.ts",
     "test:watch": "vitest"
   },
   "repository": {
@@ -106,6 +107,10 @@
     "url": "https://github.com/resend/react-email.git",
     "directory": "packages/render"
   },
+  "bugs": {
+    "url": "https://github.com/resend/react-email/issues"
+  },
+  "homepage": "https://react.email",
   "keywords": [
     "react",
     "email"
@@ -114,7 +119,9 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
+    "entities": "^4.5.0",
     "html-to-text": "^9.0.5",
+    "html5parser": "^3.0.0",
     "prettier": "^3.5.3"
   },
   "peerDependencies": {
@@ -124,9 +131,15 @@
   "devDependencies": {
     "@edge-runtime/vm": "5.0.0",
     "@types/html-to-text": "9.0.4",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@types/shelljs": "0.10.0",
     "jsdom": "26.1.0",
+    "playwright": "1.59.1",
+    "shelljs": "0.10.0",
     "tsconfig": "workspace:*",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "yalc": "catalog:"
   },
   "publishConfig": {
     "access": "public"

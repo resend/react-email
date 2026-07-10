@@ -1,8 +1,8 @@
 import type {
-  EmailClient,
   Platform,
   SupportEntry,
 } from '../../actions/email-validation/check-compatibility';
+import type { EmailClient } from './email-clients';
 
 export type SupportStatus = DetailedSupportStatus['status'];
 
@@ -32,7 +32,7 @@ const noteNumbersRegex = /#(?<noteNumber>\d+)/g;
 
 export const getCompatibilityStatsForEntry = (
   entry: SupportEntry,
-  emailClients: EmailClient[],
+  emailClients: readonly EmailClient[],
 ) => {
   const stats: CompatibilityStats = {
     status: 'success',

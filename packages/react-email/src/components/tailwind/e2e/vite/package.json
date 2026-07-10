@@ -6,12 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preinstall": "yalc add @react-email/tailwind",
+    "preinstall": "yalc add react-email",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-email/components": "0.0.36",
-    "@react-email/tailwind": "file:.yalc/@react-email/tailwind",
+    "react-email": "file:.yalc/react-email",
     "react": "^19",
     "react-dom": "^19"
   },

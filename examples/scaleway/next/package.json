@@ -9,16 +9,16 @@
     "start": "next start"
   },
   "dependencies": {
-    "@scaleway/sdk": "catalog:",
-    "next": "catalog:",
-    "react-email": "catalog:",
-    "react": "catalog:",
-    "react-dom": "catalog:"
+    "@scaleway/sdk": "1.42.0",
+    "next": "16.2.6",
+    "react-email": "6.0.3",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
   },
   "devDependencies": {
-    "@types/node": "catalog:",
-    "@types/react": "catalog:",
-    "@types/react-dom": "catalog:",
-    "typescript": "catalog:"
+    "@types/node": "22.19.17",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "typescript": "5.9.3"
   }
 }

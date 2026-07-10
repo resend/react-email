@@ -22,8 +22,31 @@ export const metadata: Metadata = {
 };
 
 export default async function ComponentsPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'React Email Components',
+    description:
+      'Build beautiful emails with pre-built components that you can copy-and-paste into your app.',
+    url: 'https://react.email/components',
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: componentsStructure.map((category, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: category.name,
+        url: `https://react.email/components/${slugify(category.name)}`,
+        description: category.description,
+      })),
+    },
+  };
+
   return (
     <PageWrapper>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="pointer-events-none absolute inset-0 flex justify-center mask-[linear-gradient(to_bottom,transparent_0%,black_4%,black_96%,transparent_100%)]">
         <div className="hidden h-full w-full max-w-7xl grid-cols-2 gap-4 px-4 lg:grid">
           <div className="border-r-slate-3 border-l border-l-slate-4" />

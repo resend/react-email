@@ -40,6 +40,12 @@ export const DEFAULT_STYLES: CssJs = {
     paddingLeft: '1.1em',
     paddingBottom: '1em',
   },
+  bulletList: {
+    listStyleType: 'disc',
+  },
+  orderedList: {
+    listStyleType: 'decimal',
+  },
   nestedList: {
     paddingLeft: '1.1em',
     paddingBottom: '0',

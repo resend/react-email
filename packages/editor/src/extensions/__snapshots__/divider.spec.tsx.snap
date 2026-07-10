@@ -5,7 +5,7 @@ exports[`Divider Node > renders React Email properly 1`] = `
 <!--$-->
 <hr
   class="divider"
-  style="width:100%;border:none;border-top:1px solid #eaeaea;padding-bottom:1em;border-width:2px" />
+  style="width:100%;border:none;border-color:transparent;border-top:1px solid #eaeaea;padding-bottom:1em;border-width:2px" />
 <!--/$-->
 "
 `;

@@ -1,6 +1,7 @@
 import { type CssNode, type Declaration, generate, walk } from 'css-tree';
 import { getReactProperty } from '../compatibility/get-react-property.js';
 import type { CustomProperties } from './get-custom-properties.js';
+import { stripEmptyTailwindVars } from './strip-empty-tailwind-vars.js';
 import { unwrapValue } from './unwrap-value.js';
 
 export function makeInlineStylesFor(
@@ -59,8 +60,10 @@ export function makeInlineStylesFor(
         if (declaration.property.startsWith('--')) {
           return;
         }
+        stripEmptyTailwindVars(declaration.value);
+
         styles[getReactProperty(declaration.property)] =
-          generate(declaration.value) +
+          generate(declaration.value).trim() +
           (declaration.important ? '!important' : '');
       },
     });

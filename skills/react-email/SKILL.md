@@ -19,7 +19,7 @@ metadata:
 
 # React Email
 
-Build and send HTML emails using React components - a modern, component-based approach to email development that works across all major email clients.
+Build and send HTML emails using React components. A modern, component-based approach to email development that works across all major email clients.
 
 ## Installation
 
@@ -355,12 +355,36 @@ See [references/PATTERNS.md](references/PATTERNS.md) for complete examples inclu
 
 1. **Test across email clients** - Gmail, Outlook, Apple Mail, Yahoo Mail
 2. **Keep it responsive** - Max-width around 600px, test on mobile
-3. **Use absolute image URLs** - Host on reliable CDN, always include `alt` text
-4. **Provide plain text version** - Required for accessibility
-5. **Keep file size under 102KB** - Gmail clips larger emails
-6. **Add proper TypeScript types** - Define interfaces for all email props
-7. **Include preview props** - Add `.PreviewProps` for development testing
-8. **Use verified domains** - For production `from` addresses
+3. **Use absolute image URLs** - Host on reliable CDN
+4. **Write meaningful alt text** - Describe purpose and details for content images; use `alt=""` for decorative images (spacers, dividers, background flourishes). React Email's `<Img>` defaults to `alt=""`.
+5. **Provide plain text version** - Required for accessibility
+6. **Keep file size under 102KB** - Gmail clips larger emails
+7. **Add proper TypeScript types** - Define interfaces for all email props
+8. **Include preview props** - Add `.PreviewProps` for development testing
+9. **Use verified domains** - For production `from` addresses
+
+### Accessibility
+
+React Email handles the structural defaults; the rest is content.
+
+**What React Email gives you for free:**
+- `<Html>` sets `lang` and `dir` (defaults: `lang="en" dir="ltr"` — override per locale)
+- `<Img>` defaults to `alt=""` so decorative images are skipped by screen readers
+- `<Markdown>` renders layout tables with `role="presentation"`
+- `<Preview>` also emits a `<title>` tag
+
+Upgrade with `npm install react-email@latest` to get these defaults.
+
+**What you still have to do (content choices):**
+- Open with a single `<Heading as="h1">`, nest subheadings in order, never skip levels (very short SMS-style emails may skip the heading entirely)
+- Set descriptive `alt` on meaningful images; pass an explicit `alt=""` on decorative images — never omit the attribute
+- **Linked images are never decorative.** When an `<Img>` is inside a `<Link>` or `<Button>`, the `alt` must describe where the link goes — `alt=""` on a linked image leaves the link with no accessible name
+- Write link text that describes the destination (`<Button>Read the report</Button>`, not `click here`)
+- Hit 4.5:1 text contrast (WCAG AA); preview in dark mode
+- For layout tables you build by hand (outside `<Markdown>`), add `role="presentation"`
+- For non-English emails, pass the locale: `<Html lang={locale} dir={isRTL ? 'rtl' : 'ltr'}>` (see [I18N.md](references/I18N.md))
+
+For the full rule set, severity ranking, and authoring checklist, see the [accessibility reference](https://github.com/resend/email-best-practices/blob/main/references/accessibility.md) in the `email-best-practices` skill.
 
 ## Additional Resources
 

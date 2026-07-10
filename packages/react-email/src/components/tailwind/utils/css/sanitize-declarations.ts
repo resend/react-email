@@ -133,11 +133,11 @@ function separteShorthandDeclaration(
     shorthandToReplace.value.type === 'Value'
       ? shorthandToReplace.value.children
           .toArray()
+          // Count every real value component, not just numeric ones, so a
+          // two-value shorthand with `auto`/`var()`/`calc()` (e.g.
+          // `margin-inline: 1rem auto`) still splits into two longhands.
           .filter(
-            (child) =>
-              child.type === 'Dimension' ||
-              child.type === 'Number' ||
-              child.type === 'Percentage',
+            (child) => child.type !== 'Operator' && child.type !== 'WhiteSpace',
           )
       : [shorthandToReplace.value];
   let endValue = shorthandToReplace.value;
@@ -183,7 +183,7 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
         }) as Value | Raw;
       }
       if (
-        /border-radius\s*:\s*calc\s*\(\s*infinity\s*\*\s*1px\s*\)/i.test(
+        /border-(?:[a-z]+-){0,2}radius\s*:\s*calc\s*\(\s*infinity\s*\*\s*1px\s*\)/i.test(
           generate(declaration),
         )
       ) {
@@ -252,7 +252,7 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
             funcParentListItem.data = rgbNode(rgb.r, rgb.g, rgb.b, a);
           }
 
-          if (func.name === 'rgb') {
+          if (func.name === 'rgb' || func.name === 'rgba') {
             let r: number | undefined;
             let g: number | undefined;
             let b: number | undefined;
@@ -384,11 +384,25 @@ export function sanitizeDeclarations(nodeContainingDeclarations: CssNode) {
               color?.name === 'rgb' &&
               opacity
             ) {
-              color.children.appendData({
-                type: 'Operator',
-                value: ',',
-              });
-              color.children.appendData(opacity);
+              if (opacity.type === 'Percentage') {
+                const alpha = Number.parseFloat(opacity.value) / 100;
+                if (alpha < 1) {
+                  color.children.appendData({
+                    type: 'Operator',
+                    value: ',',
+                  });
+                  color.children.appendData({
+                    type: 'Number',
+                    value: alpha.toString(),
+                  });
+                }
+              } else {
+                color.children.appendData({
+                  type: 'Operator',
+                  value: ',',
+                });
+                color.children.appendData(opacity);
+              }
               parentListItem.data = color;
             }
           }

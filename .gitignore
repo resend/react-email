@@ -7,8 +7,11 @@ node_modules
 
 # testing
 coverage
+**/.vitest-attachments/
+**/__screenshots__/
 **/*/package-lock.json
 **/*/yalc.lock
+.yalc*
 
 # next.js
 .next/

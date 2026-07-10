@@ -68,7 +68,7 @@ your email template when you make changes.
         }
         ```
 
-        You can refer to our [demo emails source code](https://demo.react.email/preview/notifications/vercel-invite-user)
+        You can refer to our [demo emails source code](https://demo.react.email/preview/Community/notifications/vercel-invite-user)
         for an example of how we do this with our demo deploy on Vercel.
     </Info>
 
@@ -189,6 +189,10 @@ Generates the plain HTML files of your emails into a `out` directory.
 </ResponseField>
 <ResponseField name="--dir" type="string" default="emails">
   Change the directory of your email templates.
+</ResponseField>
+<ResponseField name="--extension" type="string">
+  Set a custom file extension for rendered templates (for example, `blade.php`). When omitted,
+  the extension defaults to `.html`, or `.txt` when `--plainText` is enabled.
 </ResponseField>
 
 ## `email help <cmd>`

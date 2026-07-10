@@ -43,6 +43,20 @@ import zlib from 'node:zlib';
 import punycode from 'module-punycode';
 
 /**
+ * Keys that should not be enumerated as named exports on the synthetic
+ * modules we build for the VM. Reading them triggers a Node deprecation
+ * warning even when user code never references them (e.g. `fs.F_OK`
+ * triggers DEP0176 just by enumerating the `fs` module's keys).
+ *
+ * The values are still reachable through the default export, so user
+ * code that explicitly opts into the deprecated API still works (and
+ * still gets the warning at the actual call site, where it belongs).
+ */
+export const deprecatedKeysByModule: Record<string, ReadonlySet<string>> = {
+  fs: new Set(['F_OK', 'R_OK', 'W_OK', 'X_OK']),
+};
+
+/**
  * A map of the name of the modules (including `node:` prefixed ones)
  * provided by Node because dynamic requires of them, even on the server
  * will not be resolved properly

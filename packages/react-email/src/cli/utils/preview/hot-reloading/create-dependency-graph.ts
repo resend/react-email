@@ -2,13 +2,18 @@ import { existsSync, promises as fs, statSync } from 'node:fs';
 import path from 'node:path';
 import type { EventName } from 'chokidar/handler.js';
 import { getImportedModules } from './get-imported-modules.js';
-import { resolvePathAliases } from './resolve-path-aliases.js';
+import {
+  resolveAliasedDirectoryPrefix,
+  resolvePathAliases,
+} from './resolve-path-aliases.js';
 
 interface Module {
   path: string;
 
   dependencyPaths: string[];
   dependentPaths: string[];
+
+  dynamicDependencyDirectories: string[];
 
   moduleDependencies: string[];
 }
@@ -70,6 +75,54 @@ const checkFileExtensionsUntilItExists = (
   }
 };
 
+export const isUnderDirectory = (filePath: string, directoryPath: string) => {
+  if (filePath === directoryPath) return true;
+  const prefix = directoryPath.endsWith(path.sep)
+    ? directoryPath
+    : directoryPath + path.sep;
+  return filePath.startsWith(prefix);
+};
+
+const resolveDynamicImportDirectory = (
+  prefix: string,
+  filePath: string,
+): string | undefined => {
+  const moduleDirectory = path.dirname(filePath);
+  const normalizedPrefix = path.normalize(prefix);
+  const endsWithSeparator = normalizedPrefix.endsWith(path.sep);
+  const trimmed = endsWithSeparator
+    ? normalizedPrefix.slice(0, -path.sep.length)
+    : normalizedPrefix;
+
+  let resolvedPrefix: string;
+  const isRelative = prefix.startsWith('.') || path.isAbsolute(prefix);
+  if (isRelative) {
+    resolvedPrefix = path.resolve(moduleDirectory, normalizedPrefix);
+  } else {
+    if (trimmed.length === 0) return undefined;
+    const aliased = resolveAliasedDirectoryPrefix(trimmed, moduleDirectory);
+    if (aliased === undefined) {
+      return undefined;
+    }
+    resolvedPrefix = aliased;
+  }
+
+  const directory = endsWithSeparator
+    ? resolvedPrefix
+    : path.dirname(resolvedPrefix);
+
+  if (isUnderDirectory(moduleDirectory, directory)) return undefined;
+
+  if (!existsSync(directory)) return undefined;
+  try {
+    if (!statSync(directory).isDirectory()) return undefined;
+  } catch (_) {
+    return undefined;
+  }
+
+  return directory;
+};
+
 /**
  * Creates a stateful dependency graph that is structured in a way that you can get
  * the dependents of a module from its path.
@@ -88,6 +141,7 @@ export const createDependencyGraph = async (directory: string) => {
         path,
         dependencyPaths: [],
         dependentPaths: [],
+        dynamicDependencyDirectories: [],
         moduleDependencies: [],
       },
     ]),
@@ -95,11 +149,16 @@ export const createDependencyGraph = async (directory: string) => {
 
   const getDependencyPaths = async (filePath: string) => {
     const contents = await fs.readFile(filePath, 'utf8');
+    const imports = isJavascriptModule(filePath)
+      ? getImportedModules(contents)
+      : { staticImports: [], dynamicImportPrefixes: [] };
     const importedPaths = isJavascriptModule(filePath)
-      ? resolvePathAliases(getImportedModules(contents), path.dirname(filePath))
+      ? resolvePathAliases(imports.staticImports, path.dirname(filePath))
       : [];
     const importedPathsRelativeToDirectory = importedPaths.map(
-      (dependencyPath) => {
+      (rawDependencyPath) => {
+        // Strip bundler suffixes like `?inline` / `?raw` so the path resolves to a real file.
+        const dependencyPath = rawDependencyPath.split('?')[0]!;
         const isModulePath = !dependencyPath.startsWith('.');
 
         /*
@@ -115,7 +174,7 @@ export const createDependencyGraph = async (directory: string) => {
           /*
             path.resolve resolves paths differently from what imports on javascript do.
 
-            So if we wouldn't do this, for an email at "/path/to/email.tsx" with a dependency path of "./other-email" 
+            So if we wouldn't do this, for an email at "/path/to/email.tsx" with a dependency path of "./other-email"
             would end up going into /path/to/email.tsx/other-email instead of /path/to/other-email which is the
             one the import is meant to go to
           */
@@ -183,9 +242,18 @@ export const createDependencyGraph = async (directory: string) => {
           dependencyPath.startsWith('.') || path.isAbsolute(dependencyPath),
       );
 
+    const dynamicDependencyDirectories = Array.from(
+      new Set(
+        imports.dynamicImportPrefixes
+          .map((prefix) => resolveDynamicImportDirectory(prefix, filePath))
+          .filter((d): d is string => typeof d === 'string'),
+      ),
+    );
+
     return {
       dependencyPaths: nonNodeModuleImportPathsRelativeToDirectory,
       moduleDependencies,
+      dynamicDependencyDirectories,
     };
   };
 
@@ -195,14 +263,20 @@ export const createDependencyGraph = async (directory: string) => {
         path: moduleFilePath,
         dependencyPaths: [],
         dependentPaths: [],
+        dynamicDependencyDirectories: [],
         moduleDependencies: [],
       };
     }
 
-    const { moduleDependencies, dependencyPaths: newDependencyPaths } =
-      await getDependencyPaths(moduleFilePath);
+    const {
+      moduleDependencies,
+      dependencyPaths: newDependencyPaths,
+      dynamicDependencyDirectories: newDynamicDependencyDirectories,
+    } = await getDependencyPaths(moduleFilePath);
 
     graph[moduleFilePath].moduleDependencies = moduleDependencies;
+    graph[moduleFilePath].dynamicDependencyDirectories =
+      newDynamicDependencyDirectories;
 
     // we go through these to remove the ones that don't exist anymore
     for (const dependencyPath of graph[moduleFilePath].dependencyPaths) {
@@ -309,6 +383,11 @@ export const createDependencyGraph = async (directory: string) => {
       /**
        * Resolves all modules that depend on the specified module, directly or indirectly.
        *
+       * If the path doesn't correspond to a graph node (e.g. a JSON file
+       * loaded via dynamic `import(\`...\`)`), modules whose dynamic-import
+       * directories contain the path are treated as direct dependents and
+       * their own dependents are resolved transitively.
+       *
        * @param pathToModule - The path to the module whose dependents we want to find
        * @returns An array of paths to all modules that depend on the specified module
        */
@@ -317,6 +396,19 @@ export const createDependencyGraph = async (directory: string) => {
       ): string[] {
         const dependentPaths = new Set<string>();
         const stack: string[] = [pathToModule];
+
+        for (const module of Object.values(graph)) {
+          for (const directory of module.dynamicDependencyDirectories) {
+            if (
+              isUnderDirectory(pathToModule, directory) &&
+              module.path !== pathToModule &&
+              !dependentPaths.has(module.path)
+            ) {
+              dependentPaths.add(module.path);
+              stack.push(module.path);
+            }
+          }
+        }
 
         while (stack.length > 0) {
           const currentPath = stack.pop()!;
