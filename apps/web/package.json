@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@babel/parser": "catalog:",
-    "@babel/preset-typescript": "7.27.0",
+    "@babel/preset-typescript": "7.28.5",
     "@babel/traverse": "catalog:",
     "@radix-ui/react-popover": "catalog:",
     "@react-email/editor": "workspace:*",
