@@ -1,16 +1,40 @@
 import * as Popover from '@radix-ui/react-popover';
 import { useId, useState } from 'react';
 import { toast } from 'sonner';
+import { useCachedWorkspaceState } from '../hooks/use-cached-workspace-state';
 import { Button } from './button';
 import { Text } from './text';
 
-export const Send = ({ markup }: { markup: string }) => {
-  const [to, setTo] = useState('');
-  const [subject, setSubject] = useState('Testing React Email');
+interface SendProps {
+  markup: string;
+  defaultSubject?: string;
+  /**
+   * Stable identifier for the email template (typically the slug/relative
+   * path). When provided, user edits to the subject are persisted in
+   * localStorage so the next visit reuses what they typed.
+   */
+  storageKey?: string;
+}
+
+export const Send = ({ markup, defaultSubject, storageKey }: SendProps) => {
+  const fallbackSubject = defaultSubject?.trim() || 'Testing React Email';
+
+  const [cachedSubject, setCachedSubject] = useCachedWorkspaceState<string>(
+    `test-email-subject:${storageKey ?? ''}`,
+  );
+  // The recipient is cached under a single workspace-wide key — testers
+  // usually send to the same address regardless of which template they're
+  // on, so per-template scoping would just make them retype it.
+  const [cachedRecipient, setCachedRecipient] = useCachedWorkspaceState<string>(
+    'test-email-recipient',
+  );
+
+  const [to, setTo] = useState(cachedRecipient ?? '');
+  const [subject, setSubject] = useState(cachedSubject ?? fallbackSubject);
   const [isSending, setIsSending] = useState(false);
   const [isPopOverOpen, setIsPopOverOpen] = useState(false);
 
-  const onFormSubmit = async (e: React.FormEvent) => {
+  const onFormSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSending(true);
 
@@ -80,10 +104,16 @@ export const Send = ({ markup }: { markup: string }) => {
             <input
               autoFocus
               className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-sm text-slate-12 placeholder-slate-10 outline-hidden transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
-              defaultValue={to}
+              value={to}
               id={toId}
               onChange={(e) => {
-                setTo(e.target.value);
+                const next = e.target.value;
+                setTo(next);
+                if (next.length === 0) {
+                  setCachedRecipient(undefined);
+                } else {
+                  setCachedRecipient(next);
+                }
               }}
               placeholder="you@example.com"
               required
@@ -97,10 +127,21 @@ export const Send = ({ markup }: { markup: string }) => {
             </label>
             <input
               className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-sm text-slate-12 placeholder-slate-10 outline-hidden transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
-              defaultValue={subject}
+              value={subject}
               id={subjectId}
               onChange={(e) => {
-                setSubject(e.target.value);
+                const next = e.target.value;
+                setSubject(next);
+                if (!storageKey) return;
+
+                // Persist the override only when the user diverges from the inferred
+                // title; if they revert to the default (or clear the field), drop the
+                // override so future changes to the inferred title can take effect.
+                if (next === fallbackSubject || next.length === 0) {
+                  setCachedSubject(undefined);
+                } else {
+                  setCachedSubject(next);
+                }
               }}
               placeholder="My Email"
               required

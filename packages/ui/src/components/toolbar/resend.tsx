@@ -135,14 +135,15 @@ export function ResendIntegration({
                     html: renderResult.markup,
                   });
 
-                  if (exportResult.data?.id) {
+                  if (exportResult.data?.status === 'succeeded') {
+                    const { id } = exportResult.data;
                     setItems((prevItems) =>
                       prevItems.map((item, index) =>
                         index === i
                           ? {
                               ...item,
                               status: 'succeeded',
-                              id: exportResult.data!.id,
+                              id,
                             }
                           : item,
                       ),

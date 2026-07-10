@@ -6,7 +6,7 @@ export const Img = React.forwardRef<HTMLImageElement, ImgProps>(
   ({ alt, src, width, height, style, ...props }, ref) => (
     <img
       {...props}
-      alt={alt}
+      alt={alt ?? ''}
       height={height}
       ref={ref}
       src={src}

@@ -116,7 +116,7 @@ console.log(\`Hello, $\{name}!\`);
       </Markdown>,
     );
     expect(actualOutput).toMatchInlineSnapshot(`
-      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div data-id="react-email-markdown"><p><strong style="font:700 23px / 32px &#x27;Roobert PRO&#x27;, system-ui, sans-serif;background:url(&#x27;path/to/image&#x27;)">This is sample bold text in markdown</strong> and <em style="font-style:italic">this is italic text</em></p>
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div data-id="react-email-markdown"><p><strong style="font:700 23px / 32px &quot;Roobert PRO&quot;, system-ui, sans-serif;background:url(&quot;path/to/image&quot;)">This is sample bold text in markdown</strong> and <em style="font-style:italic">this is italic text</em></p>
       </div><!--/$-->"
     `);
   });
@@ -127,6 +127,18 @@ console.log(\`Hello, $\{name}!\`);
     );
     expect(actualOutput).toMatchInlineSnapshot(`
       "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div data-id="react-email-markdown"><p>Link to <a href="https://react.email" target="_blank" style="color:#007bff;text-decoration:underline;background-color:transparent">React-email</a></p>
+      </div><!--/$-->"
+    `);
+  });
+
+  it('escapes double quotes in link/image href and title attributes', async () => {
+    const actualOutput = await render(
+      <Markdown>
+        {`[guide](https://example.com/?q="a" 'The "Complete" Guide') and ![logo](https://cdn.example.com/a.png 'Acme "logo"')`}
+      </Markdown>,
+    );
+    expect(actualOutput).toMatchInlineSnapshot(`
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div data-id="react-email-markdown"><p><a href="https://example.com/?q=&quot;a&quot;" target="_blank" title="The &quot;Complete&quot; Guide" style="color:#007bff;text-decoration:underline;background-color:transparent">guide</a> and <img src="https://cdn.example.com/a.png" alt="logo" title="Acme &quot;logo&quot;"></p>
       </div><!--/$-->"
     `);
   });

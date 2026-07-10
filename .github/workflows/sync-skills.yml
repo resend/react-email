@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   sync:
+    timeout-minutes: 10
     runs-on: depot-ubuntu-22.04-2
     steps:
       - name: Trigger sync on resend-skills

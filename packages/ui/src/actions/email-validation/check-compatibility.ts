@@ -11,6 +11,10 @@ import {
   doesPropertyHaveLocation,
   getUsedStyleProperties,
 } from '../../utils/caniemail/ast/get-used-style-properties';
+import {
+  type EmailClient,
+  getRelevantEmailClients,
+} from '../../utils/caniemail/email-clients';
 import type {
   CompatibilityStats,
   SupportStatus,
@@ -33,30 +37,6 @@ export interface CompatibilityCheckingResult {
   status: SupportStatus;
   statsPerEmailClient: CompatibilityStats['perEmailClient'];
 }
-
-export type EmailClient =
-  | 'gmail'
-  | 'outlook'
-  | 'yahoo'
-  | 'apple-mail'
-  | 'aol'
-  | 'thunderbird'
-  | 'microsoft'
-  | 'samsung-email'
-  | 'sfr'
-  | 'orange'
-  | 'protonmail'
-  | 'hey'
-  | 'mail-ru'
-  | 'fastmail'
-  | 'laposte'
-  | 't-online-de'
-  | 'free-fr'
-  | 'gmx'
-  | 'web-de'
-  | 'ionos-1and1'
-  | 'rainloop'
-  | 'wp-pl';
 
 export type Platform =
   | 'desktop-app'
@@ -123,17 +103,11 @@ export type SupportEntry =
       source: 'react-email';
     });
 
-const relevantEmailClients: EmailClient[] = [
-  'gmail',
-  'apple-mail',
-  'outlook',
-  'yahoo',
-];
-
 export const checkCompatibility = async (
   reactCode: string,
   emailPath: string,
 ) => {
+  const relevantEmailClients = getRelevantEmailClients();
   const ast = parse(reactCode, {
     strictMode: false,
     errorRecovery: true,

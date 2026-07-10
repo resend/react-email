@@ -18,6 +18,11 @@ const isFileAnEmail = async (fullPath: string): Promise<boolean> => {
 
   const { ext } = path.parse(fullPath);
 
+  if (ext === '.html') {
+    await fileHandle.close();
+    return true;
+  }
+
   if (!['.js', '.tsx', '.jsx'].includes(ext)) {
     await fileHandle.close();
     return false;

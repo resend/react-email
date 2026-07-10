@@ -1,5 +1,203 @@
 # @react-email/editor
 
+## 1.6.6
+
+### Patch Changes
+
+- Updated dependencies [b448c3b]
+  - react-email@6.7.0
+
+## 1.6.5
+
+### Patch Changes
+
+- 86d235d: Remove dangling CSS file exports in package definition
+- Updated dependencies [bc2f7e3]
+  - react-email@6.6.9
+
+## 1.6.4
+
+### Patch Changes
+
+- d89be14: Fix bubble menus and the Inspector losing the editor selection on click. The `FocusScopes` registry was wiped on every plugin reconfiguration; it now persists until the plugin is removed or the editor is destroyed.
+- Updated dependencies [dca3c01]
+  - react-email@6.6.8
+
+## 1.6.3
+
+### Patch Changes
+
+- Updated dependencies [6a5ff2a]
+- Updated dependencies [4cf4c72]
+- Updated dependencies [fa77d55]
+- Updated dependencies [fa52a04]
+- Updated dependencies [fc8318c]
+  - react-email@6.6.7
+
+## 1.6.2
+
+### Patch Changes
+
+- 6313b3c: Avoid React key warnings when exporting editor content containing marked text. Serialized email nodes are now keyed at the mapped result boundary, so marks like bold, italic, and links no longer produce missing-key warnings during email export.
+
+## 1.6.1
+
+### Patch Changes
+
+- 94bd4c8: Fix invalid `TextSelection` on blur. Clearing the selection on blur used `TextSelection.create(doc, 0)`, which resolves to the doc node (no inline content) and made ProseMirror log "TextSelection endpoint not pointing into a node with inline content (doc)". It now uses `Selection.atStart(doc)`, which resolves to the first valid cursor position.
+- Updated dependencies [b4ac0d5]
+- Updated dependencies [cb3c468]
+  - react-email@6.6.6
+
+## 1.6.0
+
+### Minor Changes
+
+- b897235: preserve image styles when replacing an image node
+
+## 1.5.10
+
+### Patch Changes
+
+- f5eae02: Keep native list markers visible in dark-mode mail clients. Apple Mail / iOS auto-darken light emails by recoloring text but leave `list-style` markers at their original color, so bullets vanished on the darkened background. The serialized email head now ships a `prefers-color-scheme: dark` rule that gives `li::marker` an explicit color.
+
+## 1.5.9
+
+### Patch Changes
+
+- react-email@6.6.5
+
+## 1.5.8
+
+### Patch Changes
+
+- Updated dependencies [f8279be]
+  - react-email@6.6.4
+
+## 1.5.7
+
+### Patch Changes
+
+- react-email@6.6.3
+
+## 1.5.6
+
+### Patch Changes
+
+- Updated dependencies [437c414]
+  - react-email@6.6.2
+
+## 1.5.5
+
+### Patch Changes
+
+- d6956c8: Fix the Strikethrough button in the typography inspector throwing "There is no mark type named 'line-through'". The `FORMAT_ITEMS` entry now uses the tiptap mark name `strike` instead of the CSS `text-decoration` value `line-through`.
+- Updated dependencies [21bac49]
+  - react-email@6.6.1
+
+## 1.5.4
+
+### Patch Changes
+
+- Updated dependencies [16ff94c]
+  - react-email@6.6.0
+
+## 1.5.3
+
+### Patch Changes
+
+- Updated dependencies [d47825a]
+- Updated dependencies [3875d2a]
+  - react-email@6.5.0
+
+## 1.5.2
+
+### Patch Changes
+
+- 0963d30: scrub `javascript:`, `vbscript:`, and non-image `data:` URLs from pasted HTML and drop `script`, `iframe`, `object`, `embed`, `meta`, and `base` elements. This pass now runs on every paste; previously, content carrying the editor's `node-*` class marker took a fast-path that skipped sanitization entirely and could be spoofed by hosting attacker HTML with the same class name. Legitimate intra-editor copy/paste still round-trips `class`, `style`, and `data-*` attributes as before.
+
+## 1.5.1
+
+### Patch Changes
+
+- Updated dependencies [ba99365]
+  - react-email@6.4.0
+
+## 1.5.0
+
+### Minor Changes
+
+- 3353e03: expose the unformatted (non-prettified) HTML from `composeReactEmail` as a new `unformattedHtml` field on the result. The existing `html` field is unchanged and still Prettier-formatted. Consumers that persist or send the email should prefer `unformattedHtml`, since `pretty()` indentation can inflate the byte size by 5–10× on deeply-nested table layouts (e.g. exports from Stripo or Mailchimp) and pushes the output past Gmail's 102 KB clipping threshold.
+
+## 1.4.8
+
+### Patch Changes
+
+- f355fba: prevent prototype pollution in the email-theming plugin by building `cssJS` and merged theme objects from `Object.create(null)` so attacker-controlled `__proto__`, `constructor`, or `prototype` keys in panel-style input become regular own properties instead of mutating `Object.prototype`
+  - react-email@6.3.3
+
+## 1.4.7
+
+### Patch Changes
+
+- Updated dependencies [fbda5c8]
+  - react-email@6.3.2
+
+## 1.4.6
+
+### Patch Changes
+
+- Updated dependencies [c610dc0]
+  - react-email@6.3.1
+
+## 1.4.5
+
+### Patch Changes
+
+- react-email@6.3.0
+
+## 1.4.4
+
+### Patch Changes
+
+- Updated dependencies [06f1d05]
+- Updated dependencies [192d82a]
+  - react-email@6.2.0
+
+## 1.4.3
+
+### Patch Changes
+
+- Updated dependencies [1a61cb0]
+  - react-email@6.1.5
+
+## 1.4.2
+
+### Patch Changes
+
+- 962f753: Hide rich text bubble menu options when inline code is active
+
+## 1.4.1
+
+### Patch Changes
+
+- 5c6c805: Blocks typing over the divider block and by mistake removing it from the content.
+- Updated dependencies [1c386ce]
+- Updated dependencies [ad6a9de]
+  - react-email@6.1.4
+
+## 1.4.0
+
+### Minor Changes
+
+- 1718669: Enable single columns deletion, and columns focus improvements.
+
+## 1.3.10
+
+### Patch Changes
+
+- react-email@6.1.3
+
 ## 1.3.9
 
 ### Patch Changes

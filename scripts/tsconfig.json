@@ -4,7 +4,10 @@
     "lib": ["ESNext"],
     "types": ["node"],
     "module": "esnext",
-    "moduleResolution": "bundler"
+    "moduleResolution": "bundler",
+    "target": "esnext",
+    "noEmit": true,
+    "allowImportingTsExtensions": true
   },
   "include": ["./*.ts", "./*.mts"]
 }

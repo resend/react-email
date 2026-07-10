@@ -187,6 +187,43 @@ export function resolveAllCssVariables(node: CssNode) {
         hasReplaced = true;
         break;
       }
+
+      // Both use and definition live inside the same nested @media (or other
+      // at-rule) block of the same rule — e.g. Tailwind v4's
+      //   .print_invert { @media print { --tw-invert: invert(100%); filter: var(--tw-invert,) ... } }
+      // The previous two checks only cover a Rule directly containing the
+      // declaration; this one covers Rule → Block → Atrule → Block → Declaration
+      // on both sides.
+      if (
+        use.path[0]?.type === 'Block' &&
+        use.path[1]?.type === 'Atrule' &&
+        use.path[2]?.type === 'Block' &&
+        use.path[3]?.type === 'Rule' &&
+        definition.path[0]?.type === 'Block' &&
+        definition.path[1]?.type === 'Atrule' &&
+        definition.path[2]?.type === 'Block' &&
+        definition.path[3]?.type === 'Rule' &&
+        use.path[1].name === definition.path[1].name &&
+        (use.path[1].prelude
+          ? definition.path[1].prelude
+            ? generate(use.path[1].prelude) ===
+              generate(definition.path[1].prelude)
+            : false
+          : definition.path[1].prelude === null) &&
+        doSelectorsIntersect(use.path[3].prelude, definition.path[3].prelude)
+      ) {
+        use.declaration.value = parse(
+          generate(use.declaration.value).replaceAll(
+            use.raw,
+            definition.definition,
+          ),
+          {
+            context: 'value',
+          },
+        ) as Raw | Value;
+        hasReplaced = true;
+        break;
+      }
     }
 
     if (!hasReplaced && use.fallback) {

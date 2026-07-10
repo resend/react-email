@@ -34,9 +34,7 @@ export const EmailsProvider = (props: {
 
   if (!isBuilding && !isPreviewDevelopment) {
     useHotreload(async () => {
-      const metadata = await getEmailsDirectoryMetadataAction(
-        props.initialEmailsDirectoryMetadata.absolutePath,
-      );
+      const metadata = await getEmailsDirectoryMetadataAction();
       if (metadata) {
         setEmailsDirectoryMetadata(metadata);
       } else {

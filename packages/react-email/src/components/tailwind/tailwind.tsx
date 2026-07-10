@@ -13,11 +13,6 @@ import { setupTailwind } from './utils/tailwindcss/setup-tailwind.js';
 
 export type TailwindConfig = Omit<Config, 'content'>;
 
-export interface TailwindProps {
-  children: React.ReactNode;
-  config?: TailwindConfig;
-}
-
 export interface EmailElementProps {
   children?: React.ReactNode;
   className?: string;
@@ -83,15 +78,29 @@ export const pixelBasedPreset: TailwindConfig = {
   },
 };
 
-export function Tailwind({ children, config }: TailwindProps) {
+export interface TailwindProps {
+  children: React.ReactNode;
+  config?: TailwindConfig;
+  theme?: string;
+  utility?: string;
+}
+
+export function Tailwind({ children, config, theme, utility }: TailwindProps) {
+  const twConfigData = {
+    config,
+    cssConfigs: {
+      theme,
+      utility,
+    },
+  };
   const tailwindSetup = useSuspensedPromise(
-    () => setupTailwind(config ?? {}),
-    JSON.stringify(config, (_key, value) =>
+    () => setupTailwind(twConfigData),
+    JSON.stringify(twConfigData, (_key, value) =>
       typeof value === 'function' ? value.toString() : value,
     ),
   );
-  let classesUsed: string[] = [];
 
+  let classesUsed: string[] = [];
   let mappedChildren: React.ReactNode = mapReactTree(children, (node) => {
     if (React.isValidElement<EmailElementProps>(node)) {
       if (node.props.className) {
@@ -115,7 +124,7 @@ export function Tailwind({ children, config }: TailwindProps) {
   const nonInlineStyles: StyleSheet = {
     type: 'StyleSheet',
     children: new List<CssNode>().fromArray(
-      Array.from(nonInlinableRules.values()),
+      Array.from(nonInlinableRules.values()).flat(),
     ),
   };
   sanitizeNonInlinableRules(nonInlineStyles);

@@ -1,6 +1,6 @@
 {
   "name": "react-email",
-  "version": "6.1.2",
+  "version": "6.7.0",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/cli/index.mjs"
@@ -46,7 +46,7 @@
   "dependencies": {
     "@babel/parser": "catalog:",
     "@babel/traverse": "catalog:",
-    "@react-email/render": "workspace:>=2.0.8",
+    "@react-email/render": "workspace:>=2.1.0",
     "chokidar": "^4.0.3",
     "commander": "catalog:",
     "conf": "^15.0.2",

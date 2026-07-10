@@ -16,6 +16,7 @@ type ActiveTab =
   | 'linter'
   | 'compatibility'
   | 'spam-assassin'
+  | 'props'
   | 'resend'
   | undefined;
 
@@ -24,6 +25,7 @@ interface CopyForAIProps {
   compatibilityResults: CompatibilityCheckingResult[] | undefined;
   spamResult: SpamCheckingResult | undefined;
   reactMarkup: string;
+  isRawHtmlEmail: boolean;
   activeTab: ActiveTab;
 }
 
@@ -168,6 +170,7 @@ function getPromptForTab(
   compatibilityResults: CompatibilityCheckingResult[] | undefined,
   spamResult: SpamCheckingResult | undefined,
   reactMarkup: string,
+  isRawHtmlEmail: boolean,
 ): string {
   let issuePrompt = '';
 
@@ -194,11 +197,14 @@ function getPromptForTab(
     issuePrompt = parts.join('\n\n---\n\n');
   }
 
+  const sourceLang = isRawHtmlEmail ? 'html' : 'tsx';
+  const templateLabel = isRawHtmlEmail ? 'HTML email' : 'React Email';
+
   if (!issuePrompt) {
-    return `Here is the source code of my React Email template:\n\n\`\`\`tsx\n${reactMarkup}\n\`\`\`\n\nHelp me review and improve this email template.`;
+    return `Here is the source code of my ${templateLabel} template:\n\n\`\`\`${sourceLang}\n${reactMarkup}\n\`\`\`\n\nHelp me review and improve this email template.`;
   }
 
-  return `${issuePrompt}\n\nHere is the source code of my email template:\n\n\`\`\`tsx\n${reactMarkup}\n\`\`\``;
+  return `${issuePrompt}\n\nHere is the source code of my email template:\n\n\`\`\`${sourceLang}\n${reactMarkup}\n\`\`\``;
 }
 
 function getLinkDescription(activeTab: ActiveTab): string {
@@ -233,6 +239,7 @@ export const CopyForAI = ({
   compatibilityResults,
   spamResult,
   reactMarkup,
+  isRawHtmlEmail,
   activeTab,
 }: CopyForAIProps) => {
   const markdown = React.useMemo(
@@ -243,8 +250,16 @@ export const CopyForAI = ({
         compatibilityResults,
         spamResult,
         reactMarkup,
+        isRawHtmlEmail,
       ),
-    [activeTab, lintingRows, compatibilityResults, spamResult, reactMarkup],
+    [
+      activeTab,
+      lintingRows,
+      compatibilityResults,
+      spamResult,
+      reactMarkup,
+      isRawHtmlEmail,
+    ],
   );
 
   const linkDescription = getLinkDescription(activeTab);

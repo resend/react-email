@@ -6,12 +6,13 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   bump:
+    timeout-minutes: 30
     runs-on: depot-ubuntu-22.04-2
     permissions: 
       contents: write
       pull-requests: write
     container:
-      image: node:22
+      image: node:24
     steps:
       - name: Generate GitHub App token
         id: app-token
