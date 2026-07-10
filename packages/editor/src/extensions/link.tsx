@@ -1,3 +1,5 @@
+import type { Editor } from '@tiptap/core';
+import { mergeAttributes } from '@tiptap/core';
 import type { LinkOptions as TipTapLinkOptions } from '@tiptap/extension-link';
 import TiptapLink from '@tiptap/extension-link';
 import { Link as ReactEmailLink } from 'react-email';
@@ -6,8 +8,23 @@ export type LinkOptions = TipTapLinkOptions;
 
 import { editorEventBus } from '../core';
 import { EmailMark } from '../core/serializer/email-mark';
-import { inlineCssToJs } from '../utils/styles';
+import {
+  getEmailTheming,
+  getMergedCssJs,
+  getResolvedNodeStyles,
+} from '../plugins/email-theming/extension';
+import { inlineCssToJs, jsToInlineCss } from '../utils/styles';
 import { processStylesForUnlink } from './preserved-style';
+
+function resolveThemedLinkStyle(editor: Editor): string {
+  const theming = getEmailTheming(editor);
+  const resolved = getResolvedNodeStyles(
+    { type: 'link', attrs: {} },
+    0,
+    getMergedCssJs(theming.theme, theming.styles),
+  );
+  return jsToInlineCss(resolved).replace(/;$/, '');
+}
 
 export const Link: EmailMark<TipTapLinkOptions, any> = EmailMark.from(
   TiptapLink,
@@ -82,6 +99,21 @@ export const Link: EmailMark<TipTapLinkOptions, any> = EmailMark.from(
         parseHTML: (element) => element.getAttribute('ses:no-track'),
       },
     };
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    const userStyle = ((HTMLAttributes.style as string | undefined) ?? '')
+      .trim()
+      .replace(/;$/, '');
+    const themed = this.editor ? resolveThemedLinkStyle(this.editor) : '';
+    const mergedStyle = [themed, userStyle].filter(Boolean).join('; ');
+    return [
+      'a',
+      mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, {
+        style: mergedStyle || null,
+      }),
+      0,
+    ];
   },
 
   addCommands() {

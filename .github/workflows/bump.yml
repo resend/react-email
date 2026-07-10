@@ -6,12 +6,13 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   bump:
+    timeout-minutes: 30
     runs-on: depot-ubuntu-22.04-2
     permissions: 
       contents: write
       pull-requests: write
     container:
-      image: node:22
+      image: node:24
     steps:
       - name: Generate GitHub App token
         id: app-token
@@ -31,10 +32,16 @@ jobs:
         uses: pnpm/action-setup@738f428026a1f5a72398de22aeed83d859c4a660
       - name: Install packages
         run: pnpm install --frozen-lockfile --prefer-offline
+      - name: Configure version bump git user
+        run: |
+          git config user.name "resend-version-bump[bot]"
+          git config user.email "277115511+resend-version-bump[bot]@users.noreply.github.com"
       - name: Create "version packages" pull request
         uses: changesets/action@6a0a831ff30acef54f2c6aa1cbbc1096b066edaf
         with:
           version: pnpm run version
           title: "chore(root): version packages"
+          commitMode: git-cli
+          setupGitUser: false
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}

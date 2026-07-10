@@ -5,38 +5,48 @@ on:
       - main
       - canary
   pull_request:
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 permissions:
   contents: read
   pull-requests: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   e2e:
+    # Org secrets in step env: push + same-repo PRs only; fork PRs evaluate to empty (explicit for review).
+    timeout-minutes: 45
     runs-on: depot-ubuntu-22.04-8
     container:
-      image: node:22
+      image: mcr.microsoft.com/playwright:v1.59.1-noble
     steps:
       - name: Checkout Repo
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
         with:
           fetch-depth: 1
       - run: git config --global --add safe.directory $GITHUB_WORKSPACE
+      - name: Setup Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
+        with:
+          node-version: 24
       - name: pnpm setup
         uses: pnpm/action-setup@738f428026a1f5a72398de22aeed83d859c4a660
       - name: Install packages
         run: pnpm install --frozen-lockfile --prefer-offline
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install chromium --with-deps
       - name: Run Build
         run: pnpm build
         env:
-          SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
-          SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+          REDIS_URL: redis://localhost:6379
+          SPAM_ASSASSIN_HOST: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.SPAM_ASSASSIN_HOST || '' }}
+          SPAM_ASSASSIN_PORT: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.SPAM_ASSASSIN_PORT || '' }}
+          TURBO_TOKEN: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.TURBO_TOKEN || '' }}
+          TURBO_TEAM: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.TURBO_TEAM || '' }}
       - name: Run Tailwind integration tests
         run: pnpm turbo test:e2e
         env:
-          SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
-          SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+          REDIS_URL: redis://localhost:6379
+          SPAM_ASSASSIN_HOST: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.SPAM_ASSASSIN_HOST || '' }}
+          SPAM_ASSASSIN_PORT: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.SPAM_ASSASSIN_PORT || '' }}
+          TURBO_TOKEN: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.TURBO_TOKEN || '' }}
+          TURBO_TEAM: ${{ (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) && secrets.TURBO_TEAM || '' }}

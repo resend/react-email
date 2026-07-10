@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { vi } from 'vitest';
 import { z } from 'zod';
 import { isErr, isOk } from './result';
 import { runBundledCode } from './run-bundled-code';
@@ -68,6 +69,46 @@ export default path.join('a', 'b', 'c');
       return;
     }
     expect(result.value).toEqual({ default: path.join('a', 'b', 'c') });
+  });
+
+  it('does not emit fs access mode deprecation warnings for regular node:fs imports', async () => {
+    const emitWarning = vi.spyOn(process, 'emitWarning');
+
+    try {
+      const result = await runBundledCode(
+        `
+import { readFileSync } from 'node:fs';
+
+export default typeof readFileSync;
+    `,
+        'test-fs.js',
+      );
+      if (!isOk(result)) {
+        expect(isOk(result), 'there should be no errors').toBe(true);
+        console.log(result.error);
+        return;
+      }
+
+      const hasDeprecatedAccessModeWarning = emitWarning.mock.calls.some(
+        ([, optionsOrType, code]) => {
+          if (code === 'DEP0176') {
+            return true;
+          }
+
+          return (
+            typeof optionsOrType === 'object' &&
+            optionsOrType !== null &&
+            'code' in optionsOrType &&
+            optionsOrType.code === 'DEP0176'
+          );
+        },
+      );
+
+      expect(result.value).toEqual({ default: 'function' });
+      expect(hasDeprecatedAccessModeWarning).toBe(false);
+    } finally {
+      emitWarning.mockRestore();
+    }
   });
 
   it('returns an error if the code throws', async () => {

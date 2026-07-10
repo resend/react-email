@@ -31,15 +31,15 @@ export function InspectorDefaults() {
       description="Zero-config inspector sidebar. All three inspectors (Document, Node, Text) render sensible defaults when no children are passed."
     >
       <EditorContext.Provider value={{ editor }}>
-        <div className="flex flex-1 min-h-0 overflow-hidden -m-4">
-          <div className="flex-1 min-w-0 m-4 overflow-y-auto">
+        <div className="flex -m-4">
+          <div className="flex-1 min-w-0 m-4">
             <EditorContent
               className="p-4 pt-0 bg-white rounded-md"
               editor={editor}
             />
           </div>
 
-          <aside className="w-60 shrink-0 border-l border-(--re-border) p-4 flex flex-col gap-4 overflow-y-auto text-xs">
+          <aside className="w-60 shrink-0 border-l border-(--re-border) p-4 flex flex-col gap-4 text-xs">
             <Inspector.Root>
               <Breadcrumb />
               <Inspector.Document />

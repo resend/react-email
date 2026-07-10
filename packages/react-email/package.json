@@ -1,11 +1,12 @@
 {
   "name": "react-email",
-  "version": "6.0.0",
+  "version": "6.7.0",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/cli/index.mjs"
   },
   "type": "module",
+  "types": "./dist/index.d.mts",
   "scripts": {
     "build": "tsdown",
     "build:watch": "tsdown --watch src",
@@ -38,16 +39,20 @@
   "engines": {
     "node": ">=20.0.0"
   },
+  "peerDependencies": {
+    "react": "^18.0 || ^19.0 || ^19.0.0-rc",
+    "react-dom": "^18.0 || ^19.0 || ^19.0.0-rc"
+  },
   "dependencies": {
     "@babel/parser": "catalog:",
     "@babel/traverse": "catalog:",
-    "@react-email/render": "workspace:>=2.0.7",
+    "@react-email/render": "workspace:>=2.1.0",
     "chokidar": "^4.0.3",
     "commander": "catalog:",
     "conf": "^15.0.2",
     "css-tree": "3.2.1",
     "debounce": "^2.0.0",
-    "esbuild": "catalog:",
+    "esbuild": "^0.28.0",
     "glob": "^13.0.6",
     "jiti": "2.6.1",
     "log-symbols": "catalog:",
@@ -55,7 +60,7 @@
     "mime-types": "^3.0.0",
     "normalize-path": "^3.0.0",
     "nypm": "catalog:",
-    "ora": "catalog:",
+    "picospinner": "catalog:",
     "prismjs": "^1.30.0",
     "prompts": "2.4.2",
     "socket.io": "^4.8.1",

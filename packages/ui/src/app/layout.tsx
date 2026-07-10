@@ -2,7 +2,9 @@ import './globals.css';
 
 import type { Metadata } from 'next';
 import { EmailsProvider } from '../contexts/emails';
+import { WorkspaceProvider } from '../contexts/workspace';
 import { getEmailsDirectoryMetadata } from '../utils/get-emails-directory-metadata';
+import { getWorkspaceId } from '../utils/get-workspace-id';
 import { emailsDirectoryAbsolutePath } from './env';
 import { inter, sfMono } from './fonts';
 
@@ -27,6 +29,8 @@ export default async function RootLayout({
     );
   }
 
+  const workspaceId = getWorkspaceId(emailsDirectoryAbsolutePath);
+
   return (
     <html
       className={`${inter.variable} ${sfMono.variable} font-sans`}
@@ -34,11 +38,13 @@ export default async function RootLayout({
     >
       <body className="relative h-screen bg-black text-slate-11 leading-loose selection:bg-cyan-5 selection:text-cyan-12">
         <div className="bg-linear-to-t from-slate-3 flex flex-col">
-          <EmailsProvider
-            initialEmailsDirectoryMetadata={emailsDirectoryMetadata}
-          >
-            {children}
-          </EmailsProvider>
+          <WorkspaceProvider id={workspaceId}>
+            <EmailsProvider
+              initialEmailsDirectoryMetadata={emailsDirectoryMetadata}
+            >
+              {children}
+            </EmailsProvider>
+          </WorkspaceProvider>
         </div>
       </body>
     </html>

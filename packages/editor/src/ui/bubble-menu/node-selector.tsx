@@ -1,6 +1,7 @@
 import * as Popover from '@radix-ui/react-popover';
 import { useEditorState } from '@tiptap/react';
 import * as React from 'react';
+import { EditorFocusScope } from '../editor-focus-scope';
 import {
   CheckIcon,
   ChevronDownIcon,
@@ -200,13 +201,15 @@ export function NodeSelectorRoot({
   return (
     <NodeSelectorContext.Provider value={contextValue}>
       <Popover.Root open={isOpen} onOpenChange={setIsOpen}>
-        <div
-          data-re-node-selector=""
-          {...(isOpen ? { 'data-open': '' } : {})}
-          className={className}
-        >
-          {children}
-        </div>
+        <EditorFocusScope>
+          <div
+            data-re-node-selector=""
+            {...(isOpen ? { 'data-open': '' } : {})}
+            className={className}
+          >
+            {children}
+          </div>
+        </EditorFocusScope>
       </Popover.Root>
     </NodeSelectorContext.Provider>
   );
@@ -261,27 +264,31 @@ export function NodeSelectorContent({
       data-re-node-selector-content=""
       className={className}
     >
-      {children
-        ? children(items, () => setIsOpen(false))
-        : items.map((item) => {
-            const Icon = item.icon;
-            return (
-              <button
-                key={item.name}
-                type="button"
-                data-re-node-selector-item=""
-                {...(item.isActive ? { 'data-active': '' } : {})}
-                onClick={() => {
-                  item.command();
-                  setIsOpen(false);
-                }}
-              >
-                <Icon />
-                <span>{item.name}</span>
-                {item.isActive && <CheckIcon />}
-              </button>
-            );
-          })}
+      <EditorFocusScope>
+        <div>
+          {children
+            ? children(items, () => setIsOpen(false))
+            : items.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <button
+                    key={item.name}
+                    type="button"
+                    data-re-node-selector-item=""
+                    {...(item.isActive ? { 'data-active': '' } : {})}
+                    onClick={() => {
+                      item.command();
+                      setIsOpen(false);
+                    }}
+                  >
+                    <Icon />
+                    <span>{item.name}</span>
+                    {item.isActive && <CheckIcon />}
+                  </button>
+                );
+              })}
+        </div>
+      </EditorFocusScope>
     </Popover.Content>
   );
 }

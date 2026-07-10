@@ -1,5 +1,10 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { injectThemeCss, transformToCssJs } from './css-transforms';
+import {
+  injectGlobalPlainCss,
+  injectThemeCss,
+  mergeCssJs,
+  transformToCssJs,
+} from './css-transforms';
 import { DEFAULT_INBOX_FONT_SIZE_PX } from './themes';
 import type { CssJs, PanelGroup } from './types';
 
@@ -377,5 +382,214 @@ describe('injectThemeCss', () => {
       '.editor-scope .node-container{width:600px;}',
     );
     expect(styleTag?.textContent).not.toContain('.editor-scope .node-body');
+  });
+
+  it('applies reset styles through concrete node selectors', () => {
+    injectThemeCss(
+      {
+        reset: { margin: '0', padding: '0' },
+        paragraph: { fontSize: '1em' },
+        list: { paddingLeft: '1.1em' },
+        bulletList: { listStyleType: 'disc' },
+        orderedList: { listStyleType: 'decimal' },
+        nestedList: { paddingBottom: '0' },
+        listParagraph: { padding: '0', margin: '0' },
+      } as CssJs,
+      { styleId: STYLE_ID, scopeSelector: '.editor-scope' },
+    );
+
+    const styleTag = document.getElementById(STYLE_ID);
+
+    expect(styleTag?.textContent).toContain(
+      '.editor-scope .node-paragraph{margin:0;padding:0;font-size:1em;}',
+    );
+    expect(styleTag?.textContent).toContain(
+      '.editor-scope .node-list,.editor-scope .node-bulletList,.editor-scope .node-orderedList{margin:0;padding:0;padding-left:1.1em;}',
+    );
+    expect(styleTag?.textContent).toContain(
+      '.editor-scope .node-bulletList{list-style-type:disc;}',
+    );
+    expect(styleTag?.textContent).toContain(
+      '.editor-scope .node-orderedList{list-style-type:decimal;}',
+    );
+    expect(styleTag?.textContent).toContain(
+      '.editor-scope .node-nestedList,.editor-scope .node-list .node-list',
+    );
+    expect(styleTag?.textContent).toContain(
+      '.editor-scope .node-listItem > .node-paragraph{margin:0;padding:0;}',
+    );
+    expect(styleTag?.textContent).not.toContain('.node-reset');
+  });
+});
+
+describe('injectGlobalPlainCss', () => {
+  const STYLE_ID = 'inject-global-plain-css-test';
+  const SCOPE = '.editor-scope';
+
+  afterEach(() => {
+    document.getElementById(STYLE_ID)?.remove();
+  });
+
+  it('injects css into a new <style> element', () => {
+    injectGlobalPlainCss('.foo { color: red; }', {
+      styleId: STYLE_ID,
+      scopeSelector: SCOPE,
+    });
+
+    const styleTag = document.getElementById(STYLE_ID);
+    expect(styleTag).not.toBeNull();
+    expect(styleTag?.textContent).toBe(`${SCOPE} { .foo { color: red; } }`);
+  });
+
+  it('updates existing <style> textContent on subsequent calls', () => {
+    injectGlobalPlainCss('.foo { color: red; }', {
+      styleId: STYLE_ID,
+      scopeSelector: SCOPE,
+    });
+    injectGlobalPlainCss('.bar { color: blue; }', {
+      styleId: STYLE_ID,
+      scopeSelector: SCOPE,
+    });
+
+    const styleTags = document.querySelectorAll(`#${STYLE_ID}`);
+    expect(styleTags.length).toBe(1);
+    expect(styleTags[0]?.textContent).toBe(
+      `${SCOPE} { .bar { color: blue; } }`,
+    );
+  });
+
+  it('clears existing <style> textContent when css is empty string', () => {
+    injectGlobalPlainCss('.foo { color: red; }', {
+      styleId: STYLE_ID,
+      scopeSelector: SCOPE,
+    });
+
+    injectGlobalPlainCss('', { styleId: STYLE_ID, scopeSelector: SCOPE });
+
+    const styleTag = document.getElementById(STYLE_ID);
+    expect(styleTag).not.toBeNull();
+    expect(styleTag?.textContent).toBe('');
+  });
+
+  it('clears existing <style> textContent when css is null', () => {
+    injectGlobalPlainCss('.foo { color: red; }', {
+      styleId: STYLE_ID,
+      scopeSelector: SCOPE,
+    });
+
+    injectGlobalPlainCss(null, { styleId: STYLE_ID, scopeSelector: SCOPE });
+
+    expect(document.getElementById(STYLE_ID)?.textContent).toBe('');
+  });
+
+  it('clears existing <style> textContent when css is undefined', () => {
+    injectGlobalPlainCss('.foo { color: red; }', {
+      styleId: STYLE_ID,
+      scopeSelector: SCOPE,
+    });
+
+    injectGlobalPlainCss(undefined, {
+      styleId: STYLE_ID,
+      scopeSelector: SCOPE,
+    });
+
+    expect(document.getElementById(STYLE_ID)?.textContent).toBe('');
+  });
+
+  it('does not create a <style> element when css is empty and none exists', () => {
+    injectGlobalPlainCss('', { styleId: STYLE_ID, scopeSelector: SCOPE });
+
+    expect(document.getElementById(STYLE_ID)).toBeNull();
+  });
+});
+
+describe('prototype pollution resistance', () => {
+  const POISON_KEYS = ['__proto__', 'constructor', 'prototype'] as const;
+  const POLLUTION_MARKER = 'polluted_marker_8b9c1f';
+
+  afterEach(() => {
+    // Belt-and-braces: scrub any pollution that may have leaked so a
+    // failing assertion doesn't bleed into the rest of the suite.
+    delete (Object.prototype as unknown as Record<string, unknown>)[
+      POLLUTION_MARKER
+    ];
+    delete (Array.prototype as unknown as Record<string, unknown>)[
+      POLLUTION_MARKER
+    ];
+  });
+
+  it.each(
+    POISON_KEYS,
+  )('transformToCssJs does not pollute Object.prototype via classReference="%s"', (poisonKey) => {
+    const styles = [
+      {
+        title: 'attack',
+        inputs: [
+          {
+            classReference: poisonKey,
+            prop: POLLUTION_MARKER,
+            value: 'pwned',
+          },
+        ],
+      },
+    ] as unknown as PanelGroup[];
+
+    transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
+
+    expect(({} as Record<string, unknown>)[POLLUTION_MARKER]).toBeUndefined();
+    expect(
+      (Object.prototype as unknown as Record<string, unknown>)[
+        POLLUTION_MARKER
+      ],
+    ).toBeUndefined();
+  });
+
+  it('transformToCssJs stores poison keys as own properties on a prototype-less root', () => {
+    const styles = [
+      {
+        title: 'attack',
+        inputs: [
+          {
+            classReference: '__proto__',
+            prop: 'color',
+            value: 'red',
+          },
+        ],
+      },
+    ] as unknown as PanelGroup[];
+
+    const result = transformToCssJs(styles, DEFAULT_INBOX_FONT_SIZE_PX);
+
+    expect(Object.getPrototypeOf(result)).toBeNull();
+    expect(Object.hasOwn(result, '__proto__')).toBe(true);
+  });
+
+  it('mergeCssJs does not mutate Object.prototype when fed a hostile __proto__ key', () => {
+    // JSON.parse is the realistic vector: a payload with "__proto__" becomes
+    // an own enumerable property on the parsed object, which `for...in` then
+    // exposes.
+    const hostile = JSON.parse(
+      `{"__proto__":{"${POLLUTION_MARKER}":"pwned"}}`,
+    ) as CssJs;
+
+    const original = { body: { color: 'black' } } as unknown as CssJs;
+    const merged = mergeCssJs(original, hostile);
+
+    expect(
+      (Object.prototype as unknown as Record<string, unknown>)[
+        POLLUTION_MARKER
+      ],
+    ).toBeUndefined();
+    expect(({} as Record<string, unknown>)[POLLUTION_MARKER]).toBeUndefined();
+    expect(Object.getPrototypeOf(merged)).toBeNull();
+  });
+
+  it('mergeCssJs preserves legitimate keys when input contains a poison key', () => {
+    const hostile = JSON.parse(
+      `{"__proto__":{"x":1},"body":{"color":"blue"}}`,
+    ) as CssJs;
+    const merged = mergeCssJs({} as CssJs, hostile);
+
+    expect(merged.body).toEqual({ color: 'blue' });
   });
 });

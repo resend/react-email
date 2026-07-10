@@ -1,5 +1,11 @@
 # create-email
 
+## 1.2.5
+
+### Patch Changes
+
+- 599b8c5: fix type issues in starter template and in react-email
+
 ## 1.2.4
 
 ### Patch Changes

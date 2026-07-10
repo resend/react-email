@@ -19,7 +19,7 @@ exports[`EditorButton Node > renders React Email properly 1`] = `
           style="line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;margin:0;padding:0;padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"
           target="_blank"
           ><span
-            ><!--[if mso]><i style="mso-font-width:0%;mso-text-raise:0" hidden></i><![endif]--></span
+            ><!--[if mso]><i style="mso-font-width:0%;mso-text-raise:0px" hidden></i><![endif]--></span
           ><span
             style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:0"
             >Click me</span

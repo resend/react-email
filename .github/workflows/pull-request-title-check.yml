@@ -2,16 +2,17 @@ name: Pull Request Title Check
 on:
   pull_request:
     types: [opened, edited, synchronize]
+permissions:
+  pull-requests: read
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-permissions:
-  pull-requests: read
 jobs:
   pull-request-title-check:
+    timeout-minutes: 15
     runs-on: depot-ubuntu-22.04-2
     container:
-      image: node:22-slim
+      image: node:24-slim
     steps:
       - name: Checkout Repo
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
@@ -19,5 +20,7 @@ jobs:
           fetch-depth: 1
       - name: pnpm setup
         uses: pnpm/action-setup@738f428026a1f5a72398de22aeed83d859c4a660
+      - name: Install packages
+        run: pnpm install --frozen-lockfile --prefer-offline 
       - name: Check pull request title
-        run: pnpm dlx tsx@4.21.0 ./scripts/pull-request-title-check.ts
+        run: pnpm tsx ./scripts/pull-request-title-check.ts
