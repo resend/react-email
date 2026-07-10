@@ -30,7 +30,7 @@
     "next": "catalog:"
   },
   "devDependencies": {
-    "@babel/core": "7.29.0",
+    "@babel/core": "7.29.6",
     "@babel/parser": "catalog:",
     "@babel/traverse": "catalog:",
     "@lottiefiles/dotlottie-react": "0.19.0",
