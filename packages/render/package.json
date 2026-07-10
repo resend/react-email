@@ -119,7 +119,9 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
+    "entities": "^4.5.0",
     "html-to-text": "^9.0.5",
+    "html5parser": "^3.0.0",
     "prettier": "^3.5.3"
   },
   "peerDependencies": {

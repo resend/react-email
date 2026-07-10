@@ -780,9 +780,15 @@ importers:
 
   packages/render:
     dependencies:
+      entities:
+        specifier: ^4.5.0
+        version: 4.5.0
       html-to-text:
         specifier: ^9.0.5
         version: 9.0.5
+      html5parser:
+        specifier: ^3.0.0
+        version: 3.0.0
       prettier:
         specifier: ^3.5.3
         version: 3.8.3
@@ -5693,6 +5699,9 @@ packages:
 
   html-void-elements@3.0.0:
     resolution: {integrity: sha512-bEqo66MRXsUGxWHV5IP0PUiAWwoEjba4VCzg0LjFJBpchPaTfyfCKTG6bc5F8ucKec3q5y6qOdGyYTSBEvhCrg==}
+
+  html5parser@3.0.0:
+    resolution: {integrity: sha512-iNpSopa+4YHX50UOk825tBy7MghmXHo/ZpLskBYN0kAr1xhH8GlIMk5bLRXcZlfP3AnLUcSuFMu8C4MdOUxA8A==}
 
   htmlparser2@8.0.2:
     resolution: {integrity: sha512-GYdjWKDkbRLkZ5geuHs5NY1puJ+PXwP7+fHPRz06Eirsb9ugf6d8kkXav6ADhcODhFFPMIXyxkxSuMf3D6NCFA==}
@@ -14242,6 +14251,8 @@ snapshots:
       selderee: 0.11.0
 
   html-void-elements@3.0.0: {}
+
+  html5parser@3.0.0: {}
 
   htmlparser2@8.0.2:
     dependencies:
