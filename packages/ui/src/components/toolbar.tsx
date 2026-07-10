@@ -2,7 +2,7 @@
 
 import * as Tabs from '@radix-ui/react-tabs';
 import { LayoutGroup } from 'framer-motion';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import type { ComponentProps } from 'react';
 import * as React from 'react';
 import { nicenames } from '../actions/email-validation/caniemail-data';
@@ -72,7 +72,6 @@ const ToolbarInner = ({
 }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   const { hasSetupResendIntegration } = useToolbarContext();
 
@@ -89,7 +88,13 @@ const ToolbarInner = ({
     } else {
       params.set('toolbar-panel', newValue);
     }
-    router.push(`${pathname}?${params.toString()}${location.hash}`);
+    // Not router.push: on static builds it silently no-ops for query-only
+    // navigation when the page was loaded with a query param.
+    window.history.pushState(
+      null,
+      '',
+      `${pathname}?${params.toString()}${location.hash}`,
+    );
   };
 
   const [cachedSpamCheckingResult, setCachedSpamCheckingResult] =
