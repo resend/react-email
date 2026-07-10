@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 import {
   invalidateEmailRenderingCache,
   renderEmailByPath,
@@ -128,5 +128,76 @@ describe('invalidateEmailRenderingCache()', () => {
     await expect(
       invalidateEmailRenderingCache('/etc/passwd'),
     ).resolves.toBeUndefined();
+  });
+});
+
+describe('renderEmailByPath() with preview props overrides', () => {
+  const emailsRoot = path.resolve(__dirname, '../utils/testing');
+  const emailPath = path.join(emailsRoot, 'vercel-invite-user.tsx');
+  const previewServerRoot = path.resolve(__dirname, '../..');
+
+  const managedEnv = {
+    REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH: emailsRoot,
+    REACT_EMAIL_INTERNAL_PREVIEW_SERVER_LOCATION: previewServerRoot,
+    REACT_EMAIL_INTERNAL_USER_PROJECT_LOCATION: previewServerRoot,
+  };
+  const previousEnvValues: Record<string, string | undefined> = {};
+
+  // src/app/env.ts reads these at module evaluation, so the module graph is
+  // re-imported after the environment is prepared.
+  let render: typeof renderEmailByPath;
+
+  beforeAll(async () => {
+    for (const [name, value] of Object.entries(managedEnv)) {
+      previousEnvValues[name] = process.env[name];
+      process.env[name] = value;
+    }
+    vi.resetModules();
+    ({ renderEmailByPath: render } = await import('./render-email-by-path'));
+  });
+
+  afterAll(() => {
+    for (const name of Object.keys(managedEnv)) {
+      if (previousEnvValues[name] === undefined) {
+        delete process.env[name];
+      } else {
+        process.env[name] = previousEnvValues[name];
+      }
+    }
+  });
+
+  it('exposes the resolved PreviewProps of the render', {
+    timeout: 15_000,
+  }, async () => {
+    const result = await render(emailPath, true);
+
+    expect('error' in result).toBe(false);
+    if ('error' in result) return;
+
+    expect(result.previewProps.username).toBe('alanturing');
+    expect(result.markup).toContain('alanturing');
+  });
+
+  it('renders with overridden props without corrupting the default cache', {
+    timeout: 15_000,
+  }, async () => {
+    const overridden = await render(emailPath, false, {
+      username: 'adalovelace',
+    });
+
+    expect('error' in overridden).toBe(false);
+    if ('error' in overridden) return;
+
+    expect(overridden.previewProps.username).toBe('adalovelace');
+    expect(overridden.markup).toContain('adalovelace');
+    expect(overridden.markup).not.toContain('alanturing');
+
+    const defaults = await render(emailPath, false);
+
+    expect('error' in defaults).toBe(false);
+    if ('error' in defaults) return;
+
+    expect(defaults.previewProps.username).toBe('alanturing');
+    expect(defaults.markup).toContain('alanturing');
   });
 });

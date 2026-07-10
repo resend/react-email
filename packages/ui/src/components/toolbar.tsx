@@ -20,6 +20,7 @@ import { IconReload } from './icons/icon-reload';
 import { Compatibility, useCompatibility } from './toolbar/compatibility';
 import { CopyForAI } from './toolbar/copy-for-ai';
 import { Linter, type LintingRow, useLinter } from './toolbar/linter';
+import { PreviewPropsEditor } from './toolbar/preview-props-editor';
 import { ResendIntegration } from './toolbar/resend';
 import {
   SpamAssassin,
@@ -32,6 +33,7 @@ export type ToolbarTabValue =
   | 'linter'
   | 'compatibility'
   | 'spam-assassin'
+  | 'props'
   | 'resend';
 
 export const useToolbarState = () => {
@@ -179,6 +181,13 @@ const ToolbarInner = ({
                   Spam
                 </ToolbarButton>
               </Tabs.Trigger>
+              {isRawHtmlEmail || isBuilding ? null : (
+                <Tabs.Trigger asChild value="props">
+                  <ToolbarButton active={activeTab === 'props'}>
+                    Props
+                  </ToolbarButton>
+                </Tabs.Trigger>
+              )}
               <Tabs.Trigger asChild value="resend">
                 <ToolbarButton active={activeTab === 'resend'}>
                   Resend
@@ -203,6 +212,8 @@ const ToolbarInner = ({
                     'The Spam tab will look at the content and use a robust scoring framework to determine if the email is likely to be spam. Powered by SpamAssassin.') ||
                   (activeTab === 'compatibility' &&
                     'The Compatibility tab shows how well the HTML/CSS is supported across mail clients like Outlook, Gmail, etc. Powered by Can I Email.') ||
+                  (activeTab === 'props' &&
+                    'The Props tab lets you edit the props the preview renders with, to try out different content without changing the template.') ||
                   (activeTab === 'resend' &&
                     'The Resend tab allows you to upload your React Email code using the Resend Templates API.') ||
                   'Info'
@@ -210,7 +221,9 @@ const ToolbarInner = ({
               >
                 <IconInfo size={24} />
               </ToolbarButton>
-              {isBuilding || activeTab === 'resend' ? null : (
+              {isBuilding ||
+              activeTab === 'resend' ||
+              activeTab === 'props' ? null : (
                 <ToolbarButton
                   tooltip="Reload"
                   disabled={lintLoading || spamLoading || compatibilityLoading}
@@ -312,6 +325,11 @@ const ToolbarInner = ({
                 <SpamAssassin result={spamCheckingResult} />
               )}
             </Tabs.Content>
+            {isRawHtmlEmail || isBuilding ? null : (
+              <Tabs.Content className="h-full" value="props">
+                <PreviewPropsEditor />
+              </Tabs.Content>
+            )}
             <Tabs.Content value="resend">
               {hasSetupResendIntegration ? (
                 <ResendIntegration
