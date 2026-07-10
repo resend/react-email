@@ -1,6 +1,6 @@
 {
   "name": "@react-email/editor",
-  "version": "1.1.0",
+  "version": "1.6.6",
   "description": "A rich text editor for editing and building email templates",
   "sideEffects": [
     "**/*.css"
@@ -70,9 +70,6 @@
       }
     },
     "./styles/bubble-menu.css": "./dist/ui/bubble-menu/bubble-menu.css",
-    "./styles/link-bubble-menu.css": "./dist/ui/link-bubble-menu/link-bubble-menu.css",
-    "./styles/button-bubble-menu.css": "./dist/ui/button-bubble-menu/button-bubble-menu.css",
-    "./styles/image-bubble-menu.css": "./dist/ui/image-bubble-menu/image-bubble-menu.css",
     "./styles/slash-command.css": "./dist/ui/slash-command/slash-command.css",
     "./styles/inspector.css": "./dist/ui/inspector/inspector.css",
     "./themes/default.css": "./dist/ui/themes/default.css"

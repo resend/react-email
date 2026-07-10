@@ -5,10 +5,12 @@ import { LayoutGroup } from 'framer-motion';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import type { ComponentProps } from 'react';
 import * as React from 'react';
+import { nicenames } from '../actions/email-validation/caniemail-data';
 import type { CompatibilityCheckingResult } from '../actions/email-validation/check-compatibility';
 import { isBuilding } from '../app/env';
 import { usePreviewContext } from '../contexts/preview';
 import { useToolbarContext } from '../contexts/toolbar';
+import { useCachedWorkspaceState } from '../hooks/use-cached-workspace-state';
 import { cn } from '../utils';
 import CodeSnippet from './code-snippet';
 import { IconArrowDown } from './icons/icon-arrow-down';
@@ -18,6 +20,7 @@ import { IconReload } from './icons/icon-reload';
 import { Compatibility, useCompatibility } from './toolbar/compatibility';
 import { CopyForAI } from './toolbar/copy-for-ai';
 import { Linter, type LintingRow, useLinter } from './toolbar/linter';
+import { PreviewPropsEditor } from './toolbar/preview-props-editor';
 import { ResendIntegration } from './toolbar/resend';
 import {
   SpamAssassin,
@@ -25,12 +28,12 @@ import {
   useSpamAssassin,
 } from './toolbar/spam-assassin';
 import { ToolbarButton } from './toolbar/toolbar-button';
-import { useCachedState } from './toolbar/use-cached-state';
 
 export type ToolbarTabValue =
   | 'linter'
   | 'compatibility'
   | 'spam-assassin'
+  | 'props'
   | 'resend';
 
 export const useToolbarState = () => {
@@ -51,24 +54,31 @@ const ToolbarInner = ({
   serverLintingRows,
   serverSpamCheckingResult,
   serverCompatibilityResults,
+  serverCompatibilityClients,
 
   prettyMarkup,
   reactMarkup,
   plainText,
   emailPath,
   emailSlug,
+  isRawHtmlEmail,
 }: ToolbarProps & {
   prettyMarkup: string;
   reactMarkup: string;
   plainText: string;
   emailSlug: string;
   emailPath: string;
+  isRawHtmlEmail: boolean;
 }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
 
   const { hasSetupResendIntegration } = useToolbarContext();
+
+  const compatibilityClientsLabel = serverCompatibilityClients
+    .map((client) => nicenames.family[client] ?? client)
+    .join(', ');
 
   const { activeTab, toggled } = useToolbarState();
 
@@ -83,9 +93,7 @@ const ToolbarInner = ({
   };
 
   const [cachedSpamCheckingResult, setCachedSpamCheckingResult] =
-    useCachedState<SpamCheckingResult>(
-      `spam-assassin-${emailSlug.replaceAll('/', '-')}`,
-    );
+    useCachedWorkspaceState<SpamCheckingResult>(`spam-assassin:${emailSlug}`);
   const [spamCheckingResult, { load: loadSpamChecking, loading: spamLoading }] =
     useSpamAssassin({
       markup: prettyMarkup,
@@ -94,17 +102,17 @@ const ToolbarInner = ({
       initialResult: serverSpamCheckingResult ?? cachedSpamCheckingResult,
     });
 
-  const [cachedLintingRows, setCachedLintingRows] = useCachedState<
+  const [cachedLintingRows, setCachedLintingRows] = useCachedWorkspaceState<
     LintingRow[]
-  >(`linter-${emailSlug.replaceAll('/', '-')}`);
+  >(`linter:${emailSlug}`);
   const [lintingRows, { load: loadLinting, loading: lintLoading }] = useLinter({
     markup: prettyMarkup,
 
     initialRows: serverLintingRows ?? cachedLintingRows,
   });
   const [cachedCompatibilityResults, setCachedCompatibilityResults] =
-    useCachedState<CompatibilityCheckingResult[]>(
-      `compatibility-${emailSlug.replaceAll('/', '-')}`,
+    useCachedWorkspaceState<CompatibilityCheckingResult[]>(
+      `compatibility:${emailSlug}`,
     );
   const [
     compatibilityCheckingResults,
@@ -125,8 +133,12 @@ const ToolbarInner = ({
         const spamCheckingResult = await loadSpamChecking();
         setCachedSpamCheckingResult(spamCheckingResult);
 
-        const compatibilityCheckingResults = await loadCompatibility();
-        setCachedCompatibilityResults(compatibilityCheckingResults);
+        // Compatibility checks rely on parsing JSX/TS, so they don't apply to
+        // raw .html templates and would only produce noise.
+        if (!isRawHtmlEmail) {
+          const compatibilityCheckingResults = await loadCompatibility();
+          setCachedCompatibilityResults(compatibilityCheckingResults);
+        }
       })();
     }, []);
   }
@@ -157,16 +169,25 @@ const ToolbarInner = ({
                   Linter
                 </ToolbarButton>
               </Tabs.Trigger>
-              <Tabs.Trigger asChild value="compatibility">
-                <ToolbarButton active={activeTab === 'compatibility'}>
-                  Compatibility
-                </ToolbarButton>
-              </Tabs.Trigger>
+              {isRawHtmlEmail ? null : (
+                <Tabs.Trigger asChild value="compatibility">
+                  <ToolbarButton active={activeTab === 'compatibility'}>
+                    Compatibility
+                  </ToolbarButton>
+                </Tabs.Trigger>
+              )}
               <Tabs.Trigger asChild value="spam-assassin">
                 <ToolbarButton active={activeTab === 'spam-assassin'}>
                   Spam
                 </ToolbarButton>
               </Tabs.Trigger>
+              {isRawHtmlEmail || isBuilding ? null : (
+                <Tabs.Trigger asChild value="props">
+                  <ToolbarButton active={activeTab === 'props'}>
+                    Props
+                  </ToolbarButton>
+                </Tabs.Trigger>
+              )}
               <Tabs.Trigger asChild value="resend">
                 <ToolbarButton active={activeTab === 'resend'}>
                   Resend
@@ -179,6 +200,7 @@ const ToolbarInner = ({
                 compatibilityResults={compatibilityCheckingResults}
                 spamResult={spamCheckingResult}
                 reactMarkup={reactMarkup}
+                isRawHtmlEmail={isRawHtmlEmail}
                 activeTab={activeTab}
               />
               <ToolbarButton
@@ -190,6 +212,8 @@ const ToolbarInner = ({
                     'The Spam tab will look at the content and use a robust scoring framework to determine if the email is likely to be spam. Powered by SpamAssassin.') ||
                   (activeTab === 'compatibility' &&
                     'The Compatibility tab shows how well the HTML/CSS is supported across mail clients like Outlook, Gmail, etc. Powered by Can I Email.') ||
+                  (activeTab === 'props' &&
+                    'The Props tab lets you edit the props the preview renders with, to try out different content without changing the template.') ||
                   (activeTab === 'resend' &&
                     'The Resend tab allows you to upload your React Email code using the Resend Templates API.') ||
                   'Info'
@@ -197,7 +221,9 @@ const ToolbarInner = ({
               >
                 <IconInfo size={24} />
               </ToolbarButton>
-              {isBuilding || activeTab === 'resend' ? null : (
+              {isBuilding ||
+              activeTab === 'resend' ||
+              activeTab === 'props' ? null : (
                 <ToolbarButton
                   tooltip="Reload"
                   disabled={lintLoading || spamLoading || compatibilityLoading}
@@ -209,7 +235,10 @@ const ToolbarInner = ({
                       await loadSpamChecking();
                     } else if (activeTab === 'linter') {
                       await loadLinting();
-                    } else if (activeTab === 'compatibility') {
+                    } else if (
+                      activeTab === 'compatibility' &&
+                      !isRawHtmlEmail
+                    ) {
                       await loadCompatibility();
                     }
                   }}
@@ -258,14 +287,23 @@ const ToolbarInner = ({
               )}
             </Tabs.Content>
             <Tabs.Content value="compatibility">
-              {compatibilityLoading ? (
+              {isRawHtmlEmail ? (
+                <SuccessWrapper>
+                  <SuccessTitle>Compatibility unavailable</SuccessTitle>
+                  <SuccessDescription>
+                    Compatibility checks rely on the React Email source and are
+                    skipped for raw HTML templates.
+                  </SuccessDescription>
+                </SuccessWrapper>
+              ) : compatibilityLoading ? (
                 <LoadingState message="Checking email compatibility..." />
               ) : compatibilityCheckingResults?.length === 0 ? (
                 <SuccessWrapper>
                   <SuccessIcon />
                   <SuccessTitle>Great compatibility</SuccessTitle>
                   <SuccessDescription>
-                    Template should render properly everywhere.
+                    Template should render properly in{' '}
+                    {compatibilityClientsLabel}.
                   </SuccessDescription>
                 </SuccessWrapper>
               ) : (
@@ -287,6 +325,11 @@ const ToolbarInner = ({
                 <SpamAssassin result={spamCheckingResult} />
               )}
             </Tabs.Content>
+            {isRawHtmlEmail || isBuilding ? null : (
+              <Tabs.Content className="h-full" value="props">
+                <PreviewPropsEditor />
+              </Tabs.Content>
+            )}
             <Tabs.Content value="resend">
               {hasSetupResendIntegration ? (
                 <ResendIntegration
@@ -388,17 +431,20 @@ interface ToolbarProps {
   serverSpamCheckingResult: SpamCheckingResult | undefined;
   serverLintingRows: LintingRow[] | undefined;
   serverCompatibilityResults: CompatibilityCheckingResult[] | undefined;
+  serverCompatibilityClients: readonly string[];
 }
 
 export function Toolbar({
   serverLintingRows,
   serverSpamCheckingResult,
   serverCompatibilityResults,
+  serverCompatibilityClients,
 }: ToolbarProps) {
   const { emailPath, emailSlug, renderedEmailMetadata } = usePreviewContext();
 
   if (renderedEmailMetadata === undefined) return null;
-  const { prettyMarkup, plainText, reactMarkup } = renderedEmailMetadata;
+  const { prettyMarkup, plainText, reactMarkup, extname } =
+    renderedEmailMetadata;
 
   return (
     <ToolbarInner
@@ -407,9 +453,11 @@ export function Toolbar({
       prettyMarkup={prettyMarkup}
       reactMarkup={reactMarkup}
       plainText={plainText}
+      isRawHtmlEmail={extname === 'html'}
       serverLintingRows={serverLintingRows}
       serverSpamCheckingResult={serverSpamCheckingResult}
       serverCompatibilityResults={serverCompatibilityResults}
+      serverCompatibilityClients={serverCompatibilityClients}
     />
   );
 }

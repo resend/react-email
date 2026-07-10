@@ -57,10 +57,13 @@ export const FileTreeDirectoryChildren = (props: {
                       : `${props.emailsDirectoryMetadata.relativePath}/${emailFilename}`;
 
                     const removeExtensionFrom = (path: string) => {
+                      const ext = path.split('.').pop();
                       if (
-                        path.split('.').pop() === 'tsx' ||
-                        path.split('.').pop() === 'jsx' ||
-                        path.split('.').pop() === 'js'
+                        ext === 'tsx' ||
+                        ext === 'jsx' ||
+                        ext === 'ts' ||
+                        ext === 'js' ||
+                        ext === 'html'
                       ) {
                         return path.split('.').slice(0, -1).join('.');
                       }
@@ -72,15 +75,31 @@ export const FileTreeDirectoryChildren = (props: {
                         emailSlug
                       : false;
 
+                    // Raw .html templates don't expose a Compatibility tab, so
+                    // dropping the param prevents the toolbar from opening on
+                    // a hidden tab when navigating from a .tsx email.
+                    const isHtmlTarget = emailFilename.endsWith('.html');
+                    const targetSearchParams = new URLSearchParams(
+                      searchParams,
+                    );
+                    if (
+                      isHtmlTarget &&
+                      targetSearchParams.get('toolbar-panel') ===
+                        'compatibility'
+                    ) {
+                      targetSearchParams.set('toolbar-panel', 'linter');
+                    }
+                    const targetSearch = targetSearchParams.toString();
+
                     return (
                       <Link
                         href={{
                           pathname: `/preview/${emailSlug}`,
-                          search: searchParams.toString(),
+                          search: targetSearch,
                         }}
                         onMouseOver={() => {
                           router.prefetch(
-                            `/preview/${emailSlug}?${searchParams.toString()}`,
+                            `/preview/${emailSlug}${targetSearch ? `?${targetSearch}` : ''}`,
                           );
                         }}
                         key={emailSlug}

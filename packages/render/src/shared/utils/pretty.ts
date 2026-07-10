@@ -24,7 +24,7 @@ function getHtmlNode(path: {
     return topNode;
   }
 
-  return path.stack?.[path.stack.length - 1] as HtmlNode;
+  return path.stack?.[path.stack.length - 1] as unknown as HtmlNode;
 }
 
 function recursivelyMapDoc(
@@ -80,7 +80,7 @@ function recursivelyMapDoc(
       }
     }
 
-    return nextDoc as builders.Doc;
+    return nextDoc as unknown as builders.Doc;
   }
 
   return callback(doc);
@@ -91,7 +91,7 @@ if (modifiedHtml.printers) {
   const previousPrint = modifiedHtml.printers.html.print;
   modifiedHtml.printers.html.print = (path, options, print, args) => {
     const node = getHtmlNode(
-      path as Parameters<Plugin['printers']['html']['print']>[0],
+      path as Parameters<NonNullable<Plugin['printers']>['html']['print']>[0],
     );
 
     const rawPrintingResult = previousPrint(path, options, print, args);

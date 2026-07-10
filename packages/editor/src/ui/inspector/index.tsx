@@ -7,6 +7,7 @@ import { InspectorRoot } from './root';
 import { AttributesSection } from './sections/attributes';
 import { BackgroundSection } from './sections/background';
 import { BorderSection } from './sections/border';
+import { ColumnSpacingSection } from './sections/column-spacing';
 import { LinkSection } from './sections/link';
 import { PaddingSection } from './sections/padding';
 import { SizeSection } from './sections/size';
@@ -22,6 +23,7 @@ export const Inspector = {
   Attributes: AttributesSection,
   Background: BackgroundSection,
   Border: BorderSection,
+  ColumnSpacing: ColumnSpacingSection,
   Link: LinkSection,
   Padding: PaddingSection,
   Size: SizeSection,

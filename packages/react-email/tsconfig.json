@@ -35,5 +35,10 @@
     "outDir": "dist"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["dist", "node_modules"]
+  "exclude": [
+    "dist",
+    "node_modules",
+    "src/cli/utils/preview/hot-reloading/test",
+    "src/components/tailwind/e2e"
+  ]
 }

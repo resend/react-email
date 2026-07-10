@@ -16,7 +16,7 @@ It reduces the pain of coding responsive emails with dark mode support. It also 
 
 ## Why
 
-We believe that email is an extremely important medium for people to communicate. However, we need to stop developing emails like 2010, and rethink how email can be done in 2025 and beyond. Email development needs a revamp. A renovation. Modernized for the way we build web apps today.
+We believe that email is an extremely important medium for people to communicate. However, we need to stop developing emails like 2010, and rethink how email can be done in 2026 and beyond. Email development needs a revamp. A renovation. Modernized for the way we build web apps today.
 
 ## Install
 
@@ -66,7 +66,7 @@ A set of standard components to help you build amazing emails without having to 
 
 ## Editor
 
-React Email also provides an Editor built on top of built on [TipTap](https://tiptap.dev/) and [ProseMirror](https://prosemirror.net/), It serializes to React Email components, and exports email-ready HTML and plain text.
+React Email also provides an Editor built on top of [TipTap](https://tiptap.dev/) and [ProseMirror](https://prosemirror.net/), It serializes to React Email components, and exports email-ready HTML and plain text.
 
 See the [Editor documentation](https://react.email/docs/editor) for more details.
 
@@ -77,8 +77,11 @@ Emails built with React Email can be converted into HTML and sent using any emai
 - [Resend](https://github.com/resend/react-email/tree/main/examples/resend)
 - [Nodemailer](https://github.com/resend/react-email/tree/main/examples/nodemailer)
 - [SendGrid](https://github.com/resend/react-email/tree/main/examples/sendgrid)
+- [MailerSend](https://github.com/resend/react-email/tree/main/examples/mailersend)
+- [Mailgun](https://github.com/resend/react-email/tree/main/examples/mailgun)
 - [Postmark](https://github.com/resend/react-email/tree/main/examples/postmark)
 - [AWS SES](https://github.com/resend/react-email/tree/main/examples/aws-ses)
+- [Azure Communication Email](https://github.com/resend/react-email/tree/main/examples/azure-communication-email)
 - [Plunk](https://github.com/resend/react-email/tree/main/examples/plunk)
 - [Scaleway](https://github.com/resend/react-email/tree/main/examples/scaleway)
 

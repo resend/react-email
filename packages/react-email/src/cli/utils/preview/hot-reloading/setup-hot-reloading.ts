@@ -66,6 +66,23 @@ export const setupHotreloading = async (
     watcher.add(p);
   }
 
+  // Directories targeted by dynamic `import(\`./prefix/${expr}\`)` calls.
+  // These files are resolved at runtime so they never appear in the static
+  // dependency graph; we still want their changes to refresh the preview.
+  const getDynamicDependencyDirectories = () => {
+    const directories = new Set<string>();
+    for (const module of Object.values(dependencyGraph)) {
+      for (const directory of module.dynamicDependencyDirectories) {
+        directories.add(directory);
+      }
+    }
+    return [...directories];
+  };
+  let dynamicDependencyDirectories = getDynamicDependencyDirectories();
+  for (const directory of dynamicDependencyDirectories) {
+    watcher.add(directory);
+  }
+
   const exit = async () => {
     await watcher.close();
   };
@@ -101,6 +118,19 @@ export const setupHotreloading = async (
     }
     filesOutsideEmailsDirectory = newFilesOutsideEmailsDirectory;
 
+    const newDynamicDependencyDirectories = getDynamicDependencyDirectories();
+    for (const directory of dynamicDependencyDirectories) {
+      if (!newDynamicDependencyDirectories.includes(directory)) {
+        watcher.unwatch(directory);
+      }
+    }
+    for (const directory of newDynamicDependencyDirectories) {
+      if (!dynamicDependencyDirectories.includes(directory)) {
+        watcher.add(directory);
+      }
+    }
+    dynamicDependencyDirectories = newDynamicDependencyDirectories;
+
     changes.push({
       event,
       filename: relativePathToChangeTarget,
@@ -114,6 +144,7 @@ export const setupHotreloading = async (
         filename: path.relative(absolutePathToEmailsDirectory, dependentPath),
       });
     }
+
     reload();
   });
 

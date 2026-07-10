@@ -1,7 +1,8 @@
 import { PluginKey } from '@tiptap/pm/state';
-import { useCurrentEditor } from '@tiptap/react';
+import { useCurrentEditor, useEditorState } from '@tiptap/react';
 import { BubbleMenu } from '@tiptap/react/menus';
 import * as React from 'react';
+import { EditorFocusScope } from '../editor-focus-scope';
 import { BubbleMenuAlignCenter } from './align-center';
 import { BubbleMenuAlignLeft } from './align-left';
 import { BubbleMenuAlignRight } from './align-right';
@@ -54,26 +55,28 @@ function Root({
   }
 
   return (
-    <BubbleMenu
-      editor={editor}
-      pluginKey={pluginKey}
-      data-re-bubble-menu=""
-      shouldShow={resolvedTrigger}
-      options={{
-        placement,
-        offset,
-        onHide: () => {
-          setIsEditing(false);
-          onHide?.();
-        },
-      }}
-      className={className}
-      {...rest}
-    >
-      <BubbleMenuContext.Provider value={{ editor, isEditing, setIsEditing }}>
-        {children}
-      </BubbleMenuContext.Provider>
-    </BubbleMenu>
+    <EditorFocusScope>
+      <BubbleMenu
+        editor={editor}
+        pluginKey={pluginKey}
+        data-re-bubble-menu=""
+        shouldShow={resolvedTrigger}
+        options={{
+          placement,
+          offset,
+          onHide: () => {
+            setIsEditing(false);
+            onHide?.();
+          },
+        }}
+        className={className}
+        {...rest}
+      >
+        <BubbleMenuContext.Provider value={{ editor, isEditing, setIsEditing }}>
+          {children}
+        </BubbleMenuContext.Provider>
+      </BubbleMenu>
+    </EditorFocusScope>
   );
 }
 
@@ -99,6 +102,12 @@ function Default({
 }: BubbleMenuDefaultProps) {
   const [isNodeSelectorOpen, setIsNodeSelectorOpen] = React.useState(false);
   const [isLinkSelectorOpen, setIsLinkSelectorOpen] = React.useState(false);
+  const { editor } = useCurrentEditor();
+
+  const isCodeActive = useEditorState({
+    editor,
+    selector: ({ editor: e }) => e?.isActive('code') ?? false,
+  });
 
   const handleNodeSelectorOpenChange = React.useCallback((open: boolean) => {
     setIsNodeSelectorOpen(open);
@@ -131,27 +140,39 @@ function Default({
       className={className}
       {...rest}
     >
-      <BubbleMenuNodeSelector
-        open={isNodeSelectorOpen}
-        onOpenChange={handleNodeSelectorOpenChange}
-      />
-      <BubbleMenuLinkSelector
-        open={isLinkSelectorOpen}
-        onOpenChange={handleLinkSelectorOpenChange}
-      />
-      <BubbleMenuItemGroup>
-        <BubbleMenuBold />
-        <BubbleMenuItalic />
-        <BubbleMenuUnderline />
-        <BubbleMenuStrike />
-        <BubbleMenuCode />
-        <BubbleMenuUppercase />
-      </BubbleMenuItemGroup>
-      <BubbleMenuItemGroup>
-        <BubbleMenuAlignLeft />
-        <BubbleMenuAlignCenter />
-        <BubbleMenuAlignRight />
-      </BubbleMenuItemGroup>
+      {isCodeActive ? (
+        <>
+          <BubbleMenuNodeSelector
+            open={isNodeSelectorOpen}
+            onOpenChange={handleNodeSelectorOpenChange}
+          />
+          <BubbleMenuCode />
+        </>
+      ) : (
+        <>
+          <BubbleMenuNodeSelector
+            open={isNodeSelectorOpen}
+            onOpenChange={handleNodeSelectorOpenChange}
+          />
+          <BubbleMenuLinkSelector
+            open={isLinkSelectorOpen}
+            onOpenChange={handleLinkSelectorOpenChange}
+          />
+          <BubbleMenuItemGroup>
+            <BubbleMenuBold />
+            <BubbleMenuItalic />
+            <BubbleMenuUnderline />
+            <BubbleMenuStrike />
+            <BubbleMenuCode />
+            <BubbleMenuUppercase />
+          </BubbleMenuItemGroup>
+          <BubbleMenuItemGroup>
+            <BubbleMenuAlignLeft />
+            <BubbleMenuAlignCenter />
+            <BubbleMenuAlignRight />
+          </BubbleMenuItemGroup>
+        </>
+      )}
     </Root>
   );
 }

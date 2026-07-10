@@ -3,6 +3,7 @@ import * as React from 'react';
 import type { Config } from 'tailwindcss';
 import { useSuspensedPromise } from './hooks/use-suspended-promise.js';
 import { sanitizeStyleSheet } from './sanitize-stylesheet.js';
+import { downlevelForEmailClients } from './utils/css/downlevel-for-email-clients.js';
 import { extractRulesPerClass } from './utils/css/extract-rules-per-class.js';
 import { getCustomProperties } from './utils/css/get-custom-properties.js';
 import { sanitizeNonInlinableRules } from './utils/css/sanitize-non-inlinable-rules.js';
@@ -11,11 +12,6 @@ import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element
 import { setupTailwind } from './utils/tailwindcss/setup-tailwind.js';
 
 export type TailwindConfig = Omit<Config, 'content'>;
-
-export interface TailwindProps {
-  children: React.ReactNode;
-  config?: TailwindConfig;
-}
 
 export interface EmailElementProps {
   children?: React.ReactNode;
@@ -82,15 +78,29 @@ export const pixelBasedPreset: TailwindConfig = {
   },
 };
 
-export function Tailwind({ children, config }: TailwindProps) {
+export interface TailwindProps {
+  children: React.ReactNode;
+  config?: TailwindConfig;
+  theme?: string;
+  utility?: string;
+}
+
+export function Tailwind({ children, config, theme, utility }: TailwindProps) {
+  const twConfigData = {
+    config,
+    cssConfigs: {
+      theme,
+      utility,
+    },
+  };
   const tailwindSetup = useSuspensedPromise(
-    () => setupTailwind(config ?? {}),
-    JSON.stringify(config, (_key, value) =>
+    () => setupTailwind(twConfigData),
+    JSON.stringify(twConfigData, (_key, value) =>
       typeof value === 'function' ? value.toString() : value,
     ),
   );
-  let classesUsed: string[] = [];
 
+  let classesUsed: string[] = [];
   let mappedChildren: React.ReactNode = mapReactTree(children, (node) => {
     if (React.isValidElement<EmailElementProps>(node)) {
       if (node.props.className) {
@@ -114,10 +124,11 @@ export function Tailwind({ children, config }: TailwindProps) {
   const nonInlineStyles: StyleSheet = {
     type: 'StyleSheet',
     children: new List<CssNode>().fromArray(
-      Array.from(nonInlinableRules.values()),
+      Array.from(nonInlinableRules.values()).flat(),
     ),
   };
   sanitizeNonInlinableRules(nonInlineStyles);
+  downlevelForEmailClients(nonInlineStyles);
 
   const hasNonInlineStylesToApply = nonInlinableRules.size > 0;
   let appliedNonInlineStyles = false as boolean;
@@ -156,17 +167,10 @@ export function Tailwind({ children, config }: TailwindProps) {
 
   if (hasNonInlineStylesToApply && !appliedNonInlineStyles) {
     throw new Error(
-      `You are trying to use the following Tailwind classes that cannot be inlined: ${Array.from(
+      `Tailwind: <head> not found inside <Tailwind>.
+Move <Head /> inside <Tailwind>, or remove these classes that require a <head>: ${Array.from(
         nonInlinableRules.keys(),
-      ).join(' ')}.
-For the media queries to work properly on rendering, they need to be added into a <style> tag inside of a <head> tag,
-the Tailwind component tried finding a <head> element but just wasn't able to find it.
-
-Make sure that you have a <head> element at some point inside of the <Tailwind> component at any depth. 
-This can also be our <Head> component.
-
-If you do already have a <head> element at some depth, 
-please file a bug https://github.com/resend/react-email/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=1.bug_report.yml.`,
+      ).join(' ')}.`,
     );
   }
 

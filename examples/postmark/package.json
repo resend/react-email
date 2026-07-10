@@ -14,13 +14,13 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "postmark": "^3",
-    "react-email": "catalog:",
-    "react": "catalog:",
-    "react-dom": "catalog:"
+    "postmark": "3.11.0",
+    "react-email": "6.0.3",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
   },
   "devDependencies": {
-    "tsdown": "catalog:",
-    "typescript": "catalog:"
+    "tsdown": "0.21.9",
+    "typescript": "5.9.3"
   }
 }

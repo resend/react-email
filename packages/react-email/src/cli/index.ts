@@ -1,13 +1,37 @@
 #!/usr/bin/env node
 import { spawn } from 'node:child_process';
-import { program } from 'commander';
+import { InvalidArgumentError, Option, program } from 'commander';
 import { build } from './commands/build.js';
 import { dev } from './commands/dev.js';
 import { exportTemplates } from './commands/export.js';
 import { resendReset } from './commands/resend/reset.js';
 import { resendSetup } from './commands/resend/setup.js';
 import { start } from './commands/start.js';
+import { ALL_EMAIL_CLIENTS } from './utils/email-clients.js';
 import { packageJson } from './utils/packageJson.js';
+
+const parseClientsOption = (value: string): string => {
+  const requested = value
+    .split(',')
+    .map((entry) => entry.trim().toLowerCase())
+    .filter(Boolean);
+
+  if (requested.length === 0) {
+    throw new InvalidArgumentError(
+      '--clients requires at least one email client.',
+    );
+  }
+
+  const known = new Set<string>(ALL_EMAIL_CLIENTS);
+  const invalid = requested.filter((entry) => !known.has(entry));
+  if (invalid.length > 0) {
+    throw new InvalidArgumentError(
+      `Unknown email client(s): ${invalid.join(', ')}. Supported: ${ALL_EMAIL_CLIENTS.join(', ')}.`,
+    );
+  }
+
+  return requested.join(',');
+};
 
 const requiredFlags = [
   '--experimental-vm-modules',
@@ -50,6 +74,11 @@ if (!hasRequiredFlags) {
       './emails',
     )
     .option('-p --port <port>', 'Port to run dev server on', '3000')
+    .option(
+      '-c, --clients <clients>',
+      'Comma-separated list of email clients to show compatibility warnings for (overrides COMPATIBILITY_EMAIL_CLIENTS)',
+      parseClientsOption,
+    )
     .action(dev);
 
   program
@@ -60,10 +89,9 @@ if (!hasRequiredFlags) {
       'Directory with your email templates',
       './emails',
     )
-    .option(
-      '-p --packageManager <name>',
-      'Package name to use on installation on `.react-email`',
-      'npm',
+    .addOption(
+      // deprecated
+      new Option('-p, --packageManager <name>').hideHelp(),
     )
     .action(build);
 
@@ -84,12 +112,16 @@ if (!hasRequiredFlags) {
       './emails',
     )
     .option(
+      '-e, --extension <extension>',
+      'Set a custom file extension for rendered emails (e.g. blade.php)',
+    )
+    .option(
       '-s, --silent',
       'To, or not to show a spinner with process information',
       false,
     )
-    .action(({ outDir, pretty, plainText, silent, dir: srcDir }) =>
-      exportTemplates(outDir, srcDir, { silent, plainText, pretty }),
+    .action(({ outDir, pretty, plainText, silent, dir: srcDir, extension }) =>
+      exportTemplates(outDir, srcDir, { silent, plainText, pretty, extension }),
     );
 
   const resend = program.command('resend');

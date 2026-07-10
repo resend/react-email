@@ -1,4 +1,4 @@
-import { Editor } from '@tiptap/core';
+import { Editor, type JSONContent } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
 import { StarterKit } from '../../extensions';
 import { EmailTheming } from './extension';
@@ -31,6 +31,26 @@ const BUTTON_DOC = {
         url: 'https://resend.com',
       },
       content: [{ type: 'text', text: 'Button' }],
+    },
+  ],
+};
+
+const LIST_DOC = {
+  type: 'doc',
+  content: [
+    {
+      type: 'bulletList',
+      content: [
+        {
+          type: 'listItem',
+          content: [
+            {
+              type: 'paragraph',
+              content: [{ type: 'text', text: 'Item' }],
+            },
+          ],
+        },
+      ],
     },
   ],
 };
@@ -139,7 +159,7 @@ const LEGACY_MINIMAL_DOC = {
   ],
 };
 
-function createEditor(content = BUTTON_DOC) {
+function createEditor(content: JSONContent = BUTTON_DOC) {
   return new Editor({
     extensions: [
       StarterKit,
@@ -174,6 +194,21 @@ describe('EmailTheming', () => {
     expect(themeStyleTag?.textContent).toContain('.node-button');
     expect(themeStyleTag?.textContent).toContain('background-color:#000000;');
     expect(themeStyleTag?.textContent).toContain('padding-top:7px;');
+  });
+
+  it('injects list styles against the rendered list node classes', () => {
+    editor = createEditor(LIST_DOC);
+
+    const themeStyleTag = document.head.querySelector<HTMLStyleElement>(
+      'style[id^="tiptap-theme-"][id$="-theme"]',
+    );
+
+    expect(themeStyleTag).not.toBeNull();
+    expect(themeStyleTag?.textContent).toContain('.node-list');
+    expect(themeStyleTag?.textContent).toContain('.node-listItem');
+    expect(themeStyleTag?.textContent).toContain('.node-list .node-list');
+    expect(editor.getHTML()).toContain('class="node-list node-bulletList"');
+    expect(editor.getHTML()).toContain('class="node-listItem"');
   });
 
   it('keeps legacy saved minimal theme styles from falling back to basic', () => {

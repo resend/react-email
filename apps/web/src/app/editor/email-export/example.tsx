@@ -65,11 +65,9 @@ function ExportPanel() {
         {exporting ? 'Exporting...' : 'Export HTML'}
       </button>
       {html && (
-        <textarea
-          readOnly
-          value={html}
-          className="mt-3 w-full h-64 p-3 font-mono text-xs bg-(--re-bg) text-(--re-text) border border-(--re-border) rounded-lg resize-y"
-        />
+        <pre className="mt-3 w-full p-3 font-mono text-xs bg-(--re-bg) text-(--re-text) border border-(--re-border) rounded-lg whitespace-pre-wrap break-words select-all">
+          {html}
+        </pre>
       )}
     </div>
   );

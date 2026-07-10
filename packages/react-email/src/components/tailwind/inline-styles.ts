@@ -15,7 +15,7 @@ export function inlineStyles(
   const customProperties = getCustomProperties(styleSheet);
 
   return makeInlineStylesFor(
-    Array.from(inlinableRules.values()),
+    Array.from(inlinableRules.values()).flat(),
     customProperties,
   );
 }

@@ -1,5 +1,211 @@
 # react-email
 
+## 6.7.0
+
+### Minor Changes
+
+- b448c3b: Enable custom export extensions via --extension/-e (e.g. .blade.php).
+
+### Patch Changes
+
+- Updated dependencies [ba96cfa]
+- Updated dependencies [58d8c08]
+  - @react-email/render@2.1.0
+
+## 6.6.9
+
+### Patch Changes
+
+- bc2f7e3: Fix `group` utilities including bad rules that don't work
+
+## 6.6.8
+
+### Patch Changes
+
+- dca3c01: Fix `email build` computing the wrong output file tracing root in nested-workspace monorepos (e.g. a package one or more directories below the true repo root), which caused Vercel deploys to fail with an ENOENT error on the routes manifest.
+
+## 6.6.7
+
+### Patch Changes
+
+- 6a5ff2a: Escape double quotes in `Markdown` link `href`/`title` and image `title` attributes, matching the escaping already applied to image `src`/`alt`. A markdown title like `'The "Complete" Guide'` no longer breaks out of the attribute in the rendered HTML.
+- 4cf4c72: Fix two-value logical shorthands whose values aren't all numeric (e.g. `margin-inline: 1rem auto`, `padding-inline: 10px calc(1rem + 2px)`) producing invalid duplicated longhands. They are now split into the correct per-side declarations.
+- fa77d55: Merge declarations when the same class is defined by multiple Tailwind rules (e.g. a preset and a child config override).
+- fa52a04: Convert Tailwind's `rgba(r g b / a)` syntax to `rgb(r,g,b,a)` syntax for better email client support.
+- fc8318c: Fix Tailwind classes not being inlined into styles for `<Section>`, `<Column>` and `<Row>`.
+
+## 6.6.6
+
+### Patch Changes
+
+- b4ac0d5: Fix `Button` emitting `mso-text-raise` without a unit on its Outlook padding spacer (e.g. `mso-text-raise:18`), which Outlook treats as invalid. The value now carries `px`, matching the unit React already adds on the button label.
+- cb3c468: Fix `email build` so the generated preview app deploys on Vercel by tracing files from the user's project root instead of the `.react-email` subfolder.
+- Updated dependencies [c300cfb]
+  - @react-email/render@2.0.10
+
+## 6.6.5
+
+## 6.6.4
+
+### Patch Changes
+
+- f8279be: Fix Tailwind pill utilities like `rounded-t-full` and `rounded-e-full` leaving an unrenderable `calc(infinity * 1px)` in the inlined email CSS (previously only `rounded-full` was converted to `9999px`).
+
+## 6.6.3
+
+## 6.6.2
+
+### Patch Changes
+
+- 437c414: Fix Tailwind opacity modifiers (e.g. `bg-blue-600/50`) rendering an invalid percentage alpha that breaks in some email clients.
+
+## 6.6.1
+
+### Patch Changes
+
+- 21bac49: Fix `Markdown` corrupting double quotes in `markdownCustomStyles`. Inline style values containing a `"` (e.g. `fontFamily: '"Times New Roman", serif'`) were escaped to the apostrophe entity `&#x27;` instead of `&quot;`, silently rewriting the quoted value. Double quotes are now escaped as `&quot;`.
+- Updated dependencies [60a5b09]
+  - @react-email/render@2.0.9
+
+## 6.6.0
+
+### Minor Changes
+
+- 16ff94c: add a useTitleTag in Preview component so users can disable it if they want to
+
+## 6.5.0
+
+### Minor Changes
+
+- 3875d2a: add a `--clients` option to `email dev` and a `COMPATIBILITY_EMAIL_CLIENTS` environment variable to narrow which email clients trigger compatibility warnings. By default the preview still warns for `gmail`, `apple-mail`, `outlook`, and `yahoo`. Teams that only target one or two clients can now skip the noise: `email dev --clients outlook,apple-mail`. The CLI flag wins over the env var; an empty or fully-invalid list falls back to the defaults so warnings can't be silently switched off. Builds on #2797 by @ReemX.
+
+### Patch Changes
+
+- d47825a: Add accessibility defaults to components: `dir`/`lang` on `Body`, an empty `alt` fallback on `Img`, `role="presentation"` on the `Markdown` table, and a `<title>` from `Preview`.
+
+## 6.4.0
+
+### Minor Changes
+
+- ba99365: resolve and strip unresolved `--tw-*` CSS variables in non-inlinable rules so Tailwind media query utilities no longer break Gmail
+
+## 6.3.3
+
+## 6.3.2
+
+### Patch Changes
+
+- fbda5c8: increase whitespace padding to 200 characters for better Gmail preview text rendering
+
+## 6.3.1
+
+### Patch Changes
+
+- c610dc0: fix: padding in Container/Section failing on Klaviyo and Outlook desktop
+
+## 6.3.0
+
+## 6.2.0
+
+### Minor Changes
+
+- 192d82a: Add `theme` and `utility` props to `<Tailwind>` for Tailwind v4 CSS-first configuration. Both accept a CSS string and can be combined with the existing `config` prop.
+
+  ```tsx
+  import themeCss from "./theme.css?inline";
+
+  <Tailwind theme={themeCss}>
+    <div className="bg-brand font-display">Custom themed content</div>
+  </Tailwind>;
+  ```
+
+  Empty strings are no-ops. The base Tailwind theme and utilities are still loaded — `theme` and `utility` layer on top.
+
+  The preview server, `email export`, and the caniemail compatibility check all understand the Vite-style `?inline` and `?raw` suffixes on CSS imports, so the pattern above works the same in your project and inside the preview UI. The compatibility check also extracts the `theme` and `utility` props (in addition to `config`) when analyzing your template, so any caniemail incompatibilities in CSS produced by those props will surface as warnings.
+
+  Internal note: the exported `setupTailwind` helper now takes `{ config, cssConfigs }` instead of a positional `TailwindConfig`. Calling it with the old shape throws with a migration hint.
+
+### Patch Changes
+
+- 06f1d05: Watch directories targeted by dynamic `import()` template literals so changes to runtime-resolved files trigger preview reloads.
+
+## 6.1.5
+
+### Patch Changes
+
+- 1a61cb0: Avoid OOM when running `email export` on projects with many templates. esbuild builds now run in batches of 10 entry points, and the render phase runs each batch of 25 templates inside a `worker_threads` worker so V8 isolate memory is reclaimed between batches.
+
+## 6.1.4
+
+### Patch Changes
+
+- 1c386ce: Avoid spamming each spinner frame as a new line on non-TTY streams (CI logs, pipes, dumb terminals). The spinner now logs each status text once instead of redrawing animated frames when the output is not a TTY.
+- ad6a9de: - deprecate packageManager CLI option for `email build`, only supporting npm
+  - ensure `email build` dependency installation includes dev dependencies
+
+## 6.1.3
+
+## 6.1.2
+
+## 6.1.1
+
+### Patch Changes
+
+- 3c62bd0: fix divider with extra borders around other corners
+
+## 6.1.0
+
+### Patch Changes
+
+- 47eeece: Tailwind: clearer error when `<Head>` is outside `<Tailwind>`
+
+## 6.0.8
+
+### Patch Changes
+
+- 65525e0: Tailwind: parse non inline configuration variables
+
+## 6.0.7
+
+### Patch Changes
+
+- 87a2486: undo nesting of all media queries, and replace >= <= exxpressions with min-width/max-width on the Tailwind component
+
+## 6.0.6
+
+### Patch Changes
+
+- 84bb7ab: collapse empty-fallback var() refs in inline styles
+
+## 6.0.5
+
+## 6.0.4
+
+### Patch Changes
+
+- 96af3a7: Replace ora with picospinner for CLI and preview spinner output.
+- 5cf57ae: unpin esbuild
+- Updated dependencies [e0e896f]
+  - @react-email/render@2.0.8
+
+## 6.0.3
+
+### Patch Changes
+
+- bb51e5e: fix missing react and react-dom peer dependencies
+
+## 6.0.2
+
+### Patch Changes
+
+- 63b6e71: Fix Markdown component crashing on CommonMark loose lists with paragraph continuations
+
+## 6.0.1
+
+### Patch Changes
+
+- 599b8c5: fix type issues in starter template and in react-email
+
 ## 6.0.0
 
 ### Major Changes
@@ -19,13 +225,12 @@
   Having separate packages for components (`@react-email/components`), and the CLI (`react-email`) created unnecessary confusion, and a maintenance burden for us.
 
   ### How to migrate
-
   1. Remove `@react-email/components`:
 
      ```diff
      npm remove @react-email/components
      ```
-  
+
   2. Update `react-email`, and move it over to `dependencies`:
 
      ```diff
@@ -38,7 +243,6 @@
      - import { Button, Html, Head, render } from "@react-email/components";
      + import { Button, Html, Head, render } from "react-email";
      ```
-
 
 ### Patch Changes
 

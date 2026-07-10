@@ -94,6 +94,32 @@ export default function RootLayout({
     >
       <head>
         <script src="/js/web-streams-polyfill.js" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              {
+                '@context': 'https://schema.org',
+                '@type': 'Organization',
+                name: 'React Email',
+                url: 'https://react.email',
+                logo: 'https://react.email/static/covers/react-email.png',
+                sameAs: [
+                  'https://github.com/resend/react-email',
+                  'https://www.npmjs.com/package/react-email',
+                ],
+              },
+              {
+                '@context': 'https://schema.org',
+                '@type': 'WebSite',
+                name: 'React Email',
+                url: 'https://react.email',
+                description:
+                  'A collection of high-quality, unstyled components for creating beautiful emails using React and TypeScript.',
+              },
+            ]),
+          }}
+        />
       </head>
       <body
         suppressHydrationWarning={true}

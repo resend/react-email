@@ -4,11 +4,14 @@ on:
     branches:
       - main
       - canary
+permissions:
+  contents: read
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   release:
     # npm trusted publishing (OIDC) is only supported on GitHub-hosted `ubuntu-latest` runners.
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     permissions: 
       id-token: write
       contents: write
@@ -24,7 +27,7 @@ jobs:
         uses: pnpm/action-setup@738f428026a1f5a72398de22aeed83d859c4a660
       - name: Install packages
         run: pnpm install --frozen-lockfile --prefer-offline
-      - name: Publish stable release
-        run: node --import tsx/esm ./scripts/release.mts
+      - name: Publish release
+        run: pnpm release
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

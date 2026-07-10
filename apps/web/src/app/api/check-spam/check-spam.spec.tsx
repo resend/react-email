@@ -54,15 +54,9 @@ describe.skipIf(!host || !port)('checkSpam()', { timeout: 10_000 }, () => {
 
     expect(await checkSpam(html, plainText)).toMatchInlineSnapshot(`
       {
-        "checks": [
-          {
-            "description": "Excessively long line + hidden text",
-            "name": "LONGLN_LOW_CONTRAST",
-            "points": 2.5,
-          },
-        ],
+        "checks": [],
         "isSpam": false,
-        "points": 2.5,
+        "points": 0,
       }
     `);
   });

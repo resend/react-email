@@ -153,13 +153,21 @@ Use consistent spacing that respects content hierarchy. Larger margins for headi
 - Never distort user-provided images
 - Never create SVG images
 - Always use absolute URLs
-- Include `alt` text for accessibility
+- Set descriptive `alt` text on meaningful images; pass an explicit `alt=""` on decorative images so screen readers skip them — never omit the attribute
 
 ```tsx
+{/* Meaningful image — describe purpose and details */}
 <Img
-  src="https://example.com/image.png"
-  alt="Description"
+  src="https://example.com/hero.png"
+  alt="A team of engineers reviewing code on a laptop"
   className="w-full h-auto"
+/>
+
+{/* Decorative image — always pass an empty alt string so screen readers skip it */}
+<Img
+  src="https://example.com/divider.png"
+  alt=""
+  className="w-full"
 />
 ```
 
