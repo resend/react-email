@@ -694,8 +694,8 @@ importers:
         specifier: ^13.0.6
         version: 13.0.6
       jiti:
-        specifier: 2.4.2
-        version: 2.4.2
+        specifier: 2.6.1
+        version: 2.6.1
       log-symbols:
         specifier: 'catalog:'
         version: 7.0.1
@@ -6225,10 +6225,6 @@ packages:
 
   jiti@1.21.7:
     resolution: {integrity: sha512-/imKNG4EbWNrVjoNC/1H5/9GFy+tqjGBHCaSsN+P2RnPqjsLmv6UD3Ej+Kj8nBWaRAwyk7kK5ZUc+OEatnTR3A==}
-    hasBin: true
-
-  jiti@2.4.2:
-    resolution: {integrity: sha512-rg9zJN+G4n2nfJl5MW3BMygZX56zKPNVEYYqq7adpmMh4Jn2QNEwhvQlFy6jPVdcod7txZtKHWnyZiA3a0zP7A==}
     hasBin: true
 
   jiti@2.6.1:
@@ -14970,8 +14966,6 @@ snapshots:
       supports-color: 8.1.1
 
   jiti@1.21.7: {}
-
-  jiti@2.4.2: {}
 
   jiti@2.6.1: {}
 
