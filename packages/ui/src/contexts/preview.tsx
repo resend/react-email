@@ -51,6 +51,12 @@ export const PreviewProvider = ({
     Record<string, unknown> | undefined
   >(undefined);
 
+  const [overrideEmailPath, setOverrideEmailPath] = useState(emailPath);
+  if (emailPath !== overrideEmailPath) {
+    setOverrideEmailPath(emailPath);
+    setPreviewPropsOverride(undefined);
+  }
+
   const renderingResult = useEmailRenderingResult(
     emailPath,
     serverRenderingResult,

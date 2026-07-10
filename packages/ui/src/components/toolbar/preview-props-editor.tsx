@@ -71,6 +71,7 @@ export const PreviewPropsEditor = () => {
           )}
           disabled={!hasOverride}
           onClick={() => {
+            applyValue.cancel();
             setPreviewPropsOverride(undefined);
           }}
           type="button"
