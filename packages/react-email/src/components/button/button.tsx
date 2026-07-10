@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { markAsElement } from '../element-marker.js';
 import { parsePadding } from './utils/parse-padding.js';
 import { pxToPt } from './utils/px-to-pt.js';
 
@@ -110,3 +111,4 @@ export const Button = React.forwardRef<HTMLAnchorElement, ButtonProps>(
 );
 
 Button.displayName = 'Button';
+markAsElement(Button);

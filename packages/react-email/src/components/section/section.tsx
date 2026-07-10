@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { markAsElement } from '../element-marker.js';
 
 export type SectionProps = Readonly<React.ComponentPropsWithoutRef<'table'>>;
 
@@ -55,3 +56,4 @@ export const Section = React.forwardRef<HTMLTableElement, SectionProps>(
 );
 
 Section.displayName = 'Section';
+markAsElement(Section);

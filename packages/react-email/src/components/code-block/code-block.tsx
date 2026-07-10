@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { markAsElement } from '../element-marker.js';
 import type { PrismLanguage } from './languages-available.js';
 import { Prism } from './prism.js';
 import type { Theme } from './themes.js';
@@ -132,3 +133,4 @@ export const CodeBlock = React.forwardRef<HTMLPreElement, CodeBlockProps>(
 );
 
 CodeBlock.displayName = 'CodeBlock';
+markAsElement(CodeBlock);
