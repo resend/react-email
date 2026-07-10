@@ -20,7 +20,7 @@
     "@react-email/editor": "workspace:*",
     "@react-email/render": "workspace:*",
     "@react-three/drei": "9.122.0",
-    "@react-three/fiber": "9.5.0",
+    "@react-three/fiber": "9.6.0",
     "@responsive-email/react-email": "catalog:",
     "@supabase/supabase-js": "2.103.3",
     "@tiptap/core": "3.20.1",

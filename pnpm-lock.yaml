@@ -309,10 +309,10 @@ importers:
         version: link:../../packages/render
       '@react-three/drei':
         specifier: 9.122.0
-        version: 9.122.0(@react-three/fiber@9.5.0(@types/react@19.2.14)(immer@9.0.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.170.0))(@types/react@19.2.14)(@types/three@0.184.0)(immer@9.0.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.170.0)(use-sync-external-store@1.6.0(react@19.2.4))
+        version: 9.122.0(@react-three/fiber@9.6.0(@types/react@19.2.14)(immer@9.0.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.170.0))(@types/react@19.2.14)(@types/three@0.184.0)(immer@9.0.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.170.0)(use-sync-external-store@1.6.0(react@19.2.4))
       '@react-three/fiber':
-        specifier: 9.5.0
-        version: 9.5.0(@types/react@19.2.14)(immer@9.0.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.170.0)
+        specifier: 9.6.0
+        version: 9.6.0(@types/react@19.2.14)(immer@9.0.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.170.0)
       '@responsive-email/react-email':
         specifier: 'catalog:'
         version: 0.0.4(react@19.2.4)
@@ -3328,8 +3328,8 @@ packages:
       react-dom:
         optional: true
 
-  '@react-three/fiber@9.5.0':
-    resolution: {integrity: sha512-FiUzfYW4wB1+PpmsE47UM+mCads7j2+giRBltfwH7SNhah95rqJs3ltEs9V3pP8rYdS0QlNne+9Aj8dS/SiaIA==}
+  '@react-three/fiber@9.6.0':
+    resolution: {integrity: sha512-90abYK2q5/qDM+GACs9zRvc5KhEEpEWqWlHSd64zTPNxg+9wCJvTfyD9x2so7hlQhjRYO1Fa6flR3BC/kpTFkA==}
     peerDependencies:
       expo: '>=43.0'
       expo-asset: '>=8.4'
@@ -11760,25 +11760,25 @@ snapshots:
       '@react-spring/types': 9.7.5
       react: 19.2.4
 
-  '@react-spring/three@9.7.5(@react-three/fiber@9.5.0(@types/react@19.2.14)(immer@9.0.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.170.0))(react@19.2.4)(three@0.170.0)':
+  '@react-spring/three@9.7.5(@react-three/fiber@9.6.0(@types/react@19.2.14)(immer@9.0.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.170.0))(react@19.2.4)(three@0.170.0)':
     dependencies:
       '@react-spring/animated': 9.7.5(react@19.2.4)
       '@react-spring/core': 9.7.5(react@19.2.4)
       '@react-spring/shared': 9.7.5(react@19.2.4)
       '@react-spring/types': 9.7.5
-      '@react-three/fiber': 9.5.0(@types/react@19.2.14)(immer@9.0.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.170.0)
+      '@react-three/fiber': 9.6.0(@types/react@19.2.14)(immer@9.0.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.170.0)
       react: 19.2.4
       three: 0.170.0
 
   '@react-spring/types@9.7.5': {}
 
-  '@react-three/drei@9.122.0(@react-three/fiber@9.5.0(@types/react@19.2.14)(immer@9.0.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.170.0))(@types/react@19.2.14)(@types/three@0.184.0)(immer@9.0.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.170.0)(use-sync-external-store@1.6.0(react@19.2.4))':
+  '@react-three/drei@9.122.0(@react-three/fiber@9.6.0(@types/react@19.2.14)(immer@9.0.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.170.0))(@types/react@19.2.14)(@types/three@0.184.0)(immer@9.0.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.170.0)(use-sync-external-store@1.6.0(react@19.2.4))':
     dependencies:
       '@babel/runtime': 7.26.10
       '@mediapipe/tasks-vision': 0.10.17
       '@monogrid/gainmap-js': 3.1.0(three@0.170.0)
-      '@react-spring/three': 9.7.5(@react-three/fiber@9.5.0(@types/react@19.2.14)(immer@9.0.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.170.0))(react@19.2.4)(three@0.170.0)
-      '@react-three/fiber': 9.5.0(@types/react@19.2.14)(immer@9.0.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.170.0)
+      '@react-spring/three': 9.7.5(@react-three/fiber@9.6.0(@types/react@19.2.14)(immer@9.0.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.170.0))(react@19.2.4)(three@0.170.0)
+      '@react-three/fiber': 9.6.0(@types/react@19.2.14)(immer@9.0.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.170.0)
       '@use-gesture/react': 10.3.1(react@19.2.4)
       camera-controls: 2.10.1(three@0.170.0)
       cross-env: 7.0.3
@@ -11807,9 +11807,9 @@ snapshots:
       - immer
       - use-sync-external-store
 
-  '@react-three/fiber@9.5.0(@types/react@19.2.14)(immer@9.0.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.170.0)':
+  '@react-three/fiber@9.6.0(@types/react@19.2.14)(immer@9.0.21)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(three@0.170.0)':
     dependencies:
-      '@babel/runtime': 7.26.10
+      '@babel/runtime': 7.29.2
       '@types/webxr': 0.5.24
       base64-js: 1.5.1
       buffer: 6.0.3
@@ -12293,7 +12293,7 @@ snapshots:
 
   '@testing-library/dom@10.4.1':
     dependencies:
-      '@babel/code-frame': 7.29.0
+      '@babel/code-frame': 7.29.7
       '@babel/runtime': 7.29.2
       '@types/aria-query': 5.0.4
       aria-query: 5.3.0
