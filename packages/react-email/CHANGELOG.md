@@ -1,5 +1,23 @@
 # react-email
 
+## 6.7.0
+
+### Minor Changes
+
+- b448c3b: Enable custom export extensions via --extension/-e (e.g. .blade.php).
+
+### Patch Changes
+
+- Updated dependencies [ba96cfa]
+- Updated dependencies [58d8c08]
+  - @react-email/render@2.1.0
+
+## 6.6.9
+
+### Patch Changes
+
+- bc2f7e3: Fix `group` utilities including bad rules that don't work
+
 ## 6.6.8
 
 ### Patch Changes

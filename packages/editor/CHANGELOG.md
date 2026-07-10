@@ -1,5 +1,20 @@
 # @react-email/editor
 
+## 1.6.6
+
+### Patch Changes
+
+- Updated dependencies [b448c3b]
+  - react-email@6.7.0
+
+## 1.6.5
+
+### Patch Changes
+
+- 86d235d: Remove dangling CSS file exports in package definition
+- Updated dependencies [bc2f7e3]
+  - react-email@6.6.9
+
 ## 1.6.4
 
 ### Patch Changes

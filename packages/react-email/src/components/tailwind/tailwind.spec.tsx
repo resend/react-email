@@ -440,6 +440,40 @@ describe('Tailwind component', () => {
     );
   });
 
+  // See https://github.com/resend/react-email/pull/3594
+  it('does not leak a bare nested group/peer rule into the <head> <style>', async () => {
+    const html = await render(
+      <Html>
+        <Tailwind>
+          <Head />
+          <div className="group">
+            <a className="group-hover:underline" href="https://react.email">
+              link
+            </a>
+          </div>
+        </Tailwind>
+      </Html>,
+    ).then(pretty);
+
+    expect(html).toMatchInlineSnapshot(`
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html dir="ltr" lang="en">
+        <head>
+          <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+          <meta name="x-apple-disable-message-reformatting" />
+          <style>
+            .group-hover_underline{@media (hover:hover){&:is(:where(.group):hover *){text-decoration-line:underline!important}}}
+          </style></head
+        ><!--$--><!--html--><!--head-->
+        <div class="group">
+          <a class="group-hover_underline" href="https://react.email">link</a>
+        </div>
+        <!--/$-->
+      </html>
+      "
+    `);
+  });
+
   it('recognizes custom responsive screen', async () => {
     const actualOutput = await render(
       <Html>
