@@ -1,5 +1,15 @@
 # @react-email/render
 
+## 2.1.0
+
+### Minor Changes
+
+- ba96cfa: introduce new `unstableToPlainText` and `unstableTextConversion` that sidesteps html-to-text
+
+### Patch Changes
+
+- 58d8c08: feat: add `data-text-format="dataTable"` to render tables as aligned columns in plain text
+
 ## 2.0.10
 
 ### Patch Changes
