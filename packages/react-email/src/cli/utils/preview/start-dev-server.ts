@@ -4,8 +4,8 @@ import path from 'node:path';
 import url from 'node:url';
 import { createJiti } from 'jiti';
 import logSymbols from 'log-symbols';
-import ora from 'ora';
 import { registerSpinnerAutostopping } from '../../utils/register-spinner-autostopping.js';
+import { createSpinner, stopSpinnerAndPersist } from '../../utils/spinner.js';
 import { conf } from '../conf.js';
 import { getUiLocation } from '../get-ui-location.js';
 import { packageJson } from '../packageJson.js';
@@ -33,6 +33,7 @@ export const startDevServer = async (
   emailsDirRelativePath: string,
   staticBaseDirRelativePath: string,
   port: number,
+  compatibilityClients?: string,
 ): Promise<http.Server> => {
   const [majorNodeVersion] = process.versions.node.split('.');
   if (majorNodeVersion && Number.parseInt(majorNodeVersion, 10) < 20) {
@@ -100,6 +101,7 @@ export const startDevServer = async (
       emailsDirRelativePath,
       staticBaseDirRelativePath,
       nextPortToTry,
+      compatibilityClients,
     );
   }
 
@@ -108,17 +110,18 @@ export const startDevServer = async (
   });
 
   devServer.on('error', (e: NodeJS.ErrnoException) => {
-    spinner.stopAndPersist({
+    stopSpinnerAndPersist(spinner, {
       symbol: logSymbols.error,
       text: `Preview Server had an error: ${e}`,
     });
     process.exit(1);
   });
 
-  const spinner = ora({
+  const spinner = createSpinner({
     text: 'Getting react-email preview server ready...\n',
     prefixText: ' ',
-  }).start();
+  });
+  spinner.start();
 
   registerSpinnerAutostopping(spinner);
   const timeBeforeNextReady = performance.now();
@@ -136,6 +139,7 @@ export const startDevServer = async (
       previewServerLocation,
       process.cwd(),
       conf.get('resendApiKey'),
+      compatibilityClients,
     ),
   };
   if (!process.env.ESBUILD_BINARY_PATH) {
@@ -180,7 +184,7 @@ export const startDevServer = async (
   try {
     await nextReadyPromise;
   } catch (exception) {
-    spinner.stopAndPersist({
+    stopSpinnerAndPersist(spinner, {
       symbol: logSymbols.error,
       text: ` Preview Server had an error: ${exception}`,
     });
@@ -197,7 +201,7 @@ export const startDevServer = async (
     1000
   ).toFixed(1);
 
-  spinner.stopAndPersist({
+  stopSpinnerAndPersist(spinner, {
     text: `Ready in ${secondsToNextReady}s\n`,
     symbol: logSymbols.success,
   });

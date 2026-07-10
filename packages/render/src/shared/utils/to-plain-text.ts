@@ -11,6 +11,7 @@ export const plainTextSelectors: SelectorDefinition[] = [
     selector: 'a',
     options: { linkBrackets: false, hideLinkHrefIfSameAsText: true },
   },
+  { selector: '[data-text-format="dataTable"]', format: 'dataTable' },
 ];
 
 export function toPlainText(html: string, options?: HtmlToTextOptions) {

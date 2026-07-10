@@ -1,0 +1,24 @@
+name: Sync Open PRs to Linear
+
+on:
+  schedule:
+    - cron: '0 10 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: none
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      pull-requests: write
+      issues: write
+
+    steps:
+      - uses: resend/public-shared-workflows/.github/actions/sync_prs_to_linear@f6bdeec8e632f07b158cd1e3cd3ac70f59463288
+        with:
+          linear-api-key: ${{ secrets.LINEAR_API_KEY }}
+          linear-team-id: ${{ secrets.LINEAR_TEAM_ID }}
+          github-token: ${{ github.token }}

@@ -4,7 +4,7 @@ function camelToKebabCase(str: string): string {
 
 function escapeQuotes(value: unknown) {
   if (typeof value === 'string' && value.includes('"')) {
-    return value.replace(/"/g, '&#x27;');
+    return value.replace(/"/g, '&quot;');
   }
   return value;
 }

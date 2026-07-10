@@ -21,4 +21,9 @@ describe('JavaScript Email Detection', async () => {
     expect(emailsMetadata).toBeDefined();
     expect(emailsMetadata?.emailFilenames).toContain('mdx-email-test.js');
   });
+
+  it('detects raw .html templates without requiring any exports', async () => {
+    expect(emailsMetadata).toBeDefined();
+    expect(emailsMetadata?.emailFilenames).toContain('raw-html-email.html');
+  });
 });

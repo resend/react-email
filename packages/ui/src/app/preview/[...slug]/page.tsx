@@ -13,6 +13,7 @@ import type { LintingRow } from '../../../components/toolbar/linter';
 import type { SpamCheckingResult } from '../../../components/toolbar/spam-assassin';
 import { PreviewProvider } from '../../../contexts/preview';
 import { ToolbarProvider } from '../../../contexts/toolbar';
+import { getRelevantEmailClients } from '../../../utils/caniemail/email-clients';
 import { getEmailsDirectoryMetadata } from '../../../utils/get-emails-directory-metadata';
 import { getLintingSources, loadLintingRowsFrom } from '../../../utils/linting';
 import { loadStream } from '../../../utils/load-stream';
@@ -89,33 +90,43 @@ This is most likely not an issue with the preview server. Maybe there was a typo
       return 0;
     });
     compatibilityCheckingResults = [];
-    for await (const result of loadStream(
-      await checkCompatibility(
-        serverEmailRenderingResult.reactMarkup,
-        emailPath,
-      ),
-    )) {
-      compatibilityCheckingResults.push(result);
+    // Compatibility checks parse JSX/TS — they don't apply to raw .html emails.
+    if (serverEmailRenderingResult.extname !== 'html') {
+      for await (const result of loadStream(
+        await checkCompatibility(
+          serverEmailRenderingResult.reactMarkup,
+          emailPath,
+        ),
+      )) {
+        compatibilityCheckingResults.push(result);
+      }
     }
 
-    const response = await fetch('https://react.email/api/check-spam', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        html: serverEmailRenderingResult.prettyMarkup,
-        plainText: serverEmailRenderingResult.plainText,
-      }),
-    });
-    const responseBody = (await response.json()) as
-      | { error: string }
-      | SpamCheckingResult;
-    if ('error' in responseBody) {
-      throw new Error(`Failed doing Spam Check. ${responseBody.error}`, {
-        cause: responseBody,
+    try {
+      const response = await fetch('https://react.email/api/check-spam', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          html: serverEmailRenderingResult.prettyMarkup,
+          plainText: serverEmailRenderingResult.plainText,
+        }),
+        signal: AbortSignal.timeout(20_000),
       });
-    }
+      const responseBody = (await response.json()) as
+        | { error: string }
+        | SpamCheckingResult;
+      if ('error' in responseBody) {
+        throw new Error(responseBody.error);
+      }
 
-    spamCheckingResult = responseBody;
+      spamCheckingResult = responseBody;
+    } catch (exception) {
+      console.warn(
+        `Skipping spam check for ${slug}: ${
+          exception instanceof Error ? exception.message : String(exception)
+        }`,
+      );
+    }
   }
 
   return (
@@ -136,6 +147,7 @@ This is most likely not an issue with the preview server. Maybe there was a typo
               serverLintingRows={lintingRows}
               serverSpamCheckingResult={spamCheckingResult}
               serverCompatibilityResults={compatibilityCheckingResults}
+              serverCompatibilityClients={getRelevantEmailClients()}
             />
           </ToolbarProvider>
         </Suspense>

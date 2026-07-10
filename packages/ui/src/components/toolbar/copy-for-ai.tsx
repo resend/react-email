@@ -16,6 +16,7 @@ type ActiveTab =
   | 'linter'
   | 'compatibility'
   | 'spam-assassin'
+  | 'props'
   | 'resend'
   | undefined;
 
@@ -24,6 +25,7 @@ interface CopyForAIProps {
   compatibilityResults: CompatibilityCheckingResult[] | undefined;
   spamResult: SpamCheckingResult | undefined;
   reactMarkup: string;
+  isRawHtmlEmail: boolean;
   activeTab: ActiveTab;
 }
 
@@ -168,6 +170,7 @@ function getPromptForTab(
   compatibilityResults: CompatibilityCheckingResult[] | undefined,
   spamResult: SpamCheckingResult | undefined,
   reactMarkup: string,
+  isRawHtmlEmail: boolean,
 ): string {
   let issuePrompt = '';
 
@@ -194,11 +197,14 @@ function getPromptForTab(
     issuePrompt = parts.join('\n\n---\n\n');
   }
 
+  const sourceLang = isRawHtmlEmail ? 'html' : 'tsx';
+  const templateLabel = isRawHtmlEmail ? 'HTML email' : 'React Email';
+
   if (!issuePrompt) {
-    return `Here is the source code of my React Email template:\n\n\`\`\`tsx\n${reactMarkup}\n\`\`\`\n\nHelp me review and improve this email template.`;
+    return `Here is the source code of my ${templateLabel} template:\n\n\`\`\`${sourceLang}\n${reactMarkup}\n\`\`\`\n\nHelp me review and improve this email template.`;
   }
 
-  return `${issuePrompt}\n\nHere is the source code of my email template:\n\n\`\`\`tsx\n${reactMarkup}\n\`\`\``;
+  return `${issuePrompt}\n\nHere is the source code of my email template:\n\n\`\`\`${sourceLang}\n${reactMarkup}\n\`\`\``;
 }
 
 function getLinkDescription(activeTab: ActiveTab): string {
@@ -222,6 +228,8 @@ function buildChatGPTUrl(prompt: string): string {
   return `https://chatgpt.com/?q=${encodeURIComponent(prompt)}`;
 }
 
+const MAX_SAFE_CHATGPT_URL_LENGTH = 7500;
+
 function buildCursorUrl(prompt: string): string {
   return `cursor://prompt?text=${encodeURIComponent(prompt)}`;
 }
@@ -231,6 +239,7 @@ export const CopyForAI = ({
   compatibilityResults,
   spamResult,
   reactMarkup,
+  isRawHtmlEmail,
   activeTab,
 }: CopyForAIProps) => {
   const markdown = React.useMemo(
@@ -241,8 +250,16 @@ export const CopyForAI = ({
         compatibilityResults,
         spamResult,
         reactMarkup,
+        isRawHtmlEmail,
       ),
-    [activeTab, lintingRows, compatibilityResults, spamResult, reactMarkup],
+    [
+      activeTab,
+      lintingRows,
+      compatibilityResults,
+      spamResult,
+      reactMarkup,
+      isRawHtmlEmail,
+    ],
   );
 
   const linkDescription = getLinkDescription(activeTab);
@@ -254,7 +271,12 @@ export const CopyForAI = ({
   }, [markdown]);
 
   const claudeUrl = buildClaudeUrl(markdown);
-  const chatGPTUrl = buildChatGPTUrl(markdown);
+  const directChatGPTUrl = buildChatGPTUrl(markdown);
+  const isChatGPTPromptTooLong =
+    directChatGPTUrl.length > MAX_SAFE_CHATGPT_URL_LENGTH;
+  const chatGPTUrl = isChatGPTPromptTooLong
+    ? 'https://chatgpt.com/'
+    : directChatGPTUrl;
   const cursorUrl = buildCursorUrl(markdown);
 
   return (
@@ -356,6 +378,10 @@ export const CopyForAI = ({
               href={chatGPTUrl}
               target="_blank"
               rel="noreferrer noopener"
+              onClick={() => {
+                if (!isChatGPTPromptTooLong) return;
+                void navigator.clipboard.writeText(markdown);
+              }}
               className="flex items-center gap-2.5 p-2 rounded-lg cursor-pointer outline-none transition-colors hover:bg-white/5"
             >
               <span
@@ -368,7 +394,11 @@ export const CopyForAI = ({
                 <span className="text-sm font-medium text-white">
                   Open in ChatGPT
                 </span>
-                <span className="text-xs text-white/40">{linkDescription}</span>
+                <span className="text-xs text-white/40">
+                  {isChatGPTPromptTooLong
+                    ? 'Long prompt: copied to clipboard. Paste with Ctrl+V / Cmd+V'
+                    : linkDescription}
+                </span>
               </div>
               <IconArrowUpRight size={16} className="shrink-0 text-white/30" />
             </a>

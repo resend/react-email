@@ -1,11 +1,16 @@
 import { ensureBorderStyleFallback } from '../../utils/styles';
-import type { CssJs, PanelGroup } from './types';
+import { RESET_NODE_TYPES } from './extension';
+import type { CssJs, KnownThemeComponents, PanelGroup } from './types';
 
 export function transformToCssJs(
   styleArray: PanelGroup[],
   baseFontSize: number,
 ): CssJs {
-  const cssJS = {} as CssJs;
+  // Use prototype-less objects so attacker-supplied keys like `__proto__`,
+  // `constructor`, or `prototype` are stored as plain own properties instead
+  // of routing through the Object.prototype setter, which would mutate the
+  // global prototype.
+  const cssJS = Object.create(null) as CssJs;
 
   if (!Array.isArray(styleArray)) {
     return cssJS;
@@ -30,7 +35,7 @@ export function transformToCssJs(
       }
 
       if (!cssJS[input.classReference]) {
-        cssJS[input.classReference] = {};
+        cssJS[input.classReference] = Object.create(null);
       }
 
       // @ts-expect-error -- backward compatibility: 'h-padding' is a legacy prop not in KnownCssProperties
@@ -56,7 +61,10 @@ export function transformToCssJs(
 }
 
 export function mergeCssJs(original: CssJs, newCssJs: CssJs) {
-  const merged = { ...original };
+  // Same defensive pattern as `transformToCssJs`: a prototype-less root keeps
+  // a hostile `__proto__` key in the input from triggering the
+  // Object.prototype setter during assignment.
+  const merged = Object.assign(Object.create(null), original) as CssJs;
 
   for (const key in newCssJs) {
     const keyType = key as keyof CssJs;
@@ -66,10 +74,11 @@ export function mergeCssJs(original: CssJs, newCssJs: CssJs) {
       typeof merged[keyType] === 'object' &&
       !Array.isArray(merged[keyType])
     ) {
-      merged[keyType] = {
-        ...merged[keyType],
-        ...newCssJs[keyType],
-      };
+      merged[keyType] = Object.assign(
+        Object.create(null),
+        merged[keyType],
+        newCssJs[keyType],
+      );
     } else {
       merged[keyType] = newCssJs[keyType];
     }
@@ -86,22 +95,66 @@ export function injectThemeCss(
     options.scopeSelector ?? '.tiptap-extended .tiptap.ProseMirror';
   const prefix = '.node-';
   const styleId = options.styleId ?? 'tiptap-extended-theme-css';
+  const getNodeSelector = (classReference: string) =>
+    `${container} ${prefix}${classReference}`;
+  const getSelectors = (classReference: KnownThemeComponents) => {
+    switch (classReference) {
+      case 'body':
+        return [container];
+      case 'reset':
+        return [];
+      case 'list':
+        return [
+          getNodeSelector('list'),
+          getNodeSelector('bulletList'),
+          getNodeSelector('orderedList'),
+        ];
+      case 'bulletList':
+        return [getNodeSelector('bulletList')];
+      case 'orderedList':
+        return [getNodeSelector('orderedList')];
+      case 'nestedList':
+        return [
+          getNodeSelector('nestedList'),
+          `${container} .node-list .node-list`,
+          `${container} .node-bulletList .node-bulletList`,
+          `${container} .node-bulletList .node-orderedList`,
+          `${container} .node-orderedList .node-bulletList`,
+          `${container} .node-orderedList .node-orderedList`,
+        ];
+      case 'listParagraph':
+        return [`${container} .node-listItem > .node-paragraph`];
+      default:
+        return [getNodeSelector(classReference)];
+    }
+  };
+  const resetStyles = styles.reset ?? {};
 
   const css = Object.entries(styles).reduce((acc, [key, value]) => {
-    const className =
-      key === 'body' ? container : `${container} ${prefix}${key}`;
+    const classReference = key as KnownThemeComponents;
+    const selectors = getSelectors(classReference);
+    if (selectors.length === 0) {
+      return acc;
+    }
 
-    const cssString = Object.entries(value).reduce((acc, [prop, val]) => {
-      const normalizeProp = prop.replace(/([A-Z])/g, '-$1').toLowerCase();
+    const resolvedStyles = RESET_NODE_TYPES.has(classReference)
+      ? { ...resetStyles, ...value }
+      : value;
 
-      if (val === undefined) {
-        return acc;
-      }
+    const cssString = Object.entries(resolvedStyles).reduce(
+      (acc, [prop, val]) => {
+        const normalizeProp = prop.replace(/([A-Z])/g, '-$1').toLowerCase();
 
-      return `${acc}${normalizeProp}:${val};`;
-    }, '');
+        if (val === undefined) {
+          return acc;
+        }
 
-    return `${acc}${className}{${cssString}}`;
+        return `${acc}${normalizeProp}:${val};`;
+      },
+      '',
+    );
+
+    return `${acc}${selectors.join(',')}{${cssString}}`;
   }, '');
 
   let styleTag = document.getElementById(styleId) as HTMLStyleElement;
@@ -123,13 +176,16 @@ export function injectGlobalPlainCss(
   css?: string | null,
   options: { styleId?: string; scopeSelector?: string } = {},
 ) {
-  if (!css) {
-    return;
-  }
-
   const styleId = options.styleId ?? 'global-editor-style';
   const container = options.scopeSelector ?? '.tiptap-extended .ProseMirror';
   let styleElement = document.getElementById(styleId);
+
+  if (!css) {
+    if (styleElement) {
+      styleElement.textContent = '';
+    }
+    return;
+  }
 
   if (!styleElement) {
     styleElement = document.createElement('style');

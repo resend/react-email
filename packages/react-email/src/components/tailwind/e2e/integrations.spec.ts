@@ -19,8 +19,8 @@ const $ = (command: string, cwd: string = path.resolve(__dirname, '..')) => {
 
 describe('integrations', () => {
   beforeAll(() => {
-    const packageLocation = path.resolve(__dirname, '../');
-    $('yalc installations clean @react-email/tailwind', packageLocation);
+    const packageLocation = path.resolve(__dirname, '../../../..');
+    $('yalc installations clean react-email', packageLocation);
     $('yalc publish', packageLocation);
   });
 

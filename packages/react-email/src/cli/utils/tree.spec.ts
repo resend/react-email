@@ -5,6 +5,7 @@ test('tree(__dirname, 2)', async () => {
     "utils
     ├── esbuild
     │   ├── escape-string-for-regex.ts
+    │   ├── inline-css-loader.ts
     │   └── renderring-utilities-exporter.ts
     ├── preview
     │   ├── hot-reloading
@@ -16,12 +17,17 @@ test('tree(__dirname, 2)', async () => {
     │   ├── hot-reload-change.ts
     │   └── hot-reload-event.ts
     ├── conf.ts
+    ├── email-clients.ts
     ├── get-emails-directory-metadata.spec.ts
     ├── get-emails-directory-metadata.ts
+    ├── get-tracing-root-dir.spec.ts
+    ├── get-tracing-root-dir.ts
     ├── get-ui-location.ts
     ├── index.ts
     ├── packageJson.ts
     ├── register-spinner-autostopping.ts
+    ├── spinner.spec.ts
+    ├── spinner.ts
     ├── style-text.ts
     ├── tree.spec.ts
     └── tree.ts"

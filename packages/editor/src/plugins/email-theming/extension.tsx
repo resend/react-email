@@ -6,6 +6,7 @@ import type * as React from 'react';
 import { Body, Head, Html, Preview } from 'react-email';
 import type { SerializerPlugin } from '../../core/serializer/serializer-plugin';
 import { getGlobalContent } from '../../extensions/global-content';
+import { DARK_MODE_CSS } from '../../utils/dark-mode';
 import {
   injectGlobalPlainCss,
   injectThemeCss,
@@ -102,13 +103,21 @@ export function getMergedCssJs(
 }
 
 /**
- * Returns resolved React.CSSProperties for a node when you already have merged CssJs
- * (e.g. in the serializer where there is no editor). Centralizes which theme keys
- * apply to which node type.
+ * Node types and theme component keys that should receive the universal
+ * `reset` CSS (e.g. `margin: 0; padding: 0`) layered underneath their own
+ * theme styles. Shared between `getResolvedNodeStyles` (email serializer)
+ * and `injectThemeCss` (editor preview) so both surfaces stay in sync.
+ *
+ * Includes both raw tiptap node names (e.g. `tableCell`) and theme
+ * component keys (e.g. `list`) because the serializer matches against both.
+ *
+ * `bulletList` and `orderedList` are intentionally omitted: their elements
+ * already carry the shared `node-list` class, so the `list` reset rule
+ * covers them without forcing the dedicated `.node-bulletList` /
+ * `.node-orderedList` rules to redundantly emit `margin: 0; padding: 0`.
  */
-const RESET_NODE_TYPES = new Set([
+export const RESET_NODE_TYPES = new Set<string>([
   'body',
-  'bulletList',
   'button',
   'columns',
   'div',
@@ -119,7 +128,6 @@ const RESET_NODE_TYPES = new Set([
   'listItem',
   'listParagraph',
   'nestedList',
-  'orderedList',
   'table',
   'paragraph',
   'tableCell',
@@ -128,6 +136,11 @@ const RESET_NODE_TYPES = new Set([
   'youtube',
 ]);
 
+/**
+ * Returns resolved React.CSSProperties for a node when you already have merged CssJs
+ * (e.g. in the serializer where there is no editor). Centralizes which theme keys
+ * apply to which node type.
+ */
 export function getResolvedNodeStyles(
   node: JSONContent,
   depth: number,
@@ -174,7 +187,7 @@ function resolveThemeConfig(config: EditorThemeInput): {
   return { baseTheme, panels };
 }
 
-function getEmailTheming(editor: Editor) {
+export function getEmailTheming(editor: Editor) {
   const theme = getEmailTheme(editor);
   const normalizedStyles =
     normalizeThemePanelStyles(theme, getEmailStyles(editor)) ??
@@ -278,7 +291,7 @@ export const EmailTheming = Extension.create<{
             getMergedCssJs(theming.theme, theming.styles),
           );
         },
-        BaseTemplate({ previewText, children, editor }) {
+        BaseTemplate({ previewText, children, editor, previewMode = false }) {
           const { css: globalCss, styles, theme } = getEmailTheming(editor);
           const mergedStyles = getMergedCssJs(theme, styles);
 
@@ -293,6 +306,7 @@ export const EmailTheming = Extension.create<{
                   name="format-detection"
                 />
 
+                {!previewMode && <style>{DARK_MODE_CSS}</style>}
                 {globalCss && <style>{globalCss}</style>}
               </Head>
               {previewText && previewText !== '' && (
