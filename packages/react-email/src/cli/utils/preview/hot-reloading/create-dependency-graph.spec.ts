@@ -3,6 +3,7 @@ import path from 'node:path';
 import {
   createDependencyGraph,
   type DependencyGraph,
+  isUnderDirectory,
 } from './create-dependency-graph.js';
 
 const testingDiretctory = path.join(
@@ -162,6 +163,7 @@ import {} from './general-importing-file';
         toAbsolute('file-b.ts'),
         toAbsolute('general-importing-file.ts'),
       ],
+      dynamicDependencyDirectories: [],
       moduleDependencies: [],
     } satisfies DependencyGraph[number]);
     expect(dependencyGraph[toAbsolute('file-a.ts')]?.dependentPaths).toContain(
@@ -192,6 +194,7 @@ import {} from './file-b';
       path: pathToTemporaryFile,
       dependentPaths: [],
       dependencyPaths: [toAbsolute('file-a.ts'), toAbsolute('file-b.ts')],
+      dynamicDependencyDirectories: [],
       moduleDependencies: [],
     } satisfies DependencyGraph[number]);
     expect(dependencyGraph[toAbsolute('file-a.ts')]?.dependentPaths).toContain(
@@ -222,5 +225,123 @@ import {} from './file-b';
       dependencyGraph[toAbsolute('general-importing-file.ts')]?.dependentPaths,
       "should remove itself from dependents once it's unlinked",
     ).not.toContain(pathToTemporaryFile);
+  });
+});
+
+describe('createDependencyGraph() with dynamic imports', () => {
+  const fixtureDirectory = path.join(
+    import.meta.dirname,
+    './test/dynamic-import-graph',
+  );
+
+  const aliasedFixtureDirectory = path.join(
+    import.meta.dirname,
+    './test/aliased-import-graph/src',
+  );
+
+  const aliasedFallbackFixtureDirectory = path.join(
+    import.meta.dirname,
+    './test/aliased-fallback-graph/src',
+  );
+
+  const collectDynamicDependencyDirectories = (graph: DependencyGraph) => {
+    const directories = new Set<string>();
+    for (const module of Object.values(graph)) {
+      for (const directory of module.dynamicDependencyDirectories) {
+        directories.add(directory);
+      }
+    }
+    return [...directories];
+  };
+
+  it('exposes the directory of a template-literal `import()` as a dynamic dependency and resolves runtime files to the importing module', async () => {
+    const [graph, , { resolveDependentsOf }] =
+      await createDependencyGraph(fixtureDirectory);
+
+    const messagesDirectory = path.join(fixtureDirectory, 'messages');
+    const templatePath = path.join(fixtureDirectory, 'template.ts');
+
+    expect(collectDynamicDependencyDirectories(graph)).toEqual([
+      messagesDirectory,
+    ]);
+
+    expect(
+      resolveDependentsOf(path.join(messagesDirectory, 'en', 'common.json')),
+    ).toEqual([templatePath]);
+  });
+
+  it('falls through to a later alias candidate when the first does not exist on disk', async () => {
+    const [graph, , { resolveDependentsOf }] = await createDependencyGraph(
+      aliasedFallbackFixtureDirectory,
+    );
+
+    const localesDirectory = path.join(
+      path.dirname(aliasedFallbackFixtureDirectory),
+      'lib',
+      'locales',
+    );
+    const templatePath = path.join(
+      aliasedFallbackFixtureDirectory,
+      'template.ts',
+    );
+
+    expect(collectDynamicDependencyDirectories(graph)).toEqual([
+      localesDirectory,
+    ]);
+
+    expect(
+      resolveDependentsOf(path.join(localesDirectory, 'de', 'common.json')),
+    ).toEqual([templatePath]);
+  });
+
+  it('resolves tsconfig path aliases in dynamic import template literals', async () => {
+    const [graph, , { resolveDependentsOf }] = await createDependencyGraph(
+      aliasedFixtureDirectory,
+    );
+
+    const localesDirectory = path.join(aliasedFixtureDirectory, 'locales');
+    const templatePath = path.join(aliasedFixtureDirectory, 'template.ts');
+
+    expect(collectDynamicDependencyDirectories(graph)).toEqual([
+      localesDirectory,
+    ]);
+
+    expect(
+      resolveDependentsOf(path.join(localesDirectory, 'tr', 'common.json')),
+    ).toEqual([templatePath]);
+  });
+});
+
+describe('isUnderDirectory()', () => {
+  it('matches a nested file', () => {
+    expect(
+      isUnderDirectory(
+        path.resolve('/proj/messages/en.json'),
+        path.resolve('/proj/messages'),
+      ),
+    ).toBe(true);
+  });
+
+  it('matches the directory itself', () => {
+    expect(
+      isUnderDirectory(
+        path.resolve('/proj/messages'),
+        path.resolve('/proj/messages'),
+      ),
+    ).toBe(true);
+  });
+
+  it('does not match a sibling sharing a prefix', () => {
+    expect(
+      isUnderDirectory(
+        path.resolve('/proj/messages-extra/x'),
+        path.resolve('/proj/messages'),
+      ),
+    ).toBe(false);
+  });
+
+  it('handles root directory paths without producing a double separator', () => {
+    expect(isUnderDirectory(path.resolve('/foo/bar'), path.sep)).toBe(true);
+    expect(isUnderDirectory(path.sep, path.sep)).toBe(true);
   });
 });

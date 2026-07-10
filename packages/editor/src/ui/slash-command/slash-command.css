@@ -5,8 +5,16 @@
 
 [data-re-slash-command] {
   max-height: 330px;
-  overflow-y: auto;
   width: 256px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+[data-re-slash-command-scroll] {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
   padding: 0.25rem;
 }
 

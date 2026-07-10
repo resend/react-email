@@ -120,6 +120,11 @@ module.exports = {
           '0%': { strokeDashoffset: 1000 },
           '100%': { strokeDashoffset: 0 },
         },
+        shineTranslate: {
+          '0%': { transform: 'translate(-198%)' },
+          '50%': { transform: 'translate(198%)' },
+          '100%': { transform: 'translate(198%)' },
+        },
       },
     },
   },

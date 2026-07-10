@@ -11,7 +11,7 @@ React Email is an open-source library that lets developers build emails with Rea
 - Documentation: https://react.email/docs
 - Components: https://react.email/components
 - Templates: https://react.email/templates
-- Editor: https://react.email/editor/examples
+- Editor: https://react.email/editor
 - GitHub: https://github.com/resend/react-email
 - npm: https://www.npmjs.com/package/react-email
 

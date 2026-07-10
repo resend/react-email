@@ -11,7 +11,9 @@ import { BubbleMenuCode } from './code';
 import { BubbleMenuItemGroup } from './group';
 import { BubbleMenuImageDefault } from './image-default';
 import { BubbleMenuImageEditLink } from './image-edit-link';
+import { BubbleMenuImageForm } from './image-form';
 import { BubbleMenuImageToolbar } from './image-toolbar';
+import { BubbleMenuImageUnlink } from './image-unlink';
 import { BubbleMenuItalic } from './italic';
 import { BubbleMenuItem } from './item';
 import { BubbleMenuLinkDefault } from './link-default';
@@ -58,8 +60,12 @@ export type { BubbleMenuImageDefaultProps } from './image-default';
 export { BubbleMenuImageDefault } from './image-default';
 export type { BubbleMenuImageEditLinkProps } from './image-edit-link';
 export { BubbleMenuImageEditLink } from './image-edit-link';
+export type { BubbleMenuImageFormProps } from './image-form';
+export { BubbleMenuImageForm } from './image-form';
 export type { BubbleMenuImageToolbarProps } from './image-toolbar';
 export { BubbleMenuImageToolbar } from './image-toolbar';
+export type { BubbleMenuImageUnlinkProps } from './image-unlink';
+export { BubbleMenuImageUnlink } from './image-unlink';
 export { BubbleMenuItalic } from './italic';
 export type { BubbleMenuItemProps } from './item';
 export { BubbleMenuItem } from './item';
@@ -134,5 +140,7 @@ export const BubbleMenu = Object.assign(BubbleMenuRoot, {
   LinkDefault: BubbleMenuLinkDefault,
   ImageToolbar: BubbleMenuImageToolbar,
   ImageEditLink: BubbleMenuImageEditLink,
+  ImageUnlink: BubbleMenuImageUnlink,
+  ImageForm: BubbleMenuImageForm,
   ImageDefault: BubbleMenuImageDefault,
 } as const);

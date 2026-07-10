@@ -1,0 +1,26 @@
+{
+  "name": "react-email-with-azure-communication-email",
+  "license": "MIT",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "main": "./dist/index.js",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsdown src/index.tsx --format esm --target node20",
+    "dev": "tsdown src/index.tsx --format esm --target node20 --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@azure/communication-email": "1.1.0",
+    "react-email": "6.0.3",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "tsdown": "0.21.9",
+    "typescript": "5.9.3"
+  }
+}

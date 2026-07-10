@@ -1,12 +1,27 @@
 'use client';
 
-import { useFrame } from '@react-three/fiber';
+import { type ThreeElements, useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
 import * as THREE from 'three';
 
 import '@/webgl/materials/MeshImageMaterial';
 
-function setupCylinderTextureMapping(texture, dimensions, radius, height) {
+interface TextureDimensions {
+  aspectRatio: number;
+}
+
+type BillboardProps = ThreeElements['mesh'] & {
+  texture: THREE.Texture;
+  dimensions: TextureDimensions;
+  radius?: number;
+};
+
+function setupCylinderTextureMapping(
+  texture: THREE.Texture,
+  dimensions: TextureDimensions,
+  radius: number,
+  height: number,
+) {
   const cylinderCircumference = 2 * Math.PI * radius;
   const cylinderHeight = height;
   const cylinderAspectRatio = cylinderCircumference / cylinderHeight;
@@ -26,8 +41,13 @@ function setupCylinderTextureMapping(texture, dimensions, radius, height) {
   texture.offset.y = (1 - texture.repeat.y) / 2;
 }
 
-export function Billboard({ texture, dimensions, radius = 5, ...props }) {
-  const ref = useRef(null);
+export function Billboard({
+  texture,
+  dimensions,
+  radius = 5,
+  ...props
+}: BillboardProps) {
+  const ref = useRef<THREE.Mesh>(null);
 
   setupCylinderTextureMapping(texture, dimensions, radius, 2);
 

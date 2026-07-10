@@ -23,6 +23,19 @@ describe('toPlainText', () => {
       expect(result).toContain('Also visible');
     });
 
+    it('should render tables as aligned rows with data-text-format="dataTable"', () => {
+      const html =
+        '<table data-text-format="dataTable"><tr><td>Ada</td><td>Engineer</td></tr><tr><td>Grace</td><td>Admiral</td></tr></table>';
+      const result = toPlainText(html);
+
+      const lines = result.split('\n').filter((line) => line.trim() !== '');
+      expect(lines).toHaveLength(2);
+      expect(lines[0]).toContain('Ada');
+      expect(lines[0]).toContain('Engineer');
+      expect(lines[1]).toContain('Grace');
+      expect(lines[1]).toContain('Admiral');
+    });
+
     it('should format links without brackets', () => {
       const html = '<a href="https://example.com">Click here</a>';
       const result = toPlainText(html);

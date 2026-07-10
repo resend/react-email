@@ -79,7 +79,7 @@ export function GET() {
   lines.push('- GitHub: https://github.com/resend/react-email');
   lines.push('- npm: https://www.npmjs.com/package/react-email');
   lines.push('- Templates: https://react.email/templates');
-  lines.push('- Editor: https://react.email/editor/examples');
+  lines.push('- Editor: https://react.email/editor');
   lines.push('');
 
   return new NextResponse(lines.join('\n'), {

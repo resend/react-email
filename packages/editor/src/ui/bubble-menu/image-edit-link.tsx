@@ -1,5 +1,5 @@
 import type * as React from 'react';
-import { LinkIcon } from '../icons';
+import { PencilIcon } from '../icons';
 import { useBubbleMenuContext } from './context';
 
 export interface BubbleMenuImageEditLinkProps
@@ -31,7 +31,7 @@ export function BubbleMenuImageEditLink({
         setIsEditing(true);
       }}
     >
-      {children ?? <LinkIcon />}
+      {children ?? <PencilIcon />}
     </button>
   );
 }

@@ -342,12 +342,10 @@ export function EditorToolbar({ className }: { className?: string }) {
   return (
     <div
       className={classNames(
-        'order-[-1] flex shrink-0 items-center gap-0.5 border-b border-gray-100 px-2 py-1',
+        '-order-1 flex shrink-0 items-center gap-0.5 border-b border-gray-100 px-2 py-1',
         className,
       )}
     >
-      <NodeSelector editor={editor} />
-      <Separator />
       <ToolbarButton
         label="Bold"
         isActive={state.isBold}
@@ -406,6 +404,8 @@ export function EditorToolbar({ className }: { className?: string }) {
       >
         <AlignRight size={14} />
       </ToolbarButton>
+      <Separator />
+      <NodeSelector editor={editor} />
     </div>
   );
 }

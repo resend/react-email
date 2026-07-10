@@ -48,7 +48,7 @@ function MenuItems({ onItemClick }: { onItemClick: () => void }) {
       <MenuItem href="/templates" onClick={onItemClick}>
         Templates
       </MenuItem>
-      <MenuItem href="/editor/examples" onClick={onItemClick}>
+      <MenuItem href="/editor" onClick={onItemClick}>
         Editor
       </MenuItem>
       <MenuItem href="/docs" onClick={onItemClick}>

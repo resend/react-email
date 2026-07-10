@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { componentsStructure } from '../../components/structure';
 import { slugify } from '../utils/slugify';
-import { editorExampleSlugs } from './editor/examples/editor-examples-data';
+import { editorExampleSlugs } from './editor/editor-examples-data';
 
 const Sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const lastModified = new Date().toISOString().split('T')[0];
@@ -17,9 +17,9 @@ const Sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   }));
 
   const editorRoutes = [
-    { url: 'https://react.email/editor/examples', lastModified },
+    { url: 'https://react.email/editor', lastModified },
     ...editorExampleSlugs.map((slug) => ({
-      url: `https://react.email/editor/examples/${slug}`,
+      url: `https://react.email/editor/${slug}`,
       lastModified,
     })),
   ];

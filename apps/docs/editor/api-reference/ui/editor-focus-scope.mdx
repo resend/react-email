@@ -1,34 +1,94 @@
 ---
 title: "EditorFocusScope"
 sidebarTitle: "EditorFocusScope"
-description: "Register portaled UI as part of the editor's focus scope."
-icon: "crosshair"
+description: "Track editor focus across portaled UI with EditorFocusScope."
+icon: "crosshairs"
 ---
 
 Everything is accessed through a single import:
 
 ```tsx
-import { EditorFocusScope } from '@react-email/editor/ui';
+import {
+  EditorFocusScope,
+} from '@react-email/editor/ui';
 ```
+
+The `FocusScopes` extension, included by default in `StarterKit`, keeps the
+editor's focus and blur behavior in sync across registered surfaces. Wrap each
+custom portaled surface that should still count as being inside the editor UI
+with `EditorFocusScope`.
+
+<Tip>
+  `Inspector.Root`, built-in bubble menus, and slash commands already register
+  themselves. Inside custom portaled UI, you usually only add
+  `EditorFocusScope` around the portaled content.
+</Tip>
+
+<h2 id="editor-focus-scope-provider">EditorFocusScopeProvider</h2>
+
+`EditorFocusScopeProvider` is deprecated. Focus tracking moved to the
+`FocusScopes` extension, which is included by default in `StarterKit`, but the
+provider still installs the same tracking plugin for editors that do not use
+`StarterKit`.
+
+### Example
+
+```tsx
+import { StarterKit } from '@react-email/editor/extensions';
+import { EditorFocusScope } from '@react-email/editor/ui';
+import { EditorContent, EditorContext, useEditor } from '@tiptap/react';
+import * as Popover from '@radix-ui/react-popover';
+
+export function MyEditor() {
+  const editor = useEditor({
+    extensions: [StarterKit.configure()],
+    content,
+  });
+
+  return (
+    <EditorContext.Provider value={{ editor }}>
+      <EditorContent editor={editor} />
+
+      <Popover.Root>
+        <Popover.Trigger type="button">Theme presets</Popover.Trigger>
+
+        <Popover.Portal>
+          <EditorFocusScope>
+            <Popover.Content sideOffset={8}>
+              <button type="button">Apply preset</button>
+            </Popover.Content>
+          </EditorFocusScope>
+        </Popover.Portal>
+      </Popover.Root>
+    </EditorContext.Provider>
+  );
+}
+```
+
+Use `EditorFocusScope` for each portaled surface that should still count as
+being inside the editor UI.
+
+### Props
+
+<ResponseField name="children" type="ReactNode">
+  Rendered unchanged.
+</ResponseField>
+
+<ResponseField name="clearSelectionOnBlur" type="boolean" default="true">
+  Deprecated. Used only by the provider's fallback plugin. Prefer configuring
+  `FocusScopes` in `StarterKit` instead.
+</ResponseField>
+
+## EditorFocusScope
 
 Use `EditorFocusScope` around portaled UI like Radix `Select.Content`,
 `Popover.Content`, or dialog content so moving focus into that portal is still
 treated as staying inside the editor UI.
 
-`EditorFocusScope` must be used inside
-[EditorFocusScopeProvider](/editor/api-reference/ui/editor-focus-scope-provider),
-which tracks registered focus scopes and updates the editor's focus state for
-them.
+`EditorFocusScope` registers with the editor's `FocusScopes` extension. If the
+extension is not present, it renders its children unchanged.
 
-<Tip>
-  `Inspector.Root` already renders
-  [EditorFocusScopeProvider](/editor/api-reference/ui/editor-focus-scope-provider)
-  and wraps itself in `EditorFocusScope` by default, so the Inspector handles
-  the editor's focus idiomatically and reliably. Inside a custom inspector, you
-  usually only add `EditorFocusScope` around extra portaled content.
-</Tip>
-
-## Example
+### Example
 
 ```tsx
 import { EditorFocusScope, Inspector } from '@react-email/editor/ui';
@@ -66,12 +126,11 @@ import * as Select from '@radix-ui/react-select';
 </Inspector.Node>
 ```
 
-If you are building a focus-aware editor shell outside `Inspector.Root`, wrap
-the editor with
-[EditorFocusScopeProvider](/editor/api-reference/ui/editor-focus-scope-provider)
-and then use `EditorFocusScope` for each portaled surface.
+If you are building a focus-aware editor shell without `StarterKit`, add the
+`FocusScopes` extension and then use `EditorFocusScope` for each portaled
+surface.
 
-## Props
+### Props
 
 <ResponseField name="children" type="ReactNode">
   The element or subtree to register as an additional editor focus scope. Wrap

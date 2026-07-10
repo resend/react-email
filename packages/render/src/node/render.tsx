@@ -2,7 +2,9 @@ import { Suspense } from 'react';
 import { createErrorBoundary } from '../shared/error-boundary';
 import type { Options } from '../shared/options';
 import { pretty } from '../shared/utils/pretty';
+import { stripImagePreloadLinks } from '../shared/utils/strip-image-preload-links';
 import { toPlainText } from '../shared/utils/to-plain-text';
+import { unstableToPlainText } from '../shared/utils/unstable-to-plain-text';
 import { readStream } from './read-stream';
 
 export const render = async (node: React.ReactNode, options?: Options) => {
@@ -50,7 +52,11 @@ export const render = async (node: React.ReactNode, options?: Options) => {
         </ErrorBoundary>,
         {
           async onAllReady() {
-            html = await readStream(stream);
+            html = await readStream(stream).then((s: string) => {
+              // Workaround for https://github.com/facebook/react/pull/26228
+              // (fixed in React 19, not backported to 18)
+              return s.replaceAll('\0', '');
+            });
             resolve();
           },
           onError(error) {
@@ -62,8 +68,12 @@ export const render = async (node: React.ReactNode, options?: Options) => {
     }
   });
 
+  html = stripImagePreloadLinks(html);
+
   if (options?.plainText) {
-    return toPlainText(html, options.htmlToTextOptions);
+    return options.unstableTextConversion
+      ? unstableToPlainText(html)
+      : toPlainText(html, options.htmlToTextOptions);
   }
 
   const doctype =

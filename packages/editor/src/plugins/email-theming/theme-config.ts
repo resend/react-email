@@ -4,23 +4,29 @@ import type {
   EditorThemeInput,
   KnownCssProperties,
   PanelGroup,
+  PanelSectionId,
   ThemeableComponent,
   ThemeComponentStyles,
   ThemeConfig,
 } from './types';
 
-const CLASS_REFERENCE_TO_PANEL_ID: Record<ThemeableComponent, string> = {
-  body: 'body',
-  container: 'container',
-  h1: 'h1',
-  h2: 'h2',
-  h3: 'h3',
-  link: 'link',
-  image: 'image',
-  button: 'button',
-  codeBlock: 'code-block',
-  inlineCode: 'inline-code',
-};
+const CLASS_REFERENCE_TO_PANEL_ID: Record<ThemeableComponent, PanelSectionId> =
+  {
+    body: 'body',
+    container: 'container',
+    h1: 'h1',
+    h2: 'h2',
+    h3: 'h3',
+    paragraph: 'paragraph',
+    link: 'link',
+    image: 'image',
+    button: 'button',
+    list: 'list',
+    nestedList: 'nested-list',
+    listItem: 'list-item',
+    codeBlock: 'code-block',
+    inlineCode: 'inline-code',
+  };
 
 export function parseCssValue(value: string | number): {
   value: string | number;

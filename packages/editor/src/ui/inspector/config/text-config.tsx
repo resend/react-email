@@ -127,7 +127,7 @@ export const FORMAT_ITEMS: FormatItem[] = [
   { value: 'bold', icon: BoldIcon, label: 'Bold' },
   { value: 'italic', icon: ItalicIcon, label: 'Italic' },
   { value: 'underline', icon: UnderlineIcon, label: 'Underline' },
-  { value: 'line-through', icon: StrikethroughIcon, label: 'Strikethrough' },
+  { value: 'strike', icon: StrikethroughIcon, label: 'Strikethrough' },
   { value: 'code', icon: CodeIcon, label: 'Code' },
   { value: 'uppercase', icon: CaseUpperIcon, label: 'Uppercase' },
 ];

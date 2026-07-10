@@ -15,6 +15,7 @@ import { useInspector } from './root';
 import { AttributesSection } from './sections/attributes';
 import { BackgroundSection } from './sections/background';
 import { BorderSection } from './sections/border';
+import { ColumnSpacingSection } from './sections/column-spacing';
 import { PaddingSection } from './sections/padding';
 import { SizeSection } from './sections/size';
 import { TypographySection } from './sections/typography';
@@ -159,6 +160,7 @@ interface NodeLayout {
       | 'link'
       | 'typography'
       | 'padding'
+      | 'columnSpacing'
       | 'background'
       | 'border';
   }>;
@@ -212,6 +214,18 @@ function getDefaultLayout(nodeType: string): NodeLayout {
           { type: 'background' },
         ],
       };
+    case 'twoColumns':
+    case 'threeColumns':
+    case 'fourColumns':
+      return {
+        sections: [
+          { type: 'columnSpacing' },
+          { type: 'typography' },
+          { type: 'padding' },
+          { type: 'background' },
+          { type: 'border' },
+        ],
+      };
     default:
       return {
         sections: [
@@ -239,6 +253,8 @@ function InspectorNodeDefaults({ context }: { context: InspectorNodeContext }) {
             return <TypographySection key={section.type} {...context} />;
           case 'padding':
             return <PaddingSection key={section.type} {...context} />;
+          case 'columnSpacing':
+            return <ColumnSpacingSection key={section.type} {...context} />;
           case 'background':
             return <BackgroundSection key={section.type} {...context} />;
           case 'border':

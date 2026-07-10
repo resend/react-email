@@ -1,5 +1,143 @@
 # @react-email/ui
 
+## 6.7.0
+
+## 6.6.9
+
+## 6.6.8
+
+### Patch Changes
+
+- cb2e3d0: Fix out-of-memory crashes when saving a shared component during `email dev`. Hot reload now re-renders only the preview you have open and invalidates the cache for the other affected templates, instead of eagerly re-rendering every dependent template on each save.
+
+## 6.6.7
+
+## 6.6.6
+
+### Patch Changes
+
+- b68009f: Stop failing `email build` when the spam check API errors or times out — the build now logs a warning and continues without a baked-in spam score.
+
+## 6.6.5
+
+### Patch Changes
+
+- 1213e82: fix mismatch between motion dependencies causing problems in build for some users
+
+## 6.6.4
+
+## 6.6.3
+
+### Patch Changes
+
+- 5ad1d79: Update the existing Resend template on upload instead of always creating a new one. The "Upload to Resend" and "Bulk Upload" actions now look the template up by name and update it in place when exactly one matches, so re-uploading no longer produces duplicates (`welcome`, `welcome (1)`, ...).
+
+## 6.6.2
+
+## 6.6.1
+
+### Patch Changes
+
+- 1dd2bff: Fix line and column calculation for CRLF line endings in the email validation diagnostics. A `\r\n` was being counted as two line breaks, so line and column numbers reported for templates authored with Windows line endings were off.
+
+## 6.6.0
+
+## 6.5.0
+
+### Minor Changes
+
+- 3875d2a: add a `--clients` option to `email dev` and a `COMPATIBILITY_EMAIL_CLIENTS` environment variable to narrow which email clients trigger compatibility warnings. By default the preview still warns for `gmail`, `apple-mail`, `outlook`, and `yahoo`. Teams that only target one or two clients can now skip the noise: `email dev --clients outlook,apple-mail`. The CLI flag wins over the env var; an empty or fully-invalid list falls back to the defaults so warnings can't be silently switched off. Builds on #2797 by @ReemX.
+
+## 6.4.0
+
+## 6.3.3
+
+### Patch Changes
+
+- 86745ec: reject paths that resolve outside the configured emails directory in `renderEmailByPath` and `getEmailPathFromSlug` to close a path-traversal vector in the preview server
+
+## 6.3.2
+
+## 6.3.1
+
+### Patch Changes
+
+- 27587f1: stop accepting the emails directory path as a server-action argument
+
+  The `getEmailsDirectoryMetadataAction` server action used to take an
+  absolute filesystem path from the client and walk that directory on the
+  server, which allowed any caller of the endpoint to enumerate arbitrary
+  directories on the host. The action now reads the path from the server-only
+  `REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH` env variable and ignores
+  client input.
+
+## 6.3.0
+
+### Minor Changes
+
+- 99cadf3: support previewing HTML email templates
+
+### Patch Changes
+
+- fd140fc: quality of life improvements to the send email flow:
+  - infer a proper title based on the file name
+  - store preferred subject per email when modified
+  - store recipient for testing in local storage as well
+
+## 6.2.0
+
+## 6.1.5
+
+## 6.1.4
+
+## 6.1.3
+
+### Patch Changes
+
+- 62417f5: bump nextjs version
+
+## 6.1.2
+
+### Patch Changes
+
+- 8cabf52: fix fs constants warnings on every fs warning
+
+## 6.1.1
+
+## 6.1.0
+
+### Minor Changes
+
+- dee7254: add hsl/hsla compatibility detection
+
+## 6.0.8
+
+## 6.0.7
+
+## 6.0.6
+
+## 6.0.5
+
+### Patch Changes
+
+- 61df218: Fix the preview server package build so Turbopack's externalized esbuild alias is included in the published tarball.
+
+## 6.0.4
+
+### Patch Changes
+
+- 96af3a7: Replace ora with picospinner for CLI and preview spinner output.
+
+## 6.0.3
+
+## 6.0.2
+
+### Patch Changes
+
+- 6b24228: fallback behavior for prompt copying when too long
+
+## 6.0.1
+
 ## 6.0.0
 
 ### Major Changes

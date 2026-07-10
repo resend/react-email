@@ -3,8 +3,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import logSymbols from 'log-symbols';
-import ora, { type Ora } from 'ora';
 import type React from 'react';
+import { pretty, toPlainText } from 'react-email';
 import {
   isBuilding,
   isPreviewDevelopment,
@@ -14,7 +14,13 @@ import {
 import { convertStackWithSourceMap } from '../utils/convert-stack-with-sourcemap';
 import { createJsxRuntime } from '../utils/create-jsx-runtime';
 import { getEmailComponent } from '../utils/get-email-component';
+import { isPathWithinEmailsDirectory } from '../utils/is-path-within-emails-directory';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
+import {
+  createSpinner,
+  type Spinner,
+  stopSpinnerAndPersist,
+} from '../utils/spinner';
 import { styleText } from '../utils/style-text';
 import type { ErrorObject } from '../utils/types/error-object';
 
@@ -40,6 +46,11 @@ export type EmailRenderingResult =
     };
 
 const cache = new Map<string, EmailRenderingResult>();
+
+export const invalidateEmailRenderingCache = async (emailPath: string) => {
+  if (!isPathWithinEmailsDirectory(emailPath)) return;
+  cache.delete(emailPath);
+};
 
 const createLogBufferer = (
   originalLogger: (...args: any[]) => void,
@@ -90,6 +101,16 @@ export const renderEmailByPath = async (
   emailPath: string,
   invalidatingCache = false,
 ): Promise<EmailRenderingResult> => {
+  if (!isPathWithinEmailsDirectory(emailPath)) {
+    return {
+      error: {
+        name: 'Error',
+        message: `Refusing to render ${path.basename(emailPath)} because it resolves outside of the configured emails directory.`,
+        stack: undefined,
+      },
+    };
+  }
+
   if (invalidatingCache) {
     cache.delete(emailPath);
   }
@@ -99,18 +120,44 @@ export const renderEmailByPath = async (
   }
 
   const emailFilename = path.basename(emailPath);
-  let spinner: Ora | undefined;
+  let spinner: Spinner | undefined;
   if (!isBuilding && !isPreviewDevelopment) {
     logBufferer.buffer();
     errorBufferer.buffer();
     infoBufferer.buffer();
     warnBufferer.buffer();
-    spinner = ora({
+    spinner = createSpinner({
       text: `Rendering email template ${emailFilename}\n`,
       prefixText: ' ',
       stream: process.stderr,
-    }).start();
+    });
+    spinner.start();
     registerSpinnerAutostopping(spinner);
+  }
+
+  if (path.extname(emailPath) === '.html') {
+    const renderingResult = await renderRawHtmlEmailByPath(emailPath);
+    if ('error' in renderingResult) {
+      stopSpinnerAndPersist(spinner, {
+        symbol: logSymbols.error,
+        text: `Failed while rendering ${emailFilename}`,
+      });
+    } else {
+      stopSpinnerAndPersist(spinner, {
+        symbol: logSymbols.success,
+        text: `Successfully rendered ${emailFilename}`,
+      });
+    }
+    logBufferer.flush();
+    errorBufferer.flush();
+    infoBufferer.flush();
+    warnBufferer.flush();
+
+    if (!('error' in renderingResult)) {
+      cache.set(emailPath, renderingResult);
+    }
+
+    return renderingResult;
   }
 
   const originalJsxRuntimePath = path.resolve(
@@ -127,7 +174,7 @@ export const renderEmailByPath = async (
   const millisecondsToBundled = performance.now() - timeBeforeEmailBundled;
 
   if ('error' in componentResult) {
-    spinner?.stopAndPersist({
+    stopSpinnerAndPersist(spinner, {
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
     });
@@ -175,7 +222,7 @@ export const renderEmailByPath = async (
     } else {
       timeForConsole = styleText('red', timeForConsole);
     }
-    spinner?.stopAndPersist({
+    stopSpinnerAndPersist(spinner, {
       symbol: logSymbols.success,
       text: `Successfully rendered ${emailFilename} in ${timeForConsole} (bundled in ${millisecondsToBundled.toFixed(0)}ms)`,
     });
@@ -204,7 +251,7 @@ export const renderEmailByPath = async (
   } catch (exception) {
     const error = exception as Error;
 
-    spinner?.stopAndPersist({
+    stopSpinnerAndPersist(spinner, {
       symbol: logSymbols.error,
       text: `Failed while rendering ${emailFilename}`,
     });
@@ -300,6 +347,47 @@ export const renderEmailByPath = async (
           emailPath,
           sourceMapToOriginalFile,
         ),
+        cause: error.cause
+          ? JSON.parse(JSON.stringify(error.cause))
+          : undefined,
+      },
+    };
+  }
+};
+
+const renderRawHtmlEmailByPath = async (
+  emailPath: string,
+): Promise<EmailRenderingResult> => {
+  try {
+    const source = await fs.promises.readFile(emailPath, 'utf-8');
+    const markup = source.replaceAll('\0', '');
+
+    let prettyMarkup = markup;
+    try {
+      prettyMarkup = await pretty(markup);
+    } catch (_) {
+      // Fall back to the raw markup if prettier cannot parse the HTML so the
+      // preview still renders something the user can iterate on.
+    }
+
+    const plainText = toPlainText(markup);
+
+    return {
+      prettyMarkup,
+      markup,
+      plainText,
+      reactMarkup: source,
+
+      basename: path.basename(emailPath, path.extname(emailPath)),
+      extname: path.extname(emailPath).slice(1),
+    };
+  } catch (exception) {
+    const error = exception as Error;
+    return {
+      error: {
+        name: error.name,
+        message: error.message,
+        stack: error.stack,
         cause: error.cause
           ? JSON.parse(JSON.stringify(error.cause))
           : undefined,

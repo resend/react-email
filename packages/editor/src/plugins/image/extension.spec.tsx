@@ -1,4 +1,5 @@
 import type { Editor } from '@tiptap/core';
+import type { NodeType } from '@tiptap/pm/model';
 import { render } from 'react-email';
 import { describe, expect, it, vi } from 'vitest';
 import { createImageExtension } from './extension';
@@ -9,6 +10,14 @@ describe('Image extension', () => {
   const renderToReactEmail =
     (extension.options as any).renderToReactEmail ??
     extension.config.renderToReactEmail;
+  const extensionContext = {
+    name: extension.name,
+    options: extension.options,
+    storage: extension.storage as Record<string, never>,
+    editor: {} as Editor,
+    type: {} as NodeType,
+    parent: undefined,
+  };
 
   it('renders basic image', async () => {
     const Component = () =>
@@ -57,7 +66,7 @@ describe('Image extension', () => {
   });
 
   it('defines expected attributes', () => {
-    const attrs = extension.config.addAttributes?.call(extension) ?? {};
+    const attrs = extension.config.addAttributes?.call(extensionContext) ?? {};
     expect(attrs).toHaveProperty('src');
     expect(attrs).toHaveProperty('alt');
     expect(attrs).toHaveProperty('width');
@@ -78,19 +87,14 @@ describe('Image extension', () => {
   });
 
   it('has setImage and uploadImage commands', () => {
-    const commands = extension.config.addCommands?.call(extension);
+    const commands = extension.config.addCommands?.call(extensionContext);
     expect(commands).toHaveProperty('setImage');
     expect(commands).toHaveProperty('uploadImage');
   });
 
   it('registers the image file handler plugin', () => {
-    const context = {
-      ...extension,
-      editor: {} as Editor,
-      options: extension.options,
-      storage: extension.storage,
-    };
-    const plugins = extension.config.addProseMirrorPlugins?.call(context);
+    const plugins =
+      extension.config.addProseMirrorPlugins?.call(extensionContext);
     expect(plugins).toHaveLength(1);
   });
 });

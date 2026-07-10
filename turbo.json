@@ -21,6 +21,7 @@
     "web#build": {
       "dependsOn": ["^build", "^postbuild"],
       "env": [
+        "REDIS_URL",
         "RESEND_API_KEY",
         "NEXT_PUBLIC_SUPABASE_URL",
         "NEXT_PUBLIC_SUPABASE_ANON_KEY"
@@ -49,6 +50,9 @@
       "outputs": ["dist/**"]
     },
     "lint": {},
+    "typecheck": {
+      "dependsOn": ["^build"]
+    },
     "//#format": {},
     "//#format:check": {},
     "test:e2e": {

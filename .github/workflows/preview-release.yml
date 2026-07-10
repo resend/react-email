@@ -7,12 +7,14 @@ permissions:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   preview-release:
-    runs-on: ubuntu-latest
+    # Build secrets: same-repo PRs only; fork PRs evaluate to empty (explicit for review).
+    timeout-minutes: 45
+    runs-on: depot-ubuntu-22.04-8
     permissions: 
       contents: write
       pull-requests: write
     container:
-      image: node:22
+      image: node:24
     steps:
       - name: Checkout Repo
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
@@ -34,10 +36,11 @@ jobs:
         if: steps.changed_packages.outputs.all_changed_and_modified_files != ''
         run: pnpm build
         env:
-          SPAM_ASSASSIN_HOST: ${{ secrets.SPAM_ASSASSIN_HOST }}
-          SPAM_ASSASSIN_PORT: ${{ secrets.SPAM_ASSASSIN_PORT }}
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+          SPAM_ASSASSIN_HOST: ${{ github.event.pull_request.head.repo.full_name == github.repository && secrets.SPAM_ASSASSIN_HOST || '' }}
+          SPAM_ASSASSIN_PORT: ${{ github.event.pull_request.head.repo.full_name == github.repository && secrets.SPAM_ASSASSIN_PORT || '' }}
+          TURBO_TOKEN: ${{ github.event.pull_request.head.repo.full_name == github.repository && secrets.TURBO_TOKEN || '' }}
+          TURBO_TEAM: ${{ github.event.pull_request.head.repo.full_name == github.repository && secrets.TURBO_TEAM || '' }}
+          REDIS_URL: redis://localhost:6379
       - name: Publish changed packages to pkg.pr.new
         if: steps.changed_packages.outputs.all_changed_and_modified_files != ''
         run: pnpm pkg-pr-new publish ${{ steps.changed_packages.outputs.all_changed_and_modified_files }} --pnpm
