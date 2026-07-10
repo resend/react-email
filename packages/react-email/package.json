@@ -6,6 +6,7 @@
     "email": "./dist/cli/index.mjs"
   },
   "type": "module",
+  "sideEffects": false,
   "types": "./dist/index.d.mts",
   "scripts": {
     "build": "tsdown",

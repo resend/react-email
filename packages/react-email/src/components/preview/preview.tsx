@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { markAsElement } from '../element-marker.js';
 
 export type PreviewProps = Readonly<
   React.ComponentPropsWithoutRef<'div'> & {
@@ -43,6 +44,7 @@ export const Preview = React.forwardRef<HTMLDivElement, PreviewProps>(
 );
 
 Preview.displayName = 'Preview';
+markAsElement(Preview);
 
 const whiteSpaceCodes = '\xa0\u200C\u200B\u200D\u200E\u200F\uFEFF';
 export const renderWhiteSpace = (text: string) => {

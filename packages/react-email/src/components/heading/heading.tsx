@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { markAsElement } from '../element-marker.js';
 import type { As } from './utils/as.js';
 import type { Margin } from './utils/spaces.js';
 import { withMargin } from './utils/spaces.js';
@@ -27,3 +28,4 @@ export const Heading = React.forwardRef<
 );
 
 Heading.displayName = 'Heading';
+markAsElement(Heading);

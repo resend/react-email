@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { markAsElement } from '../element-marker.js';
 
 export type ContainerProps = Readonly<React.ComponentPropsWithoutRef<'table'>>;
 
@@ -55,3 +56,4 @@ export const Container = React.forwardRef<HTMLTableElement, ContainerProps>(
 );
 
 Container.displayName = 'Container';
+markAsElement(Container);

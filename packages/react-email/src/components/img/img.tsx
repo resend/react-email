@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { markAsElement } from '../element-marker.js';
 
 export type ImgProps = Readonly<React.ComponentPropsWithoutRef<'img'>>;
 
@@ -23,3 +24,4 @@ export const Img = React.forwardRef<HTMLImageElement, ImgProps>(
 );
 
 Img.displayName = 'Img';
+markAsElement(Img);

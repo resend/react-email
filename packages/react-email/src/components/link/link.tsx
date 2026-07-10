@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { markAsElement } from '../element-marker.js';
 
 export type LinkProps = Readonly<React.ComponentPropsWithoutRef<'a'>>;
 
@@ -20,3 +21,4 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
 );
 
 Link.displayName = 'Link';
+markAsElement(Link);
