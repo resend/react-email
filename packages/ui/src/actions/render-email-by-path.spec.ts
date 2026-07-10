@@ -1,6 +1,10 @@
+import fs from 'node:fs';
 import path from 'node:path';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { renderEmailByPath } from './render-email-by-path';
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
+import {
+  invalidateEmailRenderingCache,
+  renderEmailByPath,
+} from './render-email-by-path';
 
 describe('renderEmailByPath() with raw .html templates', () => {
   const emailsRoot = path.resolve(__dirname, '../utils/testing');
@@ -65,5 +69,135 @@ describe('renderEmailByPath() with raw .html templates', () => {
     );
 
     expect('error' in result).toBe(true);
+  });
+});
+
+describe('invalidateEmailRenderingCache()', () => {
+  const emailsRoot = path.resolve(__dirname, '../utils/testing');
+  const temporaryHtmlPath = path.join(
+    emailsRoot,
+    '.invalidate-cache-email.html',
+  );
+
+  let previousEnvValue: string | undefined;
+
+  beforeAll(() => {
+    previousEnvValue =
+      process.env.REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH;
+    process.env.REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH = emailsRoot;
+  });
+
+  afterAll(() => {
+    if (previousEnvValue === undefined) {
+      delete process.env.REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH;
+    } else {
+      process.env.REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH =
+        previousEnvValue;
+    }
+    if (fs.existsSync(temporaryHtmlPath)) {
+      fs.rmSync(temporaryHtmlPath);
+    }
+  });
+
+  const markupOf = (result: Awaited<ReturnType<typeof renderEmailByPath>>) => {
+    if ('error' in result) throw new Error(result.error.message);
+    return result.markup;
+  };
+
+  it('drops the cached render so the next render reflects new content', async () => {
+    fs.writeFileSync(temporaryHtmlPath, '<h1>first</h1>', 'utf-8');
+    // Populate the cache (first render).
+    expect(markupOf(await renderEmailByPath(temporaryHtmlPath))).toContain(
+      'first',
+    );
+
+    fs.writeFileSync(temporaryHtmlPath, '<h1>second</h1>', 'utf-8');
+    // Without invalidation the cached (stale) markup is returned.
+    expect(markupOf(await renderEmailByPath(temporaryHtmlPath))).toContain(
+      'first',
+    );
+
+    await invalidateEmailRenderingCache(temporaryHtmlPath);
+    // After invalidation the next render re-reads the file.
+    expect(markupOf(await renderEmailByPath(temporaryHtmlPath))).toContain(
+      'second',
+    );
+  });
+
+  it('is a no-op for paths outside the configured emails directory', async () => {
+    await expect(
+      invalidateEmailRenderingCache('/etc/passwd'),
+    ).resolves.toBeUndefined();
+  });
+});
+
+describe('renderEmailByPath() with preview props overrides', () => {
+  const emailsRoot = path.resolve(__dirname, '../utils/testing');
+  const emailPath = path.join(emailsRoot, 'vercel-invite-user.tsx');
+  const previewServerRoot = path.resolve(__dirname, '../..');
+
+  const managedEnv = {
+    REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH: emailsRoot,
+    REACT_EMAIL_INTERNAL_PREVIEW_SERVER_LOCATION: previewServerRoot,
+    REACT_EMAIL_INTERNAL_USER_PROJECT_LOCATION: previewServerRoot,
+  };
+  const previousEnvValues: Record<string, string | undefined> = {};
+
+  // src/app/env.ts reads these at module evaluation, so the module graph is
+  // re-imported after the environment is prepared.
+  let render: typeof renderEmailByPath;
+
+  beforeAll(async () => {
+    for (const [name, value] of Object.entries(managedEnv)) {
+      previousEnvValues[name] = process.env[name];
+      process.env[name] = value;
+    }
+    vi.resetModules();
+    ({ renderEmailByPath: render } = await import('./render-email-by-path'));
+  });
+
+  afterAll(() => {
+    for (const name of Object.keys(managedEnv)) {
+      if (previousEnvValues[name] === undefined) {
+        delete process.env[name];
+      } else {
+        process.env[name] = previousEnvValues[name];
+      }
+    }
+  });
+
+  it('exposes the resolved PreviewProps of the render', {
+    timeout: 15_000,
+  }, async () => {
+    const result = await render(emailPath, true);
+
+    expect('error' in result).toBe(false);
+    if ('error' in result) return;
+
+    expect(result.previewProps.username).toBe('alanturing');
+    expect(result.markup).toContain('alanturing');
+  });
+
+  it('renders with overridden props without corrupting the default cache', {
+    timeout: 15_000,
+  }, async () => {
+    const overridden = await render(emailPath, false, {
+      username: 'adalovelace',
+    });
+
+    expect('error' in overridden).toBe(false);
+    if ('error' in overridden) return;
+
+    expect(overridden.previewProps.username).toBe('adalovelace');
+    expect(overridden.markup).toContain('adalovelace');
+    expect(overridden.markup).not.toContain('alanturing');
+
+    const defaults = await render(emailPath, false);
+
+    expect('error' in defaults).toBe(false);
+    if ('error' in defaults) return;
+
+    expect(defaults.previewProps.username).toBe('alanturing');
+    expect(defaults.markup).toContain('alanturing');
   });
 });

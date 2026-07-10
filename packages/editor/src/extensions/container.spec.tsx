@@ -272,6 +272,9 @@ describe('Container Node', () => {
           <meta
             content="telephone=no,address=no,email=no,date=no,url=no"
             name="format-detection" />
+          <style>
+            @media (prefers-color-scheme: dark){li::marker{color:#c4c4c4}}
+          </style>
         </head>
         <body dir="ltr" lang="en" style="background-color:#ffffff">
           <!--$--><!--html--><!--head--><!--body-->
@@ -1382,6 +1385,9 @@ describe('Container Node', () => {
           <meta
             content="telephone=no,address=no,email=no,date=no,url=no"
             name="format-detection" />
+          <style>
+            @media (prefers-color-scheme: dark){li::marker{color:#c4c4c4}}
+          </style>
         </head>
         <body dir="ltr" lang="en">
           <!--$--><!--html--><!--head--><!--body-->
@@ -1497,6 +1503,9 @@ describe('Container Node', () => {
           <meta
             content="telephone=no,address=no,email=no,date=no,url=no"
             name="format-detection" />
+          <style>
+            @media (prefers-color-scheme: dark){li::marker{color:#c4c4c4}}
+          </style>
         </head>
         <body dir="ltr" lang="en">
           <!--$--><!--html--><!--head--><!--body-->
@@ -1580,6 +1589,9 @@ describe('Container Node', () => {
           <meta
             content="telephone=no,address=no,email=no,date=no,url=no"
             name="format-detection" />
+          <style>
+            @media (prefers-color-scheme: dark){li::marker{color:#c4c4c4}}
+          </style>
         </head>
         <body dir="ltr" lang="en" style="background-color:#ffffff">
           <!--$--><!--html--><!--head--><!--body-->

@@ -25,6 +25,11 @@ import { styleText } from '../utils/style-text';
 import type { ErrorObject } from '../utils/types/error-object';
 
 export interface RenderedEmailMetadata {
+  /**
+   * JSON-safe props this render used: the `previewPropsOverride` when one was
+   * given, otherwise the template's own `PreviewProps`.
+   */
+  previewProps: Record<string, unknown>;
   prettyMarkup: string;
   markup: string;
   /**
@@ -46,6 +51,48 @@ export type EmailRenderingResult =
     };
 
 const cache = new Map<string, EmailRenderingResult>();
+
+const getCacheKey = (
+  emailPath: string,
+  previewPropsOverride: Record<string, unknown> | undefined,
+) =>
+  previewPropsOverride === undefined
+    ? emailPath
+    : `${emailPath}\0${JSON.stringify(previewPropsOverride)}`;
+
+const invalidateCacheFor = (emailPath: string) => {
+  for (const key of cache.keys()) {
+    if (key === emailPath || key.startsWith(`${emailPath}\0`)) {
+      cache.delete(key);
+    }
+  }
+};
+
+// Drops every cached render of a template (its defaults and any props-override
+// variants) so the next render re-reads the file. Hot reload uses this to
+// invalidate templates affected by a shared-component save without re-rendering
+// them eagerly.
+export const invalidateEmailRenderingCache = async (emailPath: string) => {
+  if (!isPathWithinEmailsDirectory(emailPath)) return;
+  invalidateCacheFor(emailPath);
+};
+
+const toJsonSafeProps = (props: unknown): Record<string, unknown> => {
+  try {
+    const serialized = JSON.parse(JSON.stringify(props)) as unknown;
+    if (
+      serialized !== null &&
+      typeof serialized === 'object' &&
+      !Array.isArray(serialized)
+    ) {
+      return serialized as Record<string, unknown>;
+    }
+  } catch (_exception) {
+    // Props containing non-serializable values (functions, elements) cannot
+    // round-trip into the editor; fall through to an empty object.
+  }
+  return {};
+};
 
 const createLogBufferer = (
   originalLogger: (...args: any[]) => void,
@@ -95,6 +142,7 @@ const warnBufferer = createLogBufferer(
 export const renderEmailByPath = async (
   emailPath: string,
   invalidatingCache = false,
+  previewPropsOverride?: Record<string, unknown>,
 ): Promise<EmailRenderingResult> => {
   if (!isPathWithinEmailsDirectory(emailPath)) {
     return {
@@ -107,11 +155,12 @@ export const renderEmailByPath = async (
   }
 
   if (invalidatingCache) {
-    cache.delete(emailPath);
+    invalidateCacheFor(emailPath);
   }
 
-  if (cache.has(emailPath)) {
-    return cache.get(emailPath)!;
+  const cacheKey = getCacheKey(emailPath, previewPropsOverride);
+  if (cache.has(cacheKey)) {
+    return cache.get(cacheKey)!;
   }
 
   const emailFilename = path.basename(emailPath);
@@ -149,7 +198,7 @@ export const renderEmailByPath = async (
     warnBufferer.flush();
 
     if (!('error' in renderingResult)) {
-      cache.set(emailPath, renderingResult);
+      cache.set(cacheKey, renderingResult);
     }
 
     return renderingResult;
@@ -188,7 +237,7 @@ export const renderEmailByPath = async (
     sourceMapToOriginalFile,
   } = componentResult;
 
-  const previewProps = Email.PreviewProps || {};
+  const previewProps = previewPropsOverride ?? Email.PreviewProps ?? {};
   const EmailComponent = Email as React.FunctionComponent;
   try {
     const timeBeforeEmailRendered = performance.now();
@@ -227,6 +276,7 @@ export const renderEmailByPath = async (
     warnBufferer.flush();
 
     const renderingResult: RenderedEmailMetadata = {
+      previewProps: toJsonSafeProps(previewProps),
       prettyMarkup,
       // This ensures that no null byte character ends up in the rendered
       // markup making users suspect of any issues. These null byte characters
@@ -240,7 +290,7 @@ export const renderEmailByPath = async (
       extname: path.extname(emailPath).slice(1),
     };
 
-    cache.set(emailPath, renderingResult);
+    cache.set(cacheKey, renderingResult);
 
     return renderingResult;
   } catch (exception) {
@@ -368,6 +418,7 @@ const renderRawHtmlEmailByPath = async (
     const plainText = toPlainText(markup);
 
     return {
+      previewProps: {},
       prettyMarkup,
       markup,
       plainText,

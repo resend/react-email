@@ -16,6 +16,7 @@ type ActiveTab =
   | 'linter'
   | 'compatibility'
   | 'spam-assassin'
+  | 'props'
   | 'resend'
   | undefined;
 

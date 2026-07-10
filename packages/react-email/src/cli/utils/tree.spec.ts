@@ -20,6 +20,8 @@ test('tree(__dirname, 2)', async () => {
     ├── email-clients.ts
     ├── get-emails-directory-metadata.spec.ts
     ├── get-emails-directory-metadata.ts
+    ├── get-tracing-root-dir.spec.ts
+    ├── get-tracing-root-dir.ts
     ├── get-ui-location.ts
     ├── index.ts
     ├── packageJson.ts

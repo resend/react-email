@@ -129,6 +129,26 @@ describe('sanitizeDeclarations', () => {
     );
   });
 
+  it('separates two-value logical shorthands with auto, var, or calc', () => {
+    let root = parse('.x { margin-inline: 1rem auto; }');
+    sanitizeDeclarations(root);
+    expect(generate(root)).toMatchInlineSnapshot(
+      `".x{margin-right:auto;margin-left:1rem}"`,
+    );
+
+    root = parse('.x { margin-inline: 0 auto; }');
+    sanitizeDeclarations(root);
+    expect(generate(root)).toMatchInlineSnapshot(
+      `".x{margin-right:auto;margin-left:0}"`,
+    );
+
+    root = parse('.x { padding-inline: 10px calc(1rem + 2px); }');
+    sanitizeDeclarations(root);
+    expect(generate(root)).toMatchInlineSnapshot(
+      `".x{padding-right:calc(1rem + 2px);padding-left:10px}"`,
+    );
+  });
+
   test('oklch to rgb conversion', () => {
     let stylesheet = parse('div { color: oklch(90.5% 0.2 180); }');
     sanitizeDeclarations(stylesheet);
@@ -230,6 +250,27 @@ describe('sanitizeDeclarations', () => {
       generate(stylesheet),
       'treatment for already supported rgb syntax',
     ).toMatchInlineSnapshot(`"div{color:rgb(255,0,128)}"`);
+
+    stylesheet = parse('div { color: rgba(255 0 128 / 0.5); }');
+    sanitizeDeclarations(stylesheet);
+    expect(
+      generate(stylesheet),
+      'rgba() space syntax with alpha',
+    ).toMatchInlineSnapshot(`"div{color:rgb(255,0,128,0.5)}"`);
+
+    stylesheet = parse('div { color: rgba(100% 0% 50% / 100%); }');
+    sanitizeDeclarations(stylesheet);
+    expect(
+      generate(stylesheet),
+      'rgba() percentage syntax with full alpha',
+    ).toMatchInlineSnapshot(`"div{color:rgb(255,0,128)}"`);
+
+    stylesheet = parse('div { color: rgba(255, 0, 128, 0.5); }');
+    sanitizeDeclarations(stylesheet);
+    expect(
+      generate(stylesheet),
+      'legacy comma rgba() is left untouched',
+    ).toMatchInlineSnapshot(`"div{color:rgb(255,0,128,0.5)}"`);
   });
 
   test('hex to rgb conversion', () => {

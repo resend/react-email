@@ -1,5 +1,72 @@
 # @react-email/editor
 
+## 1.6.6
+
+### Patch Changes
+
+- Updated dependencies [b448c3b]
+  - react-email@6.7.0
+
+## 1.6.5
+
+### Patch Changes
+
+- 86d235d: Remove dangling CSS file exports in package definition
+- Updated dependencies [bc2f7e3]
+  - react-email@6.6.9
+
+## 1.6.4
+
+### Patch Changes
+
+- d89be14: Fix bubble menus and the Inspector losing the editor selection on click. The `FocusScopes` registry was wiped on every plugin reconfiguration; it now persists until the plugin is removed or the editor is destroyed.
+- Updated dependencies [dca3c01]
+  - react-email@6.6.8
+
+## 1.6.3
+
+### Patch Changes
+
+- Updated dependencies [6a5ff2a]
+- Updated dependencies [4cf4c72]
+- Updated dependencies [fa77d55]
+- Updated dependencies [fa52a04]
+- Updated dependencies [fc8318c]
+  - react-email@6.6.7
+
+## 1.6.2
+
+### Patch Changes
+
+- 6313b3c: Avoid React key warnings when exporting editor content containing marked text. Serialized email nodes are now keyed at the mapped result boundary, so marks like bold, italic, and links no longer produce missing-key warnings during email export.
+
+## 1.6.1
+
+### Patch Changes
+
+- 94bd4c8: Fix invalid `TextSelection` on blur. Clearing the selection on blur used `TextSelection.create(doc, 0)`, which resolves to the doc node (no inline content) and made ProseMirror log "TextSelection endpoint not pointing into a node with inline content (doc)". It now uses `Selection.atStart(doc)`, which resolves to the first valid cursor position.
+- Updated dependencies [b4ac0d5]
+- Updated dependencies [cb3c468]
+  - react-email@6.6.6
+
+## 1.6.0
+
+### Minor Changes
+
+- b897235: preserve image styles when replacing an image node
+
+## 1.5.10
+
+### Patch Changes
+
+- f5eae02: Keep native list markers visible in dark-mode mail clients. Apple Mail / iOS auto-darken light emails by recoloring text but leave `list-style` markers at their original color, so bullets vanished on the darkened background. The serialized email head now ships a `prefers-color-scheme: dark` rule that gives `li::marker` an explicit color.
+
+## 1.5.9
+
+### Patch Changes
+
+- react-email@6.6.5
+
 ## 1.5.8
 
 ### Patch Changes

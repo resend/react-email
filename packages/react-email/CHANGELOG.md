@@ -1,5 +1,50 @@
 # react-email
 
+## 6.7.0
+
+### Minor Changes
+
+- b448c3b: Enable custom export extensions via --extension/-e (e.g. .blade.php).
+
+### Patch Changes
+
+- Updated dependencies [ba96cfa]
+- Updated dependencies [58d8c08]
+  - @react-email/render@2.1.0
+
+## 6.6.9
+
+### Patch Changes
+
+- bc2f7e3: Fix `group` utilities including bad rules that don't work
+
+## 6.6.8
+
+### Patch Changes
+
+- dca3c01: Fix `email build` computing the wrong output file tracing root in nested-workspace monorepos (e.g. a package one or more directories below the true repo root), which caused Vercel deploys to fail with an ENOENT error on the routes manifest.
+
+## 6.6.7
+
+### Patch Changes
+
+- 6a5ff2a: Escape double quotes in `Markdown` link `href`/`title` and image `title` attributes, matching the escaping already applied to image `src`/`alt`. A markdown title like `'The "Complete" Guide'` no longer breaks out of the attribute in the rendered HTML.
+- 4cf4c72: Fix two-value logical shorthands whose values aren't all numeric (e.g. `margin-inline: 1rem auto`, `padding-inline: 10px calc(1rem + 2px)`) producing invalid duplicated longhands. They are now split into the correct per-side declarations.
+- fa77d55: Merge declarations when the same class is defined by multiple Tailwind rules (e.g. a preset and a child config override).
+- fa52a04: Convert Tailwind's `rgba(r g b / a)` syntax to `rgb(r,g,b,a)` syntax for better email client support.
+- fc8318c: Fix Tailwind classes not being inlined into styles for `<Section>`, `<Column>` and `<Row>`.
+
+## 6.6.6
+
+### Patch Changes
+
+- b4ac0d5: Fix `Button` emitting `mso-text-raise` without a unit on its Outlook padding spacer (e.g. `mso-text-raise:18`), which Outlook treats as invalid. The value now carries `px`, matching the unit React already adds on the button label.
+- cb3c468: Fix `email build` so the generated preview app deploys on Vercel by tracing files from the user's project root instead of the `.react-email` subfolder.
+- Updated dependencies [c300cfb]
+  - @react-email/render@2.0.10
+
+## 6.6.5
+
 ## 6.6.4
 
 ### Patch Changes

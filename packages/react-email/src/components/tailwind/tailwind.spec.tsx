@@ -4,11 +4,14 @@ import React from 'react';
 import plugin from 'tailwindcss/plugin';
 import { Body } from '../body/index.js';
 import { Button } from '../button/index.js';
+import { Column } from '../column/index.js';
 import { Head } from '../head/index.js';
 import { Heading } from '../heading/index.js';
 import { Hr } from '../hr/index.js';
 import { Html } from '../html/index.js';
 import { Link } from '../link/index.js';
+import { Row } from '../row/index.js';
+import { Section } from '../section/index.js';
 import type { TailwindConfig } from './tailwind.js';
 import { Tailwind } from './tailwind.js';
 
@@ -170,7 +173,7 @@ describe('Tailwind component', () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><a style="line-height:1.4285714285714286;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;margin-top:2rem;border-radius:0.375rem;background-color:rgb(21,93,252);padding-right:12px;padding-left:12px;padding-bottom:8px;padding-top:8px;color:rgb(229,231,235);font-size:0.875rem" target="_blank"><span><!--[if mso]><i style="mso-font-width:300%;mso-text-raise:12" hidden>&#8202;&#8202;</i><![endif]--></span><span style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:6px">Testing button</span><span><!--[if mso]><i style="mso-font-width:300%" hidden>&#8202;&#8202;&#8203;</i><![endif]--></span></a>Testing<!--/$-->"`,
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><a style="line-height:1.4285714285714286;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;margin-top:2rem;border-radius:0.375rem;background-color:rgb(21,93,252);padding-right:12px;padding-left:12px;padding-bottom:8px;padding-top:8px;color:rgb(229,231,235);font-size:0.875rem" target="_blank"><span><!--[if mso]><i style="mso-font-width:300%;mso-text-raise:12px" hidden>&#8202;&#8202;</i><![endif]--></span><span style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:6px">Testing button</span><span><!--[if mso]><i style="mso-font-width:300%" hidden>&#8202;&#8202;&#8203;</i><![endif]--></span></a>Testing<!--/$-->"`,
     );
   });
 
@@ -258,6 +261,45 @@ describe('Tailwind component', () => {
 
     expect(await render(<EmailTemplate />)).toMatchInlineSnapshot(
       `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$-->Hello<h1>My testing heading</h1>friends<!--/$-->"`,
+    );
+  });
+
+  it('routes Tailwind padding on <Section> to the inner <td>', async () => {
+    const html = await render(
+      <Tailwind>
+        <Section className="bg-white p-4">x</Section>
+      </Tailwind>,
+    );
+
+    expect(html).toContain('<td style="padding:1rem">');
+    expect(html).not.toMatch(/<table[^>]*style="[^"]*padding:1rem/);
+  });
+
+  it('inlines Tailwind classes on <Column> onto its <td>', async () => {
+    const html = await render(
+      <Tailwind>
+        <Row>
+          <Column className="bg-white p-4">x</Column>
+        </Row>
+      </Tailwind>,
+    );
+
+    expect(html).toMatch(
+      /<td[^>]*data-id="__react-email-column"[^>]*style="[^"]*padding:1rem/,
+    );
+  });
+
+  it('inlines Tailwind classes on <Row> onto its <table>', async () => {
+    const html = await render(
+      <Tailwind>
+        <Row className="bg-white p-4">
+          <Column>x</Column>
+        </Row>
+      </Tailwind>,
+    );
+
+    expect(html).toMatch(
+      /<table[^>]*role="presentation"[^>]*style="[^"]*padding:1rem/,
     );
   });
 
@@ -396,6 +438,40 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchInlineSnapshot(
       `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><style>@media (prefers-color-scheme:dark){.text-body{color:orange!important}}</style></head><body class="text-body" dir="ltr" lang="en"><!--$--><!--html--><!--head--><!--body--><table border="0" width="100%" cellPadding="0" cellSpacing="0" role="presentation" align="center"><tbody><tr><td dir="ltr" lang="en" style="color:green">this is the body</td></tr></tbody></table><!--/$--></body></html>"`,
     );
+  });
+
+  // See https://github.com/resend/react-email/pull/3594
+  it('does not leak a bare nested group/peer rule into the <head> <style>', async () => {
+    const html = await render(
+      <Html>
+        <Tailwind>
+          <Head />
+          <div className="group">
+            <a className="group-hover:underline" href="https://react.email">
+              link
+            </a>
+          </div>
+        </Tailwind>
+      </Html>,
+    ).then(pretty);
+
+    expect(html).toMatchInlineSnapshot(`
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html dir="ltr" lang="en">
+        <head>
+          <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+          <meta name="x-apple-disable-message-reformatting" />
+          <style>
+            .group-hover_underline{@media (hover:hover){&:is(:where(.group):hover *){text-decoration-line:underline!important}}}
+          </style></head
+        ><!--$--><!--html--><!--head-->
+        <div class="group">
+          <a class="group-hover_underline" href="https://react.email">link</a>
+        </div>
+        <!--/$-->
+      </html>
+      "
+    `);
   });
 
   it('recognizes custom responsive screen', async () => {
@@ -737,6 +813,42 @@ describe('Tailwind component', () => {
             <!--/$-->
           </body>
         </html>
+        "
+      `);
+    });
+  });
+
+  describe('with duplicate classes across presets and plugins', () => {
+    it('merges declarations from a preset and a child override for the same class', async () => {
+      const base: TailwindConfig = {
+        plugins: [
+          plugin(({ addComponents }) => {
+            addComponents({ '.box': { '@apply rounded-lg bg-white p-4': {} } });
+          }),
+        ],
+      };
+      const config: TailwindConfig = {
+        presets: [base],
+        plugins: [
+          plugin(({ addComponents }) => {
+            addComponents({ '.box': { '@apply bg-red-500': {} } });
+          }),
+        ],
+      };
+
+      const actualOutput = await render(
+        <Tailwind config={config}>
+          <div className="box">hi</div>
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div style="border-radius:0.5rem;background-color:rgb(251,44,54);padding:1rem">
+          hi
+        </div>
+        <!--/$-->
         "
       `);
     });
@@ -1102,7 +1214,7 @@ describe('Tailwind component', () => {
         "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <!--$-->
         <div
-          style="box-shadow:0 4px 6px rgba(0,0,0,0.1);border-radius:8px;padding:16px"></div>
+          style="box-shadow:0 4px 6px rgb(0,0,0,0.1);border-radius:8px;padding:16px"></div>
         <!--/$-->
         "
       `);

@@ -1,5 +1,6 @@
 import type { Editor, JSONContent } from '@tiptap/core';
 import type { MarkType, Schema } from '@tiptap/pm/model';
+import { Fragment } from 'react';
 import { pretty, render, toPlainText } from 'react-email';
 import { inlineCssToJs } from '../../utils/styles';
 import { DefaultBaseTemplate } from './default-base-template';
@@ -51,9 +52,11 @@ interface ComposeReactEmailResult {
 export const composeReactEmail = async ({
   editor,
   preview,
+  previewMode = false,
 }: {
   editor: Editor;
   preview?: string;
+  previewMode?: boolean;
 }): Promise<ComposeReactEmailResult> => {
   const data = editor.getJSON();
   const extensions = editor.extensionManager.extensions;
@@ -99,7 +102,6 @@ export const composeReactEmail = async ({
         node.text
       ) : (
         <NodeComponent
-          key={index}
           node={
             node.type === 'table' && inlineStyles.width && !node.attrs?.width
               ? {
@@ -142,7 +144,7 @@ export const composeReactEmail = async ({
         }
       }
 
-      return renderedNode;
+      return <Fragment key={index}>{renderedNode}</Fragment>;
     });
   }
 
@@ -150,7 +152,11 @@ export const composeReactEmail = async ({
 
   const parsedContent = parseContent(data.content);
   const unformattedHtml = await render(
-    <BaseTemplate previewText={preview} editor={editor}>
+    <BaseTemplate
+      previewText={preview}
+      editor={editor}
+      previewMode={previewMode}
+    >
       {parsedContent}
     </BaseTemplate>,
   );

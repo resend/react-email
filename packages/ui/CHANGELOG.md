@@ -1,5 +1,29 @@
 # @react-email/ui
 
+## 6.7.0
+
+## 6.6.9
+
+## 6.6.8
+
+### Patch Changes
+
+- cb2e3d0: Fix out-of-memory crashes when saving a shared component during `email dev`. Hot reload now re-renders only the preview you have open and invalidates the cache for the other affected templates, instead of eagerly re-rendering every dependent template on each save.
+
+## 6.6.7
+
+## 6.6.6
+
+### Patch Changes
+
+- b68009f: Stop failing `email build` when the spam check API errors or times out — the build now logs a warning and continues without a baked-in spam score.
+
+## 6.6.5
+
+### Patch Changes
+
+- 1213e82: fix mismatch between motion dependencies causing problems in build for some users
+
 ## 6.6.4
 
 ## 6.6.3

@@ -20,8 +20,6 @@ test('email export', { retry: 3 }, async () => {
     "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html dir="ltr" lang="en">
       <head>
-        <link rel="preload" as="image" href="/static/vercel-logo.png" />
-        <link rel="preload" as="image" href="/static/vercel-arrow.png" />
         <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
         <meta name="x-apple-disable-message-reformatting" />
         <title>Join undefined on Vercel</title>
@@ -171,7 +169,7 @@ test('email export', { retry: 3 }, async () => {
                                   style="line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;border-radius:0.25rem;background-color:rgb(0,0,0);padding-right:20px;padding-left:20px;padding-bottom:12px;padding-top:12px;text-align:center;font-weight:600;font-size:12px;color:rgb(255,255,255);text-decoration-line:none"
                                   target="_blank"
                                   ><span
-                                    ><!--[if mso]><i style="mso-font-width:500%;mso-text-raise:18" hidden>&#8202;&#8202;</i><![endif]--></span
+                                    ><!--[if mso]><i style="mso-font-width:500%;mso-text-raise:18px" hidden>&#8202;&#8202;</i><![endif]--></span
                                   ><span
                                     style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:9px"
                                     >Join the team</span
@@ -216,4 +214,25 @@ test('email export', { retry: 3 }, async () => {
     </html>
     "
   `);
+});
+
+test('email export with custom extension', { retry: 3 }, async () => {
+  const pathToEmailsDirectory = path.resolve(__dirname, './emails');
+  const pathToDumpMarkup = path.resolve(__dirname, './out');
+
+  await exportTemplates(pathToDumpMarkup, pathToEmailsDirectory, {
+    silent: true,
+    pretty: true,
+    extension: 'blade.php',
+  });
+
+  const outputFile = path.resolve(
+    pathToDumpMarkup,
+    './vercel-invite-user.blade.php',
+  );
+
+  expect(fs.existsSync(outputFile)).toBe(true);
+  expect(await fs.promises.readFile(outputFile, 'utf8')).toContain(
+    '<!DOCTYPE html',
+  );
 });
