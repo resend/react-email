@@ -152,7 +152,6 @@ const ToolbarInner = ({
 
   const id = React.useId();
   const [isToolbarInfoOpen, setIsToolbarInfoOpen] = React.useState(false);
-  const infoPointerTypeRef = React.useRef('');
   React.useEffect(() => {
     if (!isToolbarInfoOpen) return;
 
@@ -180,20 +179,31 @@ const ToolbarInner = ({
       'The Resend tab allows you to upload your React Email code using the Resend Templates API.') ||
     'Info';
 
+  const panelLabels: Record<ToolbarTabValue, string> = {
+    linter: 'Linter',
+    compatibility: 'Compatibility',
+    'spam-assassin': 'Spam',
+    props: 'Props',
+    resend: 'Resend',
+  };
   const availablePanels: { value: ToolbarTabValue; label: string }[] = [
-    { value: 'linter', label: 'Linter' },
+    { value: 'linter', label: panelLabels.linter },
     ...(isRawHtmlEmail
       ? []
-      : ([{ value: 'compatibility', label: 'Compatibility' }] as const)),
-    { value: 'spam-assassin', label: 'Spam' },
+      : [
+          { value: 'compatibility' as const, label: panelLabels.compatibility },
+        ]),
+    { value: 'spam-assassin', label: panelLabels['spam-assassin'] },
     ...(isRawHtmlEmail || isBuilding
       ? []
-      : ([{ value: 'props', label: 'Props' }] as const)),
-    { value: 'resend', label: 'Resend' },
+      : [{ value: 'props' as const, label: panelLabels.props }]),
+    { value: 'resend', label: panelLabels.resend },
   ];
+  // The label must reflect the URL-selected panel even when that panel is not
+  // offered for this template (e.g. compatibility on a raw HTML email), since
+  // the content area still renders that panel's state.
   const activePanelLabel =
-    availablePanels.find((panel) => panel.value === activeTab)?.label ??
-    'Linter';
+    (activeTab ? panelLabels[activeTab] : undefined) ?? 'Linter';
 
   return (
     <div
@@ -310,16 +320,15 @@ const ToolbarInner = ({
                     tooltip={
                       isToolbarInfoOpen ? undefined : toolbarPanelDescription
                     }
-                    onPointerDown={(event) => {
-                      infoPointerTypeRef.current = event.pointerType;
-                    }}
                     onClick={(event) => {
                       // Mouse users already get this info on hover, so only
                       // touch and keyboard interactions open the popover.
-                      if (infoPointerTypeRef.current === 'mouse') {
+                      // Click events are PointerEvents in modern browsers,
+                      // with an empty pointerType for keyboard activation.
+                      const { pointerType } = event.nativeEvent as PointerEvent;
+                      if (pointerType === 'mouse') {
                         event.preventDefault();
                       }
-                      infoPointerTypeRef.current = '';
                     }}
                   >
                     <IconInfo size={24} />
