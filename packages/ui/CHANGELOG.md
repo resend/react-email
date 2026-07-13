@@ -1,5 +1,15 @@
 # @react-email/ui
 
+## 6.8.0
+
+### Minor Changes
+
+- 9605c04: Add a Props tab to the preview toolbar for live-editing the props a template is rendered with. Edits re-render the preview without changing the template's `PreviewProps`, invalid JSON is flagged inline, and a reset restores the template defaults.
+
+### Patch Changes
+
+- 7b32bf6: Fixed toolbar tabs not responding on statically built previews when the page was opened with a `toolbar-panel` query param in the URL.
+
 ## 6.7.0
 
 ## 6.6.9
