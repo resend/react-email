@@ -74,7 +74,8 @@ export const composeReactEmail = async ({
     extensions.map((extension) => [extension.name, extension]),
   );
 
-  function parseContent(content: JSONContent[] | undefined, depth = 0) {
+  function parseContent(_content: JSONContent[] | undefined, depth = 0) {
+    let content = _content;
     if (!content) {
       return;
     }
@@ -83,7 +84,7 @@ export const composeReactEmail = async ({
     // TrailingNode filler after a trailing table/section, the schema filler
     // in an empty cell); blank lines between paragraphs still render.
     content = content.filter((node, index, nodes) => {
-      if (node.type !== 'paragraph' || (node.content && node.content.length)) {
+      if (node.type !== 'paragraph' || node.content?.length) {
         return true;
       }
       if (index !== nodes.length - 1) {
