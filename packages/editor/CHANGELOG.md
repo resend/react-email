@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.6.8
+
+### Patch Changes
+
+- react-email@6.8.1
+
 ## 1.6.7
 
 ### Patch Changes

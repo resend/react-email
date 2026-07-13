@@ -1,5 +1,7 @@
 # react-email
 
+## 6.8.1
+
 ## 6.8.0
 
 ### Minor Changes
