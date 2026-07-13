@@ -360,6 +360,16 @@ const ToolbarInner = ({
                       // `click` as a plain MouseEvent without `pointerType`.
                       infoPointerTypeRef.current = event.pointerType;
                       const clearPointerType = () => {
+                        window.removeEventListener(
+                          'pointerup',
+                          clearPointerType,
+                          true,
+                        );
+                        window.removeEventListener(
+                          'pointercancel',
+                          clearPointerType,
+                          true,
+                        );
                         // Deferred so the `click` for this same interaction
                         // can still read the pointer type; this also
                         // self-heals if the pointer is released off the
@@ -369,13 +379,12 @@ const ToolbarInner = ({
                         }, 0);
                       };
                       window.addEventListener('pointerup', clearPointerType, {
-                        once: true,
                         capture: true,
                       });
                       window.addEventListener(
                         'pointercancel',
                         clearPointerType,
-                        { once: true, capture: true },
+                        { capture: true },
                       );
                     }}
                     onClick={(event) => {
