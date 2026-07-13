@@ -285,7 +285,7 @@ export const CopyForAI = ({
         <button
           type="button"
           className={cn(
-            'flex items-center gap-1 h-7 px-2.5 rounded-md text-xs font-medium self-center',
+            'flex shrink-0 items-center gap-1 h-7 whitespace-nowrap px-2.5 rounded-md text-xs font-medium self-center',
             'text-slate-11',
             'hover:text-slate-12 transition-colors',
             'outline-none',
@@ -297,9 +297,10 @@ export const CopyForAI = ({
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content
-          className="min-w-[260px] rounded-xl p-1.5 shadow-2xl z-50 border border-white/10"
+          className="max-h-[var(--radix-dropdown-menu-content-available-height)] w-80 max-w-[calc(100vw-1rem)] overflow-y-auto rounded-xl p-1.5 shadow-2xl z-50 border border-white/10"
           style={{ backgroundColor: '#0c0c0c' }}
           sideOffset={8}
+          collisionPadding={8}
           align="end"
           side="top"
         >
