@@ -105,8 +105,8 @@ export const TechNewsletterEmail = ({
                 <Img
                   src={techNewsletterCommunity.imageSrc}
                   alt=""
-                  width={608}
-                  className="block w-full max-w-[608px] rounded-t-[10px]"
+                  width={640}
+                  className="block w-full max-w-[640px] rounded-t-[10px]"
                 />
               </Section>
 
