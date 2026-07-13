@@ -1,5 +1,6 @@
 'use client';
 
+import * as Popover from '@radix-ui/react-popover';
 import * as Tabs from '@radix-ui/react-tabs';
 import { LayoutGroup } from 'framer-motion';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -149,6 +150,18 @@ const ToolbarInner = ({
   }
 
   const id = React.useId();
+  const toolbarPanelDescription =
+    (activeTab === 'linter' &&
+      'The Linter tab checks all the images and links for common issues like missing alt text, broken URLs, insecure HTTP methods, and more.') ||
+    (activeTab === 'spam-assassin' &&
+      'The Spam tab will look at the content and use a robust scoring framework to determine if the email is likely to be spam. Powered by SpamAssassin.') ||
+    (activeTab === 'compatibility' &&
+      'The Compatibility tab shows how well the HTML/CSS is supported across mail clients like Outlook, Gmail, etc. Powered by Can I Email.') ||
+    (activeTab === 'props' &&
+      'The Props tab lets you edit the props the preview renders with, to try out different content without changing the template.') ||
+    (activeTab === 'resend' &&
+      'The Resend tab allows you to upload your React Email code using the Resend Templates API.') ||
+    'Info';
 
   return (
     <div
@@ -210,24 +223,24 @@ const ToolbarInner = ({
                 isRawHtmlEmail={isRawHtmlEmail}
                 activeTab={activeTab}
               />
-              <ToolbarButton
-                delayDuration={0}
-                tooltip={
-                  (activeTab === 'linter' &&
-                    'The Linter tab checks all the images and links for common issues like missing alt text, broken URLs, insecure HTTP methods, and more.') ||
-                  (activeTab === 'spam-assassin' &&
-                    'The Spam tab will look at the content and use a robust scoring framework to determine if the email is likely to be spam. Powered by SpamAssassin.') ||
-                  (activeTab === 'compatibility' &&
-                    'The Compatibility tab shows how well the HTML/CSS is supported across mail clients like Outlook, Gmail, etc. Powered by Can I Email.') ||
-                  (activeTab === 'props' &&
-                    'The Props tab lets you edit the props the preview renders with, to try out different content without changing the template.') ||
-                  (activeTab === 'resend' &&
-                    'The Resend tab allows you to upload your React Email code using the Resend Templates API.') ||
-                  'Info'
-                }
-              >
-                <IconInfo size={24} />
-              </ToolbarButton>
+              <Popover.Root>
+                <Popover.Trigger asChild>
+                  <ToolbarButton aria-label="About the current toolbar panel">
+                    <IconInfo size={24} />
+                  </ToolbarButton>
+                </Popover.Trigger>
+                <Popover.Portal>
+                  <Popover.Content
+                    align="end"
+                    className="z-50 w-60 max-w-[calc(100vw-1rem)] rounded-md border border-slate-6 bg-black px-3 py-2 font-sans text-white text-xs"
+                    collisionPadding={8}
+                    side="top"
+                    sideOffset={8}
+                  >
+                    {toolbarPanelDescription}
+                  </Popover.Content>
+                </Popover.Portal>
+              </Popover.Root>
               {isBuilding ||
               activeTab === 'resend' ||
               activeTab === 'props' ? null : (
