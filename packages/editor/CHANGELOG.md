@@ -1,5 +1,22 @@
 # @react-email/editor
 
+## 1.6.7
+
+### Patch Changes
+
+- 32d8d95: fix: apply inline styles stored on the `code` mark when composing the email
+
+  The `code` mark's serializer only read styles from the text node's attrs, so inline CSS captured on the mark itself (e.g. background, padding, or font styles imported from existing HTML) was dropped from the composed email. The mark's `style` attr is now merged into the rendered `<code>` element.
+
+- 87e8005: fix: skip editor-only filler paragraphs when composing the email
+
+  The trailing empty paragraph the editor appends after a table or section (and the schema filler inside an otherwise empty cell) no longer renders as extra vertical space in the composed email. Intentional blank lines — empty paragraphs that follow a paragraph — are still rendered.
+
+- Updated dependencies [9605c04]
+- Updated dependencies [d7743bc]
+- Updated dependencies [7b32bf6]
+  - react-email@6.8.0
+
 ## 1.6.6
 
 ### Patch Changes
