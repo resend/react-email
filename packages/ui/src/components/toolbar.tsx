@@ -167,39 +167,41 @@ const ToolbarInner = ({
         asChild
       >
         <div className="flex flex-col h-full">
-          <Tabs.List className="flex gap-4 px-4 border-b border-solid border-slate-6 h-10 w-full shrink-0">
-            <LayoutGroup id={`toolbar-${id}`}>
-              <Tabs.Trigger asChild value="linter">
-                <ToolbarButton active={activeTab === 'linter'}>
-                  Linter
-                </ToolbarButton>
-              </Tabs.Trigger>
-              {isRawHtmlEmail ? null : (
-                <Tabs.Trigger asChild value="compatibility">
-                  <ToolbarButton active={activeTab === 'compatibility'}>
-                    Compatibility
+          <div className="flex h-10 w-full shrink-0 items-center border-b border-solid border-slate-6 px-2 sm:px-4">
+            <Tabs.List className="flex h-full min-w-0 flex-1 gap-2 overflow-x-auto [scrollbar-width:none] sm:gap-4 [&::-webkit-scrollbar]:hidden">
+              <LayoutGroup id={`toolbar-${id}`}>
+                <Tabs.Trigger asChild value="linter">
+                  <ToolbarButton active={activeTab === 'linter'}>
+                    Linter
                   </ToolbarButton>
                 </Tabs.Trigger>
-              )}
-              <Tabs.Trigger asChild value="spam-assassin">
-                <ToolbarButton active={activeTab === 'spam-assassin'}>
-                  Spam
-                </ToolbarButton>
-              </Tabs.Trigger>
-              {isRawHtmlEmail || isBuilding ? null : (
-                <Tabs.Trigger asChild value="props">
-                  <ToolbarButton active={activeTab === 'props'}>
-                    Props
+                {isRawHtmlEmail ? null : (
+                  <Tabs.Trigger asChild value="compatibility">
+                    <ToolbarButton active={activeTab === 'compatibility'}>
+                      Compatibility
+                    </ToolbarButton>
+                  </Tabs.Trigger>
+                )}
+                <Tabs.Trigger asChild value="spam-assassin">
+                  <ToolbarButton active={activeTab === 'spam-assassin'}>
+                    Spam
                   </ToolbarButton>
                 </Tabs.Trigger>
-              )}
-              <Tabs.Trigger asChild value="resend">
-                <ToolbarButton active={activeTab === 'resend'}>
-                  Resend
-                </ToolbarButton>
-              </Tabs.Trigger>
-            </LayoutGroup>
-            <div className="flex items-center gap-1 ml-auto">
+                {isRawHtmlEmail || isBuilding ? null : (
+                  <Tabs.Trigger asChild value="props">
+                    <ToolbarButton active={activeTab === 'props'}>
+                      Props
+                    </ToolbarButton>
+                  </Tabs.Trigger>
+                )}
+                <Tabs.Trigger asChild value="resend">
+                  <ToolbarButton active={activeTab === 'resend'}>
+                    Resend
+                  </ToolbarButton>
+                </Tabs.Trigger>
+              </LayoutGroup>
+            </Tabs.List>
+            <div className="ml-2 flex shrink-0 items-center gap-1 sm:ml-4">
               <CopyForAI
                 lintingRows={lintingRows}
                 compatibilityResults={compatibilityCheckingResults}
@@ -273,7 +275,7 @@ const ToolbarInner = ({
                 />
               </ToolbarButton>
             </div>
-          </Tabs.List>
+          </div>
 
           <div className="grow transition-opacity opacity-100 group-data-[toggled=false]/toolbar:opacity-0 overflow-y-auto pr-3 pl-4 pt-3">
             <Tabs.Content value="linter">

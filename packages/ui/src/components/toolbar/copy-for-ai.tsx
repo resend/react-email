@@ -285,7 +285,7 @@ export const CopyForAI = ({
         <button
           type="button"
           className={cn(
-            'flex items-center gap-1 h-7 px-2.5 rounded-md text-xs font-medium self-center',
+            'flex shrink-0 items-center gap-1 h-7 whitespace-nowrap px-2.5 rounded-md text-xs font-medium self-center',
             'text-slate-11',
             'hover:text-slate-12 transition-colors',
             'outline-none',
