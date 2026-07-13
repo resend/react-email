@@ -1,5 +1,6 @@
 'use client';
 
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import * as Popover from '@radix-ui/react-popover';
 import * as Tabs from '@radix-ui/react-tabs';
 import { LayoutGroup } from 'framer-motion';
@@ -179,13 +180,28 @@ const ToolbarInner = ({
       'The Resend tab allows you to upload your React Email code using the Resend Templates API.') ||
     'Info';
 
+  const availablePanels: { value: ToolbarTabValue; label: string }[] = [
+    { value: 'linter', label: 'Linter' },
+    ...(isRawHtmlEmail
+      ? []
+      : ([{ value: 'compatibility', label: 'Compatibility' }] as const)),
+    { value: 'spam-assassin', label: 'Spam' },
+    ...(isRawHtmlEmail || isBuilding
+      ? []
+      : ([{ value: 'props', label: 'Props' }] as const)),
+    { value: 'resend', label: 'Resend' },
+  ];
+  const activePanelLabel =
+    availablePanels.find((panel) => panel.value === activeTab)?.label ??
+    'Linter';
+
   return (
     <div
       data-toggled={toggled}
       className={cn(
         'absolute bottom-0 left-0 right-0',
-        'border-t border-slate-6 group/toolbar text-xs text-slate-11 h-62 transition-transform sm:h-52',
-        'data-[toggled=false]:translate-y-52.5 sm:data-[toggled=false]:translate-y-42.5',
+        'border-t border-slate-6 group/toolbar text-xs text-slate-11 h-52 transition-transform',
+        'data-[toggled=false]:translate-y-42.5',
       )}
     >
       <Tabs.Root
@@ -196,8 +212,52 @@ const ToolbarInner = ({
         asChild
       >
         <div className="flex flex-col h-full">
-          <div className="flex w-full shrink-0 flex-col border-b border-solid border-slate-6 px-2 sm:h-10 sm:flex-row sm:items-center sm:px-4">
-            <Tabs.List className="flex h-10 w-full min-w-0 gap-3 overflow-x-auto [scrollbar-width:none] sm:h-full sm:w-auto sm:flex-1 sm:gap-4 [&::-webkit-scrollbar]:hidden">
+          <div className="flex h-10 w-full shrink-0 items-center border-b border-solid border-slate-6 px-2 sm:px-4">
+            <div className="flex h-full min-w-0 flex-1 items-center sm:hidden">
+              <DropdownMenu.Root>
+                <DropdownMenu.Trigger asChild>
+                  <button
+                    type="button"
+                    className="group flex h-full items-center gap-1 px-1 text-slate-11 text-sm transition-colors hover:text-slate-12"
+                  >
+                    {activePanelLabel}
+                    <IconArrowDown
+                      size={20}
+                      className="transition-transform group-data-[state=open]:rotate-180"
+                    />
+                  </button>
+                </DropdownMenu.Trigger>
+                <DropdownMenu.Portal>
+                  <DropdownMenu.Content
+                    align="start"
+                    className="z-50 min-w-44 rounded-md border border-slate-6 bg-black p-1 font-sans"
+                    collisionPadding={8}
+                    side="top"
+                    sideOffset={8}
+                  >
+                    {availablePanels.map((panel) => (
+                      <DropdownMenu.Item
+                        key={panel.value}
+                        onSelect={() => {
+                          setActivePanelValue(panel.value);
+                        }}
+                        className={cn(
+                          'flex cursor-pointer items-center justify-between gap-2 rounded px-3 py-2 text-slate-11 text-sm outline-none',
+                          'data-[highlighted]:bg-white/5 data-[highlighted]:text-slate-12',
+                          activeTab === panel.value && 'text-cyan-11',
+                        )}
+                      >
+                        {panel.label}
+                        {activeTab === panel.value ? (
+                          <IconCheck size={16} />
+                        ) : null}
+                      </DropdownMenu.Item>
+                    ))}
+                  </DropdownMenu.Content>
+                </DropdownMenu.Portal>
+              </DropdownMenu.Root>
+            </div>
+            <Tabs.List className="hidden h-full min-w-0 flex-1 gap-4 sm:flex">
               <LayoutGroup id={`toolbar-${id}`}>
                 <Tabs.Trigger asChild value="linter">
                   <ToolbarButton active={activeTab === 'linter'}>
@@ -230,7 +290,7 @@ const ToolbarInner = ({
                 </Tabs.Trigger>
               </LayoutGroup>
             </Tabs.List>
-            <div className="flex h-10 w-full shrink-0 items-center justify-end gap-1 border-t border-slate-6 sm:ml-4 sm:h-full sm:w-auto sm:border-t-0">
+            <div className="ml-2 flex shrink-0 items-center gap-1 sm:ml-4">
               <CopyForAI
                 lintingRows={lintingRows}
                 compatibilityResults={compatibilityCheckingResults}
