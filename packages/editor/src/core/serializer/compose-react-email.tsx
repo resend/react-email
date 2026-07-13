@@ -79,6 +79,20 @@ export const composeReactEmail = async ({
       return;
     }
 
+    // Drop empty paragraphs that exist only as editing affordances (the
+    // TrailingNode filler after a trailing table/section, the schema filler
+    // in an empty cell); blank lines between paragraphs still render.
+    content = content.filter((node, index, nodes) => {
+      if (node.type !== 'paragraph' || (node.content && node.content.length)) {
+        return true;
+      }
+      if (index !== nodes.length - 1) {
+        return true;
+      }
+      const previousNode = nodes[index - 1];
+      return previousNode ? previousNode.type === 'paragraph' : false;
+    });
+
     return content.map((node: JSONContent, index: number) => {
       const style = serializerPlugin?.getNodeStyles(node, depth, editor) ?? {};
 
