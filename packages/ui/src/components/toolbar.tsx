@@ -152,19 +152,25 @@ const ToolbarInner = ({
 
   const id = React.useId();
   const [isToolbarInfoOpen, setIsToolbarInfoOpen] = React.useState(false);
-  React.useEffect(() => {
-    if (!isToolbarInfoOpen) return;
+  const infoBlurListenerRef = React.useRef<(() => void) | null>(null);
+  const handleToolbarInfoOpenChange = (open: boolean) => {
+    setIsToolbarInfoOpen(open);
 
-    // Taps inside the email preview iframe do not reach Radix's dismiss layer.
-    const closeWhenPreviewGetsFocus = () => {
-      if (document.activeElement instanceof HTMLIFrameElement) {
-        setIsToolbarInfoOpen(false);
-      }
-    };
-
-    window.addEventListener('blur', closeWhenPreviewGetsFocus);
-    return () => window.removeEventListener('blur', closeWhenPreviewGetsFocus);
-  }, [isToolbarInfoOpen]);
+    if (open && infoBlurListenerRef.current === null) {
+      // Taps inside the email preview iframe do not reach Radix's dismiss
+      // layer, but they do move focus to the iframe and blur the window.
+      const closeWhenPreviewGetsFocus = () => {
+        if (document.activeElement instanceof HTMLIFrameElement) {
+          handleToolbarInfoOpenChange(false);
+        }
+      };
+      infoBlurListenerRef.current = closeWhenPreviewGetsFocus;
+      window.addEventListener('blur', closeWhenPreviewGetsFocus);
+    } else if (!open && infoBlurListenerRef.current !== null) {
+      window.removeEventListener('blur', infoBlurListenerRef.current);
+      infoBlurListenerRef.current = null;
+    }
+  };
 
   const toolbarPanelDescription =
     (activeTab === 'linter' &&
@@ -310,7 +316,7 @@ const ToolbarInner = ({
                 activeTab={activeTab}
               />
               <Popover.Root
-                onOpenChange={setIsToolbarInfoOpen}
+                onOpenChange={handleToolbarInfoOpenChange}
                 open={isToolbarInfoOpen}
               >
                 <Popover.Trigger asChild>
