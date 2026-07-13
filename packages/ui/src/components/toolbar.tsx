@@ -151,6 +151,7 @@ const ToolbarInner = ({
 
   const id = React.useId();
   const [isToolbarInfoOpen, setIsToolbarInfoOpen] = React.useState(false);
+  const infoPointerTypeRef = React.useRef('');
   React.useEffect(() => {
     if (!isToolbarInfoOpen) return;
 
@@ -249,6 +250,17 @@ const ToolbarInner = ({
                     tooltip={
                       isToolbarInfoOpen ? undefined : toolbarPanelDescription
                     }
+                    onPointerDown={(event) => {
+                      infoPointerTypeRef.current = event.pointerType;
+                    }}
+                    onClick={(event) => {
+                      // Mouse users already get this info on hover, so only
+                      // touch and keyboard interactions open the popover.
+                      if (infoPointerTypeRef.current === 'mouse') {
+                        event.preventDefault();
+                      }
+                      infoPointerTypeRef.current = '';
+                    }}
                   >
                     <IconInfo size={24} />
                   </ToolbarButton>
