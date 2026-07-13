@@ -150,6 +150,21 @@ const ToolbarInner = ({
   }
 
   const id = React.useId();
+  const [isToolbarInfoOpen, setIsToolbarInfoOpen] = React.useState(false);
+  React.useEffect(() => {
+    if (!isToolbarInfoOpen) return;
+
+    // Taps inside the email preview iframe do not reach Radix's dismiss layer.
+    const closeWhenPreviewGetsFocus = () => {
+      if (document.activeElement instanceof HTMLIFrameElement) {
+        setIsToolbarInfoOpen(false);
+      }
+    };
+
+    window.addEventListener('blur', closeWhenPreviewGetsFocus);
+    return () => window.removeEventListener('blur', closeWhenPreviewGetsFocus);
+  }, [isToolbarInfoOpen]);
+
   const toolbarPanelDescription =
     (activeTab === 'linter' &&
       'The Linter tab checks all the images and links for common issues like missing alt text, broken URLs, insecure HTTP methods, and more.') ||
@@ -223,7 +238,10 @@ const ToolbarInner = ({
                 isRawHtmlEmail={isRawHtmlEmail}
                 activeTab={activeTab}
               />
-              <Popover.Root>
+              <Popover.Root
+                onOpenChange={setIsToolbarInfoOpen}
+                open={isToolbarInfoOpen}
+              >
                 <Popover.Trigger asChild>
                   <ToolbarButton aria-label="About the current toolbar panel">
                     <IconInfo size={24} />
