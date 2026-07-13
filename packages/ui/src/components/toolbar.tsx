@@ -243,7 +243,13 @@ const ToolbarInner = ({
                 open={isToolbarInfoOpen}
               >
                 <Popover.Trigger asChild>
-                  <ToolbarButton aria-label="About the current toolbar panel">
+                  <ToolbarButton
+                    aria-label="About the current toolbar panel"
+                    delayDuration={0}
+                    tooltip={
+                      isToolbarInfoOpen ? undefined : toolbarPanelDescription
+                    }
+                  >
                     <IconInfo size={24} />
                   </ToolbarButton>
                 </Popover.Trigger>

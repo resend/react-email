@@ -2,4 +2,4 @@
 "@react-email/ui": patch
 ---
 
-Make the preview toolbar and its menus responsive to mobile interactions
+Make the preview toolbar and its menus responsive across desktop and mobile interactions
