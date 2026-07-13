@@ -183,8 +183,8 @@ const ToolbarInner = ({
       data-toggled={toggled}
       className={cn(
         'absolute bottom-0 left-0 right-0',
-        'border-t border-slate-6 group/toolbar text-xs text-slate-11 h-52 transition-transform',
-        'data-[toggled=false]:translate-y-42.5',
+        'border-t border-slate-6 group/toolbar text-xs text-slate-11 h-62 transition-transform sm:h-52',
+        'data-[toggled=false]:translate-y-52.5 sm:data-[toggled=false]:translate-y-42.5',
       )}
     >
       <Tabs.Root
@@ -196,7 +196,7 @@ const ToolbarInner = ({
       >
         <div className="flex flex-col h-full">
           <div className="flex w-full shrink-0 flex-col border-b border-solid border-slate-6 px-2 sm:h-10 sm:flex-row sm:items-center sm:px-4">
-            <Tabs.List className="flex h-10 w-full min-w-0 justify-between overflow-x-auto [scrollbar-width:none] sm:h-full sm:w-auto sm:flex-1 sm:justify-start sm:gap-4 [&::-webkit-scrollbar]:hidden">
+            <Tabs.List className="flex h-10 w-full min-w-0 gap-3 overflow-x-auto [scrollbar-width:none] sm:h-full sm:w-auto sm:flex-1 sm:gap-4 [&::-webkit-scrollbar]:hidden">
               <LayoutGroup id={`toolbar-${id}`}>
                 <Tabs.Trigger asChild value="linter">
                   <ToolbarButton active={activeTab === 'linter'}>

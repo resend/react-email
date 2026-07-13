@@ -155,7 +155,8 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
           'h-[calc(100%-3.5rem-2.375rem)] will-change-[height] flex p-4 transition-[height] duration-300 relative',
           activeView === 'preview' && 'bg-gray-200',
           activeView === 'preview' && isDarkModeEnabled && 'bg-gray-400',
-          toolbarToggled && 'h-[calc(100%-3.5rem-13rem)]',
+          toolbarToggled &&
+            'h-[calc(100%-3.5rem-15.5rem)] sm:h-[calc(100%-3.5rem-13rem)]',
           className,
         )}
         ref={(element) => {
