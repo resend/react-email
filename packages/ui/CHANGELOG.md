@@ -1,5 +1,11 @@
 # @react-email/ui
 
+## 6.8.1
+
+### Patch Changes
+
+- c93a676: Make the preview toolbar and its menus responsive across desktop and mobile interactions
+
 ## 6.8.0
 
 ### Minor Changes
