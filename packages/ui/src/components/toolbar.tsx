@@ -152,25 +152,25 @@ const ToolbarInner = ({
 
   const id = React.useId();
   const [isToolbarInfoOpen, setIsToolbarInfoOpen] = React.useState(false);
+  const infoPointerTypeRef = React.useRef('');
   const infoBlurListenerRef = React.useRef<(() => void) | null>(null);
-  const handleToolbarInfoOpenChange = (open: boolean) => {
-    setIsToolbarInfoOpen(open);
-
-    if (open && infoBlurListenerRef.current === null) {
-      // Taps inside the email preview iframe do not reach Radix's dismiss
-      // layer, but they do move focus to the iframe and blur the window.
-      const closeWhenPreviewGetsFocus = () => {
-        if (document.activeElement instanceof HTMLIFrameElement) {
-          handleToolbarInfoOpenChange(false);
-        }
-      };
-      infoBlurListenerRef.current = closeWhenPreviewGetsFocus;
-      window.addEventListener('blur', closeWhenPreviewGetsFocus);
-    } else if (!open && infoBlurListenerRef.current !== null) {
+  const closeToolbarInfo = () => {
+    setIsToolbarInfoOpen(false);
+    if (infoBlurListenerRef.current) {
       window.removeEventListener('blur', infoBlurListenerRef.current);
       infoBlurListenerRef.current = null;
     }
   };
+  // Only a cleanup for when the component unmounts with the popover still
+  // open; opening/closing itself is handled directly in `onOpenChange`.
+  React.useEffect(() => {
+    return () => {
+      if (infoBlurListenerRef.current) {
+        window.removeEventListener('blur', infoBlurListenerRef.current);
+        infoBlurListenerRef.current = null;
+      }
+    };
+  }, []);
 
   const toolbarPanelDescription =
     (activeTab === 'linter' &&
@@ -316,7 +316,25 @@ const ToolbarInner = ({
                 activeTab={activeTab}
               />
               <Popover.Root
-                onOpenChange={handleToolbarInfoOpenChange}
+                onOpenChange={(open) => {
+                  if (!open) {
+                    closeToolbarInfo();
+                    return;
+                  }
+
+                  setIsToolbarInfoOpen(true);
+                  if (infoBlurListenerRef.current === null) {
+                    // Taps inside the email preview iframe do not reach
+                    // Radix's dismiss layer, but they do blur the window.
+                    const closeWhenPreviewGetsFocus = () => {
+                      if (document.activeElement instanceof HTMLIFrameElement) {
+                        closeToolbarInfo();
+                      }
+                    };
+                    infoBlurListenerRef.current = closeWhenPreviewGetsFocus;
+                    window.addEventListener('blur', closeWhenPreviewGetsFocus);
+                  }
+                }}
                 open={isToolbarInfoOpen}
               >
                 <Popover.Trigger asChild>
@@ -326,13 +344,36 @@ const ToolbarInner = ({
                     tooltip={
                       isToolbarInfoOpen ? undefined : toolbarPanelDescription
                     }
+                    onPointerDown={(event) => {
+                      // Read the pointer type from `pointerdown` rather than
+                      // the `click` event: Safari before 18.2 dispatches
+                      // `click` as a plain MouseEvent without `pointerType`.
+                      infoPointerTypeRef.current = event.pointerType;
+                      const clearPointerType = () => {
+                        // Deferred so the `click` for this same interaction
+                        // can still read the pointer type; this also
+                        // self-heals if the pointer is released off the
+                        // button and no `click` ever fires.
+                        setTimeout(() => {
+                          infoPointerTypeRef.current = '';
+                        }, 0);
+                      };
+                      window.addEventListener('pointerup', clearPointerType, {
+                        once: true,
+                        capture: true,
+                      });
+                      window.addEventListener(
+                        'pointercancel',
+                        clearPointerType,
+                        { once: true, capture: true },
+                      );
+                    }}
                     onClick={(event) => {
                       // Mouse users already get this info on hover, so only
                       // touch and keyboard interactions open the popover.
-                      // Click events are PointerEvents in modern browsers,
-                      // with an empty pointerType for keyboard activation.
-                      const { pointerType } = event.nativeEvent as PointerEvent;
-                      if (pointerType === 'mouse') {
+                      // Keyboard activation dispatches `click` without a
+                      // preceding `pointerdown`, leaving the ref empty.
+                      if (infoPointerTypeRef.current === 'mouse') {
                         event.preventDefault();
                       }
                     }}
