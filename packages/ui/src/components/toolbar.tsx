@@ -195,8 +195,8 @@ const ToolbarInner = ({
         asChild
       >
         <div className="flex flex-col h-full">
-          <div className="flex h-10 w-full shrink-0 items-center border-b border-solid border-slate-6 px-2 sm:px-4">
-            <Tabs.List className="flex h-full min-w-0 flex-1 gap-2 overflow-x-auto [scrollbar-width:none] sm:gap-4 [&::-webkit-scrollbar]:hidden">
+          <div className="flex w-full shrink-0 flex-col border-b border-solid border-slate-6 px-2 sm:h-10 sm:flex-row sm:items-center sm:px-4">
+            <Tabs.List className="flex h-10 w-full min-w-0 justify-between gap-2 overflow-x-auto [scrollbar-width:none] sm:h-full sm:w-auto sm:flex-1 sm:justify-start sm:gap-4 [&::-webkit-scrollbar]:hidden">
               <LayoutGroup id={`toolbar-${id}`}>
                 <Tabs.Trigger asChild value="linter">
                   <ToolbarButton active={activeTab === 'linter'}>
@@ -229,7 +229,7 @@ const ToolbarInner = ({
                 </Tabs.Trigger>
               </LayoutGroup>
             </Tabs.List>
-            <div className="ml-2 flex shrink-0 items-center gap-1 sm:ml-4">
+            <div className="flex h-10 w-full shrink-0 items-center justify-end gap-1 border-t border-slate-6 sm:ml-4 sm:h-full sm:w-auto sm:border-t-0">
               <CopyForAI
                 lintingRows={lintingRows}
                 compatibilityResults={compatibilityCheckingResults}
