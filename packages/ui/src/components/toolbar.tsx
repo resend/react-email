@@ -196,7 +196,7 @@ const ToolbarInner = ({
       >
         <div className="flex flex-col h-full">
           <div className="flex w-full shrink-0 flex-col border-b border-solid border-slate-6 px-2 sm:h-10 sm:flex-row sm:items-center sm:px-4">
-            <Tabs.List className="flex h-10 w-full min-w-0 justify-between gap-2 overflow-x-auto [scrollbar-width:none] sm:h-full sm:w-auto sm:flex-1 sm:justify-start sm:gap-4 [&::-webkit-scrollbar]:hidden">
+            <Tabs.List className="flex h-10 w-full min-w-0 justify-between overflow-x-auto [scrollbar-width:none] sm:h-full sm:w-auto sm:flex-1 sm:justify-start sm:gap-4 [&::-webkit-scrollbar]:hidden">
               <LayoutGroup id={`toolbar-${id}`}>
                 <Tabs.Trigger asChild value="linter">
                   <ToolbarButton active={activeTab === 'linter'}>
