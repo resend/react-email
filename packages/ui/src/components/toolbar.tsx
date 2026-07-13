@@ -154,13 +154,6 @@ const ToolbarInner = ({
   const [isToolbarInfoOpen, setIsToolbarInfoOpen] = React.useState(false);
   const infoPointerTypeRef = React.useRef('');
   const infoBlurListenerRef = React.useRef<(() => void) | null>(null);
-  const closeToolbarInfo = () => {
-    setIsToolbarInfoOpen(false);
-    if (infoBlurListenerRef.current) {
-      window.removeEventListener('blur', infoBlurListenerRef.current);
-      infoBlurListenerRef.current = null;
-    }
-  };
   // Only a cleanup for when the component unmounts with the popover still
   // open; opening/closing itself is handled directly in `onOpenChange`.
   React.useEffect(() => {
@@ -318,7 +311,14 @@ const ToolbarInner = ({
               <Popover.Root
                 onOpenChange={(open) => {
                   if (!open) {
-                    closeToolbarInfo();
+                    setIsToolbarInfoOpen(false);
+                    if (infoBlurListenerRef.current) {
+                      window.removeEventListener(
+                        'blur',
+                        infoBlurListenerRef.current,
+                      );
+                      infoBlurListenerRef.current = null;
+                    }
                     return;
                   }
 
@@ -327,8 +327,18 @@ const ToolbarInner = ({
                     // Taps inside the email preview iframe do not reach
                     // Radix's dismiss layer, but they do blur the window.
                     const closeWhenPreviewGetsFocus = () => {
-                      if (document.activeElement instanceof HTMLIFrameElement) {
-                        closeToolbarInfo();
+                      if (
+                        !(document.activeElement instanceof HTMLIFrameElement)
+                      ) {
+                        return;
+                      }
+                      setIsToolbarInfoOpen(false);
+                      if (infoBlurListenerRef.current) {
+                        window.removeEventListener(
+                          'blur',
+                          infoBlurListenerRef.current,
+                        );
+                        infoBlurListenerRef.current = null;
                       }
                     };
                     infoBlurListenerRef.current = closeWhenPreviewGetsFocus;
