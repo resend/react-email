@@ -1,11 +1,13 @@
 'use client';
 
+import { usePreviewContext } from '../contexts/preview';
 import { usePropsPanel } from '../contexts/props-panel';
 import { cn } from '../utils';
 import { PreviewPropsEditor } from './preview-props-editor';
 
 export const PreviewPropsPanel = ({ open }: { open: boolean }) => {
   const { animated } = usePropsPanel();
+  const { emailSlug } = usePreviewContext();
 
   return (
     <aside
@@ -21,7 +23,7 @@ export const PreviewPropsPanel = ({ open }: { open: boolean }) => {
           Props
         </div>
         <div className="grow overflow-y-auto px-4 pt-3 text-slate-11 text-xs">
-          <PreviewPropsEditor />
+          <PreviewPropsEditor key={emailSlug} />
         </div>
       </div>
     </aside>
