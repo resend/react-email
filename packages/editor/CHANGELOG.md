@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.6.9
+
+### Patch Changes
+
+- 8e7964a: Zeroed composed body margins
+
 ## 1.6.8
 
 ### Patch Changes

@@ -22,7 +22,6 @@ import { IconReload } from './icons/icon-reload';
 import { Compatibility, useCompatibility } from './toolbar/compatibility';
 import { CopyForAI } from './toolbar/copy-for-ai';
 import { Linter, type LintingRow, useLinter } from './toolbar/linter';
-import { PreviewPropsEditor } from './toolbar/preview-props-editor';
 import { ResendIntegration } from './toolbar/resend';
 import {
   SpamAssassin,
@@ -31,19 +30,20 @@ import {
 } from './toolbar/spam-assassin';
 import { ToolbarButton } from './toolbar/toolbar-button';
 
-export type ToolbarTabValue =
-  | 'linter'
-  | 'compatibility'
-  | 'spam-assassin'
-  | 'props'
-  | 'resend';
+const toolbarTabValues = [
+  'linter',
+  'compatibility',
+  'spam-assassin',
+  'resend',
+] as const;
+
+export type ToolbarTabValue = (typeof toolbarTabValues)[number];
 
 export const useToolbarState = () => {
   const searchParams = useSearchParams();
 
-  const activeTab = (searchParams.get('toolbar-panel') ?? undefined) as
-    | ToolbarTabValue
-    | undefined;
+  const param = searchParams.get('toolbar-panel');
+  const activeTab = toolbarTabValues.find((value) => value === param);
 
   return {
     activeTab,
@@ -172,8 +172,6 @@ const ToolbarInner = ({
       'The Spam tab will look at the content and use a robust scoring framework to determine if the email is likely to be spam. Powered by SpamAssassin.') ||
     (activeTab === 'compatibility' &&
       'The Compatibility tab shows how well the HTML/CSS is supported across mail clients like Outlook, Gmail, etc. Powered by Can I Email.') ||
-    (activeTab === 'props' &&
-      'The Props tab lets you edit the props the preview renders with, to try out different content without changing the template.') ||
     (activeTab === 'resend' &&
       'The Resend tab allows you to upload your React Email code using the Resend Templates API.') ||
     'Info';
@@ -182,7 +180,6 @@ const ToolbarInner = ({
     linter: 'Linter',
     compatibility: 'Compatibility',
     'spam-assassin': 'Spam',
-    props: 'Props',
     resend: 'Resend',
   };
   const availablePanels: { value: ToolbarTabValue; label: string }[] = [
@@ -193,9 +190,6 @@ const ToolbarInner = ({
           { value: 'compatibility' as const, label: panelLabels.compatibility },
         ]),
     { value: 'spam-assassin', label: panelLabels['spam-assassin'] },
-    ...(isRawHtmlEmail || isBuilding
-      ? []
-      : [{ value: 'props' as const, label: panelLabels.props }]),
     { value: 'resend', label: panelLabels.resend },
   ];
   // The label must reflect the URL-selected panel even when that panel is not
@@ -285,13 +279,6 @@ const ToolbarInner = ({
                     Spam
                   </ToolbarButton>
                 </Tabs.Trigger>
-                {isRawHtmlEmail || isBuilding ? null : (
-                  <Tabs.Trigger asChild value="props">
-                    <ToolbarButton active={activeTab === 'props'}>
-                      Props
-                    </ToolbarButton>
-                  </Tabs.Trigger>
-                )}
                 <Tabs.Trigger asChild value="resend">
                   <ToolbarButton active={activeTab === 'resend'}>
                     Resend
@@ -412,9 +399,7 @@ const ToolbarInner = ({
                   </Popover.Content>
                 </Popover.Portal>
               </Popover.Root>
-              {isBuilding ||
-              activeTab === 'resend' ||
-              activeTab === 'props' ? null : (
+              {isBuilding || activeTab === 'resend' ? null : (
                 <ToolbarButton
                   tooltip="Reload"
                   disabled={lintLoading || spamLoading || compatibilityLoading}
@@ -516,11 +501,6 @@ const ToolbarInner = ({
                 <SpamAssassin result={spamCheckingResult} />
               )}
             </Tabs.Content>
-            {isRawHtmlEmail || isBuilding ? null : (
-              <Tabs.Content className="h-full" value="props">
-                <PreviewPropsEditor />
-              </Tabs.Content>
-            )}
             <Tabs.Content value="resend">
               {hasSetupResendIntegration ? (
                 <ResendIntegration
