@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { useDebouncedCallback } from 'use-debounce';
 import { isBuilding } from '../app/env';
 import { usePreviewContext } from '../contexts/preview';
 import { cn } from '../utils';
@@ -29,8 +30,10 @@ export const PreviewPropsEditor = () => {
 
   const hasOverride = previewPropsOverride !== undefined;
 
-  const handleChange = (newValue: string) => {
-    setDraft(newValue);
+  // Applying is debounced because every applied value costs a server render:
+  // per-keystroke applies queue up behind each other and permanently cache
+  // every intermediate state.
+  const applyValue = useDebouncedCallback((newValue: string) => {
     try {
       const parsed = JSON.parse(newValue) as unknown;
       if (
@@ -46,6 +49,11 @@ export const PreviewPropsEditor = () => {
     } catch (exception) {
       setParseError((exception as Error).message);
     }
+  }, 400);
+
+  const handleChange = (newValue: string) => {
+    setDraft(newValue);
+    applyValue(newValue);
   };
 
   return (
@@ -64,6 +72,7 @@ export const PreviewPropsEditor = () => {
             )}
             disabled={!hasOverride && draft === undefined}
             onClick={() => {
+              applyValue.cancel();
               setDraft(undefined);
               setParseError(undefined);
               setPreviewPropsOverride(undefined);
