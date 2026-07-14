@@ -1,11 +1,7 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
-import {
-  readWorkspaceValue,
-  writeWorkspaceValue,
-} from '../utils/workspace-storage';
-import { useWorkspaceId } from './workspace';
+import { createContext, useContext, useState } from 'react';
+import { useCachedWorkspaceState } from '../hooks/use-cached-workspace-state';
 
 const PropsPanelContext = createContext<
   | {
@@ -30,24 +26,19 @@ export const PropsPanelProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const workspaceId = useWorkspaceId();
-  const [open, setOpenState] = useState(false);
+  const [cachedOpen, setCachedOpen] =
+    useCachedWorkspaceState<boolean>('props-panel-open');
+  // Writing to the workspace cache does not re-render, so toggles land in
+  // this state and the cached value only matters on load.
+  const [override, setOverride] = useState<boolean | undefined>(undefined);
   const [animated, setAnimated] = useState(false);
 
-  // Storage cannot be read during hydration, so the panel renders closed
-  // first and the remembered state applies right after mount.
-  useEffect(() => {
-    const storedOpen = readWorkspaceValue<unknown>(
-      workspaceId,
-      'props-panel-open',
-    );
-    setOpenState(storedOpen === true);
-  }, [workspaceId]);
+  const open = override ?? cachedOpen === true;
 
   const setOpen = (newOpen: boolean) => {
     setAnimated(true);
-    setOpenState(newOpen);
-    writeWorkspaceValue(workspaceId, 'props-panel-open', newOpen);
+    setOverride(newOpen);
+    setCachedOpen(newOpen);
   };
 
   return (

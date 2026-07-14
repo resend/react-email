@@ -1,7 +1,6 @@
 'use client';
 
 import * as React from 'react';
-import { useDebouncedCallback } from 'use-debounce';
 import { isBuilding } from '../app/env';
 import { usePreviewContext } from '../contexts/preview';
 import { cn } from '../utils';
@@ -20,14 +19,18 @@ export const PreviewPropsEditor = () => {
     2,
   );
 
-  const [value, setValue] = React.useState(renderedPropsJson);
+  // The applied override is the source of truth for what renders; the draft
+  // only preserves the user's raw text, which can be momentarily invalid
+  // JSON or formatted differently than the applied value.
+  const [draft, setDraft] = React.useState<string | undefined>(undefined);
   const [parseError, setParseError] = React.useState<string | undefined>(
     undefined,
   );
 
   const hasOverride = previewPropsOverride !== undefined;
 
-  const applyValue = useDebouncedCallback((newValue: string) => {
+  const handleChange = (newValue: string) => {
+    setDraft(newValue);
     try {
       const parsed = JSON.parse(newValue) as unknown;
       if (
@@ -43,18 +46,7 @@ export const PreviewPropsEditor = () => {
     } catch (exception) {
       setParseError((exception as Error).message);
     }
-  }, 400);
-
-  // Without an override active, the editor mirrors the template's own props
-  // (initial load, hot reload, reset). Pending edits are cancelled so a stale
-  // draft cannot apply afterwards.
-  React.useEffect(() => {
-    if (!hasOverride) {
-      applyValue.cancel();
-      setValue(renderedPropsJson);
-      setParseError(undefined);
-    }
-  }, [hasOverride, renderedPropsJson, applyValue]);
+  };
 
   return (
     <div className="flex h-full flex-col gap-3">
@@ -70,9 +62,10 @@ export const PreviewPropsEditor = () => {
               'hover:border-slate-8 hover:text-slate-12',
               'disabled:opacity-40 disabled:hover:border-slate-6 disabled:hover:text-slate-11',
             )}
-            disabled={!hasOverride}
+            disabled={!hasOverride && draft === undefined}
             onClick={() => {
-              applyValue.cancel();
+              setDraft(undefined);
+              setParseError(undefined);
               setPreviewPropsOverride(undefined);
             }}
             type="button"
@@ -88,11 +81,8 @@ export const PreviewPropsEditor = () => {
           parseError !== undefined && 'border-red-9 focus-within:border-red-9',
         )}
         disabled={isBuilding}
-        onChange={(newValue) => {
-          setValue(newValue);
-          applyValue(newValue);
-        }}
-        value={value}
+        onChange={handleChange}
+        value={draft ?? renderedPropsJson}
       />
       {parseError !== undefined ? (
         <p className="pb-3 text-red-11">{parseError}</p>
