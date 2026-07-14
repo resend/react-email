@@ -276,7 +276,7 @@ describe('Container Node', () => {
             @media (prefers-color-scheme: dark){li::marker{color:#c4c4c4}}
           </style>
         </head>
-        <body dir="ltr" lang="en" style="background-color:#ffffff">
+        <body dir="ltr" lang="en" style="background-color:#ffffff;margin:0;padding:0">
           <!--$--><!--html--><!--head--><!--body-->
           <table
             border="0"
@@ -290,7 +290,7 @@ describe('Container Node', () => {
                 <td
                   dir="ltr"
                   lang="en"
-                  style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%;background-color:#ffffff">
+                  style="margin:0;padding:0;font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%;background-color:#ffffff">
                   <table
                     align="left"
                     width="100%"
@@ -1389,7 +1389,7 @@ describe('Container Node', () => {
             @media (prefers-color-scheme: dark){li::marker{color:#c4c4c4}}
           </style>
         </head>
-        <body dir="ltr" lang="en">
+        <body dir="ltr" lang="en" style="margin:0;padding:0">
           <!--$--><!--html--><!--head--><!--body-->
           <table
             border="0"
@@ -1403,7 +1403,7 @@ describe('Container Node', () => {
                 <td
                   dir="ltr"
                   lang="en"
-                  style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:14px;min-height:100%;line-height:155%">
+                  style="margin:0;padding:0;font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:14px;min-height:100%;line-height:155%">
                   <table
                     align="center"
                     width="100%"
@@ -1507,7 +1507,7 @@ describe('Container Node', () => {
             @media (prefers-color-scheme: dark){li::marker{color:#c4c4c4}}
           </style>
         </head>
-        <body dir="ltr" lang="en">
+        <body dir="ltr" lang="en" style="margin:0;padding:0">
           <!--$--><!--html--><!--head--><!--body-->
           <table
             border="0"
@@ -1521,7 +1521,7 @@ describe('Container Node', () => {
                 <td
                   dir="ltr"
                   lang="en"
-                  style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:14px;min-height:100%;line-height:155%">
+                  style="margin:0;padding:0;font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:14px;min-height:100%;line-height:155%">
                   <table
                     align="left"
                     width="100%"
@@ -1593,7 +1593,7 @@ describe('Container Node', () => {
             @media (prefers-color-scheme: dark){li::marker{color:#c4c4c4}}
           </style>
         </head>
-        <body dir="ltr" lang="en" style="background-color:#ffffff">
+        <body dir="ltr" lang="en" style="background-color:#ffffff;margin:0;padding:0">
           <!--$--><!--html--><!--head--><!--body-->
           <table
             border="0"
@@ -1607,7 +1607,7 @@ describe('Container Node', () => {
                 <td
                   dir="ltr"
                   lang="en"
-                  style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%;background-color:#ffffff">
+                  style="margin:0;padding:0;font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%;background-color:#ffffff">
                   <table
                     align="left"
                     width="100%"
