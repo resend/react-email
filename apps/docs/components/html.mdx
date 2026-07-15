@@ -55,4 +55,10 @@ const Email = () => {
   Identify the direction of text content on the email
 </ResponseField>
 
+<Info>
+  These values apply only to the `html` tag — they are not passed down to
+  [`Body`](/components/body), which has its own `lang` and `dir` defaults. For
+  non-English or right-to-left emails, set the same values on `Body` too.
+</Info>
+
 <Support/>
