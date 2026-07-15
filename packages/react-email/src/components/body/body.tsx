@@ -1,11 +1,15 @@
 import * as React from 'react';
 import { markAsElement } from '../element-marker.js';
+import { HtmlContext } from '../html/html-context.js';
 import { marginProperties, paddingProperties } from './margin-properties.js';
 
 export type BodyProps = Readonly<React.HtmlHTMLAttributes<HTMLBodyElement>>;
 
 export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
   ({ children, style, ...props }, ref) => {
+    const htmlContext = React.useContext(HtmlContext);
+    const dir = props.dir ?? htmlContext.dir ?? 'ltr';
+    const lang = props.lang ?? htmlContext.lang ?? 'en';
     const bodyStyle: Record<string, string | number | undefined> = {
       background: style?.background,
       backgroundColor: style?.backgroundColor,
@@ -20,13 +24,7 @@ export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
       }
     }
     return (
-      <body
-        {...props}
-        dir={props.dir ?? 'ltr'}
-        lang={props.lang ?? 'en'}
-        style={bodyStyle}
-        ref={ref}
-      >
+      <body {...props} dir={dir} lang={lang} style={bodyStyle} ref={ref}>
         <table
           border={0}
           width="100%"
@@ -43,11 +41,7 @@ export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
 
                 See https://github.com/resend/react-email/issues/662.
               */}
-              <td
-                dir={props.dir ?? 'ltr'}
-                lang={props.lang ?? 'en'}
-                style={style}
-              >
+              <td dir={dir} lang={lang} style={style}>
                 {children}
               </td>
             </tr>

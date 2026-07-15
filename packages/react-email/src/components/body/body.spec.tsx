@@ -1,4 +1,5 @@
 import { render } from '@react-email/render';
+import { Html } from '../html/index.js';
 import { Body } from './index.js';
 import { marginProperties, paddingProperties } from './margin-properties.js';
 
@@ -25,6 +26,38 @@ describe('<Body> component', () => {
     expect(actualOutput).toMatchInlineSnapshot(
       `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><body dir="ltr" lang="en"><!--$--><!--body--><table border="0" width="100%" cellPadding="0" cellSpacing="0" role="presentation" align="center"><tbody><tr><td dir="ltr" lang="en">Lorem ipsum</td></tr></tbody></table><!--/$--></body>"`,
     );
+  });
+
+  it('inherits lang and dir from <Html>', async () => {
+    const html = await render(
+      <Html lang="pl" dir="rtl">
+        <Body>Cześć</Body>
+      </Html>,
+    );
+    expect(html).toContain('<body dir="rtl" lang="pl"');
+    expect(html).toContain('<td dir="rtl" lang="pl"');
+  });
+
+  it('prefers its own lang and dir over the ones from <Html>', async () => {
+    const html = await render(
+      <Html lang="pl" dir="rtl">
+        <Body lang="en" dir="ltr">
+          Test
+        </Body>
+      </Html>,
+    );
+    const bodyTag = html.match(/<body[^>]*>/)?.[0] ?? '';
+    const tdTag = html.match(/<td[^>]*>/)?.[0] ?? '';
+    expect(bodyTag).toContain('lang="en"');
+    expect(bodyTag).toContain('dir="ltr"');
+    expect(tdTag).toContain('lang="en"');
+    expect(tdTag).toContain('dir="ltr"');
+  });
+
+  it('defaults to lang="en" and dir="ltr" without <Html>', async () => {
+    const html = await render(<Body>Test</Body>);
+    expect(html).toContain('<body dir="ltr" lang="en"');
+    expect(html).toContain('<td dir="ltr" lang="en"');
   });
 
   describe('margin resetting behavior', () => {

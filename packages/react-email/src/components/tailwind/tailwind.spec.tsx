@@ -118,6 +118,19 @@ describe('Tailwind component', () => {
     );
   });
 
+  it('keeps <Body> inheriting lang and dir from <Html>', async () => {
+    const actualOutput = await render(
+      <Tailwind>
+        <Html lang="pl" dir="rtl">
+          <Head />
+          <Body className="bg-white">Cześć</Body>
+        </Html>
+      </Tailwind>,
+    );
+    expect(actualOutput).toContain('<body dir="rtl" lang="pl"');
+    expect(actualOutput).toContain('<td dir="rtl" lang="pl"');
+  });
+
   it("works properly with 'no-underline'", async () => {
     const actualOutput = await render(
       <Html>

@@ -73,6 +73,7 @@
             "pages": [
               "components/html",
               "components/head",
+              "components/body",
               "components/button",
               "components/container",
               "components/code-block",

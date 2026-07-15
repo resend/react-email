@@ -49,10 +49,12 @@ const Email = () => {
 ## Props
 
 <ResponseField name="lang" type="string" default="en">
-  Identify the language of text content on the email
+  Identify the language of text content on the email. Also inherited by
+  `Body`, unless it sets its own value.
 </ResponseField>
 <ResponseField name="dir" type="string" default="ltr">
-  Identify the direction of text content on the email
+  Identify the direction of text content on the email. Also inherited by
+  `Body`, unless it sets its own value.
 </ResponseField>
 
 <Support/>
