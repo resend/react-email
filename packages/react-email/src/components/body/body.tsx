@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { markAsElement } from '../element-marker.js';
-import { HtmlContext } from '../html/html-context.js';
+import { useHtmlContext } from '../html/html-context.js';
 import { marginProperties, paddingProperties } from './margin-properties.js';
 
 export type BodyProps = Readonly<React.HtmlHTMLAttributes<HTMLBodyElement>>;
 
 export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
   ({ children, style, ...props }, ref) => {
-    const htmlContext = React.useContext(HtmlContext);
+    const htmlContext = useHtmlContext();
     const dir = props.dir ?? htmlContext.dir ?? 'ltr';
     const lang = props.lang ?? htmlContext.lang ?? 'en';
     const bodyStyle: Record<string, string | number | undefined> = {
