@@ -1,5 +1,15 @@
 # @react-email/ui
 
+## 6.9.0
+
+### Minor Changes
+
+- badeb1b: The preview props editor now lives in a collapsible panel beside the preview, with a syntax-highlighted JSON editor. Static builds show the props read-only.
+
+### Patch Changes
+
+- 4166fb6: Disconnect hot reload sockets when preview components unmount to prevent connections from accumulating across template navigation.
+
 ## 6.8.1
 
 ### Patch Changes
