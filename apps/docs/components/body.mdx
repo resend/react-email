@@ -1,0 +1,69 @@
+---
+title: "Body"
+sidebarTitle: "Body"
+description: "A React body component to wrap the contents of an email."
+"og:image": "https://react.email/static/covers/components.png"
+icon: "window-maximize"
+---
+
+import Support from '/snippets/support.mdx'
+
+## Install
+
+Install component from your command line.
+
+<CodeGroup>
+
+```sh npm
+npm install react-email -E
+```
+
+```sh yarn
+yarn add react-email -E
+```
+
+```sh pnpm
+pnpm add react-email -E
+```
+
+</CodeGroup>
+
+## Getting started
+
+Add the component to your email template. Include styles where needed.
+
+```jsx
+import { Html, Body, Button } from "react-email";
+
+const Email = () => {
+  return (
+    <Html lang="en" dir="ltr">
+      <Body lang="en" dir="ltr" style={{ backgroundColor: "#ffffff" }}>
+        <Button href="https://example.com" style={{ color: "#61dafb" }}>
+          Click me
+        </Button>
+      </Body>
+    </Html>
+  );
+};
+```
+
+## Props
+
+<ResponseField name="lang" type="string" default="en">
+  Identify the language of text content on the email. Not inherited from
+  `Html` — for non-English emails, set it on `Body` as well.
+</ResponseField>
+<ResponseField name="dir" type="string" default="ltr">
+  Identify the direction of text content on the email. Not inherited from
+  `Html` — for right-to-left emails, set it on `Body` as well.
+</ResponseField>
+
+<Info>
+  `Body` sets `lang` and `dir` on the `body` tag and on an inner table cell
+  that wraps your content. Some email clients, such as Gmail and Yahoo, strip
+  the `html` and `body` tags, so the values set on `Html` alone would not
+  reach screen readers — which is why `Body` has its own defaults.
+</Info>
+
+<Support/>
