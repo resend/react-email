@@ -51,19 +51,16 @@ const Email = () => {
 ## Props
 
 <ResponseField name="lang" type="string" default="en">
-  Identify the language of text content on the email. Not inherited from
-  `Html` — for non-English emails, set it on `Body` as well.
+  Identify the language of text content on the email.
 </ResponseField>
 <ResponseField name="dir" type="string" default="ltr">
-  Identify the direction of text content on the email. Not inherited from
-  `Html` — for right-to-left emails, set it on `Body` as well.
+  Identify the direction of text content on the email.
 </ResponseField>
 
 <Info>
-  `Body` sets `lang` and `dir` on the `body` tag and on an inner table cell
-  that wraps your content. Some email clients, such as Gmail and Yahoo, strip
-  the `html` and `body` tags, so the values set on `Html` alone would not
-  reach screen readers — which is why `Body` has its own defaults.
+  When customizing `lang` and/or `dir`, you should set the same values on the
+  [`Html`](/components/html) component. Some email clients strip the `html` or
+  `body` tags, so it's necessary to have both.
 </Info>
 
 <Support/>

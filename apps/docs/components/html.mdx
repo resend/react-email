@@ -56,9 +56,9 @@ const Email = () => {
 </ResponseField>
 
 <Info>
-  These values apply only to the `html` tag — they are not passed down to
-  [`Body`](/components/body), which has its own `lang` and `dir` defaults. For
-  non-English or right-to-left emails, set the same values on `Body` too.
+  When customizing `lang` and/or `dir`, you should set the same values on the
+  [`Body`](/components/body) component. Some email clients strip the `html` or
+  `body` tags, so it's necessary to have both.
 </Info>
 
 <Support/>
