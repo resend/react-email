@@ -1,11 +1,16 @@
-import type { Editor, JSONContent } from '@tiptap/core';
+import type { Editor, Extensions, JSONContent } from '@tiptap/core';
 import { Extension } from '@tiptap/core';
 import { Plugin, PluginKey } from '@tiptap/pm/state';
 import { useEditorState } from '@tiptap/react';
 import type * as React from 'react';
 import { Body, Head, Html, Preview } from 'react-email';
+import type { ComposeContext } from '../../core/serializer/compose-context';
+import { toComposeContext } from '../../core/serializer/compose-context';
 import type { SerializerPlugin } from '../../core/serializer/serializer-plugin';
-import { getGlobalContent } from '../../extensions/global-content';
+import {
+  getGlobalContent,
+  getGlobalContentFromJSON,
+} from '../../extensions/global-content';
 import { DARK_MODE_CSS } from '../../utils/dark-mode';
 import {
   injectGlobalPlainCss,
@@ -187,17 +192,115 @@ function resolveThemeConfig(config: EditorThemeInput): {
   return { baseTheme, panels };
 }
 
-export function getEmailTheming(editor: Editor) {
-  const theme = getEmailTheme(editor);
-  const normalizedStyles =
-    normalizeThemePanelStyles(theme, getEmailStyles(editor)) ??
-    EDITOR_THEMES[theme];
+interface ThemingInputs {
+  /** The theme configured on the theming extension, if any. */
+  configuredTheme: EditorThemeInput | undefined;
+  /** Values persisted in the document's `globalContent` node. */
+  globalTheme: unknown;
+  globalStyles: PanelGroup[] | null;
+  globalCss: string | null;
+}
+
+export interface EmailThemingResult {
+  theme: EditorTheme;
+  styles: PanelGroup[];
+  css: string | null;
+}
+
+function resolveEmailTheme(
+  configuredTheme: EditorThemeInput | undefined,
+  globalTheme: unknown,
+  globalStyles: PanelGroup[] | null,
+): EditorTheme {
+  if (isThemeConfig(configuredTheme)) {
+    return resolveThemeConfig(configuredTheme).baseTheme;
+  }
+  if (configuredTheme === 'basic' || configuredTheme === 'minimal') {
+    return configuredTheme;
+  }
+  if (globalTheme === 'basic' || globalTheme === 'minimal') {
+    return globalTheme;
+  }
+  return inferThemeFromPanelStyles(globalStyles) ?? 'basic';
+}
+
+/**
+ * Resolves the effective theme, panel styles, and global CSS from the two
+ * places theming can live: the extension's configuration and the document's
+ * `globalContent` node. Shared by the editor path (live document) and the
+ * serializer path (JSON document) so both resolve identically.
+ */
+function resolveEmailTheming({
+  configuredTheme,
+  globalTheme,
+  globalStyles,
+  globalCss,
+}: ThemingInputs): EmailThemingResult {
+  const theme = resolveEmailTheme(configuredTheme, globalTheme, globalStyles);
+
+  // Styles persisted in the document win. Otherwise a config-object theme
+  // contributes its own panel overrides — the editor also seeds these into
+  // `globalContent` on mount, but a document serialized on a server may
+  // never have been opened in an editor, so seeding cannot be relied on.
+  const panelStyles =
+    globalStyles ??
+    (isThemeConfig(configuredTheme)
+      ? (resolveThemeConfig(configuredTheme).panels ?? null)
+      : null);
 
   return {
-    styles: normalizedStyles,
     theme,
-    css: getEmailCss(editor),
+    styles:
+      normalizeThemePanelStyles(theme, panelStyles) ?? EDITOR_THEMES[theme],
+    css: globalCss,
   };
+}
+
+function findConfiguredTheme(
+  extensions: Extensions,
+): EditorThemeInput | undefined {
+  return (
+    extensions.find((extension) => extension.name === 'theming') as
+      | { options?: { theme?: EditorThemeInput } }
+      | undefined
+  )?.options?.theme;
+}
+
+export function getEmailTheming(
+  editor: Editor | ComposeContext,
+): EmailThemingResult {
+  // Also accepts a ComposeContext: serializer plugins written against the
+  // editor-based API call this with whatever the serializer handed them,
+  // which is a context since the SSR refactor.
+  if (!('extensionManager' in editor)) {
+    return getEmailThemingFromContext(editor);
+  }
+  return resolveEmailTheming({
+    configuredTheme: findConfiguredTheme(editor.extensionManager.extensions),
+    globalTheme: getGlobalContent('theme', editor),
+    globalStyles: getEmailStyles(editor),
+    globalCss: getEmailCss(editor),
+  });
+}
+
+const themingByContext = new WeakMap<ComposeContext, EmailThemingResult>();
+
+export function getEmailThemingFromContext(
+  context: ComposeContext,
+): EmailThemingResult {
+  let theming = themingByContext.get(context);
+  if (!theming) {
+    theming = resolveEmailTheming({
+      configuredTheme: findConfiguredTheme(context.extensions),
+      globalTheme: getGlobalContentFromJSON('theme', context.doc),
+      globalStyles: getGlobalContentFromJSON('styles', context.doc) as
+        | PanelGroup[]
+        | null,
+      globalCss: getGlobalContentFromJSON('css', context.doc) as string | null,
+    });
+    themingByContext.set(context, theming);
+  }
+  return theming;
 }
 
 export function useEmailTheming(editor: Editor | null) {
@@ -241,35 +344,28 @@ export function setGlobalCssInjected(editor: Editor, css: string): boolean {
 }
 
 function getEmailTheme(editor: Editor): EditorTheme {
-  const extensionOptions = (
-    editor.extensionManager.extensions.find(
-      (extension) => extension.name === 'theming',
-    ) as { options?: { theme?: EditorThemeInput } }
-  )?.options?.theme;
-
-  if (isThemeConfig(extensionOptions)) {
-    return extensionOptions.extends ?? 'minimal';
-  }
-
-  if (extensionOptions === 'basic' || extensionOptions === 'minimal') {
-    return extensionOptions;
-  }
-
-  const globalTheme = getGlobalContent('theme', editor) as EditorTheme | null;
-  if (globalTheme === 'basic' || globalTheme === 'minimal') {
-    return globalTheme;
-  }
-
-  const inferredTheme = inferThemeFromPanelStyles(getEmailStyles(editor));
-  if (inferredTheme) {
-    return inferredTheme;
-  }
-
-  return 'basic';
+  return resolveEmailTheme(
+    findConfiguredTheme(editor.extensionManager.extensions),
+    getGlobalContent('theme', editor),
+    getEmailStyles(editor),
+  );
 }
 
 function getEmailCss(editor: Editor) {
   return getGlobalContent('css', editor) as string | null;
+}
+
+const mergedCssJsByContext = new WeakMap<ComposeContext, CssJs>();
+
+function getMergedCssJsForContext(value: Editor | ComposeContext): CssJs {
+  const context = toComposeContext(value);
+  let merged = mergedCssJsByContext.get(context);
+  if (!merged) {
+    const { theme, styles } = getEmailThemingFromContext(context);
+    merged = getMergedCssJs(theme, styles);
+    mergedCssJsByContext.set(context, merged);
+  }
+  return merged;
 }
 
 export const EmailTheming = Extension.create<{
@@ -282,18 +378,32 @@ export const EmailTheming = Extension.create<{
     return {
       theme: undefined as EditorThemeInput | undefined,
       serializerPlugin: {
-        getNodeStyles(node, depth, editor): React.CSSProperties {
-          const theming = getEmailTheming(editor);
-
+        getNodeStyles(node, depth, context): React.CSSProperties {
           return getResolvedNodeStyles(
             node,
             depth,
-            getMergedCssJs(theming.theme, theming.styles),
+            getMergedCssJsForContext(context),
           );
         },
-        BaseTemplate({ previewText, children, editor, previewMode = false }) {
-          const { css: globalCss, styles, theme } = getEmailTheming(editor);
-          const mergedStyles = getMergedCssJs(theme, styles);
+        BaseTemplate({
+          previewText,
+          children,
+          context,
+          editor,
+          previewMode = false,
+        }) {
+          // `editor` carries the context when a BaseTemplate written against
+          // the editor-based API delegates here forwarding only that prop.
+          const received = context ?? editor;
+          if (!received) {
+            throw new Error(
+              "EmailTheming's BaseTemplate received neither `context` nor `editor`. Serializer plugins must forward the `context` prop (the `editor` prop was replaced by `context`).",
+            );
+          }
+          const resolvedContext = toComposeContext(received);
+          const { css: globalCss } =
+            getEmailThemingFromContext(resolvedContext);
+          const mergedStyles = getMergedCssJsForContext(resolvedContext);
 
           return (
             <Html>
@@ -351,11 +461,9 @@ export const EmailTheming = Extension.create<{
           const sync = () => {
             if (!seededFromConfig) {
               seededFromConfig = true;
-              const extensionTheme = (
-                editor.extensionManager.extensions.find(
-                  (ext) => ext.name === 'theming',
-                ) as { options?: { theme?: EditorThemeInput } }
-              )?.options?.theme;
+              const extensionTheme = findConfiguredTheme(
+                editor.extensionManager.extensions,
+              );
 
               if (isThemeConfig(extensionTheme)) {
                 const { baseTheme, panels } =
