@@ -207,12 +207,8 @@ describe('extractRulesPerClass()', async () => {
     `);
   });
 
-  // Tailwind >=4.3.3 changed the shape of variant utilities: instead of nesting
-  // the `@media` inside the class rule (`.dark\:bg-black { @media ... {} }`), it
-  // now wraps the class rule with the `@media` (`@media ... { .dark\:bg-black {} }`).
-  // The extractor must still treat these as non-inlinable — otherwise the `dark:`
-  // value gets inlined as the base style and the media query is dropped from
-  // <head>.
+  // Wrapped shape emitted by Tailwind >=4.3.3.
+  // See https://github.com/resend/react-email/issues/3662
   it('treats @media-wrapped rules (Tailwind >=4.3.3) as non-inlinable', () => {
     const classes = [
       'bg-white',
@@ -258,10 +254,8 @@ describe('extractRulesPerClass()', async () => {
     `);
   });
 
-  // The counterpart to the test above: the old (Tailwind <=4.3.2) shape nests
-  // the `@media` inside the class rule. This must keep producing the exact same
-  // classification as the wrapped shape, so the 4.3.3 normalization stays a
-  // no-op for existing behavior.
+  // Nested shape emitted by Tailwind <=4.3.2; must classify identically.
+  // See https://github.com/resend/react-email/issues/3662
   it('treats @media-nested rules (Tailwind <=4.3.2) as non-inlinable', () => {
     const classes = [
       'bg-white',
