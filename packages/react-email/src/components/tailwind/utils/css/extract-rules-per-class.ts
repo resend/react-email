@@ -12,17 +12,10 @@ import { isRuleInlinable } from './is-rule-inlinable.js';
 import { splitMixedRule } from './split-mixed-rule.js';
 
 /**
- * Rebuild a rule that Tailwind emitted *inside* a non-inlinable at-rule wrapper
- * so the at-rule(s) are nested back *inside* the rule instead.
- *
- * Tailwind <=4.3.2 nested the at-rule within the rule:
- *   `.dark\:bg-black { @media (prefers-color-scheme: dark) { ... } }`
- * Tailwind >=4.3.3 inverted it, wrapping the rule with the at-rule:
- *   `@media (prefers-color-scheme: dark) { .dark\:bg-black { ... } }`
- *
- * Normalizing to the older shape keeps the rest of the pipeline
- * (`downlevelForEmailClients`, etc.) working the same for every Tailwind
- * version.
+ * Tailwind >=4.3.3 wraps a rule with its variant at-rule
+ * (`@media (...) { .dark\:x { ... } }`) where <=4.3.2 nested it inside
+ * (`.dark\:x { @media (...) { ... } }`). Re-nest to the older shape so the rest
+ * of the pipeline stays version-agnostic.
  */
 function nestAtRulesInsideRule(rule: Rule, enclosingAtRules: Atrule[]): Rule {
   const ruleClone = clone(rule) as Rule;
@@ -76,10 +69,8 @@ export function extractRulesPerClass(root: CssNode, classes: string[]) {
     }
   };
 
-  // Chain of enclosing at-rules that force their contents to be non-inlinable.
-  // Tailwind >=4.3.3 emits variant utilities (e.g. `dark:`) as class rules
-  // nested inside these wrappers, so a rule found here must be treated as
-  // non-inlinable even though the rule itself looks plain.
+  // Enclosing at-rule wrappers (Tailwind >=4.3.3); a plain-looking rule inside
+  // one is still conditional and must not be inlined.
   const enclosingAtRules: Atrule[] = [];
 
   const handleRule = (rule: Rule) => {
@@ -105,9 +96,6 @@ export function extractRulesPerClass(root: CssNode, classes: string[]) {
       },
     });
 
-    // The rule sits inside an @media/@supports wrapper (Tailwind >=4.3.3). The
-    // declarations only apply in that condition, so treat the whole thing as
-    // non-inlinable after normalizing it to the nested-at-rule shape.
     if (enclosingAtRules.length > 0) {
       const nonInlinablePart = nestAtRulesInsideRule(rule, enclosingAtRules);
       for (const className of selectorClasses) {
