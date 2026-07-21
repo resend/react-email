@@ -8,16 +8,34 @@ export const serveStaticFile = async (
   pathname: string,
   staticDirRelativePath: string,
 ) => {
-  const pathname_ = pathname.replace('/static', './static');
-  const ext = path.parse(pathname_).ext;
+  let decodedPathname: string;
+  try {
+    decodedPathname = decodeURIComponent(pathname);
+  } catch {
+    res.statusCode = 400;
+    res.end();
+    return;
+  }
 
-  const staticBaseDir = path.resolve(process.cwd(), staticDirRelativePath);
-  const fileAbsolutePath = path.resolve(staticBaseDir, pathname_);
-  if (!fileAbsolutePath.startsWith(staticBaseDir)) {
+  const staticBaseDir = path.resolve(
+    process.cwd(),
+    staticDirRelativePath,
+    'static',
+  );
+  const staticFilePath = decodedPathname.replace(/^\/static\/?/, '');
+  const fileAbsolutePath = path.resolve(staticBaseDir, staticFilePath);
+  const relativeFilePath = path.relative(staticBaseDir, fileAbsolutePath);
+
+  if (
+    relativeFilePath.startsWith(`..${path.sep}`) ||
+    path.isAbsolute(relativeFilePath)
+  ) {
     res.statusCode = 403;
     res.end();
     return;
   }
+
+  const ext = path.extname(fileAbsolutePath);
 
   try {
     const fileHandle = await fs.open(fileAbsolutePath, 'r');

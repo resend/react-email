@@ -11,6 +11,7 @@ test('tree(__dirname, 2)', async () => {
     │   ├── hot-reloading
     │   ├── get-env-variables-for-preview-app.ts
     │   ├── index.ts
+    │   ├── serve-static-file.spec.ts
     │   ├── serve-static-file.ts
     │   └── start-dev-server.ts
     ├── types
