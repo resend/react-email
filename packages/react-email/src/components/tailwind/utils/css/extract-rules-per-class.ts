@@ -1,7 +1,7 @@
 import {
   type Atrule,
-  clone,
   type CssNode,
+  clone,
   List,
   type Rule,
   string,
@@ -37,7 +37,9 @@ function nestAtRulesInsideRule(rule: Rule, enclosingAtRules: Atrule[]): Rule {
     const wrapped: Atrule = {
       type: 'Atrule',
       name: atRule.name,
-      prelude: atRule.prelude ? (clone(atRule.prelude) as Atrule['prelude']) : null,
+      prelude: atRule.prelude
+        ? (clone(atRule.prelude) as Atrule['prelude'])
+        : null,
       block: {
         type: 'Block',
         children,
@@ -88,9 +90,7 @@ export function extractRulesPerClass(root: CssNode, classes: string[]) {
     // to its parent utility; processing it standalone emits a bare, parentless
     // `&` rule into the <style> block, so skip it here.
     const firstSelector =
-      rule.prelude.type === 'SelectorList'
-        ? rule.prelude.children.first
-        : null;
+      rule.prelude.type === 'SelectorList' ? rule.prelude.children.first : null;
     if (
       firstSelector?.type === 'Selector' &&
       firstSelector.children.first?.type === 'NestingSelector'

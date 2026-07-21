@@ -214,7 +214,12 @@ describe('extractRulesPerClass()', async () => {
   // value gets inlined as the base style and the media query is dropped from
   // <head>.
   it('treats @media-wrapped rules (Tailwind >=4.3.3) as non-inlinable', () => {
-    const classes = ['bg-white', 'text-black', 'dark:bg-black', 'dark:text-white'];
+    const classes = [
+      'bg-white',
+      'text-black',
+      'dark:bg-black',
+      'dark:text-white',
+    ];
     const stylesheet = parse(`
 @layer utilities {
   .bg-white { background-color: rgb(255, 255, 255); }
@@ -258,7 +263,12 @@ describe('extractRulesPerClass()', async () => {
   // classification as the wrapped shape, so the 4.3.3 normalization stays a
   // no-op for existing behavior.
   it('treats @media-nested rules (Tailwind <=4.3.2) as non-inlinable', () => {
-    const classes = ['bg-white', 'text-black', 'dark:bg-black', 'dark:text-white'];
+    const classes = [
+      'bg-white',
+      'text-black',
+      'dark:bg-black',
+      'dark:text-white',
+    ];
     const stylesheet = parse(`
 @layer utilities {
   .bg-white { background-color: rgb(255, 255, 255); }
