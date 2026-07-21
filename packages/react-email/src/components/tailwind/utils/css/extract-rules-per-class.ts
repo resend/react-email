@@ -12,10 +12,9 @@ import { isRuleInlinable } from './is-rule-inlinable.js';
 import { splitMixedRule } from './split-mixed-rule.js';
 
 /**
- * Tailwind >=4.3.3 wraps a rule with its variant at-rule
- * (`@media (...) { .dark\:x { ... } }`) where <=4.3.2 nested it inside
- * (`.dark\:x { @media (...) { ... } }`). Re-nest to the older shape so the rest
- * of the pipeline stays version-agnostic.
+ * Re-nest the at-rule(s) back inside the rule so the pipeline stays
+ * version-agnostic across Tailwind's variant shape change.
+ * See https://github.com/resend/react-email/issues/3662
  */
 function nestAtRulesInsideRule(rule: Rule, enclosingAtRules: Atrule[]): Rule {
   const ruleClone = clone(rule) as Rule;
@@ -69,8 +68,8 @@ export function extractRulesPerClass(root: CssNode, classes: string[]) {
     }
   };
 
-  // Enclosing at-rule wrappers (Tailwind >=4.3.3); a plain-looking rule inside
-  // one is still conditional and must not be inlined.
+  // A plain-looking rule inside these wrappers is still conditional and must
+  // not be inlined. See https://github.com/resend/react-email/issues/3662
   const enclosingAtRules: Atrule[] = [];
 
   const handleRule = (rule: Rule) => {
