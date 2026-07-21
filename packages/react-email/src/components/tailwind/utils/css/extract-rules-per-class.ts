@@ -12,6 +12,11 @@ import { splitMixedRule } from './split-mixed-rule.js';
 
 // At-rules whose contents are conditional and therefore can never be inlined
 // onto an element (e.g. `@media (prefers-color-scheme: dark)`).
+//
+// Keep this in sync with the at-rules `unnestMediaQueries` hoists in
+// downlevel-for-email-clients.ts — those are the only wrappers email clients
+// can render once un-nested, so we must not mark a wrapper non-inlinable here
+// that the downlevel pass can't later hoist out of the rule.
 const NON_INLINABLE_ATRULES = new Set(['media', 'supports']);
 
 /**
