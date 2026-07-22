@@ -1,5 +1,6 @@
 'use client';
 import { clsx } from 'clsx';
+import { useParams } from 'next/navigation';
 import { useEmails } from '../../contexts/emails';
 import { cn } from '../../utils';
 import { Logo } from '../logo';
@@ -7,11 +8,14 @@ import { FileTree } from './file-tree';
 
 interface SidebarProps {
   className?: string;
-  currentEmailOpenSlug?: string;
 }
 
-export const Sidebar = ({ className, currentEmailOpenSlug }: SidebarProps) => {
+export const Sidebar = ({ className }: SidebarProps) => {
   const { emailsDirectoryMetadata } = useEmails();
+  const params = useParams();
+  const currentEmailOpenSlug = Array.isArray(params.slug)
+    ? decodeURIComponent(params.slug.join('/'))
+    : undefined;
 
   return (
     <aside
