@@ -75,6 +75,7 @@ export type KnownCssProperties =
   | 'borderRightColor'
   | 'borderBottomColor'
   | 'borderLeftColor'
+  | 'margin'
   | 'padding'
   | 'paddingTop'
   | 'paddingRight'
