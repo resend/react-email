@@ -1,17 +1,24 @@
 'use client';
 
 import { Highlight } from 'prism-react-renderer';
+import type * as React from 'react';
 import { cn } from '../utils';
 import { codeTheme } from './code';
 
-interface JsonEditorProps {
+// The textarea must always end up with an accessible name: either its own
+// `aria-label` or an `id` a <label htmlFor> points at.
+type JsonEditorLabelling =
+  | { id: string; 'aria-label'?: string }
+  | { id?: string; 'aria-label': string };
+
+type JsonEditorProps = JsonEditorLabelling & {
   value: string;
   onChange: (value: string) => void;
   disabled?: boolean;
   className?: string;
-  'aria-label': string;
+  textareaRef?: React.Ref<HTMLTextAreaElement>;
   'aria-invalid'?: boolean;
-}
+};
 
 // Text metrics must match between the highlighted <pre> and the transparent
 // <textarea> on top of it, or the caret drifts from the characters.
@@ -28,7 +35,8 @@ export const JsonEditor = ({
   onChange,
   disabled = false,
   className,
-  ...ariaProps
+  textareaRef,
+  ...textareaProps
 }: JsonEditorProps) => {
   return (
     <div
@@ -54,7 +62,7 @@ export const JsonEditor = ({
         )}
       </Highlight>
       <textarea
-        {...ariaProps}
+        {...textareaProps}
         className={cn(
           sharedTextClasses,
           'absolute inset-0 h-full w-full resize-none overflow-hidden bg-transparent text-transparent caret-slate-12 outline-none',
@@ -63,6 +71,7 @@ export const JsonEditor = ({
         onChange={(event) => {
           onChange(event.currentTarget.value);
         }}
+        ref={textareaRef}
         spellCheck={false}
         value={value}
       />
