@@ -15,7 +15,12 @@ import { convertStackWithSourceMap } from '../utils/convert-stack-with-sourcemap
 import { createJsxRuntime } from '../utils/create-jsx-runtime';
 import { getEmailComponent } from '../utils/get-email-component';
 import { isPathWithinEmailsDirectory } from '../utils/is-path-within-emails-directory';
+import {
+  type DeclaredPreviewControls,
+  validatePreviewControlsDeclaration,
+} from '../utils/preview-controls/declared-preview-controls';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
+import { isErr } from '../utils/result';
 import {
   createSpinner,
   type Spinner,
@@ -30,6 +35,11 @@ export interface RenderedEmailMetadata {
    * given, otherwise the template's own `PreviewProps`.
    */
   previewProps: Record<string, unknown>;
+  /**
+   * The template's validated `PreviewControls` declaration, when it exports
+   * one. Props without a declared control get one inferred from their value.
+   */
+  previewControls?: DeclaredPreviewControls;
   prettyMarkup: string;
   markup: string;
   /**
@@ -238,6 +248,19 @@ export const renderEmailByPath = async (
   } = componentResult;
 
   const previewProps = previewPropsOverride ?? Email.PreviewProps ?? {};
+
+  const controlsResult = validatePreviewControlsDeclaration(
+    Email.PreviewControls,
+  );
+  let previewControls: DeclaredPreviewControls | undefined;
+  if (isErr(controlsResult)) {
+    console.warn(
+      `Ignoring the invalid \`PreviewControls\` of ${emailFilename}; its controls will be inferred from \`PreviewProps\` instead.\n${controlsResult.error}`,
+    );
+  } else {
+    previewControls = controlsResult.value;
+  }
+
   const EmailComponent = Email as React.FunctionComponent;
   try {
     const timeBeforeEmailRendered = performance.now();
@@ -277,6 +300,7 @@ export const renderEmailByPath = async (
 
     const renderingResult: RenderedEmailMetadata = {
       previewProps: toJsonSafeProps(previewProps),
+      previewControls,
       prettyMarkup,
       // This ensures that no null byte character ends up in the rendered
       // markup making users suspect of any issues. These null byte characters
