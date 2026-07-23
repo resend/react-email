@@ -1,6 +1,6 @@
 'use client';
 
-import type * as React from 'react';
+import * as React from 'react';
 import { cn } from '../utils';
 import { IconArrowDown } from './icons/icon-arrow-down';
 
@@ -25,12 +25,20 @@ export const FieldLabel = ({
   </label>
 );
 
-export const TextInput = ({
-  className,
-  ...props
-}: React.ComponentProps<'input'>) => (
-  <input className={cn(fieldClasses, className)} {...props} />
-);
+// forwardRef so the ref reaches the <input> on React 18, where function
+// components do not receive ref as a regular prop.
+export const TextInput = React.forwardRef<
+  HTMLInputElement,
+  React.ComponentPropsWithoutRef<'input'>
+>(({ className, ...props }, forwardedRef) => (
+  <input
+    className={cn(fieldClasses, className)}
+    ref={forwardedRef}
+    {...props}
+  />
+));
+
+TextInput.displayName = 'TextInput';
 
 export const SelectInput = ({
   className,
