@@ -44,7 +44,7 @@ catalog:
   nypm: 0.6.6
   ora: ^8.0.0
   picospinner: ^3.0.0
-  postcss: 8.5.10
+  postcss: 8.5.12
   prism-react-renderer: 2.4.1
   react: 19.2.4
   react-dom: 19.2.4
