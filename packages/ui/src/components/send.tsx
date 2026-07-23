@@ -3,6 +3,7 @@ import { useId, useState } from 'react';
 import { toast } from 'sonner';
 import { useCachedWorkspaceState } from '../hooks/use-cached-workspace-state';
 import { Button } from './button';
+import { FieldLabel, TextInput } from './field';
 import { Text } from './text';
 
 interface SendProps {
@@ -95,15 +96,12 @@ export const Send = ({ markup, defaultSubject, storageKey }: SendProps) => {
           sideOffset={48}
         >
           <form className="mt-1" onSubmit={(e) => void onFormSubmit(e)}>
-            <label
-              className="mb-2 block text-xs uppercase text-slate-10"
-              htmlFor={toId}
-            >
+            <FieldLabel className="mb-2" htmlFor={toId}>
               Recipient
-            </label>
-            <input
+            </FieldLabel>
+            <TextInput
               autoFocus
-              className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-sm text-slate-12 placeholder-slate-10 outline-hidden transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
+              className="mb-3"
               value={to}
               id={toId}
               onChange={(e) => {
@@ -119,14 +117,11 @@ export const Send = ({ markup, defaultSubject, storageKey }: SendProps) => {
               required
               type="email"
             />
-            <label
-              className="mb-2 mt-1 block text-xs uppercase text-slate-10"
-              htmlFor={subjectId}
-            >
+            <FieldLabel className="mb-2 mt-1" htmlFor={subjectId}>
               Subject
-            </label>
-            <input
-              className="mb-3 w-full appearance-none rounded-lg border border-slate-6 bg-slate-3 px-2 py-1 text-sm text-slate-12 placeholder-slate-10 outline-hidden transition duration-300 ease-in-out focus:ring-1 focus:ring-slate-10"
+            </FieldLabel>
+            <TextInput
+              className="mb-3"
               value={subject}
               id={subjectId}
               onChange={(e) => {
@@ -146,10 +141,6 @@ export const Send = ({ markup, defaultSubject, storageKey }: SendProps) => {
               placeholder="My Email"
               required
               type="text"
-            />
-            <input
-              className="appearance-none checked:bg-blue-500"
-              type="checkbox"
             />
             <div className="mt-3 flex items-center justify-between">
               <div className="inline-flex flex-col">
