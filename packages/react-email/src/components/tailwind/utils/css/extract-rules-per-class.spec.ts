@@ -1,4 +1,4 @@
-import { generate, type Rule } from 'css-tree';
+import { generate, parse, type Rule, type StyleSheet } from 'css-tree';
 import { setupTailwind } from '../tailwindcss/setup-tailwind.js';
 import { extractRulesPerClass } from './extract-rules-per-class.js';
 
@@ -202,6 +202,98 @@ describe('extractRulesPerClass()', async () => {
       {
         "btn": [
           ".btn{&:hover{color:red}}",
+        ],
+      }
+    `);
+  });
+
+  // Wrapped shape emitted by Tailwind >=4.3.3.
+  // See https://github.com/resend/react-email/issues/3662
+  it('treats @media-wrapped rules (Tailwind >=4.3.3) as non-inlinable', () => {
+    const classes = [
+      'bg-white',
+      'text-black',
+      'dark:bg-black',
+      'dark:text-white',
+    ];
+    const stylesheet = parse(`
+@layer utilities {
+  .bg-white { background-color: rgb(255, 255, 255); }
+  .text-black { color: rgb(0, 0, 0); }
+  @media (prefers-color-scheme: dark) {
+    .dark\\:bg-black { background-color: rgb(0, 0, 0); }
+    .dark\\:text-white { color: rgb(255, 255, 255); }
+  }
+}
+`) as StyleSheet;
+
+    const { inlinable, nonInlinable } = extractRulesPerClass(
+      stylesheet,
+      classes,
+    );
+
+    expect(convertToComparable(inlinable)).toMatchInlineSnapshot(`
+      {
+        "bg-white": [
+          ".bg-white{background-color:rgb(255,255,255)}",
+        ],
+        "text-black": [
+          ".text-black{color:rgb(0,0,0)}",
+        ],
+      }
+    `);
+    expect(convertToComparable(nonInlinable)).toMatchInlineSnapshot(`
+      {
+        "dark:bg-black": [
+          ".dark\\:bg-black{@media (prefers-color-scheme:dark){background-color:rgb(0,0,0)}}",
+        ],
+        "dark:text-white": [
+          ".dark\\:text-white{@media (prefers-color-scheme:dark){color:rgb(255,255,255)}}",
+        ],
+      }
+    `);
+  });
+
+  // Nested shape emitted by Tailwind <=4.3.2; must classify identically.
+  // See https://github.com/resend/react-email/issues/3662
+  it('treats @media-nested rules (Tailwind <=4.3.2) as non-inlinable', () => {
+    const classes = [
+      'bg-white',
+      'text-black',
+      'dark:bg-black',
+      'dark:text-white',
+    ];
+    const stylesheet = parse(`
+@layer utilities {
+  .bg-white { background-color: rgb(255, 255, 255); }
+  .text-black { color: rgb(0, 0, 0); }
+  .dark\\:bg-black { @media (prefers-color-scheme: dark) { background-color: rgb(0, 0, 0); } }
+  .dark\\:text-white { @media (prefers-color-scheme: dark) { color: rgb(255, 255, 255); } }
+}
+`) as StyleSheet;
+
+    const { inlinable, nonInlinable } = extractRulesPerClass(
+      stylesheet,
+      classes,
+    );
+
+    expect(convertToComparable(inlinable)).toMatchInlineSnapshot(`
+      {
+        "bg-white": [
+          ".bg-white{background-color:rgb(255,255,255)}",
+        ],
+        "text-black": [
+          ".text-black{color:rgb(0,0,0)}",
+        ],
+      }
+    `);
+    expect(convertToComparable(nonInlinable)).toMatchInlineSnapshot(`
+      {
+        "dark:bg-black": [
+          ".dark\\:bg-black{@media (prefers-color-scheme:dark){background-color:rgb(0,0,0)}}",
+        ],
+        "dark:text-white": [
+          ".dark\\:text-white{@media (prefers-color-scheme:dark){color:rgb(255,255,255)}}",
         ],
       }
     `);
