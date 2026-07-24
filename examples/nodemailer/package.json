@@ -20,7 +20,7 @@
     "react-dom": "19.2.4"
   },
   "devDependencies": {
-    "@types/nodemailer": "8.0.0",
+    "@types/nodemailer": "8.0.1",
     "tsdown": "0.21.9",
     "typescript": "5.9.3"
   }
