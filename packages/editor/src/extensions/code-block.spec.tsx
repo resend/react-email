@@ -99,20 +99,6 @@ describe('CodeBlockPrism Node', () => {
     expect(node?.content?.[0]?.text).toBe(code);
   });
 
-  it('recovers the code when pasting normalized the encoded spaces', async () => {
-    const code = "function helloWorld() {\n  console.log('Hello, world!');\n}";
-    const html = (
-      await composeCodeBlock({
-        attrs: { language: 'javascript', theme: 'dracula' },
-        code,
-      })
-    ).replaceAll('\u00A0\u200D\u200B', ' \u200D\u200B');
-
-    const node = generateJSON(html, importExtensions).content?.[0];
-
-    expect(node?.content?.[0]?.text).toBe(code);
-  });
-
   it('keeps the resolved styles of a composed email through an import', async () => {
     const style =
       'font-family:monospace;border-radius:4px;font-weight:500;font-size:.92em';

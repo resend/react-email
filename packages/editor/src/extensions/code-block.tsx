@@ -17,9 +17,9 @@ export interface CodeBlockPrismOptions extends CodeBlockOptions {
   defaultTheme: string;
 }
 
-const ENCODED_SPACE_REGEX = /[\u00A0 ]\u200D\u200B/g;
-
-const TEXT_NODE = 3;
+// Inverts the NBSP + ZWJ + ZWSP that react-email's CodeBlock writes for every
+// space so Spark Mail keeps the indentation.
+const ENCODED_SPACE_REGEX = /\u00A0\u200D\u200B/g;
 
 export const CodeBlockPrism = EmailNode.from(
   CodeBlock.extend<CodeBlockPrismOptions>({
@@ -86,7 +86,7 @@ export const CodeBlockPrism = EmailNode.from(
             let endsOnLineBreak = false;
 
             const visit = (node: Node) => {
-              if (node.nodeType === TEXT_NODE) {
+              if (node.nodeType === Node.TEXT_NODE) {
                 const text = node.nodeValue ?? '';
                 if (text) {
                   code += text;
@@ -196,24 +196,24 @@ export const CodeBlockPrism = EmailNode.from(
     // Without theme, render a gray code block
     const theme = userTheme
       ? {
-        ...userTheme,
-        base: {
-          ...userTheme.base,
-          borderRadius: '0.125rem',
-          padding: '0.75rem 1rem',
-        },
-      }
+          ...userTheme,
+          base: {
+            ...userTheme.base,
+            borderRadius: '0.125rem',
+            padding: '0.75rem 1rem',
+          },
+        }
       : {
-        base: {
-          color: '#1e293b',
-          background: '#f1f5f9',
-          lineHeight: '1.5',
-          fontFamily:
-            '"Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace',
-          padding: '0.75rem 1rem',
-          borderRadius: '0.125rem',
-        },
-      };
+          base: {
+            color: '#1e293b',
+            background: '#f1f5f9',
+            lineHeight: '1.5',
+            fontFamily:
+              '"Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace',
+            padding: '0.75rem 1rem',
+            borderRadius: '0.125rem',
+          },
+        };
 
     return (
       <ReactEmailCodeBlock
