@@ -17,42 +17,9 @@ export interface CodeBlockPrismOptions extends CodeBlockOptions {
   defaultTheme: string;
 }
 
-// The email renderer encodes spaces as NBSP + ZWJ + ZWSP so mail clients keep
-// the indentation. Pasting normalizes the NBSP away, so accept either one.
 const ENCODED_SPACE_REGEX = /[\u00A0 ]\u200D\u200B/g;
 
 const TEXT_NODE = 3;
-
-function readCodeFromElement(element: HTMLElement): string {
-  let code = '';
-  let endsOnLineBreak = false;
-
-  const visit = (node: Node) => {
-    if (node.nodeType === TEXT_NODE) {
-      const text = node.nodeValue ?? '';
-      if (text) {
-        code += text;
-        endsOnLineBreak = false;
-      }
-      return;
-    }
-
-    if (node.nodeName === 'BR') {
-      code += '\n';
-      endsOnLineBreak = true;
-      return;
-    }
-
-    node.childNodes.forEach(visit);
-  };
-  element.childNodes.forEach(visit);
-
-  if (endsOnLineBreak) {
-    code = code.slice(0, -1);
-  }
-
-  return code.replace(ENCODED_SPACE_REGEX, ' ');
-}
 
 export const CodeBlockPrism = EmailNode.from(
   CodeBlock.extend<CodeBlockPrismOptions>({
@@ -115,7 +82,34 @@ export const CodeBlockPrism = EmailNode.from(
           tag: 'pre',
           preserveWhitespace: 'full' as const,
           getContent: (element: Node, schema: Schema) => {
-            const code = readCodeFromElement(element as HTMLElement);
+            let code = '';
+            let endsOnLineBreak = false;
+
+            const visit = (node: Node) => {
+              if (node.nodeType === TEXT_NODE) {
+                const text = node.nodeValue ?? '';
+                if (text) {
+                  code += text;
+                  endsOnLineBreak = false;
+                }
+                return;
+              }
+
+              if (node.nodeName === 'BR') {
+                code += '\n';
+                endsOnLineBreak = true;
+                return;
+              }
+
+              node.childNodes.forEach(visit);
+            };
+            element.childNodes.forEach(visit);
+
+            if (endsOnLineBreak) {
+              code = code.slice(0, -1);
+            }
+            code = code.replace(ENCODED_SPACE_REGEX, ' ');
+
             return code ? Fragment.from(schema.text(code)) : Fragment.empty;
           },
         },
@@ -202,24 +196,24 @@ export const CodeBlockPrism = EmailNode.from(
     // Without theme, render a gray code block
     const theme = userTheme
       ? {
-          ...userTheme,
-          base: {
-            ...userTheme.base,
-            borderRadius: '0.125rem',
-            padding: '0.75rem 1rem',
-          },
-        }
+        ...userTheme,
+        base: {
+          ...userTheme.base,
+          borderRadius: '0.125rem',
+          padding: '0.75rem 1rem',
+        },
+      }
       : {
-          base: {
-            color: '#1e293b',
-            background: '#f1f5f9',
-            lineHeight: '1.5',
-            fontFamily:
-              '"Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace',
-            padding: '0.75rem 1rem',
-            borderRadius: '0.125rem',
-          },
-        };
+        base: {
+          color: '#1e293b',
+          background: '#f1f5f9',
+          lineHeight: '1.5',
+          fontFamily:
+            '"Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace',
+          padding: '0.75rem 1rem',
+          borderRadius: '0.125rem',
+        },
+      };
 
     return (
       <ReactEmailCodeBlock
