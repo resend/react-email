@@ -1,6 +1,7 @@
 import { mergeAttributes } from '@tiptap/core';
 import type { CodeBlockOptions } from '@tiptap/extension-code-block';
 import CodeBlock from '@tiptap/extension-code-block';
+import { Fragment, type Schema } from '@tiptap/pm/model';
 import { TextSelection } from '@tiptap/pm/state';
 import * as ReactEmailComponents from 'react-email';
 import {
@@ -8,11 +9,49 @@ import {
   CodeBlock as ReactEmailCodeBlock,
 } from 'react-email';
 import { EmailNode } from '../core/serializer/email-node';
+import { inlineCssToJs } from '../utils/styles';
 import { PrismPlugin } from './prism-plugin';
 
 export interface CodeBlockPrismOptions extends CodeBlockOptions {
   defaultLanguage: string;
   defaultTheme: string;
+}
+
+// The email renderer encodes spaces as NBSP + ZWJ + ZWSP so mail clients keep
+// the indentation. Pasting normalizes the NBSP away, so accept either one.
+const ENCODED_SPACE_REGEX = /[\u00A0 ]\u200D\u200B/g;
+
+const TEXT_NODE = 3;
+
+function readCodeFromElement(element: HTMLElement): string {
+  let code = '';
+  let endsOnLineBreak = false;
+
+  const visit = (node: Node) => {
+    if (node.nodeType === TEXT_NODE) {
+      const text = node.nodeValue ?? '';
+      if (text) {
+        code += text;
+        endsOnLineBreak = false;
+      }
+      return;
+    }
+
+    if (node.nodeName === 'BR') {
+      code += '\n';
+      endsOnLineBreak = true;
+      return;
+    }
+
+    node.childNodes.forEach(visit);
+  };
+  element.childNodes.forEach(visit);
+
+  if (endsOnLineBreak) {
+    code = code.slice(0, -1);
+  }
+
+  return code.replace(ENCODED_SPACE_REGEX, ' ');
 }
 
 export const CodeBlockPrism = EmailNode.from(
@@ -54,7 +93,7 @@ export const CodeBlockPrism = EmailNode.from(
             const language = languages[0];
 
             if (!language) {
-              return null;
+              return element.getAttribute('data-language');
             }
 
             return language;
@@ -63,9 +102,24 @@ export const CodeBlockPrism = EmailNode.from(
         },
         theme: {
           default: this.options.defaultTheme,
+          parseHTML: (element: HTMLElement | null) =>
+            element?.getAttribute('data-theme') || null,
           rendered: false,
         },
       };
+    },
+
+    parseHTML() {
+      return [
+        {
+          tag: 'pre',
+          preserveWhitespace: 'full' as const,
+          getContent: (element: Node, schema: Schema) => {
+            const code = readCodeFromElement(element as HTMLElement);
+            return code ? Fragment.from(schema.text(code)) : Fragment.empty;
+          },
+        },
+      ];
     },
 
     renderHTML({ node, HTMLAttributes }) {
@@ -170,11 +224,16 @@ export const CodeBlockPrism = EmailNode.from(
     return (
       <ReactEmailCodeBlock
         code={node.content?.[0]?.text ?? ''}
+        // Neither the language nor the theme is recoverable from the rendered
+        // markup, so mark them for whoever imports this email back.
+        data-language={language}
+        data-theme={node.attrs?.theme}
         language={language as PrismLanguage}
         theme={theme}
         style={{
           width: 'auto',
           ...style,
+          ...inlineCssToJs(node.attrs?.style),
         }}
       />
     );
