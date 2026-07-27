@@ -1,5 +1,12 @@
 # @react-email/editor
 
+## 1.6.12
+
+### Patch Changes
+
+- 2f595da: Fix code blocks losing their theme, language and styling when an email is imported back into the editor.
+- 81380ef: Make body margin and padding theme-driven instead of hardcoded on the email `<Body>`. The `minimal` theme's body panel now includes a Margin input and defaults its padding inputs to `0`, so body spacing is visible and editable in the inspector and can be overridden per document. The `basic` theme keeps its `margin: 0; padding: 0` body reset with unchanged output.
+
 ## 1.6.11
 
 ### Patch Changes
