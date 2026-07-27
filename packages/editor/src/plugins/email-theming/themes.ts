@@ -448,9 +448,17 @@ const THEME_MINIMAL: PanelGroup[] = [
         classReference: 'body',
       },
       {
+        label: 'Margin',
+        type: 'number',
+        value: 0,
+        unit: 'px',
+        prop: 'margin',
+        classReference: 'body',
+      },
+      {
         label: 'Padding Top',
         type: 'number',
-        value: undefined,
+        value: 0,
         unit: 'px',
         prop: 'paddingTop',
         classReference: 'body',
@@ -458,7 +466,7 @@ const THEME_MINIMAL: PanelGroup[] = [
       {
         label: 'Padding Right',
         type: 'number',
-        value: undefined,
+        value: 0,
         unit: 'px',
         prop: 'paddingRight',
         classReference: 'body',
@@ -466,7 +474,7 @@ const THEME_MINIMAL: PanelGroup[] = [
       {
         label: 'Padding Bottom',
         type: 'number',
-        value: undefined,
+        value: 0,
         unit: 'px',
         prop: 'paddingBottom',
         classReference: 'body',
@@ -474,7 +482,7 @@ const THEME_MINIMAL: PanelGroup[] = [
       {
         label: 'Padding Left',
         type: 'number',
-        value: undefined,
+        value: 0,
         unit: 'px',
         prop: 'paddingLeft',
         classReference: 'body',
@@ -669,6 +677,8 @@ const RESET_BASIC: ResetTheme = {
     padding: '0',
   },
   body: {
+    margin: '0',
+    padding: '0',
     fontFamily:
       "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
     fontSize: '14px',
@@ -1096,6 +1106,13 @@ export const SUPPORTED_CSS_PROPERTIES: SupportedCssProperties = {
     type: 'color',
     defaultValue: '#000000',
     category: 'appearance',
+  },
+  margin: {
+    label: 'Margin',
+    type: 'number',
+    unit: 'px',
+    defaultValue: 0,
+    category: 'layout',
   },
   padding: {
     label: 'Padding',
