@@ -77,3 +77,37 @@ Runnable examples are available at [react.email/editor/examples](https://react.e
     Browse the complete set of interactive examples.
   </Card>
 </CardGroup>
+
+## Known limitations
+
+<AccordionGroup>
+  <Accordion title="Slow dev-time compilation on Next.js because of Prism.js">
+    The editor's code block extension is built on top of react-email's
+    [`CodeBlock`](/components/code-block) component, which ships every Prism.js
+    language grammar in a single module. Bundlers that do not tree shake during
+    development, like Next.js, compile all of those grammars whenever the editor
+    is in the module graph, which significantly slows down dev-time compilation.
+
+    The current escape hatch is to patch your installed copy of `react-email`,
+    with [`pnpm patch`](https://pnpm.io/cli/patch) or
+    [`patch-package`](https://www.npmjs.com/package/patch-package), stripping the
+    grammars you don't use out of `dist/components/code-block/prism.mjs` (and
+    `prism.cjs` if you consume the CJS build) while keeping the top of the file
+    that imports and re-exports Prism itself:
+
+    ```js
+    import * as PrismImport from "prismjs";
+    const Prism = PrismImport.default ?? PrismImport;
+    export { Prism };
+    ```
+
+    Prism.js still registers `markup`, `css`, `clike` and `javascript` by
+    default, and the editor lazily loads any other grammar it needs while
+    editing, so the editing experience is unaffected. Keep the grammars for
+    every language you render into emails though, since `CodeBlock` throws when
+    it is given a language that is not registered.
+
+    Fully removing this weight requires a breaking change to how code blocks
+    are highlighted, which we are exploring.
+  </Accordion>
+</AccordionGroup>
