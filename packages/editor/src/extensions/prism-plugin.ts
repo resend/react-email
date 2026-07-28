@@ -52,23 +52,22 @@ function registeredLang(aliasOrLanguage: string) {
 }
 
 // Literal import specifiers so bundlers can statically resolve the chunks.
-export const languageLoaders: Partial<
-  Record<string, () => Promise<unknown>>
-> = {
-  go: () => import('prismjs/components/prism-go'),
-  jsx: () => import('prismjs/components/prism-jsx'),
-  json: () => import('prismjs/components/prism-json'),
-  markdown: () => import('prismjs/components/prism-markdown'),
-  php: () =>
-    import('prismjs/components/prism-markup-templating').then(
-      () => import('prismjs/components/prism-php'),
-    ),
-  python: () => import('prismjs/components/prism-python'),
-  ruby: () => import('prismjs/components/prism-ruby'),
-  shell: () => import('prismjs/components/prism-bash'),
-  sql: () => import('prismjs/components/prism-sql'),
-  typescript: () => import('prismjs/components/prism-typescript'),
-};
+export const languageLoaders: Partial<Record<string, () => Promise<unknown>>> =
+  {
+    go: () => import('prismjs/components/prism-go'),
+    jsx: () => import('prismjs/components/prism-jsx'),
+    json: () => import('prismjs/components/prism-json'),
+    markdown: () => import('prismjs/components/prism-markdown'),
+    php: () =>
+      import('prismjs/components/prism-markup-templating').then(
+        () => import('prismjs/components/prism-php'),
+      ),
+    python: () => import('prismjs/components/prism-python'),
+    ruby: () => import('prismjs/components/prism-ruby'),
+    shell: () => import('prismjs/components/prism-bash'),
+    sql: () => import('prismjs/components/prism-sql'),
+    typescript: () => import('prismjs/components/prism-typescript'),
+  };
 
 function getDecorations({
   doc,
