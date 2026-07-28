@@ -53,7 +53,7 @@ function registeredLang(aliasOrLanguage: string) {
 
 // Literal import specifiers so bundlers can statically resolve the chunks;
 // languages not bundled into Prism core, matching the code block's language attribute options.
-const languageLoaders: Record<string, () => Promise<unknown>> = {
+export const languageLoaders: Record<string, () => Promise<unknown>> = {
   go: () => import('prismjs/components/prism-go'),
   jsx: () => import('prismjs/components/prism-jsx'),
   json: () => import('prismjs/components/prism-json'),
