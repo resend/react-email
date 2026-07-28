@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.6.13
+
+### Patch Changes
+
+- 7cc03ce: remove padding and margin reset from body style reset
+
 ## 1.6.12
 
 ### Patch Changes
