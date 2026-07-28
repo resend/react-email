@@ -2,4 +2,4 @@
 '@react-email/editor': patch
 ---
 
-remove body from style reset
+remove padding and margin reset from body style reset
