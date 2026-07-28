@@ -51,6 +51,24 @@ function registeredLang(aliasOrLanguage: string) {
   return Boolean(allSupportLang.find((x) => x === aliasOrLanguage));
 }
 
+// Literal import specifiers so bundlers can statically resolve the chunks;
+// languages not bundled into Prism core, matching the code block's language attribute options.
+const languageLoaders: Record<string, () => Promise<unknown>> = {
+  go: () => import('prismjs/components/prism-go'),
+  jsx: () => import('prismjs/components/prism-jsx'),
+  json: () => import('prismjs/components/prism-json'),
+  markdown: () => import('prismjs/components/prism-markdown'),
+  php: () =>
+    import('prismjs/components/prism-markup-templating').then(
+      () => import('prismjs/components/prism-php'),
+    ),
+  python: () => import('prismjs/components/prism-python'),
+  ruby: () => import('prismjs/components/prism-ruby'),
+  shell: () => import('prismjs/components/prism-bash'),
+  sql: () => import('prismjs/components/prism-sql'),
+  typescript: () => import('prismjs/components/prism-typescript'),
+};
+
 function getDecorations({
   doc,
   name,
@@ -75,9 +93,14 @@ function getDecorations({
     let html = '';
 
     try {
-      if (!registeredLang(language) && !loadingLanguages.has(language)) {
+      const loadLanguage = languageLoaders[language];
+      if (
+        loadLanguage &&
+        !registeredLang(language) &&
+        !loadingLanguages.has(language)
+      ) {
         loadingLanguages.add(language);
-        import(/* @vite-ignore */ `prismjs/components/prism-${language}`)
+        loadLanguage()
           .then(() => {
             loadingLanguages.delete(language);
             onLanguageLoaded(language);
