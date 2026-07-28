@@ -20,7 +20,7 @@ describe('languageLoaders', () => {
 
   it('registers the grammar it loads for each language', async () => {
     for (const [language, load] of Object.entries(languageLoaders)) {
-      await load();
+      await load?.();
       expect(typeof Prism.languages[language]).toBe('object');
     }
   });
