@@ -677,8 +677,6 @@ const RESET_BASIC: ResetTheme = {
     padding: '0',
   },
   body: {
-    margin: '0',
-    padding: '0',
     fontFamily:
       "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
     fontSize: '14px',
