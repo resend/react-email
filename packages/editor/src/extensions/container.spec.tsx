@@ -323,6 +323,14 @@ describe('Container Node', () => {
   });
 
   describe('collaboration mode (simulated liveblocks)', () => {
+    // Replays the real Liveblocks transaction pattern observed in production:
+    //
+    //  1. One y-sync$ replacing doc with a bare empty paragraph
+    //     (TipTap normalises null → '' → schema `block+` gives one <p>)
+    //  2. ~18 rapid-fire y-sync$ "stabilisation" transactions that each
+    //     replace the doc with its current content
+    //  3. One final y-sync$ delivering the real document content
+    //  4. Two generic no-op transactions (Liveblocks cleanup)
     const STABILIZATION_ROUNDS = 18;
 
     beforeEach(() => {

@@ -147,6 +147,25 @@ export const Container = EmailNode.create<ContainerOptions>({
       ];
     }
 
+    // In collaborative mode the initial document streams in through several
+    // Yjs/Liveblocks sync transactions, so the doc can be transiently
+    // containerless mid-sync. Wrapping that transient synchronously (what
+    // appendTransaction used to do here) merges a spurious container into
+    // the shared Yjs doc permanently, duplicating containers on every
+    // editor open. Instead, wrapping is debounced and armed only by a real
+    // document change: no-op sync transactions neither arm nor delay it,
+    // and the bare empty placeholder doc (the shape mid-sync transients
+    // have) is never wrapped — an empty doc is wrapped after the first
+    // real edit instead.
+    //
+    // This is still a heuristic and can fail: a stall longer than the
+    // debounce around a containerless, content-bearing transient still
+    // wraps too early, and two clients can wrap a legitimately
+    // containerless doc at the same time (CRDT merge keeps both). The real
+    // fix needs the collaboration provider's sync status, which this
+    // package cannot see — consumers should gate editor mount on sync
+    // completion and seed rooms with a container so this plugin never has
+    // work to do.
     let wrapTimer: ReturnType<typeof setTimeout> | null = null;
     return [
       new Plugin({
@@ -179,13 +198,6 @@ export const Container = EmailNode.create<ContainerOptions>({
               editorView.dispatch(wrapInContainer(state));
             }, COLLABORATIVE_WRAP_DEBOUNCE_MS);
           };
-
-          if (
-            !hasContainerNode(editorView.state.doc) &&
-            !isBareEmptyDoc(editorView.state.doc)
-          ) {
-            scheduleWrap();
-          }
 
           return {
             update: (view, prevState) => {
