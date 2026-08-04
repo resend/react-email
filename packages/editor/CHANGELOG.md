@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.6.14
+
+### Patch Changes
+
+- 730b2ca: Fix duplicated containers when the enforcer races collaborative sync
+
 ## 1.6.13
 
 ### Patch Changes
