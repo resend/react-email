@@ -90,16 +90,7 @@ export default typeof readFileSync;
       }
 
       const hasDeprecatedAccessModeWarning = emitWarning.mock.calls.some(
-        // `emitWarning`'s overloads collapse to a 2-tuple in @types/node, but
-        // the runtime call can still be the legacy 3-arg form (message, type,
-        // code); widen the param so reading call[2] doesn't need a cast.
-        (call: readonly unknown[]) => {
-          const [, optionsOrType, code] = call as [
-            string | Error,
-            string | NodeJS.EmitWarningOptions | undefined,
-            string | undefined,
-          ];
-
+        ([, optionsOrType, code]) => {
           if (code === 'DEP0176') {
             return true;
           }
