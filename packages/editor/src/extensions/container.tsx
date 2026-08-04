@@ -7,13 +7,12 @@ import { hasCollaborationExtension } from '../utils/is-collaboration';
 import { inlineCssToJs } from '../utils/styles';
 
 function hasContainerNode(doc: PmNode): boolean {
-  let found = false;
-  doc.forEach((node) => {
-    if (node.type.name === 'container') {
-      found = true;
+  for (let i = 0; i < doc.childCount; i++) {
+    if (doc.child(i).type.name === 'container') {
+      return true;
     }
-  });
-  return found;
+  }
+  return false;
 }
 
 function wrapInContainer(state: EditorState) {
@@ -49,6 +48,17 @@ function wrapInContainer(state: EditorState) {
 
 export interface ContainerOptions {
   HTMLAttributes: Record<string, unknown>;
+}
+
+export const COLLABORATIVE_WRAP_DEBOUNCE_MS = 500;
+
+function isBareEmptyDoc(doc: PmNode): boolean {
+  return (
+    doc.childCount === 1 &&
+    doc.firstChild !== null &&
+    doc.firstChild.type.name === 'paragraph' &&
+    doc.firstChild.childCount === 0
+  );
 }
 
 export const Container = EmailNode.create<ContainerOptions>({
@@ -113,47 +123,94 @@ export const Container = EmailNode.create<ContainerOptions>({
     const isCollaborative = hasCollaborationExtension(
       this.editor.extensionManager.extensions,
     );
+
+    if (!isCollaborative) {
+      return [
+        new Plugin({
+          key: new PluginKey('containerEnforcer'),
+          view: (editorView) => {
+            if (!hasContainerNode(editorView.state.doc)) {
+              editorView.dispatch(wrapInContainer(editorView.state));
+            }
+            return {};
+          },
+          appendTransaction(_transactions, oldState, newState) {
+            if (hasContainerNode(newState.doc)) {
+              return null;
+            }
+            if (newState.doc.eq(oldState.doc)) {
+              return null;
+            }
+            return wrapInContainer(newState);
+          },
+        }),
+      ];
+    }
+
+    // In collaborative mode the initial document streams in through several
+    // Yjs/Liveblocks sync transactions, so the doc can be transiently
+    // containerless mid-sync. Wrapping that transient synchronously (what
+    // appendTransaction used to do here) merges a spurious container into
+    // the shared Yjs doc permanently, duplicating containers on every
+    // editor open. Instead, wrapping is debounced and armed only by a real
+    // document change: no-op sync transactions neither arm nor delay it,
+    // and the bare empty placeholder doc (the shape mid-sync transients
+    // have) is never wrapped — an empty doc is wrapped after the first
+    // real edit instead.
+    //
+    // This is still a heuristic and can fail: a stall longer than the
+    // debounce around a containerless, content-bearing transient still
+    // wraps too early, and two clients can wrap a legitimately
+    // containerless doc at the same time (CRDT merge keeps both). The real
+    // fix needs the collaboration provider's sync status, which this
+    // package cannot see — consumers should gate editor mount on sync
+    // completion and seed rooms with a container so this plugin never has
+    // work to do.
+    let wrapTimer: ReturnType<typeof setTimeout> | null = null;
     return [
       new Plugin({
         key: new PluginKey('containerEnforcer'),
-        view: isCollaborative
-          ? undefined
-          : (editorView) => {
-              if (!hasContainerNode(editorView.state.doc)) {
-                const tr = wrapInContainer(editorView.state);
-                editorView.dispatch(tr);
+        view: (editorView) => {
+          const cancelPendingWrap = () => {
+            if (wrapTimer !== null) {
+              clearTimeout(wrapTimer);
+              wrapTimer = null;
+            }
+          };
+          const scheduleWrap = () => {
+            cancelPendingWrap();
+            wrapTimer = setTimeout(() => {
+              wrapTimer = null;
+              if (editorView.isDestroyed) {
+                return;
               }
-              return {};
+              if (editorView.composing) {
+                scheduleWrap();
+                return;
+              }
+              const state = editorView.state;
+              if (hasContainerNode(state.doc)) {
+                return;
+              }
+              if (isBareEmptyDoc(state.doc)) {
+                return;
+              }
+              editorView.dispatch(wrapInContainer(state));
+            }, COLLABORATIVE_WRAP_DEBOUNCE_MS);
+          };
+
+          return {
+            update: (view, prevState) => {
+              if (view.state.doc.eq(prevState.doc)) {
+                return;
+              }
+              if (hasContainerNode(view.state.doc)) {
+                cancelPendingWrap();
+                return;
+              }
+              scheduleWrap();
             },
-        appendTransaction(_transactions, oldState, newState) {
-          if (hasContainerNode(newState.doc)) {
-            return null;
-          }
-
-          // This is meant to deal with the weird behavior from Liveblocks's
-          // extension. It repeatedly creates transactions that do basically no
-          // changes before the actual content of the room arrives. And, if we
-          // don't do this, this plugin wraps the initial document from TipTap
-          // (an empty paragraph) with a container, and this is then kept in
-          // the TipTap, effectively duplicating containers every time someone
-          // opens the editor.
-          //
-          // This check is, at the end of the day, a heuristic and therefore it
-          // might fail. It's just not the best solution, the best solution
-          // would be for us to either not receive any content update until the
-          // contents are actually being set, or to be able to distinguish
-          // between "fake" transactions and "real" transactions in the
-          // Liveblocks extension. But, for now, this is what we have.
-          //
-          // One such case where this fails is if the email's contents are
-          // literally the default contents from TipTap, meaning an empty
-          // paragraph, it won't wrap, and we have a test for this that's being
-          // skipped in container.spec.tsx
-          if (newState.doc.eq(oldState.doc)) {
-            return null;
-          }
-
-          return wrapInContainer(newState);
+          };
         },
       }),
     ];
