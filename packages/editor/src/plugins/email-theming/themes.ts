@@ -96,7 +96,7 @@ const THEME_BASIC: PanelGroup[] = [
       {
         label: 'Align',
         type: 'select',
-        value: 'left',
+        value: 'center',
         options: {
           left: 'Left',
           center: 'Center',
