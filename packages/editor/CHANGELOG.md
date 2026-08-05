@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.7.0
+
+### Minor Changes
+
+- 45404a5: make the container center aligned on the basic theme
+
 ## 1.6.14
 
 ### Patch Changes
