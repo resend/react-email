@@ -55,4 +55,22 @@ describe('<Section> component', () => {
     const tdChildrenArr = actualOutput.match(/<td\s*.*?>.*?<\/td>/g);
     expect(tdChildrenArr).toHaveLength(1);
   });
+
+  it('puts padding styles on the td and non-padding styles on the table', async () => {
+    const html = await render(
+      <Section
+        style={{ padding: '16px', backgroundColor: 'red' }}
+        className="max-sm_px-5 bg-white"
+      >
+        hi
+      </Section>,
+    );
+    // Base padding on the cell (Outlook/Klaviyo)
+    expect(html).toMatch(/<td[^>]*style="[^"]*padding:16px/);
+    // Media-query padding class on the same cell so it can override base padding (#3693)
+    expect(html).toMatch(/<td[^>]*class="[^"]*max-sm_px-5/);
+    // Non-padding class stays on the table
+    expect(html).toMatch(/<table[^>]*class="[^"]*bg-white/);
+    expect(html).toMatch(/<table[^>]*style="[^"]*background-color:red/);
+  });
 });
