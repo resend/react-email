@@ -315,8 +315,30 @@ function ExportPanel() {
 
 The `preview` parameter is optional — when provided, it sets the inbox preview text in the exported HTML.
 
+### Server-side (no editor, no DOM)
+
+`composeReactEmail` also accepts a stored TipTap JSON document plus the extension set it
+was written with, and renders it anywhere Node runs — API routes, workers, cron jobs:
+
+```tsx
+import { composeReactEmail } from '@react-email/editor/core';
+import { StarterKit } from '@react-email/editor/extensions';
+import { EmailTheming } from '@react-email/editor/plugins';
+
+const extensions = [StarterKit, EmailTheming];
+
+const { unformattedHtml, text } = await composeReactEmail({
+  content: storedDocument, // editor.getJSON() persisted earlier
+  extensions,
+  format: false, // skip the Prettier pass servers never read
+});
+```
+
+Output is byte-identical to exporting from a live editor. HTML strings are rejected —
+convert HTML to JSON first with `generateJSON` from `@tiptap/html`.
+
 The export pipeline:
-1. Reads the editor's JSON document
+1. Reads the document (from the editor, or from `content` + `extensions`)
 2. Traverses each node and mark
 3. Calls `renderToReactEmail()` on each `EmailNode` and `EmailMark`
 4. Applies theme styles via `EmailTheming` plugin (if configured)
