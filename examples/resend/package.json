@@ -16,7 +16,7 @@
     "resend": "6.4.0"
   },
   "devDependencies": {
-    "@types/node": "22.19.17",
+    "@types/node": "22.20.1",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "typescript": "5.9.3"

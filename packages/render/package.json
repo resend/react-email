@@ -135,7 +135,7 @@
     "@types/react-dom": "catalog:",
     "@types/shelljs": "0.10.0",
     "jsdom": "26.1.0",
-    "playwright": "1.59.1",
+    "playwright": "1.61.1",
     "shelljs": "0.10.0",
     "tsconfig": "workspace:*",
     "typescript": "catalog:",
