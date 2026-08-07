@@ -80,6 +80,7 @@
     "next": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
+    "react-server-dom-webpack": "19.2.4",
     "shelljs": "0.10.0",
     "shlex": "3.0.0",
     "tsx": "catalog:",

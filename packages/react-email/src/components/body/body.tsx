@@ -1,11 +1,28 @@
 import * as React from 'react';
 import { markAsElement } from '../element-marker.js';
+import {
+  markAsEmailContextConsumer,
+  readEmailContext,
+  stripEmailContexts,
+} from '../email-context/index.js';
+import { htmlContext } from '../html/html-context.js';
 import { marginProperties, paddingProperties } from './margin-properties.js';
 
 export type BodyProps = Readonly<React.HtmlHTMLAttributes<HTMLBodyElement>>;
 
 export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
   ({ children, style, ...props }, ref) => {
+    // Email clients like Gmail may strip the html tag, so the language
+    // metadata is repeated here. It is inherited from <Html> to avoid
+    // conflicting values in the same document.
+    // See https://github.com/resend/react-email/issues/3652.
+    const inherited = readEmailContext(props, htmlContext);
+    const {
+      dir = inherited.dir ?? 'ltr',
+      lang = inherited.lang ?? 'en',
+      ...restProps
+    } = stripEmailContexts(props);
+
     const bodyStyle: Record<string, string | number | undefined> = {
       background: style?.background,
       backgroundColor: style?.backgroundColor,
@@ -20,13 +37,7 @@ export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
       }
     }
     return (
-      <body
-        {...props}
-        dir={props.dir ?? 'ltr'}
-        lang={props.lang ?? 'en'}
-        style={bodyStyle}
-        ref={ref}
-      >
+      <body {...restProps} dir={dir} lang={lang} style={bodyStyle} ref={ref}>
         <table
           border={0}
           width="100%"
@@ -43,11 +54,7 @@ export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
 
                 See https://github.com/resend/react-email/issues/662.
               */}
-              <td
-                dir={props.dir ?? 'ltr'}
-                lang={props.lang ?? 'en'}
-                style={style}
-              >
+              <td dir={dir} lang={lang} style={style}>
                 {children}
               </td>
             </tr>
@@ -60,3 +67,4 @@ export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
 
 Body.displayName = 'Body';
 markAsElement(Body);
+markAsEmailContextConsumer(Body);
