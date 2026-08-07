@@ -1,5 +1,11 @@
 # @react-email/ui
 
+## 6.9.2
+
+### Patch Changes
+
+- 9b1a4d5: Bump `next` to 16.3.0 to fix high-severity vulnerabilities in its bundled `postcss` and `sharp` dependencies flagged by `npm audit` (#3689).
+
 ## 6.9.1
 
 ## 6.9.0
