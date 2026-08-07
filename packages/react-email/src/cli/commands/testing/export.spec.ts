@@ -83,7 +83,7 @@ test('email export', { retry: 3 }, async () => {
                           </tbody>
                         </table>
                         <h1
-                          style="margin-right:0;margin-left:0;margin-bottom:30px;margin-top:30px;padding:0;text-align:center;font-weight:400;font-size:24px;color:rgb(0,0,0)">
+                          style="margin-right:0;margin-left:0;margin-bottom:30px;margin-top:30px;padding:0;text-align:center;font-size:24px;font-weight:400;color:rgb(0,0,0)">
                           Join <strong></strong> on <strong>Vercel</strong>
                         </h1>
                         <p
@@ -166,7 +166,7 @@ test('email export', { retry: 3 }, async () => {
                             <tr>
                               <td>
                                 <a
-                                  style="line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;border-radius:0.25rem;background-color:rgb(0,0,0);padding-right:20px;padding-left:20px;padding-bottom:12px;padding-top:12px;text-align:center;font-weight:600;font-size:12px;color:rgb(255,255,255);text-decoration-line:none"
+                                  style="line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;border-radius:0.25rem;background-color:rgb(0,0,0);padding-right:20px;padding-left:20px;padding-bottom:12px;padding-top:12px;text-align:center;font-size:12px;font-weight:600;color:rgb(255,255,255);text-decoration-line:none"
                                   target="_blank"
                                   ><span
                                     ><!--[if mso]><i style="mso-font-width:500%;mso-text-raise:18px" hidden>&#8202;&#8202;</i><![endif]--></span
