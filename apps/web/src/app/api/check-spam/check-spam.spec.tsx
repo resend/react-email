@@ -39,9 +39,14 @@ describe.skipIf(!host || !port)('checkSpam()', { timeout: 10_000 }, () => {
             "name": "DRUGS_ERECTILE",
             "points": 2.2,
           },
+          {
+            "description": "Detected as bulk mail by DCC (dcc-servers.net)",
+            "name": "DCC_CHECK",
+            "points": 1.1,
+          },
         ],
-        "isSpam": false,
-        "points": 3.9000000000000004,
+        "isSpam": true,
+        "points": 5,
       }
     `);
   });
