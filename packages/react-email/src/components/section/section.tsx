@@ -1,37 +1,19 @@
 import * as React from 'react';
 import { markAsElement } from '../element-marker.js';
+import {
+  splitPaddingClassNames,
+  splitPaddingStyles,
+} from '../utils/split-padding-props.js';
 
 export type SectionProps = Readonly<React.ComponentPropsWithoutRef<'table'>>;
 
 export const Section = React.forwardRef<HTMLTableElement, SectionProps>(
-  ({ children, style = {}, ...props }, ref) => {
-    // Split padding styles to improve compatibility with Klaviyo and Outlook,
-    // while preserving user-provided style property order without allocating
-    // entry arrays on each render.
-    const tdStyle: React.CSSProperties = {};
-    const tableStyle: React.CSSProperties = {};
-
-    const styleRecord = style as Record<string, unknown>;
-
-    for (const key in styleRecord) {
-      if (!Object.hasOwn(styleRecord, key)) {
-        continue;
-      }
-
-      const value = styleRecord[key];
-
-      if (
-        key === 'padding' ||
-        key === 'paddingTop' ||
-        key === 'paddingRight' ||
-        key === 'paddingBottom' ||
-        key === 'paddingLeft'
-      ) {
-        (tdStyle as Record<string, unknown>)[key] = value;
-      } else {
-        (tableStyle as Record<string, unknown>)[key] = value;
-      }
-    }
+  ({ children, style = {}, className, ...props }, ref) => {
+    // Split padding styles/classes onto the inner <td> for Outlook/Klaviyo, and so
+    // Tailwind media-query padding variants override base padding on the same
+    // element (https://github.com/resend/react-email/issues/3693).
+    const { tdStyle, tableStyle } = splitPaddingStyles(style);
+    const { tdClassName, tableClassName } = splitPaddingClassNames(className);
 
     return (
       <table
@@ -43,11 +25,14 @@ export const Section = React.forwardRef<HTMLTableElement, SectionProps>(
         role="presentation"
         {...props}
         ref={ref}
+        className={tableClassName}
         style={tableStyle}
       >
         <tbody>
           <tr>
-            <td style={tdStyle}>{children}</td>
+            <td className={tdClassName} style={tdStyle}>
+              {children}
+            </td>
           </tr>
         </tbody>
       </table>
