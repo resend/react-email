@@ -66,5 +66,4 @@ export const StyleAttribute = Extension.create<StyleAttributeOptions>({
         },
     };
   },
-
 });

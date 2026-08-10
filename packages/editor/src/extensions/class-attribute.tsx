@@ -65,5 +65,4 @@ export const ClassAttribute = Extension.create<ClassAttributeOptions>({
         },
     };
   },
-
 });
