@@ -66,15 +66,4 @@ export const ClassAttribute = Extension.create<ClassAttributeOptions>({
     };
   },
 
-  addKeyboardShortcuts() {
-    return {
-      Enter: ({ editor }) => {
-        requestAnimationFrame(() => {
-          editor.commands.resetAttributes('paragraph', 'class');
-        });
-
-        return false;
-      },
-    };
-  },
 });

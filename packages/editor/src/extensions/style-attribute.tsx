@@ -67,33 +67,4 @@ export const StyleAttribute = Extension.create<StyleAttributeOptions>({
     };
   },
 
-  addKeyboardShortcuts() {
-    return {
-      Enter: ({ editor }) => {
-        // Check if any suggestion plugin is active by looking for decorations
-        // that indicate an active suggestion/autocomplete
-        const { state } = editor.view;
-        const { selection } = state;
-        const { $from } = selection;
-
-        // Check if we're in a position where suggestion might be active
-        // by looking at the text before cursor for trigger characters
-        const textBefore = $from.nodeBefore?.text || '';
-        const hasTrigger =
-          textBefore.includes('{{') || textBefore.includes('{{{');
-
-        // If we have trigger characters, assume suggestion might be handling this
-        // Don't reset styles
-        if (hasTrigger) {
-          return false;
-        }
-
-        // Otherwise, reset paragraph styles on Enter
-        requestAnimationFrame(() => {
-          editor.commands.resetAttributes('paragraph', 'style');
-        });
-        return false;
-      },
-    };
-  },
 });
