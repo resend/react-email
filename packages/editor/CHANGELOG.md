@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.7.2
+
+### Patch Changes
+
+- b039b36: Preserve paragraph `style` and `class` attributes when splitting a paragraph with Enter
+
 ## 1.7.1
 
 ### Patch Changes
