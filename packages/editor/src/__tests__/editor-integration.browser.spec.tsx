@@ -229,6 +229,42 @@ describe('editor integration (browser)', () => {
     expect(fresh.classList.contains('lead')).toBe(false);
   });
 
+  it('pressing Enter after a completed placeholder still resets the style on the new paragraph', async () => {
+    render(
+      <EmailEditor
+        content={{
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              attrs: { style: 'font-size: 24px' },
+              content: [{ type: 'text', text: 'Hi {{{contact.email}}}' }],
+            },
+          ],
+        }}
+      />,
+    );
+
+    const editor = getEditor();
+    await page.getByText('Hi {{{contact.email}}}').click();
+    await userEvent.keyboard('{End}');
+    await userEvent.keyboard('{Enter}');
+
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+
+    const editorEl = editor.element() as HTMLElement;
+    const paragraphs = Array.from(editorEl.querySelectorAll('p'));
+    expect(paragraphs.length).toBeGreaterThanOrEqual(2);
+
+    const [styled, fresh] = paragraphs;
+    expect(styled.textContent).toContain('{{{contact.email}}}');
+    expect(styled.style.fontSize).toBe('24px');
+
+    expect(fresh.textContent).toBe('');
+    expect(fresh.style.fontSize).toBe('');
+  });
+
   it('pasting HTML into a non-empty document preserves existing content', async () => {
     render(
       <EmailEditor

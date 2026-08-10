@@ -76,15 +76,15 @@ export const StyleAttribute = Extension.create<StyleAttributeOptions>({
         const { selection } = state;
         const { $from, $to } = selection;
 
-        // Check if we're in a position where suggestion might be active
-        // by looking at the text before cursor for trigger characters
         const textBefore = $from.nodeBefore?.text || '';
-        const hasTrigger =
-          textBefore.includes('{{') || textBefore.includes('{{{');
+        const lastTriggerIndex = textBefore.lastIndexOf('{{');
+        const hasUnfinishedTrigger =
+          lastTriggerIndex !== -1 &&
+          !textBefore.slice(lastTriggerIndex + 2).includes('}}');
 
-        // If we have trigger characters, assume suggestion might be handling this
-        // Don't reset styles
-        if (hasTrigger) {
+        // The suggestion popup is likely handling this Enter press, so don't
+        // reset styles
+        if (hasUnfinishedTrigger) {
           return false;
         }
 
