@@ -65,4 +65,26 @@ export const ClassAttribute = Extension.create<ClassAttributeOptions>({
         },
     };
   },
+
+  addKeyboardShortcuts() {
+    return {
+      Enter: ({ editor }) => {
+        const { $to } = editor.view.state.selection;
+
+        // When Enter splits a paragraph mid-text, the content after the cursor
+        // moves into the new paragraph and must keep its class. Only reset
+        // when the cursor is at the end of the block, i.e. when Enter creates
+        // a fresh empty paragraph.
+        if ($to.parentOffset < $to.parent.content.size) {
+          return false;
+        }
+
+        requestAnimationFrame(() => {
+          editor.commands.resetAttributes('paragraph', 'class');
+        });
+
+        return false;
+      },
+    };
+  },
 });

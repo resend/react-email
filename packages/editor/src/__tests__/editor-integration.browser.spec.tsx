@@ -191,6 +191,44 @@ describe('editor integration (browser)', () => {
     }
   });
 
+  it('pressing Enter at the end of a paragraph resets style and class on the new paragraph', async () => {
+    render(
+      <EmailEditor
+        content={{
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              attrs: { style: 'font-size: 24px', class: 'lead' },
+              content: [{ type: 'text', text: 'Hello world' }],
+            },
+          ],
+        }}
+      />,
+    );
+
+    const editor = getEditor();
+    await page.getByText('Hello world').click();
+    await userEvent.keyboard('{End}');
+    await userEvent.keyboard('{Enter}');
+
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+
+    const editorEl = editor.element() as HTMLElement;
+    const paragraphs = Array.from(editorEl.querySelectorAll('p'));
+    expect(paragraphs.length).toBeGreaterThanOrEqual(2);
+
+    const [styled, fresh] = paragraphs;
+    expect(styled.textContent).toContain('Hello world');
+    expect(styled.style.fontSize).toBe('24px');
+    expect(styled.classList.contains('lead')).toBe(true);
+
+    expect(fresh.textContent).toBe('');
+    expect(fresh.style.fontSize).toBe('');
+    expect(fresh.classList.contains('lead')).toBe(false);
+  });
+
   it('pasting HTML into a non-empty document preserves existing content', async () => {
     render(
       <EmailEditor
