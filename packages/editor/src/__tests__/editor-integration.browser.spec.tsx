@@ -153,6 +153,44 @@ describe('editor integration (browser)', () => {
     await expect.element(editor).toHaveTextContent('existing plus pasted');
   });
 
+  it('pressing Enter mid-paragraph preserves the paragraph style and class', async () => {
+    render(
+      <EmailEditor
+        content={{
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              attrs: { style: 'font-size: 24px', class: 'lead' },
+              content: [{ type: 'text', text: 'Hello world' }],
+            },
+          ],
+        }}
+      />,
+    );
+
+    const editor = getEditor();
+    await page.getByText('Hello world').click();
+    await userEvent.keyboard('{Home}');
+    await userEvent.keyboard('{ArrowRight>5/}');
+    await userEvent.keyboard('{Enter}');
+
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+
+    const editorEl = editor.element() as HTMLElement;
+    const paragraphs = Array.from(editorEl.querySelectorAll('p')).filter(
+      (paragraph) => paragraph.textContent,
+    );
+    expect(paragraphs).toHaveLength(2);
+    expect(paragraphs[0].textContent).toContain('Hello');
+    expect(paragraphs[1].textContent).toContain('world');
+    for (const paragraph of paragraphs) {
+      expect(paragraph.style.fontSize).toBe('24px');
+      expect(paragraph.classList.contains('lead')).toBe(true);
+    }
+  });
+
   it('pasting HTML into a non-empty document preserves existing content', async () => {
     render(
       <EmailEditor
