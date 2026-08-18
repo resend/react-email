@@ -228,6 +228,26 @@ const styleProperties = new Map<
   [['color'], 'foreground'],
 ]);
 
+// The inversion only recolors values it finds inline, so a `<body>` that
+// declares none of its own is seeded with the colors it already renders at,
+// giving the walk below something to invert. Those are the preview's values and
+// not the email's, so they get marked as such: undoing has to drop them rather
+// than restore them, or an email that never painted a background of its own
+// keeps a white one for as long as the frame lives.
+const seededProperty = (property: StringStyleProperty) =>
+  `data-seeded-${String(property)}`;
+
+function seedBodyColors(body: HTMLElement) {
+  if (!body.style.color) {
+    body.style.color = 'rgb(0, 0, 0)';
+    body.setAttribute(seededProperty('color'), '');
+  }
+  if (!body.style.background && !body.style.backgroundColor) {
+    body.style.background = 'rgb(255, 255, 255)';
+    body.setAttribute(seededProperty('background'), '');
+  }
+}
+
 function undoColorInversion(iframe: HTMLIFrameElement) {
   const { contentDocument, contentWindow } = iframe;
   if (!contentDocument || !contentWindow || !contentDocument.body) return;
@@ -247,7 +267,10 @@ function undoColorInversion(iframe: HTMLIFrameElement) {
       for (const properties of styleProperties.keys()) {
         for (const property of properties) {
           const original = element.getAttribute(`data-original-${property}`);
-          if (original) {
+          if (element.hasAttribute(seededProperty(property))) {
+            element.style[property] = '';
+            element.removeAttribute(seededProperty(property));
+          } else if (original) {
             element.style[property] = original;
           }
           element.removeAttribute(`data-original-${property}`);
@@ -267,15 +290,7 @@ function applyColorInversion(iframe: HTMLIFrameElement) {
   if (appliedColorInversion) return;
   contentDocument.body.setAttribute('data-applied-color-inversion', '');
 
-  if (!contentDocument.body.style.color) {
-    contentDocument.body.style.color = 'rgb(0, 0, 0)';
-  }
-  if (
-    !contentDocument.body.style.background &&
-    !contentDocument.body.style.backgroundColor
-  ) {
-    contentDocument.body.style.background = 'rgb(255, 255, 255)';
-  }
+  seedBodyColors(contentDocument.body);
 
   for (const element of walkDom(contentDocument.documentElement)) {
     if (

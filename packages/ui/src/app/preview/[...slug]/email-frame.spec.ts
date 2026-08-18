@@ -160,6 +160,42 @@ describe('syncDarkMode()', () => {
     expect(iframe.contentDocument!.body.style.color).toBe('#000');
   });
 
+  it('leaves no background behind on an email that never painted one', async () => {
+    // The inversion seeds `<body>` with white so it has something to invert.
+    // Restoring that seed on the way out — instead of dropping it — leaves the
+    // email with a white background it never asked for, which then shows
+    // through as a white page under the native mode's dark theme.
+    const iframe = await frameReporting(
+      'light',
+      `<html><head><style>${darkCardCss}</style></head><body></body></html>`,
+    );
+    const body = iframe.contentDocument!.body;
+
+    syncDarkMode(iframe, 'inversion');
+    expect(body.style.background).not.toBe('');
+
+    syncDarkMode(iframe, 'native');
+
+    expect(body.style.background).toBe('');
+    expect(body.style.color).toBe('');
+    expect(body.getAttribute('data-seeded-background')).toBeNull();
+  });
+
+  it("restores an email's own background after inverting it", async () => {
+    // The flip side: a background the email really did declare has to come
+    // back exactly as authored.
+    const iframe = await frameReporting(
+      'light',
+      '<html><body style="background:#fafafa"></body></html>',
+    );
+    const body = iframe.contentDocument!.body;
+
+    syncDarkMode(iframe, 'inversion');
+    syncDarkMode(iframe, 'off');
+
+    expect(body.style.background).toBe('#fafafa');
+  });
+
   it('does nothing before the frame has a document', () => {
     const iframe = document.createElement('iframe');
 
