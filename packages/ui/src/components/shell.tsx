@@ -1,5 +1,6 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import * as React from 'react';
 import { cn } from '../utils';
 import { Logo } from './logo';
@@ -7,7 +8,6 @@ import { Sidebar } from './sidebar';
 
 interface ShellProps {
   children: React.ReactNode;
-  currentEmailOpenSlug?: string;
 }
 
 interface ShellContextValue {
@@ -19,8 +19,16 @@ export const ShellContext = React.createContext<ShellContextValue | undefined>(
   undefined,
 );
 
-export const Shell = ({ children, currentEmailOpenSlug }: ShellProps) => {
+export const Shell = ({ children }: ShellProps) => {
   const [sidebarToggled, setSidebarToggled] = React.useState(true);
+  const pathname = usePathname();
+
+  // 64rem is the `lg` breakpoint the drawer styles below are keyed to.
+  React.useEffect(() => {
+    if (window.matchMedia('(min-width: 64rem)').matches) return;
+
+    setSidebarToggled(true);
+  }, [pathname]);
 
   return (
     <ShellContext.Provider
@@ -73,7 +81,6 @@ export const Shell = ({ children, currentEmailOpenSlug }: ShellProps) => {
                 'lg:w-0': !sidebarToggled,
               },
             )}
-            currentEmailOpenSlug={currentEmailOpenSlug}
           />
         </React.Suspense>
         <main
