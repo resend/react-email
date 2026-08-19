@@ -133,6 +133,10 @@ export const TrailingNode = Extension.create<TrailingNodeOptions>({
             tr.insert(pos, type.create());
           }
 
+          if (positions.length > 0) {
+            tr.setMeta('autoTrailingNode', true);
+          }
+
           return positions.length > 0 ? tr : undefined;
         },
         state: {

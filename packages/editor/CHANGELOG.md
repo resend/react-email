@@ -1,5 +1,50 @@
 # @react-email/editor
 
+## 1.7.2
+
+### Patch Changes
+
+- b039b36: Preserve paragraph `style` and `class` attributes when splitting a paragraph with Enter
+
+## 1.7.1
+
+### Patch Changes
+
+- react-email@6.9.2
+
+## 1.7.0
+
+### Minor Changes
+
+- 45404a5: make the container center aligned on the basic theme
+
+## 1.6.14
+
+### Patch Changes
+
+- 730b2ca: Fix duplicated containers when the enforcer races collaborative sync
+
+## 1.6.13
+
+### Patch Changes
+
+- 7cc03ce: remove padding and margin reset from body style reset
+
+## 1.6.12
+
+### Patch Changes
+
+- 2f595da: Fix code blocks losing their theme, language and styling when an email is imported back into the editor.
+- 81380ef: Make body margin and padding theme-driven instead of hardcoded on the email `<Body>`. The `minimal` theme's body panel now includes a Margin input and defaults its padding inputs to `0`, so body spacing is visible and editable in the inspector and can be overridden per document. The `basic` theme keeps its `margin: 0; padding: 0` body reset with unchanged output.
+
+## 1.6.11
+
+### Patch Changes
+
+- Updated dependencies [ea02028]
+- Updated dependencies [60c96a6]
+  - react-email@6.9.1
+
 ## 1.6.10
 
 ### Patch Changes

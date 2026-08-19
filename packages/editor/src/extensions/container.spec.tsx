@@ -1,11 +1,11 @@
 import type { JSONContent } from '@tiptap/core';
 import { Editor, Extension } from '@tiptap/core';
 import { Container as ReactEmailContainer, render } from 'react-email';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { composeReactEmail } from '../core/serializer/compose-react-email';
 import { EmailTheming } from '../plugins';
 import { DEFAULT_STYLES } from '../utils/default-styles';
-import { Container } from './container';
+import { COLLABORATIVE_WRAP_DEBOUNCE_MS, Container } from './container';
 import { StarterKit } from './index';
 
 vi.mock('@/actions/ai', () => ({
@@ -276,7 +276,7 @@ describe('Container Node', () => {
             @media (prefers-color-scheme: dark){li::marker{color:#c4c4c4}}
           </style>
         </head>
-        <body dir="ltr" lang="en" style="background-color:#ffffff;margin:0;padding:0">
+        <body dir="ltr" lang="en" style="background-color:#ffffff">
           <!--$--><!--html--><!--head--><!--body-->
           <table
             border="0"
@@ -290,15 +290,15 @@ describe('Container Node', () => {
                 <td
                   dir="ltr"
                   lang="en"
-                  style="margin:0;padding:0;font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%;background-color:#ffffff">
+                  style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%;background-color:#ffffff">
                   <table
-                    align="left"
+                    align="center"
                     width="100%"
                     border="0"
                     cellpadding="0"
                     cellspacing="0"
                     role="presentation"
-                    style="max-width:600px;align:left;width:100%;color:#000000;background-color:#ffffff;border-radius:0px;border-color:#000000;line-height:155%">
+                    style="max-width:600px;align:center;width:100%;color:#000000;background-color:#ffffff;border-radius:0px;border-color:#000000;line-height:155%">
                     <tbody>
                       <tr style="width:100%">
                         <td
@@ -328,11 +328,28 @@ describe('Container Node', () => {
     //  1. One y-sync$ replacing doc with a bare empty paragraph
     //     (TipTap normalises null → '' → schema `block+` gives one <p>)
     //  2. ~18 rapid-fire y-sync$ "stabilisation" transactions that each
-    //     replace the doc with container+paragraph (the Yjs doc mirrors
-    //     back the container that appendTransaction created after step 1)
+    //     replace the doc with its current content
     //  3. One final y-sync$ delivering the real document content
     //  4. Two generic no-op transactions (Liveblocks cleanup)
     const STABILIZATION_ROUNDS = 18;
+
+    beforeEach(() => {
+      vi.useFakeTimers();
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    async function settle() {
+      await vi.advanceTimersByTimeAsync(COLLABORATIVE_WRAP_DEBOUNCE_MS + 10);
+    }
+
+    function countTopLevelContainers(editorInstance: Editor) {
+      return editorInstance
+        .getJSON()
+        .content!.filter((n) => n.type === 'container').length;
+    }
 
     function createFakeLiveblocksExtension(getContent: (schema: any) => any) {
       let resolve: () => void;
@@ -398,6 +415,7 @@ describe('Container Node', () => {
         extensions: [StarterKit, fakeLiveblocks],
       });
 
+      await settle();
       await contentResolved;
 
       const json = editor!.getJSON();
@@ -444,6 +462,7 @@ describe('Container Node', () => {
         extensions: [StarterKit, fakeLiveblocks],
       });
 
+      await settle();
       await contentResolved;
 
       const json = editor!.getJSON();
@@ -475,8 +494,7 @@ describe('Container Node', () => {
       `);
     });
 
-    // We skip this because it fails and there's no good solution for this that fits in all situations.
-    it.skip('wraps the schema-default empty paragraph when collaboration starts with no content', async () => {
+    it('wraps a doc that syncs with no content only after the first real edit', async () => {
       const [fakeLiveblocks, contentResolved] = createFakeLiveblocksExtension(
         (schema) => schema.nodes.paragraph.create(),
       );
@@ -485,29 +503,15 @@ describe('Container Node', () => {
         extensions: [StarterKit, fakeLiveblocks],
       });
 
+      await settle();
       await contentResolved;
 
-      const json = editor!.getJSON();
-      expect(json).toMatchInlineSnapshot(`
-        {
-          "content": [
-            {
-              "content": [
-                {
-                  "attrs": {
-                    "alignment": null,
-                    "class": "",
-                    "style": "",
-                  },
-                  "type": "paragraph",
-                },
-              ],
-              "type": "container",
-            },
-          ],
-          "type": "doc",
-        }
-      `);
+      expect(countTopLevelContainers(editor!)).toBe(0);
+
+      editor!.commands.insertContent('Hello');
+      await settle();
+
+      expect(countTopLevelContainers(editor!)).toBe(1);
     });
 
     it('preserves globalContent outside the container when synced via collaboration', async () => {
@@ -528,6 +532,7 @@ describe('Container Node', () => {
         extensions: [StarterKit, fakeLiveblocks],
       });
 
+      await settle();
       await contentResolved;
 
       const json = editor!.getJSON();
@@ -590,6 +595,7 @@ describe('Container Node', () => {
         extensions: [StarterKit, fakeLiveblocks],
       });
 
+      await settle();
       await contentResolved;
 
       const json = editor!.getJSON();
@@ -724,6 +730,7 @@ describe('Container Node', () => {
         extensions: [StarterKit, fakeLiveblocks],
       });
 
+      await vi.advanceTimersByTimeAsync(1);
       await initDone;
       let json = editor.getJSON();
       expect(json).toMatchInlineSnapshot(`
@@ -753,6 +760,7 @@ describe('Container Node', () => {
         }
       `);
 
+      await settle();
       await updateDone;
       json = editor.getJSON();
       expect(json).toMatchInlineSnapshot(`
@@ -783,7 +791,7 @@ describe('Container Node', () => {
       `);
     });
 
-    it('does not eagerly wrap before the first y-sync$ content arrives', () => {
+    it('does not eagerly wrap before the first y-sync$ content arrives', async () => {
       const fakeLiveblocks = Extension.create({
         name: 'liveblocksExtension',
       });
@@ -794,6 +802,126 @@ describe('Container Node', () => {
 
       const json = editor!.getJSON();
       expect(json.content!.some((n) => n.type === 'container')).toBe(false);
+
+      await settle();
+      expect(countTopLevelContainers(editor!)).toBe(0);
+    });
+
+    it('does not wrap the transient containerless docs produced while sync is still streaming', async () => {
+      const fakeLiveblocks = Extension.create({
+        name: 'liveblocksExtension',
+      });
+
+      editor = new Editor({
+        extensions: [StarterKit, fakeLiveblocks],
+      });
+
+      const { view } = editor;
+      const { schema } = view.state;
+      const dispatchSync = (content: any) => {
+        const tr = view.state.tr.replaceWith(
+          0,
+          view.state.doc.content.size,
+          content,
+        );
+        tr.setMeta('y-sync$', true);
+        view.dispatch(tr);
+      };
+
+      const chunk1 = schema.nodes.paragraph.create(
+        null,
+        schema.text('First chunk'),
+      );
+      const chunk2 = schema.nodes.paragraph.create(
+        null,
+        schema.text('Second chunk'),
+      );
+
+      dispatchSync(chunk1);
+      await vi.advanceTimersByTimeAsync(COLLABORATIVE_WRAP_DEBOUNCE_MS - 100);
+      expect(countTopLevelContainers(editor!)).toBe(0);
+
+      dispatchSync([chunk1, chunk2]);
+      await vi.advanceTimersByTimeAsync(COLLABORATIVE_WRAP_DEBOUNCE_MS - 100);
+      expect(countTopLevelContainers(editor!)).toBe(0);
+
+      dispatchSync(schema.nodes.container.create(null, [chunk1, chunk2]));
+      await settle();
+      expect(countTopLevelContainers(editor!)).toBe(1);
+    });
+
+    it('does not arm the wrap from sync transactions that do not change the doc', async () => {
+      const fakeLiveblocks = Extension.create({
+        name: 'liveblocksExtension',
+      });
+
+      editor = new Editor({
+        extensions: [StarterKit, fakeLiveblocks],
+      });
+
+      const { view } = editor;
+      const noop = view.state.tr.replaceWith(
+        0,
+        view.state.doc.content.size,
+        view.state.doc,
+      );
+      noop.setMeta('y-sync$', true);
+      view.dispatch(noop);
+
+      await settle();
+      expect(countTopLevelContainers(editor!)).toBe(0);
+
+      const { schema } = view.state;
+      const late = view.state.tr.replaceWith(
+        0,
+        view.state.doc.content.size,
+        schema.nodes.container.create(
+          null,
+          schema.nodes.paragraph.create(null, schema.text('Late content')),
+        ),
+      );
+      late.setMeta('y-sync$', true);
+      view.dispatch(late);
+
+      await settle();
+      expect(countTopLevelContainers(editor!)).toBe(1);
+    });
+
+    it('does not wrap a doc reduced to a bare empty paragraph until the next real edit', async () => {
+      const fakeLiveblocks = Extension.create({
+        name: 'liveblocksExtension',
+      });
+
+      editor = new Editor({
+        extensions: [StarterKit, fakeLiveblocks],
+      });
+
+      const { view } = editor;
+      const { schema } = view.state;
+      const seed = view.state.tr.replaceWith(
+        0,
+        view.state.doc.content.size,
+        schema.nodes.container.create(
+          null,
+          schema.nodes.paragraph.create(null, schema.text('Hi')),
+        ),
+      );
+      seed.setMeta('y-sync$', true);
+      view.dispatch(seed);
+
+      const wipe = view.state.tr.replaceWith(
+        0,
+        view.state.doc.content.size,
+        schema.nodes.paragraph.create(),
+      );
+      view.dispatch(wipe);
+
+      await settle();
+      expect(countTopLevelContainers(editor!)).toBe(0);
+
+      editor!.commands.insertContent('Hello');
+      await settle();
+      expect(countTopLevelContainers(editor!)).toBe(1);
     });
 
     it('preserves multiple containers when the synced document has them', async () => {
@@ -821,6 +949,7 @@ describe('Container Node', () => {
         extensions: [StarterKit, fakeLiveblocks],
       });
 
+      await settle();
       await contentResolved;
 
       const json = editor!.getJSON();
@@ -1389,7 +1518,7 @@ describe('Container Node', () => {
             @media (prefers-color-scheme: dark){li::marker{color:#c4c4c4}}
           </style>
         </head>
-        <body dir="ltr" lang="en" style="margin:0;padding:0">
+        <body dir="ltr" lang="en">
           <!--$--><!--html--><!--head--><!--body-->
           <table
             border="0"
@@ -1403,7 +1532,7 @@ describe('Container Node', () => {
                 <td
                   dir="ltr"
                   lang="en"
-                  style="margin:0;padding:0;font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:14px;min-height:100%;line-height:155%">
+                  style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:14px;min-height:100%;line-height:155%">
                   <table
                     align="center"
                     width="100%"
@@ -1507,7 +1636,7 @@ describe('Container Node', () => {
             @media (prefers-color-scheme: dark){li::marker{color:#c4c4c4}}
           </style>
         </head>
-        <body dir="ltr" lang="en" style="margin:0;padding:0">
+        <body dir="ltr" lang="en">
           <!--$--><!--html--><!--head--><!--body-->
           <table
             border="0"
@@ -1521,7 +1650,7 @@ describe('Container Node', () => {
                 <td
                   dir="ltr"
                   lang="en"
-                  style="margin:0;padding:0;font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:14px;min-height:100%;line-height:155%">
+                  style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:14px;min-height:100%;line-height:155%">
                   <table
                     align="left"
                     width="100%"
@@ -1593,7 +1722,7 @@ describe('Container Node', () => {
             @media (prefers-color-scheme: dark){li::marker{color:#c4c4c4}}
           </style>
         </head>
-        <body dir="ltr" lang="en" style="background-color:#ffffff;margin:0;padding:0">
+        <body dir="ltr" lang="en" style="background-color:#ffffff">
           <!--$--><!--html--><!--head--><!--body-->
           <table
             border="0"
@@ -1607,15 +1736,15 @@ describe('Container Node', () => {
                 <td
                   dir="ltr"
                   lang="en"
-                  style="margin:0;padding:0;font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%;background-color:#ffffff">
+                  style="font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif;font-size:1em;min-height:100%;line-height:155%;background-color:#ffffff">
                   <table
-                    align="left"
+                    align="center"
                     width="100%"
                     border="0"
                     cellpadding="0"
                     cellspacing="0"
                     role="presentation"
-                    style="max-width:600px;align:left;width:100%;color:#000000;background-color:#ffffff;border-radius:0px;border-color:#000000;line-height:155%">
+                    style="max-width:600px;align:center;width:100%;color:#000000;background-color:#ffffff;border-radius:0px;border-color:#000000;line-height:155%">
                     <tbody>
                       <tr style="width:100%">
                         <td

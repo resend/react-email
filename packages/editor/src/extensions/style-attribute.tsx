@@ -74,17 +74,25 @@ export const StyleAttribute = Extension.create<StyleAttributeOptions>({
         // that indicate an active suggestion/autocomplete
         const { state } = editor.view;
         const { selection } = state;
-        const { $from } = selection;
+        const { $from, $to } = selection;
 
-        // Check if we're in a position where suggestion might be active
-        // by looking at the text before cursor for trigger characters
         const textBefore = $from.nodeBefore?.text || '';
-        const hasTrigger =
-          textBefore.includes('{{') || textBefore.includes('{{{');
+        const lastTriggerIndex = textBefore.lastIndexOf('{{');
+        const hasUnfinishedTrigger =
+          lastTriggerIndex !== -1 &&
+          !textBefore.slice(lastTriggerIndex + 2).includes('}}');
 
-        // If we have trigger characters, assume suggestion might be handling this
-        // Don't reset styles
-        if (hasTrigger) {
+        // The suggestion popup is likely handling this Enter press, so don't
+        // reset styles
+        if (hasUnfinishedTrigger) {
+          return false;
+        }
+
+        // When Enter splits a paragraph mid-text, the content after the cursor
+        // moves into the new paragraph and must keep its styles. Only reset
+        // when the cursor is at the end of the block, i.e. when Enter creates
+        // a fresh empty paragraph.
+        if ($to.parentOffset < $to.parent.content.size) {
           return false;
         }
 

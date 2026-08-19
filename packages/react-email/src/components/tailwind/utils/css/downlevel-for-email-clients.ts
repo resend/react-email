@@ -26,6 +26,7 @@ import {
   type StyleSheet,
   walk,
 } from 'css-tree';
+import { NON_INLINABLE_ATRULES } from './constants.js';
 
 /**
  * css-tree 3.x introduced new AST node types for query-related at-rules that
@@ -114,7 +115,7 @@ function unnestMediaQueries(styleSheet: StyleSheet): void {
       rule.block.children.forEach((child) => {
         if (
           child.type === 'Atrule' &&
-          (child.name === 'media' || child.name === 'supports')
+          NON_INLINABLE_ATRULES.has(child.name.toLowerCase())
         ) {
           nestedAtrules.push(child);
         } else {
