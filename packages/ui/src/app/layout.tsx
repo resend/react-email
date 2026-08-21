@@ -1,6 +1,7 @@
 import './globals.css';
 
 import type { Metadata } from 'next';
+import { Shell } from '../components/shell';
 import { EmailsProvider } from '../contexts/emails';
 import { WorkspaceProvider } from '../contexts/workspace';
 import { getEmailsDirectoryMetadata } from '../utils/get-emails-directory-metadata';
@@ -42,7 +43,7 @@ export default async function RootLayout({
             <EmailsProvider
               initialEmailsDirectoryMetadata={emailsDirectoryMetadata}
             >
-              {children}
+              <Shell>{children}</Shell>
             </EmailsProvider>
           </WorkspaceProvider>
         </div>
