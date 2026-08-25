@@ -14,9 +14,13 @@ the provider, overlays, or extension list, compose the editor from the lower-lev
 APIs instead.
 
 <Tip>
-  `EmailEditor` automatically imports `@react-email/editor/themes/default.css`,
-  so the default bubble menus, slash command menu, and theme styles work without
-  a separate CSS import.
+  `EmailEditor` works out of the box, but ships unstyled. To style the default
+  bubble menus, slash command menu, and inspector, import the default theme
+  separately:
+
+  ```tsx
+  import '@react-email/editor/themes/default.css';
+  ```
 
   See [styling](/editor/features/styling) for details on customizing the editor's appearance.
 </Tip>
@@ -24,6 +28,7 @@ APIs instead.
 ## Import
 
 ```tsx
+import '@react-email/editor/themes/default.css';
 import { EmailEditor, type EmailEditorRef } from '@react-email/editor';
 ```
 
@@ -169,6 +174,7 @@ interface EmailEditorRef {
 ## Example
 
 ```tsx
+import '@react-email/editor/themes/default.css';
 import { EmailEditor, type EmailEditorRef } from '@react-email/editor';
 import { useRef, useState } from 'react';
 
