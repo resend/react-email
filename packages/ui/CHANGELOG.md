@@ -1,5 +1,11 @@
 # @react-email/ui
 
+## 6.9.3
+
+### Patch Changes
+
+- 1378365: Keep the sidebar scroll position, its collapsed state, and open folders when you switch emails.
+
 ## 6.9.2
 
 ### Patch Changes
