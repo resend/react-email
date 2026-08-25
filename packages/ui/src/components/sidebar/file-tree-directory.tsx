@@ -35,6 +35,13 @@ export const FileTreeDirectory = ({
       doesDirectoryContainCurrentEmailOpen,
   );
 
+  React.useEffect(() => {
+    if (!doesDirectoryContainCurrentEmailOpen) return;
+
+    persistedOpenDirectories.add(directoryMetadata.absolutePath);
+    setOpen(true);
+  }, [doesDirectoryContainCurrentEmailOpen, directoryMetadata.absolutePath]);
+
   return (
     <Collapsible.Root
       className={cn('group', className)}
