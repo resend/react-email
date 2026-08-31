@@ -454,8 +454,9 @@ describe('Button and image reset styles', () => {
     const ed = createEditorWithContent(content, [EmailTheming]);
     const result = await composeReactEmail({ editor: ed, preview: '' });
 
-    expect(result.html).toMatch(/box-sizing:\s*border-box/);
-    expect(result.html).toMatch(/width:\s*100%/);
+    const anchor = result.html.match(/<a[^>]*class="button"[^>]*>/)?.[0] ?? '';
+    expect(anchor).toMatch(/box-sizing:\s*border-box/);
+    expect(anchor).toMatch(/[;"]width:\s*100%/);
   });
 
   it('includes box-sizing:border-box on buttons with the minimal theme', async () => {
@@ -474,7 +475,8 @@ describe('Button and image reset styles', () => {
     const ed = createEditorWithContent(content, [EmailTheming]);
     const result = await composeReactEmail({ editor: ed, preview: '' });
 
-    expect(result.html).toMatch(/box-sizing:\s*border-box/);
+    const anchor = result.html.match(/<a[^>]*class="button"[^>]*>/)?.[0] ?? '';
+    expect(anchor).toMatch(/box-sizing:\s*border-box/);
   });
 
   it('includes line-height:100% on buttons with the minimal theme', async () => {
