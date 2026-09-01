@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.7.4
+
+### Patch Changes
+
+- 62eb793: Buttons now render with `box-sizing: border-box`, so a full-width padded button no longer overflows its container in delivered emails. Buttons with an explicit size plus padding render slightly smaller, matching the canvas.
+
 ## 1.7.3
 
 ### Patch Changes
