@@ -1,3 +1,4 @@
+export { CalendarIcon } from './calendar';
 export { AlignCenterIcon } from './align-center';
 export { AlignCenterVerticalIcon } from './align-center-vertical';
 export { AlignEndVerticalIcon } from './align-end-vertical';
