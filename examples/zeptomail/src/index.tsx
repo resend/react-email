@@ -1,5 +1,5 @@
-import { SendMailClient } from 'zeptomail';
 import { render } from 'react-email';
+import { SendMailClient } from 'zeptomail';
 import { Email } from './email';
 
 const client = new SendMailClient({
