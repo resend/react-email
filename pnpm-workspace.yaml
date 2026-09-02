@@ -40,7 +40,7 @@ catalog:
   log-symbols: ^7.0.0
   motion-dom: 12.38.0
   motion-utils: 12.36.0
-  next: 16.3.0
+  next: 16.3.3
   nypm: 0.6.6
   ora: ^8.0.0
   picospinner: ^3.0.0
