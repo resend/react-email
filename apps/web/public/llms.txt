@@ -1,9 +1,13 @@
 # React Email
 
-Build HTML email templates with React components.
+> Build HTML email templates with React components.
 
 ## Documentation
 - [Full docs](https://react.email/docs/llms.txt)
+
+## Components
+- [Component catalog](https://react.email/llms-full.txt): every category and component name
+- [Components as markdown](https://react.email/components.md): append `.md` to any components page URL, or send `Accept: text/markdown`
 
 ## Skills
 - [React Email Skill](https://raw.githubusercontent.com/resend/react-email/main/skills/react-email/SKILL.md)
