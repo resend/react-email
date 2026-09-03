@@ -1,8 +1,22 @@
-import { Editor } from '@tiptap/core';
+import { Editor, Node } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import { AlignmentAttribute } from '../extensions/alignment-attribute';
 import { getSelectionAlignment } from './get-selection-alignment';
 import { setTextAlignment } from './set-text-alignment';
+
+const AlignedContainer = Node.create({
+  name: 'alignedContainer',
+  group: 'block',
+  content: 'block+',
+  addAttributes() {
+    return {
+      alignment: { default: null },
+    };
+  },
+  renderHTML({ HTMLAttributes }) {
+    return ['div', HTMLAttributes, 0];
+  },
+});
 
 function createEditor(content?: Record<string, unknown> | string) {
   return new Editor({
@@ -11,6 +25,7 @@ function createEditor(content?: Record<string, unknown> | string) {
       AlignmentAttribute.configure({
         types: ['heading', 'paragraph'],
       }),
+      AlignedContainer,
     ],
     content: content ?? undefined,
   });
@@ -33,6 +48,22 @@ const HEADING_DOC = {
       type: 'heading',
       attrs: { level: 1 },
       content: [{ type: 'text', text: 'Title' }],
+    },
+  ],
+};
+
+const CENTERED_CELL_PARAGRAPH_DOC = {
+  type: 'doc',
+  content: [
+    {
+      type: 'alignedContainer',
+      attrs: { alignment: 'center' },
+      content: [
+        {
+          type: 'paragraph',
+          content: [{ type: 'text', text: 'Inside centered cell' }],
+        },
+      ],
     },
   ],
 };
@@ -67,5 +98,14 @@ describe('getSelectionAlignment', () => {
     setTextAlignment(editor, 'right');
 
     expect(getSelectionAlignment(editor)).toBe('right');
+  });
+
+  it('resolves inherited alignment from an aligned ancestor', () => {
+    editor = createEditor(CENTERED_CELL_PARAGRAPH_DOC);
+    editor.commands.setTextSelection(3);
+
+    expect(getSelectionAlignment(editor)).toBe('center');
+    // The paragraph itself keeps a null alignment; inheritance is preserved
+    expect(editor.getAttributes('paragraph').alignment).toBeNull();
   });
 });
