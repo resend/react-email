@@ -66,9 +66,22 @@ describe('proxy', () => {
     );
   });
 
-  it('passes through negotiated paths that have no markdown twin', () => {
+  it('rewrites the templates page', () => {
     const response = proxy(
       new NextRequest('https://react.email/templates', {
+        headers: { accept: 'text/markdown' },
+      }),
+    );
+
+    expect(response.headers.get('x-middleware-rewrite')).toBe(
+      'https://react.email/api/markdown/templates',
+    );
+    expect(response.headers.get('vary')).toBe('Accept');
+  });
+
+  it('passes through negotiated paths that have no markdown twin', () => {
+    const response = proxy(
+      new NextRequest('https://react.email/editor', {
         headers: { accept: 'text/markdown' },
       }),
     );

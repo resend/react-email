@@ -36,6 +36,7 @@ Headers, Footers, Container, Section, Grid, Divider, Heading, Text, Link, Button
 
 - [Full component catalog](https://react.email/llms-full.txt)
 - [Components as markdown](https://react.email/components.md): append \`.md\` to any components URL, or send \`Accept: text/markdown\`
+- [Templates as markdown](https://react.email/templates.md): every template with its preview and source links
 `;
 
 export function GET() {

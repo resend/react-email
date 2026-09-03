@@ -9,6 +9,9 @@ const markdownPathFor = (pathname: string): string | null => {
   if (pathname === '/components') {
     return '/api/markdown/components';
   }
+  if (pathname === '/templates') {
+    return '/api/markdown/templates';
+  }
   const category = pathname.match(/^\/components\/([\w-]+)$/);
   if (category) {
     return `/api/markdown/components/${category[1]}`;
@@ -31,7 +34,7 @@ export const proxy = (request: NextRequest) => {
   if (!target) {
     if (endsWithMd) {
       return new NextResponse(
-        'Not found. Markdown is available for the components pages, see https://react.email/components.md',
+        'Not found. Markdown is available at https://react.email/components.md and https://react.email/templates.md',
         {
           status: 404,
           headers: { 'Content-Type': 'text/plain; charset=utf-8' },
@@ -55,5 +58,12 @@ export const proxy = (request: NextRequest) => {
 };
 
 export const config = {
-  matcher: ['/', '/components', '/components.md', '/components/:slug'],
+  matcher: [
+    '/',
+    '/components',
+    '/components.md',
+    '/components/:slug',
+    '/templates',
+    '/templates.md',
+  ],
 };
