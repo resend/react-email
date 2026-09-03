@@ -120,6 +120,8 @@ export default function RootLayout({
             ]),
           }}
         />
+        <link rel="llms-txt" href="/llms.txt" />
+        <link rel="llms-full-txt" href="/llms-full.txt" />
       </head>
       <body
         suppressHydrationWarning={true}
