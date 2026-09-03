@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.7.6
+
+### Patch Changes
+
+- cd3b7f1: Fix the bubble menu's Left alignment button never reading as active for left-aligned (default) content, persist an explicit left alignment to the HTML, and resolve inherited alignment from aligned ancestors (for example a paragraph inside a center-aligned table cell) so the button no longer reports `left` while the content is visually centered.
+
 ## 1.7.5
 
 ### Patch Changes
