@@ -18,7 +18,16 @@ export async function GET(
     (candidate) => slugify(candidate.name) === slug,
   );
   if (!category) {
-    return new NextResponse('Not found', { status: 404 });
+    return new NextResponse(
+      `No component category "${slug}". The list of categories is at https://react.email/components.md`,
+      {
+        status: 404,
+        headers: {
+          'Content-Type': 'text/plain; charset=utf-8',
+          'Cache-Control': 'public, max-age=60, s-maxage=60',
+        },
+      },
+    );
   }
 
   const components = await getImportedComponentsFor(category);

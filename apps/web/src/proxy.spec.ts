@@ -1,11 +1,14 @@
 import { NextRequest } from 'next/server';
 import { proxy } from './proxy';
 
+const browserAccept =
+  'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8';
+
 describe('proxy', () => {
-  it('passes HTML requests through untouched', () => {
+  it('passes browser requests through untouched', () => {
     const response = proxy(
       new NextRequest('https://react.email/components/headers', {
-        headers: { accept: 'text/html' },
+        headers: { accept: browserAccept },
       }),
     );
 
@@ -13,7 +16,7 @@ describe('proxy', () => {
     expect(response.headers.get('vary')).toBeNull();
   });
 
-  it('serves llms.txt for the homepage when Accept negotiates markdown', () => {
+  it('serves llms.txt as markdown for the homepage when Accept negotiates markdown', () => {
     const response = proxy(
       new NextRequest('https://react.email/', {
         headers: { accept: 'text/markdown' },
@@ -22,6 +25,9 @@ describe('proxy', () => {
 
     expect(response.headers.get('x-middleware-rewrite')).toBe(
       'https://react.email/llms.txt',
+    );
+    expect(response.headers.get('content-type')).toBe(
+      'text/markdown; charset=utf-8',
     );
     expect(response.headers.get('vary')).toBe('Accept');
   });
@@ -60,7 +66,7 @@ describe('proxy', () => {
     );
   });
 
-  it('passes through paths that have no markdown twin', () => {
+  it('passes through negotiated paths that have no markdown twin', () => {
     const response = proxy(
       new NextRequest('https://react.email/templates', {
         headers: { accept: 'text/markdown' },
@@ -69,5 +75,19 @@ describe('proxy', () => {
 
     expect(response.headers.get('x-middleware-next')).toBe('1');
     expect(response.headers.get('x-middleware-rewrite')).toBeNull();
+  });
+
+  it('answers an explicit .md path with no twin with a plain 404', async () => {
+    const response = proxy(
+      new NextRequest('https://react.email/components/foo.bar.md'),
+    );
+
+    expect(response.status).toBe(404);
+    expect(response.headers.get('content-type')).toBe(
+      'text/plain; charset=utf-8',
+    );
+    expect(await response.text()).toContain(
+      'https://react.email/components.md',
+    );
   });
 });

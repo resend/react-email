@@ -41,4 +41,19 @@ describe('categoryMarkdown', () => {
       'Source: https://github.com/resend/react-email/tree/canary/apps/web/components/code-block-basic',
     );
   });
+
+  it('emits the React variant for single-file components', () => {
+    const markdown = categoryMarkdown(category, [
+      {
+        slug: 'code-block-basic',
+        title: 'Basic code block',
+        code: { html: '<table></table>', react: '<CodeBlock code="x" />' },
+      },
+    ]);
+
+    expect(markdown).toContain(
+      '### React\n\n```tsx\n<CodeBlock code="x" />\n```',
+    );
+    expect(markdown).not.toContain('### Tailwind');
+  });
 });
