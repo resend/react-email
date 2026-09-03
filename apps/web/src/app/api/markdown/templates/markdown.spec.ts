@@ -21,7 +21,7 @@ describe('templateSourceUrl', () => {
 
   it('derives the source file from the preview path otherwise', () => {
     expect(templateSourceUrl(community)).toBe(
-      'https://github.com/resend/react-email/tree/canary/apps/demo/emails/Community/magic-links/slack-confirm.tsx',
+      'https://github.com/resend/react-email/blob/canary/apps/demo/emails/Community/magic-links/slack-confirm.tsx',
     );
   });
 });
@@ -34,8 +34,12 @@ describe('templatesMarkdown', () => {
       markdown.indexOf('## Community'),
     );
     expect(markdown).toContain(`### Matte\n\nPreview: ${official.href}`);
+    expect(markdown).toContain(`Source: ${official.github}`);
     expect(markdown).toContain(`Figma: ${official.figma}`);
     expect(markdown).toContain('### Slack / Confirm Email\n\nAuthor: c0dr');
+    expect(markdown).toContain(
+      'Source: https://github.com/resend/react-email/blob/canary/apps/demo/emails/Community/magic-links/slack-confirm.tsx',
+    );
     expect(markdown).not.toContain('Figma: undefined');
   });
 });

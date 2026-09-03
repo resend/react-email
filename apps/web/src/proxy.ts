@@ -19,7 +19,7 @@ const markdownPathFor = (pathname: string): string | null => {
   return null;
 };
 
-export const proxy = (request: NextRequest) => {
+export const proxy = async (request: NextRequest) => {
   const pathname = request.nextUrl.pathname;
   const endsWithMd = pathname.endsWith('.md');
   const accept = (request.headers.get('accept') ?? '').toLowerCase();
@@ -46,15 +46,24 @@ export const proxy = (request: NextRequest) => {
 
   const url = request.nextUrl.clone();
   url.pathname = target;
-  const response = NextResponse.rewrite(url);
-  if (target === '/llms.txt') {
-    response.headers.set('Content-Type', MARKDOWN_TYPE);
+  if (endsWithMd) {
+    return NextResponse.rewrite(url);
   }
-  // Vercel's CDN keys on Accept and runs the proxy before the cache, so Vary: Accept is only for downstream caches.
-  if (!endsWithMd) {
-    response.headers.set('Vary', 'Accept');
+
+  // Vercel's edge drops headers set on a rewrite, so negotiated responses are fetched and rebuilt to carry Content-Type and Vary.
+  const upstream = await fetch(url);
+  if (!upstream.ok) {
+    return NextResponse.next();
   }
-  return response;
+  const headers: Record<string, string> = {
+    'Content-Type': MARKDOWN_TYPE,
+    Vary: 'Accept',
+  };
+  const cacheControl = upstream.headers.get('cache-control');
+  if (cacheControl) {
+    headers['Cache-Control'] = cacheControl;
+  }
+  return new NextResponse(await upstream.text(), { headers });
 };
 
 export const config = {

@@ -4,9 +4,11 @@ import {
   type TemplateItem,
 } from '../../../../components/template-list-data';
 
+const GITHUB_FILE_BASE = GITHUB_BASE.replace('/tree/', '/blob/');
+
 export const templateSourceUrl = (item: TemplateItem) =>
   item.github ??
-  `${GITHUB_BASE}${item.href.slice(DEMO_EMAIL_PREVIEW_BASE_URL.length)}.tsx`;
+  `${GITHUB_FILE_BASE}${item.href.slice(DEMO_EMAIL_PREVIEW_BASE_URL.length)}.tsx`;
 
 const section = (title: string, items: TemplateItem[]) => {
   const lines = [`## ${title}`, ''];
