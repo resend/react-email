@@ -23,7 +23,7 @@
     "@react-three/fiber": "9.6.0",
     "@responsive-email/react-email": "catalog:",
     "@supabase/supabase-js": "2.103.3",
-    "@tiptap/core": "3.20.1",
+    "@tiptap/core": "3.30.4",
     "@tiptap/extension-heading": "3.20.1",
     "@tiptap/extension-link": "3.20.1",
     "@tiptap/extension-underline": "3.20.1",
