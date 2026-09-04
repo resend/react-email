@@ -397,7 +397,14 @@
   color: var(--re-text);
 }
 
-.tiptap p.is-empty::before {
+.tiptap p.is-empty::before,
+.tiptap h1.is-empty::before,
+.tiptap h2.is-empty::before,
+.tiptap h3.is-empty::before,
+.tiptap h4.is-empty::before,
+.tiptap h5.is-empty::before,
+.tiptap h6.is-empty::before,
+.tiptap div.is-empty[data-placeholder]::before {
   opacity: 0.3;
   float: left;
   content: attr(data-placeholder);
