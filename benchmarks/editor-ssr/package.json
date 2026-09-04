@@ -1,0 +1,28 @@
+{
+  "name": "@benchmarks/editor-ssr",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "bench": "tsx ./src/run.ts"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resend/react-email.git",
+    "directory": "benchmarks/editor-ssr"
+  },
+  "dependencies": {
+    "@react-email/editor": "workspace:*",
+    "@tiptap/core": "^3.17.1",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "tinybench": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "tsconfig": "workspace:*",
+    "tsx": "catalog:",
+    "typescript": "catalog:"
+  }
+}
