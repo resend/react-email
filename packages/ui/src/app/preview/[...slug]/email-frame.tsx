@@ -1,6 +1,12 @@
 import { Slot } from '@radix-ui/react-slot';
 import Color from 'colorjs.io';
 import type { ComponentProps } from 'react';
+import {
+  type ColorScheme,
+  type DarkModePreview,
+  resolveDarkModeRendering,
+} from '../../../utils/dark-mode-preview';
+import { forceColorScheme } from '../../../utils/force-color-scheme';
 
 function* walkDom(element: Element): Generator<Element> {
   if (element.children.length > 0) {
@@ -222,6 +228,26 @@ const styleProperties = new Map<
   [['color'], 'foreground'],
 ]);
 
+// The inversion only recolors values it finds inline, so a `<body>` that
+// declares none of its own is seeded with the colors it already renders at,
+// giving the walk below something to invert. Those are the preview's values and
+// not the email's, so they get marked as such: undoing has to drop them rather
+// than restore them, or an email that never painted a background of its own
+// keeps a white one for as long as the frame lives.
+const seededProperty = (property: StringStyleProperty) =>
+  `data-seeded-${String(property)}`;
+
+function seedBodyColors(body: HTMLElement) {
+  if (!body.style.color) {
+    body.style.color = 'rgb(0, 0, 0)';
+    body.setAttribute(seededProperty('color'), '');
+  }
+  if (!body.style.background && !body.style.backgroundColor) {
+    body.style.background = 'rgb(255, 255, 255)';
+    body.setAttribute(seededProperty('background'), '');
+  }
+}
+
 function undoColorInversion(iframe: HTMLIFrameElement) {
   const { contentDocument, contentWindow } = iframe;
   if (!contentDocument || !contentWindow || !contentDocument.body) return;
@@ -241,7 +267,10 @@ function undoColorInversion(iframe: HTMLIFrameElement) {
       for (const properties of styleProperties.keys()) {
         for (const property of properties) {
           const original = element.getAttribute(`data-original-${property}`);
-          if (original) {
+          if (element.hasAttribute(seededProperty(property))) {
+            element.style[property] = '';
+            element.removeAttribute(seededProperty(property));
+          } else if (original) {
             element.style[property] = original;
           }
           element.removeAttribute(`data-original-${property}`);
@@ -261,15 +290,7 @@ function applyColorInversion(iframe: HTMLIFrameElement) {
   if (appliedColorInversion) return;
   contentDocument.body.setAttribute('data-applied-color-inversion', '');
 
-  if (!contentDocument.body.style.color) {
-    contentDocument.body.style.color = 'rgb(0, 0, 0)';
-  }
-  if (
-    !contentDocument.body.style.background &&
-    !contentDocument.body.style.backgroundColor
-  ) {
-    contentDocument.body.style.background = 'rgb(255, 255, 255)';
-  }
+  seedBodyColors(contentDocument.body);
 
   for (const element of walkDom(contentDocument.documentElement)) {
     if (
@@ -295,11 +316,57 @@ function applyColorInversion(iframe: HTMLIFrameElement) {
   }
 }
 
+// The backdrop an email sits on while a dark mode is active. Derived from the
+// inversion already applied to a white page, so an email that paints no
+// background of its own lands on the same color in both dark modes.
+const invertedPageBackground = invertColor('rgb(255, 255, 255)', 'background');
+
+function reportedColorScheme(window: Window): ColorScheme {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light';
+}
+
+export function syncDarkMode(iframe: HTMLIFrameElement, mode: DarkModePreview) {
+  const { contentDocument, contentWindow } = iframe;
+  // A frame still loading its `srcDoc` hands back a document that has no root
+  // element yet, so there is nothing to read a stylesheet off or to mark. The
+  // `onLoad` handler runs this again once there is.
+  if (!contentDocument?.documentElement || !contentWindow) return;
+
+  const { colorScheme, invertColors } = resolveDarkModeRendering(mode);
+
+  // Which of the email's color scheme rules apply is decided here rather than
+  // left to the reader's OS setting — including in the modes that want none of
+  // them. A force-inverting client never honors `prefers-color-scheme`, so
+  // `inversion` asks for the light scheme and inverts that; without forcing it,
+  // a reader whose OS is set to dark would get the email's dark theme with the
+  // inversion recoloring it on top.
+  forceColorScheme(contentDocument, {
+    from: reportedColorScheme(contentWindow),
+    to: colorScheme,
+  });
+
+  if (invertColors) {
+    applyColorInversion(iframe);
+  } else {
+    undoColorInversion(iframe);
+  }
+
+  // Mirroring the scheme onto the embedded document's root is what turns its
+  // canvas transparent so the frame's own backdrop shows through. Left alone,
+  // the browser paints an opaque white canvas over that backdrop for every
+  // email that doesn't declare `color-scheme` itself. It also themes the
+  // scrollbars and any form control the email renders.
+  contentDocument.documentElement.style.colorScheme =
+    colorScheme === 'dark' ? 'dark' : '';
+}
+
 interface EmailFrameProps extends ComponentProps<'iframe'> {
   markup: string;
   width: number;
   height: number;
-  darkMode: boolean;
+  darkMode: DarkModePreview;
 }
 
 export function EmailFrame({
@@ -307,6 +374,7 @@ export function EmailFrame({
   width,
   height,
   darkMode,
+  style,
   ...rest
 }: EmailFrameProps) {
   return (
@@ -314,17 +382,32 @@ export function EmailFrame({
       ref={(iframe: HTMLIFrameElement) => {
         if (!iframe) return;
 
-        if (darkMode) {
-          applyColorInversion(iframe);
-        } else {
-          undoColorInversion(iframe);
-        }
+        syncDarkMode(iframe, darkMode);
       }}
     >
       <iframe
         srcDoc={markup}
         width={width}
         height={height}
+        // Has to stay the same scheme `syncDarkMode` puts on the embedded
+        // document's root. When the two disagree the browser stops leaving the
+        // embedded canvas transparent and paints an opaque one over the
+        // backdrop below, which is the whole reason that backdrop is set.
+        //
+        // Where this is also propagated into the embedded document (Firefox
+        // 105+, Chromium 129+, not yet Safari) it makes the email's own rules
+        // match on their own, and `forceColorScheme` finds nothing to correct.
+        // Everywhere else it corrects them itself.
+        style={{
+          colorScheme: resolveDarkModeRendering(darkMode).colorScheme,
+          // An email that paints no background of its own would otherwise show
+          // the preview's white through, whatever the mode. The browser can't
+          // help here: it leaves the canvas transparent once the email opts
+          // into `color-scheme`, and paints it white when it doesn't.
+          backgroundColor:
+            darkMode === 'off' ? 'rgb(255, 255, 255)' : invertedPageBackground,
+          ...style,
+        }}
         // `srcDoc` content inherits the parent's origin, so a `<script>` in a
         // template (especially raw `.html` files read from disk) would execute
         // with same-origin access to the preview app. Sandboxing disables
@@ -333,12 +416,7 @@ export function EmailFrame({
         // iframe document for color inversion and event bubbling.
         sandbox="allow-same-origin allow-popups allow-popups-to-escape-sandbox"
         onLoad={(event) => {
-          const iframe = event.currentTarget;
-          if (darkMode) {
-            applyColorInversion(iframe);
-          } else {
-            undoColorInversion(iframe);
-          }
+          syncDarkMode(event.currentTarget, darkMode);
         }}
         {...rest}
       />
