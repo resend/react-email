@@ -1,15 +1,16 @@
-import type { Rule } from 'css-tree';
 import React from 'react';
 import type { EmailElementProps } from '../../tailwind.js';
 import { sanitizeClassName } from '../compatibility/sanitize-class-name.js';
+import type { OrderedRule } from '../css/extract-rules-per-class.js';
 import type { CustomProperties } from '../css/get-custom-properties.js';
 import { makeInlineStylesFor } from '../css/make-inline-styles-for.js';
+import { sortRulesByOrder } from '../css/sort-rules-by-order.js';
 import { isComponent } from '../react/is-component.js';
 
 export function cloneElementWithInlinedStyles(
   element: React.ReactElement<EmailElementProps>,
-  inlinableRules: Map<string, Rule[]>,
-  nonInlinableRules: Map<string, Rule[]>,
+  inlinableRules: Map<string, OrderedRule[]>,
+  nonInlinableRules: Map<string, OrderedRule[]>,
   customProperties: CustomProperties,
 ) {
   const propsToOverwrite: Partial<EmailElementProps> = {};
@@ -19,11 +20,11 @@ export function cloneElementWithInlinedStyles(
 
     const residualClasses: string[] = [];
 
-    const rules: Rule[] = [];
+    const orderedRules: OrderedRule[] = [];
     for (const className of classes) {
       const classRules = inlinableRules.get(className);
       if (classRules) {
-        rules.push(...classRules);
+        orderedRules.push(...classRules);
       }
       if (nonInlinableRules.has(className)) {
         residualClasses.push(className);
@@ -32,7 +33,10 @@ export function cloneElementWithInlinedStyles(
       }
     }
 
-    const styles = makeInlineStylesFor(rules, customProperties);
+    const styles = makeInlineStylesFor(
+      sortRulesByOrder(orderedRules),
+      customProperties,
+    );
     propsToOverwrite.style = {
       ...styles,
       ...element.props.style,
