@@ -16,7 +16,17 @@
     }
   },
   "contextual": {
-    "options": ["copy", "chatgpt", "claude"]
+    "options": [
+      "copy",
+      {
+        "title": "llms-full.txt",
+        "description": "View all docs as Markdown for LLMs",
+        "icon": "markdown",
+        "href": "https://react.email/docs/llms-full.txt"
+      },
+      "chatgpt",
+      "claude"
+    ]
   },
   "favicon": "/favicon.png",
   "navigation": {
