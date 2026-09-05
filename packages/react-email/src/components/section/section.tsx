@@ -5,34 +5,11 @@ export type SectionProps = Readonly<React.ComponentPropsWithoutRef<'table'>>;
 
 export const Section = React.forwardRef<HTMLTableElement, SectionProps>(
   ({ children, style = {}, ...props }, ref) => {
-    // Split padding styles to improve compatibility with Klaviyo and Outlook,
-    // while preserving user-provided style property order without allocating
-    // entry arrays on each render.
-    const tdStyle: React.CSSProperties = {};
-    const tableStyle: React.CSSProperties = {};
-
-    const styleRecord = style as Record<string, unknown>;
-
-    for (const key in styleRecord) {
-      if (!Object.hasOwn(styleRecord, key)) {
-        continue;
-      }
-
-      const value = styleRecord[key];
-
-      if (
-        key === 'padding' ||
-        key === 'paddingTop' ||
-        key === 'paddingRight' ||
-        key === 'paddingBottom' ||
-        key === 'paddingLeft'
-      ) {
-        (tdStyle as Record<string, unknown>)[key] = value;
-      } else {
-        (tableStyle as Record<string, unknown>)[key] = value;
-      }
-    }
-
+    // Keep all styles (including padding) on <table> so that Tailwind responsive
+    // class variants (e.g. max-sm:px-5) can override base classes (e.g. px-9)
+    // that land on the same element. Previously padding was split to <td> for
+    // Klaviyo/Outlook, but that caused responsive overrides to fail because
+    // the responsive class was applied to <table> while base padding was on <td>.
     return (
       <table
         align="center"
@@ -43,11 +20,11 @@ export const Section = React.forwardRef<HTMLTableElement, SectionProps>(
         role="presentation"
         {...props}
         ref={ref}
-        style={tableStyle}
+        style={style}
       >
         <tbody>
           <tr>
-            <td style={tdStyle}>{children}</td>
+            <td>{children}</td>
           </tr>
         </tbody>
       </table>
