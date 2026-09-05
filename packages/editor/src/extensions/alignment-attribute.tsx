@@ -47,13 +47,7 @@ export const AlignmentAttribute = Extension.create<AlignmentOptions>({
               // Return null to let natural inheritance work
               return null;
             },
-            renderHTML: (attributes) => {
-              if (attributes.alignment === 'left') {
-                return {};
-              }
-
-              return { alignment: attributes.alignment };
-            },
+            renderHTML: (attributes) => ({ alignment: attributes.alignment }),
           },
         },
       },

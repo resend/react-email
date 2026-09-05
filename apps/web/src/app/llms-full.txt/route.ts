@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { componentsStructure } from '../../../components/structure';
+import { slugify } from '../../utils/slugify';
 
 export function GET() {
   const lines: string[] = [
@@ -46,14 +47,9 @@ export function GET() {
     lines.push('');
     lines.push(category.description);
     lines.push('');
-    lines.push(
-      `URL: https://react.email/components/${category.name
-        .toLowerCase()
-        .trim()
-        .replace(/\s+/g, '-')
-        .replace(/[^\w-]+/g, '')
-        .replace(/--+/g, '-')}`,
-    );
+    const url = `https://react.email/components/${slugify(category.name)}`;
+    lines.push(`URL: ${url}`);
+    lines.push(`Markdown: ${url}.md`);
     lines.push('');
 
     for (const component of category.components) {
