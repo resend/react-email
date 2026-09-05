@@ -264,15 +264,17 @@ describe('Tailwind component', () => {
     );
   });
 
-  it('routes Tailwind padding on <Section> to the inner <td>', async () => {
+  it('keeps Tailwind padding on <Section> on <table> so responsive variants can override', async () => {
     const html = await render(
       <Tailwind>
         <Section className="bg-white p-4">x</Section>
       </Tailwind>,
     );
 
-    expect(html).toContain('<td style="padding:1rem">');
-    expect(html).not.toMatch(/<table[^>]*style="[^"]*padding:1rem/);
+    // Padding is now on <table> (same element as className), enabling responsive
+    // Tailwind variants to override base padding via CSS cascade.
+    expect(html).toContain('padding:1rem');
+    expect(html).not.toContain('<td style="padding');
   });
 
   it('inlines Tailwind classes on <Column> onto its <td>', async () => {

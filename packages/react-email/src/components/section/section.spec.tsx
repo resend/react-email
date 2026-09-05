@@ -55,4 +55,19 @@ describe('<Section> component', () => {
     const tdChildrenArr = actualOutput.match(/<td\s*.*?>.*?<\/td>/g);
     expect(tdChildrenArr).toHaveLength(1);
   });
+
+  it('puts padding and className on the same element so responsive variants can override', async () => {
+    // Before the fix: padding was moved to <td> while className stayed on <table>.
+    // This meant responsive variants (on <table>) could not override base padding (on <td>).
+    // After the fix: both padding and className go to <table>, so the responsive
+    // variant can properly override the base class via the CSS cascade.
+    const html = await render(
+      <Section className="max-sm:px-5 px-9" style={{ padding: '36px' }}>
+        Test
+      </Section>,
+    );
+    // Verify padding is on <table> (same element as className), not on <td>
+    expect(html).toContain('padding:36px');
+    expect(html).not.toContain('<td style="padding');
+  });
 });
