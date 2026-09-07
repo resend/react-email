@@ -1,14 +1,12 @@
-import { render } from '@react-email/components';
 import { Lettermint } from 'lettermint';
+import { render } from 'react-email';
 import { Email } from './email';
 
-const lettermint = new Lettermint({
-  apiToken: process.env.LETTERMINT_API_TOKEN || '',
-});
+const email = Lettermint.email(process.env.LETTERMINT_SENDING_TOKEN || '');
 
 const emailHtml = await render(<Email url="https://example.com" />);
 
-await lettermint.email
+await email
   .from('you@example.com')
   .to('user@gmail.com')
   .subject('hello world')

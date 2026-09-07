@@ -1,4 +1,4 @@
-import { Button, Html } from '@react-email/components';
+import { Button, Html } from 'react-email';
 
 interface EmailProps {
   url: string;
