@@ -4,6 +4,11 @@ export * from './code-block/index.js';
 export * from './code-inline/index.js';
 export * from './column/index.js';
 export * from './container/index.js';
+export {
+  type ElementOptions,
+  markAsElement,
+  type ResolvedTailwind,
+} from './element-marker.js';
 export * from './font/index.js';
 export * from './head/index.js';
 export * from './heading/index.js';
