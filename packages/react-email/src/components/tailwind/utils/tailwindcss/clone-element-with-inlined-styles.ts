@@ -1,5 +1,6 @@
-import type { Rule } from 'css-tree';
+import { type Rule, walk } from 'css-tree';
 import React from 'react';
+import { getElementOptions } from '../../../element-marker.js';
 import type { EmailElementProps } from '../../tailwind.js';
 import { sanitizeClassName } from '../compatibility/sanitize-class-name.js';
 import type { CustomProperties } from '../css/get-custom-properties.js';
@@ -12,50 +13,58 @@ export function cloneElementWithInlinedStyles(
   nonInlinableRules: Map<string, Rule[]>,
   customProperties: CustomProperties,
 ) {
-  const propsToOverwrite: Partial<EmailElementProps> = {};
+  if (!element.props.className || isComponent(element)) {
+    return React.cloneElement(element, element.props, element.props.children);
+  }
 
-  if (element.props.className && !isComponent(element)) {
-    const classes = element.props.className.trim().split(/\s+/);
+  const classes = element.props.className.trim().split(/\s+/);
 
-    const residualClasses: string[] = [];
+  const residualClasses: string[] = [];
+  const classProperties: Record<string, string[]> = {};
 
-    const rules: Rule[] = [];
-    for (const className of classes) {
-      const classRules = inlinableRules.get(className);
-      if (classRules) {
-        rules.push(...classRules);
-      }
-      if (nonInlinableRules.has(className)) {
-        residualClasses.push(className);
-      } else if (!classRules) {
-        residualClasses.push(className);
-      }
+  const rules: Rule[] = [];
+  for (const className of classes) {
+    const classRules = inlinableRules.get(className);
+    if (classRules) {
+      rules.push(...classRules);
     }
-
-    const styles = makeInlineStylesFor(rules, customProperties);
-    propsToOverwrite.style = {
-      ...styles,
-      ...element.props.style,
-    };
-
-    if (residualClasses.length > 0) {
-      propsToOverwrite.className = residualClasses
-        .map((className) => {
-          if (nonInlinableRules.has(className)) {
-            return sanitizeClassName(className);
-          }
-          return className;
-        })
-        .join(' ');
-    } else {
-      propsToOverwrite.className = undefined;
+    const nonInlinable = nonInlinableRules.get(className);
+    if (nonInlinable) {
+      const sanitized = sanitizeClassName(className);
+      residualClasses.push(sanitized);
+      const properties: string[] = [];
+      for (const rule of nonInlinable) {
+        walk(rule, {
+          visit: 'Declaration',
+          enter(declaration) {
+            properties.push(declaration.property);
+          },
+        });
+      }
+      classProperties[sanitized] = properties;
+    } else if (!classRules) {
+      residualClasses.push(className);
     }
   }
 
-  const newProps = {
-    ...element.props,
-    ...propsToOverwrite,
+  const resolved = {
+    style: {
+      ...makeInlineStylesFor(rules, customProperties),
+      ...element.props.style,
+    },
+    className:
+      residualClasses.length > 0 ? residualClasses.join(' ') : undefined,
+    classProperties,
   };
+
+  const resolveTailwind = getElementOptions(element.type)?.resolveTailwind;
+  const newProps = resolveTailwind
+    ? (resolveTailwind(element.props, resolved) as EmailElementProps)
+    : {
+        ...element.props,
+        style: resolved.style,
+        className: resolved.className,
+      };
 
   return React.cloneElement(element, newProps, newProps.children);
 }

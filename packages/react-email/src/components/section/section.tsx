@@ -3,57 +3,83 @@ import { markAsElement } from '../element-marker.js';
 
 export type SectionProps = Readonly<React.ComponentPropsWithoutRef<'table'>>;
 
-export const Section = React.forwardRef<HTMLTableElement, SectionProps>(
-  ({ children, style = {}, ...props }, ref) => {
-    // Split padding styles to improve compatibility with Klaviyo and Outlook,
-    // while preserving user-provided style property order without allocating
-    // entry arrays on each render.
-    const tdStyle: React.CSSProperties = {};
-    const tableStyle: React.CSSProperties = {};
+export const Section = React.forwardRef<
+  HTMLTableElement,
+  SectionProps & { tdClassName?: string }
+>(({ children, style = {}, tdClassName, ...props }, ref) => {
+  // Split padding styles to improve compatibility with Klaviyo and Outlook,
+  // while preserving user-provided style property order without allocating
+  // entry arrays on each render.
+  const tdStyle: React.CSSProperties = {};
+  const tableStyle: React.CSSProperties = {};
 
-    const styleRecord = style as Record<string, unknown>;
+  const styleRecord = style as Record<string, unknown>;
 
-    for (const key in styleRecord) {
-      if (!Object.hasOwn(styleRecord, key)) {
-        continue;
-      }
-
-      const value = styleRecord[key];
-
-      if (
-        key === 'padding' ||
-        key === 'paddingTop' ||
-        key === 'paddingRight' ||
-        key === 'paddingBottom' ||
-        key === 'paddingLeft'
-      ) {
-        (tdStyle as Record<string, unknown>)[key] = value;
-      } else {
-        (tableStyle as Record<string, unknown>)[key] = value;
-      }
+  for (const key in styleRecord) {
+    if (!Object.hasOwn(styleRecord, key)) {
+      continue;
     }
 
-    return (
-      <table
-        align="center"
-        width="100%"
-        border={0}
-        cellPadding="0"
-        cellSpacing="0"
-        role="presentation"
-        {...props}
-        ref={ref}
-        style={tableStyle}
-      >
-        <tbody>
-          <tr>
-            <td style={tdStyle}>{children}</td>
-          </tr>
-        </tbody>
-      </table>
-    );
-  },
-);
+    const value = styleRecord[key];
+
+    if (
+      key === 'padding' ||
+      key === 'paddingTop' ||
+      key === 'paddingRight' ||
+      key === 'paddingBottom' ||
+      key === 'paddingLeft'
+    ) {
+      (tdStyle as Record<string, unknown>)[key] = value;
+    } else {
+      (tableStyle as Record<string, unknown>)[key] = value;
+    }
+  }
+
+  return (
+    <table
+      align="center"
+      width="100%"
+      border={0}
+      cellPadding="0"
+      cellSpacing="0"
+      role="presentation"
+      {...props}
+      ref={ref}
+      style={tableStyle}
+    >
+      <tbody>
+        <tr>
+          <td className={tdClassName} style={tdStyle}>
+            {children}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  );
+});
 
 Section.displayName = 'Section';
-markAsElement(Section);
+markAsElement<SectionProps & { tdClassName?: string }>(Section, {
+  resolveTailwind(props, { style, className, classProperties }) {
+    const tableClasses: string[] = [];
+    const tdClasses: string[] = [];
+    for (const name of className?.split(' ') ?? []) {
+      const properties = classProperties[name];
+      if (
+        properties &&
+        properties.length > 0 &&
+        properties.every((property) => property.startsWith('padding'))
+      ) {
+        tdClasses.push(name);
+      } else {
+        tableClasses.push(name);
+      }
+    }
+    return {
+      ...props,
+      style,
+      className: tableClasses.length > 0 ? tableClasses.join(' ') : undefined,
+      tdClassName: tdClasses.length > 0 ? tdClasses.join(' ') : undefined,
+    };
+  },
+});
