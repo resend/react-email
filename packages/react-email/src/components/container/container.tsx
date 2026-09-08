@@ -22,13 +22,7 @@ export const Container = React.forwardRef<
 
     const value = styleRecord[key];
 
-    if (
-      key === 'padding' ||
-      key === 'paddingTop' ||
-      key === 'paddingRight' ||
-      key === 'paddingBottom' ||
-      key === 'paddingLeft'
-    ) {
+    if (key.startsWith('padding')) {
       (tdStyle as Record<string, unknown>)[key] = value;
     } else {
       (tableStyle as Record<string, unknown>)[key] = value;
@@ -62,7 +56,7 @@ Container.displayName = 'Container';
 markAsElement<ContainerProps & { tdClassName?: string }>(Container, {
   resolveTailwind(props, { style, className, classProperties }) {
     const tableClasses: string[] = [];
-    const tdClasses: string[] = [];
+    const tdClasses = props.tdClassName ? [props.tdClassName] : [];
     for (const name of className?.split(' ') ?? []) {
       const properties = classProperties[name];
       if (

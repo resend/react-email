@@ -20,7 +20,7 @@ export function cloneElementWithInlinedStyles(
   const classes = element.props.className.trim().split(/\s+/);
 
   const residualClasses: string[] = [];
-  const classProperties: Record<string, string[]> = {};
+  const classProperties: Record<string, string[]> = Object.create(null);
 
   const rules: Rule[] = [];
   for (const className of classes) {
