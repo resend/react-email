@@ -46,4 +46,21 @@ describe('inlineStyles()', () => {
       }
     `);
   });
+
+  it('preserves global source order when interleaved classes conflict on the same property', () => {
+    // Regression for BU-2349: grouping rules per class and flattening by map
+    // values reordered `.box`'s later override after `.other`, so `.other`'s
+    // conflicting declaration wrongly won.
+    const styleSheet = parse(`
+      .box { color: red; }
+      .other { color: green; }
+      .box { color: blue; }
+    `) as StyleSheet;
+
+    expect(inlineStyles(styleSheet, ['box', 'other'])).toMatchInlineSnapshot(`
+      {
+        "color": "blue",
+      }
+    `);
+  });
 });

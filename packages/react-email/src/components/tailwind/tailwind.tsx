@@ -7,6 +7,7 @@ import { downlevelForEmailClients } from './utils/css/downlevel-for-email-client
 import { extractRulesPerClass } from './utils/css/extract-rules-per-class.js';
 import { getCustomProperties } from './utils/css/get-custom-properties.js';
 import { sanitizeNonInlinableRules } from './utils/css/sanitize-non-inlinable-rules.js';
+import { sortRulesByOrder } from './utils/css/sort-rules-by-order.js';
 import { mapReactTree } from './utils/react/map-react-tree.js';
 import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element-with-inlined-styles.js';
 import { setupTailwind } from './utils/tailwindcss/setup-tailwind.js';
@@ -124,7 +125,7 @@ export function Tailwind({ children, config, theme, utility }: TailwindProps) {
   const nonInlineStyles: StyleSheet = {
     type: 'StyleSheet',
     children: new List<CssNode>().fromArray(
-      Array.from(nonInlinableRules.values()).flat(),
+      sortRulesByOrder(Array.from(nonInlinableRules.values()).flat()),
     ),
   };
   sanitizeNonInlinableRules(nonInlineStyles);

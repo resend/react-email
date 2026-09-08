@@ -1,15 +1,21 @@
-import { generate, parse, type Rule, type StyleSheet } from 'css-tree';
+import { generate, parse, type StyleSheet } from 'css-tree';
 import { setupTailwind } from '../tailwindcss/setup-tailwind.js';
-import { extractRulesPerClass } from './extract-rules-per-class.js';
+import {
+  extractRulesPerClass,
+  type OrderedRule,
+} from './extract-rules-per-class.js';
 
 describe('extractRulesPerClass()', async () => {
   function convertToComparable(
-    map: Map<string, Rule[]>,
+    map: Map<string, OrderedRule[]>,
   ): Record<string, string[]> {
     return Object.fromEntries(
       map
         .entries()
-        .map(([k, rules]) => [k, rules.map((rule) => generate(rule))]),
+        .map(([k, rules]) => [
+          k,
+          rules.map((orderedRule) => generate(orderedRule.rule)),
+        ]),
     );
   }
 

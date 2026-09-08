@@ -47,24 +47,35 @@ function nestAtRulesInsideRule(rule: Rule, enclosingAtRules: Atrule[]): Rule {
   };
 }
 
+export interface OrderedRule {
+  rule: Rule;
+  order: number;
+}
+
 export function extractRulesPerClass(root: CssNode, classes: string[]) {
   const classSet = new Set(classes);
 
   // A class can be defined by multiple rules (e.g. a preset and a child config
   // override), so keep them all to merge instead of the last one clobbering.
-  const inlinableRules = new Map<string, Rule[]>();
-  const nonInlinableRules = new Map<string, Rule[]>();
+  // Each rule carries its global source-order index so consumers can restore
+  // the original stylesheet cascade order after grouping by class.
+  const inlinableRules = new Map<string, OrderedRule[]>();
+  const nonInlinableRules = new Map<string, OrderedRule[]>();
+
+  let ruleOrder = 0;
 
   const appendRule = (
-    map: Map<string, Rule[]>,
+    map: Map<string, OrderedRule[]>,
     className: string,
     rule: Rule,
+    order: number,
   ) => {
     const existing = map.get(className);
+    const orderedRule: OrderedRule = { rule, order };
     if (existing) {
-      existing.push(rule);
+      existing.push(orderedRule);
     } else {
-      map.set(className, [rule]);
+      map.set(className, [orderedRule]);
     }
   };
 
@@ -85,6 +96,8 @@ export function extractRulesPerClass(root: CssNode, classes: string[]) {
       return;
     }
 
+    const order = ruleOrder++;
+
     // Only the prelude names the class that owns the rule; classes referenced
     // inside the block (e.g. `.group` in `:where(.group)`) must not key it.
     const selectorClasses: string[] = [];
@@ -99,7 +112,7 @@ export function extractRulesPerClass(root: CssNode, classes: string[]) {
       const nonInlinablePart = nestAtRulesInsideRule(rule, enclosingAtRules);
       for (const className of selectorClasses) {
         if (classSet.has(className)) {
-          appendRule(nonInlinableRules, className, nonInlinablePart);
+          appendRule(nonInlinableRules, className, nonInlinablePart, order);
         }
       }
       return;
@@ -108,7 +121,7 @@ export function extractRulesPerClass(root: CssNode, classes: string[]) {
     if (isRuleInlinable(rule)) {
       for (const className of selectorClasses) {
         if (classSet.has(className)) {
-          appendRule(inlinableRules, className, rule);
+          appendRule(inlinableRules, className, rule, order);
         }
       }
     } else {
@@ -116,10 +129,10 @@ export function extractRulesPerClass(root: CssNode, classes: string[]) {
       for (const className of selectorClasses) {
         if (!classSet.has(className)) continue;
         if (inlinablePart) {
-          appendRule(inlinableRules, className, inlinablePart);
+          appendRule(inlinableRules, className, inlinablePart, order);
         }
         if (nonInlinablePart) {
-          appendRule(nonInlinableRules, className, nonInlinablePart);
+          appendRule(nonInlinableRules, className, nonInlinablePart, order);
         }
       }
     }

@@ -114,7 +114,7 @@ describe('Tailwind component', () => {
         </Tailwind>,
       ),
     ).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="padding:4px;color:rgb(81,162,255);background-color:rgb(251,44,54)"></div><!--/$-->"`,
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="background-color:rgb(251,44,54);padding:4px;color:rgb(81,162,255)"></div><!--/$-->"`,
     );
   });
 
@@ -146,7 +146,7 @@ describe('Tailwind component', () => {
       </Html>,
     );
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head></head><body><!--$--><!--html--><!--body--><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a class="other" href="https://react.email" style="color:rgb(21,93,252);text-decoration-line:none" target="_blank">https://react.email</a></p><p style="font-size:14px;color:rgb(0,0,0);line-height:24px">or copy and paste this URL into your browser:<!-- --> <a href="https://react.email" style="color:rgb(21,93,252);text-decoration-line:none" target="_blank">https://react.email</a></p><!--/$--></body></html>"`,
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head></head><body><!--$--><!--html--><!--body--><p style="font-size:14px;line-height:24px;color:rgb(0,0,0)">or copy and paste this URL into your browser:<!-- --> <a class="other" href="https://react.email" style="color:rgb(21,93,252);text-decoration-line:none" target="_blank">https://react.email</a></p><p style="font-size:14px;line-height:24px;color:rgb(0,0,0)">or copy and paste this URL into your browser:<!-- --> <a href="https://react.email" style="color:rgb(21,93,252);text-decoration-line:none" target="_blank">https://react.email</a></p><!--/$--></body></html>"`,
     );
   });
 
@@ -173,7 +173,7 @@ describe('Tailwind component', () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><a style="line-height:1.4285714285714286;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;margin-top:2rem;border-radius:0.375rem;background-color:rgb(21,93,252);padding-right:12px;padding-left:12px;padding-bottom:8px;padding-top:8px;color:rgb(229,231,235);font-size:0.875rem" target="_blank"><span><!--[if mso]><i style="mso-font-width:300%;mso-text-raise:12px" hidden>&#8202;&#8202;</i><![endif]--></span><span style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:6px">Testing button</span><span><!--[if mso]><i style="mso-font-width:300%" hidden>&#8202;&#8202;&#8203;</i><![endif]--></span></a>Testing<!--/$-->"`,
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><a style="line-height:1.4285714285714286;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;margin-top:2rem;border-radius:0.375rem;background-color:rgb(21,93,252);padding-right:12px;padding-left:12px;padding-bottom:8px;padding-top:8px;font-size:0.875rem;color:rgb(229,231,235)" target="_blank"><span><!--[if mso]><i style="mso-font-width:300%;mso-text-raise:12px" hidden>&#8202;&#8202;</i><![endif]--></span><span style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:6px">Testing button</span><span><!--[if mso]><i style="mso-font-width:300%" hidden>&#8202;&#8202;&#8203;</i><![endif]--></span></a>Testing<!--/$-->"`,
     );
   });
 
@@ -207,7 +207,7 @@ describe('Tailwind component', () => {
     const actualOutput = await render(EmailTemplate());
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`,
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-size:50px;font-weight:700">React Email</p></div><div style="padding:20px"><p style="font-size:50px;font-weight:700">React Email</p></div><!--/$-->"`,
     );
   });
 
@@ -244,7 +244,7 @@ describe('Tailwind component', () => {
     const actualOutput = await render(EmailTemplate());
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`,
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-size:50px;font-weight:700">React Email</p></div><!--/$-->"`,
     );
   });
 
@@ -333,7 +333,7 @@ describe('Tailwind component', () => {
     const actualOutput = await render(EmailTemplate());
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-weight:700;font-size:50px">React Email</p></div><!--/$-->"`,
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div style="margin-top:100px;font-size:50px;line-height:1">Hello world</div><div style="padding:20px"><p style="font-size:50px;font-weight:700">React Email</p></div><!--/$-->"`,
     );
   });
 

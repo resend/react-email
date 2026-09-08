@@ -2,6 +2,7 @@ import type { StyleSheet } from 'css-tree';
 import { extractRulesPerClass } from './utils/css/extract-rules-per-class.js';
 import { getCustomProperties } from './utils/css/get-custom-properties.js';
 import { makeInlineStylesFor } from './utils/css/make-inline-styles-for.js';
+import { sortRulesByOrder } from './utils/css/sort-rules-by-order.js';
 
 export function inlineStyles(
   styleSheet: StyleSheet,
@@ -15,7 +16,7 @@ export function inlineStyles(
   const customProperties = getCustomProperties(styleSheet);
 
   return makeInlineStylesFor(
-    Array.from(inlinableRules.values()).flat(),
+    sortRulesByOrder(Array.from(inlinableRules.values()).flat()),
     customProperties,
   );
 }
