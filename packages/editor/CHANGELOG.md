@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.7.7
+
+### Patch Changes
+
+- f8bf344: fix table header cells being dropped when rendering to send HTML
+
 ## 1.7.6
 
 ### Patch Changes
