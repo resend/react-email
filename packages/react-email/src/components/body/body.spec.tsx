@@ -1,4 +1,6 @@
 import { render } from '@react-email/render';
+import { Html } from '../html/index.js';
+import { Tailwind } from '../tailwind/index.js';
 import { Body } from './index.js';
 import { marginProperties, paddingProperties } from './margin-properties.js';
 
@@ -53,6 +55,103 @@ describe('<Body> component', () => {
     expect(bodyStyle).toContain('background-color:pink');
     expect(bodyStyle).not.toContain('padding:20px');
     expect(tdStyle).toContain('padding:20px');
+  });
+
+  describe('lang and dir inheritance from <Html>', () => {
+    const getAttributes = (html: string, tag: 'html' | 'body' | 'td') => {
+      const attributes = html.match(new RegExp(`<${tag}([^>]*)>`))?.[1] ?? '';
+      return {
+        lang: attributes.match(/lang="([^"]*)"/)?.[1],
+        dir: attributes.match(/dir="([^"]*)"/)?.[1],
+      };
+    };
+
+    it('defaults to lang="en" dir="ltr" without an <Html> parent', async () => {
+      const html = await render(<Body>Test</Body>);
+      expect(getAttributes(html, 'body')).toEqual({ lang: 'en', dir: 'ltr' });
+      expect(getAttributes(html, 'td')).toEqual({ lang: 'en', dir: 'ltr' });
+    });
+
+    it('inherits lang and dir set on <Html>', async () => {
+      const html = await render(
+        <Html lang="ar" dir="rtl">
+          <Body>Test</Body>
+        </Html>,
+      );
+      expect(getAttributes(html, 'body')).toEqual({ lang: 'ar', dir: 'rtl' });
+      expect(getAttributes(html, 'td')).toEqual({ lang: 'ar', dir: 'rtl' });
+    });
+
+    it("inherits <Html>'s defaults when it has no explicit lang/dir", async () => {
+      const html = await render(
+        <Html>
+          <Body>Test</Body>
+        </Html>,
+      );
+      expect(getAttributes(html, 'body')).toEqual({ lang: 'en', dir: 'ltr' });
+    });
+
+    it('lets explicit lang and dir on <Body> win over <Html>', async () => {
+      const html = await render(
+        <Html lang="pl">
+          <Body lang="en" dir="rtl">
+            Test
+          </Body>
+        </Html>,
+      );
+      expect(getAttributes(html, 'html')).toEqual({ lang: 'pl', dir: 'ltr' });
+      expect(getAttributes(html, 'body')).toEqual({ lang: 'en', dir: 'rtl' });
+    });
+
+    it('inherits lang and dir through custom components', async () => {
+      const Content = ({ children }: { children: React.ReactNode }) => {
+        return <Body>{children}</Body>;
+      };
+      const Layout = ({ children }: { children: React.ReactNode }) => {
+        return <Content>{children}</Content>;
+      };
+
+      const html = await render(
+        <Html lang="pl">
+          <Layout>Cześć</Layout>
+        </Html>,
+      );
+      expect(getAttributes(html, 'body')).toEqual({ lang: 'pl', dir: 'ltr' });
+      expect(getAttributes(html, 'td')).toEqual({ lang: 'pl', dir: 'ltr' });
+    });
+
+    it('inherits lang and dir with <Tailwind> in between', async () => {
+      const html = await render(
+        <Html lang="pl">
+          <Tailwind>
+            <Body className="bg-red-500">Cześć</Body>
+          </Tailwind>
+        </Html>,
+      );
+      expect(getAttributes(html, 'body')).toEqual({ lang: 'pl', dir: 'ltr' });
+      expect(html).toContain('background-color');
+    });
+
+    it('inherits lang and dir with <Tailwind> around <Html>', async () => {
+      const html = await render(
+        <Tailwind>
+          <Html lang="pl">
+            <Body className="bg-red-500">Cześć</Body>
+          </Html>
+        </Tailwind>,
+      );
+      expect(getAttributes(html, 'body')).toEqual({ lang: 'pl', dir: 'ltr' });
+      expect(html).toContain('background-color');
+    });
+
+    it('does not leak the private context prop into the markup', async () => {
+      const html = await render(
+        <Html lang="pl">
+          <Body>Test</Body>
+        </Html>,
+      );
+      expect(html.toLowerCase()).not.toContain('reactemailcontexts');
+    });
   });
 
   describe('padding resetting behavior', () => {
