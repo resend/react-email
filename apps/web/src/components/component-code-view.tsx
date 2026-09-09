@@ -41,6 +41,8 @@ export function ComponentCodeView({
     } else if (component.code.react) {
       code = component.code.react;
     }
+  } else if (component.code.htmlSnippet !== undefined) {
+    code = component.code.htmlSnippet;
   } else {
     code = code.replace(/height\s*:\s*100vh;?/, '');
   }
