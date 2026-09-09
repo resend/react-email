@@ -289,7 +289,7 @@ export const TableHeader = EmailNode.create<TableHeaderOptions>({
   renderToReactEmail({ children, node, style }) {
     const inlineStyles = inlineCssToJs(node.attrs?.style);
     return (
-      <Column
+      <th
         className={node.attrs?.class || undefined}
         align={node.attrs?.align || node.attrs?.alignment}
         style={{
@@ -298,7 +298,7 @@ export const TableHeader = EmailNode.create<TableHeaderOptions>({
         }}
       >
         {children}
-      </Column>
+      </th>
     );
   },
 });
