@@ -1,0 +1,89 @@
+{
+  "parity": {
+    "simple": true,
+    "newsletter": true,
+    "large": true
+  },
+  "throughput": [
+    {
+      "name": "editor-based compose: simple",
+      "hz": 408.9077978363917,
+      "meanMs": 2.550246224299099,
+      "p99Ms": 5.826725000000879,
+      "samples": 1177
+    },
+    {
+      "name": "headless compose (warm): simple",
+      "hz": 828.1494235789992,
+      "meanMs": 1.2454095031133214,
+      "p99Ms": 1.9672466400000863,
+      "samples": 2409
+    },
+    {
+      "name": "headless compose (cold): simple",
+      "hz": 515.4559703516741,
+      "meanMs": 2.0111132942359293,
+      "p99Ms": 3.337955720000826,
+      "samples": 1492
+    },
+    {
+      "name": "editor-based compose: newsletter",
+      "hz": 239.64138432393995,
+      "meanMs": 4.272768314366967,
+      "p99Ms": 6.1667101799983355,
+      "samples": 703
+    },
+    {
+      "name": "headless compose (warm): newsletter",
+      "hz": 319.9579472369763,
+      "meanMs": 3.227538375268998,
+      "p99Ms": 5.036653930000976,
+      "samples": 930
+    },
+    {
+      "name": "headless compose (cold): newsletter",
+      "hz": 262.925310322007,
+      "meanMs": 3.8987775493506662,
+      "p99Ms": 5.7611291900018715,
+      "samples": 770
+    },
+    {
+      "name": "editor-based compose: large",
+      "hz": 2.620575822074099,
+      "meanMs": 382.4051152031252,
+      "p99Ms": 417.65737353999754,
+      "samples": 64
+    },
+    {
+      "name": "headless compose (warm): large",
+      "hz": 2.643367206308269,
+      "meanMs": 379.46872460937357,
+      "p99Ms": 417.50105570999887,
+      "samples": 64
+    },
+    {
+      "name": "headless compose (cold): large",
+      "hz": 2.607238721389776,
+      "meanMs": 384.7715553437497,
+      "p99Ms": 424.0709480000003,
+      "samples": 64
+    }
+  ],
+  "coldStart": {
+    "editor": {
+      "totalMs": 259.587666,
+      "importMs": 212.720833,
+      "composeMs": 45.64904200000004
+    },
+    "headless": {
+      "totalMs": 251.571458,
+      "importMs": 210.85500000000002,
+      "composeMs": 41.16358300000002
+    }
+  },
+  "outputBytes": {
+    "simple": 1806,
+    "newsletter": 4578,
+    "large": 132576
+  }
+}

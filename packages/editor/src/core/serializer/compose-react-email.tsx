@@ -1,8 +1,10 @@
-import type { Editor, JSONContent } from '@tiptap/core';
+import type { Editor, Extensions, JSONContent } from '@tiptap/core';
 import type { MarkType, Schema } from '@tiptap/pm/model';
 import { Fragment } from 'react';
 import { pretty, render, toPlainText } from 'react-email';
 import { inlineCssToJs } from '../../utils/styles';
+import type { ComposeContext } from './compose-context';
+import { createComposeContext, toComposeContext } from './compose-context';
 import { DefaultBaseTemplate } from './default-base-template';
 import { EmailMark } from './email-mark';
 import { EmailNode } from './email-node';
@@ -49,17 +51,108 @@ interface ComposeReactEmailResult {
   unformattedHtml: string;
 }
 
-export const composeReactEmail = async ({
-  editor,
-  preview,
-  previewMode = false,
-}: {
-  editor: Editor;
+interface ComposeSharedOptions {
+  /** Preview text shown in inbox list views before the email is opened. */
   preview?: string;
   previewMode?: boolean;
-}): Promise<ComposeReactEmailResult> => {
-  const data = editor.getJSON();
-  const extensions = editor.extensionManager.extensions;
+  format?: boolean;
+}
+
+export interface ComposeFromContentOptions extends ComposeSharedOptions {
+  /**
+   * The document to serialize, as TipTap JSON. HTML strings are not
+   * accepted — convert them first with `generateJSON` from `@tiptap/html`.
+   */
+  content: JSONContent;
+  extensions: Extensions;
+  editor?: never;
+}
+
+export interface ComposeFromEditorOptions extends ComposeSharedOptions {
+  editor: Editor;
+  content?: never;
+  extensions?: never;
+}
+
+function resolveContext(
+  options: ComposeFromContentOptions | ComposeFromEditorOptions,
+): ComposeContext {
+  if (options.editor) {
+    if (options.content || options.extensions) {
+      throw new Error(
+        'composeReactEmail received both `editor` and `content`/`extensions` — pass either an editor, or content with extensions.',
+      );
+    }
+    return toComposeContext(options.editor);
+  }
+
+  if (!options.content) {
+    throw new Error(
+      'composeReactEmail needs either `editor` or `content` + `extensions`.',
+    );
+  }
+
+  return createComposeContext(options);
+}
+
+const EDITOR_ONLY_MEMBERS = new Set([
+  'extensionManager',
+  'state',
+  'view',
+  'commands',
+  'chain',
+  'can',
+  'storage',
+  'options',
+  'isDestroyed',
+  'isEditable',
+  'isEmpty',
+  'getJSON',
+  'getHTML',
+  'getText',
+  'getAttributes',
+]);
+
+function withLegacyEditorAccess(
+  context: ComposeContext,
+  editor: Editor | undefined,
+): ComposeContext {
+  return new Proxy(context, {
+    get(target, property, receiver) {
+      if (property in target || typeof property === 'symbol') {
+        return Reflect.get(target, property, receiver);
+      }
+      if (editor) {
+        const member = editor[property as keyof Editor];
+        return typeof member === 'function'
+          ? (member as (...args: unknown[]) => unknown).bind(editor)
+          : member;
+      }
+      if (EDITOR_ONLY_MEMBERS.has(property as string)) {
+        throw new Error(
+          `Composing from \`content\` runs without an Editor: \`${String(property)}\` is not available inside serializer plugins. Read the \`ComposeContext\` ({ doc, schema, extensions }) the serializer passes instead — e.g. resolve theming with \`getEmailTheming(context)\`.`,
+        );
+      }
+      return undefined;
+    },
+  });
+}
+
+export function composeReactEmail(
+  options: ComposeFromContentOptions,
+): Promise<ComposeReactEmailResult>;
+export function composeReactEmail(
+  options: ComposeFromEditorOptions,
+): Promise<ComposeReactEmailResult>;
+export async function composeReactEmail(
+  options: ComposeFromContentOptions | ComposeFromEditorOptions,
+): Promise<ComposeReactEmailResult> {
+  const { preview, previewMode = false, format = true } = options;
+  const context = withLegacyEditorAccess(
+    resolveContext(options),
+    options.editor,
+  );
+  const { doc, schema, extensions } = context;
 
   const serializerPlugin = extensions
     .map(
@@ -95,7 +188,7 @@ export const composeReactEmail = async ({
     });
 
     return content.map((node: JSONContent, index: number) => {
-      const style = serializerPlugin?.getNodeStyles(node, depth, editor) ?? {};
+      const style = serializerPlugin?.getNodeStyles(node, depth, context) ?? {};
 
       const inlineStyles = inlineCssToJs(node.attrs?.style);
 
@@ -132,7 +225,7 @@ export const composeReactEmail = async ({
         </NodeComponent>
       );
       if (node.marks) {
-        for (const mark of sortMarksBySchema(node.marks, editor.schema)) {
+        for (const mark of sortMarksBySchema(node.marks, schema)) {
           const emailMark = typeToExtensionMap[mark.type];
           if (emailMark instanceof EmailMark) {
             const MarkComponent = emailMark.config.renderToReactEmail;
@@ -143,7 +236,7 @@ export const composeReactEmail = async ({
                   attrs: mark.attrs ?? {},
                 },
                 depth,
-                editor,
+                context,
               ) ?? {};
             renderedNode = (
               <MarkComponent
@@ -165,11 +258,12 @@ export const composeReactEmail = async ({
 
   const BaseTemplate = serializerPlugin?.BaseTemplate ?? DefaultBaseTemplate;
 
-  const parsedContent = parseContent(data.content);
+  const parsedContent = parseContent(doc.content);
   const unformattedHtml = await render(
     <BaseTemplate
       previewText={preview}
-      editor={editor}
+      context={context}
+      editor={options.editor ?? context}
       previewMode={previewMode}
     >
       {parsedContent}
@@ -177,9 +271,9 @@ export const composeReactEmail = async ({
   );
 
   const [prettyHtml, text] = await Promise.all([
-    pretty(unformattedHtml),
+    format ? pretty(unformattedHtml) : unformattedHtml,
     toPlainText(unformattedHtml),
   ]);
 
   return { html: prettyHtml, text, unformattedHtml };
-};
+}
