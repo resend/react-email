@@ -24,7 +24,7 @@ Thumbs.db
 /docs/.gitignore
 /docs/.next/
 /docs/.vercel
-/docs/*.tsbnuildinfo
+*.tsbuildinfo
 /docs/build/
 /docs/next-env.d.ts
 

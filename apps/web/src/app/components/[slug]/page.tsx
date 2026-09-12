@@ -53,6 +53,7 @@ export const generateMetadata = async ({
     },
     alternates: {
       canonical: `/components/${rawSlug}`,
+      types: { 'text/markdown': `/components/${rawSlug}.md` },
     },
   };
 };

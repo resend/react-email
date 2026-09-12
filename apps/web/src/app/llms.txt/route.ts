@@ -9,6 +9,7 @@ React Email is an open-source library that lets developers build emails with Rea
 ## Key Links
 
 - Documentation: https://react.email/docs
+- Documentation for LLMs: https://react.email/docs/llms.txt
 - Components: https://react.email/components
 - Templates: https://react.email/templates
 - Editor: https://react.email/editor
@@ -27,9 +28,15 @@ Works with any email provider: Resend, SendGrid, AWS SES, Postmark, Nodemailer, 
 
 Headers, Footers, Container, Section, Grid, Divider, Heading, Text, Link, Buttons, Image, Avatars, Gallery, List, Code Inline, Code Block, Markdown, Articles, Features, Stats, Testimonials, Feedback, Pricing, Ecommerce, Marketing
 
+## Skills
+
+- [React Email Skill](https://raw.githubusercontent.com/resend/react-email/main/skills/react-email/SKILL.md)
+
 ## Optional
 
 - [Full component catalog](https://react.email/llms-full.txt)
+- [Components as markdown](https://react.email/components.md): append \`.md\` to any components URL, or send \`Accept: text/markdown\`
+- [Templates as markdown](https://react.email/templates.md): every template with its preview and source links
 `;
 
 export function GET() {

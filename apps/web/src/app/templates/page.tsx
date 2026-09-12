@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   description,
   alternates: {
     canonical: '/templates',
+    types: { 'text/markdown': '/templates.md' },
   },
 };
 

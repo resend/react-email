@@ -1,5 +1,5 @@
 import { useEditorState } from '@tiptap/react';
-import { setTextAlignment } from '../../utils/set-text-alignment';
+import { getSelectionAlignment, setTextAlignment } from '../../utils';
 import { AlignLeftIcon } from '../icons';
 import { useBubbleMenuContext } from './context';
 import type { PreWiredItemProps } from './create-mark-bubble-item';
@@ -13,7 +13,8 @@ export function BubbleMenuAlignLeft({
 
   const isActive = useEditorState({
     editor,
-    selector: ({ editor }) => editor?.isActive({ alignment: 'left' }) ?? false,
+    selector: ({ editor }) =>
+      editor ? getSelectionAlignment(editor) === 'left' : false,
   });
 
   return (

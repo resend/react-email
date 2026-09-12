@@ -1,5 +1,37 @@
 # @react-email/editor
 
+## 1.7.7
+
+### Patch Changes
+
+- f8bf344: fix table header cells being dropped when rendering to send HTML
+
+## 1.7.6
+
+### Patch Changes
+
+- cd3b7f1: Fix the bubble menu's Left alignment button never reading as active for left-aligned (default) content, persist an explicit left alignment to the HTML, and resolve inherited alignment from aligned ancestors (for example a paragraph inside a center-aligned table cell) so the button no longer reports `left` while the content is visually centered.
+- Updated dependencies [0250981]
+  - react-email@6.9.5
+
+## 1.7.5
+
+### Patch Changes
+
+- react-email@6.9.4
+
+## 1.7.4
+
+### Patch Changes
+
+- 62eb793: Buttons now render with `box-sizing: border-box`, so a full-width padded button no longer overflows its container in delivered emails. Buttons with an explicit size plus padding render slightly smaller, matching the canvas.
+
+## 1.7.3
+
+### Patch Changes
+
+- react-email@6.9.3
+
 ## 1.7.2
 
 ### Patch Changes

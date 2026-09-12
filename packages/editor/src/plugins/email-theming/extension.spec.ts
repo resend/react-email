@@ -194,6 +194,11 @@ describe('EmailTheming', () => {
     expect(themeStyleTag?.textContent).toContain('.node-button');
     expect(themeStyleTag?.textContent).toContain('background-color:#000000;');
     expect(themeStyleTag?.textContent).toContain('padding-top:7px;');
+
+    const buttonRule = themeStyleTag?.textContent?.match(
+      /\.node-button\{[^}]*\}/,
+    )?.[0];
+    expect(buttonRule).toContain('box-sizing:border-box;');
   });
 
   it('injects list styles against the rendered list node classes', () => {
