@@ -1,0 +1,82 @@
+---
+title: "Send email using Brevo"
+sidebarTitle: "Brevo"
+description: "Learn how to send an email using React Email and the Brevo Node.js SDK."
+"og:image": "https://react.email/static/covers/react-email.png"
+---
+
+## 1. Install dependencies
+
+Get the [react-email](https://www.npmjs.com/package/react-email) package and the [Brevo Node.js SDK](https://www.npmjs.com/package/@getbrevo/brevo).
+
+<CodeGroup>
+
+```sh npm
+npm install @getbrevo/brevo react-email
+```
+
+```sh yarn
+yarn add @getbrevo/brevo react-email
+```
+
+```sh pnpm
+pnpm add @getbrevo/brevo react-email
+```
+
+```sh bun
+bun add @getbrevo/brevo react-email
+```
+
+</CodeGroup>
+
+## 2. Create an email using React
+
+Start by building your email template in a `.jsx` or `.tsx` file.
+
+```tsx email.tsx
+import { Button, Html } from "react-email";
+
+interface EmailProps {
+  url: string;
+}
+
+export function Email({ url }: EmailProps) {
+  return (
+    <Html lang="en">
+      <Button href={url}>Click me</Button>
+    </Html>
+  );
+}
+```
+
+## 3. Convert to HTML and send email
+
+Import the email template you just built, convert into an HTML string, and use the Brevo SDK to send it.
+
+```tsx
+import { BrevoClient } from "@getbrevo/brevo";
+import { render } from "react-email";
+import { Email } from "./email";
+
+const brevo = new BrevoClient({ apiKey: process.env.BREVO_API_KEY || "" });
+
+const emailHtml = await render(<Email url="https://example.com" />);
+
+await brevo.transactionalEmails.sendTransacEmail({
+  sender: { name: "Acme", email: "you@example.com" },
+  to: [{ email: "user@gmail.com" }],
+  subject: "hello world",
+  htmlContent: emailHtml,
+});
+```
+
+## Try it yourself
+
+<Card
+  title="Brevo example"
+  icon="arrow-up-right-from-square"
+  iconType="duotone"
+  href="https://github.com/resend/react-email/tree/main/examples/brevo"
+>
+  See the full source code.
+</Card>
