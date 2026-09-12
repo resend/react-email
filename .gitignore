@@ -21,6 +21,9 @@ next-env.d.ts
 dist
 .vercel
 
+# typescript incremental build state
+*.tsbuildinfo
+
 # misc
 .DS_Store
 *.pem

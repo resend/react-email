@@ -16,13 +16,18 @@ import { Send } from '../../../components/send';
 import { useToolbarState } from '../../../components/toolbar';
 import { Tooltip } from '../../../components/tooltip';
 import { ActiveViewToggleGroup } from '../../../components/topbar/active-view-toggle-group';
-import { EmulatedDarkModeToggle } from '../../../components/topbar/emulated-dark-mode-toggle';
+import { DarkModeToggleGroup } from '../../../components/topbar/dark-mode-toggle-group';
 import { PropsPanelToggle } from '../../../components/topbar/props-panel-toggle';
 import { ViewSizeControls } from '../../../components/topbar/view-size-controls';
 import { usePreviewContext } from '../../../contexts/preview';
 import { usePropsPanel } from '../../../contexts/props-panel';
 import { useClampedState } from '../../../hooks/use-clamped-state';
 import { cn } from '../../../utils';
+import {
+  type DarkModePreview,
+  darkModeSearchParamValue,
+  parseDarkModePreview,
+} from '../../../utils/dark-mode-preview';
 import { inferEmailTitle } from '../../../utils/infer-email-title';
 import { EmailFrame } from './email-frame';
 import { ErrorOverlay } from './error-overlay';
@@ -39,7 +44,7 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const isDarkModeEnabled = searchParams.get('dark') !== null;
+  const darkMode = parseDarkModePreview(new URLSearchParams(searchParams));
   const activeView = searchParams.get('view') ?? 'preview';
   const isRawHtmlEmail = renderedEmailMetadata?.extname === 'html';
   const requestedLang = searchParams.get('lang');
@@ -52,12 +57,13 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
       ? defaultLang
       : requestedLang;
 
-  const handleDarkModeChange = (enabled: boolean) => {
+  const handleDarkModeChange = (mode: DarkModePreview) => {
     const params = new URLSearchParams(searchParams);
-    if (enabled) {
-      params.set('dark', '');
-    } else {
+    const value = darkModeSearchParamValue(mode);
+    if (value === null) {
       params.delete('dark');
+    } else {
+      params.set('dark', value);
     }
     router.push(`${pathname}?${params.toString()}${location.hash}`);
   };
@@ -115,9 +121,9 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
       <Topbar emailTitle={emailTitle}>
         {activeView === 'preview' ? (
           <>
-            <EmulatedDarkModeToggle
-              enabled={isDarkModeEnabled}
-              onChange={(enabled) => handleDarkModeChange(enabled)}
+            <DarkModeToggleGroup
+              mode={darkMode}
+              onChange={(mode) => handleDarkModeChange(mode)}
             />
             <ViewSizeControls
               setViewHeight={(height) => {
@@ -172,7 +178,7 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
           className={cn(
             'relative flex min-w-0 grow p-4',
             activeView === 'preview' && 'bg-gray-200',
-            activeView === 'preview' && isDarkModeEnabled && 'bg-gray-400',
+            activeView === 'preview' && darkMode !== 'off' && 'bg-gray-400',
             className,
           )}
           ref={(element) => {
@@ -219,8 +225,8 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
                   width={width}
                 >
                   <EmailFrame
-                    className="max-h-full rounded-lg bg-white [color-scheme:auto]"
-                    darkMode={isDarkModeEnabled}
+                    className="max-h-full rounded-lg"
+                    darkMode={darkMode}
                     markup={renderedEmailMetadata.markup}
                     width={width}
                     height={height}
