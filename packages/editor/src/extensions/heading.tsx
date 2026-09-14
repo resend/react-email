@@ -27,7 +27,7 @@ export const Heading: EmailNode<TipTapHeadingOptions, any> = EmailNode.from(
         };
 
         return (
-          <NodeViewWrapper>
+          <NodeViewWrapper className="node-heading">
             <EmailHeading as={`h${level}` as 'h1' | 'h2' | 'h3'} {...attrs}>
               <NodeViewContent />
             </EmailHeading>
