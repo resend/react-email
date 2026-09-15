@@ -121,7 +121,8 @@
               "integrations/mailersend",
               "integrations/scaleway",
               "integrations/plunk",
-              "integrations/lettermint"
+              "integrations/lettermint",
+              "integrations/brevo"
             ]
           },
           {
