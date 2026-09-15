@@ -1,5 +1,5 @@
 import type { ParentConfig } from '@tiptap/core';
-import { mergeAttributes, Node } from '@tiptap/core';
+import { mergeAttributes } from '@tiptap/core';
 import { Column } from 'react-email';
 import { EmailNode } from '../core/serializer/email-node';
 import {
@@ -237,7 +237,11 @@ export const TableCell = EmailNode.create<TableCellOptions>({
   },
 });
 
-export const TableHeader = Node.create({
+export interface TableHeaderOptions extends Record<string, unknown> {
+  HTMLAttributes?: Record<string, unknown>;
+}
+
+export const TableHeader = EmailNode.create<TableHeaderOptions>({
   name: 'tableHeader',
 
   group: 'tableCell',
@@ -280,5 +284,21 @@ export const TableHeader = Node.create({
 
   renderHTML({ HTMLAttributes }) {
     return ['th', HTMLAttributes, 0];
+  },
+
+  renderToReactEmail({ children, node, style }) {
+    const inlineStyles = inlineCssToJs(node.attrs?.style);
+    return (
+      <th
+        className={node.attrs?.class || undefined}
+        align={node.attrs?.align || node.attrs?.alignment}
+        style={{
+          ...style,
+          ...inlineStyles,
+        }}
+      >
+        {children}
+      </th>
+    );
   },
 });

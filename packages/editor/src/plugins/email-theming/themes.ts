@@ -752,6 +752,7 @@ const RESET_BASIC: ResetTheme = {
   button: {
     lineHeight: '100%',
     display: 'inline-block',
+    boxSizing: 'border-box' as const,
     paddingTop: '0.625em',
     paddingRight: '1.25em',
     paddingBottom: '0.625em',
@@ -805,6 +806,7 @@ const RESET_MINIMAL: ResetTheme = {
   button: {
     lineHeight: RESET_BASIC.button.lineHeight,
     display: RESET_BASIC.button.display,
+    boxSizing: RESET_BASIC.button.boxSizing,
   },
   image: RESET_BASIC.image,
   list: RESET_BASIC.list,

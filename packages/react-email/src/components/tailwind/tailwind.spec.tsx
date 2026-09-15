@@ -275,6 +275,19 @@ describe('Tailwind component', () => {
     expect(html).not.toMatch(/<table[^>]*style="[^"]*padding:1rem/);
   });
 
+  it('routes responsive padding classes on <Section> to the inner <td>', async () => {
+    const html = await render(
+      <Tailwind>
+        <Head />
+        <Section className="max-sm:px-5 max-sm:bg-red-500 px-9">x</Section>
+      </Tailwind>,
+    );
+
+    expect(html).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><style>@media (max-width:40rem){.max-sm_bg-red-500{background-color:rgb(251,44,54)!important}}@media (max-width:40rem){.max-sm_px-5{padding-right:1.25rem!important;padding-left:1.25rem!important}}</style></head><!--$--><!--head--><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" class="max-sm_bg-red-500"><tbody><tr><td class="max-sm_px-5" style="padding-right:2.25rem;padding-left:2.25rem">x</td></tr></tbody></table><!--/$-->"`,
+    );
+  });
+
   it('inlines Tailwind classes on <Column> onto its <td>', async () => {
     const html = await render(
       <Tailwind>

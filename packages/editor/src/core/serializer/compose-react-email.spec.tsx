@@ -433,6 +433,52 @@ describe('Button and image reset styles', () => {
     expect(result.html).toContain('Click me');
   });
 
+  it('includes box-sizing:border-box on a full-width padded button with the basic theme', async () => {
+    const content = docWithGlobalContent(
+      [
+        {
+          type: 'button',
+          attrs: {
+            href: 'https://example.com',
+            class: 'button',
+            style:
+              'width:100%;padding-top:12px;padding-right:20px;padding-bottom:12px;padding-left:20px',
+          },
+          content: [{ type: 'text', text: 'Click me' }],
+        },
+      ],
+      basicTheme,
+      'basic',
+    );
+
+    const ed = createEditorWithContent(content, [EmailTheming]);
+    const result = await composeReactEmail({ editor: ed, preview: '' });
+
+    const anchor = result.html.match(/<a[^>]*class="button"[^>]*>/)?.[0] ?? '';
+    expect(anchor).toMatch(/box-sizing:\s*border-box/);
+    expect(anchor).toMatch(/[;"]width:\s*100%/);
+  });
+
+  it('includes box-sizing:border-box on buttons with the minimal theme', async () => {
+    const content = docWithGlobalContent(
+      [
+        {
+          type: 'button',
+          attrs: { href: 'https://example.com', class: 'button' },
+          content: [{ type: 'text', text: 'Click me' }],
+        },
+      ],
+      basicTheme,
+      'minimal',
+    );
+
+    const ed = createEditorWithContent(content, [EmailTheming]);
+    const result = await composeReactEmail({ editor: ed, preview: '' });
+
+    const anchor = result.html.match(/<a[^>]*class="button"[^>]*>/)?.[0] ?? '';
+    expect(anchor).toMatch(/box-sizing:\s*border-box/);
+  });
+
   it('includes line-height:100% on buttons with the minimal theme', async () => {
     const content = docWithGlobalContent(
       [

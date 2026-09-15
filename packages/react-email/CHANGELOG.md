@@ -1,5 +1,15 @@
 # react-email
 
+## 6.9.5
+
+### Patch Changes
+
+- 0250981: fix responsive padding not applying to inner td for Container and Section
+
+## 6.9.4
+
+## 6.9.3
+
 ## 6.9.2
 
 ## 6.9.1
