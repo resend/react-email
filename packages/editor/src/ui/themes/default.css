@@ -398,7 +398,7 @@
 }
 
 .tiptap p.is-empty::before,
-.tiptap .node-heading.is-empty::before {
+.tiptap .node-heading.is-empty [data-placeholder]::before {
   opacity: 0.3;
   float: left;
   content: attr(data-placeholder);
