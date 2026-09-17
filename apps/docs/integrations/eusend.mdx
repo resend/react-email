@@ -1,0 +1,82 @@
+---
+title: "Send email using eusend"
+sidebarTitle: "eusend"
+description: "Learn how to send an email using React Email and the eusend Node.js SDK."
+"og:image": "https://react.email/static/covers/react-email.png"
+---
+
+## 1. Install dependencies
+
+Get the [react-email](https://www.npmjs.com/package/react-email) package and the [eusend Node.js SDK](https://www.npmjs.com/package/@eusend_dev/sdk).
+
+<CodeGroup>
+
+```sh npm
+npm install @eusend_dev/sdk react-email
+```
+
+```sh yarn
+yarn add @eusend_dev/sdk react-email
+```
+
+```sh pnpm
+pnpm add @eusend_dev/sdk react-email
+```
+
+```sh bun
+bun add @eusend_dev/sdk react-email
+```
+
+</CodeGroup>
+
+## 2. Create an email using React
+
+Start by building your email template in a `.jsx` or `.tsx` file.
+
+```tsx email.tsx
+import { Button, Html } from "react-email";
+
+interface EmailProps {
+  url: string;
+}
+
+export function Email({ url }: EmailProps) {
+  return (
+    <Html lang="en">
+      <Button href={url}>Click me</Button>
+    </Html>
+  );
+}
+```
+
+## 3. Convert to HTML and send email
+
+Import the email template you just built, convert into an HTML string, and use the eusend SDK to send it.
+
+```tsx
+import { Eusend } from "@eusend_dev/sdk";
+import { render } from "react-email";
+import { Email } from "./email";
+
+const eusend = new Eusend(process.env.EUSEND_API_KEY);
+
+const emailHtml = await render(<Email url="https://example.com" />);
+
+await eusend.emails.send({
+  from: "you@example.com",
+  to: "user@gmail.com",
+  subject: "hello world",
+  html: emailHtml,
+});
+```
+
+## Try it yourself
+
+<Card
+  title="eusend example"
+  icon="arrow-up-right-from-square"
+  iconType="duotone"
+  href="https://github.com/resend/react-email/tree/main/examples/eusend"
+>
+  See the full source code.
+</Card>
