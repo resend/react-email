@@ -24,6 +24,13 @@ describe('stripImagePreloadLinks()', () => {
     expect(stripImagePreloadLinks(html)).toBe('<head></head>');
   });
 
+  it('removes image preloads with imagesrcset or imagesizes when as="image" is omitted', () => {
+    const html =
+      '<head><link rel="preload" imagesrcset="logo.png 2x"/><link rel="preload" imagesizes="100vw"/></head>';
+
+    expect(stripImagePreloadLinks(html)).toBe('<head></head>');
+  });
+
   it('keeps user-authored non-image preloads', () => {
     const html =
       '<head><link rel="preload" as="style" href="styles.css"/><link rel="preload" as="font" href="font.woff2"/></head>';
