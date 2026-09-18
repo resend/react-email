@@ -18,7 +18,7 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 import { EditorFocusScope } from '../editor-focus-scope';
-import { CommandList } from './command-list';
+import { CommandList, orderItemsByCategory } from './command-list';
 import { defaultSlashCommands } from './commands';
 import { filterAndRankItems } from './search';
 import type { SlashCommandItem, SlashCommandRootProps } from './types';
@@ -51,7 +51,12 @@ function defaultFilterItems(
       )
     : items;
 
-  return filterAndRankItems(filtered, query);
+  const ranked = filterAndRankItems(filtered, query);
+
+  // Without a query the list is rendered grouped by category, so hand the
+  // items over in that same order and the arrow keys move down the list the
+  // way it is displayed. With a query the list is flat and ranked by score.
+  return query.trim() ? ranked : orderItemsByCategory(ranked);
 }
 
 export function SlashCommandRoot({

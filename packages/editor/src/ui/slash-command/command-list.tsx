@@ -4,21 +4,27 @@ import { updateScrollView } from './utils';
 
 const CATEGORY_ORDER = ['Text', 'Media', 'Layout', 'Utility'];
 
+/** An item together with its index in the list the root holds. */
+interface IndexedItem {
+  item: SlashCommandItem;
+  index: number;
+}
+
 function groupByCategory(
   items: SlashCommandItem[],
-): { category: string; items: SlashCommandItem[] }[] {
-  const seen = new Map<string, SlashCommandItem[]>();
+): { category: string; items: IndexedItem[] }[] {
+  const seen = new Map<string, IndexedItem[]>();
 
-  for (const item of items) {
+  items.forEach((item, index) => {
     const existing = seen.get(item.category);
     if (existing) {
-      existing.push(item);
+      existing.push({ item, index });
     } else {
-      seen.set(item.category, [item]);
+      seen.set(item.category, [{ item, index }]);
     }
-  }
+  });
 
-  const ordered: { category: string; items: SlashCommandItem[] }[] = [];
+  const ordered: { category: string; items: IndexedItem[] }[] = [];
   for (const cat of CATEGORY_ORDER) {
     const group = seen.get(cat);
     if (group) {
@@ -31,6 +37,19 @@ function groupByCategory(
   }
 
   return ordered;
+}
+
+/**
+ * The order the grouped list is rendered in. Keeping the items in this order
+ * means a row has the same index on both sides: the one `onSelect` and the
+ * arrow keys resolve against, and the one it is rendered at.
+ */
+export function orderItemsByCategory(
+  items: SlashCommandItem[],
+): SlashCommandItem[] {
+  return groupByCategory(items).flatMap((group) =>
+    group.items.map(({ item }) => item),
+  );
 }
 
 interface CommandItemProps {
@@ -98,7 +117,6 @@ export function CommandList({
   }
 
   const groups = groupByCategory(items);
-  let flatIndex = 0;
 
   return (
     <div data-re-slash-command="">
@@ -106,17 +124,14 @@ export function CommandList({
         {groups.map((group) => (
           <div key={group.category}>
             <div data-re-slash-command-category="">{group.category}</div>
-            {group.items.map((item) => {
-              const currentIndex = flatIndex++;
-              return (
-                <CommandItem
-                  item={item}
-                  key={item.title}
-                  onSelect={() => onSelect(currentIndex)}
-                  selected={currentIndex === selectedIndex}
-                />
-              );
-            })}
+            {group.items.map(({ item, index }) => (
+              <CommandItem
+                item={item}
+                key={item.title}
+                onSelect={() => onSelect(index)}
+                selected={index === selectedIndex}
+              />
+            ))}
           </div>
         ))}
       </div>
