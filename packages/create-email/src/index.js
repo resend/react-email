@@ -19,6 +19,14 @@ const getLatestVersionOfTag = async (packageName, tag) => {
   const response = await fetch(
     `https://registry.npmjs.org/${packageName}/${tag}`,
   );
+
+  if (!response.ok) {
+    console.error(
+      `Failed to fetch tag ${tag} for ${packageName}: HTTP ${response.status}`,
+    );
+    process.exit(1);
+  }
+
   const data = await response.json();
 
   if (typeof data === 'string' && data.startsWith('version not found')) {
@@ -28,8 +36,9 @@ const getLatestVersionOfTag = async (packageName, tag) => {
 
   const { version } = data;
 
-  if (!/^\d+\.\d+\.\d+.*$/.test(version)) {
+  if (!version || !/^\d+\.\d+\.\d+.*$/.test(version)) {
     console.error('Invalid version received, something has gone very wrong.');
+    process.exit(1);
   }
 
   return version;
