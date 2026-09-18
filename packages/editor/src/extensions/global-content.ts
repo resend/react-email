@@ -1,4 +1,9 @@
-import { type Editor, mergeAttributes, Node } from '@tiptap/core';
+import {
+  type Editor,
+  type JSONContent,
+  mergeAttributes,
+  Node,
+} from '@tiptap/core';
 
 const GLOBAL_CONTENT_NODE_TYPE = 'globalContent' as const;
 
@@ -55,6 +60,35 @@ export function getGlobalContent(key: string, editor: Editor): unknown | null {
     return null;
   }
   return editor.state.doc.nodeAt(position)?.attrs.data[key] ?? null;
+}
+
+function findGlobalContentNode(nodes: JSONContent[]): JSONContent | null {
+  for (const node of nodes) {
+    if (node.type === GLOBAL_CONTENT_NODE_TYPE) {
+      return node;
+    }
+    if (node.content) {
+      const nested = findGlobalContentNode(node.content);
+      if (nested) {
+        return nested;
+      }
+    }
+  }
+  return null;
+}
+
+/**
+ * Reads a `globalContent` value straight from a document's JSON, without an
+ * editor. Pure and cache-free, so it is safe for server workloads that
+ * serialize many documents concurrently.
+ */
+export function getGlobalContentFromJSON(
+  key: string,
+  doc: JSONContent,
+): unknown | null {
+  const node = findGlobalContentNode(doc.content ?? []);
+  const data = node?.attrs?.data as Record<string, unknown> | undefined;
+  return data?.[key] ?? null;
 }
 
 export const GlobalContent = Node.create<GlobalContentOptions>({
