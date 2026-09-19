@@ -38,6 +38,42 @@ type ExportTemplatesOptions = Options & {
   pretty?: boolean;
 };
 
+/**
+ * The export directory is removed recursively before writing, so refuse the
+ * removal when it would delete the project being exported, the email template
+ * sources, or the filesystem root.
+ */
+export const isUnsafeDirectoryToRemove = (
+  directoryToRemove: string,
+  emailsDirectoryPath: string,
+  cwd: string,
+): boolean => {
+  const resolvedDirectoryToRemove = path.resolve(cwd, directoryToRemove);
+  const resolvedEmailsDirectory = path.resolve(cwd, emailsDirectoryPath);
+
+  if (
+    resolvedDirectoryToRemove === path.parse(resolvedDirectoryToRemove).root
+  ) {
+    return true;
+  }
+
+  if (resolvedDirectoryToRemove === cwd) {
+    return true;
+  }
+
+  if (cwd.startsWith(`${resolvedDirectoryToRemove}${path.sep}`)) {
+    return true;
+  }
+
+  if (resolvedDirectoryToRemove === resolvedEmailsDirectory) {
+    return true;
+  }
+
+  return resolvedEmailsDirectory.startsWith(
+    `${resolvedDirectoryToRemove}${path.sep}`,
+  );
+};
+
 // Batch so esbuild's Go-side dep graph isn't held for every entry at once.
 const BUILD_BATCH_SIZE = 10;
 
@@ -113,8 +149,36 @@ export const exportTemplates = async (
     process.exit(1);
   }
 
-  if (fs.existsSync(pathToWhereEmailMarkupShouldBeDumped)) {
-    fs.rmSync(pathToWhereEmailMarkupShouldBeDumped, { recursive: true });
+  const resolvedPathToWhereEmailMarkupShouldBeDumped = path.resolve(
+    process.cwd(),
+    pathToWhereEmailMarkupShouldBeDumped,
+  );
+
+  if (fs.existsSync(resolvedPathToWhereEmailMarkupShouldBeDumped)) {
+    if (
+      isUnsafeDirectoryToRemove(
+        resolvedPathToWhereEmailMarkupShouldBeDumped,
+        emailsDirectoryPath,
+        process.cwd(),
+      )
+    ) {
+      const message = `Refusing to remove "${resolvedPathToWhereEmailMarkupShouldBeDumped}" because the export directory would delete your project, your email templates, or the filesystem root. Choose a different --outDir.`;
+
+      if (spinner) {
+        stopSpinnerAndPersist(spinner, {
+          symbol: logSymbols.error,
+          text: message,
+        });
+      } else {
+        console.error(message);
+      }
+
+      process.exit(1);
+    }
+
+    fs.rmSync(resolvedPathToWhereEmailMarkupShouldBeDumped, {
+      recursive: true,
+    });
   }
 
   const allTemplates = getEmailTemplatesFromDirectory(emailsDirectoryMetadata);
