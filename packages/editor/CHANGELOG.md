@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.7.8
+
+### Patch Changes
+
+- 91feb4b: Show the placeholder text on empty headings.
+
 ## 1.7.7
 
 ### Patch Changes
