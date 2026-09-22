@@ -6,6 +6,7 @@ export const getEnvVariablesForPreviewApp = (
   cwd: string,
   resendApiKey?: string,
   compatibilityClients?: string,
+  esbuildPluginsPath?: string,
 ) => {
   return {
     REACT_EMAIL_INTERNAL_EMAILS_DIR_RELATIVE_PATH:
@@ -20,6 +21,12 @@ export const getEnvVariablesForPreviewApp = (
     // Only spread the key when set so a user-provided env var isn't clobbered.
     ...(compatibilityClients !== undefined && {
       COMPATIBILITY_EMAIL_CLIENTS: compatibilityClients,
+    }),
+    ...(esbuildPluginsPath !== undefined && {
+      REACT_EMAIL_INTERNAL_ESBUILD_PLUGINS_PATH: path.resolve(
+        cwd,
+        esbuildPluginsPath,
+      ),
     }),
   } as const;
 };

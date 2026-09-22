@@ -13,6 +13,10 @@ export const emailsDirectoryAbsolutePath =
 /** ONLY ACCESSIBLE ON THE SERVER */
 export const resendApiKey = process.env.REACT_EMAIL_INTERNAL_RESEND_API_KEY;
 
+/** ONLY ACCESSIBLE ON THE SERVER */
+export const esbuildPluginsPath =
+  process.env.REACT_EMAIL_INTERNAL_ESBUILD_PLUGINS_PATH;
+
 export const isBuilding = process.env.NEXT_PUBLIC_IS_BUILDING === 'true';
 
 export const isPreviewDevelopment =

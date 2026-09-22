@@ -7,6 +7,7 @@ import { glob } from 'glob';
 import logSymbols from 'log-symbols';
 import normalize from 'normalize-path';
 import { inlineCssLoader } from '../utils/esbuild/inline-css-loader.js';
+import { loadEsbuildPlugins } from '../utils/esbuild/load-esbuild-plugins.js';
 import { renderingUtilitiesExporter } from '../utils/esbuild/renderring-utilities-exporter.js';
 import {
   type EmailsDirectory,
@@ -36,6 +37,8 @@ type ExportTemplatesOptions = Options & {
   extension?: string;
   silent?: boolean;
   pretty?: boolean;
+  /** Path to a module exporting the esbuild plugins to apply when bundling templates */
+  esbuildPlugins?: string;
 };
 
 // Batch so esbuild's Go-side dep graph isn't held for every entry at once.
@@ -119,6 +122,12 @@ export const exportTemplates = async (
 
   const allTemplates = getEmailTemplatesFromDirectory(emailsDirectoryMetadata);
 
+  const userPlugins = options.esbuildPlugins
+    ? await loadEsbuildPlugins(
+        path.resolve(process.cwd(), options.esbuildPlugins),
+      )
+    : [];
+
   try {
     for (let i = 0; i < allTemplates.length; i += BUILD_BATCH_SIZE) {
       const batch = allTemplates.slice(i, i + BUILD_BATCH_SIZE);
@@ -133,7 +142,11 @@ export const exportTemplates = async (
         outExtension: { '.js': '.cjs' },
         outdir: pathToWhereEmailMarkupShouldBeDumped,
         platform: 'node',
-        plugins: [inlineCssLoader(), renderingUtilitiesExporter(batch)],
+        plugins: [
+          inlineCssLoader(),
+          renderingUtilitiesExporter(batch),
+          ...userPlugins,
+        ],
         write: true,
       });
       await stop();

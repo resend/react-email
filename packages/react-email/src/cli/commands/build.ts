@@ -15,6 +15,7 @@ import { createSpinner, stopSpinnerAndPersist } from '../utils/spinner.js';
 interface Args {
   dir: string;
   packageManager?: string;
+  esbuildPlugins?: string;
 }
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -24,8 +25,14 @@ const setNextEnvironmentVariablesForBuild = async (
   emailsDirRelativePath: string,
   builtPreviewAppPath: string,
   usersProjectLocation: string,
+  esbuildPluginsPath?: string,
 ) => {
   const rootDir = await getTracingRootDir(usersProjectLocation);
+  const esbuildPluginsAbsolutePath = esbuildPluginsPath
+    ? path
+        .resolve(usersProjectLocation, esbuildPluginsPath)
+        .replaceAll('\\', '/')
+    : undefined;
   const nextConfigContents = `
 import path from 'path';
 const emailsDirRelativePath = path.normalize('${emailsDirRelativePath}');
@@ -39,7 +46,12 @@ const nextConfig = {
     REACT_EMAIL_INTERNAL_EMAILS_DIR_RELATIVE_PATH: emailsDirRelativePath,
     REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH: path.resolve(userProjectLocation, emailsDirRelativePath),
     REACT_EMAIL_INTERNAL_PREVIEW_SERVER_LOCATION: previewServerLocation,
-    REACT_EMAIL_INTERNAL_USER_PROJECT_LOCATION: userProjectLocation
+    REACT_EMAIL_INTERNAL_USER_PROJECT_LOCATION: userProjectLocation,
+    ${
+      esbuildPluginsAbsolutePath
+        ? `REACT_EMAIL_INTERNAL_ESBUILD_PLUGINS_PATH: '${esbuildPluginsAbsolutePath}',`
+        : ''
+    }
   },
   turbopack: {
     root: rootDir,
@@ -170,6 +182,7 @@ const updatePackageJson = async (builtUiPath: string) => {
 export const build = async ({
   dir: emailsDirRelativePath,
   packageManager,
+  esbuildPlugins,
 }: Args) => {
   if (packageManager) {
     console.warn(
@@ -239,6 +252,7 @@ export const build = async ({
       emailsDirRelativePath,
       builtPreviewAppPath,
       usersProjectLocation,
+      esbuildPlugins,
     );
 
     spinner.setText(

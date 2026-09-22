@@ -34,6 +34,7 @@ export const startDevServer = async (
   staticBaseDirRelativePath: string,
   port: number,
   compatibilityClients?: string,
+  esbuildPluginsPath?: string,
 ): Promise<http.Server> => {
   const [major = 0, minor = 0] = process.versions.node.split('.').map(Number);
   if (major < 20 || (major === 20 && minor < 19)) {
@@ -102,6 +103,7 @@ export const startDevServer = async (
       staticBaseDirRelativePath,
       nextPortToTry,
       compatibilityClients,
+      esbuildPluginsPath,
     );
   }
 
@@ -140,6 +142,7 @@ export const startDevServer = async (
       process.cwd(),
       conf.get('resendApiKey'),
       compatibilityClients,
+      esbuildPluginsPath,
     ),
   };
   if (!process.env.ESBUILD_BINARY_PATH) {

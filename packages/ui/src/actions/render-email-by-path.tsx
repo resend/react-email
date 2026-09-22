@@ -13,6 +13,7 @@ import {
 } from '../app/env';
 import { convertStackWithSourceMap } from '../utils/convert-stack-with-sourcemap';
 import { createJsxRuntime } from '../utils/create-jsx-runtime';
+import { getUserEsbuildPlugins } from '../utils/esbuild/load-esbuild-plugins';
 import { getEmailComponent } from '../utils/get-email-component';
 import { isPathWithinEmailsDirectory } from '../utils/is-path-within-emails-directory';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
@@ -214,7 +215,11 @@ export const renderEmailByPath = async (
   );
 
   const timeBeforeEmailBundled = performance.now();
-  const componentResult = await getEmailComponent(emailPath, jsxRuntimePath);
+  const componentResult = await getEmailComponent(
+    emailPath,
+    jsxRuntimePath,
+    await getUserEsbuildPlugins(),
+  );
   const millisecondsToBundled = performance.now() - timeBeforeEmailBundled;
 
   if ('error' in componentResult) {

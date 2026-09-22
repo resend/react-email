@@ -30,6 +30,14 @@ Starts a local development server that will watch your files and automatically r
 npx react-email dev
 ```
 
+Templates are bundled with [esbuild](https://esbuild.github.io/). To run additional esbuild plugins, for example a compile-time transform your templates depend on, pass `--esbuild-plugins` with the path to a module whose default export is an array of plugins (or a function returning one):
+
+```sh
+npx react-email dev --esbuild-plugins ./esbuild-plugins.mjs
+```
+
+The same option is accepted by `email build` and `email export`.
+
 ### `email export`
 
 Generates the plain HTML files of your emails into a `out` directory.

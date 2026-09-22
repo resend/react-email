@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { loadEsbuildPlugins } from './esbuild/load-esbuild-plugins';
 import { getEmailComponent } from './get-email-component';
 
 describe('getEmailComponent()', () => {
@@ -231,6 +232,31 @@ describe('getEmailComponent()', () => {
         </html>
         "
       `);
+    }
+  });
+
+  test('with user esbuild plugins', { timeout: 10_000 }, async () => {
+    const plugins = await loadEsbuildPlugins(
+      path.resolve(__dirname, './testing/esbuild-plugins.mjs'),
+    );
+    const result = await getEmailComponent(
+      path.resolve(__dirname, './testing/vercel-invite-user.tsx'),
+      path.resolve(__dirname, '../../jsx-runtime'),
+      plugins,
+    );
+
+    if ('error' in result) {
+      console.log(result.error);
+      expect('error' in result).toBe(false);
+    } else {
+      const emailHtml = await result.render(
+        result.createElement(
+          result.emailComponent,
+          result.emailComponent.PreviewProps,
+        ),
+      );
+      expect(emailHtml).toContain('Join Alan on Resend');
+      expect(emailHtml).not.toContain('Join Alan on Vercel');
     }
   });
 });
