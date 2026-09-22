@@ -1,3 +1,4 @@
+import type { DecorationWithType } from '@tiptap/core';
 import type { HeadingOptions as TipTapHeadingOptions } from '@tiptap/extension-heading';
 import { Heading as TipTapHeading } from '@tiptap/extension-heading';
 import { Heading as EmailHeading } from 'react-email';
@@ -13,10 +14,20 @@ import { EmailNode } from '../core';
 import { getTextAlignment } from '../utils/get-text-alignment';
 import { inlineCssToJs } from '../utils/styles';
 
+const getPlaceholder = (decorations: readonly DecorationWithType[]) =>
+  decorations
+    .map(
+      (decoration) =>
+        (decoration.type as { attrs?: Record<string, string> }).attrs?.[
+          'data-placeholder'
+        ],
+    )
+    .find(Boolean);
+
 export const Heading: EmailNode<TipTapHeadingOptions, any> = EmailNode.from(
   TipTapHeading.extend({
     addNodeView() {
-      return ReactNodeViewRenderer(({ node }) => {
+      return ReactNodeViewRenderer(({ node, decorations }) => {
         const level = (node.attrs.level as number) ?? 1;
         const { class: className, ...rest } = node.attrs;
 
@@ -24,6 +35,7 @@ export const Heading: EmailNode<TipTapHeadingOptions, any> = EmailNode.from(
           ...rest,
           className: `node-h${level} ${className}`,
           style: inlineCssToJs(node.attrs.style),
+          'data-placeholder': getPlaceholder(decorations),
         };
 
         return (
