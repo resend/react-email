@@ -122,7 +122,8 @@
               "integrations/scaleway",
               "integrations/plunk",
               "integrations/lettermint",
-              "integrations/eusend"
+              "integrations/eusend",
+              "integrations/brevo"
             ]
           },
           {
