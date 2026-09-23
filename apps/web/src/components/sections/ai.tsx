@@ -55,17 +55,19 @@ const AISection = () => {
                 </div>
                 <Text
                   size="3"
-                  className="relative z-4 text-gradient opacity-90 font-[460] tracking-tight"
+                  className="relative z-4 grid opacity-90 font-[460] tracking-tight"
                   aria-live="polite"
                 >
-                  <span className={isCopied ? 'invisible' : undefined}>
+                  <span
+                    className={`text-gradient [grid-area:1/1] ${isCopied ? 'invisible' : ''}`}
+                  >
                     {item.title}
                   </span>
-                  {isCopied ? (
-                    <span className="absolute inset-0 flex items-center justify-center">
-                      Copied
-                    </span>
-                  ) : null}
+                  <span
+                    className={`text-gradient [grid-area:1/1] ${isCopied ? '' : 'invisible'}`}
+                  >
+                    Copied
+                  </span>
                 </Text>
               </button>
             </li>
