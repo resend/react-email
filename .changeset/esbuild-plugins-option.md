@@ -3,4 +3,4 @@
 '@react-email/ui': minor
 ---
 
-Add an `--esbuild-plugins <path>` option to `email dev`, `email build` and `email export` that loads custom esbuild plugins to apply when bundling templates, for example to run a compile-time transform such as Lingui's macros.
+Add `--esbuild-plugins` to `email dev`, `email build` and `email export`, so templates that need a custom compile-time transform or plugin-resolved imports can be previewed and exported.
