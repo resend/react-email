@@ -1,5 +1,5 @@
 import { Footer } from '@/components/footer';
-import AISection from '@/components/sections/ai';
+import AiSection from '@/components/sections/ai';
 import { EditorHomepage } from '@/components/sections/editor';
 import HeroSection from '@/components/sections/hero';
 import IntegrationSection from '@/components/sections/integration';
@@ -13,7 +13,7 @@ const Home = () => (
   <main className="overflow-x-clip">
     <HeroSection />
     <div className="relative mx-auto flex flex-col justify-between px-2 md:max-w-7xl md:px-4">
-      <AISection />
+      <AiSection />
       <PlaygroundSection />
       <TestimonialSection />
       <PatternsSection />

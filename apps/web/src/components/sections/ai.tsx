@@ -9,7 +9,7 @@ import { Code } from '@/components/code';
 import { Heading } from '@/components/heading';
 import { Text } from '@/components/text';
 
-const AISection = () => {
+const AiSection = () => {
   const [copiedTitle, setCopiedTitle] = useState<string | null>(null);
 
   const handleCopy = async (item: (typeof items)[number]) => {
@@ -292,4 +292,4 @@ const items = [
   },
 ];
 
-export default AISection;
+export default AiSection;
