@@ -1,5 +1,11 @@
 # create-email
 
+## 1.2.6
+
+### Patch Changes
+
+- ac4d9df: Exit with an error when the npm registry request fails or returns an invalid version, instead of writing `undefined` into the starter's package.json.
+
 ## 1.2.5
 
 ### Patch Changes

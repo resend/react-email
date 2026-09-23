@@ -1,5 +1,15 @@
 # react-email
 
+## 6.10.0
+
+### Minor Changes
+
+- e9939f0: Upgrade `chokidar` to v5, which ships with npm provenance, so installs under pnpm's `trustPolicy: no-downgrade` no longer fail. The CLI now needs Node 20.19 or newer.
+
+### Patch Changes
+
+- 1b45ed0: The dev server now refuses to start on Node older than 20.19, which matches the package's declared minimum, and names the installed version in the error.
+
 ## 6.9.5
 
 ### Patch Changes
