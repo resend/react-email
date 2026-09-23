@@ -1,7 +1,5 @@
-/**
- * Centralized fallback for Node versions (<20.12.0) without util.styleText.
- * Returns the original text when styleText is unavailable.
- */
+// Node below 20.12 has no util.styleText. A static import of it would throw at
+// module load, before startDevServer can print its "upgrade Node" message.
 import * as nodeUtil from 'node:util';
 
 type StyleTextFunction = typeof nodeUtil.styleText;

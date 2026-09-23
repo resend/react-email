@@ -35,10 +35,10 @@ export const startDevServer = async (
   port: number,
   compatibilityClients?: string,
 ): Promise<http.Server> => {
-  const [majorNodeVersion] = process.versions.node.split('.');
-  if (majorNodeVersion && Number.parseInt(majorNodeVersion, 10) < 20) {
+  const [major = 0, minor = 0] = process.versions.node.split('.').map(Number);
+  if (major < 20 || (major === 20 && minor < 19)) {
     console.error(
-      ` ${logSymbols.error}  Node ${majorNodeVersion} is not supported. Please upgrade to Node 20 or higher.`,
+      ` ${logSymbols.error}  Node ${process.versions.node} is not supported. Please upgrade to Node 20.19 or higher.`,
     );
     process.exit(1);
   }
