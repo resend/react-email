@@ -43,7 +43,10 @@ const AiSection = () => {
           const isCopied = copiedTitle === item.title;
 
           return (
-            <li key={item.title} className="flex flex-col items-center justify-center gap-3">
+            <li
+              key={item.title}
+              className="flex flex-col items-center justify-center gap-3"
+            >
               <button
                 type="button"
                 onClick={() => {
@@ -253,7 +256,6 @@ const Icons = {
     </svg>
   ),
 };
-
 
 const installPrompt = (agent: string) =>
   `Install the React Email skill with \`npx skills add resend/react-email --agent ${agent}\`, then help me build an HTML email using React Email components. Docs: https://react.email/docs/llms.txt`;
