@@ -30,7 +30,7 @@ const AiSection = () => {
           weight="medium"
           className="inline-block text-white/80 max-md:mx-auto max-md:max-w-lg md:w-96"
         >
-          Build with any AI tool
+          Build with any AI
         </Heading>
         <div className="px-4 md:px-40">
           <Text size="5" className="opacity-70">
