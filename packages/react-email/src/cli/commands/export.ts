@@ -122,13 +122,13 @@ export const exportTemplates = async (
 
   const allTemplates = getEmailTemplatesFromDirectory(emailsDirectoryMetadata);
 
-  const userPlugins = options.esbuildPlugins
-    ? await loadEsbuildPlugins(
-        path.resolve(process.cwd(), options.esbuildPlugins),
-      )
-    : [];
-
   try {
+    const userPlugins = options.esbuildPlugins
+      ? await loadEsbuildPlugins(
+          path.resolve(process.cwd(), options.esbuildPlugins),
+        )
+      : [];
+
     for (let i = 0; i < allTemplates.length; i += BUILD_BATCH_SIZE) {
       const batch = allTemplates.slice(i, i + BUILD_BATCH_SIZE);
       await build({
