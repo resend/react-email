@@ -37,28 +37,35 @@ const AISection = () => {
           </Text>
         </div>
       </div>
-      <ul className="relative z-4 mx-auto grid w-fit grid-cols-3 gap-6 md:grid-cols-6 lg:gap-16">
+      <ul className="mx-auto grid w-fit grid-cols-3 gap-6 md:grid-cols-6 lg:gap-16">
         {items.map((item) => {
           const isCopied = copiedTitle === item.title;
 
           return (
-            <li key={item.title}>
+            <li key={item.title} className="flex flex-col items-center justify-center gap-3">
               <button
                 type="button"
                 onClick={() => {
                   void handleCopy(item);
                 }}
-                className="group flex flex-col items-center gap-3 rounded-[18px] outline-hidden transition-opacity hover:opacity-80 focus-visible:ring-1 focus-visible:ring-slate-7"
+                className="flex flex-col items-center justify-center gap-3 bg-transparent outline-hidden focus-visible:ring-1 focus-visible:ring-slate-7"
               >
-                <div className="flex size-20 items-center justify-center rounded-[18px] bg-linear-to-b from-zinc-800 to-zinc-950 shadow-[inset_0px_0px_0px_1px_rgba(255,255,255,0.1),inset_0px_1px_0px_rgb(255,255,255,0.15)] transition-transform duration-200 ease-in-out group-hover:-translate-y-1">
+                <div className="flex items-center w-20 h-20 shrink-0 grow justify-center bg-linear-to-b from-zinc-800 to-zinc-950 rounded-[18px] shadow-[0px_32px_64px_-16px_transparent,0px_16px_32px_-8px_transparent,0px_8px_16px_-4px_transparent,0px_4px_8px_-2px_transparent,0px_-8px_16px_-1px_transparent,0px_2px_4px_-1px_transparent,0px_0px_0px_1px_transparent,inset_0px_0px_0px_1px_rgba(255,255,255,0.1),inset_0px_1px_0px_rgb(255,255,255,0.15)]">
                   {item.icon}
                 </div>
                 <Text
                   size="3"
-                  className="text-gradient font-[460] tracking-tight opacity-90"
+                  className="relative z-4 text-gradient opacity-90 font-[460] tracking-tight"
                   aria-live="polite"
                 >
-                  {isCopied ? 'Copied' : item.title}
+                  <span className={isCopied ? 'invisible' : undefined}>
+                    {item.title}
+                  </span>
+                  {isCopied ? (
+                    <span className="absolute inset-0 flex items-center justify-center">
+                      Copied
+                    </span>
+                  ) : null}
                 </Text>
               </button>
             </li>
@@ -75,7 +82,7 @@ const AISection = () => {
       </div>
       <Image
         alt=""
-        className="pointer-events-none absolute inset-0 -top-40 z-3 select-none mix-blend-lighten opacity-60"
+        className="pointer-events-none absolute sm:-translate-x-48 -top-20 z-3 scale-110 select-none mix-blend-lighten opacity-100"
         fill
         src="/static/bg.png"
       />
@@ -90,7 +97,7 @@ const Blur = () => {
       className="pointer-events-none absolute inset-0 z-1"
       style={{
         background:
-          'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(37, 99, 235, 0.12) 0%, transparent 70%)',
+          'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(37, 99, 235, 0.06) 0%, transparent 70%)',
       }}
     />
   );
@@ -239,6 +246,7 @@ const Icons = {
     </svg>
   ),
 };
+
 
 const installPrompt = (agent: string) =>
   `Install the React Email skill with \`npx skills add resend/react-email --agent ${agent}\`, then help me build an HTML email using React Email components. Docs: https://react.email/docs/llms.txt`;
