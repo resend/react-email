@@ -215,10 +215,16 @@ export const renderEmailByPath = async (
   );
 
   const timeBeforeEmailBundled = performance.now();
-  const componentResult = await getEmailComponent(
-    emailPath,
-    jsxRuntimePath,
-    await getUserEsbuildPlugins(),
+  const componentResult = await getUserEsbuildPlugins().then(
+    (plugins) => getEmailComponent(emailPath, jsxRuntimePath, plugins),
+    (exception: Error) => ({
+      error: {
+        name: exception.name,
+        message: exception.message,
+        stack: exception.stack,
+        cause: exception.cause,
+      },
+    }),
   );
   const millisecondsToBundled = performance.now() - timeBeforeEmailBundled;
 
