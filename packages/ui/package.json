@@ -27,6 +27,7 @@
   ],
   "dependencies": {
     "esbuild": "catalog:",
+    "jiti": "2.6.1",
     "next": "catalog:"
   },
   "devDependencies": {

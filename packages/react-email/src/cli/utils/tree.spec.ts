@@ -6,6 +6,7 @@ test('tree(__dirname, 2)', async () => {
     ├── esbuild
     │   ├── escape-string-for-regex.ts
     │   ├── inline-css-loader.ts
+    │   ├── load-esbuild-plugins.ts
     │   └── renderring-utilities-exporter.ts
     ├── preview
     │   ├── hot-reloading

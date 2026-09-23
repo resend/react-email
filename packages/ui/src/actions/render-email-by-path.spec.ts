@@ -201,3 +201,51 @@ describe('renderEmailByPath() with preview props overrides', () => {
     expect(defaults.markup).toContain('alanturing');
   });
 });
+
+describe('renderEmailByPath() with esbuild plugins that fail to load', () => {
+  const emailsRoot = path.resolve(__dirname, '../utils/testing');
+  const emailPath = path.join(emailsRoot, 'vercel-invite-user.tsx');
+  const previewServerRoot = path.resolve(__dirname, '../..');
+
+  const managedEnv = {
+    REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH: emailsRoot,
+    REACT_EMAIL_INTERNAL_PREVIEW_SERVER_LOCATION: previewServerRoot,
+    REACT_EMAIL_INTERNAL_USER_PROJECT_LOCATION: previewServerRoot,
+    REACT_EMAIL_INTERNAL_ESBUILD_PLUGINS_PATH: path.join(
+      emailsRoot,
+      'esbuild-plugins-invalid.mjs',
+    ),
+  };
+  const previousEnvValues: Record<string, string | undefined> = {};
+
+  let render: typeof renderEmailByPath;
+
+  beforeAll(async () => {
+    for (const [name, value] of Object.entries(managedEnv)) {
+      previousEnvValues[name] = process.env[name];
+      process.env[name] = value;
+    }
+    vi.resetModules();
+    ({ renderEmailByPath: render } = await import('./render-email-by-path'));
+  });
+
+  afterAll(() => {
+    for (const name of Object.keys(managedEnv)) {
+      if (previousEnvValues[name] === undefined) {
+        delete process.env[name];
+      } else {
+        process.env[name] = previousEnvValues[name];
+      }
+    }
+  });
+
+  it('returns the loading error instead of throwing', {
+    timeout: 15_000,
+  }, async () => {
+    const result = await render(emailPath, true);
+
+    expect('error' in result).toBe(true);
+    if (!('error' in result)) return;
+    expect(result.error.message).toMatch(/array of esbuild plugins/);
+  });
+});

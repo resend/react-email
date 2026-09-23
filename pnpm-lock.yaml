@@ -840,6 +840,9 @@ importers:
       esbuild:
         specifier: 'catalog:'
         version: 0.28.1
+      jiti:
+        specifier: 2.6.1
+        version: 2.6.1
       next:
         specifier: 'catalog:'
         version: 16.3.3(@babel/core@7.29.6)(@types/node@22.19.18)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
