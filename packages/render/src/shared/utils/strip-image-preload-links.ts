@@ -21,7 +21,12 @@ export const stripImagePreloadLinks = (html: string): string => {
 
 const isImagePreloadLink = (tag: string): boolean => {
   const attributes = parseAttributes(tag);
-  return attributes.rel === 'preload' && attributes.as === 'image';
+  return (
+    attributes.rel === 'preload' &&
+    (attributes.as === 'image' ||
+      'imagesrcset' in attributes ||
+      'imagesizes' in attributes)
+  );
 };
 
 const ATTRIBUTE_PATTERN =
