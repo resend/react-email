@@ -25,7 +25,7 @@ const AiSection = () => {
   };
 
   return (
-    <section className="relative my-24 space-y-12 py-20 text-center max-md:px-6 md:space-y-16">
+    <section className="relative my-24 space-y-12 py-10 text-center max-md:px-6 md:space-y-16">
       <Blur />
       <div className="relative z-4 max-w-full space-y-4 text-center md:mx-auto md:max-w-160">
         <Heading
