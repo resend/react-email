@@ -13,7 +13,11 @@ const AiSection = () => {
   const [copiedTitle, setCopiedTitle] = useState<string | null>(null);
 
   const handleCopy = async (item: (typeof items)[number]) => {
-    await navigator.clipboard.writeText(item.prompt);
+    try {
+      await navigator.clipboard.writeText(item.prompt);
+    } catch {
+      return;
+    }
     setCopiedTitle(item.title);
     window.setTimeout(() => {
       setCopiedTitle((current) => (current === item.title ? null : current));
