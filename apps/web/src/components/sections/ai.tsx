@@ -1,9 +1,10 @@
 'use client';
 
+import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { CheckIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import { Button } from '@/components/button';
 import { Code } from '@/components/code';
 import { Heading } from '@/components/heading';
@@ -56,15 +57,15 @@ const AiSection = () => {
                 onClick={() => {
                   void handleCopy(item);
                 }}
-                className="flex flex-col items-center justify-center gap-3 bg-transparent outline-hidden focus-visible:ring-1 focus-visible:ring-slate-7"
+                className="group flex cursor-pointer flex-col items-center justify-center gap-3 bg-transparent outline-hidden focus-visible:ring-1 focus-visible:ring-slate-7"
               >
-                <div className="flex items-center w-20 h-20 shrink-0 grow justify-center bg-linear-to-b from-zinc-800 to-zinc-950 rounded-[18px] shadow-[0px_32px_64px_-16px_transparent,0px_16px_32px_-8px_transparent,0px_8px_16px_-4px_transparent,0px_4px_8px_-2px_transparent,0px_-8px_16px_-1px_transparent,0px_2px_4px_-1px_transparent,0px_0px_0px_1px_transparent,inset_0px_0px_0px_1px_rgba(255,255,255,0.1),inset_0px_1px_0px_rgb(255,255,255,0.15)]">
+                <Tile>
                   {isCopied ? (
                     <CheckIcon className="size-8 text-cyan-11" aria-hidden />
                   ) : (
                     item.icon
                   )}
-                </div>
+                </Tile>
                 <Text
                   size="3"
                   className="relative z-4 grid opacity-90 font-[460] tracking-tight"
@@ -101,6 +102,32 @@ const AiSection = () => {
         src="/static/bg.png"
       />
     </section>
+  );
+};
+
+const Tile = ({ children }: { children: ReactNode }) => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const background = useMotionTemplate`radial-gradient(60px circle at ${mouseX}px ${mouseY}px, rgb(187,243,254,0.6), transparent 80%)`;
+
+  return (
+    <div
+      className="relative rounded-[19px] p-px transition duration-200 ease-in-out group-hover:-translate-y-1"
+      onMouseMove={(e) => {
+        const { left, top } = e.currentTarget.getBoundingClientRect();
+
+        mouseX.set(e.clientX - left);
+        mouseY.set(e.clientY - top);
+      }}
+    >
+      <motion.div
+        className="pointer-events-none absolute inset-0 rounded-[19px] opacity-0 transition duration-300 group-hover:opacity-60"
+        style={{ background }}
+      />
+      <div className="relative flex items-center w-20 h-20 shrink-0 grow justify-center bg-linear-to-b from-zinc-800 to-zinc-950 rounded-[18px] shadow-[0px_32px_64px_-16px_transparent,0px_16px_32px_-8px_transparent,0px_8px_16px_-4px_transparent,0px_4px_8px_-2px_transparent,0px_-8px_16px_-1px_transparent,0px_2px_4px_-1px_transparent,0px_0px_0px_1px_transparent,inset_0px_0px_0px_1px_rgba(255,255,255,0.1),inset_0px_1px_0px_rgb(255,255,255,0.15)] transition duration-200 ease-in-out group-hover:shadow-[0px_32px_64px_-16px_transparent,0px_16px_32px_-8px_rgba(0,0,0,0.6),0px_8px_16px_-4px_transparent,0px_4px_8px_-2px_transparent,0px_-8px_16px_-1px_transparent,0px_2px_4px_-1px_transparent,0px_0px_0px_1px_transparent,inset_0px_0px_0px_1px_rgba(255,255,255,0.2),inset_0px_1px_0px_rgb(255,255,255,0.25)]">
+        {children}
+      </div>
+    </div>
   );
 };
 
