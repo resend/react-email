@@ -1,0 +1,115 @@
+---
+title: 'Custom esbuild plugins'
+sidebarTitle: 'esbuild plugins'
+description: 'Run your own esbuild plugins when React Email bundles your templates'
+'og:image': 'https://react.email/static/covers/react-email.png'
+icon: 'puzzle-piece'
+---
+
+To preview, build, and export your emails, React Email bundles each template with [esbuild](https://esbuild.github.io/).
+The `--esbuild-plugins` option adds your own [esbuild plugins](https://esbuild.github.io/plugins/) to that bundling step.
+
+Use it when a template depends on something only a bundler plugin can provide, such as:
+
+- A compile-time transform
+- Imports that need a custom resolver, like virtual modules or data fetched at build time
+- File types esbuild doesn't load on its own
+
+## 1. Create a plugins module
+
+Create a module whose default export is an array of esbuild plugins.
+It can also export a function that returns the array, sync or async, for plugins that need setup.
+The module can be written in JavaScript or TypeScript.
+
+This example lets templates import the latest releases of any GitHub repository, fetched while the template is bundled:
+
+```js esbuild-plugins.mjs
+const cache = new Map();
+
+export default [
+  {
+    name: 'github-releases',
+    setup(build) {
+      build.onResolve({ filter: /^github-releases:/ }, (args) => ({
+        path: args.path.slice('github-releases:'.length),
+        namespace: 'github-releases',
+      }));
+
+      build.onLoad(
+        { filter: /.*/, namespace: 'github-releases' },
+        async ({ path: repo }) => {
+          if (!cache.has(repo)) {
+            const response = await fetch(
+              `https://api.github.com/repos/${repo}/releases?per_page=3`,
+            );
+            if (!response.ok) {
+              throw new Error(`Could not fetch releases for ${repo}`);
+            }
+            const releases = await response.json();
+            cache.set(
+              repo,
+              releases.map((release) => ({
+                name: release.name || release.tag_name,
+                url: release.html_url,
+                body: release.body ?? '',
+              })),
+            );
+          }
+
+          return { contents: JSON.stringify(cache.get(repo)), loader: 'json' };
+        },
+      );
+    },
+  },
+];
+```
+
+<Info>
+  The preview server bundles a template again every time it renders it, so
+  cache anything expensive your plugins do, like the network request above.
+</Info>
+
+## 2. Use it in a template
+
+With the plugin in place, a template can import the releases like any other module:
+
+```jsx emails/whats-new.jsx
+import { Button, Heading, Html, Markdown, Section } from 'react-email';
+import releases from 'github-releases:resend/react-email';
+
+export default function WhatsNew() {
+  return (
+    <Html>
+      {releases.map((release) => (
+        <Section key={release.url}>
+          <Heading as="h2">{release.name}</Heading>
+          <Markdown>{release.body}</Markdown>
+          <Button href={release.url}>View on GitHub</Button>
+        </Section>
+      ))}
+    </Html>
+  );
+}
+```
+
+## 3. Pass the plugins module to the CLI
+
+Pass the module's path to every command that bundles your templates. The path is relative to the directory you run the command from.
+
+```json package.json
+{
+  "scripts": {
+    "dev": "email dev --esbuild-plugins ./esbuild-plugins.mjs",
+    "build": "email build --esbuild-plugins ./esbuild-plugins.mjs",
+    "export": "email export --esbuild-plugins ./esbuild-plugins.mjs"
+  }
+}
+```
+
+`email start` doesn't take the option, since it serves the app `email build` already bundled with your plugins.
+
+## Things to know
+
+- **Plugins are loaded once per process.** After editing a working plugins module, restart `email dev` for the changes to apply.
+- **Loading errors show in the preview.** If the plugins module fails to load, the preview shows the error, and picks up your fix on the next render without a restart.
+- **React Email's own plugins run first.**

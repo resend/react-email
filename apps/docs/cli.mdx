@@ -19,6 +19,9 @@ your email template when you make changes.
 <ResponseField name="--port" type="string" default="3000">
   Port to run dev server on
 </ResponseField>
+<ResponseField name="--esbuild-plugins" type="string">
+  Path to a module whose default export is an array of [esbuild plugins](/guides/esbuild-plugins), or a function returning one, to run when bundling your templates.
+</ResponseField>
 
 **F.A.Q**
 
@@ -147,6 +150,9 @@ Copies the preview app for onto `.react-email` and builds it.
 <ResponseField name="--packageManager" type="string" default="npm">
   Package manager to use on the installation of `.react-email`.
 </ResponseField>
+<ResponseField name="--esbuild-plugins" type="string">
+  Path to a module whose default export is an array of [esbuild plugins](/guides/esbuild-plugins), or a function returning one, to run when bundling your templates.
+</ResponseField>
 
 ## `email start`
 
@@ -193,6 +199,9 @@ Generates the plain HTML files of your emails into a `out` directory.
 <ResponseField name="--extension" type="string">
   Set a custom file extension for rendered templates (for example, `blade.php`). When omitted,
   the extension defaults to `.html`, or `.txt` when `--plainText` is enabled.
+</ResponseField>
+<ResponseField name="--esbuild-plugins" type="string">
+  Path to a module whose default export is an array of [esbuild plugins](/guides/esbuild-plugins), or a function returning one, to run when bundling your templates.
 </ResponseField>
 
 ## `email help <cmd>`

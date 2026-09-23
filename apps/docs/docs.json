@@ -75,7 +75,8 @@
                   "guides/internationalization/react-i18next",
                   "guides/internationalization/react-intl"
                 ]
-              }
+              },
+              "guides/esbuild-plugins"
             ]
           },
           {
