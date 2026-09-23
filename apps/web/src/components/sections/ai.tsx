@@ -1,14 +1,28 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 import { Button } from '@/components/button';
 import { Code } from '@/components/code';
 import { Heading } from '@/components/heading';
 import { Text } from '@/components/text';
 
 const AISection = () => {
+  const [copiedTitle, setCopiedTitle] = useState<string | null>(null);
+
+  const handleCopy = async (item: (typeof items)[number]) => {
+    await navigator.clipboard.writeText(item.prompt);
+    setCopiedTitle(item.title);
+    window.setTimeout(() => {
+      setCopiedTitle((current) => (current === item.title ? null : current));
+    }, 1500);
+  };
+
   return (
-    <section className="relative py-20 my-24 space-y-12 text-center max-md:px-6 md:space-y-16">
-      <div className="max-w-full space-y-4 text-center md:mx-auto md:max-w-160">
+    <section className="relative my-24 space-y-12 py-20 text-center max-md:px-6 md:space-y-16">
+      <Blur />
+      <div className="relative z-4 max-w-full space-y-4 text-center md:mx-auto md:max-w-160">
         <Heading
           as="h2"
           size="8"
@@ -23,22 +37,35 @@ const AISection = () => {
           </Text>
         </div>
       </div>
-      <ul className="mx-auto grid w-fit grid-cols-3 gap-6 md:grid-cols-6 lg:gap-16">
-        {items.map((item) => (
-          <li key={item.title} className="flex flex-col items-center gap-3">
-            <div className="flex size-20 items-center justify-center rounded-[18px] bg-linear-to-b from-zinc-800 to-zinc-950 shadow-[inset_0px_0px_0px_1px_rgba(255,255,255,0.1),inset_0px_1px_0px_rgb(255,255,255,0.15)]">
-              {item.icon}
-            </div>
-            <Text
-              size="3"
-              className="text-gradient font-[460] tracking-tight opacity-90"
-            >
-              {item.title}
-            </Text>
-          </li>
-        ))}
+      <ul className="relative z-4 mx-auto grid w-fit grid-cols-3 gap-6 md:grid-cols-6 lg:gap-16">
+        {items.map((item) => {
+          const isCopied = copiedTitle === item.title;
+
+          return (
+            <li key={item.title}>
+              <button
+                type="button"
+                onClick={() => {
+                  void handleCopy(item);
+                }}
+                className="group flex flex-col items-center gap-3 rounded-[18px] outline-hidden transition-opacity hover:opacity-80 focus-visible:ring-1 focus-visible:ring-slate-7"
+              >
+                <div className="flex size-20 items-center justify-center rounded-[18px] bg-linear-to-b from-zinc-800 to-zinc-950 shadow-[inset_0px_0px_0px_1px_rgba(255,255,255,0.1),inset_0px_1px_0px_rgb(255,255,255,0.15)] transition-transform duration-200 ease-in-out group-hover:-translate-y-1">
+                  {item.icon}
+                </div>
+                <Text
+                  size="3"
+                  className="text-gradient font-[460] tracking-tight opacity-90"
+                  aria-live="polite"
+                >
+                  {isCopied ? 'Copied' : item.title}
+                </Text>
+              </button>
+            </li>
+          );
+        })}
       </ul>
-      <div className="relative z-4 flex flex-wrap items-center justify-center gap-4 mb-0">
+      <div className="relative z-4 mb-0 flex flex-wrap items-center justify-center gap-4">
         <Code language="bash" className="w-auto! max-w-full">
           npx skills add resend/react-email
         </Code>
@@ -53,6 +80,19 @@ const AISection = () => {
         src="/static/bg.png"
       />
     </section>
+  );
+};
+
+const Blur = () => {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 z-1"
+      style={{
+        background:
+          'radial-gradient(ellipse 60% 50% at 50% 50%, rgba(37, 99, 235, 0.12) 0%, transparent 70%)',
+      }}
+    />
   );
 };
 
@@ -200,13 +240,41 @@ const Icons = {
   ),
 };
 
+const installPrompt = (agent: string) =>
+  `Install the React Email skill with \`npx skills add resend/react-email --agent ${agent}\`, then help me build an HTML email using React Email components. Docs: https://react.email/docs/llms.txt`;
+
 const items = [
-  { title: 'Claude Code', icon: <Icons.claude /> },
-  { title: 'Codex', icon: <Icons.codex /> },
-  { title: 'Cursor', icon: <Icons.cursor /> },
-  { title: 'Copilot', icon: <Icons.copilot /> },
-  { title: 'v0', icon: <Icons.v0 /> },
-  { title: 'Lovable', icon: <Icons.lovable /> },
+  {
+    title: 'Claude Code',
+    prompt: installPrompt('claude-code'),
+    icon: <Icons.claude />,
+  },
+  {
+    title: 'Codex',
+    prompt: installPrompt('codex'),
+    icon: <Icons.codex />,
+  },
+  {
+    title: 'Cursor',
+    prompt: installPrompt('cursor'),
+    icon: <Icons.cursor />,
+  },
+  {
+    title: 'Copilot',
+    prompt: installPrompt('github-copilot'),
+    icon: <Icons.copilot />,
+  },
+  {
+    title: 'v0',
+    prompt: installPrompt('eve'),
+    icon: <Icons.v0 />,
+  },
+  {
+    title: 'Lovable',
+    prompt:
+      'Import the React Email skill from https://github.com/resend/react-email (path: skills/react-email). Then help me build an HTML email using React Email components. Docs: https://react.email/docs/llms.txt',
+    icon: <Icons.lovable />,
+  },
 ];
 
 export default AISection;
