@@ -57,7 +57,7 @@ const nextConfig = {
     root: rootDir,
   },
   outputFileTracingRoot: rootDir,
-  serverExternalPackages: ['esbuild'],
+  serverExternalPackages: ['esbuild', 'jiti'],
   typescript: {
     ignoreBuildErrors: true
   },

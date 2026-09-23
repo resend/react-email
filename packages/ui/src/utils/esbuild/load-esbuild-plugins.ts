@@ -1,5 +1,7 @@
+import fs from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import type { Plugin } from 'esbuild';
+import { createJiti } from 'jiti';
 import { esbuildPluginsPath } from '../../app/env';
 
 type PluginsModuleExport = Plugin[] | (() => Plugin[] | Promise<Plugin[]>);
@@ -12,11 +14,20 @@ type PluginsModuleExport = Plugin[] | (() => Plugin[] | Promise<Plugin[]>);
 export const loadEsbuildPlugins = async (
   modulePath: string,
 ): Promise<Plugin[]> => {
-  const imported = (await import(
-    /* webpackIgnore: true */ /* turbopackIgnore: true */
-    pathToFileURL(modulePath).href
-  )) as { default?: PluginsModuleExport };
-  const exported = imported.default;
+  // jiti rather than `import()` so a TypeScript plugins module loads on every
+  // supported Node version, the same way the CLI's `export` loads it.
+  const jiti = createJiti(pathToFileURL(modulePath).href, {
+    moduleCache: false,
+  });
+  // Evaluating the source instead of `jiti.import()`, which hands `.mjs` and
+  // `.cjs` to Node's own loaders: their caches never evict, so a retry after
+  // a failed load would get the broken module back.
+  const evaluated = (await jiti.evalModule(
+    await fs.promises.readFile(modulePath, 'utf8'),
+    { filename: modulePath, async: true, forceTranspile: true },
+  )) as { default?: PluginsModuleExport } | PluginsModuleExport;
+  const exported =
+    evaluated && 'default' in evaluated ? evaluated.default : evaluated;
   const plugins = typeof exported === 'function' ? await exported() : exported;
   if (!Array.isArray(plugins)) {
     throw new Error(
@@ -34,6 +45,13 @@ let userPluginsPromise: Promise<Plugin[]> | undefined;
  */
 export const getUserEsbuildPlugins = (): Promise<Plugin[]> => {
   if (!esbuildPluginsPath) return Promise.resolve([]);
-  userPluginsPromise ??= loadEsbuildPlugins(esbuildPluginsPath);
+  userPluginsPromise ??= loadEsbuildPlugins(esbuildPluginsPath).catch(
+    (exception: unknown) => {
+      // Only a successful load is kept, so fixing the plugins module takes
+      // effect on the next render without restarting the preview server.
+      userPluginsPromise = undefined;
+      throw exception;
+    },
+  );
   return userPluginsPromise;
 };
