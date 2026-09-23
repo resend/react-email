@@ -7,7 +7,7 @@ import { Text } from '@/components/text';
 
 const AISection = () => {
   return (
-    <section className="relative my-24 space-y-12 text-center max-md:px-6 md:space-y-16">
+    <section className="relative py-20 my-24 space-y-12 text-center max-md:px-6 md:space-y-16">
       <div className="max-w-full space-y-4 text-center md:mx-auto md:max-w-160">
         <Heading
           as="h2"
@@ -38,7 +38,7 @@ const AISection = () => {
           </li>
         ))}
       </ul>
-      <div className="relative z-4 flex flex-wrap items-center justify-center gap-4">
+      <div className="relative z-4 flex flex-wrap items-center justify-center gap-4 mb-0">
         <Code language="bash" className="w-auto! max-w-full">
           npx skills add resend/react-email
         </Code>

@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 const TestimonialSection = () => {
   return (
-    <section className="relative z-4 mt-48 bg-background">
+    <section className="relative z-4 py-20 my-24 bg-background">
       <div className="relative overflow-hidden rounded-t-3xl border-t border-zinc-800 pt-16 sm:mask-[linear-gradient(to_right,transparent,black_30%,black_70%,transparent)]">
         <Line />
         <Blur />
