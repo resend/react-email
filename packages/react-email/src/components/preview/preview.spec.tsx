@@ -25,6 +25,14 @@ describe('<Preview> component', () => {
       `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><title>really longreally longreally longreally longreally longreally longreally longreally longreally longreally longreally longreally longreally longreally longreally longreally longreally longreally longre</title><!--$--><div style="display:none;overflow:hidden;line-height:1px;opacity:0;max-height:0;max-width:0" data-skip-in-text="true">really longreally longreally longreally longreally longreally longreally longreally longreally longreally longreally longreally longreally longreally longreally longreally longreally longreally longre</div><!--/$-->"`,
     );
   });
+
+  it('does not split a surrogate pair when truncating long text', async () => {
+    const text = `${'a'.repeat(199)}😀 and more`;
+    const actualOutput = await render(<Preview>{text}</Preview>);
+
+    expect(actualOutput).not.toContain('\uD83D');
+    expect(actualOutput).toContain(`<title>${'a'.repeat(199)}</title>`);
+  });
 });
 
 describe('renderWhiteSpace', () => {
