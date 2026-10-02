@@ -12,8 +12,6 @@ function makeItem(title: string, category: string): SlashCommandItem {
   };
 }
 
-// The categories are displayed as Text -> Media -> Layout, while the array
-// holds Media last, the way a custom command appended to the defaults does.
 const items = [
   makeItem('Text', 'Text'),
   makeItem('Divider', 'Layout'),
@@ -52,7 +50,6 @@ describe('CommandList', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Image' }));
 
-    // Image is displayed second but is items[2].
     expect(onSelect).toHaveBeenCalledWith(2);
   });
 

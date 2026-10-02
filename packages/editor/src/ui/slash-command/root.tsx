@@ -13,6 +13,7 @@ import {
   type ReactNode,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -51,12 +52,7 @@ function defaultFilterItems(
       )
     : items;
 
-  const ranked = filterAndRankItems(filtered, query);
-
-  // Without a query the list is rendered grouped by category, so hand the
-  // items over in that same order and the arrow keys move down the list the
-  // way it is displayed. With a query the list is flat and ranked by score.
-  return query.trim() ? ranked : orderItemsByCategory(ranked);
+  return filterAndRankItems(filtered, query);
 }
 
 export function SlashCommandRoot({
@@ -87,7 +83,13 @@ export function SlashCommandRoot({
   const suggestionItemsRef = useRef<SlashCommandItem[]>([]);
   const selectedIndexRef = useRef(0);
 
-  suggestionItemsRef.current = state.items;
+  const isGrouped = !children && !state.query.trim();
+  const items = useMemo(
+    () => (isGrouped ? orderItemsByCategory(state.items) : state.items),
+    [isGrouped, state.items],
+  );
+
+  suggestionItemsRef.current = items;
   selectedIndexRef.current = selectedIndex;
 
   const { refs, floatingStyles } = useFloating({
@@ -195,7 +197,7 @@ export function SlashCommandRoot({
   if (!editor || !state.active) return null;
 
   const renderProps = {
-    items: state.items,
+    items,
     query: state.query,
     selectedIndex,
     onSelect,

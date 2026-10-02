@@ -4,7 +4,6 @@ import { updateScrollView } from './utils';
 
 const CATEGORY_ORDER = ['Text', 'Media', 'Layout', 'Utility'];
 
-/** An item together with its index in the list the root holds. */
 interface IndexedItem {
   item: SlashCommandItem;
   index: number;
@@ -39,11 +38,6 @@ function groupByCategory(
   return ordered;
 }
 
-/**
- * The order the grouped list is rendered in. Keeping the items in this order
- * means a row has the same index on both sides: the one `onSelect` and the
- * arrow keys resolve against, and the one it is rendered at.
- */
 export function orderItemsByCategory(
   items: SlashCommandItem[],
 ): SlashCommandItem[] {
