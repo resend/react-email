@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.7.11
+
+### Patch Changes
+
+- 7d6ec3c: Run the slash command that was clicked when the categories are displayed out of array order.
+
 ## 1.7.10
 
 ### Patch Changes
