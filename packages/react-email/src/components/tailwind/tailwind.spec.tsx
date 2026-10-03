@@ -89,6 +89,18 @@ describe('Tailwind component', () => {
     `);
   });
 
+  it('resolves variables nested inside the definitions of other variables', async () => {
+    const html = await render(
+      <Tailwind>
+        <div className="shadow-md ring-2">default shadow color</div>
+      </Tailwind>,
+    );
+
+    expect(html).not.toContain('var(');
+    expect(html).toContain('0 4px 6px -1px rgb(0,0,0,0.1)');
+    expect(html).toContain('currentcolor');
+  });
+
   it('works with class manipulation done on components', async () => {
     const MyComponnt = (props: {
       className?: string;
