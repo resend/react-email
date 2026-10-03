@@ -1,0 +1,84 @@
+---
+title: "Send email using Mailchimp Transactional"
+sidebarTitle: "Mailchimp Transactional"
+description: "Learn how to send an email using React Email and the Mailchimp Transactional Node.js SDK."
+"og:image": "https://react.email/static/covers/react-email.png"
+---
+
+## 1. Install dependencies
+
+Get the [react-email](https://www.npmjs.com/package/react-email) package and the [Mailchimp Transactional Node.js SDK](https://www.npmjs.com/package/@mailchimp/mailchimp_transactional).
+
+<CodeGroup>
+
+```sh npm
+npm install @mailchimp/mailchimp_transactional react-email
+```
+
+```sh yarn
+yarn add @mailchimp/mailchimp_transactional react-email
+```
+
+```sh pnpm
+pnpm add @mailchimp/mailchimp_transactional react-email
+```
+
+```sh bun
+bun add @mailchimp/mailchimp_transactional react-email
+```
+
+</CodeGroup>
+
+## 2. Create an email using React
+
+Start by building your email template in a `.jsx` or `.tsx` file.
+
+```tsx email.tsx
+import { Button, Html } from "react-email";
+
+interface EmailProps {
+  url: string;
+}
+
+export function Email({ url }: EmailProps) {
+  return (
+    <Html lang="en">
+      <Button href={url}>Click me</Button>
+    </Html>
+  );
+}
+```
+
+## 3. Convert to HTML and send email
+
+Import the email template you just built, convert into an HTML string, and use the Mailchimp Transactional SDK to send it.
+
+```tsx
+import mailchimpTransactional from "@mailchimp/mailchimp_transactional";
+import { render } from "react-email";
+import { Email } from "./email";
+
+const mailchimp = mailchimpTransactional(process.env.MAILCHIMP_API_KEY || "");
+
+const emailHtml = await render(<Email url="https://example.com" />);
+
+await mailchimp.messages.send({
+  message: {
+    subject: "Hello world",
+    from_email: "hello@example.com",
+    to: [{ email: "hello@example.com", type: "to" }],
+    html: emailHtml,
+  },
+});
+```
+
+## Try it yourself
+
+<Card
+  title="Mailchimp Transactional example"
+  icon="arrow-up-right-from-square"
+  iconType="duotone"
+  href="https://github.com/resend/react-email/tree/main/examples/mailchimp-transactional"
+>
+  See the full source code.
+</Card>
