@@ -46,19 +46,30 @@ export const Preview = React.forwardRef<HTMLDivElement, PreviewProps>(
 Preview.displayName = 'Preview';
 markAsElement(Preview);
 
+const graphemeSegmenter = new Intl.Segmenter(undefined, {
+  granularity: 'grapheme',
+});
+
 /**
- * Cuts the text to `PREVIEW_MAX_LENGTH` without leaving half of a surrogate
- * pair (such as an emoji) at the end, which would render as a replacement character.
+ * Cuts the text to at most `PREVIEW_MAX_LENGTH` UTF-16 code units, only on
+ * whole visible characters (graphemes). Emoji made of several characters, such
+ * as families, flags and skin tones, are kept or dropped whole instead of
+ * leaving a stray joiner, half a flag or a lone surrogate at the end.
  */
 const truncate = (text: string) => {
-  const truncated = text.substring(0, PREVIEW_MAX_LENGTH);
-  const lastCharCode = truncated.charCodeAt(truncated.length - 1);
-  const splitsSurrogatePair =
-    lastCharCode >= 0xd800 &&
-    lastCharCode <= 0xdbff &&
-    text.length > PREVIEW_MAX_LENGTH;
+  if (text.length <= PREVIEW_MAX_LENGTH) {
+    return text;
+  }
 
-  return splitsSurrogatePair ? truncated.slice(0, -1) : truncated;
+  let end = 0;
+  for (const { segment } of graphemeSegmenter.segment(text)) {
+    if (end + segment.length > PREVIEW_MAX_LENGTH) {
+      break;
+    }
+    end += segment.length;
+  }
+
+  return text.slice(0, end);
 };
 
 const whiteSpaceCodes = '\xa0\u200C\u200B\u200D\u200E\u200F\uFEFF';

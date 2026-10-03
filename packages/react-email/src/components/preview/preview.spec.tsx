@@ -26,12 +26,45 @@ describe('<Preview> component', () => {
     );
   });
 
-  it('does not split a surrogate pair when truncating long text', async () => {
-    const text = `${'a'.repeat(199)}😀 and more`;
-    const actualOutput = await render(<Preview>{text}</Preview>);
+  describe('truncating multi-part emoji at the 200 character cut', () => {
+    const LONE_SURROGATE =
+      /[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/;
 
-    expect(actualOutput).not.toContain('\uD83D');
-    expect(actualOutput).toContain(`<title>${'a'.repeat(199)}</title>`);
+    const renderTitle = async (text: string) => {
+      const html = await render(<Preview>{text}</Preview>);
+      const title = /<title>(.*?)<\/title>/s.exec(html)?.[1];
+      expect(title).toBeDefined();
+      return title as string;
+    };
+
+    it.each([
+      ['a family', '👨‍👩‍👧'],
+      ['a flag', '🇺🇸'],
+      ['a skin-tone emoji', '👍🏽'],
+      ['a simple emoji', '😀'],
+    ])('keeps %s whole or drops it whole', async (_name, emoji) => {
+      // Slide the emoji across the cut so every split point inside it is hit.
+      for (let lead = 200 - emoji.length - 1; lead <= 200; lead++) {
+        const text = `${'a'.repeat(lead)}${emoji}${'b'.repeat(20)}`;
+        const title = await renderTitle(text);
+
+        expect(title).not.toMatch(LONE_SURROGATE);
+        expect(title.length).toBeLessThanOrEqual(200);
+        const room = 200 - lead - emoji.length;
+        expect(title).toBe(
+          room >= 0
+            ? `${'a'.repeat(lead)}${emoji}${'b'.repeat(room)}`
+            : 'a'.repeat(lead),
+        );
+      }
+    });
+  });
+
+  it('returns short text unchanged', async () => {
+    const text = `${'a'.repeat(196)}👍🏽`;
+    expect(text.length).toBe(200);
+    const html = await render(<Preview>{text}</Preview>);
+    expect(html).toContain(`<title>${text}</title>`);
   });
 });
 
