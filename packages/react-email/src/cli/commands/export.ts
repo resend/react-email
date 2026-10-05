@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { Worker } from 'node:worker_threads';
 import type { Options } from '@react-email/render';
@@ -38,40 +39,53 @@ type ExportTemplatesOptions = Options & {
   pretty?: boolean;
 };
 
-/**
- * The export directory is removed recursively before writing, so refuse the
- * removal when it would delete the project being exported, the email template
- * sources, or the filesystem root.
- */
-export const isUnsafeDirectoryToRemove = (
-  directoryToRemove: string,
+const isInside = (parent: string, child: string) =>
+  child.startsWith(`${parent}${path.sep}`);
+
+export const getUnsafeOutDirMessage = (
+  outDir: string,
   emailsDirectoryPath: string,
-  cwd: string,
-): boolean => {
-  const resolvedDirectoryToRemove = path.resolve(cwd, directoryToRemove);
+  { cwd, homeDirectory }: { cwd: string; homeDirectory: string },
+): string | undefined => {
+  const resolvedOutDir = path.resolve(cwd, outDir);
   const resolvedEmailsDirectory = path.resolve(cwd, emailsDirectoryPath);
+  const staticDirectory = path.join(resolvedEmailsDirectory, 'static');
+
+  if (resolvedOutDir === path.parse(resolvedOutDir).root) {
+    return "--outDir can't be the filesystem root.";
+  }
+
+  if (resolvedOutDir === homeDirectory) {
+    return "--outDir can't be your home directory.";
+  }
+
+  if (isInside(resolvedOutDir, homeDirectory)) {
+    return "--outDir can't contain your home directory.";
+  }
+
+  if (resolvedOutDir === cwd) {
+    return "--outDir can't be the project directory.";
+  }
+
+  if (isInside(resolvedOutDir, cwd)) {
+    return "--outDir can't contain the project directory.";
+  }
 
   if (
-    resolvedDirectoryToRemove === path.parse(resolvedDirectoryToRemove).root
+    resolvedOutDir === resolvedEmailsDirectory ||
+    isInside(resolvedOutDir, resolvedEmailsDirectory)
   ) {
-    return true;
+    return "--outDir can't contain your email templates.";
   }
 
-  if (resolvedDirectoryToRemove === cwd) {
-    return true;
+  if (
+    resolvedOutDir === staticDirectory ||
+    isInside(staticDirectory, resolvedOutDir)
+  ) {
+    return "--outDir can't be your static assets directory.";
   }
 
-  if (cwd.startsWith(`${resolvedDirectoryToRemove}${path.sep}`)) {
-    return true;
-  }
-
-  if (resolvedDirectoryToRemove === resolvedEmailsDirectory) {
-    return true;
-  }
-
-  return resolvedEmailsDirectory.startsWith(
-    `${resolvedDirectoryToRemove}${path.sep}`,
-  );
+  return undefined;
 };
 
 // Batch so esbuild's Go-side dep graph isn't held for every entry at once.
@@ -155,14 +169,14 @@ export const exportTemplates = async (
   );
 
   if (fs.existsSync(resolvedPathToWhereEmailMarkupShouldBeDumped)) {
-    if (
-      isUnsafeDirectoryToRemove(
-        resolvedPathToWhereEmailMarkupShouldBeDumped,
-        emailsDirectoryPath,
-        process.cwd(),
-      )
-    ) {
-      const message = `Refusing to remove "${resolvedPathToWhereEmailMarkupShouldBeDumped}" because the export directory would delete your project, your email templates, or the filesystem root. Choose a different --outDir.`;
+    const unsafeOutDirMessage = getUnsafeOutDirMessage(
+      resolvedPathToWhereEmailMarkupShouldBeDumped,
+      emailsDirectoryPath,
+      { cwd: process.cwd(), homeDirectory: os.homedir() },
+    );
+
+    if (unsafeOutDirMessage) {
+      const message = `${unsafeOutDirMessage} Choose a different --outDir, such as "out".`;
 
       if (spinner) {
         stopSpinnerAndPersist(spinner, {

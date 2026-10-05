@@ -2,4 +2,4 @@
 'react-email': patch
 ---
 
-Prevent `email export` from deleting the project directory or the email templates when the output directory resolves to an unsafe path.
+Prevent `email export` from deleting the project, the home directory, the email templates or the static assets when `--outDir` points at them.
