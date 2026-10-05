@@ -46,7 +46,9 @@ export const Preview = React.forwardRef<HTMLDivElement, PreviewProps>(
 Preview.displayName = 'Preview';
 markAsElement(Preview);
 
-const whiteSpaceCodes = '\xa0\u200C\u200B\u200D\u200E\u200F\uFEFF';
+// Spam filters such as rspamd ignore these as preview padding, but count the
+// direction marks U+200E and U+200F as hidden text, so those are left out.
+const whiteSpaceCodes = '\xa0\u200C\u200B\u200D\uFEFF';
 export const renderWhiteSpace = (text: string) => {
   if (text.length >= PREVIEW_MAX_LENGTH) {
     return null;
