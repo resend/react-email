@@ -155,7 +155,7 @@ overrides:
   express>qs: ^6.14.2
   express>send: ^0.19.0
   express>serve-static: ^1.16.0
-  get-uri>basic-ftp: ^5.2.2
+  get-uri>basic-ftp: ^6.0.0
   minimatch>brace-expansion: ^1.1.13
   postcss@<8.5.10: ^8.5.10
   react: 19.2.4
@@ -4843,8 +4843,8 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  basic-ftp@5.3.0:
-    resolution: {integrity: sha512-5K9eNNn7ywHPsYnFwjKgYH8Hf8B5emh7JKcPaVjjrMJFQQwGpwowEnZNEtHs7DfR7hCZsmaK3VA4HUK0YarT+w==}
+  basic-ftp@6.2.1:
+    resolution: {integrity: sha512-bK67isD+lKq46AU8vNtjvMaT2ZqAOAmNCbxUHlFBRD4k15NWxyEjmaKtZPlgce58So4BNTjITGQOVTjL9y0ECA==}
     engines: {node: '>=10.0.0'}
 
   before-after-hook@2.2.3:
@@ -13462,7 +13462,7 @@ snapshots:
 
   baseline-browser-mapping@2.10.8: {}
 
-  basic-ftp@5.3.0: {}
+  basic-ftp@6.2.1: {}
 
   before-after-hook@2.2.3: {}
 
@@ -14658,7 +14658,7 @@ snapshots:
 
   get-uri@6.0.4:
     dependencies:
-      basic-ftp: 5.3.0
+      basic-ftp: 6.2.1
       data-uri-to-buffer: 6.0.2
       debug: 4.4.3
     transitivePeerDependencies:
