@@ -218,4 +218,33 @@ console.log(\`Hello, $\{name}!\`);
       </div><!--/$-->"
     `);
   });
+  it('applies th styles to table header cells and td styles to body cells', async () => {
+    const actualOutput = await render(
+      <Markdown
+        markdownCustomStyles={{
+          th: { fontWeight: 'bold' },
+          td: { color: 'gray' },
+        }}
+      >
+        {`| Name | Qty |
+| ---- | --: |
+| Apples | 3 |`}
+      </Markdown>,
+    );
+    expect(actualOutput).toMatchInlineSnapshot(`
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div data-id="react-email-markdown"><table role="presentation">
+      <thead>
+      <tr>
+      <th style="font-weight:bold">Name</th>
+      <th align="right" style="font-weight:bold">Qty</th>
+      </tr>
+      </thead>
+      <tbody><tr>
+      <td style="color:gray">Apples</td>
+      <td align="right" style="color:gray">3</td>
+      </tr>
+      </tbody></table>
+      </div><!--/$-->"
+    `);
+  });
 });
