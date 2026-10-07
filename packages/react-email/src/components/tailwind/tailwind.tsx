@@ -114,7 +114,7 @@ export function Tailwind({ children, config, theme, utility }: TailwindProps) {
   });
 
   const styleSheet = tailwindSetup.getStyleSheet();
-  sanitizeStyleSheet(styleSheet, classesUsed);
+  sanitizeStyleSheet(styleSheet);
 
   const { inlinable: inlinableRules, nonInlinable: nonInlinableRules } =
     extractRulesPerClass(styleSheet, classesUsed);
