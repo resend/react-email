@@ -1,5 +1,12 @@
 # react-email
 
+## 6.11.1
+
+### Patch Changes
+
+- 54769fc: Prevent `email export` from deleting the project, the home directory, the email templates or the static assets when `--outDir` points at them.
+- 6926bac: `<Markdown>` now applies `markdownCustomStyles.th` to table header cells. Header cells were previously styled with `td`, so any `th` styles were ignored.
+
 ## 6.11.0
 
 ### Minor Changes

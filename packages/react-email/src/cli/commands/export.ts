@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { Worker } from 'node:worker_threads';
 import type { Options } from '@react-email/render';
@@ -39,6 +40,55 @@ type ExportTemplatesOptions = Options & {
   pretty?: boolean;
   /** Path to a module exporting the esbuild plugins to apply when bundling templates */
   esbuildPlugins?: string;
+};
+
+const isInside = (parent: string, child: string) =>
+  child.startsWith(`${parent}${path.sep}`);
+
+export const getUnsafeOutDirMessage = (
+  outDir: string,
+  emailsDirectoryPath: string,
+  { cwd, homeDirectory }: { cwd: string; homeDirectory: string },
+): string | undefined => {
+  const resolvedOutDir = path.resolve(cwd, outDir);
+  const resolvedEmailsDirectory = path.resolve(cwd, emailsDirectoryPath);
+  const staticDirectory = path.join(resolvedEmailsDirectory, 'static');
+
+  if (resolvedOutDir === path.parse(resolvedOutDir).root) {
+    return "--outDir can't be the filesystem root.";
+  }
+
+  if (resolvedOutDir === homeDirectory) {
+    return "--outDir can't be your home directory.";
+  }
+
+  if (isInside(resolvedOutDir, homeDirectory)) {
+    return "--outDir can't contain your home directory.";
+  }
+
+  if (resolvedOutDir === cwd) {
+    return "--outDir can't be the project directory.";
+  }
+
+  if (isInside(resolvedOutDir, cwd)) {
+    return "--outDir can't contain the project directory.";
+  }
+
+  if (
+    resolvedOutDir === resolvedEmailsDirectory ||
+    isInside(resolvedOutDir, resolvedEmailsDirectory)
+  ) {
+    return "--outDir can't contain your email templates.";
+  }
+
+  if (
+    resolvedOutDir === staticDirectory ||
+    isInside(staticDirectory, resolvedOutDir)
+  ) {
+    return "--outDir can't be your static assets directory.";
+  }
+
+  return undefined;
 };
 
 // Batch so esbuild's Go-side dep graph isn't held for every entry at once.
@@ -116,8 +166,36 @@ export const exportTemplates = async (
     process.exit(1);
   }
 
-  if (fs.existsSync(pathToWhereEmailMarkupShouldBeDumped)) {
-    fs.rmSync(pathToWhereEmailMarkupShouldBeDumped, { recursive: true });
+  const resolvedPathToWhereEmailMarkupShouldBeDumped = path.resolve(
+    process.cwd(),
+    pathToWhereEmailMarkupShouldBeDumped,
+  );
+
+  if (fs.existsSync(resolvedPathToWhereEmailMarkupShouldBeDumped)) {
+    const unsafeOutDirMessage = getUnsafeOutDirMessage(
+      resolvedPathToWhereEmailMarkupShouldBeDumped,
+      emailsDirectoryPath,
+      { cwd: process.cwd(), homeDirectory: os.homedir() },
+    );
+
+    if (unsafeOutDirMessage) {
+      const message = `${unsafeOutDirMessage} Choose a different --outDir, such as "out".`;
+
+      if (spinner) {
+        stopSpinnerAndPersist(spinner, {
+          symbol: logSymbols.error,
+          text: message,
+        });
+      } else {
+        console.error(message);
+      }
+
+      process.exit(1);
+    }
+
+    fs.rmSync(resolvedPathToWhereEmailMarkupShouldBeDumped, {
+      recursive: true,
+    });
   }
 
   const allTemplates = getEmailTemplatesFromDirectory(emailsDirectoryMetadata);
