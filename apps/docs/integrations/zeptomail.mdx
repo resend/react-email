@@ -1,0 +1,85 @@
+---
+title: "Send email using ZeptoMail"
+sidebarTitle: "ZeptoMail"
+description: "Learn how to send an email using React Email and the ZeptoMail Node.js SDK."
+"og:image": "https://react.email/static/covers/react-email.png"
+---
+
+## 1. Install dependencies
+
+Get the [react-email](https://www.npmjs.com/package/react-email) package and the [ZeptoMail Node.js SDK](https://www.npmjs.com/package/zeptomail).
+
+<CodeGroup>
+
+```sh npm
+npm install zeptomail react-email
+```
+
+```sh yarn
+yarn add zeptomail react-email
+```
+
+```sh pnpm
+pnpm add zeptomail react-email
+```
+
+```sh bun
+bun add zeptomail react-email
+```
+
+</CodeGroup>
+
+## 2. Create an email using React
+
+Start by building your email template in a `.jsx` or `.tsx` file.
+
+```tsx email.tsx
+import { Button, Html } from "react-email";
+
+interface EmailProps {
+  url: string;
+}
+
+export function Email({ url }: EmailProps) {
+  return (
+    <Html lang="en">
+      <Button href={url}>Click me</Button>
+    </Html>
+  );
+}
+```
+
+## 3. Convert to HTML and send email
+
+Import the email template you just built, convert into an HTML string, and use the ZeptoMail SDK to send it.
+
+```tsx
+import { render } from "react-email";
+import { SendMailClient } from "zeptomail";
+import { Email } from "./email";
+
+const client = new SendMailClient({
+  url: "api.zeptomail.com/",
+  token: process.env.ZEPTOMAIL_TOKEN || "",
+});
+
+const emailHtml = await render(<Email url="https://example.com" />);
+
+await client.sendMail({
+  from: { name: "Acme", address: "hello@example.com" },
+  to: [{ email_address: { name: "Acme", address: "hello@example.com" } }],
+  subject: "Hello world",
+  htmlbody: emailHtml,
+});
+```
+
+## Try it yourself
+
+<Card
+  title="ZeptoMail example"
+  icon="arrow-up-right-from-square"
+  iconType="duotone"
+  href="https://github.com/resend/react-email/tree/main/examples/zeptomail"
+>
+  See the full source code.
+</Card>
