@@ -89,6 +89,64 @@ describe('Tailwind component', () => {
     `);
   });
 
+  it('resolves variables nested inside the definitions of other variables', async () => {
+    const html = await render(
+      <Tailwind>
+        <div className="shadow-md ring-2">default shadow color</div>
+      </Tailwind>,
+    );
+
+    expect(html).not.toContain('var(');
+    expect(html).toContain('0 4px 6px -1px rgb(0,0,0,0.1)');
+    expect(html).toContain('currentcolor');
+  });
+
+  it("uses each element's default shadow and ring colors independently", async () => {
+    const html = await render(
+      <Tailwind>
+        <div className="shadow-md ring-2">card</div>
+        <div className="shadow-red-500 ring-blue-500">button</div>
+      </Tailwind>,
+    );
+
+    expect(html).not.toContain('var(');
+    expect(html).toContain('0 4px 6px -1px rgb(0,0,0,0.1)');
+    expect(html).toContain('currentcolor');
+  });
+
+  it('preserves local colors without changing a sibling with the same utilities', async () => {
+    const html = await render(
+      <Tailwind>
+        <div className="shadow-md ring-2 shadow-[#ff0000] ring-[#0000ff]">
+          colored
+        </div>
+        <div className="shadow-md ring-2">default</div>
+      </Tailwind>,
+    );
+    const document = new DOMParser().parseFromString(html, 'text/html');
+    const [colored, defaultElement] = document.querySelectorAll('div');
+
+    expect(html).not.toContain('var(');
+    expect(colored?.style.boxShadow).toContain('rgb(255,0,0');
+    expect(colored?.style.boxShadow).toContain('rgb(0,0,255');
+    expect(defaultElement?.style.boxShadow).toContain('rgb(0,0,0,0.1)');
+    expect(defaultElement?.style.boxShadow).toContain('currentcolor');
+    expect(defaultElement?.style.boxShadow).not.toContain('rgb(255,0,0');
+  });
+
+  it('does not use hover shadow colors for the inline default', async () => {
+    const html = await render(
+      <Tailwind>
+        <Head />
+        <div className="shadow-md hover:shadow-red-500">card</div>
+      </Tailwind>,
+    );
+
+    expect(html).not.toContain('var(');
+    expect(html).toContain('0 4px 6px -1px rgb(0,0,0,0.1)');
+    expect(html).toContain('hover_shadow-red-500');
+  });
+
   it('works with class manipulation done on components', async () => {
     const MyComponnt = (props: {
       className?: string;
