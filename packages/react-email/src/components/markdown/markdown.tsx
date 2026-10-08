@@ -197,17 +197,10 @@ export const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(
     renderer.tablecell = ({ tokens, align, header }) => {
       const text = renderer.parser.parseInline(tokens);
       const type = header ? 'th' : 'td';
-      const tag = align
-        ? `<${type} align="${align}"${
-            parseCssInJsToInlineCss(finalStyles.td) !== ''
-              ? ` style="${parseCssInJsToInlineCss(finalStyles.td)}"`
-              : ''
-          }>`
-        : `<${type}${
-            parseCssInJsToInlineCss(finalStyles.td) !== ''
-              ? ` style="${parseCssInJsToInlineCss(finalStyles.td)}"`
-              : ''
-          }>`;
+      const style = parseCssInJsToInlineCss(finalStyles[type]);
+      const tag = `<${type}${align ? ` align="${align}"` : ''}${
+        style !== '' ? ` style="${style}"` : ''
+      }>`;
       return `${tag}${text}</${type}>\n`;
     };
 
