@@ -107,7 +107,7 @@
     "react-email": "workspace:*",
     "@radix-ui/react-popover": "^1.0.0",
     "@radix-ui/react-slot": "^1.2.3",
-    "@tiptap/core": "^3.17.1",
+    "@tiptap/core": "^3.18.0",
     "@tiptap/extension-blockquote": "^3.17.1",
     "@tiptap/extension-bold": "^3.17.1",
     "@tiptap/extension-bullet-list": "^3.17.1",
