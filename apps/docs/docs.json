@@ -126,7 +126,8 @@
               "integrations/eusend",
               "integrations/brevo",
               "integrations/mailtrap",
-              "integrations/zeptomail"
+              "integrations/zeptomail",
+              "integrations/mailchimp-transactional"
             ]
           },
           {
