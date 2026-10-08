@@ -1,7 +1,9 @@
-import type { Editor } from '@tiptap/core';
-import { mergeAttributes } from '@tiptap/core';
+import type { Editor, MarkViewRendererProps } from '@tiptap/core';
+import { MarkView, mergeAttributes } from '@tiptap/core';
 import type { LinkOptions as TipTapLinkOptions } from '@tiptap/extension-link';
 import TiptapLink from '@tiptap/extension-link';
+import type { DOMOutputSpec } from '@tiptap/pm/model';
+import { DOMSerializer } from '@tiptap/pm/model';
 import { Link as ReactEmailLink } from 'react-email';
 
 export type LinkOptions = TipTapLinkOptions;
@@ -24,6 +26,62 @@ function resolveThemedLinkStyle(editor: Editor): string {
     getMergedCssJs(theming.theme, theming.styles),
   );
   return jsToInlineCss(resolved).replace(/;$/, '');
+}
+
+function renderLinkSpec(
+  optionsHTMLAttributes: Record<string, unknown>,
+  HTMLAttributes: Record<string, unknown>,
+  themedStyle: string,
+): DOMOutputSpec {
+  const userStyle = ((HTMLAttributes.style as string | undefined) ?? '')
+    .trim()
+    .replace(/;$/, '');
+  const mergedStyle = [themedStyle, userStyle].filter(Boolean).join('; ');
+  return [
+    'a',
+    mergeAttributes(optionsHTMLAttributes, HTMLAttributes, {
+      style: mergedStyle || null,
+    }),
+    0,
+  ];
+}
+
+/**
+ * Renders links in the live editor without the theme style inlined, because
+ * ProseMirror only re-creates a mark's DOM when its attrs change, so an
+ * inlined theme color would go stale on theme changes. The EmailTheming
+ * plugin's scoped `.node-link` CSS paints them instead and updates live.
+ * Serialization (`getHTML`, clipboard) still goes through `renderHTML`.
+ */
+class LinkMarkView extends MarkView<null> {
+  private readonly element: HTMLElement;
+
+  constructor(
+    props: MarkViewRendererProps,
+    optionsHTMLAttributes: Record<string, unknown>,
+  ) {
+    super(null, props);
+    const hasLiveThemeCss = props.editor.extensionManager.extensions.some(
+      (extension) => extension.name === 'theming',
+    );
+    const { dom } = DOMSerializer.renderSpec(
+      document,
+      renderLinkSpec(
+        optionsHTMLAttributes,
+        props.HTMLAttributes,
+        hasLiveThemeCss ? '' : resolveThemedLinkStyle(props.editor),
+      ),
+    );
+    this.element = dom as HTMLElement;
+  }
+
+  override get dom(): HTMLElement {
+    return this.element;
+  }
+
+  override get contentDOM(): HTMLElement {
+    return this.element;
+  }
 }
 
 export const Link: EmailMark<TipTapLinkOptions, any> = EmailMark.from(
@@ -102,18 +160,15 @@ export const Link: EmailMark<TipTapLinkOptions, any> = EmailMark.from(
   },
 
   renderHTML({ HTMLAttributes }) {
-    const userStyle = ((HTMLAttributes.style as string | undefined) ?? '')
-      .trim()
-      .replace(/;$/, '');
-    const themed = this.editor ? resolveThemedLinkStyle(this.editor) : '';
-    const mergedStyle = [themed, userStyle].filter(Boolean).join('; ');
-    return [
-      'a',
-      mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, {
-        style: mergedStyle || null,
-      }),
-      0,
-    ];
+    return renderLinkSpec(
+      this.options.HTMLAttributes,
+      HTMLAttributes,
+      this.editor ? resolveThemedLinkStyle(this.editor) : '',
+    );
+  },
+
+  addMarkView() {
+    return (props) => new LinkMarkView(props, this.options.HTMLAttributes);
   },
 
   addCommands() {
