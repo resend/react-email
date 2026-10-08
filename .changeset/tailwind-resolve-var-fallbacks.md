@@ -2,4 +2,4 @@
 "react-email": patch
 ---
 
-fix(tailwind): resolve var() fallbacks inside variable definitions so shadow and ring classes keep their values in email clients
+`<Tailwind>` now inlines the default color for `shadow`, `shadow-md`, `ring-2` and similar classes, so these shadows show in email clients.
