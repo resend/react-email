@@ -1,6 +1,5 @@
 import {
   type CssNode,
-  clone,
   type Declaration,
   generate,
   parse,
@@ -14,17 +13,28 @@ import { sanitizeDeclarations } from './sanitize-declarations.js';
 import { stripEmptyTailwindVars } from './strip-empty-tailwind-vars.js';
 import { unwrapValue } from './unwrap-value.js';
 
+function hasVarFunction(node: CssNode) {
+  let found = false;
+  walk(node, {
+    visit: 'Function',
+    enter(func) {
+      if (func.name === 'var') {
+        found = true;
+        return this.break;
+      }
+    },
+  });
+  return found;
+}
+
 export function makeInlineStylesFor(
   inlinableRules: CssNode[],
   customProperties: CustomProperties,
 ) {
   const styles: Record<string, string> = {};
-  // Rules are shared by every element using a class. Resolving one element's
-  // colors must not mutate the rules used by its siblings.
-  const rules = inlinableRules.map((rule) => clone(rule));
 
   const localVariableDeclarations = new Map<string, Declaration>();
-  for (const rule of rules) {
+  for (const rule of inlinableRules) {
     walk(rule, {
       visit: 'Declaration',
       enter(declaration) {
@@ -83,20 +93,22 @@ export function makeInlineStylesFor(
     return resolved;
   };
 
-  for (const rule of rules) {
+  for (const rule of inlinableRules) {
     walk(rule, {
       visit: 'Declaration',
       enter(declaration) {
         if (declaration.property.startsWith('--')) {
           return;
         }
-        declaration.value = resolveValue(declaration.value) as Value;
-        resolveCalcExpressions(declaration);
-        stripEmptyTailwindVars(declaration.value);
+        let value: CssNode = declaration.value;
+        if (hasVarFunction(value)) {
+          value = resolveValue(value);
+          resolveCalcExpressions(value);
+          stripEmptyTailwindVars(value);
+        }
 
         styles[getReactProperty(declaration.property)] =
-          generate(declaration.value).trim() +
-          (declaration.important ? '!important' : '');
+          generate(value).trim() + (declaration.important ? '!important' : '');
       },
     });
   }
