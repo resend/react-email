@@ -125,7 +125,8 @@
               "integrations/lettermint",
               "integrations/eusend",
               "integrations/brevo",
-              "integrations/mailtrap"
+              "integrations/mailtrap",
+              "integrations/zeptomail"
             ]
           },
           {
