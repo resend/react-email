@@ -705,9 +705,6 @@ importers:
       mime-types:
         specifier: ^3.0.0
         version: 3.0.2
-      normalize-path:
-        specifier: ^3.0.0
-        version: 3.0.0
       nypm:
         specifier: 'catalog:'
         version: 0.6.6
@@ -907,9 +904,6 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 22.19.18
-      '@types/normalize-path':
-        specifier: 3.0.2
-        version: 3.0.2
       '@types/react':
         specifier: 'catalog:'
         version: 19.2.14
@@ -4380,9 +4374,6 @@ packages:
 
   '@types/node@25.5.0':
     resolution: {integrity: sha512-jp2P3tQMSxWugkCUKLRPVUpGaL5MVFwF8RDuSRztfwgN1wmqJeMSbKlnEtQqU8UrhTmzEmZdu2I6v2dpp7XIxw==}
-
-  '@types/normalize-path@3.0.2':
-    resolution: {integrity: sha512-DO++toKYPaFn0Z8hQ7Tx+3iT9t77IJo/nDiqTXilgEP+kPNIYdpS9kh3fXuc53ugqwp9pxC1PVjCpV1tQDyqMA==}
 
   '@types/offscreencanvas@2019.7.3':
     resolution: {integrity: sha512-ieXiYmgSRXUDeOntE1InxjWyvEelZGP63M+cGuquuRLuIKKT1osnkXjxev9B7d1nXSug5vpunx+gNlbVxMlC9A==}
@@ -12908,8 +12899,6 @@ snapshots:
   '@types/node@25.5.0':
     dependencies:
       undici-types: 7.18.2
-
-  '@types/normalize-path@3.0.2': {}
 
   '@types/offscreencanvas@2019.7.3': {}
 
