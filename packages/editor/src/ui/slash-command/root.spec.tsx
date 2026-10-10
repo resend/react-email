@@ -104,6 +104,34 @@ describe('SlashCommandRoot', () => {
     expect(image.command).toHaveBeenCalledTimes(1);
   });
 
+  it('does not fail when the anchor leaves the DOM while the menu is open', async () => {
+    const rejections: unknown[] = [];
+    const onRejection = (reason: unknown) => rejections.push(reason);
+    process.on('unhandledRejection', onRejection);
+    try {
+      await openMenu({ items });
+
+      // The suggestion plugin removes its decoration before the menu closes,
+      // so its clientRect() returns null while floating-ui re-measures.
+      const dom = editor!.view.dom;
+      const querySelector = dom.querySelector.bind(dom);
+      vi.spyOn(dom, 'querySelector').mockImplementation((selector: string) =>
+        selector.startsWith('[data-decoration-id')
+          ? null
+          : querySelector(selector),
+      );
+      await act(async () => {
+        window.dispatchEvent(new Event('resize'));
+        await new Promise((resolve) => setTimeout(resolve, 0));
+      });
+      await new Promise((resolve) => setTimeout(resolve, 0));
+
+      expect(rejections).toEqual([]);
+    } finally {
+      process.off('unhandledRejection', onRejection);
+    }
+  });
+
   it('gives a custom renderer the items in array order', async () => {
     const children = vi.fn((_props: SlashCommandRenderProps) => null);
     await openMenu({ items, children });
