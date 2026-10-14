@@ -18,6 +18,15 @@ describe('<Preview> component', () => {
     );
   });
 
+  it('pads only with characters spam filters ignore as preview padding', async () => {
+    const actualOutput = await render(<Preview>Short text</Preview>);
+    const padding = actualOutput.match(/<div>([^<]*)<\/div>/)?.[1];
+
+    // rspamd's HIDDEN_TEXT rule counts any other hidden character, so padding
+    // made of anything else gets scored as hidden text
+    expect(padding).toMatch(/^[\s\p{Z}​-‍﻿]+$/u);
+  });
+
   it('renders correctly with really long text', async () => {
     const longText = 'really long'.repeat(100);
     const actualOutputLong = await render(<Preview>{longText}</Preview>);
