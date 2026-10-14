@@ -1,5 +1,12 @@
 # react-email
 
+## 6.11.2
+
+### Patch Changes
+
+- 7190dca: Leave the direction marks U+200E and U+200F out of the `<Preview>` padding, so spam filters such as rspamd no longer score it as hidden text. The padding sequence is now `\xa0‌​‍﻿`; if you post-process rendered HTML by matching the old sequence, update it.
+- 63f159a: `<Tailwind>` now inlines the default color for `shadow`, `shadow-md`, `ring-2` and similar classes, so these shadows show in email clients.
+
 ## 6.11.1
 
 ### Patch Changes
