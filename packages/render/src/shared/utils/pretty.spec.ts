@@ -184,4 +184,25 @@ describe('pretty', () => {
       "
     `);
   });
+
+  it('only loads prettier once pretty is called', async () => {
+    vi.resetModules();
+    const loadStandalone = vi.fn();
+    vi.doMock('prettier/standalone', async (importOriginal) => {
+      loadStandalone();
+      return importOriginal();
+    });
+
+    try {
+      const { pretty: lazyPretty } = await import('./pretty');
+      expect(loadStandalone).not.toHaveBeenCalled();
+
+      expect(await lazyPretty('<div><p>Hello</p></div>')).toBe(
+        '<div><p>Hello</p></div>\n',
+      );
+      expect(loadStandalone).toHaveBeenCalledOnce();
+    } finally {
+      vi.doUnmock('prettier/standalone');
+    }
+  });
 });

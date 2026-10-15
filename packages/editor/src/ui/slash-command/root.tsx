@@ -102,8 +102,15 @@ export function SlashCommandRoot({
   useEffect(() => {
     if (!state.clientRect) return;
     const clientRect = state.clientRect;
+    // The suggestion plugin removes its decoration before the menu closes, so
+    // clientRect() returns null if floating-ui re-measures in between. Keep
+    // the last known position instead of passing null to floating-ui.
+    let lastRect = new DOMRect();
     refs.setReference({
-      getBoundingClientRect: () => clientRect()!,
+      getBoundingClientRect: () => {
+        lastRect = clientRect() ?? lastRect;
+        return lastRect;
+      },
     });
   }, [state.clientRect, refs]);
 
