@@ -1,7 +1,5 @@
 import type { Options, Plugin } from 'prettier';
 import type { builders } from 'prettier/doc';
-import * as html from 'prettier/plugins/html';
-import { format } from 'prettier/standalone';
 
 interface HtmlNode {
   type?: 'element' | 'text' | 'ieConditionalComment';
@@ -86,46 +84,70 @@ function recursivelyMapDoc(
   return callback(doc);
 }
 
-const modifiedHtml = { ...html } as Plugin;
-if (modifiedHtml.printers) {
-  const previousPrint = modifiedHtml.printers.html.print;
-  modifiedHtml.printers.html.print = (path, options, print, args) => {
-    const node = getHtmlNode(
-      path as Parameters<NonNullable<Plugin['printers']>['html']['print']>[0],
-    );
+function createModifiedHtmlPlugin(html: Plugin): Plugin {
+  const modifiedHtml = { ...html };
+  if (modifiedHtml.printers) {
+    const previousPrint = modifiedHtml.printers.html.print;
+    modifiedHtml.printers.html.print = (path, options, print, args) => {
+      const node = getHtmlNode(
+        path as Parameters<NonNullable<Plugin['printers']>['html']['print']>[0],
+      );
 
-    const rawPrintingResult = previousPrint(path, options, print, args);
+      const rawPrintingResult = previousPrint(path, options, print, args);
 
-    if (
-      node?.type === 'ieConditionalComment' ||
-      node?.kind === 'ieConditionalComment'
-    ) {
-      const printingResult = recursivelyMapDoc(rawPrintingResult, (doc) => {
-        if (typeof doc === 'object' && doc.type === 'line') {
-          return doc.soft ? '' : ' ';
-        }
+      if (
+        node?.type === 'ieConditionalComment' ||
+        node?.kind === 'ieConditionalComment'
+      ) {
+        const printingResult = recursivelyMapDoc(rawPrintingResult, (doc) => {
+          if (typeof doc === 'object' && doc.type === 'line') {
+            return doc.soft ? '' : ' ';
+          }
 
-        return doc;
-      });
+          return doc;
+        });
 
-      return printingResult;
-    }
+        return printingResult;
+      }
 
-    return rawPrintingResult;
-  };
+      return rawPrintingResult;
+    };
+  }
+
+  return modifiedHtml;
 }
+
+const importPrettier = async () => {
+  const [{ format }, html] = await Promise.all([
+    import('prettier/standalone'),
+    import('prettier/plugins/html'),
+  ]);
+
+  return { format, html: createModifiedHtmlPlugin(html as Plugin) };
+};
+
+/**
+ * Prettier is only loaded the first time `pretty` is called, so importing
+ * `render` doesn't load it when `pretty` is never used. This also keeps
+ * bundlers that externalize `prettier` (e.g. Next.js with Turbopack) from
+ * trying to resolve it at runtime unless it's actually needed.
+ */
+let prettierPromise: ReturnType<typeof importPrettier> | undefined;
 
 const defaults: Options = {
   endOfLine: 'lf',
   tabWidth: 2,
-  plugins: [modifiedHtml],
   bracketSameLine: true,
   parser: 'html',
 };
 
-export const pretty = (str: string, options: Options = {}) => {
+export const pretty = async (str: string, options: Options = {}) => {
+  prettierPromise ??= importPrettier();
+  const { format, html } = await prettierPromise;
+
   return format(str.replaceAll('\0', ''), {
     ...defaults,
+    plugins: [html],
     ...options,
   });
 };
