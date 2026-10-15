@@ -1,5 +1,12 @@
 # react-email
 
+## 6.11.3
+
+### Patch Changes
+
+- Updated dependencies [f356e81]
+  - @react-email/render@2.1.1
+
 ## 6.11.2
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @react-email/ui
 
+## 6.11.3
+
+### Patch Changes
+
+- 88562d0: The compatibility check now applies `--esbuild-plugins` when it bundles a template that passes `config`, `theme` or `utility` to `<Tailwind>`, so templates whose imports need a plugin no longer log a build error.
+- 7f545c6: Bump `next` to 16.4.1 so the prebuilt preview server works in projects on Next.js 16.4. Next 16.4 loads a `server/preview-props.json` manifest that a 16.3 build doesn't emit, so `email dev` failed with `ENOENT` when `next` was deduped to 16.4.
+
 ## 6.11.2
 
 ## 6.11.1
