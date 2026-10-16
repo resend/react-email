@@ -98,11 +98,42 @@ export function MyEditor() {
 }
 ```
 
+## Exporting on the server
+
+`composeReactEmail` doesn't need an editor or a browser. Pass a stored document
+(TipTap JSON, as returned by `editor.getJSON()`) together with the extension set it was
+written with, and it renders the same email HTML in Node — API routes, queue workers,
+cron jobs, edge functions:
+
+```tsx
+import { composeReactEmail } from '@react-email/editor/core';
+import { StarterKit } from '@react-email/editor/extensions';
+import { EmailTheming } from '@react-email/editor/plugins';
+
+const extensions = [StarterKit, EmailTheming];
+
+const { unformattedHtml, text } = await composeReactEmail({
+  content: storedDocument, // TipTap JSON from your database
+  extensions,
+  preview: 'Check out our latest updates!',
+  format: false,
+});
+```
+
+`format: false` skips the Prettier pass that produces the `html` source-view output —
+sending reads `unformattedHtml`, so servers shouldn't pay for formatting nobody reads.
+
+The output is byte-identical to exporting the same document from a live editor with the
+same extensions. If you have HTML instead of JSON, convert it first with
+[`generateJSON` from `@tiptap/html`](https://tiptap.dev/docs/editor/api/utilities/html) —
+strings are rejected by `composeReactEmail` so a JSON-stringified document can never be
+mistaken for HTML.
+
 ## How it works
 
 The `composeReactEmail` function follows this pipeline:
 
-1. **Read** the editor's JSON document
+1. **Read** the document — from the `editor`, or from `content` + `extensions`
 2. **Traverse** each node and mark in the document tree
 3. **Call** `renderToReactEmail()` on each `EmailNode` and `EmailMark` extension
 4. **Apply** theme styles via the `SerializerPlugin` (if `EmailTheming` is configured)
@@ -112,10 +143,11 @@ The `composeReactEmail` function follows this pipeline:
 The return value is:
 
 ```tsx
-const { html, text } = await composeReactEmail({ editor, preview: null });
+const { html, text, unformattedHtml } = await composeReactEmail({ editor });
 
-// html  — Full HTML email string, ready to send
-// text  — Plain text version for email clients that don't support HTML
+// html            — Prettier-formatted HTML, for source-code views (skip with format: false)
+// text            — Plain text version for email clients that don't support HTML
+// unformattedHtml — Compact HTML, best for persisting and sending
 ```
 
 ## Preview text
