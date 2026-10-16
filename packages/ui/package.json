@@ -77,7 +77,7 @@
     "sharp": "0.34.5",
     "socket.io-client": "4.8.3",
     "sonner": "catalog:",
-    "source-map-js": "1.2.1",
+    "source-map-js": "1.2.2",
     "stacktrace-parser": "0.1.11",
     "tailwind-merge": "3.5.0",
     "tailwindcss": "catalog:",
