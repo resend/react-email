@@ -52,7 +52,6 @@
     "@types/fs-extra": "11.0.4",
     "@types/mime-types": "catalog:",
     "@types/node": "catalog:",
-    "@types/normalize-path": "3.0.2",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@types/webpack": "5.28.5",
