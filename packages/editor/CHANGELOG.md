@@ -1,5 +1,12 @@
 # @react-email/editor
 
+## 1.7.14
+
+### Patch Changes
+
+- cf6ab43: The slash command menu no longer throws `Cannot read properties of null (reading 'left')` when its anchor leaves the DOM while the menu is still open.
+  - react-email@6.11.3
+
 ## 1.7.13
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 2.1.1
+
+### Patch Changes
+
+- f356e81: `render` now only loads `prettier` when `pretty: true` is used, so rendering without it no longer fails with "Failed to load external module prettier" in Next.js dev with Turbopack on Bun
+
 ## 2.1.0
 
 ### Minor Changes
