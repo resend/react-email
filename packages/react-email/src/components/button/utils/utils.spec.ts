@@ -109,6 +109,16 @@ describe('parsePadding', () => {
     });
   });
 
+  it('keeps a specific padding value of 0 over the general padding value', () => {
+    const result = parsePadding({ padding: '12px 20px', paddingTop: 0 });
+    expect(result).toEqual({
+      paddingTop: 0,
+      paddingRight: 20,
+      paddingBottom: 12,
+      paddingLeft: 20,
+    });
+  });
+
   it('overrides general padding value with specific padding value if specified', () => {
     const result = parsePadding({ padding: 10, paddingRight: '1em' });
     expect(result).toEqual({
