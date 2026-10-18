@@ -128,10 +128,15 @@ export function parsePadding(properties: PaddingProperties) {
     }
   }
 
+  // `0` is a real value here: dropping it would let the `padding` shorthand,
+  // which is still spread into the style, win over an explicit `paddingTop: 0`.
+  const toPx = (value: PaddingType) =>
+    value === undefined || value === '' ? undefined : convertToPx(value);
+
   return {
-    paddingTop: paddingTop ? convertToPx(paddingTop) : undefined,
-    paddingRight: paddingRight ? convertToPx(paddingRight) : undefined,
-    paddingBottom: paddingBottom ? convertToPx(paddingBottom) : undefined,
-    paddingLeft: paddingLeft ? convertToPx(paddingLeft) : undefined,
+    paddingTop: toPx(paddingTop),
+    paddingRight: toPx(paddingRight),
+    paddingBottom: toPx(paddingBottom),
+    paddingLeft: toPx(paddingLeft),
   };
 }
