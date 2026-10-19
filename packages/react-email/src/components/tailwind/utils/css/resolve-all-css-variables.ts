@@ -26,16 +26,10 @@ export interface VariableDefinition {
   definition: string;
 }
 
-function doSelectorsIntersect(
-  first: SelectorList | Raw,
-  second: SelectorList | Raw,
+function hasUniversalSelector(
+  selector: SelectorList | Raw,
+  includeRoot: boolean,
 ): boolean {
-  const firstStringified = generate(first);
-  const secondStringified = generate(second);
-  if (firstStringified === secondStringified) {
-    return true;
-  }
-
   let hasSomeUniversal = false;
   const walker = (
     node: CssNode,
@@ -43,7 +37,11 @@ function doSelectorsIntersect(
     parentList: List<CssNode>,
   ) => {
     if (hasSomeUniversal) return;
-    if (node.type === 'PseudoClassSelector' && node.name === 'root') {
+    if (
+      includeRoot &&
+      node.type === 'PseudoClassSelector' &&
+      node.name === 'root'
+    ) {
       hasSomeUniversal = true;
     }
     if (
@@ -54,14 +52,19 @@ function doSelectorsIntersect(
       hasSomeUniversal = true;
     }
   };
-  walk(first, walker);
-  walk(second, walker);
+  walk(selector, walker);
+  return hasSomeUniversal;
+}
 
-  if (hasSomeUniversal) {
-    return true;
-  }
-
-  return false;
+function doSelectorsIntersect(
+  first: SelectorList | Raw,
+  second: SelectorList | Raw,
+): boolean {
+  return (
+    generate(first) === generate(second) ||
+    hasUniversalSelector(first, true) ||
+    hasUniversalSelector(second, true)
+  );
 }
 
 export function resolveAllCssVariables(node: CssNode) {
@@ -138,12 +141,51 @@ export function resolveAllCssVariables(node: CssNode) {
     },
   });
 
+  const localDefinitions = new Map<CssNode, Map<string, VariableDefinition>>();
+  for (const definition of variableDefinitions) {
+    const block = definition.path[0];
+    if (!block) continue;
+    let definitions = localDefinitions.get(block);
+    if (!definitions) {
+      definitions = new Map();
+      localDefinitions.set(block, definitions);
+    }
+    const previous = definitions.get(definition.variableName);
+    if (!previous?.declaration.important || definition.declaration.important) {
+      definitions.set(definition.variableName, definition);
+    }
+  }
+
   for (const use of variableUses) {
     let hasReplaced = false;
+    const localDefinition = use.path[0]
+      ? localDefinitions.get(use.path[0])?.get(use.variableName)
+      : undefined;
+    const useRule = use.path.find((ancestor) => ancestor.type === 'Rule');
 
     for (const definition of variableDefinitions) {
       if (use.variableName !== definition.variableName) {
         continue;
+      }
+
+      if (localDefinition && definition !== localDefinition) {
+        const definitionRule = definition.path.find(
+          (ancestor) => ancestor.type === 'Rule',
+        );
+        // A root default is inherited, but an important declaration on the
+        // same selector or a bare universal selector applies directly.
+        const appliesDirectly =
+          definitionRule &&
+          useRule &&
+          (generate(definitionRule.prelude) === generate(useRule.prelude) ||
+            hasUniversalSelector(definitionRule.prelude, false));
+        if (
+          localDefinition.declaration.important ||
+          !definition.declaration.important ||
+          !appliesDirectly
+        ) {
+          continue;
+        }
       }
 
       if (

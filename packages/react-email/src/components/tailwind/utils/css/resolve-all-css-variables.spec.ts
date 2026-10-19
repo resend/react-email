@@ -2,6 +2,59 @@ import { generate, parse } from 'css-tree';
 import { resolveAllCssVariables } from './resolve-all-css-variables.js';
 
 describe('resolveAllCSSVariables', () => {
+  it.each([
+    ':root',
+    '*',
+  ])('prefers a local definition over an earlier %s default', (selector) => {
+    const root = parse(`${selector} { --brand: red; }
+      .card { --brand: blue; color: var(--brand); }
+      .default { color: var(--brand); }`);
+    resolveAllCssVariables(root);
+    expect(generate(root)).toContain('.card{--brand: blue;color:blue}');
+    expect(generate(root)).toContain('.default{color:red}');
+  });
+
+  it.each([
+    ['--brand: red; --brand: blue;', 'blue'],
+    ['--brand: red !important; --brand: blue;', 'red'],
+    ['--brand: red; --brand: blue !important;', 'blue'],
+    ['--brand: red !important; --brand: blue !important;', 'blue'],
+  ])('uses the winning local declaration in %s', (declarations, expected) => {
+    const root = parse(`:root { --brand: green; }
+      .card { ${declarations} color: var(--brand); }`);
+    resolveAllCssVariables(root);
+    expect(generate(root)).toContain(`color:${expected}`);
+  });
+
+  it.each([
+    '*',
+    '*, .other',
+    ':where(*)',
+    ':is(*)',
+    '.card',
+  ])('preserves an earlier important definition on %s', (selector) => {
+    const root = parse(`${selector} { --brand: red !important; }
+        .card { --brand: blue; color: var(--brand); }`);
+    resolveAllCssVariables(root);
+    expect(generate(root)).toContain('.card{--brand: blue;color:red}');
+  });
+
+  it('prefers a local declaration over an inherited important root default', () => {
+    const root = parse(`:root { --brand: red !important; }
+      .card { --brand: blue; color: var(--brand); }`);
+    resolveAllCssVariables(root);
+    expect(generate(root)).toContain('.card{--brand: blue;color:blue}');
+  });
+
+  it('prefers a local important declaration over a universal important default', () => {
+    const root = parse(`* { --brand: red !important; }
+      .card { --brand: blue !important; color: var(--brand); }`);
+    resolveAllCssVariables(root);
+    expect(generate(root)).toContain(
+      '.card{--brand: blue !important;color:blue}',
+    );
+  });
+
   it('ignores @layer (properties) defined for browser compatibility', () => {
     const root =
       parse(`/*! tailwindcss v4.1.12 | MIT License | https://tailwindcss.com */
