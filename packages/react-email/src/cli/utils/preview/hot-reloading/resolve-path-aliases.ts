@@ -51,7 +51,13 @@ export const resolveAliasedDirectoryPrefix = (
     configLoadResult.absoluteBaseUrl,
     configLoadResult.paths,
   );
-  const resolved = matchPath(prefix, undefined, isExistingDirectory, [
+
+  // `paths` patterns are always written with forward slashes, but the prefix may
+  // have been normalized with the platform separator (backslashes on Windows) by
+  // `path.normalize()`. Restore import specifier separators so patterns match.
+  const importPrefix = prefix.replace(/\\/g, '/');
+
+  const resolved = matchPath(importPrefix, undefined, isExistingDirectory, [
     '.tsx',
     '.ts',
     '.js',
