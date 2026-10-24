@@ -23,7 +23,6 @@ export interface VariableDefinition {
   declaration: Declaration;
   path: CssNode[];
   variableName: string;
-  definition: string;
 }
 
 function doSelectorsIntersect(
@@ -96,43 +95,50 @@ export function resolveAllCssVariables(node: CssNode) {
             declaration,
             path: [...path],
             variableName: declaration.property,
-            definition: generate(declaration.value),
           });
-        } else {
-          function parseVariableUsesFrom(node: CssNode) {
-            walk(node, {
-              visit: 'Function',
-              enter(funcNode) {
-                if (funcNode.name === 'var') {
-                  const children = funcNode.children.toArray();
-                  const name = generate(children[0]!);
-                  const fallback =
-                    // The second argument should be an "," Operator Node,
-                    // such that the actual fallback is only in the third argument
-                    children[2] ? generate(children[2]) : undefined;
+        }
 
-                  variableUses.add({
-                    declaration,
-                    path: [...path],
-                    fallback,
-                    variableName: name,
-                    raw: generate(funcNode),
+        // Custom properties can reference other variables too, e.g. Tailwind's
+        // `--tw-gradient-from: var(--color-red-500)`, which is only read later
+        // through `var(--tw-gradient-from)` when inlining. css-tree keeps their
+        // values as Raw, so they need parsing before their var()s can be found.
+        function parseVariableUsesFrom(node: CssNode) {
+          walk(node, {
+            visit: 'Function',
+            enter(funcNode) {
+              if (funcNode.name === 'var') {
+                const children = funcNode.children.toArray();
+                const name = generate(children[0]!);
+                const fallback =
+                  // The second argument should be an "," Operator Node,
+                  // such that the actual fallback is only in the third argument
+                  children[2] ? generate(children[2]) : undefined;
+
+                variableUses.add({
+                  declaration,
+                  path: [...path],
+                  fallback,
+                  variableName: name,
+                  raw: generate(funcNode),
+                });
+
+                if (fallback?.includes('var(')) {
+                  const parsedFallback = parse(fallback, {
+                    context: 'value',
                   });
 
-                  if (fallback?.includes('var(')) {
-                    const parsedFallback = parse(fallback, {
-                      context: 'value',
-                    });
-
-                    parseVariableUsesFrom(parsedFallback);
-                  }
+                  parseVariableUsesFrom(parsedFallback);
                 }
-              },
-            });
-          }
-
-          parseVariableUsesFrom(declaration.value);
+              }
+            },
+          });
         }
+
+        parseVariableUsesFrom(
+          declaration.value.type === 'Raw'
+            ? parse(declaration.value.value, { context: 'value' })
+            : declaration.value,
+        );
       }
       path.unshift(node);
     },
@@ -158,7 +164,7 @@ export function resolveAllCssVariables(node: CssNode) {
         use.declaration.value = parse(
           generate(use.declaration.value).replaceAll(
             use.raw,
-            definition.definition,
+            generate(definition.declaration.value),
           ),
           {
             context: 'value',
@@ -178,7 +184,7 @@ export function resolveAllCssVariables(node: CssNode) {
         use.declaration.value = parse(
           generate(use.declaration.value).replaceAll(
             use.raw,
-            definition.definition,
+            generate(definition.declaration.value),
           ),
           {
             context: 'value',
@@ -215,7 +221,7 @@ export function resolveAllCssVariables(node: CssNode) {
         use.declaration.value = parse(
           generate(use.declaration.value).replaceAll(
             use.raw,
-            definition.definition,
+            generate(definition.declaration.value),
           ),
           {
             context: 'value',
@@ -226,7 +232,14 @@ export function resolveAllCssVariables(node: CssNode) {
       }
     }
 
-    if (!hasReplaced && use.fallback) {
+    // A custom property's own fallback is left in place, since a declaration
+    // on the element's other classes might still define the variable when
+    // the styles are inlined.
+    if (
+      !hasReplaced &&
+      use.fallback &&
+      !use.declaration.property.startsWith('--')
+    ) {
       use.declaration.value = parse(
         generate(use.declaration.value).replaceAll(use.raw, use.fallback),
         { context: 'value' },
