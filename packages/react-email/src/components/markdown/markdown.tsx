@@ -119,11 +119,7 @@ export const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(
     };
 
     renderer.listitem = ({ tokens, loose }) => {
-      const hasNestedList = tokens.some((token) => token.type === 'list');
-      const text =
-        loose || hasNestedList
-          ? renderer.parser.parse(tokens)
-          : renderer.parser.parseInline(tokens);
+      const text = renderer.parser.parse(tokens, !!loose);
 
       return `<li${
         parseCssInJsToInlineCss(finalStyles.li) !== ''
