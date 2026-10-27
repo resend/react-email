@@ -80,10 +80,10 @@ overrides:
   '@mintlify/previewing>express': ^4.20.0
   '@mintlify/previewing>js-yaml': ^4.1.1
   '@mintlify/scraping>js-yaml': ^4.1.1
-  '@mintlify/scraping>zod': ^3.22.3
+  '@mintlify/scraping>zod': ^4.0.0
   '@mintlify/validation>js-yaml': ^4.1.1
   '@mintlify/validation>lodash': ^4.18.0
-  '@mintlify/validation>zod': ^3.22.3
+  '@mintlify/validation>zod': ^4.0.0
   '@stoplight/spectral-core>lodash': ^4.18.0
   '@stoplight/spectral-core>minimatch': ^3.1.4
   '@stoplight/spectral-functions>lodash': ^4.18.0
