@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { exportTemplates } from '../export.js';
 
@@ -235,4 +236,22 @@ test('email export with custom extension', { retry: 3 }, async () => {
   expect(await fs.promises.readFile(outputFile, 'utf8')).toContain(
     '<!DOCTYPE html',
   );
+});
+
+test('email export to an outDir with glob syntax', { retry: 3 }, async () => {
+  const pathToEmailsDirectory = path.resolve(__dirname, './emails');
+  const parentDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'export-'));
+  const pathToDumpMarkup = path.join(parentDirectory, 'out[1]');
+
+  try {
+    await exportTemplates(pathToDumpMarkup, pathToEmailsDirectory, {
+      silent: true,
+    });
+
+    expect(
+      fs.existsSync(path.join(pathToDumpMarkup, 'vercel-invite-user.html')),
+    ).toBe(true);
+  } finally {
+    fs.rmSync(parentDirectory, { recursive: true, force: true });
+  }
 });
