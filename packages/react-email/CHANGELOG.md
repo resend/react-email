@@ -1,5 +1,11 @@
 # react-email
 
+## 6.11.4
+
+### Patch Changes
+
+- 499caa6: Remove the `normalize-path` dependency.
+
 ## 6.11.3
 
 ### Patch Changes

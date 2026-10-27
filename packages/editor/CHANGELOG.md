@@ -1,5 +1,12 @@
 # @react-email/editor
 
+## 1.7.15
+
+### Patch Changes
+
+- Updated dependencies [499caa6]
+  - react-email@6.11.4
+
 ## 1.7.14
 
 ### Patch Changes
