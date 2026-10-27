@@ -6,7 +6,6 @@ import type { Options } from '@react-email/render';
 import { type BuildFailure, build, stop } from 'esbuild';
 import { glob } from 'glob';
 import logSymbols from 'log-symbols';
-import normalize from 'normalize-path';
 import { inlineCssLoader } from '../utils/esbuild/inline-css-loader.js';
 import { loadEsbuildPlugins } from '../utils/esbuild/load-esbuild-plugins.js';
 import { renderingUtilitiesExporter } from '../utils/esbuild/renderring-utilities-exporter.js';
@@ -247,12 +246,10 @@ export const exportTemplates = async (
     spinner.succeed();
   }
 
-  const allBuiltTemplates = glob.sync(
-    normalize(`${pathToWhereEmailMarkupShouldBeDumped}/**/*.cjs`),
-    {
-      absolute: true,
-    },
-  );
+  const allBuiltTemplates = glob.sync('**/*.cjs', {
+    cwd: pathToWhereEmailMarkupShouldBeDumped,
+    absolute: true,
+  });
 
   const extension =
     options.extension && options.extension.length > 0

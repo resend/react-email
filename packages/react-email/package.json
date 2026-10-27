@@ -59,7 +59,6 @@
     "log-symbols": "catalog:",
     "marked": "^15.0.12",
     "mime-types": "^3.0.0",
-    "normalize-path": "^3.0.0",
     "nypm": "catalog:",
     "picospinner": "catalog:",
     "prismjs": "^1.30.0",
