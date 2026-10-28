@@ -1,6 +1,7 @@
 import { marked, Renderer } from 'marked';
 import * as React from 'react';
 import { type StylesType, styles } from './styles.js';
+import { escapeHtml } from './utils/escape-html.js';
 import { parseCssInJsToInlineCss } from './utils/parse-css-in-js-to-inline-css.js';
 
 export type MarkdownProps = Readonly<{
@@ -36,14 +37,14 @@ export const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(
     };
 
     // TODO: Support all options
-    renderer.code = ({ text }) => {
+    renderer.code = ({ text, escaped }) => {
       text = `${text.replace(/\n$/, '')}\n`;
 
       return `<pre${
         parseCssInJsToInlineCss(finalStyles.codeBlock) !== ''
           ? ` style="${parseCssInJsToInlineCss(finalStyles.codeBlock)}"`
           : ''
-      }><code>${text}</code></pre>\n`;
+      }><code>${escaped ? text : escapeHtml(text)}</code></pre>\n`;
     };
 
     renderer.codespan = ({ text }) => {
@@ -51,7 +52,7 @@ export const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(
         parseCssInJsToInlineCss(finalStyles.codeInline) !== ''
           ? ` style="${parseCssInJsToInlineCss(finalStyles.codeInline)}"`
           : ''
-      }>${text}</code>`;
+      }>${escapeHtml(text)}</code>`;
     };
 
     renderer.del = ({ tokens }) => {
