@@ -91,8 +91,8 @@ catalogs:
       specifier: ^3.0.0
       version: 3.0.0
     postcss:
-      specifier: 8.5.10
-      version: 8.5.10
+      specifier: 8.5.29
+      version: 8.5.29
     prism-react-renderer:
       specifier: 2.4.1
       version: 2.4.1
@@ -118,8 +118,8 @@ catalogs:
       specifier: 5.9.3
       version: 5.9.3
     vite:
-      specifier: 7.3.5
-      version: 7.3.5
+      specifier: 7.3.7
+      version: 7.3.7
     yalc:
       specifier: 1.0.0-pre.53
       version: 1.0.0-pre.53
@@ -170,7 +170,7 @@ importers:
         version: 7.0.6
       '@tsdown/css':
         specifier: 'catalog:'
-        version: 0.21.9(jiti@2.6.1)(postcss-import@16.1.1(postcss@8.5.23))(postcss@8.5.23)(tsdown@0.21.9)(tsx@4.21.0)
+        version: 0.21.9(jiti@2.6.1)(postcss-import@16.1.1(postcss@8.5.29))(postcss@8.5.29)(tsdown@0.21.9)(tsx@4.21.0)
       '@types/node':
         specifier: 'catalog:'
         version: 22.19.18
@@ -218,10 +218,10 @@ importers:
         version: 5.9.3
       vite:
         specifier: 'catalog:'
-        version: 7.3.5(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0)
+        version: 7.3.7(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0)
       vitest:
         specifier: 4.1.12
-        version: 4.1.12(@edge-runtime/vm@5.0.0)(@types/node@22.19.18)(@vitest/browser-playwright@4.1.12)(happy-dom@20.9.0)(jsdom@26.1.0)(vite@7.3.5(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))
+        version: 4.1.12(@edge-runtime/vm@5.0.0)(@types/node@22.19.18)(@vitest/browser-playwright@4.1.12)(happy-dom@20.9.0)(jsdom@26.1.0)(vite@7.3.7(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))
 
   apps/demo:
     dependencies:
@@ -399,7 +399,7 @@ importers:
         version: 0.0.6
       postcss:
         specifier: 'catalog:'
-        version: 8.5.10
+        version: 8.5.29
       tailwindcss:
         specifier: 'catalog:'
         version: 4.1.18
@@ -601,19 +601,19 @@ importers:
         version: 1.26.6
       '@vitejs/plugin-react':
         specifier: 'catalog:'
-        version: 5.2.0(vite@7.3.5(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))
+        version: 5.2.0(vite@7.3.7(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))
       '@vitest/browser-playwright':
         specifier: 4.1.12
-        version: 4.1.12(playwright@1.59.1)(vite@7.3.5(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))(vitest@4.1.12)
+        version: 4.1.12(playwright@1.59.1)(vite@7.3.7(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))(vitest@4.1.12)
       playwright:
         specifier: 1.59.1
         version: 1.59.1
       postcss:
-        specifier: 8.5.10
-        version: 8.5.10
+        specifier: 8.5.29
+        version: 8.5.29
       postcss-import:
         specifier: 16.1.1
-        version: 16.1.1(postcss@8.5.10)
+        version: 16.1.1(postcss@8.5.29)
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -914,7 +914,7 @@ importers:
         version: 3.0.0
       postcss:
         specifier: 'catalog:'
-        version: 8.5.10
+        version: 8.5.29
       pretty-bytes:
         specifier: 6.1.1
         version: 6.1.1
@@ -5160,6 +5160,11 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  nanoid@3.3.20:
+    resolution: {integrity: sha512-uKdg2G3GNCKQn9byYOpxbGqrT2fGO5KRt5J/8b3pok8rT6qxGWF6hxMyJiEYtAf+FVyYuD9hRaDqX5uPFYJ4ZQ==}
+    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
+
   negotiator@0.6.3:
     resolution: {integrity: sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==}
     engines: {node: '>= 0.6'}
@@ -5396,12 +5401,12 @@ packages:
   postcss-value-parser@4.2.0:
     resolution: {integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==}
 
-  postcss@8.5.10:
-    resolution: {integrity: sha512-pMMHxBOZKFU6HgAZ4eyGnwXF/EvPGGqUr0MnZ5+99485wwW41kW91A4LOGxSHhgugZmSChL5AlElNdwlNgcnLQ==}
-    engines: {node: ^10 || ^12 || >=14}
-
   postcss@8.5.23:
     resolution: {integrity: sha512-g50586zr4bZmwFiTlflMu8E0bDTb5I5gertgwAKmsdUlTQIhZtunzUlD1WSzwcVWPoAVpsrA6vlfCD7oXvRwgg==}
+    engines: {node: ^10 || ^12 || >=14}
+
+  postcss@8.5.29:
+    resolution: {integrity: sha512-49cGhUbXj8Qenv0iTMxA1cFBzxXoctpC9Ujd77t1WcbJIr6nF/eI7g/8MgxrYldFRuAXvja7xQRwavoW7kgrxQ==}
     engines: {node: ^10 || ^12 || >=14}
 
   potpack@1.0.2:
@@ -6278,8 +6283,8 @@ packages:
   vfile@6.0.3:
     resolution: {integrity: sha512-KzIbH/9tXat2u30jf+smMwFCsno4wHVdNmzFyL+T/L3UGqqk6JKfVqOFOZEpZSHADH1k40ab6NUIXZq422ov3Q==}
 
-  vite@7.3.5:
-    resolution: {integrity: sha512-KuOaNhcnGFN2zIPGA7wRmzF+lJA1sea7rHq17aiJ++9lzY1WWG6Jpwqwe1KNbRVPIqHmr8GLYx7jbrQcN/7/ww==}
+  vite@7.3.7:
+    resolution: {integrity: sha512-AHEzTORMbi7/7aXp7w7KZ5+DCUdSeLsJz0grY8xHpc9DHdYb0vQu6DqJfm2tOw3gDExNgPgnJTXxM6syYFHaCA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -8665,7 +8670,7 @@ snapshots:
       '@alloc/quick-lru': 5.2.0
       '@tailwindcss/node': 4.1.18
       '@tailwindcss/oxide': 4.1.18
-      postcss: 8.5.10
+      postcss: 8.5.23
       tailwindcss: 4.1.18
 
   '@testing-library/dom@10.4.1':
@@ -8889,15 +8894,15 @@ snapshots:
       '@tiptap/core': 3.32.0(@tiptap/pm@3.32.0)
       '@tiptap/pm': 3.32.0
 
-  '@tsdown/css@0.21.9(jiti@2.6.1)(postcss-import@16.1.1(postcss@8.5.23))(postcss@8.5.23)(tsdown@0.21.9)(tsx@4.21.0)':
+  '@tsdown/css@0.21.9(jiti@2.6.1)(postcss-import@16.1.1(postcss@8.5.29))(postcss@8.5.29)(tsdown@0.21.9)(tsx@4.21.0)':
     dependencies:
       lightningcss: 1.32.0
-      postcss-load-config: 6.0.1(jiti@2.6.1)(postcss@8.5.23)(tsx@4.21.0)
+      postcss-load-config: 6.0.1(jiti@2.6.1)(postcss@8.5.29)(tsx@4.21.0)
       rolldown: 1.0.0-rc.16
       tsdown: 0.21.9(@tsdown/css@0.21.9)(typescript@5.9.3)
     optionalDependencies:
-      postcss: 8.5.23
-      postcss-import: 16.1.1(postcss@8.5.23)
+      postcss: 8.5.29
+      postcss-import: 16.1.1(postcss@8.5.29)
     transitivePeerDependencies:
       - jiti
       - tsx
@@ -9102,7 +9107,7 @@ snapshots:
 
   '@vercel/oidc@3.4.0': {}
 
-  '@vitejs/plugin-react@5.2.0(vite@7.3.5(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))':
+  '@vitejs/plugin-react@5.2.0(vite@7.3.7(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))':
     dependencies:
       '@babel/core': 7.29.6
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.29.6)
@@ -9110,33 +9115,33 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-rc.3
       '@types/babel__core': 7.20.5
       react-refresh: 0.18.0
-      vite: 7.3.5(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0)
+      vite: 7.3.7(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0)
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/browser-playwright@4.1.12(playwright@1.59.1)(vite@7.3.5(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))(vitest@4.1.12)':
+  '@vitest/browser-playwright@4.1.12(playwright@1.59.1)(vite@7.3.7(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))(vitest@4.1.12)':
     dependencies:
-      '@vitest/browser': 4.1.12(vite@7.3.5(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))(vitest@4.1.12)
-      '@vitest/mocker': 4.1.12(vite@7.3.5(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))
+      '@vitest/browser': 4.1.12(vite@7.3.7(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))(vitest@4.1.12)
+      '@vitest/mocker': 4.1.12(vite@7.3.7(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))
       playwright: 1.59.1
       tinyrainbow: 3.1.0
-      vitest: 4.1.12(@edge-runtime/vm@5.0.0)(@types/node@22.19.18)(@vitest/browser-playwright@4.1.12)(happy-dom@20.9.0)(jsdom@26.1.0)(vite@7.3.5(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))
+      vitest: 4.1.12(@edge-runtime/vm@5.0.0)(@types/node@22.19.18)(@vitest/browser-playwright@4.1.12)(happy-dom@20.9.0)(jsdom@26.1.0)(vite@7.3.7(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))
     transitivePeerDependencies:
       - bufferutil
       - msw
       - utf-8-validate
       - vite
 
-  '@vitest/browser@4.1.12(vite@7.3.5(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))(vitest@4.1.12)':
+  '@vitest/browser@4.1.12(vite@7.3.7(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))(vitest@4.1.12)':
     dependencies:
       '@blazediff/core': 1.9.1
-      '@vitest/mocker': 4.1.12(vite@7.3.5(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))
+      '@vitest/mocker': 4.1.12(vite@7.3.7(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))
       '@vitest/utils': 4.1.12
       magic-string: 0.30.21
       pngjs: 7.0.0
       sirv: 3.0.2
       tinyrainbow: 3.1.0
-      vitest: 4.1.12(@edge-runtime/vm@5.0.0)(@types/node@22.19.18)(@vitest/browser-playwright@4.1.12)(happy-dom@20.9.0)(jsdom@26.1.0)(vite@7.3.5(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))
+      vitest: 4.1.12(@edge-runtime/vm@5.0.0)(@types/node@22.19.18)(@vitest/browser-playwright@4.1.12)(happy-dom@20.9.0)(jsdom@26.1.0)(vite@7.3.7(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))
       ws: 8.22.0
     transitivePeerDependencies:
       - bufferutil
@@ -9153,13 +9158,13 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.1.0
 
-  '@vitest/mocker@4.1.12(vite@7.3.5(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))':
+  '@vitest/mocker@4.1.12(vite@7.3.7(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))':
     dependencies:
       '@vitest/spy': 4.1.12
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 7.3.5(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0)
+      vite: 7.3.7(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0)
 
   '@vitest/pretty-format@4.1.12':
     dependencies:
@@ -10557,6 +10562,8 @@ snapshots:
 
   nanoid@3.3.17: {}
 
+  nanoid@3.3.20: {}
+
   negotiator@0.6.3: {}
 
   neo-async@2.6.2: {}
@@ -10754,40 +10761,32 @@ snapshots:
 
   postal-mime@2.7.4: {}
 
-  postcss-import@16.1.1(postcss@8.5.10):
+  postcss-import@16.1.1(postcss@8.5.29):
     dependencies:
-      postcss: 8.5.10
+      postcss: 8.5.29
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
       resolve: 1.22.9
 
-  postcss-import@16.1.1(postcss@8.5.23):
-    dependencies:
-      postcss: 8.5.23
-      postcss-value-parser: 4.2.0
-      read-cache: 1.0.0
-      resolve: 1.22.9
-    optional: true
-
-  postcss-load-config@6.0.1(jiti@2.6.1)(postcss@8.5.23)(tsx@4.21.0):
+  postcss-load-config@6.0.1(jiti@2.6.1)(postcss@8.5.29)(tsx@4.21.0):
     dependencies:
       lilconfig: 3.1.3
     optionalDependencies:
       jiti: 2.6.1
-      postcss: 8.5.23
+      postcss: 8.5.29
       tsx: 4.21.0
 
   postcss-value-parser@4.2.0: {}
 
-  postcss@8.5.10:
+  postcss@8.5.23:
     dependencies:
       nanoid: 3.3.17
       picocolors: 1.1.1
       source-map-js: 1.2.2
 
-  postcss@8.5.23:
+  postcss@8.5.29:
     dependencies:
-      nanoid: 3.3.17
+      nanoid: 3.3.20
       picocolors: 1.1.1
       source-map-js: 1.2.2
 
@@ -11584,7 +11583,7 @@ snapshots:
       unconfig-core: 7.5.0
       unrun: 0.2.36
     optionalDependencies:
-      '@tsdown/css': 0.21.9(jiti@2.6.1)(postcss-import@16.1.1(postcss@8.5.23))(postcss@8.5.23)(tsdown@0.21.9)(tsx@4.21.0)
+      '@tsdown/css': 0.21.9(jiti@2.6.1)(postcss-import@16.1.1(postcss@8.5.29))(postcss@8.5.29)(tsdown@0.21.9)(tsx@4.21.0)
       typescript: 5.9.3
     transitivePeerDependencies:
       - '@ts-macro/tsc'
@@ -11758,12 +11757,12 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.2
 
-  vite@7.3.5(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0):
+  vite@7.3.7(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0):
     dependencies:
-      esbuild: 0.27.5
+      esbuild: 0.28.2
       fdir: 6.5.0(picomatch@4.0.4)
       picomatch: 4.0.4
-      postcss: 8.5.10
+      postcss: 8.5.23
       rollup: 4.60.1
       tinyglobby: 0.2.16
     optionalDependencies:
@@ -11778,15 +11777,15 @@ snapshots:
     dependencies:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
-      vitest: 4.1.12(@edge-runtime/vm@5.0.0)(@types/node@22.19.18)(@vitest/browser-playwright@4.1.12)(happy-dom@20.9.0)(jsdom@26.1.0)(vite@7.3.5(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))
+      vitest: 4.1.12(@edge-runtime/vm@5.0.0)(@types/node@22.19.18)(@vitest/browser-playwright@4.1.12)(happy-dom@20.9.0)(jsdom@26.1.0)(vite@7.3.7(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))
     optionalDependencies:
       '@types/react': 19.2.14
       '@types/react-dom': 19.2.3(@types/react@19.2.14)
 
-  vitest@4.1.12(@edge-runtime/vm@5.0.0)(@types/node@22.19.18)(@vitest/browser-playwright@4.1.12)(happy-dom@20.9.0)(jsdom@26.1.0)(vite@7.3.5(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0)):
+  vitest@4.1.12(@edge-runtime/vm@5.0.0)(@types/node@22.19.18)(@vitest/browser-playwright@4.1.12)(happy-dom@20.9.0)(jsdom@26.1.0)(vite@7.3.7(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0)):
     dependencies:
       '@vitest/expect': 4.1.12
-      '@vitest/mocker': 4.1.12(vite@7.3.5(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))
+      '@vitest/mocker': 4.1.12(vite@7.3.7(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))
       '@vitest/pretty-format': 4.1.12
       '@vitest/runner': 4.1.12
       '@vitest/snapshot': 4.1.12
@@ -11803,12 +11802,12 @@ snapshots:
       tinyexec: 1.1.1
       tinyglobby: 0.2.16
       tinyrainbow: 3.1.0
-      vite: 7.3.5(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0)
+      vite: 7.3.7(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@edge-runtime/vm': 5.0.0
       '@types/node': 22.19.18
-      '@vitest/browser-playwright': 4.1.12(playwright@1.59.1)(vite@7.3.5(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))(vitest@4.1.12)
+      '@vitest/browser-playwright': 4.1.12(playwright@1.59.1)(vite@7.3.7(@types/node@22.19.18)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.37.0)(tsx@4.21.0))(vitest@4.1.12)
       happy-dom: 20.9.0
       jsdom: 26.1.0
     transitivePeerDependencies:
