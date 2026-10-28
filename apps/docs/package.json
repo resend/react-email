@@ -3,10 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "mintlify dev"
-  },
-  "dependencies": {
-    "mintlify": "4.2.1158",
-    "zod": "catalog:"
+    "dev": "npx mint@4.2.1158 dev"
   }
 }
