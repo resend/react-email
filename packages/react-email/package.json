@@ -7,6 +7,9 @@
   },
   "type": "module",
   "sideEffects": false,
+  "files": [
+    "dist/**"
+  ],
   "types": "./dist/index.d.mts",
   "scripts": {
     "build": "tsdown",
