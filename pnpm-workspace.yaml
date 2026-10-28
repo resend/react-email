@@ -44,7 +44,7 @@ catalog:
   nypm: 0.6.6
   ora: ^8.0.0
   picospinner: ^3.0.0
-  postcss: 8.5.10
+  postcss: 8.5.29
   prism-react-renderer: 2.4.1
   react: 19.2.4
   react-dom: 19.2.4
@@ -55,7 +55,7 @@ catalog:
   tsdown: 0.21.9
   tsx: 4.21.0
   typescript: 5.9.3
-  vite: 7.3.5
+  vite: 7.3.7
   yalc: 1.0.0-pre.53
   zod: 4.3.6
 minimumReleaseAgeExclude:
