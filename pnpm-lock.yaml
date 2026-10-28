@@ -650,9 +650,6 @@ importers:
       css-tree:
         specifier: 3.2.1
         version: 3.2.1
-      debounce:
-        specifier: ^2.0.0
-        version: 2.2.0
       esbuild:
         specifier: ^0.28.0
         version: 0.28.2
@@ -3804,10 +3801,6 @@ packages:
 
   debounce-fn@6.0.0:
     resolution: {integrity: sha512-rBMW+F2TXryBwB54Q0d8drNEI+TfoS9JpNTAoVpukbWEhjXQq4rySFYLaqXMFXwdv61Zb2OHtj5bviSoimqxRQ==}
-    engines: {node: '>=18'}
-
-  debounce@2.2.0:
-    resolution: {integrity: sha512-Xks6RUDLZFdz8LIdR6q0MTH44k7FikOmnh5xkSjMig6ch45afc8sjTjRQf3P6ax8dMgcQrYO/AR2RGWURrruqw==}
     engines: {node: '>=18'}
 
   debug@4.4.3:
@@ -8814,8 +8807,6 @@ snapshots:
   debounce-fn@6.0.0:
     dependencies:
       mimic-function: 5.0.1
-
-  debounce@2.2.0: {}
 
   debug@4.4.3:
     dependencies:
