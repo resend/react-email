@@ -6,9 +6,12 @@ icon: "file-export"
 ---
 
 The `composeReactEmail` function is the core of the editor's email export system. It takes
-the editor's document tree, walks every node and mark, calls each extension's
+a document tree, walks every node and mark, calls each extension's
 `renderToReactEmail()` method, applies theme styles, wraps everything in an email-ready
 template, and produces both HTML and plain text output.
+
+It runs anywhere: pass it a live editor in the browser, or a stored JSON document plus
+your extension list on a server — no editor instance and no DOM required.
 
 ## Import
 
@@ -19,21 +22,52 @@ import { composeReactEmail } from '@react-email/editor/core';
 ## Signature
 
 ```tsx
+// From a document (works server-side — no editor, no DOM)
+async function composeReactEmail(params: {
+  content: JSONContent;
+  extensions: Extensions;
+  preview?: string;
+  format?: boolean;
+}): Promise<{ html: string; text: string; unformattedHtml: string }>;
+
+// From a live editor
 async function composeReactEmail(params: {
   editor: Editor;
-  preview: string | null;
-}): Promise<{ html: string; text: string }>;
+  preview?: string;
+  format?: boolean;
+}): Promise<{ html: string; text: string; unformattedHtml: string }>;
 ```
 
 ## Parameters
 
-<ResponseField name="editor" type="Editor" required>
-  The TipTap editor instance. The function reads the editor's JSON document and walks through
-  each registered extension to serialize nodes and marks.
+<ResponseField name="content" type="JSONContent">
+  The document to serialize, as TipTap JSON — typically what you persisted from
+  `editor.getJSON()`. Required unless `editor` is passed. HTML strings are not accepted;
+  convert HTML first with `generateJSON` from `@tiptap/html`.
 </ResponseField>
 
-<ResponseField name="preview" type="string | null" required>
-  Preview text shown in inbox list views before the email is opened. Pass `null` to omit.
+<ResponseField name="extensions" type="Extensions">
+  The extension set the document was written with, e.g. `[StarterKit, EmailTheming]`.
+  Required alongside `content`. Documents containing node types the extension set doesn't
+  know are rejected with an error. Define the array once at module scope — schema
+  compilation is cached per extensions array. Pass the original extension list, not an
+  already-resolved one like `editor.extensionManager.extensions`, which is rejected with
+  an error.
+</ResponseField>
+
+<ResponseField name="editor" type="Editor">
+  A live TipTap editor instance. Shorthand for passing that editor's document and
+  extensions. Required unless `content` is passed.
+</ResponseField>
+
+<ResponseField name="preview" type="string">
+  Preview text shown in inbox list views before the email is opened. Omit to skip it.
+</ResponseField>
+
+<ResponseField name="format" type="boolean" default="true">
+  When `false`, the Prettier formatting pass is skipped and `html` equals
+  `unformattedHtml`. Recommended on server send paths, which read `unformattedHtml`
+  and never need formatted output.
 </ResponseField>
 
 ## Return value
@@ -42,10 +76,9 @@ Returns a `Promise` that resolves to an object with:
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `html` | `string` | Full HTML email string, ready to send |
+| `html` | `string` | Prettier-formatted HTML, suited for showing in a source-code view (equals `unformattedHtml` when `format: false`) |
 | `text` | `string` | Plain text version for email clients that don't support HTML |
-
-Both are generated in parallel for performance.
+| `unformattedHtml` | `string` | Unformatted HTML as produced by `render()` — use this when persisting or sending |
 
 ---
 
@@ -54,18 +87,21 @@ Both are generated in parallel for performance.
 Understanding how `composeReactEmail` works helps you write better custom extensions and
 debug rendering issues.
 
-### 1. Extract document and extensions
+### 1. Build the compose context
 
-The function reads the editor's JSON document (via `editor.getJSON()`) and collects all
-registered extensions into a name-to-extension map for fast lookup.
+Both call forms normalize into a `ComposeContext` — a plain data object with the document
+JSON (`doc`), the compiled ProseMirror `schema`, and the resolved `extensions`. With
+`editor`, these come straight off the instance. With `content`, the extension list is
+resolved and compiled once (cached per array identity), and the JSON is round-tripped
+through the schema so attribute defaults materialize exactly like `editor.getJSON()`.
 
 ### 2. Find the SerializerPlugin
 
 It searches extensions for one that provides a `SerializerPlugin` — an interface with two
 methods:
 
-- **`getNodeStyles(node, depth, editor)`** — returns `React.CSSProperties` for a given node
-- **`BaseTemplate({ previewText, children, editor })`** — wraps the serialized content in an email structure
+- **`getNodeStyles(node, depth, context)`** — returns `React.CSSProperties` for a given node
+- **`BaseTemplate({ previewText, children, context })`** — wraps the serialized content in an email structure
 
 The [`EmailTheming`](/editor/features/theming) extension implements this interface. If no
 plugin is found, styles default to `{}` and the built-in `DefaultBaseTemplate` is used.
@@ -74,9 +110,9 @@ plugin is found, styles default to `{}` and the built-in `DefaultBaseTemplate` i
 
 It recursively walks the ProseMirror document. For each node it:
 
-1. **Resolves styles** — calls `serializerPlugin.getNodeStyles(node, depth, editor)` to get
+1. **Resolves styles** — calls `serializerPlugin.getNodeStyles(node, depth, context)` to get
    theme styles, then merges any inline styles from the node's attributes
-2. **Renders unknown nodes as `null`** — if the node type isn't registered or isn't an
+2. **Renders unknown nodes as `null`** — if the node type isn't an
    [`EmailNode`](/editor/api-reference/email-node), it returns `null`
 3. **Renders the node** — calls the extension's `renderToReactEmail()` component, passing
    `children` (from recursing into child nodes), `style`, `node`, and `extension`
@@ -156,12 +192,45 @@ are produced in parallel from the final React tree.
 
 ## Usage
 
-### Basic export
+### Server-side export
+
+Persist `editor.getJSON()` from the browser, then render it to email HTML wherever the
+email is actually sent — an API route, a queue worker, a cron job:
+
+```tsx
+import { composeReactEmail } from '@react-email/editor/core';
+import { StarterKit } from '@react-email/editor/extensions';
+import { EmailTheming } from '@react-email/editor/plugins';
+
+const extensions = [StarterKit, EmailTheming];
+
+export async function POST(request: Request) {
+  const { document } = await request.json();
+
+  const { unformattedHtml, text } = await composeReactEmail({
+    content: document,
+    extensions,
+    preview: 'Check out our latest updates!',
+    format: false,
+  });
+
+  await sendEmail({ html: unformattedHtml, text });
+  return Response.json({ ok: true });
+}
+```
+
+<Note>
+  `content` must be TipTap JSON. If you have HTML instead, convert it first with
+  [`generateJSON` from `@tiptap/html`](https://tiptap.dev/docs/editor/api/utilities/html),
+  which also works server-side.
+</Note>
+
+### Basic export from an editor
 
 ```tsx
 import { composeReactEmail } from '@react-email/editor/core';
 
-const { html, text } = await composeReactEmail({ editor, preview: null });
+const { html, text } = await composeReactEmail({ editor });
 ```
 
 ### With preview text
@@ -176,7 +245,7 @@ const { html, text } = await composeReactEmail({
 });
 ```
 
-Pass `null` to omit preview text entirely.
+Omit it to skip preview text entirely.
 
 ### With theming
 
@@ -190,7 +259,8 @@ import { EmailTheming } from '@react-email/editor/plugins';
 const extensions = [StarterKit, EmailTheming.configure({ theme: 'basic' })];
 
 // Theme styles are injected automatically — no extra config needed
-const { html } = await composeReactEmail({ editor, preview: null });
+const storedDocument = await loadDocumentFromDatabase(); // TipTap JSON
+const { html } = await composeReactEmail({ content: storedDocument, extensions });
 ```
 
 ### Full example with export panel
@@ -208,7 +278,7 @@ function ExportPanel() {
   const handleExport = async () => {
     if (!editor) return;
     setExporting(true);
-    const result = await composeReactEmail({ editor, preview: null });
+    const result = await composeReactEmail({ editor });
     setHtml(result.html);
     setExporting(false);
   };
