@@ -28,6 +28,7 @@ export const CodeBlockPrism = EmailNode.from(
         languageClassPrefix: 'language-',
         exitOnTripleEnter: false,
         exitOnArrowDown: false,
+        exitOnArrowUp: false,
         enableTabIndentation: true,
         tabSize: 2,
         defaultLanguage: 'javascript',
