@@ -116,11 +116,11 @@
     "email"
   ],
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=20.19.0"
   },
   "dependencies": {
     "entities": "^4.5.0",
-    "html-to-text": "^9.0.5",
+    "html-to-text": "^10.0.1",
     "html5parser": "^3.0.0",
     "prettier": "^3.5.3"
   },
