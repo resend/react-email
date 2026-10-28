@@ -32,8 +32,18 @@ describe('convertToPx', () => {
     expect(result).toBe(0);
   });
 
-  it('converts empaddingTopy input to 0', () => {
+  it('converts empty input to undefined', () => {
     const result = convertToPx('');
+    expect(result).toBeUndefined();
+  });
+
+  it('converts undefined input to undefined', () => {
+    const result = convertToPx(undefined);
+    expect(result).toBeUndefined();
+  });
+
+  it('keeps 0 as 0', () => {
+    const result = convertToPx(0);
     expect(result).toBe(0);
   });
 });

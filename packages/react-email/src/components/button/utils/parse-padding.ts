@@ -15,8 +15,8 @@ interface PaddingProperties {
 export function convertToPx(value: PaddingType) {
   let px = 0;
 
-  if (!value) {
-    return px;
+  if (value === undefined || value === '') {
+    return undefined;
   }
 
   if (typeof value === 'number') {
@@ -128,15 +128,10 @@ export function parsePadding(properties: PaddingProperties) {
     }
   }
 
-  // `0` is a real value here: dropping it would let the `padding` shorthand,
-  // which is still spread into the style, win over an explicit `paddingTop: 0`.
-  const toPx = (value: PaddingType) =>
-    value === undefined || value === '' ? undefined : convertToPx(value);
-
   return {
-    paddingTop: toPx(paddingTop),
-    paddingRight: toPx(paddingRight),
-    paddingBottom: toPx(paddingBottom),
-    paddingLeft: toPx(paddingLeft),
+    paddingTop: convertToPx(paddingTop),
+    paddingRight: convertToPx(paddingRight),
+    paddingBottom: convertToPx(paddingBottom),
+    paddingLeft: convertToPx(paddingLeft),
   };
 }
