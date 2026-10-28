@@ -1,5 +1,11 @@
 # @react-email/ui
 
+## 6.11.5
+
+### Patch Changes
+
+- f6f6bf4: Bump `next` to 16.4.3 so the preview server matches the latest Next.js patch release.
+
 ## 6.11.4
 
 ## 6.11.3
