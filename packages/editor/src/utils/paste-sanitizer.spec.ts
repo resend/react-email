@@ -52,6 +52,15 @@ describe('sanitizePastedHtml', () => {
       );
       expect(out.toLowerCase()).not.toContain('<script');
     });
+
+    it('strips event handler attributes when the editor marker is present', () => {
+      const out = sanitizePastedHtml(
+        '<div class="node-container" onclick="alert(1)"><p class="node-paragraph" onMouseOver="alert(2)">hi</p><img src="https://x.test/a.png" onerror="alert(3)"></div>',
+      );
+      expect(out.toLowerCase()).not.toMatch(/\son[a-z]+=/);
+      expect(out).toContain('class="node-container"');
+      expect(out).toContain('class="node-paragraph"');
+    });
   });
 
   describe('preserves legitimate content (regression guards)', () => {

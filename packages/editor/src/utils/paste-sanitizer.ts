@@ -1,6 +1,6 @@
 /**
  * Sanitizes pasted HTML.
- * - Always: drop dangerous elements (script, iframe, ...) and unsafe URL schemes (javascript:, ...).
+ * - Always: drop dangerous elements (script, iframe, ...), event handler attributes (onclick, ...) and unsafe URL schemes (javascript:, ...).
  * - From editor (has node-* classes): preserve attributes so node identity round-trips.
  * - From external: strip all styles/classes, keep only semantic HTML.
  */
@@ -40,6 +40,7 @@ export function sanitizePastedHtml(html: string): string {
   const doc = parser.parseFromString(html, 'text/html');
 
   removeForbiddenElements(doc.body);
+  removeEventHandlerAttributes(doc.body);
   scrubUnsafeUrlAttributes(doc.body);
 
   if (isFromEditor(html)) {
@@ -55,6 +56,16 @@ function removeForbiddenElements(root: Element): void {
   for (const tag of FORBIDDEN_TAGS) {
     for (const el of Array.from(root.getElementsByTagName(tag))) {
       el.remove();
+    }
+  }
+}
+
+function removeEventHandlerAttributes(root: Element): void {
+  for (const el of Array.from(root.getElementsByTagName('*'))) {
+    for (const attr of Array.from(el.attributes)) {
+      if (attr.name.toLowerCase().startsWith('on')) {
+        el.removeAttribute(attr.name);
+      }
     }
   }
 }
