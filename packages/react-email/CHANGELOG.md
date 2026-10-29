@@ -1,5 +1,11 @@
 # react-email
 
+## 6.11.6
+
+### Patch Changes
+
+- a959dbb: Keep a longhand padding of `0` on `<Button>`
+
 ## 6.11.5
 
 ## 6.11.4
