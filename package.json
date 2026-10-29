@@ -29,7 +29,7 @@
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "happy-dom": "20.9.0",
+    "happy-dom": "21.0.4",
     "mdast-util-to-string": "4.0.0",
     "nypm": "catalog:",
     "pkg-pr-new": "0.0.66",
