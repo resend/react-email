@@ -29,12 +29,7 @@ export const resolveWithinEmailsDirectory = (
   const resolvedRoot = safeRealpath(path.resolve(root));
   const resolvedTarget = safeRealpath(path.resolve(resolvedRoot, emailPath));
 
-  if (
-    resolvedTarget !== resolvedRoot &&
-    !resolvedTarget.startsWith(resolvedRoot + path.sep)
-  ) {
-    return undefined;
-  }
+  if (!resolvedTarget.startsWith(resolvedRoot + path.sep)) return undefined;
 
   return resolvedTarget;
 };

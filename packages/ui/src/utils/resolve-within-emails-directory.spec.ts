@@ -40,10 +40,8 @@ describe('resolveWithinEmailsDirectory()', () => {
     ).toBe(realWelcomePath());
   });
 
-  it('resolves the emails directory itself', () => {
-    expect(resolveWithinEmailsDirectory(emailsRoot)).toBe(
-      fs.realpathSync(emailsRoot),
-    );
+  it('rejects the emails directory itself', () => {
+    expect(resolveWithinEmailsDirectory(emailsRoot)).toBeUndefined();
   });
 
   it('resolves a relative path against the emails directory', () => {
@@ -70,7 +68,9 @@ describe('resolveWithinEmailsDirectory()', () => {
     const sibling = `${emailsRoot}-other`;
     fs.mkdirSync(sibling, { recursive: true });
     try {
-      expect(resolveWithinEmailsDirectory(path.join(sibling, 'evil.tsx'))).toBeUndefined();
+      expect(
+        resolveWithinEmailsDirectory(path.join(sibling, 'evil.tsx')),
+      ).toBeUndefined();
     } finally {
       fs.rmSync(sibling, { recursive: true, force: true });
     }
