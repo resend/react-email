@@ -13,6 +13,10 @@ allowBuilds:
 
 autoInstallPeers: true
 
+peerDependencyRules:
+  allowedVersions:
+    '@tiptap/html>happy-dom': '21'
+
 catalog:
   '@babel/parser': 7.29.2
   '@babel/traverse': 7.29.0
