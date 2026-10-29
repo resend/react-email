@@ -62,6 +62,16 @@ describe('renderEmailByPath() with raw .html templates', () => {
     expect(result.error.message).toMatch(/outside of the configured emails/);
   });
 
+  it('renders a relative path from the emails directory, not the working directory', async () => {
+    expect(process.cwd()).not.toBe(emailsRoot);
+
+    const result = await renderEmailByPath('raw-html-email.html', true);
+
+    expect('error' in result).toBe(false);
+    if ('error' in result) return;
+    expect(result.markup).toContain('<h1>Hello from a raw HTML email</h1>');
+  });
+
   it('refuses to escape via traversal segments', async () => {
     const result = await renderEmailByPath(
       path.join(emailsRoot, '..', '..', '..', 'etc', 'passwd'),
@@ -175,6 +185,18 @@ describe('renderEmailByPath() with preview props overrides', () => {
     if ('error' in result) return;
 
     expect(result.previewProps.username).toBe('alanturing');
+    expect(result.markup).toContain('alanturing');
+  });
+
+  it('bundles a relative template path from the emails directory', {
+    timeout: 15_000,
+  }, async () => {
+    expect(process.cwd()).not.toBe(emailsRoot);
+
+    const result = await render('vercel-invite-user.tsx', true);
+
+    expect('error' in result).toBe(false);
+    if ('error' in result) return;
     expect(result.markup).toContain('alanturing');
   });
 

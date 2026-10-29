@@ -4,10 +4,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { cache } from 'react';
 import { emailsDirectoryAbsolutePath } from '../app/env';
-import { isPathWithinEmailsDirectory } from '../utils/is-path-within-emails-directory';
+import { resolveWithinEmailsDirectory } from '../utils/resolve-within-emails-directory';
 
 const safeReturn = (candidate: string): string | undefined => {
-  return isPathWithinEmailsDirectory(candidate) ? candidate : undefined;
+  return resolveWithinEmailsDirectory(candidate) ? candidate : undefined;
 };
 
 export const getEmailPathFromSlug = cache(async (slug: string) => {

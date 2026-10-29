@@ -2,9 +2,9 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { isPathWithinEmailsDirectory } from './is-path-within-emails-directory';
+import { resolveWithinEmailsDirectory } from './resolve-within-emails-directory';
 
-describe('isPathWithinEmailsDirectory()', () => {
+describe('resolveWithinEmailsDirectory()', () => {
   const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'rxe-path-guard-'));
   const emailsRoot = path.join(tmpRoot, 'emails');
   const outsideFile = path.join(tmpRoot, 'secret.txt');
@@ -31,41 +31,46 @@ describe('isPathWithinEmailsDirectory()', () => {
     fs.rmSync(tmpRoot, { recursive: true, force: true });
   });
 
-  it('accepts a file directly inside the emails directory', () => {
+  const realWelcomePath = () =>
+    fs.realpathSync(path.join(emailsRoot, 'welcome.tsx'));
+
+  it('resolves a file directly inside the emails directory', () => {
     expect(
-      isPathWithinEmailsDirectory(path.join(emailsRoot, 'welcome.tsx')),
-    ).toBe(true);
+      resolveWithinEmailsDirectory(path.join(emailsRoot, 'welcome.tsx')),
+    ).toBe(realWelcomePath());
   });
 
-  it('accepts the emails directory itself', () => {
-    expect(isPathWithinEmailsDirectory(emailsRoot)).toBe(true);
+  it('resolves the emails directory itself', () => {
+    expect(resolveWithinEmailsDirectory(emailsRoot)).toBe(
+      fs.realpathSync(emailsRoot),
+    );
   });
 
-  it('accepts a relative path that resolves inside the emails directory', () => {
-    expect(isPathWithinEmailsDirectory('welcome.tsx')).toBe(true);
-    expect(isPathWithinEmailsDirectory('./welcome.tsx')).toBe(true);
+  it('resolves a relative path against the emails directory', () => {
+    expect(resolveWithinEmailsDirectory('welcome.tsx')).toBe(realWelcomePath());
+    expect(resolveWithinEmailsDirectory('./welcome.tsx')).toBe(
+      realWelcomePath(),
+    );
   });
 
   it('rejects absolute paths outside the emails directory', () => {
-    expect(isPathWithinEmailsDirectory(outsideFile)).toBe(false);
-    expect(isPathWithinEmailsDirectory('/etc/passwd')).toBe(false);
+    expect(resolveWithinEmailsDirectory(outsideFile)).toBeUndefined();
+    expect(resolveWithinEmailsDirectory('/etc/passwd')).toBeUndefined();
   });
 
   it('rejects traversal attempts via ../', () => {
-    expect(isPathWithinEmailsDirectory('../secret.txt')).toBe(false);
-    expect(isPathWithinEmailsDirectory('../../etc/passwd')).toBe(false);
+    expect(resolveWithinEmailsDirectory('../secret.txt')).toBeUndefined();
+    expect(resolveWithinEmailsDirectory('../../etc/passwd')).toBeUndefined();
     expect(
-      isPathWithinEmailsDirectory(path.join(emailsRoot, '..', 'secret.txt')),
-    ).toBe(false);
+      resolveWithinEmailsDirectory(path.join(emailsRoot, '..', 'secret.txt')),
+    ).toBeUndefined();
   });
 
   it('rejects sibling directories with a shared prefix', () => {
     const sibling = `${emailsRoot}-other`;
     fs.mkdirSync(sibling, { recursive: true });
     try {
-      expect(isPathWithinEmailsDirectory(path.join(sibling, 'evil.tsx'))).toBe(
-        false,
-      );
+      expect(resolveWithinEmailsDirectory(path.join(sibling, 'evil.tsx'))).toBeUndefined();
     } finally {
       fs.rmSync(sibling, { recursive: true, force: true });
     }
@@ -80,7 +85,7 @@ describe('isPathWithinEmailsDirectory()', () => {
       return;
     }
     try {
-      expect(isPathWithinEmailsDirectory(symlinkPath)).toBe(false);
+      expect(resolveWithinEmailsDirectory(symlinkPath)).toBeUndefined();
     } finally {
       fs.rmSync(symlinkPath, { force: true });
     }
@@ -91,8 +96,8 @@ describe('isPathWithinEmailsDirectory()', () => {
     delete process.env.REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH;
     try {
       expect(
-        isPathWithinEmailsDirectory(path.join(emailsRoot, 'welcome.tsx')),
-      ).toBe(false);
+        resolveWithinEmailsDirectory(path.join(emailsRoot, 'welcome.tsx')),
+      ).toBeUndefined();
     } finally {
       process.env.REACT_EMAIL_INTERNAL_EMAILS_DIR_ABSOLUTE_PATH = saved;
     }

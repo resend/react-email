@@ -15,8 +15,8 @@ import { convertStackWithSourceMap } from '../utils/convert-stack-with-sourcemap
 import { createJsxRuntime } from '../utils/create-jsx-runtime';
 import { getUserEsbuildPlugins } from '../utils/esbuild/load-esbuild-plugins';
 import { getEmailComponent } from '../utils/get-email-component';
-import { isPathWithinEmailsDirectory } from '../utils/is-path-within-emails-directory';
 import { registerSpinnerAutostopping } from '../utils/register-spinner-autostopping';
+import { resolveWithinEmailsDirectory } from '../utils/resolve-within-emails-directory';
 import {
   createSpinner,
   type Spinner,
@@ -73,8 +73,11 @@ const invalidateCacheFor = (emailPath: string) => {
 // variants) so the next render re-reads the file. Hot reload uses this to
 // invalidate templates affected by a shared-component save without re-rendering
 // them eagerly.
-export const invalidateEmailRenderingCache = async (emailPath: string) => {
-  if (!isPathWithinEmailsDirectory(emailPath)) return;
+export const invalidateEmailRenderingCache = async (
+  requestedEmailPath: string,
+) => {
+  const emailPath = resolveWithinEmailsDirectory(requestedEmailPath);
+  if (!emailPath) return;
   invalidateCacheFor(emailPath);
 };
 
@@ -141,15 +144,16 @@ const warnBufferer = createLogBufferer(
 );
 
 export const renderEmailByPath = async (
-  emailPath: string,
+  requestedEmailPath: string,
   invalidatingCache = false,
   previewPropsOverride?: Record<string, unknown>,
 ): Promise<EmailRenderingResult> => {
-  if (!isPathWithinEmailsDirectory(emailPath)) {
+  const emailPath = resolveWithinEmailsDirectory(requestedEmailPath);
+  if (!emailPath) {
     return {
       error: {
         name: 'Error',
-        message: `Refusing to render ${path.basename(emailPath)} because it resolves outside of the configured emails directory.`,
+        message: `Refusing to render ${path.basename(requestedEmailPath)} because it resolves outside of the configured emails directory.`,
         stack: undefined,
       },
     };
