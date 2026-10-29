@@ -61,7 +61,7 @@ catalog:
   typescript: 5.9.3
   vite: 7.3.7
   yalc: 1.0.0-pre.53
-  zod: 4.3.6
+  zod: 4.6.7
 minimumReleaseAgeExclude:
   - tar@6.2.1
   - tar@7.5.7
