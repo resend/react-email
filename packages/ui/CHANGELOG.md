@@ -1,5 +1,13 @@
 # @react-email/ui
 
+## 6.11.6
+
+### Patch Changes
+
+- c789f50: Bump `next-safe-action` to 8.7.3, `source-map-js` to 1.2.2 and `sharp` to 0.35.5.
+- 87eab8d: Bump `zod` to 4.6.7.
+- c789f50: Bump `engine.io-client` to 6.6.7 and `socket.io-parser` to 4.2.7 in the preview server's hot reload client.
+
 ## 6.11.5
 
 ### Patch Changes

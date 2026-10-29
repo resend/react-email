@@ -1,5 +1,13 @@
 # @react-email/editor
 
+## 1.7.17
+
+### Patch Changes
+
+- 10e9b0c: Bump `@tiptap/*` to 3.32.0.
+- Updated dependencies [a959dbb]
+  - react-email@6.11.6
+
 ## 1.7.16
 
 ### Patch Changes
