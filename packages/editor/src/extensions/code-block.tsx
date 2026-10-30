@@ -3,11 +3,8 @@ import type { CodeBlockOptions } from '@tiptap/extension-code-block';
 import CodeBlock from '@tiptap/extension-code-block';
 import { Fragment, type Schema } from '@tiptap/pm/model';
 import { TextSelection } from '@tiptap/pm/state';
-import * as ReactEmailComponents from 'react-email';
-import {
-  type PrismLanguage,
-  CodeBlock as ReactEmailCodeBlock,
-} from 'react-email';
+import { lazy } from 'react';
+import type { PrismLanguage } from 'react-email';
 import { EmailNode } from '../core/serializer/email-node';
 import { inlineCssToJs } from '../utils/styles';
 import { PrismPlugin } from './prism-plugin';
@@ -20,6 +17,15 @@ export interface CodeBlockPrismOptions extends CodeBlockOptions {
 // Inverts the NBSP + ZWJ + ZWSP that react-email's CodeBlock writes for every
 // space so Spark Mail keeps the indentation.
 const ENCODED_SPACE_REGEX = /\u00A0\u200D\u200B/g;
+
+// react-email's CodeBlock carries every Prism grammar and theme, so it is only
+// loaded once an email with a code block is rendered, not wherever the editor
+// is mounted. `render()` waits for it inside its Suspense boundary.
+const CodeBlockEmail = lazy(() =>
+  import('./code-block-email.js').then((module) => ({
+    default: module.CodeBlockEmail,
+  })),
+);
 
 export const CodeBlockPrism = EmailNode.from(
   CodeBlock.extend<CodeBlockPrismOptions>({
@@ -190,41 +196,15 @@ export const CodeBlockPrism = EmailNode.from(
       ? `${node.attrs.language}`
       : 'javascript';
 
-    // @ts-expect-error -- react-email does not export theme objects by name; dynamic access needed for user-selected themes
-    // biome-ignore lint/performance/noDynamicNamespaceImportAccess: dynamic access needed for user-selected themes
-    const userTheme = ReactEmailComponents[node.attrs?.theme];
-
-    // Without theme, render a gray code block
-    const theme = userTheme
-      ? {
-          ...userTheme,
-          base: {
-            ...userTheme.base,
-            borderRadius: '0.125rem',
-            padding: '0.75rem 1rem',
-          },
-        }
-      : {
-          base: {
-            color: '#1e293b',
-            background: '#f1f5f9',
-            lineHeight: '1.5',
-            fontFamily:
-              '"Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace',
-            padding: '0.75rem 1rem',
-            borderRadius: '0.125rem',
-          },
-        };
-
     return (
-      <ReactEmailCodeBlock
+      <CodeBlockEmail
         code={node.content?.[0]?.text ?? ''}
         // Neither the language nor the theme is recoverable from the rendered
         // markup, so mark them for whoever imports this email back.
         data-language={language}
         data-theme={node.attrs?.theme}
         language={language as PrismLanguage}
-        theme={theme}
+        themeName={node.attrs?.theme}
         style={{
           width: 'auto',
           ...style,
