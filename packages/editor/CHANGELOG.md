@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.7.18
+
+### Patch Changes
+
+- c3354ea: Load react-email's `CodeBlock`, with its Prism grammars and themes, only when an email with a code block is rendered, instead of in every bundle that mounts the editor.
+
 ## 1.7.17
 
 ### Patch Changes
