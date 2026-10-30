@@ -400,7 +400,7 @@
 .tiptap p.is-empty::before,
 .tiptap .node-heading.is-empty [data-placeholder]::before {
   opacity: 0.3;
-  float: left;
+  float: inline-start;
   content: attr(data-placeholder);
   height: 0;
   pointer-events: none;
@@ -409,7 +409,7 @@
 .tiptap .node-placeholder::before {
   color: var(--re-text-muted);
   content: attr(data-placeholder);
-  float: left;
+  float: inline-start;
   height: 0;
   pointer-events: none;
 }
