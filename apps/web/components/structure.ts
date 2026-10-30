@@ -11,6 +11,12 @@ export interface Category {
 export interface Component {
   slug: string;
   title: string;
+  /**
+   * Snippet components render only the inner HTML fragment when copying HTML.
+   * Document components render the full HTML email document.
+   * Defaults to 'snippet'.
+   */
+  type?: 'snippet' | 'document';
 }
 
 export const getComponentPathFromSlug = (slug: string) => {
