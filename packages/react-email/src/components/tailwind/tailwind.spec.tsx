@@ -1248,6 +1248,32 @@ describe('Tailwind component', () => {
   });
 
   describe('with utilities', () => {
+    it.each([
+      '--color-brand: blue;',
+      '--color-brand: blue !important; --color-brand: green;',
+    ])('uses a custom utility local theme override: %s', async (declarations) => {
+      const html = await render(
+        <Tailwind
+          theme="@theme { --color-brand: red; }"
+          utility={`.card { ${declarations} color: var(--color-brand); }`}
+        >
+          <div id="theme-default" className="bg-brand">
+            default
+          </div>
+          <div id="local-override" className="card">
+            overridden
+          </div>
+        </Tailwind>,
+      );
+      const document = new DOMParser().parseFromString(html, 'text/html');
+      expect(
+        document.getElementById('theme-default')?.style.backgroundColor,
+      ).toBe('red');
+      expect(document.getElementById('local-override')?.style.color).toBe(
+        'blue',
+      );
+    });
+
     it('handles empty utilities string', async () => {
       const actualOutput = await render(
         <Tailwind utility="">
