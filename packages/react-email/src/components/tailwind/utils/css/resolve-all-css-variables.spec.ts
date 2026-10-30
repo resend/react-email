@@ -188,6 +188,25 @@ describe('resolveAllCSSVariables', () => {
     );
   });
 
+  it('resolves variables used inside custom property definitions', () => {
+    const root = parse(`:root {
+  --color-red-500: red;
+  --blur-sm: 8px;
+}
+.from-red-500 {
+  --tw-gradient-from: var(--color-red-500);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent);
+}
+.blur-sm {
+  --tw-blur: blur(var(--blur-sm));
+  filter: var(--tw-blur,) var(--tw-drop-shadow,);
+}`);
+    resolveAllCssVariables(root);
+    expect(generate(root)).toMatchInlineSnapshot(
+      `":root{--color-red-500: red;--blur-sm: 8px}.from-red-500{--tw-gradient-from:red;--tw-gradient-stops:red,var(--tw-gradient-to, transparent)}.blur-sm{--tw-blur:blur(8px);filter:blur(8px) var(--tw-drop-shadow,)}"`,
+    );
+  });
+
   it('uses fallback values when variable definition is not found', () => {
     const root = parse(`.box {
   width: var(--undefined-width, 150px);
