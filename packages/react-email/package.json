@@ -1,6 +1,6 @@
 {
   "name": "react-email",
-  "version": "6.11.3",
+  "version": "6.11.6",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/cli/index.mjs"
@@ -47,7 +47,7 @@
   "dependencies": {
     "@babel/parser": "catalog:",
     "@babel/traverse": "catalog:",
-    "@react-email/render": "workspace:>=2.1.1",
+    "@react-email/render": "workspace:>=2.2.0",
     "chokidar": "^5.0.0",
     "commander": "catalog:",
     "conf": "^15.0.2",
@@ -59,7 +59,6 @@
     "log-symbols": "catalog:",
     "marked": "^15.0.12",
     "mime-types": "^3.0.0",
-    "normalize-path": "^3.0.0",
     "nypm": "catalog:",
     "picospinner": "catalog:",
     "prismjs": "^1.30.0",

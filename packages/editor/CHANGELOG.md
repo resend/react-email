@@ -1,5 +1,32 @@
 # @react-email/editor
 
+## 1.7.18
+
+### Patch Changes
+
+- c3354ea: Load react-email's `CodeBlock`, with its Prism grammars and themes, only when an email with a code block is rendered, instead of in every bundle that mounts the editor.
+
+## 1.7.17
+
+### Patch Changes
+
+- 10e9b0c: Bump `@tiptap/*` to 3.32.0.
+- Updated dependencies [a959dbb]
+  - react-email@6.11.6
+
+## 1.7.16
+
+### Patch Changes
+
+- react-email@6.11.5
+
+## 1.7.15
+
+### Patch Changes
+
+- Updated dependencies [499caa6]
+  - react-email@6.11.4
+
 ## 1.7.14
 
 ### Patch Changes

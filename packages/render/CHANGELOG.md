@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 2.2.0
+
+### Minor Changes
+
+- 8748196: Update `html-to-text` to v10. The minimum supported Node.js version is now 20.19.0, matching `react-email`.
+
 ## 2.1.1
 
 ### Patch Changes

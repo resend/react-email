@@ -28,6 +28,17 @@ describe('<Button> component', () => {
     );
   });
 
+  it('does not drop a longhand padding of 0 set after the shorthand', async () => {
+    const html = await render(
+      <Button
+        href="https://example.com"
+        style={{ padding: '12px 20px', paddingTop: 0, paddingBottom: 0 }}
+      />,
+    );
+    expect(html).toContain('padding-top:0;');
+    expect(html).toContain('padding-bottom:0;');
+  });
+
   it('renders the <Button> component with no padding value', async () => {
     const actualOutput = await render(<Button href="https://example.com" />);
     expect(actualOutput).toMatchInlineSnapshot(

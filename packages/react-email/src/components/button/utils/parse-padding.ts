@@ -15,8 +15,8 @@ interface PaddingProperties {
 export function convertToPx(value: PaddingType) {
   let px = 0;
 
-  if (!value) {
-    return px;
+  if (value === undefined || value === '') {
+    return undefined;
   }
 
   if (typeof value === 'number') {
@@ -129,9 +129,9 @@ export function parsePadding(properties: PaddingProperties) {
   }
 
   return {
-    paddingTop: paddingTop ? convertToPx(paddingTop) : undefined,
-    paddingRight: paddingRight ? convertToPx(paddingRight) : undefined,
-    paddingBottom: paddingBottom ? convertToPx(paddingBottom) : undefined,
-    paddingLeft: paddingLeft ? convertToPx(paddingLeft) : undefined,
+    paddingTop: convertToPx(paddingTop),
+    paddingRight: convertToPx(paddingRight),
+    paddingBottom: convertToPx(paddingBottom),
+    paddingLeft: convertToPx(paddingLeft),
   };
 }
