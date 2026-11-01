@@ -13,7 +13,7 @@ import { Link } from '../link/index.js';
 import { Row } from '../row/index.js';
 import { Section } from '../section/index.js';
 import type { TailwindConfig } from './tailwind.js';
-import { Tailwind } from './tailwind.js';
+import { pixelBasedPreset, Tailwind } from './tailwind.js';
 
 describe('Tailwind component', () => {
   const headMissingError =
@@ -1456,6 +1456,55 @@ describe('Tailwind component', () => {
         </html>
         "
       `);
+    });
+  });
+
+  describe('with pixelBasedPreset', () => {
+    const styleFor = async (className: string) => {
+      const html = await render(
+        <Tailwind config={{ presets: [pixelBasedPreset] }}>
+          <div className={className} />
+        </Tailwind>,
+      );
+      return html.match(/style="([^"]*)"/)?.[1];
+    };
+
+    it.each([
+      ['rounded', 'border-radius:4px'],
+      ['rounded-sm', 'border-radius:4px'],
+      ['rounded-md', 'border-radius:6px'],
+      ['rounded-lg', 'border-radius:8px'],
+      ['rounded-4xl', 'border-radius:32px'],
+      ['max-w-md', 'max-width:448px'],
+      ['max-w-7xl', 'max-width:1280px'],
+    ])('converts %s to pixels', async (className, expected) => {
+      expect(await styleFor(className)).toBe(expected);
+    });
+
+    it('does not leave rem in the radius or max-width scales', async () => {
+      const classes = [
+        ...['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'].map(
+          (size) => `rounded-${size}`,
+        ),
+        ...[
+          '3xs',
+          '2xs',
+          'xs',
+          'sm',
+          'md',
+          'lg',
+          'xl',
+          '2xl',
+          '3xl',
+          '4xl',
+          '5xl',
+          '6xl',
+          '7xl',
+        ].map((size) => `max-w-${size}`),
+      ];
+      for (const className of classes) {
+        expect(await styleFor(className), className).not.toContain('rem');
+      }
     });
   });
 });
