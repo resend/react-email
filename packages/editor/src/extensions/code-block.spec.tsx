@@ -1,9 +1,11 @@
 import { generateJSON } from '@tiptap/html';
 import StarterKit from '@tiptap/starter-kit';
+import * as ReactEmail from 'react-email';
 import { dracula, render } from 'react-email';
 import { describe, expect, it } from 'vitest';
 import { DEFAULT_STYLES } from '../utils/default-styles';
 import { CodeBlockPrism } from './code-block';
+import { codeBlockThemes } from './code-block-email';
 import { StyleAttribute } from './style-attribute';
 
 // Resolved style matching snapshot: codeBlock only, no reset (theme provides padding/margin)
@@ -118,5 +120,16 @@ describe('CodeBlockPrism Node', () => {
     });
 
     expect(recomposed).toBe(composed);
+  });
+
+  it('offers every code block theme react-email exports', () => {
+    const exportedThemes = Object.entries(ReactEmail)
+      .filter(
+        ([, value]) =>
+          typeof value === 'object' && value !== null && 'base' in value,
+      )
+      .map(([name]) => name);
+
+    expect(Object.keys(codeBlockThemes).sort()).toEqual(exportedThemes.sort());
   });
 });
