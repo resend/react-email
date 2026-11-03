@@ -21,9 +21,8 @@ type Block = { open: number; close: number; prefix?: BlockPrefix };
 
 // html-to-text's default separation for the block tags implemented so far.
 // Tags absent here (and not handled in `enterNode`) are treated as inline
-// and contribute no separation — notably td/tr, which is why table cells run
-// together, matching `toPlainText` today. Only extend this alongside a spec
-// case verifying the behavior against `toPlainText`.
+// and contribute no separation. Only extend this alongside a spec case
+// verifying the behavior against `toPlainText`.
 const TAG_BLOCKS: Record<string, Block> = {
   article: { open: 2, close: 2 },
   aside: { open: 2, close: 2 },
@@ -45,6 +44,12 @@ const TAG_BLOCKS: Record<string, Block> = {
   pre: { open: 2, close: 2 },
   section: { open: 2, close: 2 },
   table: { open: 2, close: 2 },
+  // One line per cell. Cells are inline in html-to-text, so `A` and `B`
+  // used to come out as `AB`; layout tables (Row/Column) put separate
+  // links or words side by side, which glued them into a single run-on
+  // line. `caption` and `tr` are left as they were.
+  td: { open: 1, close: 1 },
+  th: { open: 1, close: 1 },
 };
 
 interface OpenBlock {
