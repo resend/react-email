@@ -54,7 +54,7 @@
     "css-tree": "3.2.1",
     "debounce": "^2.0.0",
     "esbuild": "^0.28.0",
-    "glob": "^13.0.6",
+    "glob": "^14.0.0",
     "jiti": "2.6.1",
     "log-symbols": "catalog:",
     "marked": "^15.0.12",
