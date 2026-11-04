@@ -42,10 +42,14 @@ export const CodeInline = React.forwardRef<HTMLSpanElement, CodeInlineProps>(
           {children}
         </code>
 
-        {/* Renders only on Orange.fr */}
+        {/*
+    Renders only on Orange.fr. Since it repeats the children of the <code> above,
+    it's skipped in the plain text version so they don't show up twice there.
+    */}
         <span
           {...props}
           className={`${props.className ? props.className : ''} cio`}
+          data-skip-in-text={true}
           ref={ref}
           style={{ display: 'none', ...props.style }}
         >
