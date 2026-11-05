@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.7.20
+
+### Patch Changes
+
+- 5a6605d: Keep the default button readable in Apple Mail dark mode by serializing a pure black background as `#010101` and pinning a light label with `-webkit-text-fill-color`.
+
 ## 1.7.19
 
 ### Patch Changes
