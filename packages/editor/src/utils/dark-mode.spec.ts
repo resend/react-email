@@ -28,6 +28,7 @@ describe('protectButtonColors', () => {
       { backgroundColor: '#ffffff', color: '#111111' },
       { backgroundColor: 'rgba(0, 0, 0, 0.5)', color: '#fff' },
       { backgroundColor: '#00000080', color: '#fff' },
+      { backgroundColor: 'rgba(0, 0, 0, 1.2.3)', color: '#fff' },
       { backgroundColor: 'black', color: '#fff' },
       { color: '#fff' },
     ];

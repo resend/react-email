@@ -55,6 +55,7 @@ function parseColor(value: unknown): ParsedColor | undefined {
   );
   if (!rgb) return undefined;
   const alpha = rgb[4] === undefined ? 1 : Number(rgb[4]) / (rgb[5] ? 100 : 1);
+  if (!Number.isFinite(alpha)) return undefined;
   return {
     channels: [Number(rgb[1]), Number(rgb[2]), Number(rgb[3])],
     alpha,
