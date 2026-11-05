@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.7.21
+
+### Patch Changes
+
+- 8270604: Skip the deferred class, style and alignment resets on Enter when the editor is destroyed before the next frame, and raise the tiptap ranges to ^3.32.2
+
 ## 1.7.20
 
 ### Patch Changes
