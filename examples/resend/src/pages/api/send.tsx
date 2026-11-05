@@ -11,7 +11,7 @@ const send = async (req: NextApiRequest, res: NextApiResponse) => {
         from: 'bu@resend.dev',
         to: 'delivered@resend.dev',
         subject: 'Waitlist',
-        react: WaitlistEmail({ name: 'Bu' }),
+        react: <WaitlistEmail name="Bu" />,
       });
 
       res.status(200).send(data);

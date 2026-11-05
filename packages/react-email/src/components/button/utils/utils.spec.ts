@@ -32,8 +32,18 @@ describe('convertToPx', () => {
     expect(result).toBe(0);
   });
 
-  it('converts empaddingTopy input to 0', () => {
+  it('converts empty input to undefined', () => {
     const result = convertToPx('');
+    expect(result).toBeUndefined();
+  });
+
+  it('converts undefined input to undefined', () => {
+    const result = convertToPx(undefined);
+    expect(result).toBeUndefined();
+  });
+
+  it('keeps 0 as 0', () => {
+    const result = convertToPx(0);
     expect(result).toBe(0);
   });
 });
@@ -106,6 +116,16 @@ describe('parsePadding', () => {
       paddingRight: undefined,
       paddingBottom: undefined,
       paddingLeft: undefined,
+    });
+  });
+
+  it('keeps a specific padding value of 0 over the general padding value', () => {
+    const result = parsePadding({ padding: '12px 20px', paddingTop: 0 });
+    expect(result).toEqual({
+      paddingTop: 0,
+      paddingRight: 20,
+      paddingBottom: 12,
+      paddingLeft: 20,
     });
   });
 

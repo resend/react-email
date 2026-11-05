@@ -1,5 +1,50 @@
 # @react-email/editor
 
+## 1.7.21
+
+### Patch Changes
+
+- 8270604: Skip the deferred class, style and alignment resets on Enter when the editor is destroyed before the next frame, and raise the tiptap ranges to ^3.32.2
+
+## 1.7.20
+
+### Patch Changes
+
+- 5a6605d: Keep the default button readable in Apple Mail dark mode by serializing a pure black background as `#010101` and pinning a light label with `-webkit-text-fill-color`.
+
+## 1.7.19
+
+### Patch Changes
+
+- 7ccccf8: Load the Prism grammars a code block language depends on, and resolve language aliases, before highlighting it. `shell` code blocks now highlight as Bash, and a `php` block no longer loads PHP without `markup-templating`, which made every later highlight on the page throw.
+
+## 1.7.18
+
+### Patch Changes
+
+- c3354ea: Load react-email's `CodeBlock`, with its Prism grammars and themes, only when an email with a code block is rendered, instead of in every bundle that mounts the editor.
+
+## 1.7.17
+
+### Patch Changes
+
+- 10e9b0c: Bump `@tiptap/*` to 3.32.0.
+- Updated dependencies [a959dbb]
+  - react-email@6.11.6
+
+## 1.7.16
+
+### Patch Changes
+
+- react-email@6.11.5
+
+## 1.7.15
+
+### Patch Changes
+
+- Updated dependencies [499caa6]
+  - react-email@6.11.4
+
 ## 1.7.14
 
 ### Patch Changes
