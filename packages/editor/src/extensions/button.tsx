@@ -1,6 +1,7 @@
 import { mergeAttributes } from '@tiptap/core';
 import { Column, Button as ReactEmailButton, Row } from 'react-email';
 import { EmailNode } from '../core/serializer/email-node';
+import { protectButtonColors } from '../utils/dark-mode';
 import { inlineCssToJs } from '../utils/styles';
 
 export interface EditorButtonOptions {
@@ -112,10 +113,10 @@ export const Button = EmailNode.create<EditorButtonOptions>({
           <ReactEmailButton
             className={node.attrs?.class || undefined}
             href={node.attrs?.href}
-            style={{
+            style={protectButtonColors({
               ...style,
               ...inlineStyles,
-            }}
+            })}
           >
             {children}
           </ReactEmailButton>
