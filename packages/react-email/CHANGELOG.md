@@ -1,5 +1,12 @@
 # react-email
 
+## 6.11.7
+
+### Patch Changes
+
+- d8a0778: Preserve custom utility theme-variable overrides when resolving email styles, including local declaration order and importance.
+- 2b3d241: Resolve tsconfig path aliases in dynamic import template literals on Windows, so editing a file inside an aliased directory reloads the preview.
+
 ## 6.11.6
 
 ### Patch Changes
