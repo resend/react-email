@@ -30,3 +30,18 @@ test('resolveAliasedDirectoryPrefix() accepts platform-normalized separators', (
     localesDirectory,
   );
 });
+
+test('resolveAliasedDirectoryPrefix() returns platform-normalized paths for nested prefixes', () => {
+  const sourceDirectory = path.resolve(
+    import.meta.dirname,
+    './test/aliased-import-graph/src',
+  );
+  const nestedDirectory = path.join(sourceDirectory, 'locales', 'tr');
+
+  expect(
+    resolveAliasedDirectoryPrefix('@/locales/tr', sourceDirectory),
+  ).toEqual(nestedDirectory);
+  expect(
+    resolveAliasedDirectoryPrefix('@\\locales\\tr', sourceDirectory),
+  ).toEqual(nestedDirectory);
+});

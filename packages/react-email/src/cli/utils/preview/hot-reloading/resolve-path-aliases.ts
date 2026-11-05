@@ -65,5 +65,10 @@ export const resolveAliasedDirectoryPrefix = (
     '.cjs',
     '.mjs',
   ]);
-  return resolved ?? undefined;
+  if (resolved === undefined) return undefined;
+
+  // tsconfig-paths substitutes the `*` match as-is, so nested prefixes come back
+  // with mixed separators on Windows (`C:\src\emails/locales`), which breaks the
+  // prefix comparison against the watcher's paths.
+  return path.normalize(resolved);
 };
