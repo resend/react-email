@@ -92,13 +92,36 @@ describe('toPlainTextUnstable', () => {
     }
   });
 
-  it('has no separation between table cells, matching the current default', () => {
-    // Not "fixed" here on purpose: react-email's own Row/Column/Section
-    // render as tables, and this is what toPlainText already does today.
+  it('puts each table cell on its own line', () => {
+    // Layout tables (Row/Column) hold separate links or words side by side.
+    // The old default ran the cells together, so two badge links became one
+    // long URL.
     const html =
-      '<table><tr><td>A</td><td>B</td></tr><tr><td>C</td><td>D</td></tr></table>';
+      '<table><tr><td><a href="https://apps.apple.com/x">App Store</a></td>' +
+      '<td><a href="https://play.google.com/x">Google Play</a></td></tr></table>' +
+      '<table><tr><td>Left</td><td>Right</td></tr></table>';
     const result = unstableToPlainText(html);
 
+    expect(result).toBe(
+      'App Store https://apps.apple.com/x\nGoogle Play https://play.google.com/x\n\nLeft\nRight',
+    );
+    expect(result).toBe(toPlainText(html));
+  });
+
+  it('puts th on its own line like td, and leaves caption inline', () => {
+    const html =
+      '<table><caption>Cap</caption><tr><th>H</th><td>D</td></tr></table>';
+    const result = unstableToPlainText(html);
+
+    expect(result).toBe('Cap\nH\nD');
+    expect(result).toBe(toPlainText(html));
+  });
+
+  it('does not let an empty spacer cell add a blank line', () => {
+    const html = '<table><tr><td></td><td>x</td></tr></table>';
+    const result = unstableToPlainText(html);
+
+    expect(result).toBe('x');
     expect(result).toBe(toPlainText(html));
   });
 
@@ -197,14 +220,6 @@ describe('toPlainTextUnstable', () => {
 
   it('preserves non-breaking spaces verbatim', () => {
     const html = '<p>a&nbsp;&nbsp;b</p>';
-    const result = unstableToPlainText(html);
-
-    expect(result).toBe(toPlainText(html));
-  });
-
-  it('runs th and caption together with cells, like td', () => {
-    const html =
-      '<table><caption>Cap</caption><tr><th>H</th><td>D</td></tr></table>';
     const result = unstableToPlainText(html);
 
     expect(result).toBe(toPlainText(html));

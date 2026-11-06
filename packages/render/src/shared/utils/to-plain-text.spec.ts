@@ -36,6 +36,35 @@ describe('toPlainText', () => {
       expect(lines[1]).toContain('Admiral');
     });
 
+    it('should put each table cell on its own line', () => {
+      const html =
+        '<table><tr><td><a href="https://apps.apple.com/x">App Store</a></td>' +
+        '<td><a href="https://play.google.com/x">Google Play</a></td></tr></table>' +
+        '<table><tr><td>Left</td><td>Right</td></tr></table>';
+      const result = toPlainText(html);
+
+      // Cells are inline in html-to-text, so without a td selector the two
+      // links would come out as one run-on line.
+      expect(result).toBe(
+        'App Store https://apps.apple.com/x\nGoogle Play https://play.google.com/x\n\nLeft\nRight',
+      );
+    });
+
+    it('should not let an empty cell add a blank line', () => {
+      const html = '<table><tr><td></td><td>x</td></tr></table>';
+
+      expect(toPlainText(html)).toBe('x');
+    });
+
+    it('should let a caller put table cells back inline', () => {
+      const html = '<table><tr><td>Left</td><td>Right</td></tr></table>';
+      const result = toPlainText(html, {
+        selectors: [{ selector: 'td', format: 'inline' }],
+      });
+
+      expect(result).toBe('LeftRight');
+    });
+
     it('should format links without brackets', () => {
       const html = '<a href="https://example.com">Click here</a>';
       const result = toPlainText(html);
