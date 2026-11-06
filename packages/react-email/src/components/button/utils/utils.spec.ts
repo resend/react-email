@@ -7,6 +7,11 @@ describe('convertToPx', () => {
     expect(result).toBe(10);
   });
 
+  it('converts "9pt" to 12', () => {
+    const result = convertToPx('9pt');
+    expect(result).toBe(12);
+  });
+
   it('converts "2em" to 32', () => {
     const result = convertToPx('2em');
     expect(result).toBe(32);
