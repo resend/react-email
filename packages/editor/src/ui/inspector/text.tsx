@@ -41,7 +41,14 @@ export interface InspectorTextProps {
   children?: (context: InspectorTextContext) => React.ReactNode;
 }
 
-const MARK_NAMES = ['bold', 'italic', 'underline', 'strike', 'code'] as const;
+const MARK_NAMES = [
+  'bold',
+  'italic',
+  'underline',
+  'strike',
+  'code',
+  'uppercase',
+] as const;
 
 export function InspectorText({ children }: InspectorTextProps) {
   const { editor } = useCurrentEditor();
