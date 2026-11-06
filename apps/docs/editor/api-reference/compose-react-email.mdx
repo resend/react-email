@@ -21,7 +21,8 @@ import { composeReactEmail } from '@react-email/editor/core';
 ```tsx
 async function composeReactEmail(params: {
   editor: Editor;
-  preview: string | null;
+  preview?: string;
+  previewMode?: boolean;
   pretty?: boolean;
 }): Promise<{ html: string; text: string; unformattedHtml: string }>;
 ```
@@ -33,8 +34,15 @@ async function composeReactEmail(params: {
   each registered extension to serialize nodes and marks.
 </ResponseField>
 
-<ResponseField name="preview" type="string | null" required>
-  Preview text shown in inbox list views before the email is opened. Pass `null` to omit.
+<ResponseField name="preview" type="string">
+  Preview text shown in inbox list views before the email is opened. Leave it out to omit
+  preview text.
+</ResponseField>
+
+<ResponseField name="previewMode" type="boolean" default="false">
+  Leaves out the dark-mode `<style>` block that keeps list markers visible in dark-mode mail
+  clients. Set it to `true` only when you show the HTML inside your own app, such as an
+  in-app preview, where that CSS should not apply. Keep it `false` for HTML you send.
 </ResponseField>
 
 <ResponseField name="pretty" type="boolean" default="true">
@@ -76,7 +84,7 @@ It searches extensions for one that provides a `SerializerPlugin` — an interfa
 methods:
 
 - **`getNodeStyles(node, depth, editor)`** — returns `React.CSSProperties` for a given node
-- **`BaseTemplate({ previewText, children, editor })`** — wraps the serialized content in an email structure
+- **`BaseTemplate({ previewText, children, editor, previewMode })`** — wraps the serialized content in an email structure. `previewMode` is the value passed to `composeReactEmail`.
 
 The [`EmailTheming`](/editor/features/theming) extension implements this interface. If no
 plugin is found, styles default to `{}` and the built-in `DefaultBaseTemplate` is used.
@@ -173,7 +181,7 @@ function. That string is `unformattedHtml`. The formatted HTML and a plain text 
 ```tsx
 import { composeReactEmail } from '@react-email/editor/core';
 
-const { html, text } = await composeReactEmail({ editor, preview: null });
+const { html, text } = await composeReactEmail({ editor });
 ```
 
 ### With preview text
@@ -188,7 +196,7 @@ const { html, text } = await composeReactEmail({
 });
 ```
 
-Pass `null` to omit preview text entirely.
+Leave out `preview` to omit preview text.
 
 ### Without formatting
 
@@ -213,7 +221,7 @@ import { EmailTheming } from '@react-email/editor/plugins';
 const extensions = [StarterKit, EmailTheming.configure({ theme: 'basic' })];
 
 // Theme styles are injected automatically — no extra config needed
-const { html } = await composeReactEmail({ editor, preview: null });
+const { html } = await composeReactEmail({ editor });
 ```
 
 ### Full example with export panel
@@ -231,7 +239,7 @@ function ExportPanel() {
   const handleExport = async () => {
     if (!editor) return;
     setExporting(true);
-    const result = await composeReactEmail({ editor, preview: null });
+    const result = await composeReactEmail({ editor });
     setHtml(result.html);
     setExporting(false);
   };
