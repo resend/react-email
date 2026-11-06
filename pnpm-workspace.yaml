@@ -13,6 +13,10 @@ allowBuilds:
 
 autoInstallPeers: true
 
+peerDependencyRules:
+  allowedVersions:
+    '@tiptap/html>happy-dom': '21'
+
 catalog:
   '@babel/parser': 7.29.2
   '@babel/traverse': 7.29.0
@@ -53,11 +57,11 @@ catalog:
   tailwindcss: ^4.1.18
   tinybench: 3.1.0
   tsdown: 0.21.9
-  tsx: 4.21.0
+  tsx: 4.23.15
   typescript: 5.9.3
   vite: 7.3.7
   yalc: 1.0.0-pre.53
-  zod: 4.3.6
+  zod: 4.6.7
 minimumReleaseAgeExclude:
   - tar@6.2.1
   - tar@7.5.7

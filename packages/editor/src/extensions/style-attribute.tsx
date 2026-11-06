@@ -98,6 +98,7 @@ export const StyleAttribute = Extension.create<StyleAttributeOptions>({
 
         // Otherwise, reset paragraph styles on Enter
         requestAnimationFrame(() => {
+          if (editor.isDestroyed) return;
           editor.commands.resetAttributes('paragraph', 'style');
         });
         return false;

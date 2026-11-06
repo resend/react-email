@@ -80,6 +80,7 @@ export const ClassAttribute = Extension.create<ClassAttributeOptions>({
         }
 
         requestAnimationFrame(() => {
+          if (editor.isDestroyed) return;
           editor.commands.resetAttributes('paragraph', 'class');
         });
 
