@@ -134,6 +134,32 @@ describe('Tailwind component', () => {
     expect(defaultElement?.style.boxShadow).not.toContain('rgb(255,0,0');
   });
 
+  it('resolves theme values passed through utility variables', async () => {
+    const html = await render(
+      <Tailwind>
+        <Head />
+        <div className="bg-linear-to-r from-red-500 via-green-500 to-blue-500">
+          gradient
+        </div>
+        <div className="shadow-md shadow-red-500 ring-2 ring-blue-500">
+          colored
+        </div>
+        <div className="blur-sm translate-x-2">transformed</div>
+      </Tailwind>,
+    );
+    const document = new DOMParser().parseFromString(html, 'text/html');
+    const [gradient, colored, transformed] = document.querySelectorAll('div');
+
+    expect(html).not.toContain('var(');
+    expect(gradient?.getAttribute('style')).toContain(
+      'linear-gradient(to right,rgb(251,44,54) 0%,rgb(0,201,80) 50%,rgb(43,127,255) 100%)',
+    );
+    expect(colored?.getAttribute('style')).toContain('rgb(251,44,54');
+    expect(colored?.getAttribute('style')).toContain('rgb(43,127,255)');
+    expect(transformed?.getAttribute('style')).toContain('filter:blur(8px)');
+    expect(transformed?.getAttribute('style')).toContain('translate:0.5rem 0');
+  });
+
   it('does not use hover shadow colors for the inline default', async () => {
     const html = await render(
       <Tailwind>
