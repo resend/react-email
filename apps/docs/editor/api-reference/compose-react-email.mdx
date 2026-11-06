@@ -195,11 +195,7 @@ Pass `null` to omit preview text entirely.
 Pass `pretty: false` when you only send or store the HTML:
 
 ```tsx
-const { html } = await composeReactEmail({
-  editor,
-  preview: null,
-  pretty: false,
-});
+const { html } = await composeReactEmail({ editor, pretty: false });
 ```
 
 To show formatted HTML later, for example in a code view, format it with

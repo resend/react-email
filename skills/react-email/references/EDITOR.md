@@ -70,7 +70,7 @@ export function MyEditor() {
   const editorRef = useRef<EmailEditorRef>(null);
 
   const handleExport = async () => {
-    const { html, text } = await editorRef.current!.export();
+    const { html, text } = await editorRef.current!.getEmail();
     console.log(html, text);
   };
 
@@ -108,9 +108,10 @@ export function MyEditor() {
 
 | Method | Returns | Description |
 |--------|---------|-------------|
-| `export()` | `Promise<{ html: string; text: string }>` | Export email-ready HTML and plain text |
+| `getEmail()` | `Promise<{ html: string; text: string }>` | Export Prettier-formatted HTML and plain text |
+| `getEmailHTML()` | `Promise<string>` | Export only the Prettier-formatted HTML |
+| `getEmailText()` | `Promise<string>` | Export only the plain text |
 | `getJSON()` | `JSONContent` | Get editor content as TipTap JSON |
-| `getHTML()` | `string` | Get editor content as HTML |
 | `editor` | `Editor \| null` | Access the underlying TipTap editor instance |
 
 ## Minimal Setup (Extensions Only)
@@ -294,7 +295,13 @@ const textOnly = await editorRef.current!.getEmailText();
 const json = editorRef.current!.getJSON();
 ```
 
-The ref methods return Prettier-formatted HTML. To get HTML for sending, call `composeReactEmail` with `editorRef.current!.editor` and `pretty: false`, as shown below.
+The ref methods return Prettier-formatted HTML. To get HTML for sending, pass the ref's `editor` to `composeReactEmail` with `pretty: false`. `editor` is `null` until the editor mounts, so check it first:
+
+```tsx
+const editor = editorRef.current?.editor;
+if (!editor) return;
+const { html, text } = await composeReactEmail({ editor, pretty: false });
+```
 
 ### Via composeReactEmail (lower-level)
 
