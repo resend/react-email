@@ -38,15 +38,11 @@ export const serveStaticFile = async (
   const ext = path.extname(fileAbsolutePath);
 
   try {
-    const fileHandle = await fs.open(fileAbsolutePath, 'r');
-
-    const fileData = await fs.readFile(fileHandle);
+    const fileData = await fs.readFile(fileAbsolutePath);
 
     // if the file is found, set Content-type and send data
     res.setHeader('Content-type', lookup(ext) || 'text/plain');
     res.end(fileData);
-
-    fileHandle.close();
   } catch (exception) {
     if (!existsSync(fileAbsolutePath)) {
       res.statusCode = 404;

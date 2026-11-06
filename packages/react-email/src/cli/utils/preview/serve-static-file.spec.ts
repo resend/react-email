@@ -60,6 +60,44 @@ test('does not serve URL-encoded paths outside the static directory', async () =
   fs.rmSync(projectDir, { recursive: true });
 });
 
+test('does not leave the file open when it cannot be read', async () => {
+  const projectDir = mkTempDir();
+  const staticDir = path.join(projectDir, 'emails', 'static');
+  const cwdSpy = vi.spyOn(process, 'cwd').mockReturnValue(projectDir);
+  const openSpy = vi.spyOn(fs.promises, 'open');
+  const readFileSpy = vi.spyOn(fs.promises, 'readFile').mockRejectedValueOnce(
+    Object.assign(new Error('EBUSY: resource busy or locked, read'), {
+      code: 'EBUSY',
+    }),
+  );
+  const consoleErrorSpy = vi
+    .spyOn(console, 'error')
+    .mockImplementation(() => {});
+  const { response } = createResponse();
+
+  fs.mkdirSync(staticDir, { recursive: true });
+  fs.writeFileSync(path.join(staticDir, 'logo.png'), 'contents');
+
+  await serveStaticFile(response, '/static/logo.png', 'emails');
+
+  // Node.js 25+ crashes the process when a FileHandle that was never
+  // closed gets garbage collected, so every opened handle must be closed.
+  const handles = await Promise.all(
+    openSpy.mock.results.map((result) => result.value),
+  );
+  const leakedHandles = handles.filter((handle) => handle.fd !== -1);
+  await Promise.all(leakedHandles.map((handle) => handle.close()));
+
+  expect(response.statusCode).toBe(500);
+  expect(leakedHandles).toHaveLength(0);
+
+  consoleErrorSpy.mockRestore();
+  readFileSpy.mockRestore();
+  openSpy.mockRestore();
+  cwdSpy.mockRestore();
+  fs.rmSync(projectDir, { recursive: true });
+});
+
 test('returns a bad request for malformed URL encoding', async () => {
   const { response } = createResponse();
 
