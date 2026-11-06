@@ -22,7 +22,8 @@ import { composeReactEmail } from '@react-email/editor/core';
 async function composeReactEmail(params: {
   editor: Editor;
   preview: string | null;
-}): Promise<{ html: string; text: string }>;
+  pretty?: boolean;
+}): Promise<{ html: string; text: string; unformattedHtml: string }>;
 ```
 
 ## Parameters
@@ -36,16 +37,26 @@ async function composeReactEmail(params: {
   Preview text shown in inbox list views before the email is opened. Pass `null` to omit.
 </ResponseField>
 
+<ResponseField name="pretty" type="boolean" default="true">
+  Formats `html` with Prettier. Set it to `false` to skip formatting. Then `html` is the same
+  as `unformattedHtml`. Prettier is slow on large emails, and it fails with
+  `Maximum call stack size exceeded` on very deeply nested layouts, such as some Stripo or
+  Mailchimp imports.
+</ResponseField>
+
 ## Return value
 
 Returns a `Promise` that resolves to an object with:
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `html` | `string` | Full HTML email string, ready to send |
+| `html` | `string` | Full HTML email string, formatted with Prettier. Equal to `unformattedHtml` when `pretty` is `false` |
 | `text` | `string` | Plain text version for email clients that don't support HTML |
+| `unformattedHtml` | `string` | Full HTML email string without formatting. Use it to send or store the email |
 
-Both are generated in parallel for performance.
+Formatting can make the HTML 5 to 10 times larger on nested table layouts. Gmail clips
+emails larger than 102 KB, so send `unformattedHtml`, or pass `pretty: false` if you only
+need the unformatted HTML.
 
 ---
 
@@ -149,8 +160,9 @@ default — it adds theme-specific body/container styles and can inject global C
 ### 7. Render to HTML and plain text
 
 The React tree is rendered to an HTML string using `react-email`' `render()`
-function. Both the formatted HTML and a plain text version (tags stripped, text preserved)
-are produced in parallel from the final React tree.
+function. That string is `unformattedHtml`. The formatted HTML and a plain text version
+(tags stripped, text preserved) are then produced from it in parallel. When `pretty` is
+`false`, the formatting step is skipped.
 
 ---
 
@@ -177,6 +189,21 @@ const { html, text } = await composeReactEmail({
 ```
 
 Pass `null` to omit preview text entirely.
+
+### Without formatting
+
+Pass `pretty: false` when you only send or store the HTML:
+
+```tsx
+const { html } = await composeReactEmail({
+  editor,
+  preview: null,
+  pretty: false,
+});
+```
+
+To show formatted HTML later, for example in a code view, format it with
+[`pretty`](/utilities/render) from `react-email`.
 
 ### With theming
 

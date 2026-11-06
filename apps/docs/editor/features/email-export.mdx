@@ -112,11 +112,14 @@ The `composeReactEmail` function follows this pipeline:
 The return value is:
 
 ```tsx
-const { html, text } = await composeReactEmail({ editor, preview: null });
+const { html, text, unformattedHtml } = await composeReactEmail({ editor, preview: null });
 
-// html  — Full HTML email string, ready to send
-// text  — Plain text version for email clients that don't support HTML
+// html: full HTML email string, formatted with Prettier
+// text: plain text version for email clients that don't support HTML
+// unformattedHtml: full HTML email string without formatting, best for sending
 ```
+
+Pass `pretty: false` to skip formatting. See [composeReactEmail](/editor/api-reference/compose-react-email#without-formatting).
 
 ## Preview text
 
