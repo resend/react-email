@@ -288,8 +288,13 @@ Convert editor content to email-ready HTML and plain text.
 ```tsx
 const editorRef = useRef<EmailEditorRef>(null);
 
-const { html, text } = await editorRef.current!.export();
+const { html, text } = await editorRef.current!.getEmail();
+const htmlOnly = await editorRef.current!.getEmailHTML();
+const textOnly = await editorRef.current!.getEmailText();
+const json = editorRef.current!.getJSON();
 ```
+
+The ref methods return Prettier-formatted HTML. To get HTML for sending, call `composeReactEmail` with `editorRef.current!.editor` and `pretty: false`, as shown below.
 
 ### Via composeReactEmail (lower-level)
 
@@ -314,6 +319,14 @@ function ExportPanel() {
 ```
 
 The `preview` parameter is optional — when provided, it sets the inbox preview text in the exported HTML.
+
+`html` is formatted with Prettier by default. Formatting can make nested table emails 5 to 10 times larger, and Gmail clips emails over 102 KB. To send or store the HTML, skip formatting:
+
+```tsx
+const { html, text } = await composeReactEmail({ editor, pretty: false });
+```
+
+With `pretty: false`, `html` equals `unformattedHtml`. The result always includes `unformattedHtml`, so you can also keep the default and send `unformattedHtml`. Prettier also fails with `Maximum call stack size exceeded` on very deeply nested layouts, such as some Stripo or Mailchimp imports, so prefer `pretty: false` for imported HTML.
 
 The export pipeline:
 1. Reads the editor's JSON document
