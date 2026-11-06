@@ -80,11 +80,15 @@ export const Container = EmailNode.create<ContainerOptions>({
   },
 
   parseHTML() {
+    // The body container exists once, directly under the doc. Anywhere else
+    // these elements are content being pasted into the body (a whole-document
+    // copy, a sent email's wrapper table) and must not become containers.
     return [
-      { tag: 'div[data-type="container"]' },
+      { tag: 'div[data-type="container"]', context: 'doc/' },
       {
         tag: 'table[role="presentation"]',
         priority: 60,
+        context: 'doc/',
         getAttrs: (node) => {
           if (typeof node === 'string') {
             return false;

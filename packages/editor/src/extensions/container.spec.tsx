@@ -1,7 +1,9 @@
 import type { JSONContent } from '@tiptap/core';
 import { Editor, Extension } from '@tiptap/core';
+import { AllSelection } from '@tiptap/pm/state';
 import { Container as ReactEmailContainer, render } from 'react-email';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { createPasteHandler } from '../core/create-paste-handler';
 import { composeReactEmail } from '../core/serializer/compose-react-email';
 import { EmailTheming } from '../plugins';
 import { DEFAULT_STYLES } from '../utils/default-styles';
@@ -1025,6 +1027,108 @@ describe('Container Node', () => {
         "type": "doc",
       }
     `);
+  });
+
+  function email(theme: string, texts: string[]): JSONContent {
+    return {
+      type: 'doc',
+      content: [
+        { type: 'globalContent', attrs: { data: { theme } } },
+        {
+          type: 'container',
+          content: texts.map((text) => ({
+            type: 'paragraph',
+            content: [{ type: 'text', text }],
+          })),
+        },
+      ],
+    };
+  }
+
+  // The editor as EmailEditor builds it: with the paste handler, whose HTML
+  // branch re-parses the clipboard itself.
+  function createPastingEditor(content: JSONContent) {
+    const extensions = [StarterKit];
+    return new Editor({
+      content,
+      extensions,
+      editorProps: { handlePaste: createPasteHandler({ extensions }) },
+    });
+  }
+
+  function clipboardOf(source: Editor) {
+    const { dom, text } = source.view.serializeForClipboard(
+      new AllSelection(source.state.doc).content(),
+    );
+    return { html: dom.innerHTML, text };
+  }
+
+  function pasteInto(
+    target: Editor,
+    clipboard: { html: string; text: string },
+  ) {
+    const data: Record<string, string> = {
+      'text/html': clipboard.html,
+      'text/plain': clipboard.text,
+    };
+    target.commands.focus('end');
+    target.view.pasteHTML(clipboard.html, {
+      clipboardData: {
+        getData: (type: string) => data[type] ?? '',
+        files: { length: 0 },
+      },
+      preventDefault: () => {},
+    } as unknown as ClipboardEvent);
+  }
+
+  const paragraphOf = (text: string) => ({
+    type: 'paragraph',
+    content: [{ type: 'text', text }],
+  });
+
+  it('pastes a whole-document copy as plain blocks, generation after generation', () => {
+    let source = createPastingEditor(
+      email('minimal', ['Weekly update', 'Item']),
+    );
+    for (let generation = 1; generation <= 3; generation++) {
+      const target = createPastingEditor(email('basic', ['Intro']));
+      pasteInto(target, clipboardOf(source));
+
+      const { content } = target.getJSON();
+      expect(content).toHaveLength(2);
+      expect(content?.[0]).toMatchObject({
+        type: 'globalContent',
+        attrs: { data: { theme: 'basic' } },
+      });
+      expect(content?.[1]).toMatchObject({
+        type: 'container',
+        content: [
+          ...Array.from({ length: generation }, () => paragraphOf('Intro')),
+          paragraphOf('Weekly update'),
+          paragraphOf('Item'),
+        ],
+      });
+
+      source.destroy();
+      source = target;
+    }
+    source.destroy();
+  });
+
+  it('pastes a max-width table into the body as a table, not a container', () => {
+    const instance = createPastingEditor(email('basic', ['Body']));
+    pasteInto(instance, {
+      html: '<table role="presentation" style="max-width:600px"><tbody><tr><td><p>Pasted</p></td></tr></tbody></table>',
+      text: 'Pasted',
+    });
+
+    const bodyTypes = instance
+      .getJSON()
+      .content?.[1]?.content?.map((node) => node.type);
+    expect(bodyTypes).toContain('table');
+    expect(bodyTypes).not.toContain('container');
+    expect(instance.state.doc.textContent).toContain('Pasted');
+    instance.destroy();
   });
 
   it('does not parse a table without max-width as a container', () => {

@@ -82,7 +82,8 @@ export const GlobalContent = Node.create<GlobalContentOptions>({
   },
 
   parseHTML() {
-    return [{ tag: `div[data-type="${this.name}"]` }];
+    // Only directly under the doc: a theme inside pasted content is dropped.
+    return [{ tag: `div[data-type="${this.name}"]`, context: 'doc/' }];
   },
 
   renderHTML({ HTMLAttributes }) {

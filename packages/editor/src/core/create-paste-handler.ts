@@ -44,7 +44,12 @@ export function createPasteHandler({
 
       const sanitizedHtml = sanitizePastedHtml(html);
 
-      const jsonContent = generateJSON(sanitizedHtml, extensions);
+      // Parse where the paste lands, not at the document level, so parse
+      // rules restricted to the doc (the body container, the theme) do not
+      // match inside the body.
+      const jsonContent = generateJSON(sanitizedHtml, extensions, {
+        context: view.state.selection.$from,
+      });
       const node = view.state.schema.nodeFromJSON(jsonContent);
 
       const transaction = view.state.tr.replaceSelectionWith(node, false);
