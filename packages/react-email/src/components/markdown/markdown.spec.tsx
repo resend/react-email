@@ -143,6 +143,21 @@ console.log(\`Hello, $\{name}!\`);
     `);
   });
 
+  it('escapes HTML inside code blocks and inline code', async () => {
+    const actualOutput = await render(
+      <Markdown>
+        {'```html\n<b>bold</b> & <i>"x"</i>\n```\n\nInline: `<br>`'}
+      </Markdown>,
+    );
+    expect(actualOutput).toContain(
+      '&lt;b&gt;bold&lt;/b&gt; &amp; &lt;i&gt;&quot;x&quot;&lt;/i&gt;\n</code></pre>',
+    );
+    expect(actualOutput).toContain('&lt;br&gt;</code>');
+    expect(actualOutput).not.toContain('<b>');
+    expect(actualOutput).not.toContain('<i>');
+    expect(actualOutput).not.toContain('<br>');
+  });
+
   it('renders lists in the correct format for browsers', async () => {
     const actualOutput = await render(
       <Markdown>
