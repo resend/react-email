@@ -2,6 +2,10 @@ import { decodeHTML, decodeHTMLAttribute } from 'entities/lib/decode.js';
 import { type INode, type ITag, parse, SyntaxKind } from 'html5parser';
 
 const SKIPPED_TAGS = new Set([
+  // html5parser parses `<!-- ... -->` as a tag named `!--` whose body is the
+  // comment as raw text — React's `<!--$-->` Suspense markers and MSO
+  // conditional comments must not leak into the output
+  '!--',
   'img',
   'noscript',
   'script',
@@ -259,7 +263,10 @@ export function unstableToPlainText(html: string): string {
         // compared against the href to decide whether to append it
         // (html-to-text's hideLinkHrefIfSameAsText, which `toPlainText`
         // enables)
-        const anchorText = top().text.slice(frame.textFrom).join('');
+        // a space between the preceding word and the link is already
+        // pending in the buffer, so the joined text is trimmed before the
+        // comparison — otherwise `Hi <a href="u">u</a>` prints the URL twice
+        const anchorText = top().text.slice(frame.textFrom).join('').trim();
         if (anchorText !== href) {
           if (anchorText.length > 0) top().space = true;
           writeWord(href);
