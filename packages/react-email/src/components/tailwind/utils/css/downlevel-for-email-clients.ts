@@ -6,6 +6,10 @@
  *    `.sm_p-4{@media (min-width:40rem){padding:1rem!important}}`
  *    → `@media (min-width:40rem){.sm_p-4{padding:1rem!important}}`
  *
+ *    Stacked variants (e.g. `sm:dark:bg-black`) nest @media inside @media
+ *    inside the selector; those chains are flattened by combining the media
+ *    conditions with `and`, which is semantically equivalent to the nesting.
+ *
  * 2. Media Queries Level 4 range syntax → legacy min-width/max-width
  *    `(width>=40rem)` → `(min-width:40rem)`
  *
@@ -20,8 +24,10 @@ import {
   clone,
   type Feature,
   type FeatureRange,
+  generate,
   List,
   type ListItem,
+  parse,
   type Rule,
   type StyleSheet,
   walk,
@@ -102,6 +108,16 @@ interface UnnestTransform {
  * After:  `@media (...) { .sm_p-4 { padding: 1rem } }`
  */
 function unnestMediaQueries(styleSheet: StyleSheet): void {
+  // Each pass hoists at-rules one level out of their parent rule. A rule
+  // created by hoisting can itself still contain a nested at-rule (e.g. a
+  // @supports inside a @media for stacked variants), so repeat until a pass
+  // finds nothing left to hoist.
+  while (unnestMediaQueriesPass(styleSheet)) {
+    // keep hoisting
+  }
+}
+
+function unnestMediaQueriesPass(styleSheet: StyleSheet): boolean {
   const transforms: UnnestTransform[] = [];
 
   walk(styleSheet, {
@@ -156,19 +172,23 @@ function unnestMediaQueries(styleSheet: StyleSheet): void {
     }
 
     for (const atrule of nestedAtrules) {
+      const flattened = flattenMediaChain(atrule);
+
       const wrappedRule: Rule = {
         type: 'Rule',
         prelude: clone(parentRule.prelude) as Rule['prelude'],
         block: {
           type: 'Block',
-          children: atrule.block ? atrule.block.children : new List<CssNode>(),
+          children: flattened.block
+            ? flattened.block.children
+            : new List<CssNode>(),
         },
       };
 
       const newAtrule: Atrule = {
         type: 'Atrule',
-        name: atrule.name,
-        prelude: atrule.prelude,
+        name: flattened.name,
+        prelude: flattened.prelude,
         block: {
           type: 'Block',
           children: new List<CssNode>().fromArray([wrappedRule]),
@@ -181,6 +201,70 @@ function unnestMediaQueries(styleSheet: StyleSheet): void {
     // Replace the original rule with the entire list of new nodes
     parentList.replace(parentItem, replacements);
   }
+
+  return transforms.length > 0;
+}
+
+/**
+ * Flatten a chain of @media rules nested directly inside each other — what
+ * Tailwind emits for stacked variants like `sm:dark:bg-black` — into a single
+ * @media whose conditions are combined with `and`:
+ *
+ * Before: `@media (width>=40rem){@media (prefers-color-scheme:dark){...}}`
+ * After:  `@media (width>=40rem) and (prefers-color-scheme:dark){...}`
+ *
+ * Without this, hoisting the chain out of its style rule one level at a time
+ * would leave a @media nested inside the newly created rule.
+ *
+ * Only single-query preludes are combined: combining comma-separated media
+ * query lists would need a cross product, and Tailwind doesn't emit those
+ * for stacked variants, so chains involving a list keep their nested form.
+ */
+function flattenMediaChain(atrule: Atrule): Atrule {
+  if (atrule.name.toLowerCase() !== 'media') {
+    return atrule;
+  }
+
+  let current = atrule;
+  let combinedPrelude = atrule.prelude;
+
+  while (current.block && current.block.children.size === 1) {
+    const onlyChild = current.block.children.first;
+    if (
+      !onlyChild ||
+      onlyChild.type !== 'Atrule' ||
+      onlyChild.name.toLowerCase() !== 'media' ||
+      !current.prelude ||
+      !onlyChild.prelude
+    ) {
+      break;
+    }
+
+    const outerText = generate(combinedPrelude ?? current.prelude);
+    const innerText = generate(onlyChild.prelude);
+    if (outerText.includes(',') || innerText.includes(',')) {
+      break;
+    }
+
+    // `parse` with the mediaQueryList context returns a MediaQueryList node,
+    // but @types/css-tree 2.x doesn't include it in Atrule['prelude'] (same
+    // stale-types gap as the module augmentation at the top of this file).
+    combinedPrelude = parse(`${outerText} and ${innerText}`, {
+      context: 'mediaQueryList',
+    }) as Atrule['prelude'];
+    current = onlyChild;
+  }
+
+  if (current === atrule) {
+    return atrule;
+  }
+
+  return {
+    type: 'Atrule',
+    name: current.name,
+    prelude: combinedPrelude,
+    block: current.block,
+  };
 }
 
 // ---------------------------------------------------------------------------
