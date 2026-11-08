@@ -116,4 +116,56 @@ describe('downlevelForEmailClients', () => {
       expect(transform('')).toBe('');
     });
   });
+
+  describe('stacked variants', () => {
+    it('combines stacked media conditions with and', () => {
+      expect(
+        transform(
+          '.sm_dark_bg-black{@media (width>=40rem){@media (prefers-color-scheme:dark){background-color:rgb(0,0,0)!important}}}',
+        ),
+      ).toBe(
+        '@media (min-width:40rem) and (prefers-color-scheme:dark){.sm_dark_bg-black{background-color:rgb(0,0,0)!important}}',
+      );
+    });
+
+    it('combines stacked media conditions in reverse order', () => {
+      expect(
+        transform(
+          '.dark_sm_bg-black{@media (prefers-color-scheme:dark){@media (width>=40rem){background-color:rgb(0,0,0)!important}}}',
+        ),
+      ).toBe(
+        '@media (prefers-color-scheme:dark) and (min-width:40rem){.dark_sm_bg-black{background-color:rgb(0,0,0)!important}}',
+      );
+    });
+
+    it('combines three stacked media conditions', () => {
+      expect(
+        transform(
+          '.x{@media (width>=40rem){@media (width<=64rem){@media (prefers-color-scheme:dark){color:red!important}}}}',
+        ),
+      ).toBe(
+        '@media (min-width:40rem) and (max-width:64rem) and (prefers-color-scheme:dark){.x{color:red!important}}',
+      );
+    });
+
+    it('still hoists mixed @media/@supports chains out of the rule', () => {
+      expect(
+        transform(
+          '.x{@media (width>=40rem){@supports (display:grid){display:grid!important}}}',
+        ),
+      ).toBe(
+        '@media (min-width:40rem){@supports (display:grid){.x{display:grid!important}}}',
+      );
+    });
+
+    it('keeps comma-separated media query lists nested', () => {
+      expect(
+        transform(
+          '.x{@media (width>=40rem),(prefers-color-scheme:dark){color:red!important}}',
+        ),
+      ).toBe(
+        '@media (min-width:40rem),(prefers-color-scheme:dark){.x{color:red!important}}',
+      );
+    });
+  });
 });
