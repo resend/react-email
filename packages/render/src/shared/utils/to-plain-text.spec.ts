@@ -36,14 +36,14 @@ describe('toPlainText', () => {
       expect(lines[1]).toContain('Admiral');
     });
 
-    it('should put each table cell on its own line', () => {
+    it('puts each table cell on its own line', () => {
       const html =
         '<table><tr><th>A</th><th>B</th></tr><tr><td>C</td><td>D</td></tr></table>';
 
       expect(toPlainText(html)).toBe('A\nB\nC\nD');
     });
 
-    it('should separate links in adjacent table cells', () => {
+    it('separates links in adjacent table cells', () => {
       const html =
         '<table><tr>' +
         '<td><a href="https://apps.apple.com/x"><img src="i.png" alt=""></a></td>' +
@@ -55,14 +55,14 @@ describe('toPlainText', () => {
       );
     });
 
-    it('should ignore an empty table cell before the content', () => {
+    it('ignores an empty table cell before the content', () => {
       const html =
         '<table><tr><td></td><td>Left</td><td>Right</td></tr></table>';
 
       expect(toPlainText(html)).toBe('Left\nRight');
     });
 
-    it('should turn an empty table cell between content into a blank line', () => {
+    it('turns an empty table cell between content into a blank line', () => {
       const html =
         '<table><tr><td>Left</td><td></td><td>Right</td></tr></table>';
 
@@ -135,7 +135,7 @@ describe('toPlainText', () => {
       expect(result).not.toContain(']');
     });
 
-    it('should allow custom selectors to run table cells together again', () => {
+    it('allows custom selectors to run table cells together again', () => {
       const html = '<table><tr><td>Left</td><td>Right</td></tr></table>';
       const result = toPlainText(html, {
         selectors: [{ selector: 'td', format: 'inline' }],
