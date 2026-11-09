@@ -1,5 +1,19 @@
 # react-email
 
+## 6.11.8
+
+### Patch Changes
+
+- 2cf6a55: Update `glob` to `^14.0.3`, so installs no longer pull the vulnerable `minimatch@10` through `glob@13`.
+- e3121ee: Only publish `dist/` in the `react-email` npm package. The tarball no longer ships `src/`, tests, `dev/`, and build configs, which also stops editors on TypeScript 6 from reading the published `tsconfig.json`.
+
+## 6.11.7
+
+### Patch Changes
+
+- d8a0778: Preserve custom utility theme-variable overrides when resolving email styles, including local declaration order and importance.
+- 2b3d241: Resolve tsconfig path aliases in dynamic import template literals on Windows, so editing a file inside an aliased directory reloads the preview.
+
 ## 6.11.6
 
 ### Patch Changes

@@ -51,7 +51,13 @@ export const resolveAliasedDirectoryPrefix = (
     configLoadResult.absoluteBaseUrl,
     configLoadResult.paths,
   );
-  const resolved = matchPath(prefix, undefined, isExistingDirectory, [
+
+  // `paths` patterns are always written with forward slashes, but the prefix may
+  // have been normalized with the platform separator (backslashes on Windows) by
+  // `path.normalize()`. Restore import specifier separators so patterns match.
+  const importPrefix = prefix.replace(/\\/g, '/');
+
+  const resolved = matchPath(importPrefix, undefined, isExistingDirectory, [
     '.tsx',
     '.ts',
     '.js',
@@ -59,5 +65,10 @@ export const resolveAliasedDirectoryPrefix = (
     '.cjs',
     '.mjs',
   ]);
-  return resolved ?? undefined;
+  if (resolved === undefined) return undefined;
+
+  // tsconfig-paths substitutes the `*` match as-is, so nested prefixes come back
+  // with mixed separators on Windows (`C:\src\emails/locales`), which breaks the
+  // prefix comparison against the watcher's paths.
+  return path.normalize(resolved);
 };

@@ -1,5 +1,6 @@
 import type { AnyExtension, JSONContent } from '@tiptap/core';
 import { Editor } from '@tiptap/core';
+import { pretty } from 'react-email';
 import { afterEach, describe, expect, it } from 'vitest';
 import { StarterKit } from '../../extensions';
 import { EmailTheming } from '../../plugins/email-theming/extension';
@@ -9,6 +10,11 @@ import { EmailNode } from './email-node';
 vi.mock('@/actions/ai', () => ({
   uploadImageViaAI: vi.fn(),
 }));
+
+vi.mock('react-email', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('react-email')>();
+  return { ...actual, pretty: vi.fn(actual.pretty) };
+});
 
 /**
  * Minimal theme data structure for testing global content.
@@ -604,4 +610,83 @@ it('exposes unformattedHtml alongside the prettified html and text', async () =>
   // And the unformatted version is shorter precisely because indentation
   // is the only difference.
   expect(result.unformattedHtml.length).toBeLessThan(result.html.length);
+});
+
+describe('pretty option', () => {
+  it('returns the unformatted HTML as html when pretty is false', async () => {
+    const content = docWithGlobalContent([
+      {
+        type: 'paragraph',
+        content: [{ type: 'text', text: 'Hello world' }],
+      },
+    ]);
+
+    const ed = createEditorWithContent(content, [EmailTheming]);
+    const result = await composeReactEmail({ editor: ed, pretty: false });
+
+    expect(result.html).toBe(result.unformattedHtml);
+    expect(result.html).toContain('Hello world');
+    expect(result.html).not.toMatch(/>\s+</);
+    expect(result.text).toContain('Hello world');
+  });
+
+  it('skips Prettier and otherwise matches the default output when pretty is false', async () => {
+    const content = docWithGlobalContent([
+      {
+        type: 'paragraph',
+        content: [
+          { type: 'text', text: 'Hello ' },
+          { type: 'text', text: 'world', marks: [{ type: 'bold' }] },
+        ],
+      },
+      {
+        type: 'bulletList',
+        content: [
+          {
+            type: 'listItem',
+            content: [
+              {
+                type: 'paragraph',
+                content: [{ type: 'text', text: 'List item' }],
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+
+    const ed = createEditorWithContent(content, [EmailTheming]);
+
+    vi.mocked(pretty).mockClear();
+    const unprettified = await composeReactEmail({ editor: ed, pretty: false });
+    expect(pretty).not.toHaveBeenCalled();
+
+    const prettified = await composeReactEmail({ editor: ed, pretty: true });
+    expect(pretty).toHaveBeenCalledTimes(1);
+
+    expect(unprettified.unformattedHtml).toBe(prettified.unformattedHtml);
+    expect(unprettified.text).toBe(prettified.text);
+    expect(unprettified.html).toBe(prettified.unformattedHtml);
+    expect(unprettified.html).not.toBe(prettified.html);
+  });
+
+  it('composes layouts too deeply nested for Prettier when pretty is false', async () => {
+    let block: JSONContent = {
+      type: 'paragraph',
+      content: [{ type: 'text', text: 'Deepest paragraph' }],
+    };
+    for (let level = 0; level < 500; level++) {
+      block = { type: 'blockquote', content: [block] };
+    }
+
+    const ed = createEditorWithContent({ type: 'doc', content: [block] });
+
+    await expect(composeReactEmail({ editor: ed })).rejects.toThrow(
+      'Maximum call stack size exceeded',
+    );
+
+    const result = await composeReactEmail({ editor: ed, pretty: false });
+    expect(result.unformattedHtml).toContain('Deepest paragraph');
+    expect(result.html).toBe(result.unformattedHtml);
+  }, 60_000);
 });

@@ -1,5 +1,9 @@
 # @react-email/ui
 
+## 6.11.8
+
+## 6.11.7
+
 ## 6.11.6
 
 ### Patch Changes

@@ -1,12 +1,15 @@
 {
   "name": "react-email",
-  "version": "6.11.6",
+  "version": "6.11.8",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/cli/index.mjs"
   },
   "type": "module",
   "sideEffects": false,
+  "files": [
+    "dist/**"
+  ],
   "types": "./dist/index.d.mts",
   "scripts": {
     "build": "tsdown",
@@ -53,7 +56,7 @@
     "conf": "^15.0.2",
     "css-tree": "3.2.1",
     "esbuild": "^0.28.0",
-    "glob": "^13.0.6",
+    "glob": "^14.0.3",
     "jiti": "2.6.1",
     "log-symbols": "catalog:",
     "marked": "^15.0.12",

@@ -1,5 +1,11 @@
 # create-email
 
+## 1.2.7
+
+### Patch Changes
+
+- ea4147c: Only publish the CLI and the starter template in the `create-email` npm package. The tarball no longer ships tests and build configs.
+
 ## 1.2.6
 
 ### Patch Changes
