@@ -257,6 +257,20 @@ console.log(\`Hello, $\{name}!\`);
     `);
   });
 
+  it('renders a code block nested inside a tight list item', async () => {
+    const actualOutput = await render(
+      <Markdown>{'- item\n  ```\n  code\n  ```\n'}</Markdown>,
+    );
+    expect(actualOutput).toMatchInlineSnapshot(`
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div data-id="react-email-markdown"><ul>
+      <li>item<pre style="color:#212529;font-size:87.5%;display:block;background: #f8f8f8;font-family:SFMono-Regular,Menlo,Monaco,Consolas,monospace;padding-top:10px;padding-right:10px;padding-left:10px;padding-bottom:1px;margin-bottom:20px;word-wrap:break-word"><code>code
+      </code></pre>
+      </li>
+      </ul>
+      </div><!--/$-->"
+    `);
+  });
+
   it('applies th styles to table header cells and td styles to body cells', async () => {
     const actualOutput = await render(
       <Markdown
