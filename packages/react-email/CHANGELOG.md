@@ -1,5 +1,14 @@
 # react-email
 
+## 6.11.9
+
+### Patch Changes
+
+- bc2becd: `<Button>` now converts `pt` padding values to `px` instead of treating them as `0`, so `style={{ padding: '9pt 15pt' }}` or `className="px-[15pt] py-[9pt]"` keeps its padding in every client and in the Outlook spacers.
+- 44169a6: The preview server no longer leaves a file handle open when a file under `static/` can't be read (for example a file locked by another program on Windows). On Node.js 25 and later, that leaked handle crashed `email dev` with `ERR_INVALID_STATE` the next time the garbage collector ran. Requesting a directory under `/static` now returns a 404 instead of a 500.
+- de32c06: `<Tailwind>` now resolves theme values that utilities pass through their own variables, so gradients (`from-red-500`), shadow and ring colors (`shadow-red-500`, `ring-blue-500`), `blur-*`, `drop-shadow-*` and `translate-*` no longer inline an unresolvable `var(--color-…)` or `var(--spacing)`.
+- d38e9a2: render block tokens in tight list items
+
 ## 6.11.8
 
 ### Patch Changes
