@@ -44,7 +44,8 @@ export const serveStaticFile = async (
     res.setHeader('Content-type', lookup(ext) || 'text/plain');
     res.end(fileData);
   } catch (exception) {
-    if (!existsSync(fileAbsolutePath)) {
+    const isDirectory = (exception as NodeJS.ErrnoException).code === 'EISDIR';
+    if (isDirectory || !existsSync(fileAbsolutePath)) {
       res.statusCode = 404;
       res.end();
     } else {
