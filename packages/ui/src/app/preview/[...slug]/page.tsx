@@ -7,7 +7,6 @@ import {
 } from '../../../actions/email-validation/check-compatibility';
 import { getEmailPathFromSlug } from '../../../actions/get-email-path-from-slug';
 import { renderEmailByPath } from '../../../actions/render-email-by-path';
-import { Shell } from '../../../components/shell';
 import { Toolbar } from '../../../components/toolbar';
 import type { LintingRow } from '../../../components/toolbar/linter';
 import type { SpamCheckingResult } from '../../../components/toolbar/spam-assassin';
@@ -102,24 +101,31 @@ This is most likely not an issue with the preview server. Maybe there was a typo
       }
     }
 
-    const response = await fetch('https://react.email/api/check-spam', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        html: serverEmailRenderingResult.prettyMarkup,
-        plainText: serverEmailRenderingResult.plainText,
-      }),
-    });
-    const responseBody = (await response.json()) as
-      | { error: string }
-      | SpamCheckingResult;
-    if ('error' in responseBody) {
-      throw new Error(`Failed doing Spam Check. ${responseBody.error}`, {
-        cause: responseBody,
+    try {
+      const response = await fetch('https://react.email/api/check-spam', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          html: serverEmailRenderingResult.prettyMarkup,
+          plainText: serverEmailRenderingResult.plainText,
+        }),
+        signal: AbortSignal.timeout(20_000),
       });
-    }
+      const responseBody = (await response.json()) as
+        | { error: string }
+        | SpamCheckingResult;
+      if ('error' in responseBody) {
+        throw new Error(responseBody.error);
+      }
 
-    spamCheckingResult = responseBody;
+      spamCheckingResult = responseBody;
+    } catch (exception) {
+      console.warn(
+        `Skipping spam check for ${slug}: ${
+          exception instanceof Error ? exception.message : String(exception)
+        }`,
+      );
+    }
   }
 
   return (
@@ -128,23 +134,21 @@ This is most likely not an issue with the preview server. Maybe there was a typo
       emailPath={emailPath}
       serverRenderingResult={serverEmailRenderingResult}
     >
-      <Shell currentEmailOpenSlug={slug}>
-        {/* This suspense is so that this page doesn't throw warnings */}
-        {/* on the build of the preview server de-opting into         */}
-        {/* client-side rendering on build                            */}
-        <Suspense>
-          <Preview emailTitle={path.basename(emailPath)} />
+      {/* This suspense is so that this page doesn't throw warnings */}
+      {/* on the build of the preview server de-opting into         */}
+      {/* client-side rendering on build                            */}
+      <Suspense>
+        <Preview emailTitle={path.basename(emailPath)} />
 
-          <ToolbarProvider hasApiKey={(resendApiKey ?? '').trim().length > 0}>
-            <Toolbar
-              serverLintingRows={lintingRows}
-              serverSpamCheckingResult={spamCheckingResult}
-              serverCompatibilityResults={compatibilityCheckingResults}
-              serverCompatibilityClients={getRelevantEmailClients()}
-            />
-          </ToolbarProvider>
-        </Suspense>
-      </Shell>
+        <ToolbarProvider hasApiKey={(resendApiKey ?? '').trim().length > 0}>
+          <Toolbar
+            serverLintingRows={lintingRows}
+            serverSpamCheckingResult={spamCheckingResult}
+            serverCompatibilityResults={compatibilityCheckingResults}
+            serverCompatibilityClients={getRelevantEmailClients()}
+          />
+        </ToolbarProvider>
+      </Suspense>
     </PreviewProvider>
   );
 }

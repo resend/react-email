@@ -4,11 +4,14 @@ import React from 'react';
 import plugin from 'tailwindcss/plugin';
 import { Body } from '../body/index.js';
 import { Button } from '../button/index.js';
+import { Column } from '../column/index.js';
 import { Head } from '../head/index.js';
 import { Heading } from '../heading/index.js';
 import { Hr } from '../hr/index.js';
 import { Html } from '../html/index.js';
 import { Link } from '../link/index.js';
+import { Row } from '../row/index.js';
+import { Section } from '../section/index.js';
 import type { TailwindConfig } from './tailwind.js';
 import { Tailwind } from './tailwind.js';
 
@@ -84,6 +87,90 @@ describe('Tailwind component', () => {
       <!--/$-->
       "
     `);
+  });
+
+  it('resolves variables nested inside the definitions of other variables', async () => {
+    const html = await render(
+      <Tailwind>
+        <div className="shadow-md ring-2">default shadow color</div>
+      </Tailwind>,
+    );
+
+    expect(html).not.toContain('var(');
+    expect(html).toContain('0 4px 6px -1px rgb(0,0,0,0.1)');
+    expect(html).toContain('currentcolor');
+  });
+
+  it("uses each element's default shadow and ring colors independently", async () => {
+    const html = await render(
+      <Tailwind>
+        <div className="shadow-md ring-2">card</div>
+        <div className="shadow-red-500 ring-blue-500">button</div>
+      </Tailwind>,
+    );
+
+    expect(html).not.toContain('var(');
+    expect(html).toContain('0 4px 6px -1px rgb(0,0,0,0.1)');
+    expect(html).toContain('currentcolor');
+  });
+
+  it('preserves local colors without changing a sibling with the same utilities', async () => {
+    const html = await render(
+      <Tailwind>
+        <div className="shadow-md ring-2 shadow-[#ff0000] ring-[#0000ff]">
+          colored
+        </div>
+        <div className="shadow-md ring-2">default</div>
+      </Tailwind>,
+    );
+    const document = new DOMParser().parseFromString(html, 'text/html');
+    const [colored, defaultElement] = document.querySelectorAll('div');
+
+    expect(html).not.toContain('var(');
+    expect(colored?.style.boxShadow).toContain('rgb(255,0,0');
+    expect(colored?.style.boxShadow).toContain('rgb(0,0,255');
+    expect(defaultElement?.style.boxShadow).toContain('rgb(0,0,0,0.1)');
+    expect(defaultElement?.style.boxShadow).toContain('currentcolor');
+    expect(defaultElement?.style.boxShadow).not.toContain('rgb(255,0,0');
+  });
+
+  it('resolves theme values passed through utility variables', async () => {
+    const html = await render(
+      <Tailwind>
+        <Head />
+        <div className="bg-linear-to-r from-red-500 via-green-500 to-blue-500">
+          gradient
+        </div>
+        <div className="shadow-md shadow-red-500 ring-2 ring-blue-500">
+          colored
+        </div>
+        <div className="blur-sm translate-x-2">transformed</div>
+      </Tailwind>,
+    );
+    const document = new DOMParser().parseFromString(html, 'text/html');
+    const [gradient, colored, transformed] = document.querySelectorAll('div');
+
+    expect(html).not.toContain('var(');
+    expect(gradient?.getAttribute('style')).toContain(
+      'linear-gradient(to right,rgb(251,44,54) 0%,rgb(0,201,80) 50%,rgb(43,127,255) 100%)',
+    );
+    expect(colored?.getAttribute('style')).toContain('rgb(251,44,54');
+    expect(colored?.getAttribute('style')).toContain('rgb(43,127,255)');
+    expect(transformed?.getAttribute('style')).toContain('filter:blur(8px)');
+    expect(transformed?.getAttribute('style')).toContain('translate:0.5rem 0');
+  });
+
+  it('does not use hover shadow colors for the inline default', async () => {
+    const html = await render(
+      <Tailwind>
+        <Head />
+        <div className="shadow-md hover:shadow-red-500">card</div>
+      </Tailwind>,
+    );
+
+    expect(html).not.toContain('var(');
+    expect(html).toContain('0 4px 6px -1px rgb(0,0,0,0.1)');
+    expect(html).toContain('hover_shadow-red-500');
   });
 
   it('works with class manipulation done on components', async () => {
@@ -170,7 +257,7 @@ describe('Tailwind component', () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><a style="line-height:1.4285714285714286;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;margin-top:2rem;border-radius:0.375rem;background-color:rgb(21,93,252);padding-right:12px;padding-left:12px;padding-bottom:8px;padding-top:8px;color:rgb(229,231,235);font-size:0.875rem" target="_blank"><span><!--[if mso]><i style="mso-font-width:300%;mso-text-raise:12" hidden>&#8202;&#8202;</i><![endif]--></span><span style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:6px">Testing button</span><span><!--[if mso]><i style="mso-font-width:300%" hidden>&#8202;&#8202;&#8203;</i><![endif]--></span></a>Testing<!--/$-->"`,
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><a style="line-height:1.4285714285714286;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;margin-top:2rem;border-radius:0.375rem;background-color:rgb(21,93,252);padding-right:12px;padding-left:12px;padding-bottom:8px;padding-top:8px;color:rgb(229,231,235);font-size:0.875rem" target="_blank"><span><!--[if mso]><i style="mso-font-width:300%;mso-text-raise:12px" hidden>&#8202;&#8202;</i><![endif]--></span><span style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:6px">Testing button</span><span><!--[if mso]><i style="mso-font-width:300%" hidden>&#8202;&#8202;&#8203;</i><![endif]--></span></a>Testing<!--/$-->"`,
     );
   });
 
@@ -258,6 +345,58 @@ describe('Tailwind component', () => {
 
     expect(await render(<EmailTemplate />)).toMatchInlineSnapshot(
       `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$-->Hello<h1>My testing heading</h1>friends<!--/$-->"`,
+    );
+  });
+
+  it('routes Tailwind padding on <Section> to the inner <td>', async () => {
+    const html = await render(
+      <Tailwind>
+        <Section className="bg-white p-4">x</Section>
+      </Tailwind>,
+    );
+
+    expect(html).toContain('<td style="padding:1rem">');
+    expect(html).not.toMatch(/<table[^>]*style="[^"]*padding:1rem/);
+  });
+
+  it('routes responsive padding classes on <Section> to the inner <td>', async () => {
+    const html = await render(
+      <Tailwind>
+        <Head />
+        <Section className="max-sm:px-5 max-sm:bg-red-500 px-9">x</Section>
+      </Tailwind>,
+    );
+
+    expect(html).toMatchInlineSnapshot(
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><style>@media (max-width:40rem){.max-sm_bg-red-500{background-color:rgb(251,44,54)!important}}@media (max-width:40rem){.max-sm_px-5{padding-right:1.25rem!important;padding-left:1.25rem!important}}</style></head><!--$--><!--head--><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" class="max-sm_bg-red-500"><tbody><tr><td class="max-sm_px-5" style="padding-right:2.25rem;padding-left:2.25rem">x</td></tr></tbody></table><!--/$-->"`,
+    );
+  });
+
+  it('inlines Tailwind classes on <Column> onto its <td>', async () => {
+    const html = await render(
+      <Tailwind>
+        <Row>
+          <Column className="bg-white p-4">x</Column>
+        </Row>
+      </Tailwind>,
+    );
+
+    expect(html).toMatch(
+      /<td[^>]*data-id="__react-email-column"[^>]*style="[^"]*padding:1rem/,
+    );
+  });
+
+  it('inlines Tailwind classes on <Row> onto its <table>', async () => {
+    const html = await render(
+      <Tailwind>
+        <Row className="bg-white p-4">
+          <Column>x</Column>
+        </Row>
+      </Tailwind>,
+    );
+
+    expect(html).toMatch(
+      /<table[^>]*role="presentation"[^>]*style="[^"]*padding:1rem/,
     );
   });
 
@@ -396,6 +535,40 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchInlineSnapshot(
       `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><style>@media (prefers-color-scheme:dark){.text-body{color:orange!important}}</style></head><body class="text-body" dir="ltr" lang="en"><!--$--><!--html--><!--head--><!--body--><table border="0" width="100%" cellPadding="0" cellSpacing="0" role="presentation" align="center"><tbody><tr><td dir="ltr" lang="en" style="color:green">this is the body</td></tr></tbody></table><!--/$--></body></html>"`,
     );
+  });
+
+  // See https://github.com/resend/react-email/pull/3594
+  it('does not leak a bare nested group/peer rule into the <head> <style>', async () => {
+    const html = await render(
+      <Html>
+        <Tailwind>
+          <Head />
+          <div className="group">
+            <a className="group-hover:underline" href="https://react.email">
+              link
+            </a>
+          </div>
+        </Tailwind>
+      </Html>,
+    ).then(pretty);
+
+    expect(html).toMatchInlineSnapshot(`
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html dir="ltr" lang="en">
+        <head>
+          <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+          <meta name="x-apple-disable-message-reformatting" />
+          <style>
+            .group-hover_underline{@media (hover:hover){&:is(:where(.group):hover *){text-decoration-line:underline!important}}}
+          </style></head
+        ><!--$--><!--html--><!--head-->
+        <div class="group">
+          <a class="group-hover_underline" href="https://react.email">link</a>
+        </div>
+        <!--/$-->
+      </html>
+      "
+    `);
   });
 
   it('recognizes custom responsive screen', async () => {
@@ -742,6 +915,42 @@ describe('Tailwind component', () => {
     });
   });
 
+  describe('with duplicate classes across presets and plugins', () => {
+    it('merges declarations from a preset and a child override for the same class', async () => {
+      const base: TailwindConfig = {
+        plugins: [
+          plugin(({ addComponents }) => {
+            addComponents({ '.box': { '@apply rounded-lg bg-white p-4': {} } });
+          }),
+        ],
+      };
+      const config: TailwindConfig = {
+        presets: [base],
+        plugins: [
+          plugin(({ addComponents }) => {
+            addComponents({ '.box': { '@apply bg-red-500': {} } });
+          }),
+        ],
+      };
+
+      const actualOutput = await render(
+        <Tailwind config={config}>
+          <div className="box">hi</div>
+        </Tailwind>,
+      ).then(pretty);
+
+      expect(actualOutput).toMatchInlineSnapshot(`
+        "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <!--$-->
+        <div style="border-radius:0.5rem;background-color:rgb(251,44,54);padding:1rem">
+          hi
+        </div>
+        <!--/$-->
+        "
+      `);
+    });
+  });
+
   describe('with custom theme config', () => {
     it('supports custom colors', async () => {
       const config: TailwindConfig = {
@@ -1065,6 +1274,32 @@ describe('Tailwind component', () => {
   });
 
   describe('with utilities', () => {
+    it.each([
+      '--color-brand: blue;',
+      '--color-brand: blue !important; --color-brand: green;',
+    ])('uses a custom utility local theme override: %s', async (declarations) => {
+      const html = await render(
+        <Tailwind
+          theme="@theme { --color-brand: red; }"
+          utility={`.card { ${declarations} color: var(--color-brand); }`}
+        >
+          <div id="theme-default" className="bg-brand">
+            default
+          </div>
+          <div id="local-override" className="card">
+            overridden
+          </div>
+        </Tailwind>,
+      );
+      const document = new DOMParser().parseFromString(html, 'text/html');
+      expect(
+        document.getElementById('theme-default')?.style.backgroundColor,
+      ).toBe('red');
+      expect(document.getElementById('local-override')?.style.color).toBe(
+        'blue',
+      );
+    });
+
     it('handles empty utilities string', async () => {
       const actualOutput = await render(
         <Tailwind utility="">
@@ -1102,7 +1337,7 @@ describe('Tailwind component', () => {
         "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <!--$-->
         <div
-          style="box-shadow:0 4px 6px rgba(0,0,0,0.1);border-radius:8px;padding:16px"></div>
+          style="box-shadow:0 4px 6px rgb(0,0,0,0.1);border-radius:8px;padding:16px"></div>
         <!--/$-->
         "
       `);

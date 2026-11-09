@@ -130,7 +130,9 @@ describe('caniemail integration: styles produced by theme/utility reach the chec
     });
   });
 
-  it('combines config, theme, and utility together', async () => {
+  it('combines config, theme, and utility together', {
+    timeout: 15_000,
+  }, async () => {
     const themeStyles = await styleFor(
       'dummy-email-template-combined.tsx',
       'bg-brand',

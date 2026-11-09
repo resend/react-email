@@ -1,5 +1,155 @@
 # react-email
 
+## 6.11.8
+
+### Patch Changes
+
+- 2cf6a55: Update `glob` to `^14.0.3`, so installs no longer pull the vulnerable `minimatch@10` through `glob@13`.
+- e3121ee: Only publish `dist/` in the `react-email` npm package. The tarball no longer ships `src/`, tests, `dev/`, and build configs, which also stops editors on TypeScript 6 from reading the published `tsconfig.json`.
+
+## 6.11.7
+
+### Patch Changes
+
+- d8a0778: Preserve custom utility theme-variable overrides when resolving email styles, including local declaration order and importance.
+- 2b3d241: Resolve tsconfig path aliases in dynamic import template literals on Windows, so editing a file inside an aliased directory reloads the preview.
+
+## 6.11.6
+
+### Patch Changes
+
+- a959dbb: Keep a longhand padding of `0` on `<Button>`
+
+## 6.11.5
+
+## 6.11.4
+
+### Patch Changes
+
+- 499caa6: Remove the `normalize-path` dependency.
+
+## 6.11.3
+
+### Patch Changes
+
+- Updated dependencies [f356e81]
+  - @react-email/render@2.1.1
+
+## 6.11.2
+
+### Patch Changes
+
+- 7190dca: Leave the direction marks U+200E and U+200F out of the `<Preview>` padding, so spam filters such as rspamd no longer score it as hidden text. The padding sequence is now `\xa0‌​‍﻿`; if you post-process rendered HTML by matching the old sequence, update it.
+- 63f159a: `<Tailwind>` now inlines the default color for `shadow`, `shadow-md`, `ring-2` and similar classes, so these shadows show in email clients.
+
+## 6.11.1
+
+### Patch Changes
+
+- 54769fc: Prevent `email export` from deleting the project, the home directory, the email templates or the static assets when `--outDir` points at them.
+- 6926bac: `<Markdown>` now applies `markdownCustomStyles.th` to table header cells. Header cells were previously styled with `td`, so any `th` styles were ignored.
+
+## 6.11.0
+
+### Minor Changes
+
+- 0432f96: Use custom esbuild plugins by passing the new `--esbuild-plugins` flag to `email dev`, `email build` and `email export`, so templates that need a custom compile-time transform can be previewed and exported.
+
+## 6.10.0
+
+### Minor Changes
+
+- e9939f0: Upgrade `chokidar` to v5, which ships with npm provenance, so installs under pnpm's `trustPolicy: no-downgrade` no longer fail. The CLI now needs Node 20.19 or newer.
+
+### Patch Changes
+
+- 1b45ed0: The dev server now refuses to start on Node older than 20.19, which matches the package's declared minimum, and names the installed version in the error.
+
+## 6.9.5
+
+### Patch Changes
+
+- 0250981: fix responsive padding not applying to inner td for Container and Section
+
+## 6.9.4
+
+## 6.9.3
+
+## 6.9.2
+
+## 6.9.1
+
+### Patch Changes
+
+- ea02028: Serve static assets with URL-encoded filenames correctly in the preview server while preventing decoded paths from escaping the static directory.
+- 60c96a6: Fix `<Tailwind>` dropping `dark:` and other media-query variants with `tailwindcss@4.3.3`+, where the conditional value was inlined as the base style and the `@media` rule never reached the `<head>`
+
+## 6.9.0
+
+## 6.8.1
+
+## 6.8.0
+
+### Minor Changes
+
+- 9605c04: Add a Props tab to the preview toolbar for live-editing the props a template is rendered with. Edits re-render the preview without changing the template's `PreviewProps`, invalid JSON is flagged inline, and a reset restores the template defaults.
+
+### Patch Changes
+
+- d7743bc: Ship per-module build output with `sideEffects: false` so bundlers can tree-shake unused components. Importing a component no longer pulls prismjs, marked, and tailwindcss into the bundle unless `CodeBlock`, `Markdown`, or `Tailwind` is actually used.
+- 7b32bf6: Fixed toolbar tabs not responding on statically built previews when the page was opened with a `toolbar-panel` query param in the URL.
+
+## 6.7.0
+
+### Minor Changes
+
+- b448c3b: Enable custom export extensions via --extension/-e (e.g. .blade.php).
+
+### Patch Changes
+
+- Updated dependencies [ba96cfa]
+- Updated dependencies [58d8c08]
+  - @react-email/render@2.1.0
+
+## 6.6.9
+
+### Patch Changes
+
+- bc2f7e3: Fix `group` utilities including bad rules that don't work
+
+## 6.6.8
+
+### Patch Changes
+
+- dca3c01: Fix `email build` computing the wrong output file tracing root in nested-workspace monorepos (e.g. a package one or more directories below the true repo root), which caused Vercel deploys to fail with an ENOENT error on the routes manifest.
+
+## 6.6.7
+
+### Patch Changes
+
+- 6a5ff2a: Escape double quotes in `Markdown` link `href`/`title` and image `title` attributes, matching the escaping already applied to image `src`/`alt`. A markdown title like `'The "Complete" Guide'` no longer breaks out of the attribute in the rendered HTML.
+- 4cf4c72: Fix two-value logical shorthands whose values aren't all numeric (e.g. `margin-inline: 1rem auto`, `padding-inline: 10px calc(1rem + 2px)`) producing invalid duplicated longhands. They are now split into the correct per-side declarations.
+- fa77d55: Merge declarations when the same class is defined by multiple Tailwind rules (e.g. a preset and a child config override).
+- fa52a04: Convert Tailwind's `rgba(r g b / a)` syntax to `rgb(r,g,b,a)` syntax for better email client support.
+- fc8318c: Fix Tailwind classes not being inlined into styles for `<Section>`, `<Column>` and `<Row>`.
+
+## 6.6.6
+
+### Patch Changes
+
+- b4ac0d5: Fix `Button` emitting `mso-text-raise` without a unit on its Outlook padding spacer (e.g. `mso-text-raise:18`), which Outlook treats as invalid. The value now carries `px`, matching the unit React already adds on the button label.
+- cb3c468: Fix `email build` so the generated preview app deploys on Vercel by tracing files from the user's project root instead of the `.react-email` subfolder.
+- Updated dependencies [c300cfb]
+  - @react-email/render@2.0.10
+
+## 6.6.5
+
+## 6.6.4
+
+### Patch Changes
+
+- f8279be: Fix Tailwind pill utilities like `rounded-t-full` and `rounded-e-full` leaving an unrenderable `calc(infinity * 1px)` in the inlined email CSS (previously only `rounded-full` was converted to `9999px`).
+
 ## 6.6.3
 
 ## 6.6.2

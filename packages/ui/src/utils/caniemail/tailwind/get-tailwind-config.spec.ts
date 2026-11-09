@@ -78,3 +78,51 @@ describe('getTailwindConfig()', () => {
     expect(await getTailwindConfig(sourceCode, ast, sourcePath)).toEqual({});
   });
 });
+
+describe('with --esbuild-plugins', () => {
+  const sourcePath = path.resolve(
+    __dirname,
+    './tests/dummy-email-template-plugin-import.tsx',
+  );
+
+  beforeEach(() => {
+    vi.stubEnv(
+      'REACT_EMAIL_INTERNAL_ESBUILD_PLUGINS_PATH',
+      path.resolve(__dirname, './tests/custom-loader-plugins.mjs'),
+    );
+    vi.resetModules();
+  });
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  const parseTemplate = async () => {
+    const sourceCode = await fs.readFile(sourcePath, 'utf8');
+    const ast = parse(sourceCode, {
+      strictMode: false,
+      errorRecovery: true,
+      sourceType: 'unambiguous',
+      plugins: ['jsx', 'typescript', 'decorators'],
+    });
+    return { sourceCode, ast };
+  };
+
+  it('applies the user plugins when bundling the template for its config', async () => {
+    const { getTailwindConfig } = await import('./get-tailwind-config');
+    const { sourceCode, ast } = await parseTemplate();
+
+    expect(await getTailwindConfig(sourceCode, ast, sourcePath)).toEqual({
+      theme: {},
+      presets: [pixelBasedPreset],
+    });
+  });
+
+  it('applies the user plugins when bundling the template for its theme', async () => {
+    const { getTailwindCSSConfigs } = await import('./get-tailwind-config');
+    const { sourceCode, ast } = await parseTemplate();
+
+    const cssConfigs = await getTailwindCSSConfigs(sourceCode, ast, sourcePath);
+    expect(cssConfigs.theme).toContain('--color-brand: #00ff00;');
+  });
+});

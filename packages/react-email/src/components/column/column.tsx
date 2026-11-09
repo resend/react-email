@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { markAsElement } from '../element-marker.js';
 
 export type ColumnProps = Readonly<React.ComponentPropsWithoutRef<'td'>>;
 
@@ -13,3 +14,4 @@ export const Column = React.forwardRef<HTMLTableCellElement, ColumnProps>(
 );
 
 Column.displayName = 'Column';
+markAsElement(Column);

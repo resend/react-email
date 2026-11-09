@@ -7,6 +7,7 @@ import { Toaster } from 'sonner';
 import { useDebouncedCallback } from 'use-debounce';
 import { Topbar } from '../../../components';
 import { CodeContainer } from '../../../components/code-container';
+import { PreviewPropsPanel } from '../../../components/preview-props-panel';
 import {
   makeIframeDocumentBubbleEvents,
   ResizableWrapper,
@@ -16,8 +17,10 @@ import { useToolbarState } from '../../../components/toolbar';
 import { Tooltip } from '../../../components/tooltip';
 import { ActiveViewToggleGroup } from '../../../components/topbar/active-view-toggle-group';
 import { EmulatedDarkModeToggle } from '../../../components/topbar/emulated-dark-mode-toggle';
+import { PropsPanelToggle } from '../../../components/topbar/props-panel-toggle';
 import { ViewSizeControls } from '../../../components/topbar/view-size-controls';
 import { usePreviewContext } from '../../../contexts/preview';
+import { usePropsPanel } from '../../../contexts/props-panel';
 import { useClampedState } from '../../../hooks/use-clamped-state';
 import { cn } from '../../../utils';
 import { inferEmailTitle } from '../../../utils/infer-email-title';
@@ -104,6 +107,9 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
 
   const { toggled: toolbarToggled } = useToolbarState();
 
+  const { open: propsPanelOpen, setOpen: handlePropsPanelChange } =
+    usePropsPanel();
+
   return (
     <>
       <Topbar emailTitle={emailTitle}>
@@ -137,6 +143,12 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
           activeView={activeView}
           setActiveView={handleViewChange}
         />
+        {hasRenderingMetadata && !isRawHtmlEmail ? (
+          <PropsPanelToggle
+            onChange={handlePropsPanelChange}
+            open={propsPanelOpen}
+          />
+        ) : null}
         {hasRenderingMetadata ? (
           <div className="flex justify-end">
             <Send
@@ -150,121 +162,131 @@ const Preview = ({ emailTitle, className, ...props }: PreviewProps) => {
       </Topbar>
 
       <div
-        {...props}
         className={cn(
-          'h-[calc(100%-3.5rem-2.375rem)] will-change-[height] flex p-4 transition-[height] duration-300 relative',
-          activeView === 'preview' && 'bg-gray-200',
-          activeView === 'preview' && isDarkModeEnabled && 'bg-gray-400',
+          'flex h-[calc(100%-3.5rem-2.375rem)] will-change-[height] transition-[height] duration-300',
           toolbarToggled && 'h-[calc(100%-3.5rem-13rem)]',
-          className,
         )}
-        ref={(element) => {
-          const observer = new ResizeObserver((entry) => {
-            const [elementEntry] = entry;
-            if (elementEntry) {
-              setMaxWidth(elementEntry.contentRect.width);
-              setMaxHeight(elementEntry.contentRect.height);
-            }
-          });
-
-          if (element) {
-            observer.observe(element);
-          }
-
-          return () => {
-            observer.disconnect();
-          };
-        }}
       >
-        {hasErrors ? <ErrorOverlay error={renderingResult.error} /> : null}
+        <div
+          {...props}
+          className={cn(
+            'relative flex min-w-0 grow p-4',
+            activeView === 'preview' && 'bg-gray-200',
+            activeView === 'preview' && isDarkModeEnabled && 'bg-gray-400',
+            className,
+          )}
+          ref={(element) => {
+            const observer = new ResizeObserver((entry) => {
+              const [elementEntry] = entry;
+              if (elementEntry) {
+                setMaxWidth(elementEntry.contentRect.width);
+                setMaxHeight(elementEntry.contentRect.height);
+              }
+            });
 
-        {hasRenderingMetadata ? (
-          <>
-            {activeView === 'preview' && (
-              <ResizableWrapper
-                minHeight={minHeight}
-                minWidth={minWidth}
-                maxHeight={maxHeight}
-                maxWidth={maxWidth}
-                height={height}
-                onResizeEnd={() => {
-                  handleSaveViewSize();
-                }}
-                onResize={(value, direction) => {
-                  const isHorizontal =
-                    direction === 'east' || direction === 'west';
-                  if (isHorizontal) {
-                    setWidth(Math.round(value));
-                  } else {
-                    setHeight(Math.round(value));
-                  }
-                }}
-                width={width}
-              >
-                <EmailFrame
-                  className="max-h-full rounded-lg bg-white [color-scheme:auto]"
-                  darkMode={isDarkModeEnabled}
-                  markup={renderedEmailMetadata.markup}
-                  width={width}
+            if (element) {
+              observer.observe(element);
+            }
+
+            return () => {
+              observer.disconnect();
+            };
+          }}
+        >
+          {hasErrors ? <ErrorOverlay error={renderingResult.error} /> : null}
+
+          {hasRenderingMetadata ? (
+            <>
+              {activeView === 'preview' && (
+                <ResizableWrapper
+                  minHeight={minHeight}
+                  minWidth={minWidth}
+                  maxHeight={maxHeight}
+                  maxWidth={maxWidth}
                   height={height}
-                  title={emailTitle}
-                  ref={(iframe) => {
-                    if (!iframe) return;
-
-                    return makeIframeDocumentBubbleEvents(iframe);
+                  onResizeEnd={() => {
+                    handleSaveViewSize();
                   }}
-                />
-              </ResizableWrapper>
-            )}
+                  onResize={(value, direction) => {
+                    const isHorizontal =
+                      direction === 'east' || direction === 'west';
+                    if (isHorizontal) {
+                      setWidth(Math.round(value));
+                    } else {
+                      setHeight(Math.round(value));
+                    }
+                  }}
+                  width={width}
+                >
+                  <EmailFrame
+                    className="max-h-full rounded-lg bg-white [color-scheme:auto]"
+                    darkMode={isDarkModeEnabled}
+                    markup={renderedEmailMetadata.markup}
+                    width={width}
+                    height={height}
+                    title={emailTitle}
+                    ref={(iframe) => {
+                      if (!iframe) return;
 
-            {activeView === 'source' && (
-              <div className="h-full w-full">
-                <div className="m-auto h-full flex max-w-3xl p-6">
-                  <Tooltip.Provider>
-                    <CodeContainer
-                      activeLang={activeLang}
-                      basename={renderedEmailMetadata.basename}
-                      markups={
-                        isRawHtmlEmail
-                          ? [
-                              {
-                                language: 'html',
-                                extension: 'html',
-                                content: renderedEmailMetadata.prettyMarkup,
-                              },
-                              {
-                                language: 'markdown',
-                                extension: 'md',
-                                content: renderedEmailMetadata.plainText,
-                              },
-                            ]
-                          : [
-                              {
-                                language: 'tsx',
-                                extension: renderedEmailMetadata.extname,
-                                content: renderedEmailMetadata.reactMarkup,
-                              },
-                              {
-                                language: 'html',
-                                content: renderedEmailMetadata.prettyMarkup,
-                              },
-                              {
-                                language: 'markdown',
-                                extension: 'md',
-                                content: renderedEmailMetadata.plainText,
-                              },
-                            ]
-                      }
-                      setActiveLang={handleLangChange}
-                    />
-                  </Tooltip.Provider>
+                      return makeIframeDocumentBubbleEvents(iframe);
+                    }}
+                  />
+                </ResizableWrapper>
+              )}
+
+              {activeView === 'source' && (
+                <div className="h-full w-full">
+                  <div className="m-auto h-full flex max-w-3xl p-6">
+                    <Tooltip.Provider>
+                      <CodeContainer
+                        activeLang={activeLang}
+                        basename={renderedEmailMetadata.basename}
+                        markups={
+                          isRawHtmlEmail
+                            ? [
+                                {
+                                  language: 'html',
+                                  extension: 'html',
+                                  content: renderedEmailMetadata.prettyMarkup,
+                                },
+                                {
+                                  language: 'markdown',
+                                  extension: 'md',
+                                  content: renderedEmailMetadata.plainText,
+                                },
+                              ]
+                            : [
+                                {
+                                  language: 'tsx',
+                                  extension: renderedEmailMetadata.extname,
+                                  content: renderedEmailMetadata.reactMarkup,
+                                },
+                                {
+                                  language: 'html',
+                                  content: renderedEmailMetadata.prettyMarkup,
+                                },
+                                {
+                                  language: 'markdown',
+                                  extension: 'md',
+                                  content: renderedEmailMetadata.plainText,
+                                },
+                              ]
+                        }
+                        setActiveLang={handleLangChange}
+                      />
+                    </Tooltip.Provider>
+                  </div>
                 </div>
-              </div>
-            )}
-          </>
-        ) : null}
+              )}
+            </>
+          ) : null}
 
-        <Toaster />
+          <Toaster />
+        </div>
+
+        {hasRenderingMetadata && !isRawHtmlEmail ? (
+          <PreviewPropsPanel open={propsPanelOpen} />
+        ) : null}
       </div>
     </>
   );

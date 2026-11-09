@@ -257,9 +257,10 @@ describe('integrations', () => {
   describe('vite', () => {
     const viteLocation = path.resolve(import.meta.dirname, './vite/');
 
+    // No lockfile, so this is a cold install on runs without a turbo cache hit
     beforeAll(() => {
       $('npm install', viteLocation);
-    }, 30_000);
+    }, 120_000);
 
     // The code being run after build has been modified by Vite and might run differently
     it('works when rendering in vite preview', async () => {

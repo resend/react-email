@@ -53,6 +53,7 @@ export const generateMetadata = async ({
     },
     alternates: {
       canonical: `/components/${rawSlug}`,
+      types: { 'text/markdown': `/components/${rawSlug}.md` },
     },
   };
 };
@@ -69,8 +70,28 @@ export default async function ComponentPage({ params }: ComponentPageParams) {
   }
 
   const importedComponents = await getImportedComponentsFor(foundCategory);
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareSourceCode',
+    name: `${foundCategory.name} — React Email Components`,
+    description: foundCategory.description,
+    programmingLanguage: ['TypeScript', 'React'],
+    runtimePlatform: 'Node.js',
+    codeRepository: 'https://github.com/resend/react-email',
+    url: `https://react.email/components/${slug}`,
+    hasPart: foundCategory.components.map((c) => ({
+      '@type': 'SoftwareSourceCode',
+      name: c.title,
+    })),
+  };
+
   return (
     <PageWrapper>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="pointer-events-none absolute inset-0 flex justify-center">
         <div className="hidden h-full w-full max-w-7xl grid-cols-2 gap-4 px-4 lg:grid">
           <div className="border-r-slate-3 border-l border-l-slate-4" />

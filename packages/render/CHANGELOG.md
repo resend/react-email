@@ -1,5 +1,33 @@
 # @react-email/render
 
+## 2.2.0
+
+### Minor Changes
+
+- 8748196: Update `html-to-text` to v10. The minimum supported Node.js version is now 20.19.0, matching `react-email`.
+
+## 2.1.1
+
+### Patch Changes
+
+- f356e81: `render` now only loads `prettier` when `pretty: true` is used, so rendering without it no longer fails with "Failed to load external module prettier" in Next.js dev with Turbopack on Bun
+
+## 2.1.0
+
+### Minor Changes
+
+- ba96cfa: introduce new `unstableToPlainText` and `unstableTextConversion` that sidesteps html-to-text
+
+### Patch Changes
+
+- 58d8c08: feat: add `data-text-format="dataTable"` to render tables as aligned columns in plain text
+
+## 2.0.10
+
+### Patch Changes
+
+- c300cfb: Strip React's auto-injected `<link rel="preload" as="image">` resource hints from rendered email HTML. React adds one to the document `<head>` for every `<img>` during SSR, but email clients ignore preload hints, so they were just noise in the output. Other `<link>` tags (stylesheets, fonts, user-authored non-image preloads) are left untouched.
+
 ## 2.0.9
 
 ### Patch Changes

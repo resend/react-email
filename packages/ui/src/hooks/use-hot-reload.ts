@@ -11,21 +11,22 @@ import type { HotReloadChange } from '../utils/types/hot-reload-change';
 export const useHotreload = (
   onShouldReload: (changes: HotReloadChange[]) => void,
 ) => {
-  const socketRef = useRef<Socket | null>(null);
+  const onShouldReloadRef = useRef(onShouldReload);
+  onShouldReloadRef.current = onShouldReload;
 
   useEffect(() => {
-    if (!socketRef.current) {
-      socketRef.current = io();
-    }
-    const socket = socketRef.current;
+    const socket: Socket = io();
 
-    socket.on('reload', (changes: HotReloadChange[]) => {
+    const handleReload = (changes: HotReloadChange[]) => {
       console.debug('Reloading...');
-      void onShouldReload(changes);
-    });
+      void onShouldReloadRef.current(changes);
+    };
+
+    socket.on('reload', handleReload);
 
     return () => {
-      socket.off();
+      socket.off('reload', handleReload);
+      socket.disconnect();
     };
-  }, [onShouldReload]);
+  }, []);
 };

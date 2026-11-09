@@ -1,6 +1,6 @@
 import { render } from 'react-email';
 import { DEFAULT_STYLES } from '../utils/default-styles';
-import { Table, TableCell, TableRow } from './table';
+import { Table, TableCell, TableHeader, TableRow } from './table';
 
 const tableStyle = { ...DEFAULT_STYLES.reset };
 const tableRowStyle = { ...DEFAULT_STYLES.reset };
@@ -70,6 +70,30 @@ describe('Table Nodes', () => {
         { pretty: true },
       ),
     ).toMatchSnapshot();
+  });
+
+  it('renders TableHeader React Email properly as a real th, not a dropped node', async () => {
+    const Component = TableHeader.config.renderToReactEmail;
+    expect(Component).toBeDefined();
+    const html = await render(
+      <Component
+        node={{
+          type: 'tableHeader',
+          attrs: {
+            alignment: 'left',
+          },
+        }}
+        style={tableCellStyle}
+        extension={TableHeader}
+      >
+        Header content
+      </Component>,
+      { pretty: true },
+    );
+
+    expect(html).toContain('<th');
+    expect(html).toContain('Header content');
+    expect(html).toMatchSnapshot();
   });
 
   it('renders nested table structure without invalid tr-inside-td nesting', async () => {

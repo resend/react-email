@@ -29,10 +29,10 @@
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "happy-dom": "20.9.0",
+    "happy-dom": "21.0.4",
     "mdast-util-to-string": "4.0.0",
     "nypm": "catalog:",
-    "pkg-pr-new": "0.0.66",
+    "pkg-pr-new": "0.0.91",
     "playwright": "1.59.1",
     "remark": "15.0.1",
     "rollup": "4.60.1",
@@ -43,7 +43,7 @@
     "turbo": "2.9.14",
     "typescript": "catalog:",
     "vite": "catalog:",
-    "vitest": "4.1.4"
+    "vitest": "4.1.12"
   },
   "packageManager": "pnpm@11.0.0+sha512.5bd187500e49cc6c3d891d973b432c02b844a5eb7209172c90a517a3ef4f579ed5c23d409b699e6a9dc418ff7b2b1890e63f6d74f1d3fc49848f37779c89c84c"
 }

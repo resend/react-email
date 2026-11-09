@@ -79,6 +79,7 @@ export const DEFAULT_STYLES: CssJs = {
   button: {
     lineHeight: '100%',
     display: 'inline-block',
+    boxSizing: 'border-box' as const,
   },
   inlineCode: {
     paddingTop: '0.25em',

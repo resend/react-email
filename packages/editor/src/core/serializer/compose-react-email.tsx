@@ -1,5 +1,6 @@
 import type { Editor, JSONContent } from '@tiptap/core';
 import type { MarkType, Schema } from '@tiptap/pm/model';
+import { Fragment } from 'react';
 import { pretty, render, toPlainText } from 'react-email';
 import { inlineCssToJs } from '../../utils/styles';
 import { DefaultBaseTemplate } from './default-base-template';
@@ -34,7 +35,10 @@ function sortMarksBySchema(
 }
 
 interface ComposeReactEmailResult {
-  /** Prettier-formatted HTML, suitable for displaying in a source-code view. */
+  /**
+   * Prettier-formatted HTML, suitable for displaying in a source-code view.
+   * Equal to `unformattedHtml` when `pretty` is `false`.
+   */
   html: string;
   /** Plain-text version of the email body. */
   text: string;
@@ -51,9 +55,19 @@ interface ComposeReactEmailResult {
 export const composeReactEmail = async ({
   editor,
   preview,
+  previewMode = false,
+  pretty: shouldPrettify = true,
 }: {
   editor: Editor;
   preview?: string;
+  previewMode?: boolean;
+  /**
+   * Run Prettier on the rendered HTML to produce `html`. Defaults to `true`.
+   * Set to `false` when only `unformattedHtml` is needed: it skips the
+   * Prettier pass, which is slow on large emails and overflows the call
+   * stack on very deeply nested layouts.
+   */
+  pretty?: boolean;
 }): Promise<ComposeReactEmailResult> => {
   const data = editor.getJSON();
   const extensions = editor.extensionManager.extensions;
@@ -71,10 +85,25 @@ export const composeReactEmail = async ({
     extensions.map((extension) => [extension.name, extension]),
   );
 
-  function parseContent(content: JSONContent[] | undefined, depth = 0) {
+  function parseContent(_content: JSONContent[] | undefined, depth = 0) {
+    let content = _content;
     if (!content) {
       return;
     }
+
+    // Drop empty paragraphs that exist only as editing affordances (the
+    // TrailingNode filler after a trailing table/section, the schema filler
+    // in an empty cell); blank lines between paragraphs still render.
+    content = content.filter((node, index, nodes) => {
+      if (node.type !== 'paragraph' || node.content?.length) {
+        return true;
+      }
+      if (index !== nodes.length - 1) {
+        return true;
+      }
+      const previousNode = nodes[index - 1];
+      return previousNode ? previousNode.type === 'paragraph' : false;
+    });
 
     return content.map((node: JSONContent, index: number) => {
       const style = serializerPlugin?.getNodeStyles(node, depth, editor) ?? {};
@@ -99,7 +128,6 @@ export const composeReactEmail = async ({
         node.text
       ) : (
         <NodeComponent
-          key={index}
           node={
             node.type === 'table' && inlineStyles.width && !node.attrs?.width
               ? {
@@ -142,7 +170,7 @@ export const composeReactEmail = async ({
         }
       }
 
-      return renderedNode;
+      return <Fragment key={index}>{renderedNode}</Fragment>;
     });
   }
 
@@ -150,13 +178,17 @@ export const composeReactEmail = async ({
 
   const parsedContent = parseContent(data.content);
   const unformattedHtml = await render(
-    <BaseTemplate previewText={preview} editor={editor}>
+    <BaseTemplate
+      previewText={preview}
+      editor={editor}
+      previewMode={previewMode}
+    >
       {parsedContent}
     </BaseTemplate>,
   );
 
   const [prettyHtml, text] = await Promise.all([
-    pretty(unformattedHtml),
+    shouldPrettify ? pretty(unformattedHtml) : unformattedHtml,
     toPlainText(unformattedHtml),
   ]);
 

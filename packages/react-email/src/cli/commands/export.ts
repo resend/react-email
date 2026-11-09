@@ -1,12 +1,13 @@
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { Worker } from 'node:worker_threads';
 import type { Options } from '@react-email/render';
 import { type BuildFailure, build, stop } from 'esbuild';
 import { glob } from 'glob';
 import logSymbols from 'log-symbols';
-import normalize from 'normalize-path';
 import { inlineCssLoader } from '../utils/esbuild/inline-css-loader.js';
+import { loadEsbuildPlugins } from '../utils/esbuild/load-esbuild-plugins.js';
 import { renderingUtilitiesExporter } from '../utils/esbuild/renderring-utilities-exporter.js';
 import {
   type EmailsDirectory,
@@ -33,8 +34,60 @@ const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
 };
 
 type ExportTemplatesOptions = Options & {
+  extension?: string;
   silent?: boolean;
   pretty?: boolean;
+  /** Path to a module exporting the esbuild plugins to apply when bundling templates */
+  esbuildPlugins?: string;
+};
+
+const isInside = (parent: string, child: string) =>
+  child.startsWith(`${parent}${path.sep}`);
+
+export const getUnsafeOutDirMessage = (
+  outDir: string,
+  emailsDirectoryPath: string,
+  { cwd, homeDirectory }: { cwd: string; homeDirectory: string },
+): string | undefined => {
+  const resolvedOutDir = path.resolve(cwd, outDir);
+  const resolvedEmailsDirectory = path.resolve(cwd, emailsDirectoryPath);
+  const staticDirectory = path.join(resolvedEmailsDirectory, 'static');
+
+  if (resolvedOutDir === path.parse(resolvedOutDir).root) {
+    return "--outDir can't be the filesystem root.";
+  }
+
+  if (resolvedOutDir === homeDirectory) {
+    return "--outDir can't be your home directory.";
+  }
+
+  if (isInside(resolvedOutDir, homeDirectory)) {
+    return "--outDir can't contain your home directory.";
+  }
+
+  if (resolvedOutDir === cwd) {
+    return "--outDir can't be the project directory.";
+  }
+
+  if (isInside(resolvedOutDir, cwd)) {
+    return "--outDir can't contain the project directory.";
+  }
+
+  if (
+    resolvedOutDir === resolvedEmailsDirectory ||
+    isInside(resolvedOutDir, resolvedEmailsDirectory)
+  ) {
+    return "--outDir can't contain your email templates.";
+  }
+
+  if (
+    resolvedOutDir === staticDirectory ||
+    isInside(staticDirectory, resolvedOutDir)
+  ) {
+    return "--outDir can't be your static assets directory.";
+  }
+
+  return undefined;
 };
 
 // Batch so esbuild's Go-side dep graph isn't held for every entry at once.
@@ -48,7 +101,7 @@ const renderWorkerSource = `
 const { unlinkSync, writeFileSync } = require('node:fs');
 const { parentPort, workerData } = require('node:worker_threads');
 
-const { templates, options } = workerData;
+const { templates, options, extension } = workerData;
 
 (async () => {
   for (const template of templates) {
@@ -58,10 +111,7 @@ const { templates, options } = workerData;
         emailModule.reactEmailCreateReactElement(emailModule.default, {}),
         options,
       );
-      const htmlPath = template.replace(
-        '.cjs',
-        options.plainText ? '.txt' : '.html',
-      );
+      const htmlPath = template.replace('.cjs', extension);
       writeFileSync(htmlPath, rendered);
       unlinkSync(template);
       parentPort.postMessage({ type: 'progress', template });
@@ -115,13 +165,47 @@ export const exportTemplates = async (
     process.exit(1);
   }
 
-  if (fs.existsSync(pathToWhereEmailMarkupShouldBeDumped)) {
-    fs.rmSync(pathToWhereEmailMarkupShouldBeDumped, { recursive: true });
+  const resolvedPathToWhereEmailMarkupShouldBeDumped = path.resolve(
+    process.cwd(),
+    pathToWhereEmailMarkupShouldBeDumped,
+  );
+
+  if (fs.existsSync(resolvedPathToWhereEmailMarkupShouldBeDumped)) {
+    const unsafeOutDirMessage = getUnsafeOutDirMessage(
+      resolvedPathToWhereEmailMarkupShouldBeDumped,
+      emailsDirectoryPath,
+      { cwd: process.cwd(), homeDirectory: os.homedir() },
+    );
+
+    if (unsafeOutDirMessage) {
+      const message = `${unsafeOutDirMessage} Choose a different --outDir, such as "out".`;
+
+      if (spinner) {
+        stopSpinnerAndPersist(spinner, {
+          symbol: logSymbols.error,
+          text: message,
+        });
+      } else {
+        console.error(message);
+      }
+
+      process.exit(1);
+    }
+
+    fs.rmSync(resolvedPathToWhereEmailMarkupShouldBeDumped, {
+      recursive: true,
+    });
   }
 
   const allTemplates = getEmailTemplatesFromDirectory(emailsDirectoryMetadata);
 
   try {
+    const userPlugins = options.esbuildPlugins
+      ? await loadEsbuildPlugins(
+          path.resolve(process.cwd(), options.esbuildPlugins),
+        )
+      : [];
+
     for (let i = 0; i < allTemplates.length; i += BUILD_BATCH_SIZE) {
       const batch = allTemplates.slice(i, i + BUILD_BATCH_SIZE);
       await build({
@@ -135,7 +219,11 @@ export const exportTemplates = async (
         outExtension: { '.js': '.cjs' },
         outdir: pathToWhereEmailMarkupShouldBeDumped,
         platform: 'node',
-        plugins: [inlineCssLoader(), renderingUtilitiesExporter(batch)],
+        plugins: [
+          inlineCssLoader(),
+          renderingUtilitiesExporter(batch),
+          ...userPlugins,
+        ],
         write: true,
       });
       await stop();
@@ -158,12 +246,19 @@ export const exportTemplates = async (
     spinner.succeed();
   }
 
-  const allBuiltTemplates = glob.sync(
-    normalize(`${pathToWhereEmailMarkupShouldBeDumped}/**/*.cjs`),
-    {
-      absolute: true,
-    },
-  );
+  const allBuiltTemplates = glob.sync('**/*.cjs', {
+    cwd: pathToWhereEmailMarkupShouldBeDumped,
+    absolute: true,
+  });
+
+  const extension =
+    options.extension && options.extension.length > 0
+      ? options.extension.startsWith('.')
+        ? options.extension
+        : `.${options.extension}`
+      : options.plainText
+        ? '.txt'
+        : '.html';
 
   if (spinner && allBuiltTemplates.length > 0) {
     spinner.setText(`rendering ${allBuiltTemplates[0]?.split('/').pop()}`);
@@ -179,7 +274,7 @@ export const exportTemplates = async (
       await new Promise<void>((resolve, reject) => {
         const worker = new Worker(renderWorkerSource, {
           eval: true,
-          workerData: { templates: batch, options },
+          workerData: { templates: batch, options, extension },
         });
         worker.on('message', (msg: RenderWorkerMessage) => {
           if (msg.type === 'progress') {

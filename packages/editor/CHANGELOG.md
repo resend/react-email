@@ -1,5 +1,308 @@
 # @react-email/editor
 
+## 1.8.1
+
+### Patch Changes
+
+- Updated dependencies [2cf6a55]
+- Updated dependencies [e3121ee]
+  - react-email@6.11.8
+
+## 1.8.0
+
+### Minor Changes
+
+- 36b931d: add a `pretty` option to `composeReactEmail` (defaults to `true`). Pass `pretty: false` to skip the Prettier pass when only `unformattedHtml` is needed; `html` then equals `unformattedHtml`. Prettier is slow on large emails and overflows the call stack on very deeply nested layouts (e.g. Stripo or Mailchimp imports), which made the whole compose reject even though the caller never used the formatted output.
+
+## 1.7.22
+
+### Patch Changes
+
+- Updated dependencies [d8a0778]
+- Updated dependencies [2b3d241]
+  - react-email@6.11.7
+
+## 1.7.21
+
+### Patch Changes
+
+- 8270604: Skip the deferred class, style and alignment resets on Enter when the editor is destroyed before the next frame, and raise the tiptap ranges to ^3.32.2
+
+## 1.7.20
+
+### Patch Changes
+
+- 5a6605d: Keep the default button readable in Apple Mail dark mode by serializing a pure black background as `#010101` and pinning a light label with `-webkit-text-fill-color`.
+
+## 1.7.19
+
+### Patch Changes
+
+- 7ccccf8: Load the Prism grammars a code block language depends on, and resolve language aliases, before highlighting it. `shell` code blocks now highlight as Bash, and a `php` block no longer loads PHP without `markup-templating`, which made every later highlight on the page throw.
+
+## 1.7.18
+
+### Patch Changes
+
+- c3354ea: Load react-email's `CodeBlock`, with its Prism grammars and themes, only when an email with a code block is rendered, instead of in every bundle that mounts the editor.
+
+## 1.7.17
+
+### Patch Changes
+
+- 10e9b0c: Bump `@tiptap/*` to 3.32.0.
+- Updated dependencies [a959dbb]
+  - react-email@6.11.6
+
+## 1.7.16
+
+### Patch Changes
+
+- react-email@6.11.5
+
+## 1.7.15
+
+### Patch Changes
+
+- Updated dependencies [499caa6]
+  - react-email@6.11.4
+
+## 1.7.14
+
+### Patch Changes
+
+- cf6ab43: The slash command menu no longer throws `Cannot read properties of null (reading 'left')` when its anchor leaves the DOM while the menu is still open.
+  - react-email@6.11.3
+
+## 1.7.13
+
+### Patch Changes
+
+- Updated dependencies [7190dca]
+- Updated dependencies [63f159a]
+  - react-email@6.11.2
+
+## 1.7.12
+
+### Patch Changes
+
+- Updated dependencies [54769fc]
+- Updated dependencies [6926bac]
+  - react-email@6.11.1
+
+## 1.7.11
+
+### Patch Changes
+
+- 7d6ec3c: Run the slash command that was clicked when the categories are displayed out of array order.
+
+## 1.7.10
+
+### Patch Changes
+
+- Updated dependencies [0432f96]
+  - react-email@6.11.0
+
+## 1.7.9
+
+### Patch Changes
+
+- Updated dependencies [e9939f0]
+- Updated dependencies [1b45ed0]
+  - react-email@6.10.0
+
+## 1.7.8
+
+### Patch Changes
+
+- 91feb4b: Show the placeholder text on empty headings.
+
+## 1.7.7
+
+### Patch Changes
+
+- f8bf344: fix table header cells being dropped when rendering to send HTML
+
+## 1.7.6
+
+### Patch Changes
+
+- cd3b7f1: Fix the bubble menu's Left alignment button never reading as active for left-aligned (default) content, persist an explicit left alignment to the HTML, and resolve inherited alignment from aligned ancestors (for example a paragraph inside a center-aligned table cell) so the button no longer reports `left` while the content is visually centered.
+- Updated dependencies [0250981]
+  - react-email@6.9.5
+
+## 1.7.5
+
+### Patch Changes
+
+- react-email@6.9.4
+
+## 1.7.4
+
+### Patch Changes
+
+- 62eb793: Buttons now render with `box-sizing: border-box`, so a full-width padded button no longer overflows its container in delivered emails. Buttons with an explicit size plus padding render slightly smaller, matching the canvas.
+
+## 1.7.3
+
+### Patch Changes
+
+- react-email@6.9.3
+
+## 1.7.2
+
+### Patch Changes
+
+- b039b36: Preserve paragraph `style` and `class` attributes when splitting a paragraph with Enter
+
+## 1.7.1
+
+### Patch Changes
+
+- react-email@6.9.2
+
+## 1.7.0
+
+### Minor Changes
+
+- 45404a5: make the container center aligned on the basic theme
+
+## 1.6.14
+
+### Patch Changes
+
+- 730b2ca: Fix duplicated containers when the enforcer races collaborative sync
+
+## 1.6.13
+
+### Patch Changes
+
+- 7cc03ce: remove padding and margin reset from body style reset
+
+## 1.6.12
+
+### Patch Changes
+
+- 2f595da: Fix code blocks losing their theme, language and styling when an email is imported back into the editor.
+- 81380ef: Make body margin and padding theme-driven instead of hardcoded on the email `<Body>`. The `minimal` theme's body panel now includes a Margin input and defaults its padding inputs to `0`, so body spacing is visible and editable in the inspector and can be overridden per document. The `basic` theme keeps its `margin: 0; padding: 0` body reset with unchanged output.
+
+## 1.6.11
+
+### Patch Changes
+
+- Updated dependencies [ea02028]
+- Updated dependencies [60c96a6]
+  - react-email@6.9.1
+
+## 1.6.10
+
+### Patch Changes
+
+- react-email@6.9.0
+
+## 1.6.9
+
+### Patch Changes
+
+- 8e7964a: Zeroed composed body margins
+
+## 1.6.8
+
+### Patch Changes
+
+- react-email@6.8.1
+
+## 1.6.7
+
+### Patch Changes
+
+- 32d8d95: fix: apply inline styles stored on the `code` mark when composing the email
+
+  The `code` mark's serializer only read styles from the text node's attrs, so inline CSS captured on the mark itself (e.g. background, padding, or font styles imported from existing HTML) was dropped from the composed email. The mark's `style` attr is now merged into the rendered `<code>` element.
+
+- 87e8005: fix: skip editor-only filler paragraphs when composing the email
+
+  The trailing empty paragraph the editor appends after a table or section (and the schema filler inside an otherwise empty cell) no longer renders as extra vertical space in the composed email. Intentional blank lines — empty paragraphs that follow a paragraph — are still rendered.
+
+- Updated dependencies [9605c04]
+- Updated dependencies [d7743bc]
+- Updated dependencies [7b32bf6]
+  - react-email@6.8.0
+
+## 1.6.6
+
+### Patch Changes
+
+- Updated dependencies [b448c3b]
+  - react-email@6.7.0
+
+## 1.6.5
+
+### Patch Changes
+
+- 86d235d: Remove dangling CSS file exports in package definition
+- Updated dependencies [bc2f7e3]
+  - react-email@6.6.9
+
+## 1.6.4
+
+### Patch Changes
+
+- d89be14: Fix bubble menus and the Inspector losing the editor selection on click. The `FocusScopes` registry was wiped on every plugin reconfiguration; it now persists until the plugin is removed or the editor is destroyed.
+- Updated dependencies [dca3c01]
+  - react-email@6.6.8
+
+## 1.6.3
+
+### Patch Changes
+
+- Updated dependencies [6a5ff2a]
+- Updated dependencies [4cf4c72]
+- Updated dependencies [fa77d55]
+- Updated dependencies [fa52a04]
+- Updated dependencies [fc8318c]
+  - react-email@6.6.7
+
+## 1.6.2
+
+### Patch Changes
+
+- 6313b3c: Avoid React key warnings when exporting editor content containing marked text. Serialized email nodes are now keyed at the mapped result boundary, so marks like bold, italic, and links no longer produce missing-key warnings during email export.
+
+## 1.6.1
+
+### Patch Changes
+
+- 94bd4c8: Fix invalid `TextSelection` on blur. Clearing the selection on blur used `TextSelection.create(doc, 0)`, which resolves to the doc node (no inline content) and made ProseMirror log "TextSelection endpoint not pointing into a node with inline content (doc)". It now uses `Selection.atStart(doc)`, which resolves to the first valid cursor position.
+- Updated dependencies [b4ac0d5]
+- Updated dependencies [cb3c468]
+  - react-email@6.6.6
+
+## 1.6.0
+
+### Minor Changes
+
+- b897235: preserve image styles when replacing an image node
+
+## 1.5.10
+
+### Patch Changes
+
+- f5eae02: Keep native list markers visible in dark-mode mail clients. Apple Mail / iOS auto-darken light emails by recoloring text but leave `list-style` markers at their original color, so bullets vanished on the darkened background. The serialized email head now ships a `prefers-color-scheme: dark` rule that gives `li::marker` an explicit color.
+
+## 1.5.9
+
+### Patch Changes
+
+- react-email@6.6.5
+
+## 1.5.8
+
+### Patch Changes
+
+- Updated dependencies [f8279be]
+  - react-email@6.6.4
+
 ## 1.5.7
 
 ### Patch Changes

@@ -1,0 +1,66 @@
+---
+title: "Body"
+sidebarTitle: "Body"
+description: "A React body component to wrap the contents of an email."
+"og:image": "https://react.email/static/covers/components.png"
+icon: "window-maximize"
+---
+
+import Support from '/snippets/support.mdx'
+
+## Install
+
+Install component from your command line.
+
+<CodeGroup>
+
+```sh npm
+npm install react-email -E
+```
+
+```sh yarn
+yarn add react-email -E
+```
+
+```sh pnpm
+pnpm add react-email -E
+```
+
+</CodeGroup>
+
+## Getting started
+
+Add the component to your email template. Include styles where needed.
+
+```jsx
+import { Html, Body, Button } from "react-email";
+
+const Email = () => {
+  return (
+    <Html lang="en" dir="ltr">
+      <Body lang="en" dir="ltr" style={{ backgroundColor: "#ffffff" }}>
+        <Button href="https://example.com" style={{ color: "#61dafb" }}>
+          Click me
+        </Button>
+      </Body>
+    </Html>
+  );
+};
+```
+
+## Props
+
+<ResponseField name="lang" type="string" default="en">
+  Identify the language of text content on the email.
+</ResponseField>
+<ResponseField name="dir" type="string" default="ltr">
+  Identify the direction of text content on the email.
+</ResponseField>
+
+<Info>
+  When customizing `lang` and/or `dir`, you should set the same values on the
+  [`Html`](/components/html) component. Some email clients strip the `html` or
+  `body` tags, so it's necessary to have both.
+</Info>
+
+<Support/>

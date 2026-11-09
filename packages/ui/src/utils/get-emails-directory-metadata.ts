@@ -2,37 +2,37 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const isFileAnEmail = async (fullPath: string): Promise<boolean> => {
-  let fileHandle: fs.promises.FileHandle;
+  let stat: fs.Stats;
   try {
-    fileHandle = await fs.promises.open(fullPath, 'r');
+    stat = await fs.promises.stat(fullPath);
   } catch (exception) {
     console.warn(exception);
     return false;
   }
-  const stat = await fileHandle.stat();
 
   if (stat.isDirectory()) {
-    await fileHandle.close();
     return false;
   }
 
   const { ext } = path.parse(fullPath);
 
   if (ext === '.html') {
-    await fileHandle.close();
     return true;
   }
 
   if (!['.js', '.tsx', '.jsx'].includes(ext)) {
-    await fileHandle.close();
     return false;
   }
 
   // check with a heuristic to see if the file has at least
   // a default export (ES6) or module.exports (CommonJS) or named exports (MDX)
-  const fileContents = await fileHandle.readFile('utf8');
-
-  await fileHandle.close();
+  let fileContents: string;
+  try {
+    fileContents = await fs.promises.readFile(fullPath, 'utf8');
+  } catch (exception) {
+    console.warn(exception);
+    return false;
+  }
 
   // Check for ES6 export default syntax
   const hasES6DefaultExport = /\bexport\s+default\b/gm.test(fileContents);

@@ -47,13 +47,7 @@ export const AlignmentAttribute = Extension.create<AlignmentOptions>({
               // Return null to let natural inheritance work
               return null;
             },
-            renderHTML: (attributes) => {
-              if (attributes.alignment === 'left') {
-                return {};
-              }
-
-              return { alignment: attributes.alignment };
-            },
+            renderHTML: (attributes) => ({ alignment: attributes.alignment }),
           },
         },
       },
@@ -86,6 +80,7 @@ export const AlignmentAttribute = Extension.create<AlignmentOptions>({
 
         if (currentAlignment) {
           requestAnimationFrame(() => {
+            if (this.editor.isDestroyed) return;
             // Preserve the current alignment when creating new nodes
             this.editor.commands.setAlignment(currentAlignment);
           });

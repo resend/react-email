@@ -40,6 +40,16 @@ export default function Email() {
 };
 ```
 
+## Using with AI
+
+Install the React Email skill to teach your coding agent (Claude Code, Codex, Cursor, GitHub Copilot, and others) how to build emails with React Email:
+
+```sh
+npx skills add resend/react-email
+```
+
+The docs are also available for LLMs at [react.email/docs/llms.txt](https://react.email/docs/llms.txt).
+
 ## Components
 
 A set of standard components to help you build amazing emails without having to deal with the mess of creating table-based layouts and maintaining archaic markup.

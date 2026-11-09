@@ -1,5 +1,6 @@
 import type { AnyExtension, JSONContent } from '@tiptap/core';
 import { Editor } from '@tiptap/core';
+import { pretty } from 'react-email';
 import { afterEach, describe, expect, it } from 'vitest';
 import { StarterKit } from '../../extensions';
 import { EmailTheming } from '../../plugins/email-theming/extension';
@@ -9,6 +10,11 @@ import { EmailNode } from './email-node';
 vi.mock('@/actions/ai', () => ({
   uploadImageViaAI: vi.fn(),
 }));
+
+vi.mock('react-email', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('react-email')>();
+  return { ...actual, pretty: vi.fn(actual.pretty) };
+});
 
 /**
  * Minimal theme data structure for testing global content.
@@ -65,7 +71,7 @@ function docWithGlobalContent(
 }
 
 describe('Text marks', () => {
-  it('should nest bold and italic by schema mark rank (same as ProseMirror)', async () => {
+  it('nests bold and italic by schema mark rank (same as ProseMirror)', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -101,7 +107,7 @@ describe('Text marks', () => {
     expect(emClose).toBeGreaterThan(strongClose);
   });
 
-  it('should nest link and bold by schema mark rank (link extension priority 1000)', async () => {
+  it('nests link and bold by schema mark rank (link extension priority 1000)', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -182,7 +188,7 @@ describe('Text marks', () => {
     expect(result.html).toContain('<strong><span>Hello</span></strong>');
   });
 
-  it('should render uppercase marks using the extension renderer', async () => {
+  it('renders uppercase marks using the extension renderer', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -206,7 +212,7 @@ describe('Text marks', () => {
     expect(result.html).toContain('Hello world');
   });
 
-  it('should render sup marks using the extension renderer', async () => {
+  it('renders sup marks using the extension renderer', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -230,7 +236,7 @@ describe('Text marks', () => {
     expect(result.html).toContain('>2</sup>');
   });
 
-  it('should apply inline styles to code marks only', async () => {
+  it('applies inline styles to code marks only', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -256,7 +262,7 @@ describe('Text marks', () => {
     expect(result.html).toMatch(/<code[^>]*>\s*Code\s*<\/code\s*>/s);
   });
 
-  it('should not apply inline text styles to link-only marks', async () => {
+  it('does not apply inline text styles to link-only marks', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -292,7 +298,7 @@ describe('Text marks', () => {
 });
 
 describe('StarterKit node wrappers', () => {
-  it('should render bullet lists using the extension renderer', async () => {
+  it('renders bullet lists using the extension renderer', async () => {
     const content = docWithGlobalContent([
       {
         type: 'bulletList',
@@ -326,7 +332,41 @@ describe('StarterKit node wrappers', () => {
     expect(result.html).toContain('List item');
   });
 
-  it('should render hard breaks using the extension renderer', async () => {
+  it('injects dark-mode CSS into the email head', async () => {
+    const content = docWithGlobalContent([
+      {
+        type: 'paragraph',
+        content: [{ type: 'text', text: 'Hello world' }],
+      },
+    ]);
+
+    const editor = createEditorWithContent(content);
+    const result = await composeReactEmail({ editor, preview: '' });
+
+    expect(result.html).toContain('@media (prefers-color-scheme: dark)');
+    expect(result.html).toContain('li::marker');
+  });
+
+  it('omits dark-mode CSS when previewMode is set', async () => {
+    const content = docWithGlobalContent([
+      {
+        type: 'paragraph',
+        content: [{ type: 'text', text: 'Hello world' }],
+      },
+    ]);
+
+    const editor = createEditorWithContent(content);
+    const result = await composeReactEmail({
+      editor,
+      preview: '',
+      previewMode: true,
+    });
+
+    expect(result.html).not.toContain('prefers-color-scheme');
+    expect(result.html).not.toContain('li::marker');
+  });
+
+  it('renders hard breaks using the extension renderer', async () => {
     const content = docWithGlobalContent([
       {
         type: 'paragraph',
@@ -359,7 +399,7 @@ describe('StarterKit node wrappers', () => {
 });
 
 describe('Button and image reset styles', () => {
-  it('should include display:inline-block on buttons with the basic theme', async () => {
+  it('includes display:inline-block on buttons with the basic theme', async () => {
     const content = docWithGlobalContent(
       [
         {
@@ -379,7 +419,7 @@ describe('Button and image reset styles', () => {
     expect(result.html).toContain('Click me');
   });
 
-  it('should include display:inline-block on buttons with the minimal theme', async () => {
+  it('includes display:inline-block on buttons with the minimal theme', async () => {
     const content = docWithGlobalContent(
       [
         {
@@ -399,7 +439,53 @@ describe('Button and image reset styles', () => {
     expect(result.html).toContain('Click me');
   });
 
-  it('should include line-height:100% on buttons with the minimal theme', async () => {
+  it('includes box-sizing:border-box on a full-width padded button with the basic theme', async () => {
+    const content = docWithGlobalContent(
+      [
+        {
+          type: 'button',
+          attrs: {
+            href: 'https://example.com',
+            class: 'button',
+            style:
+              'width:100%;padding-top:12px;padding-right:20px;padding-bottom:12px;padding-left:20px',
+          },
+          content: [{ type: 'text', text: 'Click me' }],
+        },
+      ],
+      basicTheme,
+      'basic',
+    );
+
+    const ed = createEditorWithContent(content, [EmailTheming]);
+    const result = await composeReactEmail({ editor: ed, preview: '' });
+
+    const anchor = result.html.match(/<a[^>]*class="button"[^>]*>/)?.[0] ?? '';
+    expect(anchor).toMatch(/box-sizing:\s*border-box/);
+    expect(anchor).toMatch(/[;"]width:\s*100%/);
+  });
+
+  it('includes box-sizing:border-box on buttons with the minimal theme', async () => {
+    const content = docWithGlobalContent(
+      [
+        {
+          type: 'button',
+          attrs: { href: 'https://example.com', class: 'button' },
+          content: [{ type: 'text', text: 'Click me' }],
+        },
+      ],
+      basicTheme,
+      'minimal',
+    );
+
+    const ed = createEditorWithContent(content, [EmailTheming]);
+    const result = await composeReactEmail({ editor: ed, preview: '' });
+
+    const anchor = result.html.match(/<a[^>]*class="button"[^>]*>/)?.[0] ?? '';
+    expect(anchor).toMatch(/box-sizing:\s*border-box/);
+  });
+
+  it('includes line-height:100% on buttons with the minimal theme', async () => {
     const content = docWithGlobalContent(
       [
         {
@@ -418,7 +504,7 @@ describe('Button and image reset styles', () => {
     expect(result.html).toMatch(/line-height:\s*100%/);
   });
 
-  it('should include max-width:100% on images with the basic theme', async () => {
+  it('includes max-width:100% on images with the basic theme', async () => {
     const ImageNode = EmailNode.create({
       name: 'image',
       group: 'block',
@@ -457,7 +543,7 @@ describe('Button and image reset styles', () => {
     expect(result.html).toContain('test image');
   });
 
-  it('should include max-width:100% on images with the minimal theme', async () => {
+  it('includes max-width:100% on images with the minimal theme', async () => {
     const ImageNode = EmailNode.create({
       name: 'image',
       group: 'block',
@@ -524,4 +610,83 @@ it('exposes unformattedHtml alongside the prettified html and text', async () =>
   // And the unformatted version is shorter precisely because indentation
   // is the only difference.
   expect(result.unformattedHtml.length).toBeLessThan(result.html.length);
+});
+
+describe('pretty option', () => {
+  it('returns the unformatted HTML as html when pretty is false', async () => {
+    const content = docWithGlobalContent([
+      {
+        type: 'paragraph',
+        content: [{ type: 'text', text: 'Hello world' }],
+      },
+    ]);
+
+    const ed = createEditorWithContent(content, [EmailTheming]);
+    const result = await composeReactEmail({ editor: ed, pretty: false });
+
+    expect(result.html).toBe(result.unformattedHtml);
+    expect(result.html).toContain('Hello world');
+    expect(result.html).not.toMatch(/>\s+</);
+    expect(result.text).toContain('Hello world');
+  });
+
+  it('skips Prettier and otherwise matches the default output when pretty is false', async () => {
+    const content = docWithGlobalContent([
+      {
+        type: 'paragraph',
+        content: [
+          { type: 'text', text: 'Hello ' },
+          { type: 'text', text: 'world', marks: [{ type: 'bold' }] },
+        ],
+      },
+      {
+        type: 'bulletList',
+        content: [
+          {
+            type: 'listItem',
+            content: [
+              {
+                type: 'paragraph',
+                content: [{ type: 'text', text: 'List item' }],
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+
+    const ed = createEditorWithContent(content, [EmailTheming]);
+
+    vi.mocked(pretty).mockClear();
+    const unprettified = await composeReactEmail({ editor: ed, pretty: false });
+    expect(pretty).not.toHaveBeenCalled();
+
+    const prettified = await composeReactEmail({ editor: ed, pretty: true });
+    expect(pretty).toHaveBeenCalledTimes(1);
+
+    expect(unprettified.unformattedHtml).toBe(prettified.unformattedHtml);
+    expect(unprettified.text).toBe(prettified.text);
+    expect(unprettified.html).toBe(prettified.unformattedHtml);
+    expect(unprettified.html).not.toBe(prettified.html);
+  });
+
+  it('composes layouts too deeply nested for Prettier when pretty is false', async () => {
+    let block: JSONContent = {
+      type: 'paragraph',
+      content: [{ type: 'text', text: 'Deepest paragraph' }],
+    };
+    for (let level = 0; level < 500; level++) {
+      block = { type: 'blockquote', content: [block] };
+    }
+
+    const ed = createEditorWithContent({ type: 'doc', content: [block] });
+
+    await expect(composeReactEmail({ editor: ed })).rejects.toThrow(
+      'Maximum call stack size exceeded',
+    );
+
+    const result = await composeReactEmail({ editor: ed, pretty: false });
+    expect(result.unformattedHtml).toContain('Deepest paragraph');
+    expect(result.html).toBe(result.unformattedHtml);
+  }, 60_000);
 });

@@ -131,6 +131,18 @@ console.log(\`Hello, $\{name}!\`);
     `);
   });
 
+  it('escapes double quotes in link/image href and title attributes', async () => {
+    const actualOutput = await render(
+      <Markdown>
+        {`[guide](https://example.com/?q="a" 'The "Complete" Guide') and ![logo](https://cdn.example.com/a.png 'Acme "logo"')`}
+      </Markdown>,
+    );
+    expect(actualOutput).toMatchInlineSnapshot(`
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div data-id="react-email-markdown"><p><a href="https://example.com/?q=&quot;a&quot;" target="_blank" title="The &quot;Complete&quot; Guide" style="color:#007bff;text-decoration:underline;background-color:transparent">guide</a> and <img src="https://cdn.example.com/a.png" alt="logo" title="Acme &quot;logo&quot;"></p>
+      </div><!--/$-->"
+    `);
+  });
+
   it('renders lists in the correct format for browsers', async () => {
     const actualOutput = await render(
       <Markdown>
@@ -190,19 +202,101 @@ console.log(\`Hello, $\{name}!\`);
     );
     expect(actualOutput).toMatchInlineSnapshot(`
       "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div data-id="react-email-markdown"><ul>
-      <li><p>parent list item</p>
-      <ul>
+      <li>parent list item<ul>
       <li>nested list item 1</li>
       <li>nested list item 2</li>
       </ul>
       </li>
-      <li><p>another parent item</p>
-      <ol>
+      <li>another parent item<ol>
       <li>nested ordered item 1</li>
       <li>nested ordered item 2</li>
       </ol>
       </li>
       </ul>
+      </div><!--/$-->"
+    `);
+  });
+
+  it('renders a tight list followed by a heading and paragraph', async () => {
+    const actualOutput = await render(
+      <Markdown>{'- Hello\n ## Heading\n body\n'}</Markdown>,
+    );
+    expect(actualOutput).toMatchInlineSnapshot(`
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div data-id="react-email-markdown"><ul>
+      <li>Hello</li>
+      </ul>
+      <h2 style="font-weight:500;padding-top:20px;font-size:2rem">Heading</h2><p> body</p>
+      </div><!--/$-->"
+    `);
+  });
+
+  it('renders a heading that starts a tight list item', async () => {
+    const actualOutput = await render(
+      <Markdown>{'- ## Heading\n body\n'}</Markdown>,
+    );
+    expect(actualOutput).toMatchInlineSnapshot(`
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div data-id="react-email-markdown"><ul>
+      <li><h2 style="font-weight:500;padding-top:20px;font-size:2rem">Heading</h2></li>
+      </ul>
+      <p> body</p>
+      </div><!--/$-->"
+    `);
+  });
+
+  it('renders a tight list followed by a code block', async () => {
+    const actualOutput = await render(
+      <Markdown>{'- item\n ```\n code\n ```\n'}</Markdown>,
+    );
+    expect(actualOutput).toMatchInlineSnapshot(`
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div data-id="react-email-markdown"><ul>
+      <li>item</li>
+      </ul>
+      <pre style="color:#212529;font-size:87.5%;display:block;background: #f8f8f8;font-family:SFMono-Regular,Menlo,Monaco,Consolas,monospace;padding-top:10px;padding-right:10px;padding-left:10px;padding-bottom:1px;margin-bottom:20px;word-wrap:break-word"><code>code
+      </code></pre>
+      </div><!--/$-->"
+    `);
+  });
+
+  it('renders a code block nested inside a tight list item', async () => {
+    const actualOutput = await render(
+      <Markdown>{'- item\n  ```\n  code\n  ```\n'}</Markdown>,
+    );
+    expect(actualOutput).toMatchInlineSnapshot(`
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div data-id="react-email-markdown"><ul>
+      <li>item<pre style="color:#212529;font-size:87.5%;display:block;background: #f8f8f8;font-family:SFMono-Regular,Menlo,Monaco,Consolas,monospace;padding-top:10px;padding-right:10px;padding-left:10px;padding-bottom:1px;margin-bottom:20px;word-wrap:break-word"><code>code
+      </code></pre>
+      </li>
+      </ul>
+      </div><!--/$-->"
+    `);
+  });
+
+  it('applies th styles to table header cells and td styles to body cells', async () => {
+    const actualOutput = await render(
+      <Markdown
+        markdownCustomStyles={{
+          th: { fontWeight: 'bold' },
+          td: { color: 'gray' },
+        }}
+      >
+        {`| Name | Qty |
+| ---- | --: |
+| Apples | 3 |`}
+      </Markdown>,
+    );
+    expect(actualOutput).toMatchInlineSnapshot(`
+      "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><div data-id="react-email-markdown"><table role="presentation">
+      <thead>
+      <tr>
+      <th style="font-weight:bold">Name</th>
+      <th align="right" style="font-weight:bold">Qty</th>
+      </tr>
+      </thead>
+      <tbody><tr>
+      <td style="color:gray">Apples</td>
+      <td align="right" style="color:gray">3</td>
+      </tr>
+      </tbody></table>
       </div><!--/$-->"
     `);
   });

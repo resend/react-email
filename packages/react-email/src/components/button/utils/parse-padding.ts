@@ -15,15 +15,15 @@ interface PaddingProperties {
 export function convertToPx(value: PaddingType) {
   let px = 0;
 
-  if (!value) {
-    return px;
+  if (value === undefined || value === '') {
+    return undefined;
   }
 
   if (typeof value === 'number') {
     return value;
   }
 
-  const matches = /^([\d.]+)(px|em|rem|%)$/.exec(value);
+  const matches = /^([\d.]+)(px|pt|em|rem|%)$/.exec(value);
 
   if (matches && matches.length === 3) {
     const numValue = Number.parseFloat(matches[1]!);
@@ -32,6 +32,8 @@ export function convertToPx(value: PaddingType) {
     switch (unit) {
       case 'px':
         return numValue;
+      case 'pt':
+        return (numValue * 4) / 3;
       case 'em':
       case 'rem':
         px = numValue * 16;
@@ -129,9 +131,9 @@ export function parsePadding(properties: PaddingProperties) {
   }
 
   return {
-    paddingTop: paddingTop ? convertToPx(paddingTop) : undefined,
-    paddingRight: paddingRight ? convertToPx(paddingRight) : undefined,
-    paddingBottom: paddingBottom ? convertToPx(paddingBottom) : undefined,
-    paddingLeft: paddingLeft ? convertToPx(paddingLeft) : undefined,
+    paddingTop: convertToPx(paddingTop),
+    paddingRight: convertToPx(paddingRight),
+    paddingBottom: convertToPx(paddingBottom),
+    paddingLeft: convertToPx(paddingLeft),
   };
 }

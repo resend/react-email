@@ -10,5 +10,6 @@ export interface SerializerPlugin {
     previewText?: string;
     children: React.ReactNode;
     editor: Editor;
+    previewMode?: boolean;
   }): React.ReactNode;
 }

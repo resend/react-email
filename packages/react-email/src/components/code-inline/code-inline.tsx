@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { markAsElement } from '../element-marker.js';
 
 type RootProps = React.ComponentPropsWithoutRef<'code'> &
   React.ComponentPropsWithoutRef<'span'>;
@@ -56,3 +57,4 @@ export const CodeInline = React.forwardRef<HTMLSpanElement, CodeInlineProps>(
 );
 
 CodeInline.displayName = 'CodeInline';
+markAsElement(CodeInline);

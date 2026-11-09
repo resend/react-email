@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { loadEsbuildPlugins } from './esbuild/load-esbuild-plugins';
 import { getEmailComponent } from './get-email-component';
 
 describe('getEmailComponent()', () => {
@@ -28,10 +29,6 @@ describe('getEmailComponent()', () => {
         "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <html dir="ltr" lang="en">
           <head>
-            <link rel="preload" as="image" href="/static/vercel-logo.png" />
-            <link rel="preload" as="image" href="/static/vercel-user.png" />
-            <link rel="preload" as="image" href="/static/vercel-arrow.png" />
-            <link rel="preload" as="image" href="/static/vercel-team.png" />
             <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
             <meta name="x-apple-disable-message-reformatting" />
             <title>Join Alan on Vercel</title>
@@ -59,7 +56,7 @@ describe('getEmailComponent()', () => {
                       data-skip-in-text="true">
                       Join Alan on Vercel
                       <div>
-                         ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿ ‌​‍‎‏﻿
+                         ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿ ‌​‍﻿
                       </div>
                     </div>
                     <table
@@ -185,7 +182,7 @@ describe('getEmailComponent()', () => {
                                       style="line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;border-radius:0.25rem;background-color:rgb(0,0,0);padding-right:20px;padding-left:20px;padding-bottom:12px;padding-top:12px;text-align:center;font-weight:600;font-size:12px;color:rgb(255,255,255);text-decoration-line:none"
                                       target="_blank"
                                       ><span
-                                        ><!--[if mso]><i style="mso-font-width:500%;mso-text-raise:18" hidden>&#8202;&#8202;</i><![endif]--></span
+                                        ><!--[if mso]><i style="mso-font-width:500%;mso-text-raise:18px" hidden>&#8202;&#8202;</i><![endif]--></span
                                       ><span
                                         style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px;mso-text-raise:9px"
                                         >Join the team</span
@@ -235,6 +232,31 @@ describe('getEmailComponent()', () => {
         </html>
         "
       `);
+    }
+  });
+
+  test('with user esbuild plugins', { timeout: 10_000 }, async () => {
+    const plugins = await loadEsbuildPlugins(
+      path.resolve(__dirname, './testing/esbuild-plugins.mjs'),
+    );
+    const result = await getEmailComponent(
+      path.resolve(__dirname, './testing/vercel-invite-user.tsx'),
+      path.resolve(__dirname, '../../jsx-runtime'),
+      plugins,
+    );
+
+    if ('error' in result) {
+      console.log(result.error);
+      expect('error' in result).toBe(false);
+    } else {
+      const emailHtml = await result.render(
+        result.createElement(
+          result.emailComponent,
+          result.emailComponent.PreviewProps,
+        ),
+      );
+      expect(emailHtml).toContain('Join Alan on Resend');
+      expect(emailHtml).not.toContain('Join Alan on Vercel');
     }
   });
 });

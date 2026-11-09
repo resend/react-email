@@ -79,6 +79,10 @@ if (!hasRequiredFlags) {
       'Comma-separated list of email clients to show compatibility warnings for (overrides COMPATIBILITY_EMAIL_CLIENTS)',
       parseClientsOption,
     )
+    .option(
+      '--esbuild-plugins <path>',
+      'Path to a module whose default export is an array of esbuild plugins (or a function returning one) applied when bundling email templates',
+    )
     .action(dev);
 
   program
@@ -92,6 +96,10 @@ if (!hasRequiredFlags) {
     .addOption(
       // deprecated
       new Option('-p, --packageManager <name>').hideHelp(),
+    )
+    .option(
+      '--esbuild-plugins <path>',
+      'Path to a module whose default export is an array of esbuild plugins (or a function returning one) applied when bundling email templates',
     )
     .action(build);
 
@@ -112,12 +120,35 @@ if (!hasRequiredFlags) {
       './emails',
     )
     .option(
+      '-e, --extension <extension>',
+      'Set a custom file extension for rendered emails (e.g. blade.php)',
+    )
+    .option(
       '-s, --silent',
       'To, or not to show a spinner with process information',
       false,
     )
-    .action(({ outDir, pretty, plainText, silent, dir: srcDir }) =>
-      exportTemplates(outDir, srcDir, { silent, plainText, pretty }),
+    .option(
+      '--esbuild-plugins <path>',
+      'Path to a module whose default export is an array of esbuild plugins (or a function returning one) applied when bundling email templates',
+    )
+    .action(
+      ({
+        outDir,
+        pretty,
+        plainText,
+        silent,
+        dir: srcDir,
+        extension,
+        esbuildPlugins,
+      }) =>
+        exportTemplates(outDir, srcDir, {
+          silent,
+          plainText,
+          pretty,
+          extension,
+          esbuildPlugins,
+        }),
     );
 
   const resend = program.command('resend');

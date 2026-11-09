@@ -6,11 +6,13 @@ test('tree(__dirname, 2)', async () => {
     ├── esbuild
     │   ├── escape-string-for-regex.ts
     │   ├── inline-css-loader.ts
+    │   ├── load-esbuild-plugins.ts
     │   └── renderring-utilities-exporter.ts
     ├── preview
     │   ├── hot-reloading
     │   ├── get-env-variables-for-preview-app.ts
     │   ├── index.ts
+    │   ├── serve-static-file.spec.ts
     │   ├── serve-static-file.ts
     │   └── start-dev-server.ts
     ├── types
@@ -20,6 +22,8 @@ test('tree(__dirname, 2)', async () => {
     ├── email-clients.ts
     ├── get-emails-directory-metadata.spec.ts
     ├── get-emails-directory-metadata.ts
+    ├── get-tracing-root-dir.spec.ts
+    ├── get-tracing-root-dir.ts
     ├── get-ui-location.ts
     ├── index.ts
     ├── packageJson.ts

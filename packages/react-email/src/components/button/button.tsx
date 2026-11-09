@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { markAsElement } from '../element-marker.js';
 import { parsePadding } from './utils/parse-padding.js';
 import { pxToPt } from './utils/px-to-pt.js';
 
@@ -79,7 +80,7 @@ export const Button = React.forwardRef<HTMLAnchorElement, ButtonProps>(
             // See https://github.com/resend/react-email/issues/1512 for why we do not use letter-spacing instead.
             __html: `<!--[if mso]><i style="mso-font-width:${
               plFontWidth * 100
-            }%;mso-text-raise:${textRaise}" hidden>${'&#8202;'.repeat(
+            }%;mso-text-raise:${textRaise}px" hidden>${'&#8202;'.repeat(
               plSpaceCount,
             )}</i><![endif]-->`,
           }}
@@ -110,3 +111,4 @@ export const Button = React.forwardRef<HTMLAnchorElement, ButtonProps>(
 );
 
 Button.displayName = 'Button';
+markAsElement(Button);

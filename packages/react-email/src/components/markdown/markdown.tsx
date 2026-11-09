@@ -98,7 +98,7 @@ export const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(
 
     renderer.image = ({ href, text, title }) => {
       return `<img src="${href.replaceAll('"', '&quot;')}" alt="${text.replaceAll('"', '&quot;')}"${
-        title ? ` title="${title}"` : ''
+        title ? ` title="${title.replaceAll('"', '&quot;')}"` : ''
       }${
         parseCssInJsToInlineCss(finalStyles.image) !== ''
           ? ` style="${parseCssInJsToInlineCss(finalStyles.image)}"`
@@ -109,8 +109,8 @@ export const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(
     renderer.link = ({ href, title, tokens }) => {
       const text = renderer.parser.parseInline(tokens);
 
-      return `<a href="${href}" target="_blank"${
-        title ? ` title="${title}"` : ''
+      return `<a href="${href.replaceAll('"', '&quot;')}" target="_blank"${
+        title ? ` title="${title.replaceAll('"', '&quot;')}"` : ''
       }${
         parseCssInJsToInlineCss(finalStyles.link) !== ''
           ? ` style="${parseCssInJsToInlineCss(finalStyles.link)}"`
@@ -119,11 +119,7 @@ export const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(
     };
 
     renderer.listitem = ({ tokens, loose }) => {
-      const hasNestedList = tokens.some((token) => token.type === 'list');
-      const text =
-        loose || hasNestedList
-          ? renderer.parser.parse(tokens)
-          : renderer.parser.parseInline(tokens);
+      const text = renderer.parser.parse(tokens, !!loose);
 
       return `<li${
         parseCssInJsToInlineCss(finalStyles.li) !== ''
@@ -197,17 +193,10 @@ export const Markdown = React.forwardRef<HTMLDivElement, MarkdownProps>(
     renderer.tablecell = ({ tokens, align, header }) => {
       const text = renderer.parser.parseInline(tokens);
       const type = header ? 'th' : 'td';
-      const tag = align
-        ? `<${type} align="${align}"${
-            parseCssInJsToInlineCss(finalStyles.td) !== ''
-              ? ` style="${parseCssInJsToInlineCss(finalStyles.td)}"`
-              : ''
-          }>`
-        : `<${type}${
-            parseCssInJsToInlineCss(finalStyles.td) !== ''
-              ? ` style="${parseCssInJsToInlineCss(finalStyles.td)}"`
-              : ''
-          }>`;
+      const style = parseCssInJsToInlineCss(finalStyles[type]);
+      const tag = `<${type}${align ? ` align="${align}"` : ''}${
+        style !== '' ? ` style="${style}"` : ''
+      }>`;
       return `${tag}${text}</${type}>\n`;
     };
 

@@ -123,6 +123,31 @@ Some title
 Click me [https://example.com]
 ```
 
+### Exclude content from plain-text output
+
+Add `data-skip-in-text="true"` to an element to exclude the element and its contents when using `toPlainText()`. This does not exclude the element from the HTML output.
+
+```jsx
+import { Html, Section, Text } from 'react-email';
+
+export function MyTemplate() {
+  return (
+    <Html>
+      <Text>This content appears in both outputs.</Text>
+      <Section data-skip-in-text="true">
+        <Text>This content appears only in the HTML output.</Text>
+      </Section>
+    </Html>
+  );
+}
+```
+
+The plain-text output will be:
+
+```text
+This content appears in both outputs.
+```
+
 ## Options
 
 <ResponseField name="pretty" type="boolean">

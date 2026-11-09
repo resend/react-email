@@ -23,19 +23,12 @@ export interface VariableDefinition {
   declaration: Declaration;
   path: CssNode[];
   variableName: string;
-  definition: string;
 }
 
-function doSelectorsIntersect(
-  first: SelectorList | Raw,
-  second: SelectorList | Raw,
+function hasUniversalSelector(
+  selector: SelectorList | Raw,
+  includeRoot: boolean,
 ): boolean {
-  const firstStringified = generate(first);
-  const secondStringified = generate(second);
-  if (firstStringified === secondStringified) {
-    return true;
-  }
-
   let hasSomeUniversal = false;
   const walker = (
     node: CssNode,
@@ -43,7 +36,11 @@ function doSelectorsIntersect(
     parentList: List<CssNode>,
   ) => {
     if (hasSomeUniversal) return;
-    if (node.type === 'PseudoClassSelector' && node.name === 'root') {
+    if (
+      includeRoot &&
+      node.type === 'PseudoClassSelector' &&
+      node.name === 'root'
+    ) {
       hasSomeUniversal = true;
     }
     if (
@@ -54,14 +51,19 @@ function doSelectorsIntersect(
       hasSomeUniversal = true;
     }
   };
-  walk(first, walker);
-  walk(second, walker);
+  walk(selector, walker);
+  return hasSomeUniversal;
+}
 
-  if (hasSomeUniversal) {
-    return true;
-  }
-
-  return false;
+function doSelectorsIntersect(
+  first: SelectorList | Raw,
+  second: SelectorList | Raw,
+): boolean {
+  return (
+    generate(first) === generate(second) ||
+    hasUniversalSelector(first, true) ||
+    hasUniversalSelector(second, true)
+  );
 }
 
 export function resolveAllCssVariables(node: CssNode) {
@@ -96,54 +98,100 @@ export function resolveAllCssVariables(node: CssNode) {
             declaration,
             path: [...path],
             variableName: declaration.property,
-            definition: generate(declaration.value),
           });
-        } else {
-          function parseVariableUsesFrom(node: CssNode) {
-            walk(node, {
-              visit: 'Function',
-              enter(funcNode) {
-                if (funcNode.name === 'var') {
-                  const children = funcNode.children.toArray();
-                  const name = generate(children[0]!);
-                  const fallback =
-                    // The second argument should be an "," Operator Node,
-                    // such that the actual fallback is only in the third argument
-                    children[2] ? generate(children[2]) : undefined;
+        }
 
-                  variableUses.add({
-                    declaration,
-                    path: [...path],
-                    fallback,
-                    variableName: name,
-                    raw: generate(funcNode),
+        // Custom properties can reference other variables too, e.g. Tailwind's
+        // `--tw-gradient-from: var(--color-red-500)`, which is only read later
+        // through `var(--tw-gradient-from)` when inlining. css-tree keeps their
+        // values as Raw, so they need parsing before their var()s can be found.
+        function parseVariableUsesFrom(node: CssNode) {
+          walk(node, {
+            visit: 'Function',
+            enter(funcNode) {
+              if (funcNode.name === 'var') {
+                const children = funcNode.children.toArray();
+                const name = generate(children[0]!);
+                const fallback =
+                  // The second argument should be an "," Operator Node,
+                  // such that the actual fallback is only in the third argument
+                  children[2] ? generate(children[2]) : undefined;
+
+                variableUses.add({
+                  declaration,
+                  path: [...path],
+                  fallback,
+                  variableName: name,
+                  raw: generate(funcNode),
+                });
+
+                if (fallback?.includes('var(')) {
+                  const parsedFallback = parse(fallback, {
+                    context: 'value',
                   });
 
-                  if (fallback?.includes('var(')) {
-                    const parsedFallback = parse(fallback, {
-                      context: 'value',
-                    });
-
-                    parseVariableUsesFrom(parsedFallback);
-                  }
+                  parseVariableUsesFrom(parsedFallback);
                 }
-              },
-            });
-          }
-
-          parseVariableUsesFrom(declaration.value);
+              }
+            },
+          });
         }
+
+        parseVariableUsesFrom(
+          declaration.value.type === 'Raw'
+            ? parse(declaration.value.value, { context: 'value' })
+            : declaration.value,
+        );
       }
       path.unshift(node);
     },
   });
 
+  const localDefinitions = new Map<CssNode, Map<string, VariableDefinition>>();
+  for (const definition of variableDefinitions) {
+    const block = definition.path[0];
+    if (!block) continue;
+    let definitions = localDefinitions.get(block);
+    if (!definitions) {
+      definitions = new Map();
+      localDefinitions.set(block, definitions);
+    }
+    const previous = definitions.get(definition.variableName);
+    if (!previous?.declaration.important || definition.declaration.important) {
+      definitions.set(definition.variableName, definition);
+    }
+  }
+
   for (const use of variableUses) {
     let hasReplaced = false;
+    const localDefinition = use.path[0]
+      ? localDefinitions.get(use.path[0])?.get(use.variableName)
+      : undefined;
+    const useRule = use.path.find((ancestor) => ancestor.type === 'Rule');
 
     for (const definition of variableDefinitions) {
       if (use.variableName !== definition.variableName) {
         continue;
+      }
+
+      if (localDefinition && definition !== localDefinition) {
+        const definitionRule = definition.path.find(
+          (ancestor) => ancestor.type === 'Rule',
+        );
+        // A root default is inherited, but an important declaration on the
+        // same selector or a bare universal selector applies directly.
+        const appliesDirectly =
+          definitionRule &&
+          useRule &&
+          (generate(definitionRule.prelude) === generate(useRule.prelude) ||
+            hasUniversalSelector(definitionRule.prelude, false));
+        if (
+          localDefinition.declaration.important ||
+          !definition.declaration.important ||
+          !appliesDirectly
+        ) {
+          continue;
+        }
       }
 
       if (
@@ -158,7 +206,7 @@ export function resolveAllCssVariables(node: CssNode) {
         use.declaration.value = parse(
           generate(use.declaration.value).replaceAll(
             use.raw,
-            definition.definition,
+            generate(definition.declaration.value),
           ),
           {
             context: 'value',
@@ -178,7 +226,7 @@ export function resolveAllCssVariables(node: CssNode) {
         use.declaration.value = parse(
           generate(use.declaration.value).replaceAll(
             use.raw,
-            definition.definition,
+            generate(definition.declaration.value),
           ),
           {
             context: 'value',
@@ -215,7 +263,7 @@ export function resolveAllCssVariables(node: CssNode) {
         use.declaration.value = parse(
           generate(use.declaration.value).replaceAll(
             use.raw,
-            definition.definition,
+            generate(definition.declaration.value),
           ),
           {
             context: 'value',
@@ -226,7 +274,14 @@ export function resolveAllCssVariables(node: CssNode) {
       }
     }
 
-    if (!hasReplaced && use.fallback) {
+    // A custom property's own fallback is left in place, since a declaration
+    // on the element's other classes might still define the variable when
+    // the styles are inlined.
+    if (
+      !hasReplaced &&
+      use.fallback &&
+      !use.declaration.property.startsWith('--')
+    ) {
       use.declaration.value = parse(
         generate(use.declaration.value).replaceAll(use.raw, use.fallback),
         { context: 'value' },

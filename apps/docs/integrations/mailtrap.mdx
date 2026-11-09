@@ -1,0 +1,84 @@
+---
+title: "Send email using Mailtrap"
+sidebarTitle: "Mailtrap"
+description: "Learn how to send an email using React Email and the Mailtrap Node.js SDK."
+"og:image": "https://react.email/static/covers/react-email.png"
+---
+
+## 1. Install dependencies
+
+Get the [react-email](https://www.npmjs.com/package/react-email) package and the [Mailtrap Node.js SDK](https://www.npmjs.com/package/mailtrap).
+
+<CodeGroup>
+
+```sh npm
+npm install mailtrap react-email
+```
+
+```sh yarn
+yarn add mailtrap react-email
+```
+
+```sh pnpm
+pnpm add mailtrap react-email
+```
+
+```sh bun
+bun add mailtrap react-email
+```
+
+</CodeGroup>
+
+## 2. Create an email using React
+
+Start by building your email template in a `.jsx` or `.tsx` file.
+
+```tsx email.tsx
+import { Button, Html } from "react-email";
+
+interface EmailProps {
+  url: string;
+}
+
+export function Email({ url }: EmailProps) {
+  return (
+    <Html lang="en">
+      <Button href={url}>Click me</Button>
+    </Html>
+  );
+}
+```
+
+## 3. Convert to HTML and send email
+
+Import the email template you just built, convert into an HTML string, and use the Mailtrap SDK to send it.
+
+```tsx
+import { MailtrapClient } from "mailtrap";
+import { render } from "react-email";
+import { Email } from "./email";
+
+const mailtrap = new MailtrapClient({
+  token: process.env.MAILTRAP_TOKEN || "",
+});
+
+const emailHtml = await render(<Email url="https://example.com" />);
+
+await mailtrap.send({
+  from: { name: "Acme", email: "hello@example.com" },
+  to: [{ email: "hello@example.com" }],
+  subject: "Hello world",
+  html: emailHtml,
+});
+```
+
+## Try it yourself
+
+<Card
+  title="Mailtrap example"
+  icon="arrow-up-right-from-square"
+  iconType="duotone"
+  href="https://github.com/resend/react-email/tree/main/examples/mailtrap"
+>
+  See the full source code.
+</Card>

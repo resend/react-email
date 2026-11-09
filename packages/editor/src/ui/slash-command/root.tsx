@@ -13,12 +13,13 @@ import {
   type ReactNode,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
 import { createPortal } from 'react-dom';
 import { EditorFocusScope } from '../editor-focus-scope';
-import { CommandList } from './command-list';
+import { CommandList, orderItemsByCategory } from './command-list';
 import { defaultSlashCommands } from './commands';
 import { filterAndRankItems } from './search';
 import type { SlashCommandItem, SlashCommandRootProps } from './types';
@@ -82,7 +83,13 @@ export function SlashCommandRoot({
   const suggestionItemsRef = useRef<SlashCommandItem[]>([]);
   const selectedIndexRef = useRef(0);
 
-  suggestionItemsRef.current = state.items;
+  const isGrouped = !children && !state.query.trim();
+  const items = useMemo(
+    () => (isGrouped ? orderItemsByCategory(state.items) : state.items),
+    [isGrouped, state.items],
+  );
+
+  suggestionItemsRef.current = items;
   selectedIndexRef.current = selectedIndex;
 
   const { refs, floatingStyles } = useFloating({
@@ -95,8 +102,15 @@ export function SlashCommandRoot({
   useEffect(() => {
     if (!state.clientRect) return;
     const clientRect = state.clientRect;
+    // The suggestion plugin removes its decoration before the menu closes, so
+    // clientRect() returns null if floating-ui re-measures in between. Keep
+    // the last known position instead of passing null to floating-ui.
+    let lastRect = new DOMRect();
     refs.setReference({
-      getBoundingClientRect: () => clientRect()!,
+      getBoundingClientRect: () => {
+        lastRect = clientRect() ?? lastRect;
+        return lastRect;
+      },
     });
   }, [state.clientRect, refs]);
 
@@ -190,7 +204,7 @@ export function SlashCommandRoot({
   if (!editor || !state.active) return null;
 
   const renderProps = {
-    items: state.items,
+    items,
     query: state.query,
     selectedIndex,
     onSelect,

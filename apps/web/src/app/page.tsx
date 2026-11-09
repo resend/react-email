@@ -1,4 +1,5 @@
 import { Footer } from '@/components/footer';
+import AiSection from '@/components/sections/ai';
 import { EditorHomepage } from '@/components/sections/editor';
 import HeroSection from '@/components/sections/hero';
 import IntegrationSection from '@/components/sections/integration';
@@ -13,6 +14,7 @@ const Home = () => (
     <HeroSection />
     <div className="relative mx-auto flex flex-col justify-between px-2 md:max-w-7xl md:px-4">
       <PlaygroundSection />
+      <AiSection />
       <TestimonialSection />
       <PatternsSection />
       <PrimitivesSection />

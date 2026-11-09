@@ -1,5 +1,118 @@
 # @react-email/ui
 
+## 6.11.8
+
+## 6.11.7
+
+## 6.11.6
+
+### Patch Changes
+
+- c789f50: Bump `next-safe-action` to 8.7.3, `source-map-js` to 1.2.2 and `sharp` to 0.35.5.
+- 87eab8d: Bump `zod` to 4.6.7.
+- c789f50: Bump `engine.io-client` to 6.6.7 and `socket.io-parser` to 4.2.7 in the preview server's hot reload client.
+
+## 6.11.5
+
+### Patch Changes
+
+- f6f6bf4: Bump `next` to 16.4.3 so the preview server matches the latest Next.js patch release.
+
+## 6.11.4
+
+## 6.11.3
+
+### Patch Changes
+
+- 88562d0: The compatibility check now applies `--esbuild-plugins` when it bundles a template that passes `config`, `theme` or `utility` to `<Tailwind>`, so templates whose imports need a plugin no longer log a build error.
+- 7f545c6: Bump `next` to 16.4.1 so the prebuilt preview server works in projects on Next.js 16.4. Next 16.4 loads a `server/preview-props.json` manifest that a 16.3 build doesn't emit, so `email dev` failed with `ENOENT` when `next` was deduped to 16.4.
+
+## 6.11.2
+
+## 6.11.1
+
+## 6.11.0
+
+### Minor Changes
+
+- 0432f96: Use custom esbuild plugins by passing the new `--esbuild-plugins` flag to `email dev`, `email build` and `email export`, so templates that need a custom compile-time transform can be previewed and exported.
+
+## 6.10.0
+
+## 6.9.5
+
+## 6.9.4
+
+### Patch Changes
+
+- 3849ea0: Bump `next` to 16.3.3 to fix the critical-severity vulnerabilities in the Next.js August 2026 security release (GHSA-2xp9-vwfh-vxw4, CVE-2026-75604).
+
+## 6.9.3
+
+### Patch Changes
+
+- 1378365: Keep the sidebar scroll position, its collapsed state, and open folders when you switch emails.
+
+## 6.9.2
+
+### Patch Changes
+
+- 9b1a4d5: Bump `next` to 16.3.0 to fix high-severity vulnerabilities in its bundled `postcss` and `sharp` dependencies flagged by `npm audit` (#3689).
+
+## 6.9.1
+
+## 6.9.0
+
+### Minor Changes
+
+- badeb1b: The preview props editor now lives in a collapsible panel beside the preview, with a syntax-highlighted JSON editor. Static builds show the props read-only.
+
+### Patch Changes
+
+- 4166fb6: Disconnect hot reload sockets when preview components unmount to prevent connections from accumulating across template navigation.
+
+## 6.8.1
+
+### Patch Changes
+
+- c93a676: Make the preview toolbar and its menus responsive across desktop and mobile interactions
+
+## 6.8.0
+
+### Minor Changes
+
+- 9605c04: Add a Props tab to the preview toolbar for live-editing the props a template is rendered with. Edits re-render the preview without changing the template's `PreviewProps`, invalid JSON is flagged inline, and a reset restores the template defaults.
+
+### Patch Changes
+
+- 7b32bf6: Fixed toolbar tabs not responding on statically built previews when the page was opened with a `toolbar-panel` query param in the URL.
+
+## 6.7.0
+
+## 6.6.9
+
+## 6.6.8
+
+### Patch Changes
+
+- cb2e3d0: Fix out-of-memory crashes when saving a shared component during `email dev`. Hot reload now re-renders only the preview you have open and invalidates the cache for the other affected templates, instead of eagerly re-rendering every dependent template on each save.
+
+## 6.6.7
+
+## 6.6.6
+
+### Patch Changes
+
+- b68009f: Stop failing `email build` when the spam check API errors or times out — the build now logs a warning and continues without a baked-in spam score.
+
+## 6.6.5
+
+### Patch Changes
+
+- 1213e82: fix mismatch between motion dependencies causing problems in build for some users
+
+## 6.6.4
+
 ## 6.6.3
 
 ### Patch Changes

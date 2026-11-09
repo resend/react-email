@@ -8,29 +8,44 @@ export const serveStaticFile = async (
   pathname: string,
   staticDirRelativePath: string,
 ) => {
-  const pathname_ = pathname.replace('/static', './static');
-  const ext = path.parse(pathname_).ext;
+  let decodedPathname: string;
+  try {
+    decodedPathname = decodeURIComponent(pathname);
+  } catch {
+    res.statusCode = 400;
+    res.end();
+    return;
+  }
 
-  const staticBaseDir = path.resolve(process.cwd(), staticDirRelativePath);
-  const fileAbsolutePath = path.resolve(staticBaseDir, pathname_);
-  if (!fileAbsolutePath.startsWith(staticBaseDir)) {
+  const staticBaseDir = path.resolve(
+    process.cwd(),
+    staticDirRelativePath,
+    'static',
+  );
+  const staticFilePath = decodedPathname.replace(/^\/static\/?/, '');
+  const fileAbsolutePath = path.resolve(staticBaseDir, staticFilePath);
+  const relativeFilePath = path.relative(staticBaseDir, fileAbsolutePath);
+
+  if (
+    relativeFilePath.startsWith(`..${path.sep}`) ||
+    path.isAbsolute(relativeFilePath)
+  ) {
     res.statusCode = 403;
     res.end();
     return;
   }
 
-  try {
-    const fileHandle = await fs.open(fileAbsolutePath, 'r');
+  const ext = path.extname(fileAbsolutePath);
 
-    const fileData = await fs.readFile(fileHandle);
+  try {
+    const fileData = await fs.readFile(fileAbsolutePath);
 
     // if the file is found, set Content-type and send data
     res.setHeader('Content-type', lookup(ext) || 'text/plain');
     res.end(fileData);
-
-    fileHandle.close();
   } catch (exception) {
-    if (!existsSync(fileAbsolutePath)) {
+    const isDirectory = (exception as NodeJS.ErrnoException).code === 'EISDIR';
+    if (isDirectory || !existsSync(fileAbsolutePath)) {
       res.statusCode = 404;
       res.end();
     } else {

@@ -13,7 +13,7 @@ interface CodeProps {
   language?: Language;
 }
 
-const theme = {
+export const codeTheme = {
   plain: {
     color: '#EDEDEF',
     fontSize: 13,
@@ -93,7 +93,7 @@ export const Code: React.FC<Readonly<CodeProps>> = ({
   const value = children.trim();
 
   return (
-    <Highlight code={value} language={language} theme={theme}>
+    <Highlight code={value} language={language} theme={codeTheme}>
       {({ tokens, getLineProps, getTokenProps }) => (
         <>
           <div

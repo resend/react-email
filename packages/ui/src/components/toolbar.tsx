@@ -1,8 +1,10 @@
 'use client';
 
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import * as Popover from '@radix-ui/react-popover';
 import * as Tabs from '@radix-ui/react-tabs';
 import { LayoutGroup } from 'framer-motion';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import type { ComponentProps } from 'react';
 import * as React from 'react';
 import { nicenames } from '../actions/email-validation/caniemail-data';
@@ -28,18 +30,20 @@ import {
 } from './toolbar/spam-assassin';
 import { ToolbarButton } from './toolbar/toolbar-button';
 
-export type ToolbarTabValue =
-  | 'linter'
-  | 'compatibility'
-  | 'spam-assassin'
-  | 'resend';
+const toolbarTabValues = [
+  'linter',
+  'compatibility',
+  'spam-assassin',
+  'resend',
+] as const;
+
+export type ToolbarTabValue = (typeof toolbarTabValues)[number];
 
 export const useToolbarState = () => {
   const searchParams = useSearchParams();
 
-  const activeTab = (searchParams.get('toolbar-panel') ?? undefined) as
-    | ToolbarTabValue
-    | undefined;
+  const param = searchParams.get('toolbar-panel');
+  const activeTab = toolbarTabValues.find((value) => value === param);
 
   return {
     activeTab,
@@ -70,7 +74,6 @@ const ToolbarInner = ({
 }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   const { hasSetupResendIntegration } = useToolbarContext();
 
@@ -87,7 +90,13 @@ const ToolbarInner = ({
     } else {
       params.set('toolbar-panel', newValue);
     }
-    router.push(`${pathname}?${params.toString()}${location.hash}`);
+    // Not router.push: on static builds it silently no-ops for query-only
+    // navigation when the page was loaded with a query param.
+    window.history.pushState(
+      null,
+      '',
+      `${pathname}?${params.toString()}${location.hash}`,
+    );
   };
 
   const [cachedSpamCheckingResult, setCachedSpamCheckingResult] =
@@ -142,6 +151,52 @@ const ToolbarInner = ({
   }
 
   const id = React.useId();
+  const [isToolbarInfoOpen, setIsToolbarInfoOpen] = React.useState(false);
+  const infoPointerTypeRef = React.useRef('');
+  const infoBlurListenerRef = React.useRef<(() => void) | null>(null);
+  // Only a cleanup for when the component unmounts with the popover still
+  // open; opening/closing itself is handled directly in `onOpenChange`.
+  React.useEffect(() => {
+    return () => {
+      if (infoBlurListenerRef.current) {
+        window.removeEventListener('blur', infoBlurListenerRef.current);
+        infoBlurListenerRef.current = null;
+      }
+    };
+  }, []);
+
+  const toolbarPanelDescription =
+    (activeTab === 'linter' &&
+      'The Linter tab checks all the images and links for common issues like missing alt text, broken URLs, insecure HTTP methods, and more.') ||
+    (activeTab === 'spam-assassin' &&
+      'The Spam tab will look at the content and use a robust scoring framework to determine if the email is likely to be spam. Powered by SpamAssassin.') ||
+    (activeTab === 'compatibility' &&
+      'The Compatibility tab shows how well the HTML/CSS is supported across mail clients like Outlook, Gmail, etc. Powered by Can I Email.') ||
+    (activeTab === 'resend' &&
+      'The Resend tab allows you to upload your React Email code using the Resend Templates API.') ||
+    'Info';
+
+  const panelLabels: Record<ToolbarTabValue, string> = {
+    linter: 'Linter',
+    compatibility: 'Compatibility',
+    'spam-assassin': 'Spam',
+    resend: 'Resend',
+  };
+  const availablePanels: { value: ToolbarTabValue; label: string }[] = [
+    { value: 'linter', label: panelLabels.linter },
+    ...(isRawHtmlEmail
+      ? []
+      : [
+          { value: 'compatibility' as const, label: panelLabels.compatibility },
+        ]),
+    { value: 'spam-assassin', label: panelLabels['spam-assassin'] },
+    { value: 'resend', label: panelLabels.resend },
+  ];
+  // The label must reflect the URL-selected panel even when that panel is not
+  // offered for this template (e.g. compatibility on a raw HTML email), since
+  // the content area still renders that panel's state.
+  const activePanelLabel =
+    (activeTab ? panelLabels[activeTab] : undefined) ?? 'Linter';
 
   return (
     <div
@@ -160,32 +215,78 @@ const ToolbarInner = ({
         asChild
       >
         <div className="flex flex-col h-full">
-          <Tabs.List className="flex gap-4 px-4 border-b border-solid border-slate-6 h-10 w-full shrink-0">
-            <LayoutGroup id={`toolbar-${id}`}>
-              <Tabs.Trigger asChild value="linter">
-                <ToolbarButton active={activeTab === 'linter'}>
-                  Linter
-                </ToolbarButton>
-              </Tabs.Trigger>
-              {isRawHtmlEmail ? null : (
-                <Tabs.Trigger asChild value="compatibility">
-                  <ToolbarButton active={activeTab === 'compatibility'}>
-                    Compatibility
+          <div className="flex h-10 w-full shrink-0 items-center border-b border-solid border-slate-6 px-2 sm:px-4">
+            <div className="flex h-full min-w-0 flex-1 items-center sm:hidden">
+              <DropdownMenu.Root>
+                <DropdownMenu.Trigger asChild>
+                  <button
+                    type="button"
+                    className="group flex h-full items-center gap-1 px-1 text-slate-11 text-sm transition-colors hover:text-slate-12"
+                  >
+                    {activePanelLabel}
+                    <IconArrowDown
+                      size={20}
+                      className="transition-transform group-data-[state=open]:rotate-180"
+                    />
+                  </button>
+                </DropdownMenu.Trigger>
+                <DropdownMenu.Portal>
+                  <DropdownMenu.Content
+                    align="start"
+                    className="z-50 min-w-44 rounded-md border border-slate-6 bg-black p-1 font-sans"
+                    collisionPadding={8}
+                    side="top"
+                    sideOffset={8}
+                  >
+                    {availablePanels.map((panel) => (
+                      <DropdownMenu.Item
+                        key={panel.value}
+                        onSelect={() => {
+                          setActivePanelValue(panel.value);
+                        }}
+                        className={cn(
+                          'flex cursor-pointer items-center justify-between gap-2 rounded px-3 py-2 text-slate-11 text-sm outline-none',
+                          'data-[highlighted]:bg-white/5 data-[highlighted]:text-slate-12',
+                          activeTab === panel.value && 'text-cyan-11',
+                        )}
+                      >
+                        {panel.label}
+                        {activeTab === panel.value ? (
+                          <IconCheck size={16} />
+                        ) : null}
+                      </DropdownMenu.Item>
+                    ))}
+                  </DropdownMenu.Content>
+                </DropdownMenu.Portal>
+              </DropdownMenu.Root>
+            </div>
+            <Tabs.List className="hidden h-full min-w-0 flex-1 gap-4 sm:flex">
+              <LayoutGroup id={`toolbar-${id}`}>
+                <Tabs.Trigger asChild value="linter">
+                  <ToolbarButton active={activeTab === 'linter'}>
+                    Linter
                   </ToolbarButton>
                 </Tabs.Trigger>
-              )}
-              <Tabs.Trigger asChild value="spam-assassin">
-                <ToolbarButton active={activeTab === 'spam-assassin'}>
-                  Spam
-                </ToolbarButton>
-              </Tabs.Trigger>
-              <Tabs.Trigger asChild value="resend">
-                <ToolbarButton active={activeTab === 'resend'}>
-                  Resend
-                </ToolbarButton>
-              </Tabs.Trigger>
-            </LayoutGroup>
-            <div className="flex items-center gap-1 ml-auto">
+                {isRawHtmlEmail ? null : (
+                  <Tabs.Trigger asChild value="compatibility">
+                    <ToolbarButton active={activeTab === 'compatibility'}>
+                      Compatibility
+                    </ToolbarButton>
+                  </Tabs.Trigger>
+                )}
+                <Tabs.Trigger asChild value="spam-assassin">
+                  <ToolbarButton active={activeTab === 'spam-assassin'}>
+                    Spam
+                  </ToolbarButton>
+                </Tabs.Trigger>
+                <Tabs.Trigger asChild value="resend">
+                  <ToolbarButton active={activeTab === 'resend'}>
+                    Resend
+                  </ToolbarButton>
+                </Tabs.Trigger>
+              </LayoutGroup>
+            </Tabs.List>
+            <div className="ml-2 flex shrink-0 items-center gap-1 sm:ml-4">
               <CopyForAI
                 lintingRows={lintingRows}
                 compatibilityResults={compatibilityCheckingResults}
@@ -194,22 +295,110 @@ const ToolbarInner = ({
                 isRawHtmlEmail={isRawHtmlEmail}
                 activeTab={activeTab}
               />
-              <ToolbarButton
-                delayDuration={0}
-                tooltip={
-                  (activeTab === 'linter' &&
-                    'The Linter tab checks all the images and links for common issues like missing alt text, broken URLs, insecure HTTP methods, and more.') ||
-                  (activeTab === 'spam-assassin' &&
-                    'The Spam tab will look at the content and use a robust scoring framework to determine if the email is likely to be spam. Powered by SpamAssassin.') ||
-                  (activeTab === 'compatibility' &&
-                    'The Compatibility tab shows how well the HTML/CSS is supported across mail clients like Outlook, Gmail, etc. Powered by Can I Email.') ||
-                  (activeTab === 'resend' &&
-                    'The Resend tab allows you to upload your React Email code using the Resend Templates API.') ||
-                  'Info'
-                }
+              <Popover.Root
+                onOpenChange={(open) => {
+                  if (!open) {
+                    setIsToolbarInfoOpen(false);
+                    if (infoBlurListenerRef.current) {
+                      window.removeEventListener(
+                        'blur',
+                        infoBlurListenerRef.current,
+                      );
+                      infoBlurListenerRef.current = null;
+                    }
+                    return;
+                  }
+
+                  setIsToolbarInfoOpen(true);
+                  if (infoBlurListenerRef.current === null) {
+                    // Taps inside the email preview iframe do not reach
+                    // Radix's dismiss layer, but they do blur the window.
+                    const closeWhenPreviewGetsFocus = () => {
+                      if (
+                        !(document.activeElement instanceof HTMLIFrameElement)
+                      ) {
+                        return;
+                      }
+                      setIsToolbarInfoOpen(false);
+                      if (infoBlurListenerRef.current) {
+                        window.removeEventListener(
+                          'blur',
+                          infoBlurListenerRef.current,
+                        );
+                        infoBlurListenerRef.current = null;
+                      }
+                    };
+                    infoBlurListenerRef.current = closeWhenPreviewGetsFocus;
+                    window.addEventListener('blur', closeWhenPreviewGetsFocus);
+                  }
+                }}
+                open={isToolbarInfoOpen}
               >
-                <IconInfo size={24} />
-              </ToolbarButton>
+                <Popover.Trigger asChild>
+                  <ToolbarButton
+                    aria-label="About the current toolbar panel"
+                    delayDuration={0}
+                    tooltip={
+                      isToolbarInfoOpen ? undefined : toolbarPanelDescription
+                    }
+                    onPointerDown={(event) => {
+                      // Read the pointer type from `pointerdown` rather than
+                      // the `click` event: Safari before 18.2 dispatches
+                      // `click` as a plain MouseEvent without `pointerType`.
+                      infoPointerTypeRef.current = event.pointerType;
+                      const clearPointerType = () => {
+                        window.removeEventListener(
+                          'pointerup',
+                          clearPointerType,
+                          true,
+                        );
+                        window.removeEventListener(
+                          'pointercancel',
+                          clearPointerType,
+                          true,
+                        );
+                        // Deferred so the `click` for this same interaction
+                        // can still read the pointer type; this also
+                        // self-heals if the pointer is released off the
+                        // button and no `click` ever fires.
+                        setTimeout(() => {
+                          infoPointerTypeRef.current = '';
+                        }, 0);
+                      };
+                      window.addEventListener('pointerup', clearPointerType, {
+                        capture: true,
+                      });
+                      window.addEventListener(
+                        'pointercancel',
+                        clearPointerType,
+                        { capture: true },
+                      );
+                    }}
+                    onClick={(event) => {
+                      // Mouse users already get this info on hover, so only
+                      // touch and keyboard interactions open the popover.
+                      // Keyboard activation dispatches `click` without a
+                      // preceding `pointerdown`, leaving the ref empty.
+                      if (infoPointerTypeRef.current === 'mouse') {
+                        event.preventDefault();
+                      }
+                    }}
+                  >
+                    <IconInfo size={24} />
+                  </ToolbarButton>
+                </Popover.Trigger>
+                <Popover.Portal>
+                  <Popover.Content
+                    align="end"
+                    className="z-50 w-60 max-w-[calc(100vw-1rem)] rounded-md border border-slate-6 bg-black px-3 py-2 font-sans text-white text-xs"
+                    collisionPadding={8}
+                    side="top"
+                    sideOffset={8}
+                  >
+                    {toolbarPanelDescription}
+                  </Popover.Content>
+                </Popover.Portal>
+              </Popover.Root>
               {isBuilding || activeTab === 'resend' ? null : (
                 <ToolbarButton
                   tooltip="Reload"
@@ -255,7 +444,7 @@ const ToolbarInner = ({
                 />
               </ToolbarButton>
             </div>
-          </Tabs.List>
+          </div>
 
           <div className="grow transition-opacity opacity-100 group-data-[toggled=false]/toolbar:opacity-0 overflow-y-auto pr-3 pl-4 pt-3">
             <Tabs.Content value="linter">

@@ -25,7 +25,7 @@ export const ToolbarButton = ({
             type="button"
             {...props}
             className={cn(
-              'h-full w-fit font-regular flex text-sm text-slate-10 items-center align-middle justify-center px-1 gap-2 relative',
+              'h-full w-fit shrink-0 whitespace-nowrap font-regular flex text-sm text-slate-10 items-center align-middle justify-center px-1 gap-2 relative',
               'hover:text-slate-12 transition-colors',
               active && 'data-[state=active]:text-cyan-11',
               className,
@@ -34,7 +34,7 @@ export const ToolbarButton = ({
             {children}
             {active ? (
               <motion.span
-                className="-bottom-px absolute rounded-xs left-0 w-full bg-cyan-11 h-px"
+                className="bottom-0 absolute rounded-xs left-0 w-full bg-cyan-11 h-px"
                 layoutId="active-toolbar-button"
                 transition={{
                   type: 'spring',

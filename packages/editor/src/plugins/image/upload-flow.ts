@@ -1,10 +1,24 @@
 import type { Editor } from '@tiptap/core';
+import { NodeSelection } from '@tiptap/pm/state';
 import type { UseEditorImageOptions } from './types';
 
 interface ExecuteUploadFlowParams {
   editor: Editor;
   file: File;
   uploadImage: UseEditorImageOptions['uploadImage'];
+}
+
+function getSelectedImageAttrs(
+  editor: Editor,
+): Record<string, unknown> | undefined {
+  const { selection } = editor.state;
+  if (
+    selection instanceof NodeSelection &&
+    selection.node.type.name === 'image'
+  ) {
+    return selection.node.attrs;
+  }
+  return undefined;
 }
 
 export async function executeUploadFlow({
@@ -14,7 +28,13 @@ export async function executeUploadFlow({
 }: ExecuteUploadFlowParams): Promise<void> {
   const blobUrl = URL.createObjectURL(file);
 
-  editor.chain().focus().setImage({ src: blobUrl }).run();
+  const selectedImageAttrs = getSelectedImageAttrs(editor);
+
+  editor
+    .chain()
+    .focus()
+    .setImage({ ...selectedImageAttrs, src: blobUrl })
+    .run();
 
   try {
     const { url } = await uploadImage(file);

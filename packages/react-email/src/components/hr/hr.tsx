@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { markAsElement } from '../element-marker.js';
 
 export type HrProps = Readonly<React.ComponentPropsWithoutRef<'hr'>>;
 
@@ -19,3 +20,4 @@ export const Hr = React.forwardRef<HTMLHRElement, HrProps>(
 );
 
 Hr.displayName = 'Hr';
+markAsElement(Hr);

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { markAsElement } from '../element-marker.js';
 import { marginProperties, paddingProperties } from './margin-properties.js';
 
 export type BodyProps = Readonly<React.HtmlHTMLAttributes<HTMLBodyElement>>;
@@ -58,3 +59,4 @@ export const Body = React.forwardRef<HTMLBodyElement, BodyProps>(
 );
 
 Body.displayName = 'Body';
+markAsElement(Body);

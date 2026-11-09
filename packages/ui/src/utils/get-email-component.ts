@@ -1,5 +1,10 @@
 import path from 'node:path';
-import { type BuildFailure, build, type OutputFile } from 'esbuild';
+import {
+  type BuildFailure,
+  build,
+  type OutputFile,
+  type Plugin,
+} from 'esbuild';
 import type React from 'react';
 import type { render } from 'react-email';
 import type { RawSourceMap } from 'source-map-js';
@@ -39,6 +44,7 @@ function describeBundledModuleExports(value: unknown): string {
 export const getEmailComponent = async (
   emailPath: string,
   jsxRuntimePath: string,
+  plugins: Plugin[] = [],
 ): Promise<
   | {
       emailComponent: EmailComponent;
@@ -61,7 +67,13 @@ export const getEmailComponent = async (
     const buildData = await build({
       bundle: true,
       entryPoints: [emailPath],
-      plugins: [inlineCssLoader(), renderingUtilitiesExporter([emailPath])],
+      // The exporter must register first: it claims the entry wrapper and lets
+      // the template itself fall through to the user's plugins.
+      plugins: [
+        inlineCssLoader(),
+        renderingUtilitiesExporter([emailPath]),
+        ...plugins,
+      ],
       platform: 'node',
       write: false,
 
