@@ -78,7 +78,7 @@ interface WalkFrame {
 }
 
 export function unstableToPlainText(html: string): string {
-  const tree = parse(html, { setAttributeMap: true });
+  const tree = parse(html);
   const body = findBody(tree);
 
   const blocks: OpenBlock[] = [
@@ -157,6 +157,12 @@ export function unstableToPlainText(html: string): string {
       }
       return;
     }
+    node.attributeMap = Object.fromEntries(
+      node.attributes.map((attribute) => [
+        attribute.name.value.toLowerCase(),
+        attribute,
+      ]),
+    );
     if (
       SKIPPED_TAGS.has(node.name) ||
       decodeHTMLAttribute(

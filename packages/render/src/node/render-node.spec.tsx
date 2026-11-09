@@ -47,6 +47,19 @@ describe('render on node environments', () => {
     vi.resetAllMocks();
   });
 
+  it('keeps raw HTML link URLs with mixed-case attribute names in plain text', async () => {
+    const output = await render(
+      <div
+        dangerouslySetInnerHTML={{
+          __html: '<a HrEf="https://example.com/Pay">Pay invoice</a>',
+        }}
+      />,
+      { plainText: true, unstableTextConversion: true },
+    );
+
+    expect(output).toContain('Pay invoice https://example.com/Pay');
+  });
+
   it('properly handles component throw error', async () => {
     function ThrowingComponent(): React.ReactNode {
       throw new Error('This should be trown by render');

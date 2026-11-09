@@ -24,16 +24,19 @@ describe('toPlainTextUnstable', () => {
     expect(result).toBe(toPlainText(html));
   });
 
-  it('skips elements with data-skip-in-text="true"', () => {
-    const html =
-      '<p>Visible</p><span data-skip-in-text="true">Hidden</span><p>Also visible</p>';
+  it.each([
+    'data-skip-in-text',
+    'DATA-SKIP-IN-TEXT',
+    'DaTa-SkIp-In-TeXt',
+  ])('skips elements with %s="true"', (attribute) => {
+    const html = `<p>Visible</p><span ${attribute}="true">Hidden</span><p>Also visible</p>`;
     const result = unstableToPlainText(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('formats links without brackets', () => {
-    const html = '<a href="https://example.com">Click here</a>';
+  it.each(['href', 'HREF', 'HrEf'])('formats links with %s', (attribute) => {
+    const html = `<a ${attribute}="https://example.com/Pay?Key=Value&amp;Other=Two">Click here</a>`;
     const result = unstableToPlainText(html);
 
     expect(result).toBe(toPlainText(html));
@@ -77,11 +80,33 @@ describe('toPlainTextUnstable', () => {
     expect(result).toBe(toPlainText(html));
   });
 
-  it('numbers ordered lists, honoring a start offset', () => {
-    const html = '<ol start="5"><li>One</li><li>Two</li></ol>';
+  it.each([
+    'start',
+    'START',
+    'StArT',
+  ])('numbers ordered lists, honoring a %s offset', (attribute) => {
+    const html = `<ol ${attribute}="&#53;"><li>One</li><li>Two</li></ol>`;
     const result = unstableToPlainText(html);
 
     expect(result).toBe(toPlainText(html));
+  });
+
+  it('does not lowercase attribute values', () => {
+    const html = '<span DATA-SKIP-IN-TEXT="TRUE">Visible</span>';
+
+    expect(unstableToPlainText(html)).toBe(toPlainText(html));
+    expect(unstableToPlainText(html)).toBe('Visible');
+  });
+
+  // Duplicate attributes are invalid HTML; retain the existing last-wins convention.
+  it.each([
+    ['href', 'href'],
+    ['href', 'HREF'],
+    ['HREF', 'href'],
+  ])('uses the last duplicate %s/%s attribute', (first, last) => {
+    const html = `<a ${first}="https://first.example" ${last}="https://last.example">Link</a>`;
+
+    expect(unstableToPlainText(html)).toBe('Link https://last.example');
   });
 
   it('defaults empty or malformed ordered list starts to 1', () => {
