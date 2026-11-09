@@ -1,5 +1,11 @@
 # @react-email/ui
 
+## 6.11.9
+
+### Patch Changes
+
+- 44169a6: Scanning the emails directory no longer leaves a file handle open when a file can't be read, which crashed `email dev` on Node.js 25 and later. An unreadable file is now skipped with a warning instead of failing the whole scan.
+
 ## 6.11.8
 
 ## 6.11.7
