@@ -636,7 +636,7 @@ importers:
         specifier: 'catalog:'
         version: 7.29.0
       '@react-email/render':
-        specifier: workspace:>=2.2.0
+        specifier: workspace:>=2.3.0
         version: link:../render
       chokidar:
         specifier: ^5.0.0
@@ -932,7 +932,7 @@ importers:
         version: link:../react-email
       resend:
         specifier: 'catalog:'
-        version: 6.12.0(@react-email/render@2.2.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
+        version: 6.12.0(@react-email/render@packages+render)
       rimraf:
         specifier: 6.1.3
         version: 6.1.3
@@ -2512,13 +2512,6 @@ packages:
 
   '@radix-ui/rect@1.1.1':
     resolution: {integrity: sha512-HPwpGIzkl28mWyZqG52jiqDJ12waP11Pa1lGoiyUkIEuMLBP0oeK/C89esbXrxsky5we7dfd8U58nm0SgAWpVw==}
-
-  '@react-email/render@2.2.0':
-    resolution: {integrity: sha512-WCtHV8ww0OYajz+idpx1jQNlO3RrvcjTihlEWozgLQZlM/1QveLU5ZdVyLTmm6WWY0wohGV0cIx9CB0HpfLJcw==}
-    engines: {node: '>=20.19.0'}
-    peerDependencies:
-      react: 19.2.4
-      react-dom: 19.2.4
 
   '@react-email/section@0.0.14':
     resolution: {integrity: sha512-+fYWLb4tPU1A/+GE5J1+SEMA7/wR3V30lQ+OR9t2kAJqNrARDbMx0bLnYnR1QL5TiFRz0pCF05SQUobk6gHEDQ==}
@@ -5027,11 +5020,6 @@ packages:
 
   prettier@3.8.3:
     resolution: {integrity: sha512-7igPTM53cGHMW8xWuVTydi2KO233VFiTNyF5hLJqpilHfmn8C8gPf+PS7dUT64YcXFbiMGZxS9pCSxL/Dxm/Jw==}
-    engines: {node: '>=14'}
-    hasBin: true
-
-  prettier@3.9.10:
-    resolution: {integrity: sha512-skGHTH1Yb9QvaTC4hWnRTzEYtCpApF0UMBPz+t/0ZPzP8ihefo/btKd+QA7pUE0fEwA1SbS/NmhyEcstdXOIdA==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -7606,16 +7594,6 @@ snapshots:
 
   '@radix-ui/rect@1.1.1': {}
 
-  '@react-email/render@2.2.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
-    dependencies:
-      entities: 4.5.0
-      html-to-text: 10.0.1
-      html5parser: 3.0.0
-      prettier: 3.9.10
-      react: 19.2.4
-      react-dom: 19.2.4(react@19.2.4)
-    optional: true
-
   '@react-email/section@0.0.14(react@19.2.4)':
     dependencies:
       react: 19.2.4
@@ -10042,9 +10020,6 @@ snapshots:
 
   prettier@3.8.3: {}
 
-  prettier@3.9.10:
-    optional: true
-
   pretty-bytes@6.1.1: {}
 
   pretty-format@27.5.1:
@@ -10283,13 +10258,6 @@ snapshots:
   require-directory@2.1.1: {}
 
   require-from-string@2.0.2: {}
-
-  resend@6.12.0(@react-email/render@2.2.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)):
-    dependencies:
-      postal-mime: 2.7.4
-      svix: 1.90.0
-    optionalDependencies:
-      '@react-email/render': 2.2.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
 
   resend@6.12.0(@react-email/render@packages+render):
     dependencies:

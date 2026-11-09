@@ -1,5 +1,11 @@
 # @react-email/ui
 
+## 6.11.10
+
+### Patch Changes
+
+- 92484bd: Fix `email build` failing at random with `(void 0) is not a function` when Next.js prerenders pages in several workers. Each worker now writes the JSX runtime to a temporary file and renames it into place, so no worker reads a half-written runtime.
+
 ## 6.11.9
 
 ### Patch Changes
