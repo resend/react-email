@@ -1,5 +1,14 @@
 # react-email
 
+## 6.11.10
+
+### Patch Changes
+
+- 64fa975: Render `<CodeInline>` as a single `<code>` element, so its text no longer shows up twice in inbox previews and plain text
+- f20a697: `<Markdown>` now escapes HTML inside code blocks and inline code. Code samples like `<b>bold</b>` were rendered as real HTML instead of showing the snippet.
+- Updated dependencies [fe6b066]
+  - @react-email/render@2.3.0
+
 ## 6.11.9
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @react-email/render
 
+## 2.3.0
+
+### Minor Changes
+
+- fe6b066: Put each table cell on its own line in plain text output, so `Row`/`Column` content no longer runs together
+
 ## 2.2.0
 
 ### Minor Changes
