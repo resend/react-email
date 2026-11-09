@@ -12,6 +12,15 @@ export const plainTextSelectors: SelectorDefinition[] = [
     options: { linkBrackets: false, hideLinkHrefIfSameAsText: true },
   },
   { selector: '[data-text-format="dataTable"]', format: 'dataTable' },
+  // html-to-text keeps cells inline, which glues together the side-by-side
+  // content of layout tables like Row/Column
+  ...['td', 'th'].map(
+    (selector): SelectorDefinition => ({
+      selector,
+      format: 'block',
+      options: { leadingLineBreaks: 1, trailingLineBreaks: 1 },
+    }),
+  ),
 ];
 
 export function toPlainText(html: string, options?: HtmlToTextOptions) {
