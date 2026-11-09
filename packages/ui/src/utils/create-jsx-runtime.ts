@@ -32,9 +32,21 @@ export const createJsxRuntime = (
           'utf8',
         );
       }
+      // `next build` prerenders pages across multiple worker processes, each building this
+      // shared `jsx-dev-runtime.js` (the promise cache only dedupes within a process). An
+      // in-place write isn't atomic, so a process can read a half-written runtime whose `jsxDEV`
+      // is `undefined`, throwing `(void 0) is not a function`. Write to a temp file and rename
+      // it into place atomically instead.
+      const finalRuntimeFilePath = path.join(
+        jsxRuntimePath,
+        'jsx-dev-runtime.js',
+      );
+      const temporaryRuntimeFilePath = `${finalRuntimeFilePath}.${Math.random()
+        .toString(36)
+        .slice(2)}.tmp`;
       await esbuild.build({
         bundle: true,
-        outfile: path.join(jsxRuntimePath, 'jsx-dev-runtime.js'),
+        outfile: temporaryRuntimeFilePath,
         format: 'cjs',
         logLevel: 'silent',
         stdin: {
@@ -46,6 +58,7 @@ export const createJsxRuntime = (
           ),
         },
       });
+      await fs.promises.rename(temporaryRuntimeFilePath, finalRuntimeFilePath);
 
       return jsxRuntimePath;
     })();
