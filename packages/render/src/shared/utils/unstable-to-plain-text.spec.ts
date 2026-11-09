@@ -92,13 +92,28 @@ describe('toPlainTextUnstable', () => {
     }
   });
 
-  it('has no separation between table cells, matching the current default', () => {
-    // Not "fixed" here on purpose: react-email's own Row/Column/Section
-    // render as tables, and this is what toPlainText already does today.
+  it('puts each table cell on its own line', () => {
     const html =
       '<table><tr><td>A</td><td>B</td></tr><tr><td>C</td><td>D</td></tr></table>';
     const result = unstableToPlainText(html);
 
+    expect(result).toBe('A\nB\nC\nD');
+    expect(result).toBe(toPlainText(html));
+  });
+
+  it('ignores an empty table cell before the content', () => {
+    const html = '<table><tr><td></td><td>Left</td><td>Right</td></tr></table>';
+    const result = unstableToPlainText(html);
+
+    expect(result).toBe('Left\nRight');
+    expect(result).toBe(toPlainText(html));
+  });
+
+  it('turns an empty table cell between content into a blank line', () => {
+    const html = '<table><tr><td>Left</td><td></td><td>Right</td></tr></table>';
+    const result = unstableToPlainText(html);
+
+    expect(result).toBe('Left\n\nRight');
     expect(result).toBe(toPlainText(html));
   });
 
@@ -202,11 +217,12 @@ describe('toPlainTextUnstable', () => {
     expect(result).toBe(toPlainText(html));
   });
 
-  it('runs th and caption together with cells, like td', () => {
+  it('separates th like td', () => {
     const html =
       '<table><caption>Cap</caption><tr><th>H</th><td>D</td></tr></table>';
     const result = unstableToPlainText(html);
 
+    expect(result).toBe('Cap\nH\nD');
     expect(result).toBe(toPlainText(html));
   });
 
