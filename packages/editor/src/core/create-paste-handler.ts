@@ -16,7 +16,15 @@ export function createPasteHandler({
   onPaste?: PasteHandler;
   extensions: Extensions;
 }) {
+  // Set while the handler has handed a sanitized paste back to ProseMirror,
+  // which calls the handler again for it.
+  let pastingSanitized = false;
+
   return (view: EditorView, event: ClipboardEvent, slice: Slice): boolean => {
+    if (pastingSanitized) {
+      return false;
+    }
+
     const text = event.clipboardData?.getData('text/plain');
 
     if (text && onPaste?.(text, view)) {
@@ -39,19 +47,25 @@ export function createPasteHandler({
     }
 
     if (event.clipboardData?.getData?.('text/html')) {
+      event.preventDefault();
       const html = event.clipboardData.getData('text/html');
 
-      // The editor's own copy has nothing to strip, and ProseMirror already
-      // parsed it where the paste lands, where the body container and the
-      // theme are not recreated. Parsing it again below, at the document
+      const sanitizedHtml = sanitizePastedHtml(html);
+
+      // The editor's own copy goes back to ProseMirror once it is sanitized.
+      // ProseMirror parses it where the paste lands, where the body container
+      // and the theme are not recreated; parsing it below, at the document
       // level, nested one more container per paste. An editor without a
       // container keeps the paste below.
       if (isFromEditor(html) && view.state.schema.nodes.container) {
-        return false;
+        pastingSanitized = true;
+        try {
+          view.pasteHTML(sanitizedHtml, event);
+        } finally {
+          pastingSanitized = false;
+        }
+        return true;
       }
-
-      event.preventDefault();
-      const sanitizedHtml = sanitizePastedHtml(html);
 
       const jsonContent = generateJSON(sanitizedHtml, extensions);
       const node = view.state.schema.nodeFromJSON(jsonContent);

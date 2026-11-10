@@ -1125,23 +1125,42 @@ describe('Container Node', () => {
     // The everyday copy: a text selection across two paragraphs. Its
     // clipboard is wrapped in the container div, and it has to keep pasting
     // the way ProseMirror pastes its own slice.
-    const source = createPastingEditor(
-      email('minimal', ['Weekly update', 'Item']),
+    const source = createPastingEditor(email('minimal', ['First', 'Second']));
+    source.commands.setTextSelection({ from: 3, to: 16 });
+    const target = createPastingEditor(
+      email('basic', ['Hello world', 'Outro']),
     );
-    source.commands.setTextSelection({ from: 4, to: 21 });
-    const target = createPastingEditor(email('basic', ['Intro', 'Outro']));
 
-    pasteInto(target, clipboardOf(source, source.state.selection), 5);
+    // At "Hello |world": "First" joins the text before the cursor, "Second"
+    // the text after it, and the cursor ends between the two.
+    pasteInto(target, clipboardOf(source, source.state.selection), 9);
 
     expect(target.getJSON().content?.[1]).toMatchObject({
       type: 'container',
       content: [
-        paragraphOf('Ineekly update'),
-        paragraphOf('Itetro'),
+        paragraphOf('Hello First'),
+        paragraphOf('Secondworld'),
         paragraphOf('Outro'),
       ],
     });
+    target.commands.insertContent('|');
+    expect(target.state.doc.textContent).toContain('Second|world');
     source.destroy();
+    target.destroy();
+  });
+
+  it('drops unsafe URLs from pasted HTML that carries the editor classes', () => {
+    // The node- classes mark the editor's own HTML, and anything can carry
+    // them. The paste still goes through the sanitizer.
+    const target = createPastingEditor(email('basic', ['Intro']));
+    const html =
+      '<p class="node-paragraph"><a href="javascript:alert(1)">link</a></p>' +
+      '<div class="node-button" data-type="button"><a data-id="react-email-button" href="javascript:alert(2)">Buy</a></div>';
+
+    pasteInto(target, { html, text: 'link Buy' });
+
+    expect(target.state.doc.textContent).toContain('link');
+    expect(JSON.stringify(target.getJSON())).not.toContain('javascript:');
     target.destroy();
   });
 
