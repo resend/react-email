@@ -29,9 +29,12 @@ export class ContainerSelection extends Selection {
   }
 
   map(doc: PmNode, mapping: Mappable): Selection {
-    const containerPos = mapping.map(this.$from.before());
-    if (doc.nodeAt(containerPos)?.type === this.$from.parent.type) {
-      return ContainerSelection.create(doc, containerPos);
+    const container = mapping.mapResult(this.$from.before());
+    if (
+      !container.deleted &&
+      doc.nodeAt(container.pos)?.type === this.$from.parent.type
+    ) {
+      return ContainerSelection.create(doc, container.pos);
     }
     return TextSelection.between(
       doc.resolve(mapping.map(this.anchor)),
@@ -43,7 +46,7 @@ export class ContainerSelection extends Selection {
   // its range covers entirely, and the body has to stay.
   replace(tr: Transaction, content = Slice.empty): void {
     const mapFrom = tr.steps.length;
-    tr.replaceWith(this.from, this.to, content.content);
+    tr.replace(this.from, this.to, content);
     const end = tr.mapping.slice(mapFrom).map(this.to, -1);
     tr.setSelection(Selection.near(tr.doc.resolve(end), -1));
   }

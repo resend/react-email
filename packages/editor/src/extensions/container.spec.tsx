@@ -7,7 +7,11 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { composeReactEmail } from '../core/serializer/compose-react-email';
 import { EmailTheming } from '../plugins';
 import { DEFAULT_STYLES } from '../utils/default-styles';
-import { COLLABORATIVE_WRAP_DEBOUNCE_MS, Container } from './container';
+import {
+  COLLABORATIVE_WRAP_DEBOUNCE_MS,
+  Container,
+  ContainerSelection,
+} from './container';
 import { StarterKit } from './index';
 
 vi.mock('@/actions/ai', () => ({
@@ -1161,6 +1165,33 @@ describe('Container Node', () => {
       { type: 'container', content: [{ type: 'paragraph' }] },
     ]);
     expect(instance.state.selection.$from.parent.type.name).toBe('paragraph');
+    instance.destroy();
+  });
+
+  it('falls back to a cursor when the selected container is removed, instead of moving to a sibling', () => {
+    // Documents nested or split by the old paste bug can hold more than one
+    // container; a collaborator removing the selected one must not hand the
+    // selection to the next.
+    const instance = new Editor({
+      content: {
+        type: 'doc',
+        content: [
+          { type: 'globalContent', attrs: { data: { theme: 'basic' } } },
+          { type: 'container', content: [paragraph('First body')] },
+          { type: 'container', content: [paragraph('Second body')] },
+        ],
+      },
+      extensions: [StarterKit],
+    });
+    instance.commands.setTextSelection(3);
+    pressSelectAll(instance);
+    const { $from } = instance.state.selection;
+    expect(instance.state.selection).toBeInstanceOf(ContainerSelection);
+
+    const tr = instance.state.tr.delete($from.before(), $from.after());
+
+    expect(tr.selection).not.toBeInstanceOf(ContainerSelection);
+    expect(tr.selection.empty).toBe(true);
     instance.destroy();
   });
 
