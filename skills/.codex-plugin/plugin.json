@@ -1,0 +1,29 @@
+{
+  "name": "react-email",
+  "description": "React Email agent skill",
+  "author": {
+    "name": "Resend",
+    "url": "https://github.com/resend"
+  },
+  "homepage": "https://react.email",
+  "repository": "https://github.com/resend/react-email",
+  "license": "MIT",
+  "keywords": [
+    "react-email",
+    "email",
+    "resend",
+    "react",
+    "templates"
+  ],
+  "skills": [
+    "./react-email"
+  ],
+  "interface": {
+    "displayName": "React Email",
+    "shortDescription": "React Email agent skill",
+    "longDescription": "Agent skill for building HTML emails with React Email, installed from the skill already in this repository.",
+    "developerName": "Resend",
+    "category": "Developer Tools",
+    "websiteURL": "https://react.email"
+  }
+}

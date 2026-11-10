@@ -1,0 +1,34 @@
+{
+  "name": "react-email",
+  "owner": {
+    "name": "Resend"
+  },
+  "description": "React Email agent skill",
+  "plugins": [
+    {
+      "name": "react-email",
+      "displayName": "React Email",
+      "description": "React Email agent skill for Claude Code",
+      "source": "./skills",
+      "strict": false,
+      "author": {
+        "name": "Resend",
+        "url": "https://github.com/resend"
+      },
+      "homepage": "https://react.email",
+      "repository": "https://github.com/resend/react-email",
+      "license": "MIT",
+      "keywords": [
+        "react-email",
+        "email",
+        "resend",
+        "react",
+        "templates"
+      ],
+      "category": "development",
+      "skills": [
+        "./react-email"
+      ]
+    }
+  ]
+}
