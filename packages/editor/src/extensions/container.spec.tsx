@@ -1,5 +1,6 @@
 import type { JSONContent } from '@tiptap/core';
 import { Editor, Extension } from '@tiptap/core';
+import { AllSelection } from '@tiptap/pm/state';
 import { Container as ReactEmailContainer, render } from 'react-email';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { composeReactEmail } from '../core/serializer/compose-react-email';
@@ -1025,6 +1026,52 @@ describe('Container Node', () => {
         "type": "doc",
       }
     `);
+  });
+
+  function pressSelectAll(instance: Editor) {
+    instance.view.dom.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'a', ctrlKey: true, bubbles: true }),
+    );
+  }
+
+  it('selects the body on Mod-a, not the whole document', () => {
+    const instance = new Editor({
+      content: {
+        type: 'doc',
+        content: [
+          { type: 'globalContent', attrs: { data: { theme: 'basic' } } },
+          {
+            type: 'container',
+            content: [
+              { type: 'paragraph', content: [{ type: 'text', text: 'First' }] },
+              {
+                type: 'paragraph',
+                content: [{ type: 'text', text: 'Second' }],
+              },
+            ],
+          },
+        ],
+      },
+      extensions: [StarterKit],
+    });
+    instance.commands.focus('start');
+
+    pressSelectAll(instance);
+
+    const { selection, doc } = instance.state;
+    expect(selection).not.toBeInstanceOf(AllSelection);
+    expect(doc.textBetween(selection.from, selection.to, '|')).toBe(
+      'First|Second',
+    );
+
+    instance.commands.deleteSelection();
+
+    expect(instance.getJSON().content?.map((node) => node.type)).toEqual([
+      'globalContent',
+      'container',
+    ]);
+    expect(instance.state.doc.firstChild?.attrs.data.theme).toBe('basic');
+    instance.destroy();
   });
 
   it('does not parse a table without max-width as a container', () => {

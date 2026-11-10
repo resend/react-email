@@ -1,6 +1,11 @@
 import { mergeAttributes } from '@tiptap/core';
 import type { Node as PmNode } from '@tiptap/pm/model';
-import { type EditorState, Plugin, PluginKey } from '@tiptap/pm/state';
+import {
+  type EditorState,
+  Plugin,
+  PluginKey,
+  TextSelection,
+} from '@tiptap/pm/state';
 import { Container as ReactEmailContainer } from 'react-email';
 import { EmailNode } from '../core/serializer/email-node';
 import { hasCollaborationExtension } from '../utils/is-collaboration';
@@ -117,6 +122,32 @@ export const Container = EmailNode.create<ContainerOptions>({
       ),
       0,
     ];
+  },
+
+  addKeyboardShortcuts() {
+    return {
+      // Select the body, not the whole document: a document-wide selection
+      // copies the container and the theme along with the content, and
+      // deleting it drops the theme.
+      'Mod-a': ({ editor }) => {
+        const { state } = editor;
+        const { $from } = state.selection;
+        for (let depth = $from.depth; depth > 0; depth--) {
+          if ($from.node(depth).type !== this.type) {
+            continue;
+          }
+          const body = TextSelection.between(
+            state.doc.resolve($from.start(depth)),
+            state.doc.resolve($from.end(depth)),
+          );
+          if (!state.selection.eq(body)) {
+            editor.view.dispatch(state.tr.setSelection(body));
+          }
+          return true;
+        }
+        return false;
+      },
+    };
   },
 
   addProseMirrorPlugins() {
