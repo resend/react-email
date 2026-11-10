@@ -1,9 +1,10 @@
 {
   "name": "react-email",
-  "description": "React Email agent skill",
+  "version": "0.1.1",
+  "description": "Teaches coding agents how to build HTML emails with React Email components, add the visual editor, render to HTML, and send with Resend.",
   "author": {
     "name": "Resend",
-    "url": "https://github.com/resend"
+    "url": "https://react.email"
   },
   "homepage": "https://react.email",
   "repository": "https://github.com/resend/react-email",
@@ -13,17 +14,30 @@
     "email",
     "resend",
     "react",
-    "templates"
+    "templates",
+    "transactional",
+    "coding-agents"
   ],
-  "skills": [
-    "./react-email"
-  ],
+  "skills": ["./react-email"],
   "interface": {
     "displayName": "React Email",
-    "shortDescription": "React Email agent skill",
-    "longDescription": "Agent skill for building HTML emails with React Email, installed from the skill already in this repository.",
+    "shortDescription": "Build HTML emails with React Email components",
+    "longDescription": "React Email is a modern, component-based toolkit for building HTML emails that work across major clients. This plugin installs the React Email agent skill already maintained in this repository.\n\nUse it when building or changing email templates with React components, adding the React Email visual editor to an app, rendering emails to HTML, sending with Resend, or implementing patterns like welcome emails, password resets, notifications, order confirmations, and newsletters. The skill covers components, Tailwind styling, i18n, sending, and the embeddable editor — with deeper references loaded on demand.",
     "developerName": "Resend",
     "category": "Developer Tools",
-    "websiteURL": "https://react.email"
+    "capabilities": [
+      "HTML email templates",
+      "Visual email editor",
+      "Resend sending workflows"
+    ],
+    "websiteURL": "https://react.email",
+    "defaultPrompt": [
+      "Build a welcome email with React Email and Tailwind",
+      "Create a password reset email template",
+      "Add the React Email visual editor to my React app"
+    ],
+    "brandColor": "#25AEBA",
+    "composerIcon": "./assets/logo.svg",
+    "logo": "./assets/logo.svg"
   }
 }
