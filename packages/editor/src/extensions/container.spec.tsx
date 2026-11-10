@@ -1034,43 +1034,99 @@ describe('Container Node', () => {
     );
   }
 
-  it('selects the body on Mod-a, not the whole document', () => {
-    const instance = new Editor({
+  const paragraph = (text: string): JSONContent => ({
+    type: 'paragraph',
+    content: [{ type: 'text', text }],
+  });
+
+  function createBody(...content: JSONContent[]) {
+    return new Editor({
       content: {
         type: 'doc',
         content: [
           { type: 'globalContent', attrs: { data: { theme: 'basic' } } },
-          {
-            type: 'container',
-            content: [
-              { type: 'paragraph', content: [{ type: 'text', text: 'First' }] },
-              {
-                type: 'paragraph',
-                content: [{ type: 'text', text: 'Second' }],
-              },
-            ],
-          },
+          { type: 'container', content },
         ],
       },
       extensions: [StarterKit],
     });
-    instance.commands.focus('start');
+  }
+
+  // The start and end of the content of the node at `depth` above the cursor.
+  function boundsOf(instance: Editor, depth: number) {
+    const { $from } = instance.state.selection;
+    return { from: $from.start(depth), to: $from.end(depth) };
+  }
+
+  function selectionOf(instance: Editor) {
+    const { from, to } = instance.state.selection;
+    return { from, to };
+  }
+
+  it('selects the whole body on Mod-a, atoms at its edges included, not the document', () => {
+    const instance = createBody(
+      { type: 'horizontalRule' },
+      paragraph('First'),
+      paragraph('Second'),
+      { type: 'horizontalRule' },
+    );
+    // Place the cursor without focusing: a focused happy-dom editor cannot
+    // hold a DOM range that starts before an <hr>, which a browser can.
+    let firstText = 0;
+    instance.state.doc.descendants((node, pos) => {
+      if (node.isText && node.text === 'First') {
+        firstText = pos;
+      }
+    });
+    instance.commands.setTextSelection(firstText);
 
     pressSelectAll(instance);
 
-    const { selection, doc } = instance.state;
-    expect(selection).not.toBeInstanceOf(AllSelection);
-    expect(doc.textBetween(selection.from, selection.to, '|')).toBe(
-      'First|Second',
-    );
+    expect(instance.state.selection).not.toBeInstanceOf(AllSelection);
+    expect(selectionOf(instance)).toEqual(boundsOf(instance, 1));
 
     instance.commands.deleteSelection();
 
-    expect(instance.getJSON().content?.map((node) => node.type)).toEqual([
-      'globalContent',
-      'container',
+    expect(instance.getJSON().content).toMatchObject([
+      { type: 'globalContent', attrs: { data: { theme: 'basic' } } },
+      { type: 'container', content: [{ type: 'paragraph' }] },
     ]);
-    expect(instance.state.doc.firstChild?.attrs.data.theme).toBe('basic');
+    instance.destroy();
+  });
+
+  it('lets a code block select itself first, then selects the body', () => {
+    const instance = createBody(paragraph('Before'), {
+      type: 'codeBlock',
+      content: [{ type: 'text', text: 'const a = 1;' }],
+    });
+    instance.commands.focus('end');
+
+    pressSelectAll(instance);
+    expect(selectionOf(instance)).toEqual(boundsOf(instance, 2));
+    expect(instance.state.selection.$from.parent.type.name).toBe('codeBlock');
+
+    pressSelectAll(instance);
+    expect(selectionOf(instance)).toEqual(boundsOf(instance, 1));
+    expect(instance.state.selection).not.toBeInstanceOf(AllSelection);
+    instance.destroy();
+  });
+
+  it('lets a column select itself first', () => {
+    const instance = createBody({
+      type: 'twoColumns',
+      content: [
+        { type: 'columnsColumn', content: [paragraph('Left')] },
+        { type: 'columnsColumn', content: [paragraph('Right')] },
+      ],
+    });
+    instance.commands.focus('end');
+
+    pressSelectAll(instance);
+
+    expect(selectionOf(instance)).toEqual(boundsOf(instance, 3));
+    expect(instance.state.selection.$from.node(3).type.name).toBe(
+      'columnsColumn',
+    );
     instance.destroy();
   });
 

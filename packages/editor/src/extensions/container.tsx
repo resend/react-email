@@ -128,20 +128,28 @@ export const Container = EmailNode.create<ContainerOptions>({
     return {
       // Select the body, not the whole document: a document-wide selection
       // copies the container and the theme along with the content, and
-      // deleting it drops the theme.
+      // deleting it drops the theme. A code block selects its own content
+      // first (its handler runs after this one), so give way until it is
+      // fully selected.
       'Mod-a': ({ editor }) => {
         const { state } = editor;
-        const { $from } = state.selection;
+        const { $from, from, to } = state.selection;
         for (let depth = $from.depth; depth > 0; depth--) {
+          const start = $from.start(depth);
+          const end = $from.end(depth);
+          const selected = from === start && to === end;
           if ($from.node(depth).type !== this.type) {
+            if ($from.node(depth).type.spec.code && !selected) {
+              return false;
+            }
             continue;
           }
-          const body = TextSelection.between(
-            state.doc.resolve($from.start(depth)),
-            state.doc.resolve($from.end(depth)),
-          );
-          if (!state.selection.eq(body)) {
-            editor.view.dispatch(state.tr.setSelection(body));
+          if (!selected) {
+            editor.view.dispatch(
+              state.tr.setSelection(
+                TextSelection.create(state.doc, start, end),
+              ),
+            );
           }
           return true;
         }
