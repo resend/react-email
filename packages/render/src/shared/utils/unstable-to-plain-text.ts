@@ -2,6 +2,8 @@ import { decodeHTML, decodeHTMLAttribute } from 'entities/lib/decode.js';
 import { type INode, type ITag, parse, SyntaxKind } from 'html5parser';
 
 const SKIPPED_TAGS = new Set([
+  // html5parser parses `<!-- ... -->` as a tag named `!--`
+  '!--',
   'img',
   'noscript',
   'script',
@@ -267,7 +269,7 @@ export function unstableToPlainText(html: string): string {
         // compared against the href to decide whether to append it
         // (html-to-text's hideLinkHrefIfSameAsText, which `toPlainText`
         // enables)
-        const anchorText = top().text.slice(frame.textFrom).join('');
+        const anchorText = top().text.slice(frame.textFrom).join('').trim();
         if (anchorText !== href) {
           if (anchorText.length > 0) top().space = true;
           writeWord(href);
