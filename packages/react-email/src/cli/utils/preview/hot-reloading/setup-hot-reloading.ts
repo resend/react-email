@@ -1,7 +1,6 @@
 import type http from 'node:http';
 import path from 'node:path';
 import { watch } from 'chokidar';
-import debounce from 'debounce';
 import { type Socket, Server as SocketServer } from 'socket.io';
 import type { HotReloadChange } from '../../types/hot-reload-change.js';
 import { createDependencyGraph } from './create-dependency-graph.js';
@@ -25,7 +24,14 @@ export const setupHotreloading = async (
   // and send them at once to the preview app through the web socket
   let changes = [] as HotReloadChange[];
 
-  const reload = debounce(() => {
+  // Waits for 150ms without new changes before sending them all at once
+  let reloadTimeout: NodeJS.Timeout | undefined;
+  const reload = () => {
+    clearTimeout(reloadTimeout);
+    reloadTimeout = setTimeout(sendChanges, 150);
+  };
+
+  const sendChanges = () => {
     // we detect these using the useHotreload hook on the Next app
     clients.forEach((client) => {
       client.emit(
@@ -40,7 +46,7 @@ export const setupHotreloading = async (
     });
 
     changes = [];
-  }, 150);
+  };
 
   const absolutePathToEmailsDirectory = path.resolve(
     process.cwd(),
