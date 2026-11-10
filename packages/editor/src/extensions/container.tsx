@@ -42,6 +42,13 @@ export class ContainerSelection extends Selection {
     );
   }
 
+  // The body's blocks, closed: the clipboard carries no container wrapper,
+  // and a one-paragraph body pastes as its own paragraph instead of into the
+  // paragraph under the cursor.
+  content(): Slice {
+    return new Slice(this.$from.parent.content, 0, 0);
+  }
+
   // Replace the content, never the container: a range replace deletes a node
   // its range covers entirely, and the body has to stay.
   replace(tr: Transaction, content = Slice.empty): void {

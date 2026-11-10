@@ -1168,6 +1168,20 @@ describe('Container Node', () => {
     instance.destroy();
   });
 
+  it('copies the body as closed blocks, with no container wrapper on the clipboard', () => {
+    const instance = createBody(paragraph('Only'));
+    instance.commands.focus('start');
+    pressSelectAll(instance);
+
+    const slice = instance.state.selection.content();
+    expect([slice.openStart, slice.openEnd]).toEqual([0, 0]);
+    expect(slice.content.childCount).toBe(1);
+    const { dom } = instance.view.serializeForClipboard(slice);
+    expect(dom.innerHTML).not.toContain('data-type="container"');
+    expect(dom.innerHTML).toContain('data-pm-slice="0 0 []"');
+    instance.destroy();
+  });
+
   it('falls back to a cursor when the selected container is removed, instead of moving to a sibling', () => {
     // Documents nested or split by the old paste bug can hold more than one
     // container; a collaborator removing the selected one must not hand the
