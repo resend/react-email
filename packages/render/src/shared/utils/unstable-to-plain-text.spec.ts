@@ -47,7 +47,6 @@ describe('toPlainTextUnstable', () => {
   });
 
   it('hides a link href matching its text even after preceding text', () => {
-    // verbatim render() output for <Text>Hi <a href="mailto:x@y.z">x@y.z</a></Text>:
     // the pending space before the link must not defeat the text === href match
     const html =
       '<!--$--><p style="font-size:14px;line-height:24px;margin-top:16px;margin-bottom:16px">Hi <a href="mailto:x@y.z">x@y.z</a></p><!--/$-->';
@@ -58,9 +57,7 @@ describe('toPlainTextUnstable', () => {
   });
 
   it('skips HTML comments, including React Suspense markers and MSO conditionals', () => {
-    // verbatim render() output for <Button href="https://a.b">Go</Button>:
-    // React wraps the root in <!--$-->/<!--/$--> Suspense markers and <Button>
-    // emits MSO conditional comments; none of it is content
+    // Suspense markers and MSO conditionals are not content
     const html =
       '<!--$--><a href="https://a.b" style="line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px" target="_blank"><span><!--[if mso]><i style="mso-font-width:0%;mso-text-raise:0px" hidden></i><![endif]--></span><span style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px">Go</span><span><!--[if mso]><i style="mso-font-width:0%" hidden>&#8203;</i><![endif]--></span></a><!--/$-->';
     const result = unstableToPlainText(html);
