@@ -1168,6 +1168,20 @@ describe('Container Node', () => {
     instance.destroy();
   });
 
+  it('keeps a pasted list whole when it replaces the selected body', () => {
+    const instance = createBody(paragraph('First'), paragraph('Second'));
+    instance.commands.focus('start');
+    pressSelectAll(instance);
+
+    instance.view.pasteHTML('<ul><li>one</li><li>two</li></ul>');
+
+    const body = (instance.getJSON() as JSONContent).content?.[1];
+    const [list] = body?.content ?? [];
+    expect(list?.type).toBe('bulletList');
+    expect(list?.content).toHaveLength(2);
+    instance.destroy();
+  });
+
   it('copies the body as closed blocks, with no container wrapper on the clipboard', () => {
     const instance = createBody(paragraph('Only'));
     instance.commands.focus('start');

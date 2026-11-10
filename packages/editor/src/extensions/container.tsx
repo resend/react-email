@@ -1,12 +1,11 @@
 import { mergeAttributes } from '@tiptap/core';
-import { Fragment, type Node as PmNode, Slice } from '@tiptap/pm/model';
+import { type Node as PmNode, Slice } from '@tiptap/pm/model';
 import {
   type EditorState,
   Plugin,
   PluginKey,
   Selection,
   TextSelection,
-  type Transaction,
 } from '@tiptap/pm/state';
 import type { Mappable } from '@tiptap/pm/transform';
 import { Container as ReactEmailContainer } from 'react-email';
@@ -47,19 +46,6 @@ export class ContainerSelection extends Selection {
   // paragraph under the cursor.
   content(): Slice {
     return new Slice(this.$from.parent.content, 0, 0);
-  }
-
-  // Replace the content, never the container: a range replace deletes a node
-  // its range covers entirely, and the body has to stay.
-  replace(tr: Transaction, content = Slice.empty): void {
-    const mapFrom = tr.steps.length;
-    tr.replace(this.from, this.to, content);
-    const end = tr.mapping.slice(mapFrom).map(this.to, -1);
-    tr.setSelection(Selection.near(tr.doc.resolve(end), -1));
-  }
-
-  replaceWith(tr: Transaction, node: PmNode): void {
-    this.replace(tr, new Slice(Fragment.from(node), 0, 0));
   }
 
   eq(other: Selection): boolean {
