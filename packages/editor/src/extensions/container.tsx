@@ -1,15 +1,69 @@
 import { mergeAttributes } from '@tiptap/core';
-import type { Node as PmNode } from '@tiptap/pm/model';
+import { Fragment, type Node as PmNode, Slice } from '@tiptap/pm/model';
 import {
   type EditorState,
   Plugin,
   PluginKey,
+  Selection,
   TextSelection,
+  type Transaction,
 } from '@tiptap/pm/state';
+import type { Mappable } from '@tiptap/pm/transform';
 import { Container as ReactEmailContainer } from 'react-email';
 import { EmailNode } from '../core/serializer/email-node';
 import { hasCollaborationExtension } from '../utils/is-collaboration';
 import { inlineCssToJs } from '../utils/styles';
+
+/**
+ * The whole content of a container: what Mod-a selects. A text selection
+ * cannot do this job. Its ends must sit in inline content, so it either skips
+ * blocks at the edges (an image first, a divider last) or, placed at the
+ * container's bounds, collapses on the next change (bold after select-all
+ * cleared the selection). This one re-selects the container's content after
+ * every change, the way AllSelection does for the document.
+ */
+export class ContainerSelection extends Selection {
+  static create(doc: PmNode, containerPos: number): ContainerSelection {
+    const $start = doc.resolve(containerPos + 1);
+    return new ContainerSelection($start, doc.resolve($start.end()));
+  }
+
+  map(doc: PmNode, mapping: Mappable): Selection {
+    const containerPos = mapping.map(this.$from.before());
+    if (doc.nodeAt(containerPos)?.type === this.$from.parent.type) {
+      return ContainerSelection.create(doc, containerPos);
+    }
+    return TextSelection.between(
+      doc.resolve(mapping.map(this.anchor)),
+      doc.resolve(mapping.map(this.head)),
+    );
+  }
+
+  // Replace the content, never the container: a range replace deletes a node
+  // its range covers entirely, and the body has to stay.
+  replace(tr: Transaction, content = Slice.empty): void {
+    const mapFrom = tr.steps.length;
+    tr.replaceWith(this.from, this.to, content.content);
+    const end = tr.mapping.slice(mapFrom).map(this.to, -1);
+    tr.setSelection(Selection.near(tr.doc.resolve(end), -1));
+  }
+
+  replaceWith(tr: Transaction, node: PmNode): void {
+    this.replace(tr, new Slice(Fragment.from(node), 0, 0));
+  }
+
+  eq(other: Selection): boolean {
+    return (
+      other instanceof ContainerSelection &&
+      other.from === this.from &&
+      other.to === this.to
+    );
+  }
+
+  toJSON(): { type: string; anchor: number; head: number } {
+    return TextSelection.between(this.$anchor, this.$head).toJSON();
+  }
+}
 
 function hasContainerNode(doc: PmNode): boolean {
   for (let i = 0; i < doc.childCount; i++) {
@@ -147,7 +201,7 @@ export const Container = EmailNode.create<ContainerOptions>({
           if (!selected) {
             editor.view.dispatch(
               state.tr.setSelection(
-                TextSelection.create(state.doc, start, end),
+                ContainerSelection.create(state.doc, $from.before(depth)),
               ),
             );
           }
@@ -155,6 +209,11 @@ export const Container = EmailNode.create<ContainerOptions>({
         }
         return false;
       },
+      // Enter replaces the selected body with an empty paragraph, as in any
+      // editor; ProseMirror would append a paragraph after it instead.
+      Enter: ({ editor }) =>
+        editor.state.selection instanceof ContainerSelection &&
+        editor.commands.deleteSelection(),
     };
   },
 

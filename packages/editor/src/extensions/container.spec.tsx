@@ -1,5 +1,6 @@
 import type { JSONContent } from '@tiptap/core';
 import { Editor, Extension } from '@tiptap/core';
+import { Fragment, type Node as PmNode, Slice } from '@tiptap/pm/model';
 import { AllSelection } from '@tiptap/pm/state';
 import { Container as ReactEmailContainer, render } from 'react-email';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
@@ -1091,6 +1092,75 @@ describe('Container Node', () => {
       { type: 'globalContent', attrs: { data: { theme: 'basic' } } },
       { type: 'container', content: [{ type: 'paragraph' }] },
     ]);
+    instance.destroy();
+  });
+
+  it('keeps the body selected through later changes, so bold then italic apply to all of it', () => {
+    const instance = createBody(paragraph('First'), paragraph('Second'));
+    instance.commands.focus('start');
+    pressSelectAll(instance);
+
+    instance.commands.toggleBold();
+    // An edit elsewhere, as a collaborator's or an image upload would make.
+    instance.view.dispatch(instance.state.tr.insertText('!', 4));
+    instance.commands.toggleItalic();
+
+    expect(selectionOf(instance)).toEqual(boundsOf(instance, 1));
+    const marks: string[][] = [];
+    instance.state.doc.descendants((node) => {
+      if (node.isText) {
+        marks.push(node.marks.map((mark) => mark.type.name).sort());
+      }
+    });
+    expect(marks).toEqual([
+      ['bold', 'italic'],
+      ['bold', 'italic'],
+    ]);
+    expect(instance.state.doc.textContent).toBe('F!irstSecond');
+    instance.destroy();
+  });
+
+  it('replaces the body, not the container, when the selection is typed over, deleted or pasted over', () => {
+    const instance = createBody({ type: 'horizontalRule' }, paragraph('Old'));
+    instance.commands.setTextSelection(4);
+    pressSelectAll(instance);
+    const bodyOf = (tr: { doc: PmNode }) => tr.doc.child(1).toJSON();
+
+    // Transactions are inspected before plugins can repair the document.
+    expect(bodyOf(instance.state.tr.deleteSelection())).toMatchObject({
+      type: 'container',
+      content: [{ type: 'paragraph' }],
+    });
+    expect(bodyOf(instance.state.tr.insertText('New'))).toMatchObject({
+      type: 'container',
+      content: [paragraph('New')],
+    });
+    expect(
+      bodyOf(
+        instance.state.tr.replaceSelection(
+          new Slice(
+            Fragment.from([
+              instance.schema.nodeFromJSON(paragraph('A')),
+              instance.schema.nodeFromJSON(paragraph('B')),
+            ]),
+            0,
+            0,
+          ),
+        ),
+      ),
+    ).toMatchObject({
+      type: 'container',
+      content: [paragraph('A'), paragraph('B')],
+    });
+
+    instance.view.dom.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }),
+    );
+    expect(instance.getJSON().content).toMatchObject([
+      { type: 'globalContent', attrs: { data: { theme: 'basic' } } },
+      { type: 'container', content: [{ type: 'paragraph' }] },
+    ]);
+    expect(instance.state.selection.$from.parent.type.name).toBe('paragraph');
     instance.destroy();
   });
 
