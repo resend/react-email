@@ -1,7 +1,7 @@
 import type { JSONContent } from '@tiptap/core';
 import { Editor, Extension } from '@tiptap/core';
 import { generateJSON } from '@tiptap/html';
-import { AllSelection } from '@tiptap/pm/state';
+import { AllSelection, type Selection } from '@tiptap/pm/state';
 import { Container as ReactEmailContainer, render } from 'react-email';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { createPasteHandler } from '../core/create-paste-handler';
@@ -1057,9 +1057,13 @@ describe('Container Node', () => {
     });
   }
 
-  function clipboardOf(source: Editor) {
+  // The whole document by default, as Mod-a copies it.
+  function clipboardOf(
+    source: Editor,
+    selection: Selection = new AllSelection(source.state.doc),
+  ) {
     const { dom, text } = source.view.serializeForClipboard(
-      new AllSelection(source.state.doc).content(),
+      selection.content(),
     );
     return { html: dom.innerHTML, text };
   }
@@ -1067,12 +1071,13 @@ describe('Container Node', () => {
   function pasteInto(
     target: Editor,
     clipboard: { html: string; text: string },
+    position: 'end' | number = 'end',
   ) {
     const data: Record<string, string> = {
       'text/html': clipboard.html,
       'text/plain': clipboard.text,
     };
-    target.commands.focus('end');
+    target.commands.focus(position);
     target.view.pasteHTML(clipboard.html, {
       clipboardData: {
         getData: (type: string) => data[type] ?? '',
@@ -1114,6 +1119,30 @@ describe('Container Node', () => {
       source = target;
     }
     source.destroy();
+  });
+
+  it('pastes paragraphs copied in the body into the paragraph under the cursor', () => {
+    // The everyday copy: a text selection across two paragraphs. Its
+    // clipboard is wrapped in the container div, and it has to keep pasting
+    // the way ProseMirror pastes its own slice.
+    const source = createPastingEditor(
+      email('minimal', ['Weekly update', 'Item']),
+    );
+    source.commands.setTextSelection({ from: 4, to: 21 });
+    const target = createPastingEditor(email('basic', ['Intro', 'Outro']));
+
+    pasteInto(target, clipboardOf(source, source.state.selection), 5);
+
+    expect(target.getJSON().content?.[1]).toMatchObject({
+      type: 'container',
+      content: [
+        paragraphOf('Ineekly update'),
+        paragraphOf('Itetro'),
+        paragraphOf('Outro'),
+      ],
+    });
+    source.destroy();
+    target.destroy();
   });
 
   it('parses the container table below the Body wrapper table of a sent email', () => {

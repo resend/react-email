@@ -2,7 +2,7 @@ import type { Extensions } from '@tiptap/core';
 import { generateJSON } from '@tiptap/html';
 import type { Slice } from '@tiptap/pm/model';
 import type { EditorView } from '@tiptap/pm/view';
-import { sanitizePastedHtml } from '../utils/paste-sanitizer';
+import { isFromEditor, sanitizePastedHtml } from '../utils/paste-sanitizer';
 
 export type PasteHandler = (
   payload: string | File,
@@ -39,17 +39,21 @@ export function createPasteHandler({
     }
 
     if (event.clipboardData?.getData?.('text/html')) {
-      event.preventDefault();
       const html = event.clipboardData.getData('text/html');
 
+      // The editor's own copy has nothing to strip, and ProseMirror already
+      // parsed it where the paste lands, where the body container and the
+      // theme are not recreated. Parsing it again below, at the document
+      // level, nested one more container per paste. An editor without a
+      // container keeps the paste below.
+      if (isFromEditor(html) && view.state.schema.nodes.container) {
+        return false;
+      }
+
+      event.preventDefault();
       const sanitizedHtml = sanitizePastedHtml(html);
 
-      // Parse where the paste lands, not at the document level, so parse
-      // rules restricted to the doc (the body container, the theme) do not
-      // match inside the body.
-      const jsonContent = generateJSON(sanitizedHtml, extensions, {
-        context: view.state.selection.$from,
-      });
+      const jsonContent = generateJSON(sanitizedHtml, extensions);
       const node = view.state.schema.nodeFromJSON(jsonContent);
 
       const transaction = view.state.tr.replaceSelectionWith(node, false);

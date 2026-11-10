@@ -31,7 +31,7 @@ const PRESERVED_ATTRIBUTES: Record<string, string[]> = {
   '*': ['id'],
 };
 
-function isFromEditor(html: string): boolean {
+export function isFromEditor(html: string): boolean {
   return EDITOR_CLASS_PATTERN.test(html);
 }
 
