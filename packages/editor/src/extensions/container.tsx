@@ -80,15 +80,16 @@ export const Container = EmailNode.create<ContainerOptions>({
   },
 
   parseHTML() {
-    // The body container exists once, directly under the doc. Anywhere else
-    // these elements are content being pasted into the body (a whole-document
-    // copy, a sent email's wrapper table) and must not become containers.
+    // The body container exists once, directly under the doc. A container div
+    // anywhere else is content being pasted into the body (a whole-document
+    // copy) and must not become a container. The table rule stays unrestricted:
+    // imported emails wrap the container table in other tables (react-email's
+    // Body), so it has to match below them.
     return [
       { tag: 'div[data-type="container"]', context: 'doc/' },
       {
         tag: 'table[role="presentation"]',
         priority: 60,
-        context: 'doc/',
         getAttrs: (node) => {
           if (typeof node === 'string') {
             return false;

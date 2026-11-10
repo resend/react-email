@@ -1,5 +1,6 @@
 import type { JSONContent } from '@tiptap/core';
 import { Editor, Extension } from '@tiptap/core';
+import { generateJSON } from '@tiptap/html';
 import { AllSelection } from '@tiptap/pm/state';
 import { Container as ReactEmailContainer, render } from 'react-email';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
@@ -1115,20 +1116,26 @@ describe('Container Node', () => {
     source.destroy();
   });
 
-  it('pastes a max-width table into the body as a table, not a container', () => {
-    const instance = createPastingEditor(email('basic', ['Body']));
-    pasteInto(instance, {
-      html: '<table role="presentation" style="max-width:600px"><tbody><tr><td><p>Pasted</p></td></tr></tbody></table>',
-      text: 'Pasted',
-    });
+  it('parses the container table below the Body wrapper table of a sent email', () => {
+    // react-email's Body renders a full-width presentation table around the
+    // Container, so an imported email's container table is never directly
+    // under the doc. The table rule has to match it there.
+    const json = generateJSON(
+      '<table role="presentation" width="100%"><tbody><tr><td><table role="presentation" style="max-width:600px"><tbody><tr><td><p>Imported</p></td></tr></tbody></table></td></tr></tbody></table>',
+      [StarterKit],
+    );
 
-    const bodyTypes = instance
-      .getJSON()
-      .content?.[1]?.content?.map((node) => node.type);
-    expect(bodyTypes).toContain('table');
-    expect(bodyTypes).not.toContain('container');
-    expect(instance.state.doc.textContent).toContain('Pasted');
-    instance.destroy();
+    const containers: JSONContent[] = [];
+    const collect = (node: JSONContent) => {
+      if (node.type === 'container') {
+        containers.push(node);
+      }
+      node.content?.forEach(collect);
+    };
+    collect(json);
+
+    expect(containers).toHaveLength(1);
+    expect(containers[0]).toMatchObject({ content: [paragraphOf('Imported')] });
   });
 
   it('does not parse a table without max-width as a container', () => {
