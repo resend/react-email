@@ -636,7 +636,7 @@ importers:
         specifier: 'catalog:'
         version: 7.29.0
       '@react-email/render':
-        specifier: workspace:>=2.3.0
+        specifier: workspace:>=2.3.1
         version: link:../render
       chokidar:
         specifier: ^5.0.0

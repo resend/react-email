@@ -1,5 +1,14 @@
 # react-email
 
+## 6.11.11
+
+### Patch Changes
+
+- 9f75920: Remove the `debounce` dependency.
+- Updated dependencies [a126e56]
+- Updated dependencies [f147c14]
+  - @react-email/render@2.3.1
+
 ## 6.11.10
 
 ### Patch Changes
