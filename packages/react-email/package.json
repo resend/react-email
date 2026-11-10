@@ -56,7 +56,6 @@
     "conf": "^15.0.2",
     "css-tree": "3.2.1",
     "esbuild": "^0.28.0",
-    "glob": "^14.0.3",
     "jiti": "2.6.1",
     "log-symbols": "catalog:",
     "marked": "^15.0.12",

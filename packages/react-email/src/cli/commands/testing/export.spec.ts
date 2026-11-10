@@ -238,6 +238,25 @@ test('email export with custom extension', { retry: 3 }, async () => {
   );
 });
 
+test('email export to a relative outDir', { retry: 3 }, async () => {
+  const pathToEmailsDirectory = path.resolve(__dirname, './emails');
+  const pathToDumpMarkup = path.resolve(__dirname, './out-relative');
+  // Like the default `out`, without a leading `./`
+  const relativeOutDir = path.relative(process.cwd(), pathToDumpMarkup);
+
+  try {
+    await exportTemplates(relativeOutDir, pathToEmailsDirectory, {
+      silent: true,
+    });
+
+    expect(
+      fs.existsSync(path.join(pathToDumpMarkup, 'vercel-invite-user.html')),
+    ).toBe(true);
+  } finally {
+    fs.rmSync(pathToDumpMarkup, { recursive: true, force: true });
+  }
+});
+
 test('email export to an outDir with glob syntax', { retry: 3 }, async () => {
   const pathToEmailsDirectory = path.resolve(__dirname, './emails');
   const parentDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'export-'));
