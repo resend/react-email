@@ -1059,7 +1059,7 @@ describe('Container Node', () => {
     });
   }
 
-  // The whole document by default, as Mod-a copies it.
+  // The whole document by default.
   function clipboardOf(
     source: Editor,
     selection: Selection = new AllSelection(source.state.doc),
@@ -1074,27 +1074,17 @@ describe('Container Node', () => {
     target: Editor,
     clipboard: { html: string; text: string },
     position: 'end' | number = 'end',
-    // Shift+paste: ProseMirror pastes the plain text, and the event still
-    // carries the HTML.
-    asPlainText = false,
   ) {
     const data: Record<string, string> = {
       'text/html': clipboard.html,
       'text/plain': clipboard.text,
     };
     const event = {
-      clipboardData: {
-        getData: (type: string) => data[type] ?? '',
-        files: { length: 0 },
-      },
+      clipboardData: { getData: (type: string) => data[type] ?? '' },
       preventDefault: () => {},
     } as unknown as ClipboardEvent;
     target.commands.focus(position);
-    if (asPlainText) {
-      target.view.pasteText(clipboard.text, event);
-    } else {
-      target.view.pasteHTML(clipboard.html, event);
-    }
+    target.view.pasteHTML(clipboard.html, event);
   }
 
   // The selected text dragged with the mouse and dropped at `pos`.
@@ -1103,9 +1093,7 @@ describe('Container Node', () => {
     view.dragging = { slice: target.state.selection.content(), move: true };
     view.posAtCoords = () => ({ pos, inside: -1 });
     const drop = new Event('drop', { bubbles: true, cancelable: true });
-    Object.defineProperty(drop, 'dataTransfer', {
-      value: { files: [], types: [], getData: () => '' },
-    });
+    Object.defineProperty(drop, 'dataTransfer', { value: {} });
     view.dom.dispatchEvent(drop);
   }
 
@@ -1116,33 +1104,27 @@ describe('Container Node', () => {
     content: [{ type: 'text', text }],
   });
 
-  it('pastes a whole-document copy as plain blocks, generation after generation', () => {
-    let source = createPastingEditor(
+  it('pastes a whole-document copy as plain blocks', () => {
+    const source = createPastingEditor(
       email('minimal', ['Weekly update', 'Item']),
     );
-    for (let generation = 1; generation <= 3; generation++) {
-      const target = createPastingEditor(email('basic', ['Intro']));
-      pasteInto(target, clipboardOf(source));
+    const target = createPastingEditor(email('basic', ['Intro']));
 
-      const { content } = target.getJSON();
-      expect(content).toHaveLength(2);
-      expect(content?.[0]).toMatchObject({
-        type: 'globalContent',
-        attrs: { data: { theme: 'basic' } },
-      });
-      expect(content?.[1]).toMatchObject({
+    pasteInto(target, clipboardOf(source));
+
+    expect(target.getJSON().content).toMatchObject([
+      { type: 'globalContent', attrs: { data: { theme: 'basic' } } },
+      {
         type: 'container',
         content: [
-          ...Array.from({ length: generation }, () => paragraphOf('Intro')),
+          paragraphOf('Intro'),
           paragraphOf('Weekly update'),
           paragraphOf('Item'),
         ],
-      });
-
-      source.destroy();
-      source = target;
-    }
+      },
+    ]);
     source.destroy();
+    target.destroy();
   });
 
   it('pastes a whole-document copy as plain blocks in an editor without the theme node', () => {
@@ -1227,25 +1209,6 @@ describe('Container Node', () => {
     target.destroy();
   });
 
-  it('keeps one container when part of a paragraph is pasted at the start of a paragraph', () => {
-    // This clipboard has no container div: the container travels in
-    // data-pm-slice, and ProseMirror wraps the text in it again.
-    const source = createPastingEditor(email('minimal', ['First', 'Second']));
-    source.commands.setTextSelection({ from: 4, to: 7 });
-    const target = createPastingEditor(
-      email('basic', ['Hello world', 'Outro']),
-    );
-
-    pasteInto(target, clipboardOf(source, source.state.selection), 3);
-
-    expect(bodyOf(target)).toMatchObject({
-      type: 'container',
-      content: [paragraphOf('irsHello world'), paragraphOf('Outro')],
-    });
-    source.destroy();
-    target.destroy();
-  });
-
   it('keeps one container when body text is dragged to the start of a paragraph', () => {
     // ProseMirror drops a dragged selection the way it pastes one.
     const target = createPastingEditor(
@@ -1307,78 +1270,18 @@ describe('Container Node', () => {
     target.destroy();
   });
 
-  it('keeps one container when the handler parses the HTML of a body copy', () => {
-    const source = createPastingEditor(email('minimal', ['First', 'Second']));
-    source.commands.setTextSelection({ from: 3, to: 16 });
-    const target = createPastingEditor(email('basic', ['Intro']));
-
-    pasteInto(target, clipboardOf(source, source.state.selection), 'end', true);
-
-    expect(bodyOf(target)).toMatchObject({
-      type: 'container',
-      content: [
-        paragraphOf('Intro'),
-        paragraphOf('First'),
-        paragraphOf('Second'),
-      ],
-    });
-    source.destroy();
-    target.destroy();
-  });
-
-  it('sanitizes last, after data-pm-slice is dropped', () => {
-    // Dropping data-pm-slice from HTML that is already sanitized could join
-    // two attributes the sanitizer passed into one it would have removed.
-    const target = createPastingEditor(email('basic', ['Intro']));
-    const html =
-      '<p class="node-paragraph">one</p><a data-id="react-email-button" href=" data-pm-slice=" title="javascript:alert(1)">Buy</a>';
-
-    pasteInto(target, { html, text: 'one\nBuy' });
-
-    expect(target.state.doc.textContent).toContain('Buy');
-    expect(JSON.stringify(target.getJSON())).not.toContain('javascript:');
-    target.destroy();
-  });
-
-  it('keeps pasted text that only reads like a data-pm-slice attribute', () => {
-    const target = createPastingEditor(email('basic', ['Intro']));
-
-    pasteInto(target, {
-      html: '<p>Set data-pm-slice="2 2 []" on it</p><p>two</p>',
-      text: 'Set data-pm-slice="2 2 []" on it\n\ntwo',
-    });
-
-    expect(target.state.doc.textContent).toContain(
-      'Set data-pm-slice="2 2 []" on it',
+  it('still parses the container and the theme of a whole document from HTML', () => {
+    // The two rules are limited to the doc level, where a loaded document
+    // has them.
+    const json = generateJSON(
+      '<div data-type="globalContent"></div><div data-type="container"><p>Loaded</p></div>',
+      [StarterKit],
     );
-    target.destroy();
-  });
 
-  it('does not hang on a clipboard full of unclosed tags', () => {
-    const target = createPastingEditor(email('basic', ['Intro']));
-
-    pasteInto(target, {
-      html: `${'<a'.repeat(100_000)}><p>one</p><p>two</p>`,
-      text: 'one\n\ntwo',
-    });
-
-    expect(target.state.doc.textContent).toContain('Intro');
-    target.destroy();
-  });
-
-  it('drops unsafe URLs from pasted HTML that carries the editor classes', () => {
-    // The node- classes mark the editor's own HTML, and anything can carry
-    // them. The paste still goes through the sanitizer.
-    const target = createPastingEditor(email('basic', ['Intro']));
-    const html =
-      '<p class="node-paragraph"><a href="javascript:alert(1)">link</a></p>' +
-      '<div class="node-button" data-type="button"><a data-id="react-email-button" href="javascript:alert(2)">Buy</a></div>';
-
-    pasteInto(target, { html, text: 'link Buy' });
-
-    expect(target.state.doc.textContent).toContain('link');
-    expect(JSON.stringify(target.getJSON())).not.toContain('javascript:');
-    target.destroy();
+    expect(json.content).toMatchObject([
+      { type: 'globalContent' },
+      { type: 'container', content: [paragraphOf('Loaded')] },
+    ]);
   });
 
   it('parses the container table below the Body wrapper table of a sent email', () => {

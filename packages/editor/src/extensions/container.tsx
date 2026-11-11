@@ -82,13 +82,12 @@ export const Container = EmailNode.create<ContainerOptions>({
 
   parseHTML() {
     return [
-      // The body container exists once, directly under the doc. A container
-      // div anywhere else is a whole-document copy being pasted into the body
-      // and must not become a second container.
+      // Only directly under the doc: a container div inside pasted content is
+      // unwrapped (a whole-document copy pasted into the body).
       { tag: 'div[data-type="container"]', context: 'doc/' },
       // A selection copied inside the body is wrapped in its container, left
-      // open (data-pm-slice depths above 0). ProseMirror merges an open
-      // wrapper into the container the paste lands in.
+      // open at the start (data-pm-slice does not begin with 0). ProseMirror
+      // merges an open wrapper into the container the paste lands in.
       {
         tag: 'div[data-type="container"][data-pm-slice]:not([data-pm-slice^="0 "])',
       },

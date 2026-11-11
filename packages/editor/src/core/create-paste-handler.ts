@@ -40,12 +40,7 @@ export function createPasteHandler({
 
     if (event.clipboardData?.getData?.('text/html')) {
       event.preventDefault();
-      // data-pm-slice marks the open container wrapper of a copy made inside
-      // the body, which only ProseMirror's own paste can merge. It is dropped
-      // before the sanitizer runs, so the sanitizer sees what gets parsed.
-      const html = event.clipboardData
-        .getData('text/html')
-        .replace(/(<[a-z][^<>]*) data-pm-slice="[^"]*"/i, '$1');
+      const html = event.clipboardData.getData('text/html');
 
       const sanitizedHtml = sanitizePastedHtml(html);
 
