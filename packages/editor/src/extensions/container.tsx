@@ -68,7 +68,8 @@ export const Container = EmailNode.create<ContainerOptions>({
 
   content: 'block+',
 
-  defining: true,
+  // Not `defining`: ProseMirror keeps a defining node around its content when
+  // the content is pasted, which put a second container inside the body.
   isolating: true,
   selectable: false,
   draggable: false,
@@ -80,13 +81,19 @@ export const Container = EmailNode.create<ContainerOptions>({
   },
 
   parseHTML() {
-    // The body container exists once, directly under the doc. A container div
-    // anywhere else is content being pasted into the body (a whole-document
-    // copy) and must not become a container. The table rule stays unrestricted:
-    // imported emails wrap the container table in other tables (react-email's
-    // Body), so it has to match below them.
     return [
+      // The body container exists once, directly under the doc. A container
+      // div anywhere else is a whole-document copy being pasted into the body
+      // and must not become a second container.
       { tag: 'div[data-type="container"]', context: 'doc/' },
+      // A selection copied inside the body is wrapped in its container, left
+      // open (data-pm-slice depths above 0). ProseMirror merges an open
+      // wrapper into the container the paste lands in.
+      {
+        tag: 'div[data-type="container"][data-pm-slice]:not([data-pm-slice^="0 "])',
+      },
+      // Unrestricted: imported emails wrap the container table in other
+      // tables (react-email's Body), so it has to match below them.
       {
         tag: 'table[role="presentation"]',
         priority: 60,

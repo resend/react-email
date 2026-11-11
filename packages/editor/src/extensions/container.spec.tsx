@@ -1072,20 +1072,30 @@ describe('Container Node', () => {
     target: Editor,
     clipboard: { html: string; text: string },
     position: 'end' | number = 'end',
+    // Shift+paste: ProseMirror pastes the plain text, and the event still
+    // carries the HTML.
+    asPlainText = false,
   ) {
     const data: Record<string, string> = {
       'text/html': clipboard.html,
       'text/plain': clipboard.text,
     };
-    target.commands.focus(position);
-    target.view.pasteHTML(clipboard.html, {
+    const event = {
       clipboardData: {
         getData: (type: string) => data[type] ?? '',
         files: { length: 0 },
       },
       preventDefault: () => {},
-    } as unknown as ClipboardEvent);
+    } as unknown as ClipboardEvent;
+    target.commands.focus(position);
+    if (asPlainText) {
+      target.view.pasteText(clipboard.text, event);
+    } else {
+      target.view.pasteHTML(clipboard.html, event);
+    }
   }
+
+  const bodyOf = (editor: Editor) => editor.getJSON().content?.[1];
 
   const paragraphOf = (text: string) => ({
     type: 'paragraph',
@@ -1145,6 +1155,108 @@ describe('Container Node', () => {
     });
     target.commands.insertContent('|');
     expect(target.state.doc.textContent).toContain('Second|world');
+    source.destroy();
+    target.destroy();
+  });
+
+  it('keeps one container when body paragraphs are pasted at the start of a paragraph', () => {
+    // ProseMirror keeps a `defining` node around its content when the content
+    // is pasted, and at the start of a line it had room for a whole container.
+    const source = createPastingEditor(email('minimal', ['First', 'Second']));
+    source.commands.setTextSelection({ from: 3, to: 16 });
+    const target = createPastingEditor(
+      email('basic', ['Hello world', 'Outro']),
+    );
+
+    pasteInto(target, clipboardOf(source, source.state.selection), 3);
+
+    expect(bodyOf(target)).toMatchObject({
+      type: 'container',
+      content: [
+        paragraphOf('First'),
+        paragraphOf('SecondHello world'),
+        paragraphOf('Outro'),
+      ],
+    });
+    source.destroy();
+    target.destroy();
+  });
+
+  it('keeps one container when part of a paragraph is pasted at the start of a paragraph', () => {
+    // This clipboard has no container div: the container travels in
+    // data-pm-slice, and ProseMirror wraps the text in it again.
+    const source = createPastingEditor(email('minimal', ['First', 'Second']));
+    source.commands.setTextSelection({ from: 4, to: 7 });
+    const target = createPastingEditor(
+      email('basic', ['Hello world', 'Outro']),
+    );
+
+    pasteInto(target, clipboardOf(source, source.state.selection), 3);
+
+    expect(bodyOf(target)).toMatchObject({
+      type: 'container',
+      content: [paragraphOf('irsHello world'), paragraphOf('Outro')],
+    });
+    source.destroy();
+    target.destroy();
+  });
+
+  it('keeps the text after the cursor out of a button that ends the copy', () => {
+    // The copy ends inside the button label. Its container wrapper says how
+    // deep the copy is open, so the wrapper has to parse as a container for
+    // the button to come out closed.
+    const source = createPastingEditor({
+      type: 'doc',
+      content: [
+        { type: 'globalContent', attrs: { data: { theme: 'minimal' } } },
+        {
+          type: 'container',
+          content: [
+            paragraphOf('Intro'),
+            { type: 'button', content: [{ type: 'text', text: 'Click' }] },
+            paragraphOf('After'),
+          ],
+        },
+      ],
+    });
+    source.commands.setTextSelection({ from: 3, to: 15 });
+    const target = createPastingEditor(
+      email('basic', ['Hello world', 'Outro']),
+    );
+
+    pasteInto(target, clipboardOf(source, source.state.selection), 9);
+
+    const texts: string[] = [];
+    target.state.doc.descendants((node) => {
+      if (node.isTextblock) {
+        texts.push(`${node.type.name}:${node.textContent}`);
+      }
+    });
+    expect(texts).toEqual([
+      'paragraph:Hello Intro',
+      'button:Click',
+      'paragraph:world',
+      'paragraph:Outro',
+    ]);
+    source.destroy();
+    target.destroy();
+  });
+
+  it('keeps one container when the handler parses the HTML of a body copy', () => {
+    const source = createPastingEditor(email('minimal', ['First', 'Second']));
+    source.commands.setTextSelection({ from: 3, to: 16 });
+    const target = createPastingEditor(email('basic', ['Intro']));
+
+    pasteInto(target, clipboardOf(source, source.state.selection), 'end', true);
+
+    expect(bodyOf(target)).toMatchObject({
+      type: 'container',
+      content: [
+        paragraphOf('Intro'),
+        paragraphOf('First'),
+        paragraphOf('Second'),
+      ],
+    });
     source.destroy();
     target.destroy();
   });
