@@ -1290,6 +1290,18 @@ describe('Container Node', () => {
     target.destroy();
   });
 
+  it('does not hang on a clipboard full of unclosed tags', () => {
+    const target = createPastingEditor(email('basic', ['Intro']));
+
+    pasteInto(target, {
+      html: `${'<a'.repeat(100_000)}><p>one</p><p>two</p>`,
+      text: 'one\n\ntwo',
+    });
+
+    expect(target.state.doc.textContent).toContain('Intro');
+    target.destroy();
+  });
+
   it('drops unsafe URLs from pasted HTML that carries the editor classes', () => {
     // The node- classes mark the editor's own HTML, and anything can carry
     // them. The paste still goes through the sanitizer.
