@@ -1276,6 +1276,20 @@ describe('Container Node', () => {
     target.destroy();
   });
 
+  it('keeps pasted text that only reads like a data-pm-slice attribute', () => {
+    const target = createPastingEditor(email('basic', ['Intro']));
+
+    pasteInto(target, {
+      html: '<p>Set data-pm-slice="2 2 []" on it</p><p>two</p>',
+      text: 'Set data-pm-slice="2 2 []" on it\n\ntwo',
+    });
+
+    expect(target.state.doc.textContent).toContain(
+      'Set data-pm-slice="2 2 []" on it',
+    );
+    target.destroy();
+  });
+
   it('drops unsafe URLs from pasted HTML that carries the editor classes', () => {
     // The node- classes mark the editor's own HTML, and anything can carry
     // them. The paste still goes through the sanitizer.

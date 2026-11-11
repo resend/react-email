@@ -45,7 +45,7 @@ export function createPasteHandler({
       // before the sanitizer runs, so the sanitizer sees what gets parsed.
       const html = event.clipboardData
         .getData('text/html')
-        .replace(/ data-pm-slice="[^"]*"/, '');
+        .replace(/(<[a-z][^>]*) data-pm-slice="[^"]*"/i, '$1');
 
       const sanitizedHtml = sanitizePastedHtml(html);
 
