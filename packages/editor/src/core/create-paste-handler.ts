@@ -40,20 +40,21 @@ export function createPasteHandler({
 
     if (event.clipboardData?.getData?.('text/html')) {
       event.preventDefault();
-      const html = event.clipboardData.getData('text/html');
+      // data-pm-slice marks the open container wrapper of a copy made inside
+      // the body, which only ProseMirror's own paste can merge. It is dropped
+      // before the sanitizer runs, so the sanitizer sees what gets parsed.
+      const html = event.clipboardData
+        .getData('text/html')
+        .replace(/ data-pm-slice="[^"]*"/, '');
 
       const sanitizedHtml = sanitizePastedHtml(html);
 
       // Parsed where the paste lands, not at the document level, so the
       // container and the theme of a whole-document copy are not recreated
-      // inside the body. data-pm-slice is dropped first: it marks the open
-      // container wrapper of a copy made inside the body, which only
-      // ProseMirror's own paste can merge.
-      const jsonContent = generateJSON(
-        sanitizedHtml.replace(/ data-pm-slice="[^"]*"/, ''),
-        extensions,
-        { context: view.state.selection.$from },
-      );
+      // inside the body.
+      const jsonContent = generateJSON(sanitizedHtml, extensions, {
+        context: view.state.selection.$from,
+      });
       const node = view.state.schema.nodeFromJSON(jsonContent);
 
       const transaction = view.state.tr.replaceSelectionWith(node, false);

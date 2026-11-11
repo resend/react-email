@@ -1261,6 +1261,21 @@ describe('Container Node', () => {
     target.destroy();
   });
 
+  it('sanitizes last, after data-pm-slice is dropped', () => {
+    // Dropping data-pm-slice from HTML that is already sanitized could turn
+    // text the sanitizer left alone (the content of a <style>) into elements.
+    const target = createPastingEditor(email('basic', ['Intro']));
+    const html =
+      '<p class="node-paragraph">one data-pm-slice=&quot;</p><style>"<a data-id="react-email-button" href="javascript:alert(1)">Buy</a></style><p>two</p>';
+
+    // As plain text, because happy-dom cannot give ProseMirror a <style>.
+    pasteInto(target, { html, text: 'one\ntwo' }, 'end', true);
+
+    expect(target.state.doc.textContent).toContain('two');
+    expect(JSON.stringify(target.getJSON())).not.toContain('javascript:');
+    target.destroy();
+  });
+
   it('drops unsafe URLs from pasted HTML that carries the editor classes', () => {
     // The node- classes mark the editor's own HTML, and anything can carry
     // them. The paste still goes through the sanitizer.
