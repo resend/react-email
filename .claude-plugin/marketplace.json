@@ -1,6 +1,6 @@
 {
   "name": "react-email",
-  "description": "The React Email agent skill for Claude Code",
+  "description": "The React Email agent skill",
   "owner": {
     "name": "Resend",
     "url": "https://react.email"
