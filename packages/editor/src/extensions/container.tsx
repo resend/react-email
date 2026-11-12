@@ -1,10 +1,56 @@
 import { mergeAttributes } from '@tiptap/core';
-import type { Node as PmNode } from '@tiptap/pm/model';
-import { type EditorState, Plugin, PluginKey } from '@tiptap/pm/state';
+import { type Node as PmNode, Slice } from '@tiptap/pm/model';
+import {
+  type EditorState,
+  Plugin,
+  PluginKey,
+  Selection,
+  TextSelection,
+} from '@tiptap/pm/state';
+import type { Mappable } from '@tiptap/pm/transform';
 import { Container as ReactEmailContainer } from 'react-email';
 import { EmailNode } from '../core/serializer/email-node';
 import { hasCollaborationExtension } from '../utils/is-collaboration';
 import { inlineCssToJs } from '../utils/styles';
+
+/** A container's whole content, re-selected after every change. */
+export class ContainerSelection extends Selection {
+  static create(doc: PmNode, containerPos: number): ContainerSelection {
+    const $start = doc.resolve(containerPos + 1);
+    return new ContainerSelection($start, doc.resolve($start.end()));
+  }
+
+  map(doc: PmNode, mapping: Mappable): Selection {
+    const container = mapping.mapResult(this.$from.before());
+    if (
+      !container.deleted &&
+      doc.nodeAt(container.pos)?.type === this.$from.parent.type
+    ) {
+      return ContainerSelection.create(doc, container.pos);
+    }
+    return TextSelection.between(
+      doc.resolve(mapping.map(this.anchor)),
+      doc.resolve(mapping.map(this.head)),
+    );
+  }
+
+  // Closed blocks, so the clipboard carries no container wrapper.
+  content(): Slice {
+    return new Slice(this.$from.parent.content, 0, 0);
+  }
+
+  eq(other: Selection): boolean {
+    return (
+      other instanceof ContainerSelection &&
+      other.from === this.from &&
+      other.to === this.to
+    );
+  }
+
+  toJSON(): { type: string; anchor: number; head: number } {
+    return TextSelection.between(this.$anchor, this.$head).toJSON();
+  }
+}
 
 function hasContainerNode(doc: PmNode): boolean {
   for (let i = 0; i < doc.childCount; i++) {
@@ -122,6 +168,40 @@ export const Container = EmailNode.create<ContainerOptions>({
       ),
       0,
     ];
+  },
+
+  addKeyboardShortcuts() {
+    return {
+      // The body, not the document. A code block selects itself first.
+      'Mod-a': ({ editor }) => {
+        const { state } = editor;
+        const { $from, from, to } = state.selection;
+        for (let depth = $from.depth; depth > 0; depth--) {
+          const start = $from.start(depth);
+          const end = $from.end(depth);
+          const selected = from === start && to === end;
+          if ($from.node(depth).type !== this.type) {
+            if ($from.node(depth).type.spec.code && !selected) {
+              return false;
+            }
+            continue;
+          }
+          if (!selected) {
+            editor.view.dispatch(
+              state.tr.setSelection(
+                ContainerSelection.create(state.doc, $from.before(depth)),
+              ),
+            );
+          }
+          return true;
+        }
+        return false;
+      },
+      // Clear the selected body; the default appends a paragraph after it.
+      Enter: ({ editor }) =>
+        editor.state.selection instanceof ContainerSelection &&
+        editor.commands.deleteSelection(),
+    };
   },
 
   addProseMirrorPlugins() {

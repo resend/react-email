@@ -1,5 +1,18 @@
 # @react-email/render
 
+## 2.3.1
+
+### Patch Changes
+
+- a126e56: Match HTML attribute names case-insensitively in unstable plain-text conversion, preserving link URLs, ordered-list offsets, and skip annotations.
+- f147c14: Skip HTML comments and dedupe matching link URLs in unstable plain-text conversion.
+
+## 2.3.0
+
+### Minor Changes
+
+- fe6b066: Put each table cell on its own line in plain text output, so `Row`/`Column` content no longer runs together
+
 ## 2.2.0
 
 ### Minor Changes

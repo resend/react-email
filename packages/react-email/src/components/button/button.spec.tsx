@@ -61,4 +61,14 @@ describe('<Button> component', () => {
       `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><a style="line-height:150%;text-decoration:underline red;display:block;max-width:50%;mso-padding-alt:0px" target="_blank"><span><!--[if mso]><i style="mso-font-width:0%;mso-text-raise:0px" hidden></i><![endif]--></span><span style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px"></span><span><!--[if mso]><i style="mso-font-width:0%" hidden>&#8203;</i><![endif]--></span></a><!--/$-->"`,
     );
   });
+
+  it('converts pt padding values instead of zeroing them', async () => {
+    const html = await render(
+      <Button href="https://example.com" style={{ padding: '9pt 15pt' }} />,
+    );
+    expect(html).toContain(
+      'padding:9pt 15pt;padding-top:12px;padding-right:20px;padding-bottom:12px;padding-left:20px',
+    );
+    expect(html).toContain('mso-font-width:500%;mso-text-raise:18px');
+  });
 });

@@ -24,16 +24,19 @@ describe('toPlainTextUnstable', () => {
     expect(result).toBe(toPlainText(html));
   });
 
-  it('skips elements with data-skip-in-text="true"', () => {
-    const html =
-      '<p>Visible</p><span data-skip-in-text="true">Hidden</span><p>Also visible</p>';
+  it.each([
+    'data-skip-in-text',
+    'DATA-SKIP-IN-TEXT',
+    'DaTa-SkIp-In-TeXt',
+  ])('skips elements with %s="true"', (attribute) => {
+    const html = `<p>Visible</p><span ${attribute}="true">Hidden</span><p>Also visible</p>`;
     const result = unstableToPlainText(html);
 
     expect(result).toBe(toPlainText(html));
   });
 
-  it('formats links without brackets', () => {
-    const html = '<a href="https://example.com">Click here</a>';
+  it.each(['href', 'HREF', 'HrEf'])('formats links with %s', (attribute) => {
+    const html = `<a ${attribute}="https://example.com/Pay?Key=Value&amp;Other=Two">Click here</a>`;
     const result = unstableToPlainText(html);
 
     expect(result).toBe(toPlainText(html));
@@ -43,6 +46,26 @@ describe('toPlainTextUnstable', () => {
     const html = '<a href="https://example.com">https://example.com</a>';
     const result = unstableToPlainText(html);
 
+    expect(result).toBe(toPlainText(html));
+  });
+
+  it('hides a link href matching its text even after preceding text', () => {
+    // the pending space before the link must not defeat the text === href match
+    const html =
+      '<!--$--><p style="font-size:14px;line-height:24px;margin-top:16px;margin-bottom:16px">Hi <a href="mailto:x@y.z">x@y.z</a></p><!--/$-->';
+    const result = unstableToPlainText(html);
+
+    expect(result).toBe('Hi x@y.z');
+    expect(result).toBe(toPlainText(html));
+  });
+
+  it('skips HTML comments, including React Suspense markers and MSO conditionals', () => {
+    // Suspense markers and MSO conditionals are not content
+    const html =
+      '<!--$--><a href="https://a.b" style="line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px" target="_blank"><span><!--[if mso]><i style="mso-font-width:0%;mso-text-raise:0px" hidden></i><![endif]--></span><span style="max-width:100%;display:inline-block;line-height:120%;mso-padding-alt:0px">Go</span><span><!--[if mso]><i style="mso-font-width:0%" hidden>&#8203;</i><![endif]--></span></a><!--/$-->';
+    const result = unstableToPlainText(html);
+
+    expect(result).toBe('Go https://a.b');
     expect(result).toBe(toPlainText(html));
   });
 
@@ -77,11 +100,33 @@ describe('toPlainTextUnstable', () => {
     expect(result).toBe(toPlainText(html));
   });
 
-  it('numbers ordered lists, honoring a start offset', () => {
-    const html = '<ol start="5"><li>One</li><li>Two</li></ol>';
+  it.each([
+    'start',
+    'START',
+    'StArT',
+  ])('numbers ordered lists, honoring a %s offset', (attribute) => {
+    const html = `<ol ${attribute}="&#53;"><li>One</li><li>Two</li></ol>`;
     const result = unstableToPlainText(html);
 
     expect(result).toBe(toPlainText(html));
+  });
+
+  it('does not lowercase attribute values', () => {
+    const html = '<span DATA-SKIP-IN-TEXT="TRUE">Visible</span>';
+
+    expect(unstableToPlainText(html)).toBe(toPlainText(html));
+    expect(unstableToPlainText(html)).toBe('Visible');
+  });
+
+  // Duplicate attributes are invalid HTML; retain the existing last-wins convention.
+  it.each([
+    ['href', 'href'],
+    ['href', 'HREF'],
+    ['HREF', 'href'],
+  ])('uses the last duplicate %s/%s attribute', (first, last) => {
+    const html = `<a ${first}="https://first.example" ${last}="https://last.example">Link</a>`;
+
+    expect(unstableToPlainText(html)).toBe('Link https://last.example');
   });
 
   it('defaults empty or malformed ordered list starts to 1', () => {
@@ -92,13 +137,28 @@ describe('toPlainTextUnstable', () => {
     }
   });
 
-  it('has no separation between table cells, matching the current default', () => {
-    // Not "fixed" here on purpose: react-email's own Row/Column/Section
-    // render as tables, and this is what toPlainText already does today.
+  it('puts each table cell on its own line', () => {
     const html =
       '<table><tr><td>A</td><td>B</td></tr><tr><td>C</td><td>D</td></tr></table>';
     const result = unstableToPlainText(html);
 
+    expect(result).toBe('A\nB\nC\nD');
+    expect(result).toBe(toPlainText(html));
+  });
+
+  it('ignores an empty table cell before the content', () => {
+    const html = '<table><tr><td></td><td>Left</td><td>Right</td></tr></table>';
+    const result = unstableToPlainText(html);
+
+    expect(result).toBe('Left\nRight');
+    expect(result).toBe(toPlainText(html));
+  });
+
+  it('turns an empty table cell between content into a blank line', () => {
+    const html = '<table><tr><td>Left</td><td></td><td>Right</td></tr></table>';
+    const result = unstableToPlainText(html);
+
+    expect(result).toBe('Left\n\nRight');
     expect(result).toBe(toPlainText(html));
   });
 
@@ -202,11 +262,12 @@ describe('toPlainTextUnstable', () => {
     expect(result).toBe(toPlainText(html));
   });
 
-  it('runs th and caption together with cells, like td', () => {
+  it('separates th like td', () => {
     const html =
       '<table><caption>Cap</caption><tr><th>H</th><td>D</td></tr></table>';
     const result = unstableToPlainText(html);
 
+    expect(result).toBe('Cap\nH\nD');
     expect(result).toBe(toPlainText(html));
   });
 

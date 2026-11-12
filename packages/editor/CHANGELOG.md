@@ -1,5 +1,39 @@
 # @react-email/editor
 
+## 1.8.4
+
+### Patch Changes
+
+- Updated dependencies [9f75920]
+  - react-email@6.11.11
+
+## 1.8.3
+
+### Patch Changes
+
+- Updated dependencies [64fa975]
+- Updated dependencies [f20a697]
+  - react-email@6.11.10
+
+## 1.8.2
+
+### Patch Changes
+
+- 927ce0d: The bubble menu, slash command menu, inspector and placeholder styles now use logical CSS properties, so they mirror correctly when the editor sits in a right-to-left (`dir="rtl"`) page. Left-to-right layouts are unchanged.
+- Updated dependencies [bc2becd]
+- Updated dependencies [44169a6]
+- Updated dependencies [de32c06]
+- Updated dependencies [d38e9a2]
+  - react-email@6.11.9
+
+## 1.8.1
+
+### Patch Changes
+
+- Updated dependencies [2cf6a55]
+- Updated dependencies [e3121ee]
+  - react-email@6.11.8
+
 ## 1.8.0
 
 ### Minor Changes
