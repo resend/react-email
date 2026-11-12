@@ -87,7 +87,6 @@ export const Container = EmailNode.create<ContainerOptions>({
       {
         tag: 'div[data-type="container"][data-pm-slice]:not([data-pm-slice^="0 "])',
       },
-      // Not limited to the doc: imported emails nest it under Body's table.
       {
         tag: 'table[role="presentation"]',
         priority: 60,

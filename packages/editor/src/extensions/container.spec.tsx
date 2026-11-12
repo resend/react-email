@@ -1046,7 +1046,6 @@ describe('Container Node', () => {
     };
   }
 
-  // With the paste handler, as EmailEditor builds it.
   function createPastingEditor(
     content: JSONContent,
     extensions: Extensions = [StarterKit],
@@ -1058,7 +1057,6 @@ describe('Container Node', () => {
     });
   }
 
-  // The whole document by default.
   function clipboardOf(
     source: Editor,
     selection: Selection = new AllSelection(source.state.doc),
@@ -1086,7 +1084,6 @@ describe('Container Node', () => {
     target.view.pasteHTML(clipboard.html, event);
   }
 
-  // The selected text dragged with the mouse and dropped at `pos`.
   function dragSelectionTo(target: Editor, pos: number) {
     const { view } = target;
     view.dragging = { slice: target.state.selection.content(), move: true };
@@ -1220,7 +1217,6 @@ describe('Container Node', () => {
   });
 
   it('keeps the text after the cursor out of a button that ends the copy', () => {
-    // The copy ends inside the button label.
     const source = createPastingEditor({
       type: 'doc',
       content: [
