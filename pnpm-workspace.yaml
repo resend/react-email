@@ -83,3 +83,5 @@ overrides:
   react-dom: 19.2.4
   socket.io>socket.io-parser: ^4.2.6
   uuid@<14.0.0: ^14.0.0
+
+preferSymlinkedExecutables: true
