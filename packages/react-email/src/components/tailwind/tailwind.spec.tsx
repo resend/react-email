@@ -58,6 +58,134 @@ describe('Tailwind component', () => {
     expect(styleContent).not.toContain('}}');
   });
 
+  describe('variants that Tailwind writes as nested CSS', () => {
+    async function styleFor(className: string, utility?: string) {
+      const html = await render(
+        <Tailwind utility={utility}>
+          <Html>
+            <Head />
+            <Body>
+              <div className={className}>content</div>
+            </Body>
+          </Html>
+        </Tailwind>,
+      );
+      return html.match(/<style>(.*?)<\/style>/)?.[1];
+    }
+
+    it.each([
+      [
+        'hover:underline',
+        '@media (hover:hover){.hover_underline:hover{text-decoration-line:underline!important} }',
+      ],
+      [
+        'focus:underline',
+        '.focus_underline:focus{text-decoration-line:underline!important}',
+      ],
+      [
+        'first:underline',
+        '.first_underline:first-child{text-decoration-line:underline!important}',
+      ],
+      [
+        'hover:focus:underline',
+        '@media (hover:hover){.hover_focus_underline:hover:focus{text-decoration-line:underline!important} }',
+      ],
+      [
+        'group-hover:underline',
+        '@media (hover:hover){.group-hover_underline:is(:where(.group):hover *){text-decoration-line:underline!important} }',
+      ],
+      [
+        'peer-hover:underline',
+        '@media (hover:hover){.peer-hover_underline:is(:where(.peer):hover~*){text-decoration-line:underline!important} }',
+      ],
+      [
+        '[&:hover,&:focus]:underline',
+        '.__hover___focus_underline:hover,.__hover___focus_underline:focus{text-decoration-line:underline!important}',
+      ],
+      [
+        '[&:hover,&:focus]:[&_p]:underline',
+        ':is(.__hover___focus___p_underline:hover,.__hover___focus___p_underline:focus) p{text-decoration-line:underline!important}',
+      ],
+    ])('flattens %s into a single rule', async (className, expected) => {
+      expect(await styleFor(className)).toBe(expected);
+    });
+
+    it.each([
+      [
+        'sm:dark:bg-[#000]',
+        '@media (min-width:40rem) and (prefers-color-scheme:dark){.sm_dark_bg-_000{background-color:rgb(0,0,0)!important} }',
+      ],
+      [
+        'sm:max-lg:bg-[#000]',
+        '@media (min-width:40rem) and (max-width:64rem){.sm_max-lg_bg-_000{background-color:rgb(0,0,0)!important} }',
+      ],
+      [
+        'sm:hover:bg-[#000]',
+        '@media (min-width:40rem) and (hover:hover){.sm_hover_bg-_000:hover{background-color:rgb(0,0,0)!important} }',
+      ],
+      [
+        'dark:hover:bg-[#000]',
+        '@media (prefers-color-scheme:dark) and (hover:hover){.dark_hover_bg-_000:hover{background-color:rgb(0,0,0)!important} }',
+      ],
+      [
+        'sm:dark:hover:bg-[#000]',
+        '@media (min-width:40rem) and (prefers-color-scheme:dark) and (hover:hover){.sm_dark_hover_bg-_000:hover{background-color:rgb(0,0,0)!important} }',
+      ],
+      [
+        'md:group-hover:underline',
+        '@media (min-width:48rem) and (hover:hover){.md_group-hover_underline:is(:where(.group):hover *){text-decoration-line:underline!important} }',
+      ],
+      [
+        'sm:print:hidden',
+        '@media print and (min-width:40rem){.sm_print_hidden{display:none!important} }',
+      ],
+      [
+        '[@media_only_screen]:dark:bg-[#000]',
+        '@media only screen and (prefers-color-scheme:dark){._media_only_screen_dark_bg-_000{background-color:rgb(0,0,0)!important} }',
+      ],
+    ])('combines the media queries of %s with and', async (className, expected) => {
+      expect(await styleFor(className)).toBe(expected);
+    });
+
+    it.each([
+      [
+        'not-sm:dark:bg-[#000]',
+        '@media not (min-width:40rem){@media (prefers-color-scheme:dark){.not-sm_dark_bg-_000{background-color:rgb(0,0,0)!important} } }',
+      ],
+      [
+        'sm:not-print:hidden',
+        '@media (min-width:40rem){@media not print{.sm_not-print_hidden{display:none!important} } }',
+      ],
+      [
+        '[@media_screen]:print:hidden',
+        '@media screen{@media print{._media_screen_print_hidden{display:none!important} } }',
+      ],
+      [
+        '[@media(min-width:1px)_or_(max-width:2px)]:dark:bg-[#000]',
+        '@media (min-width:1px) or (max-width:2px){@media (prefers-color-scheme:dark){._mediamin-width_1px_or_max-width_2px_dark_bg-_000{background-color:rgb(0,0,0)!important} } }',
+      ],
+      [
+        '[@media(min-width:1px),(max-width:2px)]:dark:bg-[#000]',
+        '@media (min-width:1px),(max-width:2px){@media (prefers-color-scheme:dark){._mediamin-width_1px_max-width_2px_dark_bg-_000{background-color:rgb(0,0,0)!important} } }',
+      ],
+      [
+        'sm:supports-[display:grid]:grid',
+        '@media (min-width:40rem){@supports (display:grid){.sm_supports-display_grid_grid{display:grid!important} } }',
+      ],
+    ])('keeps the at-rules of %s separate when "and" would change their meaning', async (className, expected) => {
+      expect(await styleFor(className)).toBe(expected);
+    });
+
+    it('flattens nested rules in custom utilities', async () => {
+      expect(
+        await styleFor(
+          'link-swap',
+          '.link-swap { color: #f00; &:hover { color: #00f; } }',
+        ),
+      ).toBe('.link-swap:hover{color:rgb(0,0,255)!important}');
+    });
+  });
+
   it('works with blocklist', async () => {
     const actualOutput = await render(
       <Tailwind
@@ -584,7 +712,7 @@ describe('Tailwind component', () => {
           <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
           <meta name="x-apple-disable-message-reformatting" />
           <style>
-            .group-hover_underline{@media (hover:hover){&:is(:where(.group):hover *){text-decoration-line:underline!important} } }
+            @media (hover:hover){.group-hover_underline:is(:where(.group):hover *){text-decoration-line:underline!important} }
           </style></head
         ><!--$--><!--html--><!--head-->
         <div class="group">
@@ -789,7 +917,7 @@ describe('Tailwind component', () => {
         <html lang="en">
           <head>
             <style>
-              .hover_bg-red-600{@media (hover:hover){&:hover{background-color:rgb(231,0,11)!important} } }.focus_bg-red-700{&:focus{background-color:rgb(193,0,7)!important} }@media (min-width:40rem){.sm_bg-red-300{background-color:rgb(255,162,162)!important} }@media (min-width:40rem){.sm_hover_bg-red-200{@media (hover:hover){&:hover{background-color:rgb(255,201,201)!important} } } }@media (min-width:48rem){.md_bg-red-400{background-color:rgb(255,100,103)!important} }@media (min-width:64rem){.lg_bg-red-500{background-color:rgb(251,44,54)!important} }
+              @media (hover:hover){.hover_bg-red-600:hover{background-color:rgb(231,0,11)!important} }.focus_bg-red-700:focus{background-color:rgb(193,0,7)!important}@media (min-width:40rem){.sm_bg-red-300{background-color:rgb(255,162,162)!important} }@media (min-width:40rem) and (hover:hover){.sm_hover_bg-red-200:hover{background-color:rgb(255,201,201)!important} }@media (min-width:48rem){.md_bg-red-400{background-color:rgb(255,100,103)!important} }@media (min-width:64rem){.lg_bg-red-500{background-color:rgb(251,44,54)!important} }
             </style>
           </head>
           <body>
