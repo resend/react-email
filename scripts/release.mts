@@ -425,9 +425,14 @@ const argumentAfter = (flag: string) => {
 
 const pack = async (packages: Package[], outDir: string) => {
   await fs.mkdir(outDir, { recursive: true });
-  const entries = (await isReleaseRef())
-    ? await buildManifest({ packages, getPublishedVersions })
-    : [];
+  const dryRun = isTruthyEnv(process.env.RELEASE_DRY_RUN);
+  const entries =
+    dryRun || (await isReleaseRef())
+      ? await buildManifest({
+          packages,
+          getPublishedVersions: dryRun ? async () => [] : getPublishedVersions,
+        })
+      : [];
 
   const packed: Omit<ManifestEntry & { tarball: string }, 'dir'>[] = [];
   if (entries.length === 0) {
