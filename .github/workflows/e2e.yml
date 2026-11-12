@@ -29,7 +29,7 @@ jobs:
         with:
           node-version: 24
       - name: pnpm setup
-        uses: pnpm/action-setup@738f428026a1f5a72398de22aeed83d859c4a660
+        uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115
       - name: Install packages
         run: pnpm install --frozen-lockfile --prefer-offline
       - name: Install Playwright browsers
