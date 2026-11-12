@@ -42,5 +42,7 @@ jobs:
           TURBO_TEAM: ${{ github.event.pull_request.head.repo.full_name == github.repository && secrets.TURBO_TEAM || '' }}
           REDIS_URL: redis://localhost:6379
       - name: Publish changed packages to pkg.pr.new
-        if: steps.changed_packages.outputs.all_changed_and_modified_files != ''
-        run: pnpm pkg-pr-new publish ${{ steps.changed_packages.outputs.all_changed_and_modified_files }} --pnpm
+        if: steps.changed_packages.outputs.all_changed_and_modified_files != '' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          CHANGED_PACKAGES: ${{ steps.changed_packages.outputs.all_changed_and_modified_files }}
+        run: pnpm pkg-pr-new publish $CHANGED_PACKAGES --pnpm
