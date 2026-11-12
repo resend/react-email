@@ -57,7 +57,9 @@ jobs:
         with:
           fetch-depth: 1
           persist-credentials: false
-          sparse-checkout: scripts/publish-tarballs.mjs
+          sparse-checkout: |
+            scripts/publish-tarballs.mjs
+            packages/*/package.json
           sparse-checkout-cone-mode: false
       - name: Download tarballs
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
@@ -100,6 +102,6 @@ jobs:
           name: release-results
           path: release-results
       - name: Create tags and GitHub releases
-        run: pnpm release:github release-results/results.json
+        run: pnpm release:github --github-releases release-results/results.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

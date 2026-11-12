@@ -10,7 +10,7 @@
     "lint:fix": "biome check --write .",
     "release:build": "turbo run build --filter=./packages/*",
     "release:dry-run": "node --import tsx/esm ./scripts/release.mts --dry-run",
-    "release:github": "node --import tsx/esm ./scripts/release.mts --github-releases",
+    "release:github": "node --import tsx/esm ./scripts/release.mts",
     "release:pack": "node --import tsx/esm ./scripts/release.mts --pack",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
