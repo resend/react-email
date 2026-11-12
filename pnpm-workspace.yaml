@@ -13,6 +13,14 @@ allowBuilds:
 
 autoInstallPeers: true
 
+trustPolicy: no-downgrade
+
+trustPolicyExclude:
+  - semver@6.3.1
+  - undici-types@6.21.0
+
+minimumReleaseAge: 1440
+
 peerDependencyRules:
   allowedVersions:
     '@tiptap/html>happy-dom': '21'
