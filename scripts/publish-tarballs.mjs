@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-const DIST_TAG = /^[a-z][a-z0-9-]*$/;
+const distTagOf = (version) => version.split('-')[1]?.split('.')[0] ?? 'latest';
 
 export function findManifestProblems(entries, expectedVersions, readTarball) {
   const problems = [];
@@ -14,8 +14,10 @@ export function findManifestProblems(entries, expectedVersions, readTarball) {
       problems.push(`${label} is not a package version in this commit`);
       continue;
     }
-    if (!DIST_TAG.test(entry.distTag)) {
-      problems.push(`${label} has an invalid dist-tag "${entry.distTag}"`);
+    if (entry.distTag !== distTagOf(entry.version)) {
+      problems.push(
+        `${label} has the dist-tag "${entry.distTag}", expected "${distTagOf(entry.version)}"`,
+      );
       continue;
     }
     if (
@@ -40,9 +42,10 @@ export function findManifestProblems(entries, expectedVersions, readTarball) {
   return problems;
 }
 
-export function publishInOrder(entries, publish) {
+export function publishInOrder(entries, publish, onProgress = () => {}) {
   const published = [];
   const failed = new Set();
+  const snapshot = () => ({ published: [...published], failed: [...failed] });
 
   for (const entry of entries) {
     const failedDependency = entry.dependsOn.find((dep) => failed.has(dep));
@@ -51,17 +54,15 @@ export function publishInOrder(entries, publish) {
         `Skipping ${entry.name}: its dependency ${failedDependency} failed to publish`,
       );
       failed.add(entry.name);
-      continue;
-    }
-
-    if (publish(entry)) {
+    } else if (publish(entry)) {
       published.push(entry.name);
     } else {
       failed.add(entry.name);
     }
+    onProgress(snapshot());
   }
 
-  return { published, failed: [...failed] };
+  return snapshot();
 }
 
 const readWorkspaceVersions = (packagesDir) => {
@@ -152,15 +153,21 @@ if (
     readWorkspaceVersions('packages'),
     (tarball) => readTarballManifest(path.resolve(dir, tarball)),
   );
-  const result =
-    problems.length > 0
-      ? { published: [], failed: packages.map((entry) => entry.name) }
-      : publishInOrder(packages, (entry) => npmPublish(dir, entry));
+  const writeResults = (result) =>
+    fs.writeFileSync(path.join(dir, 'results.json'), JSON.stringify(result));
   for (const problem of problems) {
     console.log(`::error::${problem}`);
   }
 
-  fs.writeFileSync(path.join(dir, 'results.json'), JSON.stringify(result));
+  const result =
+    problems.length > 0
+      ? { published: [], failed: packages.map((entry) => entry.name) }
+      : publishInOrder(
+          packages,
+          (entry) => npmPublish(dir, entry),
+          writeResults,
+        );
+  writeResults(result);
   if (result.failed.length > 0) {
     process.exitCode = 1;
   }

@@ -65,6 +65,15 @@ describe('findManifestProblems', () => {
   it('rejects a tarball that contains a different package', () => {
     expect(
       findManifestProblems([manifestEntry], expected, () => ({
+        name: 'left-pad',
+        version: '2.4.0',
+      })),
+    ).toHaveLength(1);
+  });
+
+  it('rejects a tarball that contains a different version', () => {
+    expect(
+      findManifestProblems([manifestEntry], expected, () => ({
         name: '@react-email/render',
         version: '9.9.9',
       })),
@@ -77,14 +86,29 @@ describe('findManifestProblems', () => {
     ).toHaveLength(1);
   });
 
-  it('rejects a dist-tag that is not a plain word', () => {
+  it.each([
+    ['2.4.0', 'canary'],
+    ['2.4.0', 'latest --ignore-scripts=false'],
+    ['2.4.0-canary.1', 'latest'],
+  ])('rejects %s with the dist-tag %s', (version, distTag) => {
     expect(
       findManifestProblems(
-        [{ ...manifestEntry, distTag: 'latest --ignore-scripts=false' }],
-        expected,
-        matchingTarball,
+        [{ ...manifestEntry, version, distTag }],
+        new Map([['@react-email/render', version]]),
+        () => ({ name: '@react-email/render', version }),
       ),
     ).toHaveLength(1);
+  });
+
+  it('accepts the prerelease dist-tag for a prerelease version', () => {
+    const version = '2.4.0-canary.1';
+    expect(
+      findManifestProblems(
+        [{ ...manifestEntry, version, distTag: 'canary' }],
+        new Map([['@react-email/render', version]]),
+        () => ({ name: '@react-email/render', version }),
+      ),
+    ).toEqual([]);
   });
 });
 
@@ -130,5 +154,20 @@ describe('publishInOrder', () => {
     expect(result.published).toEqual([]);
     expect(result.failed).toEqual(['a', 'b', 'c']);
     expect(publish).toHaveBeenCalledTimes(1);
+  });
+
+  it('reports the results after each package', () => {
+    const onProgress = vi.fn();
+
+    publishInOrder(
+      [entry('a'), entry('b')],
+      ({ name }: { name: string }) => name === 'a',
+      onProgress,
+    );
+
+    expect(onProgress.mock.calls).toEqual([
+      [{ published: ['a'], failed: [] }],
+      [{ published: ['a'], failed: ['b'] }],
+    ]);
   });
 });
