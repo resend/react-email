@@ -1,5 +1,11 @@
 # react-email
 
+## 6.11.12
+
+### Patch Changes
+
+- 303f790: `<Tailwind>` now writes `} }` instead of `}}` in the `<style>` it generates. Outlook.com drops everything in a `<style>` after a `}}`, so only the first responsive (`sm:`, `md:`, …) or `dark:` class in an email worked there.
+
 ## 6.11.11
 
 ### Patch Changes
