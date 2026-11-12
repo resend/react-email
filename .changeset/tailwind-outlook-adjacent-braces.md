@@ -2,4 +2,4 @@
 'react-email': patch
 ---
 
-Fix `<Tailwind>` responsive and `dark:` rules after the first being dropped by Outlook.com, by never writing adjacent closing braces in the generated `<style>`
+`<Tailwind>` now writes `} }` instead of `}}` in the `<style>` it generates. Outlook.com drops everything in a `<style>` after a `}}`, so only the first responsive (`sm:`, `md:`, …) or `dark:` class in an email worked there.
