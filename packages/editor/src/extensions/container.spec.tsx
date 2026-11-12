@@ -1075,8 +1075,7 @@ describe('Container Node', () => {
       paragraph('Second'),
       { type: 'horizontalRule' },
     );
-    // Place the cursor without focusing: a focused happy-dom editor cannot
-    // hold a DOM range that starts before an <hr>, which a browser can.
+    // No focus: happy-dom cannot hold a DOM range that starts before an <hr>.
     let firstText = 0;
     instance.state.doc.descendants((node, pos) => {
       if (node.isText && node.text === 'First') {
@@ -1197,9 +1196,7 @@ describe('Container Node', () => {
   });
 
   it('falls back to a cursor when the selected container is removed, instead of moving to a sibling', () => {
-    // Documents nested or split by the old paste bug can hold more than one
-    // container; a collaborator removing the selected one must not hand the
-    // selection to the next.
+    // Nested or split documents can hold more than one container.
     const instance = new Editor({
       content: {
         type: 'doc',

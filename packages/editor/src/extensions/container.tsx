@@ -13,14 +13,7 @@ import { EmailNode } from '../core/serializer/email-node';
 import { hasCollaborationExtension } from '../utils/is-collaboration';
 import { inlineCssToJs } from '../utils/styles';
 
-/**
- * The whole content of a container: what Mod-a selects. A text selection
- * cannot do this job. Its ends must sit in inline content, so it either skips
- * blocks at the edges (an image first, a divider last) or, placed at the
- * container's bounds, collapses on the next change (bold after select-all
- * cleared the selection). This one re-selects the container's content after
- * every change, the way AllSelection does for the document.
- */
+/** A container's whole content, re-selected after every change. */
 export class ContainerSelection extends Selection {
   static create(doc: PmNode, containerPos: number): ContainerSelection {
     const $start = doc.resolve(containerPos + 1);
@@ -41,9 +34,7 @@ export class ContainerSelection extends Selection {
     );
   }
 
-  // The body's blocks, closed: the clipboard carries no container wrapper,
-  // and a one-paragraph body pastes as its own paragraph instead of into the
-  // paragraph under the cursor.
+  // Closed blocks, so the clipboard carries no container wrapper.
   content(): Slice {
     return new Slice(this.$from.parent.content, 0, 0);
   }
@@ -176,11 +167,7 @@ export const Container = EmailNode.create<ContainerOptions>({
 
   addKeyboardShortcuts() {
     return {
-      // Select the body, not the whole document: a document-wide selection
-      // copies the container and the theme along with the content, and
-      // deleting it drops the theme. A code block selects its own content
-      // first (its handler runs after this one), so give way until it is
-      // fully selected.
+      // The body, not the document. A code block selects itself first.
       'Mod-a': ({ editor }) => {
         const { state } = editor;
         const { $from, from, to } = state.selection;
@@ -205,8 +192,7 @@ export const Container = EmailNode.create<ContainerOptions>({
         }
         return false;
       },
-      // Enter replaces the selected body with an empty paragraph, as in any
-      // editor; ProseMirror would append a paragraph after it instead.
+      // Clear the selected body; the default appends a paragraph after it.
       Enter: ({ editor }) =>
         editor.state.selection instanceof ContainerSelection &&
         editor.commands.deleteSelection(),
