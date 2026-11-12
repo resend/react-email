@@ -59,9 +59,9 @@ describe('Tailwind component', () => {
   });
 
   describe('variants that Tailwind writes as nested CSS', () => {
-    async function styleFor(className: string, utility?: string) {
+    async function styleFor(className: string) {
       const html = await render(
-        <Tailwind utility={utility}>
+        <Tailwind>
           <Html>
             <Head />
             <Body>
@@ -176,13 +176,45 @@ describe('Tailwind component', () => {
       expect(await styleFor(className)).toBe(expected);
     });
 
-    it('flattens nested rules in custom utilities', async () => {
-      expect(
-        await styleFor(
-          'link-swap',
-          '.link-swap { color: #f00; &:hover { color: #00f; } }',
-        ),
-      ).toBe('.link-swap:hover{color:rgb(0,0,255)!important}');
+    it.each([
+      [
+        '@sm:underline',
+        '@container (min-width:24rem){._sm_underline{text-decoration-line:underline!important} }',
+      ],
+      [
+        '@sm:hover:underline',
+        '@container (min-width:24rem){@media (hover:hover){._sm_hover_underline:hover{text-decoration-line:underline!important} } }',
+      ],
+      [
+        'sm:@md:underline',
+        '@media (min-width:40rem){@container (min-width:28rem){.sm__md_underline{text-decoration-line:underline!important} } }',
+      ],
+      [
+        'starting:opacity-0',
+        '@starting-style{.starting_opacity-0{opacity:0%!important} }',
+      ],
+    ])('moves the other at-rules of %s out of the rule', async (className, expected) => {
+      expect(await styleFor(className)).toBe(expected);
+    });
+
+    it('inlines the declarations of a custom utility and flattens its nested rules', async () => {
+      const html = await render(
+        <Tailwind utility=".link-swap { color: #f00; &:hover { color: #00f; } }">
+          <Html>
+            <Head />
+            <Body>
+              <div className="link-swap">content</div>
+            </Body>
+          </Html>
+        </Tailwind>,
+      );
+
+      expect(html).toContain(
+        '<div class="link-swap" style="color:rgb(255,0,0)">',
+      );
+      expect(html.match(/<style>(.*?)<\/style>/)?.[1]).toBe(
+        '.link-swap:hover{color:rgb(0,0,255)!important}',
+      );
     });
   });
 

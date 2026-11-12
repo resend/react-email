@@ -30,7 +30,6 @@ import {
   type StyleSheet,
   walk,
 } from 'css-tree';
-import { NON_INLINABLE_ATRULES } from './constants.js';
 
 /**
  * css-tree 3.x introduced new AST node types for query-related at-rules that
@@ -148,11 +147,9 @@ function isFlattenable(node: CssNode): node is Rule | Atrule {
   if (node.type === 'Rule') {
     return node.prelude.type === 'SelectorList';
   }
-  return (
-    node.type === 'Atrule' &&
-    node.block !== null &&
-    NON_INLINABLE_ATRULES.has(node.name.toLowerCase())
-  );
+  // Any block at-rule, not just @media and @supports: Tailwind also nests
+  // @container (`@sm:`) and @starting-style (`starting:`) inside rules.
+  return node.type === 'Atrule' && node.block !== null;
 }
 
 function flattenNode(
