@@ -106,10 +106,8 @@ const isAlreadyPublished = (entry) => {
   return result.status === 0 && result.stdout.trim() === entry.version;
 };
 
-const dryRun = /^(1|true)$/i.test(process.env.RELEASE_DRY_RUN ?? '');
-
 const npmPublish = (dir, entry) => {
-  if (!dryRun && isAlreadyPublished(entry)) {
+  if (isAlreadyPublished(entry)) {
     console.log(`${entry.name}@${entry.version} is already published`);
     return true;
   }
@@ -124,7 +122,6 @@ const npmPublish = (dir, entry) => {
       '--provenance',
       '--tag',
       entry.distTag,
-      ...(dryRun ? ['--dry-run'] : []),
     ],
     { stdio: 'inherit' },
   );
