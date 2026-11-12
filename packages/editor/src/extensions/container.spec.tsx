@@ -1,11 +1,17 @@
 import type { JSONContent } from '@tiptap/core';
 import { Editor, Extension } from '@tiptap/core';
+import { Fragment, type Node as PmNode, Slice } from '@tiptap/pm/model';
+import { AllSelection } from '@tiptap/pm/state';
 import { Container as ReactEmailContainer, render } from 'react-email';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { composeReactEmail } from '../core/serializer/compose-react-email';
 import { EmailTheming } from '../plugins';
 import { DEFAULT_STYLES } from '../utils/default-styles';
-import { COLLABORATIVE_WRAP_DEBOUNCE_MS, Container } from './container';
+import {
+  COLLABORATIVE_WRAP_DEBOUNCE_MS,
+  Container,
+  ContainerSelection,
+} from './container';
 import { StarterKit } from './index';
 
 vi.mock('@/actions/ai', () => ({
@@ -1025,6 +1031,228 @@ describe('Container Node', () => {
         "type": "doc",
       }
     `);
+  });
+
+  function pressSelectAll(instance: Editor) {
+    instance.view.dom.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'a', ctrlKey: true, bubbles: true }),
+    );
+  }
+
+  const paragraph = (text: string): JSONContent => ({
+    type: 'paragraph',
+    content: [{ type: 'text', text }],
+  });
+
+  function createBody(...content: JSONContent[]) {
+    return new Editor({
+      content: {
+        type: 'doc',
+        content: [
+          { type: 'globalContent', attrs: { data: { theme: 'basic' } } },
+          { type: 'container', content },
+        ],
+      },
+      extensions: [StarterKit],
+    });
+  }
+
+  function boundsOf(instance: Editor, depth: number) {
+    const { $from } = instance.state.selection;
+    return { from: $from.start(depth), to: $from.end(depth) };
+  }
+
+  function selectionOf(instance: Editor) {
+    const { from, to } = instance.state.selection;
+    return { from, to };
+  }
+
+  it('selects the whole body on Mod-a, atoms at its edges included, not the document', () => {
+    const instance = createBody(
+      { type: 'horizontalRule' },
+      paragraph('First'),
+      paragraph('Second'),
+      { type: 'horizontalRule' },
+    );
+    // No focus: happy-dom cannot hold a DOM range that starts before an <hr>.
+    let firstText = 0;
+    instance.state.doc.descendants((node, pos) => {
+      if (node.isText && node.text === 'First') {
+        firstText = pos;
+      }
+    });
+    instance.commands.setTextSelection(firstText);
+
+    pressSelectAll(instance);
+
+    expect(instance.state.selection).not.toBeInstanceOf(AllSelection);
+    expect(selectionOf(instance)).toEqual(boundsOf(instance, 1));
+
+    instance.commands.deleteSelection();
+
+    expect(instance.getJSON().content).toMatchObject([
+      { type: 'globalContent', attrs: { data: { theme: 'basic' } } },
+      { type: 'container', content: [{ type: 'paragraph' }] },
+    ]);
+    instance.destroy();
+  });
+
+  it('keeps the body selected through later changes, so bold then italic apply to all of it', () => {
+    const instance = createBody(paragraph('First'), paragraph('Second'));
+    instance.commands.focus('start');
+    pressSelectAll(instance);
+
+    instance.commands.toggleBold();
+    // An edit elsewhere.
+    instance.view.dispatch(instance.state.tr.insertText('!', 4));
+    instance.commands.toggleItalic();
+
+    expect(selectionOf(instance)).toEqual(boundsOf(instance, 1));
+    const marks: string[][] = [];
+    instance.state.doc.descendants((node) => {
+      if (node.isText) {
+        marks.push(node.marks.map((mark) => mark.type.name).sort());
+      }
+    });
+    expect(marks).toEqual([
+      ['bold', 'italic'],
+      ['bold', 'italic'],
+    ]);
+    expect(instance.state.doc.textContent).toBe('F!irstSecond');
+    instance.destroy();
+  });
+
+  it('replaces the body, not the container, when the selection is typed over, deleted or pasted over', () => {
+    const instance = createBody({ type: 'horizontalRule' }, paragraph('Old'));
+    instance.commands.setTextSelection(4);
+    pressSelectAll(instance);
+    const bodyOf = (tr: { doc: PmNode }) => tr.doc.child(1).toJSON();
+
+    // Transactions are inspected before plugins can repair the document.
+    expect(bodyOf(instance.state.tr.deleteSelection())).toMatchObject({
+      type: 'container',
+      content: [{ type: 'paragraph' }],
+    });
+    expect(bodyOf(instance.state.tr.insertText('New'))).toMatchObject({
+      type: 'container',
+      content: [paragraph('New')],
+    });
+    expect(
+      bodyOf(
+        instance.state.tr.replaceSelection(
+          new Slice(
+            Fragment.from([
+              instance.schema.nodeFromJSON(paragraph('A')),
+              instance.schema.nodeFromJSON(paragraph('B')),
+            ]),
+            0,
+            0,
+          ),
+        ),
+      ),
+    ).toMatchObject({
+      type: 'container',
+      content: [paragraph('A'), paragraph('B')],
+    });
+
+    instance.view.dom.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }),
+    );
+    expect(instance.getJSON().content).toMatchObject([
+      { type: 'globalContent', attrs: { data: { theme: 'basic' } } },
+      { type: 'container', content: [{ type: 'paragraph' }] },
+    ]);
+    expect(instance.state.selection.$from.parent.type.name).toBe('paragraph');
+    instance.destroy();
+  });
+
+  it('keeps a pasted list whole when it replaces the selected body', () => {
+    const instance = createBody(paragraph('First'), paragraph('Second'));
+    instance.commands.focus('start');
+    pressSelectAll(instance);
+
+    instance.view.pasteHTML('<ul><li>one</li><li>two</li></ul>');
+
+    const body = (instance.getJSON() as JSONContent).content?.[1];
+    const [list] = body?.content ?? [];
+    expect(list?.type).toBe('bulletList');
+    expect(list?.content).toHaveLength(2);
+    instance.destroy();
+  });
+
+  it('copies the body as closed blocks, with no container wrapper on the clipboard', () => {
+    const instance = createBody(paragraph('Only'));
+    instance.commands.focus('start');
+    pressSelectAll(instance);
+
+    const slice = instance.state.selection.content();
+    expect([slice.openStart, slice.openEnd]).toEqual([0, 0]);
+    expect(slice.content.childCount).toBe(1);
+    const { dom } = instance.view.serializeForClipboard(slice);
+    expect(dom.innerHTML).not.toContain('data-type="container"');
+    expect(dom.innerHTML).toContain('data-pm-slice="0 0 []"');
+    instance.destroy();
+  });
+
+  it('falls back to a cursor when the selected container is removed, instead of moving to a sibling', () => {
+    // Nested or split documents can hold more than one container.
+    const instance = new Editor({
+      content: {
+        type: 'doc',
+        content: [
+          { type: 'globalContent', attrs: { data: { theme: 'basic' } } },
+          { type: 'container', content: [paragraph('First body')] },
+          { type: 'container', content: [paragraph('Second body')] },
+        ],
+      },
+      extensions: [StarterKit],
+    });
+    instance.commands.setTextSelection(3);
+    pressSelectAll(instance);
+    const { $from } = instance.state.selection;
+    expect(instance.state.selection).toBeInstanceOf(ContainerSelection);
+
+    const tr = instance.state.tr.delete($from.before(), $from.after());
+
+    expect(tr.selection).not.toBeInstanceOf(ContainerSelection);
+    expect(tr.selection.empty).toBe(true);
+    instance.destroy();
+  });
+
+  it('lets a code block select itself first, then selects the body', () => {
+    const instance = createBody(paragraph('Before'), {
+      type: 'codeBlock',
+      content: [{ type: 'text', text: 'const a = 1;' }],
+    });
+    instance.commands.focus('end');
+
+    pressSelectAll(instance);
+    expect(selectionOf(instance)).toEqual(boundsOf(instance, 2));
+    expect(instance.state.selection.$from.parent.type.name).toBe('codeBlock');
+
+    pressSelectAll(instance);
+    expect(selectionOf(instance)).toEqual(boundsOf(instance, 1));
+    expect(instance.state.selection).not.toBeInstanceOf(AllSelection);
+    instance.destroy();
+  });
+
+  it('lets a column select itself first', () => {
+    const instance = createBody({
+      type: 'twoColumns',
+      content: [
+        { type: 'columnsColumn', content: [paragraph('Left')] },
+        { type: 'columnsColumn', content: [paragraph('Right')] },
+      ],
+    });
+    instance.commands.focus('end');
+
+    pressSelectAll(instance);
+
+    expect(selectionOf(instance)).toEqual(boundsOf(instance, 3));
+    expect(instance.state.selection.$from.node(3).type.name).toBe(
+      'columnsColumn',
+    );
+    instance.destroy();
   });
 
   it('does not parse a table without max-width as a container', () => {
