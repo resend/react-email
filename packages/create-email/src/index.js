@@ -4,8 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
 import fse from 'fs-extra';
-import logSymbols from 'log-symbols';
-import ora from 'ora';
+import { Spinner } from 'picospinner';
 import { tree } from './tree.js';
 
 const filename = fileURLToPath(import.meta.url);
@@ -61,9 +60,11 @@ const init = async (name, { tag }) => {
     process.exit(1);
   }
 
-  const spinner = ora({
-    text: 'Preparing files...\n',
-  }).start();
+  // picospinner would write every frame to non-TTY output (CI logs, pipes)
+  const spinner = process.stdout.isTTY
+    ? new Spinner('Preparing files...')
+    : undefined;
+  spinner?.start();
 
   fse.copySync(templatePath, resolvedProjectPath, {
     recursive: true,
@@ -82,10 +83,9 @@ const init = async (name, { tag }) => {
     'utf8',
   );
 
-  spinner.stopAndPersist({
-    symbol: logSymbols.success,
-    text: 'React Email Starter files ready',
-  });
+  const readyText = 'React Email Starter files ready';
+  if (spinner) spinner.succeed(readyText);
+  else console.info(`✔ ${readyText}`);
 
   console.info(
     await tree(resolvedProjectPath, 4, (dirent) => {

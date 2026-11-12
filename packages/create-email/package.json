@@ -18,8 +18,7 @@
   "dependencies": {
     "commander": "catalog:",
     "fs-extra": "^11.3.3",
-    "log-symbols": "catalog:",
-    "ora": "catalog:"
+    "picospinner": "catalog:"
   },
   "repository": {
     "type": "git",
