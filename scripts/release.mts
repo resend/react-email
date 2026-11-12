@@ -293,41 +293,6 @@ export function topologicalSort(graph: Map<string, Set<string>>): string[] {
   return ordered;
 }
 
-/**
- * Publishes packages in the given order, containing failures: if a package
- * errors — or any of its in-set dependencies already failed — it is marked
- * failed and skipped, so its own dependents are skipped in turn.
- */
-export async function publishInOrder(
-  ordered: string[],
-  graph: Map<string, Set<string>>,
-  publish: (name: string) => Promise<boolean>,
-): Promise<{ published: string[]; failed: string[] }> {
-  const published: string[] = [];
-  const failed = new Set<string>();
-
-  for (const name of ordered) {
-    const failedDependency = [...(graph.get(name) ?? [])].find((dep) =>
-      failed.has(dep),
-    );
-    if (failedDependency !== undefined) {
-      console.log(
-        `Skipping ${name}: its dependency ${failedDependency} failed to publish`,
-      );
-      failed.add(name);
-      continue;
-    }
-
-    if (await publish(name)) {
-      published.push(name);
-    } else {
-      failed.add(name);
-    }
-  }
-
-  return { published, failed: [...failed] };
-}
-
 interface PublishTarget {
   pkg: Package;
   distTag: string;
@@ -369,39 +334,26 @@ const planPublish = async (options: {
   return { ordered, graph };
 };
 
-/**
- * Full publish pipeline: figure out what needs publishing, in what order, then
- * publish with fail-fast. Returns the names that were published and that failed.
- */
-export async function publishPackages(options: {
+export interface ManifestEntry {
+  name: string;
+  version: string;
+  distTag: string;
+  dir: string;
+  dependsOn: string[];
+}
+
+export async function buildManifest(options: {
   packages: Package[];
   getPublishedVersions: (name: string) => Promise<string[]>;
-  publish: (pkg: Package, distTag: string) => Promise<boolean>;
-}): Promise<{ published: string[]; failed: string[] }> {
+}): Promise<ManifestEntry[]> {
   const { ordered, graph } = await planPublish(options);
-  if (ordered.length === 0) {
-    console.log('No packages need publishing');
-    return { published: [], failed: [] };
-  }
-
-  console.log(`Publishing ${ordered.length} package(s) in dependency order:`);
-  for (const { pkg, distTag } of ordered) {
-    console.log(
-      `  ${pkg.packageJson.name}@${pkg.packageJson.version} -> ${distTag}`,
-    );
-  }
-
-  const byName = new Map(
-    ordered.map((target) => [target.pkg.packageJson.name, target]),
-  );
-  return publishInOrder(
-    ordered.map((target) => target.pkg.packageJson.name),
-    graph,
-    (name) => {
-      const { pkg, distTag } = byName.get(name)!;
-      return options.publish(pkg, distTag);
-    },
-  );
+  return ordered.map(({ pkg, distTag }) => ({
+    name: pkg.packageJson.name,
+    version: pkg.packageJson.version,
+    distTag,
+    dir: pkg.dir,
+    dependsOn: [...(graph.get(pkg.packageJson.name) ?? [])],
+  }));
 }
 
 /**
@@ -429,38 +381,80 @@ export async function printPublishPlan(options: {
   }
 }
 
-const publishPackage = async (
-  pkg: Package,
-  distTag: string,
-  env: Record<string, string>,
-): Promise<boolean> => {
-  try {
-    await exec(
-      'pnpm',
-      [
-        'publish',
-        '--no-git-checks',
-        '--access',
-        'public',
-        '--provenance',
-        '--tag',
-        distTag,
-      ],
-      { cwd: pkg.dir, env },
-    );
-    console.log(`Published ${pkg.packageJson.name}@${pkg.packageJson.version}`);
+const packPackage = async (dir: string, outDir: string) => {
+  const { stdout } = await getExecOutput(
+    'pnpm',
+    ['pack', '--json', '--pack-destination', outDir],
+    { cwd: dir, silent: true },
+  );
+  const { filename } = JSON.parse(stdout) as { filename: string };
+  return path.basename(filename);
+};
+
+const isReleaseRef = async () => {
+  const { ref } = github.context;
+  if (ref === 'refs/heads/canary') {
+    console.log('Detected canary branch, checking prerelease state');
+    const preState = await readPreState(process.cwd());
+    if (preState?.mode !== 'pre') {
+      console.log(
+        'Was not in prerelease, skipping automated release. To release this you should rebase onto main',
+      );
+      return false;
+    }
+    console.log('Is in prerelease mode, proceeding with automated release');
     return true;
-  } catch (error) {
-    core.error(
-      `Failed to publish ${pkg.packageJson.name}@${pkg.packageJson.version}: ${error}`,
-    );
-    return false;
   }
+  if (ref === 'refs/heads/main') {
+    console.log('Detected main branch, proceeding with stable release');
+    return true;
+  }
+  throw new Error(
+    `Unexpected branch/ref: ${ref}. Expected refs/heads/main or refs/heads/canary`,
+  );
+};
+
+const argumentAfter = (flag: string) => {
+  const index = process.argv.indexOf(flag);
+  const value = index === -1 ? undefined : process.argv[index + 1];
+  if (index !== -1 && (value === undefined || value.startsWith('--'))) {
+    throw new Error(`${flag} needs a path argument`);
+  }
+  return value;
+};
+
+const pack = async (packages: Package[], outDir: string) => {
+  await fs.mkdir(outDir, { recursive: true });
+  const entries = (await isReleaseRef())
+    ? await buildManifest({ packages, getPublishedVersions })
+    : [];
+
+  const packed: Omit<ManifestEntry & { tarball: string }, 'dir'>[] = [];
+  if (entries.length === 0) {
+    console.log('No packages need publishing');
+  } else {
+    await exec('pnpm', ['release:build']);
+    for (const { dir, ...entry } of entries) {
+      const tarball = await packPackage(dir, path.resolve(outDir));
+      console.log(
+        `Packed ${entry.name}@${entry.version} -> ${tarball} (${entry.distTag})`,
+      );
+      packed.push({ ...entry, tarball });
+    }
+  }
+
+  await fs.writeFile(
+    path.join(outDir, 'manifest.json'),
+    JSON.stringify({ packages: packed }, null, 2),
+  );
+  core.setOutput('has_packages', String(packed.length > 0));
 };
 
 const main = async () => {
   const isDryRun = process.argv.includes('--dry-run');
-  const skipNpmPublish =
+  const packDir = argumentAfter('--pack');
+  const resultsFile = argumentAfter('--github-releases');
+  const onlyGithubReleases =
     isTruthyEnv(process.env.SKIP_NPM_PUBLISH) ||
     process.argv.includes('--skip-npm-publish') ||
     process.argv.includes('--only-github-releases');
@@ -471,74 +465,49 @@ const main = async () => {
     );
   }
 
-  const preState = await readPreState(process.cwd());
-
-  // Branch / prerelease gating (irrelevant to dry runs and GitHub-only runs).
-  if (!isDryRun && !skipNpmPublish) {
-    const { ref } = github.context;
-    if (ref === 'refs/heads/canary') {
-      console.log('Detected canary branch, checking prerelease state');
-      if (preState?.mode !== 'pre') {
-        console.log(
-          'Was not in prerelease, skipping automated release. To release this you should rebase onto main',
-        );
-        return;
-      }
-      console.log('Is in prerelease mode, proceeding with automated release');
-    } else if (ref === 'refs/heads/main') {
-      console.log('Detected main branch, proceeding with stable release');
-    } else {
-      throw new Error(
-        `Unexpected branch/ref: ${ref}. Expected refs/heads/main or refs/heads/canary`,
-      );
-    }
-  }
-
   const { packages } = await getPackages(process.cwd());
   const packagesByName = new Map(
     packages.map((pkg) => [pkg.packageJson.name, pkg]),
   );
 
+  if (isDryRun) {
+    await printPublishPlan({ packages, getPublishedVersions });
+    return;
+  }
+
+  if (packDir !== undefined) {
+    await pack(packages, packDir);
+    return;
+  }
+
   let releasedPackages: Package[] = [];
   let failedPackages: string[] = [];
 
-  if (skipNpmPublish) {
+  if (resultsFile !== undefined) {
+    const results = JSON.parse(await fs.readFile(resultsFile, 'utf8')) as {
+      published: string[];
+      failed: string[];
+    };
+    releasedPackages = results.published.map(
+      (name) => packagesByName.get(name)!,
+    );
+    failedPackages = results.failed;
+    if (failedPackages.length > 0) {
+      core.error(
+        `Failed to publish ${failedPackages.length} package(s): ${failedPackages.join(', ')}`,
+      );
+    }
+  } else if (onlyGithubReleases) {
     console.log(
       'SKIP_NPM_PUBLISH is set, skipping npm publish and only ensuring GitHub releases exist',
     );
     releasedPackages = packages.filter(
       (pkg) => pkg.packageJson.private !== true,
     );
-  } else if (isDryRun) {
-    // A dry run only inspects the registry and prints the plan, so there's no
-    // need to build anything first.
-    await printPublishPlan({ packages, getPublishedVersions });
-    return;
   } else {
-    // Build every publishable package before touching the registry.
-    await exec('pnpm', ['release:build']);
-
-    // https://docs.npmjs.com/generating-provenance-statements#publishing-packages-with-provenance-via-github-actions
-    // Provenance itself is requested per-publish via `pnpm publish --provenance`.
-    const npmIdToken = await core.getIDToken('npm:registry.npmjs.org');
-    const publishEnv: Record<string, string> = {
-      ...(process.env as Record<string, string>),
-      NPM_ID_TOKEN: npmIdToken,
-    };
-
-    const { published, failed } = await publishPackages({
-      packages,
-      getPublishedVersions,
-      publish: (pkg, distTag) => publishPackage(pkg, distTag, publishEnv),
-    });
-
-    releasedPackages = published.map((name) => packagesByName.get(name)!);
-    failedPackages = failed;
-    if (failedPackages.length > 0) {
-      core.error(
-        `Failed to publish ${failedPackages.length} package(s): ${failedPackages.join(', ')}`,
-      );
-    }
+    throw new Error(
+      'Pass --pack <dir>, --github-releases <results.json>, --only-github-releases or --dry-run',
+    );
   }
 
   await exec('git', ['config', 'user.name', `"github-actions[bot]"`]);
