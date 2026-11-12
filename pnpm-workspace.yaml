@@ -93,3 +93,7 @@ overrides:
   uuid@<14.0.0: ^14.0.0
 
 preferSymlinkedExecutables: true
+
+patchedDependencies:
+  # Remove when the workspace's Next.js version includes vercel/next.js#100477.
+  '@tiptap/react@3.32.2': patches/@tiptap__react@3.32.2.patch

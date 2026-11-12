@@ -1,0 +1,44 @@
+diff --git a/dist/menus/index.cjs b/dist/menus/index.cjs
+index 79c1ee21f3b24b456664515307653dd9f8f96c2e..20ad3ccd373b2f276913cd8e05bdc455f70e1056 100644
+--- a/dist/menus/index.cjs
++++ b/dist/menus/index.cjs
+@@ -197,7 +197,7 @@ function applyStyleProperty(element, styleName, value) {
+ 	element.style.setProperty(toStylePropertyName(styleName), toStyleValue(styleName, value));
+ }
+ function syncAttributes(element, prevProps, nextProps) {
+-	(/* @__PURE__ */ new Set([...Object.keys(prevProps), ...Object.keys(nextProps)])).forEach((key) => {
++	(new Set([...Object.keys(prevProps), ...Object.keys(nextProps)])).forEach((key) => {
+ 		if (ATTRIBUTE_EXCLUSIONS.has(key) || !isForwardedAttributeKey(key) || isEventProp(key, prevProps[key]) || isEventProp(key, nextProps[key])) return;
+ 		const prevValue = prevProps[key];
+ 		const nextValue = nextProps[key];
+@@ -231,7 +231,7 @@ function syncClassName(element, prevClassName, nextClassName) {
+ function syncStyles(element, prevStyle, nextStyle) {
+ 	const previousStyle = prevStyle !== null && prevStyle !== void 0 ? prevStyle : {};
+ 	const currentStyle = nextStyle !== null && nextStyle !== void 0 ? nextStyle : {};
+-	(/* @__PURE__ */ new Set([...Object.keys(previousStyle), ...Object.keys(currentStyle)])).forEach((styleName) => {
++	(new Set([...Object.keys(previousStyle), ...Object.keys(currentStyle)])).forEach((styleName) => {
+ 		const prevValue = previousStyle[styleName];
+ 		const nextValue = currentStyle[styleName];
+ 		if (prevValue === nextValue) return;
+diff --git a/dist/menus/index.js b/dist/menus/index.js
+index 4a793c291d9d82928c54c3859a755fa86279f327..b10f1341a683f6a74c90dfc9f58c23aefd04bfbf 100644
+--- a/dist/menus/index.js
++++ b/dist/menus/index.js
+@@ -173,7 +173,7 @@ function applyStyleProperty(element, styleName, value) {
+ 	element.style.setProperty(toStylePropertyName(styleName), toStyleValue(styleName, value));
+ }
+ function syncAttributes(element, prevProps, nextProps) {
+-	(/* @__PURE__ */ new Set([...Object.keys(prevProps), ...Object.keys(nextProps)])).forEach((key) => {
++	(new Set([...Object.keys(prevProps), ...Object.keys(nextProps)])).forEach((key) => {
+ 		if (ATTRIBUTE_EXCLUSIONS.has(key) || !isForwardedAttributeKey(key) || isEventProp(key, prevProps[key]) || isEventProp(key, nextProps[key])) return;
+ 		const prevValue = prevProps[key];
+ 		const nextValue = nextProps[key];
+@@ -207,7 +207,7 @@ function syncClassName(element, prevClassName, nextClassName) {
+ function syncStyles(element, prevStyle, nextStyle) {
+ 	const previousStyle = prevStyle !== null && prevStyle !== void 0 ? prevStyle : {};
+ 	const currentStyle = nextStyle !== null && nextStyle !== void 0 ? nextStyle : {};
+-	(/* @__PURE__ */ new Set([...Object.keys(previousStyle), ...Object.keys(currentStyle)])).forEach((styleName) => {
++	(new Set([...Object.keys(previousStyle), ...Object.keys(currentStyle)])).forEach((styleName) => {
+ 		const prevValue = previousStyle[styleName];
+ 		const nextValue = currentStyle[styleName];
+ 		if (prevValue === nextValue) return;
