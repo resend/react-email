@@ -52,4 +52,4 @@ jobs:
       # The release script lives outside the workspaces, so `turbo run test`
       # doesn't cover it. Run its unit tests explicitly.
       - name: Run release script tests
-        run: pnpm vitest run scripts/release.spec.mts
+        run: pnpm vitest run scripts/release.spec.mts scripts/publish-tarballs.spec.mts

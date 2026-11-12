@@ -8,12 +8,81 @@ permissions:
   contents: read
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
-  release:
-    # npm trusted publishing (OIDC) is only supported on GitHub-hosted `ubuntu-latest` runners.
+  build:
     runs-on: ubuntu-latest
     timeout-minutes: 45
-    permissions: 
+    permissions:
+      contents: read
+    container:
+      image: node:24
+    outputs:
+      has_packages: ${{ steps.pack.outputs.has_packages }}
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+      - run: git config --global --add safe.directory $GITHUB_WORKSPACE
+      - name: pnpm setup
+        uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115
+      - name: Install packages
+        run: pnpm install --frozen-lockfile --prefer-offline
+      - name: Build and pack
+        id: pack
+        run: pnpm release:pack release-artifacts
+      - name: Upload tarballs
+        if: steps.pack.outputs.has_packages == 'true'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: release-tarballs
+          path: release-artifacts
+          if-no-files-found: error
+          retention-days: 1
+
+  publish:
+    needs: build
+    if: needs.build.outputs.has_packages == 'true'
+    # npm trusted publishing (OIDC) is only supported on GitHub-hosted `ubuntu-latest` runners.
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
       id-token: write
+    container:
+      image: node:24
+    steps:
+      - name: Checkout publish script
+        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          sparse-checkout: |
+            scripts/publish-tarballs.mjs
+            packages/*/package.json
+          sparse-checkout-cone-mode: false
+      - name: Download tarballs
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: release-tarballs
+          path: release-artifacts
+      - name: Publish to npm
+        run: node scripts/publish-tarballs.mjs release-artifacts
+      - name: Upload publish results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: release-results
+          path: release-artifacts/results.json
+          if-no-files-found: error
+          retention-days: 1
+
+  github-release:
+    needs: [build, publish]
+    if: ${{ !cancelled() && needs.build.outputs.has_packages == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
       contents: write
     container:
       image: node:24@sha256:9d266751ca3d7fdbe651c878ffd5ad0a42fed49a18c283509267c97f025b7496
@@ -22,12 +91,18 @@ jobs:
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
         with:
           fetch-depth: 1
+          persist-credentials: false
       - run: git config --global --add safe.directory $GITHUB_WORKSPACE
       - name: pnpm setup
         uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115
       - name: Install packages
         run: pnpm install --frozen-lockfile --prefer-offline
-      - name: Publish release
-        run: pnpm release
-        env: 
+      - name: Download publish results
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c
+        with:
+          name: release-results
+          path: release-results
+      - name: Create tags and GitHub releases
+        run: pnpm release:github --github-releases release-results/results.json
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
