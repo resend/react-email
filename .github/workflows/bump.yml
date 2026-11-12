@@ -12,7 +12,7 @@ jobs:
       contents: write
       pull-requests: write
     container:
-      image: node:24
+      image: node:24@sha256:9d266751ca3d7fdbe651c878ffd5ad0a42fed49a18c283509267c97f025b7496
     steps:
       - name: Generate GitHub App token
         id: app-token

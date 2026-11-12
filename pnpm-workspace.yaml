@@ -13,6 +13,10 @@ allowBuilds:
 
 autoInstallPeers: true
 
+trustPolicy: no-downgrade
+
+minimumReleaseAge: 1440
+
 peerDependencyRules:
   allowedVersions:
     '@tiptap/html>happy-dom': '21'

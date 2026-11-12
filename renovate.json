@@ -3,6 +3,7 @@
   "extends": ["config:recommended"],
   "ignorePaths": ["benchmarks"],
   "rebaseWhen": "never",
+  "minimumReleaseAge": "3 days",
   "vulnerabilityAlerts": {
     "groupName": "security updates"
   },
