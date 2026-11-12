@@ -1,5 +1,12 @@
 # @react-email/editor
 
+## 1.8.5
+
+### Patch Changes
+
+- 8503517: Fix pasted or dragged content nesting a second container and theme inside the email body.
+- d1e3c79: Select all (Mod-a) in the email body now selects the body instead of the whole document.
+
 ## 1.8.4
 
 ### Patch Changes
