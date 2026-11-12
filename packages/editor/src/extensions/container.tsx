@@ -114,7 +114,7 @@ export const Container = EmailNode.create<ContainerOptions>({
 
   content: 'block+',
 
-  defining: true,
+  // Not `defining`: ProseMirror would keep the container around pasted content.
   isolating: true,
   selectable: false,
   draggable: false,
@@ -127,7 +127,12 @@ export const Container = EmailNode.create<ContainerOptions>({
 
   parseHTML() {
     return [
-      { tag: 'div[data-type="container"]' },
+      // Only under the doc, so a pasted container div is unwrapped.
+      { tag: 'div[data-type="container"]', context: 'doc/' },
+      // The open wrapper of a copy made in the body, which ProseMirror merges.
+      {
+        tag: 'div[data-type="container"][data-pm-slice]:not([data-pm-slice^="0 "])',
+      },
       {
         tag: 'table[role="presentation"]',
         priority: 60,

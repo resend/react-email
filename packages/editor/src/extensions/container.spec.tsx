@@ -1,9 +1,11 @@
-import type { JSONContent } from '@tiptap/core';
+import type { Extensions, JSONContent } from '@tiptap/core';
 import { Editor, Extension } from '@tiptap/core';
+import { generateJSON } from '@tiptap/html';
 import { Fragment, type Node as PmNode, Slice } from '@tiptap/pm/model';
-import { AllSelection } from '@tiptap/pm/state';
+import { AllSelection, type Selection } from '@tiptap/pm/state';
 import { Container as ReactEmailContainer, render } from 'react-email';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { createPasteHandler } from '../core/create-paste-handler';
 import { composeReactEmail } from '../core/serializer/compose-react-email';
 import { EmailTheming } from '../plugins';
 import { DEFAULT_STYLES } from '../utils/default-styles';
@@ -1253,6 +1255,242 @@ describe('Container Node', () => {
       'columnsColumn',
     );
     instance.destroy();
+  });
+
+  function email(theme: string, texts: string[]): JSONContent {
+    return {
+      type: 'doc',
+      content: [
+        { type: 'globalContent', attrs: { data: { theme } } },
+        { type: 'container', content: texts.map(paragraph) },
+      ],
+    };
+  }
+
+  function createPastingEditor(
+    content: JSONContent,
+    extensions: Extensions = [StarterKit],
+  ) {
+    return new Editor({
+      content,
+      extensions,
+      editorProps: { handlePaste: createPasteHandler({ extensions }) },
+    });
+  }
+
+  function clipboardOf(
+    source: Editor,
+    selection: Selection = new AllSelection(source.state.doc),
+  ) {
+    const { dom, text } = source.view.serializeForClipboard(
+      selection.content(),
+    );
+    return { html: dom.innerHTML, text };
+  }
+
+  function pasteInto(
+    target: Editor,
+    clipboard: { html: string; text: string },
+    position: 'end' | number = 'end',
+  ) {
+    const data: Record<string, string> = {
+      'text/html': clipboard.html,
+      'text/plain': clipboard.text,
+    };
+    const event = {
+      clipboardData: { getData: (type: string) => data[type] ?? '' },
+      preventDefault: () => {},
+    } as unknown as ClipboardEvent;
+    target.commands.focus(position);
+    target.view.pasteHTML(clipboard.html, event);
+  }
+
+  function dragSelectionTo(target: Editor, pos: number) {
+    const { view } = target;
+    view.dragging = { slice: target.state.selection.content(), move: true };
+    view.posAtCoords = () => ({ pos, inside: -1 });
+    const drop = new Event('drop', { bubbles: true, cancelable: true });
+    Object.defineProperty(drop, 'dataTransfer', { value: {} });
+    view.dom.dispatchEvent(drop);
+  }
+
+  const bodyOf = (editor: Editor) => editor.getJSON().content?.[1];
+
+  it('pastes a whole-document copy as plain blocks', () => {
+    const source = createPastingEditor(
+      email('minimal', ['Weekly update', 'Item']),
+    );
+    const target = createPastingEditor(email('basic', ['Intro']));
+
+    pasteInto(target, clipboardOf(source));
+
+    expect(target.getJSON().content).toMatchObject([
+      { type: 'globalContent', attrs: { data: { theme: 'basic' } } },
+      {
+        type: 'container',
+        content: [
+          paragraph('Intro'),
+          paragraph('Weekly update'),
+          paragraph('Item'),
+        ],
+      },
+    ]);
+    source.destroy();
+    target.destroy();
+  });
+
+  it('pastes a whole-document copy as plain blocks in an editor without the theme node', () => {
+    // Here the container div carries a closed data-pm-slice ("0 0").
+    const extensions = [StarterKit.configure({ GlobalContent: false })];
+    const containerOf = (texts: string[]): JSONContent => ({
+      type: 'doc',
+      content: [{ type: 'container', content: texts.map(paragraph) }],
+    });
+    const source = createPastingEditor(
+      containerOf(['Copied', 'Second']),
+      extensions,
+    );
+    const target = createPastingEditor(containerOf(['Intro']), extensions);
+
+    pasteInto(target, clipboardOf(source));
+
+    expect(target.getJSON().content).toMatchObject([
+      {
+        type: 'container',
+        content: [paragraph('Intro'), paragraph('Copied'), paragraph('Second')],
+      },
+    ]);
+    source.destroy();
+    target.destroy();
+  });
+
+  it('pastes paragraphs copied in the body into the paragraph under the cursor', () => {
+    const source = createPastingEditor(email('minimal', ['First', 'Second']));
+    source.commands.setTextSelection({ from: 3, to: 16 });
+    const target = createPastingEditor(
+      email('basic', ['Hello world', 'Outro']),
+    );
+
+    // At "Hello |world".
+    pasteInto(target, clipboardOf(source, source.state.selection), 9);
+
+    expect(target.getJSON().content?.[1]).toMatchObject({
+      type: 'container',
+      content: [
+        paragraph('Hello First'),
+        paragraph('Secondworld'),
+        paragraph('Outro'),
+      ],
+    });
+    target.commands.insertContent('|');
+    expect(target.state.doc.textContent).toContain('Second|world');
+    source.destroy();
+    target.destroy();
+  });
+
+  it('keeps one container when body paragraphs are pasted at the start of a paragraph', () => {
+    const source = createPastingEditor(email('minimal', ['First', 'Second']));
+    source.commands.setTextSelection({ from: 3, to: 16 });
+    const target = createPastingEditor(
+      email('basic', ['Hello world', 'Outro']),
+    );
+
+    pasteInto(target, clipboardOf(source, source.state.selection), 3);
+
+    expect(bodyOf(target)).toMatchObject({
+      type: 'container',
+      content: [
+        paragraph('First'),
+        paragraph('SecondHello world'),
+        paragraph('Outro'),
+      ],
+    });
+    source.destroy();
+    target.destroy();
+  });
+
+  it('keeps one container when body text is dragged to the start of a paragraph', () => {
+    const target = createPastingEditor(
+      email('basic', ['First', 'Second', 'Target']),
+    );
+    target.commands.setTextSelection({ from: 5, to: 13 });
+
+    dragSelectionTo(target, 18);
+
+    expect(bodyOf(target)).toMatchObject({
+      type: 'container',
+      content: [paragraph('Fiond'), paragraph('rst'), paragraph('SecTarget')],
+    });
+    target.destroy();
+  });
+
+  it('keeps the text after the cursor out of a button that ends the copy', () => {
+    const source = createPastingEditor({
+      type: 'doc',
+      content: [
+        { type: 'globalContent', attrs: { data: { theme: 'minimal' } } },
+        {
+          type: 'container',
+          content: [
+            paragraph('Intro'),
+            { type: 'button', content: [{ type: 'text', text: 'Click' }] },
+            paragraph('After'),
+          ],
+        },
+      ],
+    });
+    source.commands.setTextSelection({ from: 3, to: 15 });
+    const target = createPastingEditor(
+      email('basic', ['Hello world', 'Outro']),
+    );
+
+    pasteInto(target, clipboardOf(source, source.state.selection), 9);
+
+    const texts: string[] = [];
+    target.state.doc.descendants((node) => {
+      if (node.isTextblock) {
+        texts.push(`${node.type.name}:${node.textContent}`);
+      }
+    });
+    expect(texts).toEqual([
+      'paragraph:Hello Intro',
+      'button:Click',
+      'paragraph:world',
+      'paragraph:Outro',
+    ]);
+    source.destroy();
+    target.destroy();
+  });
+
+  it('still parses the container and the theme of a whole document from HTML', () => {
+    const json = generateJSON(
+      '<div data-type="globalContent"></div><div data-type="container"><p>Loaded</p></div>',
+      [StarterKit],
+    );
+
+    expect(json.content).toMatchObject([
+      { type: 'globalContent' },
+      { type: 'container', content: [paragraph('Loaded')] },
+    ]);
+  });
+
+  it('parses the container table below the Body wrapper table of a sent email', () => {
+    const json = generateJSON(
+      '<table role="presentation" width="100%"><tbody><tr><td><table role="presentation" style="max-width:600px"><tbody><tr><td><p>Imported</p></td></tr></tbody></table></td></tr></tbody></table>',
+      [StarterKit],
+    );
+
+    const containers: JSONContent[] = [];
+    const collect = (node: JSONContent) => {
+      if (node.type === 'container') {
+        containers.push(node);
+      }
+      node.content?.forEach(collect);
+    };
+    collect(json);
+
+    expect(containers).toHaveLength(1);
+    expect(containers[0]).toMatchObject({ content: [paragraph('Imported')] });
   });
 
   it('does not parse a table without max-width as a container', () => {

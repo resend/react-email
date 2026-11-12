@@ -44,7 +44,10 @@ export function createPasteHandler({
 
       const sanitizedHtml = sanitizePastedHtml(html);
 
-      const jsonContent = generateJSON(sanitizedHtml, extensions);
+      // Parse where the paste lands, so a copied container or theme is dropped.
+      const jsonContent = generateJSON(sanitizedHtml, extensions, {
+        context: view.state.selection.$from,
+      });
       const node = view.state.schema.nodeFromJSON(jsonContent);
 
       const transaction = view.state.tr.replaceSelectionWith(node, false);
