@@ -1057,7 +1057,6 @@ describe('Container Node', () => {
     });
   }
 
-  // The start and end of the content of the node at `depth` above the cursor.
   function boundsOf(instance: Editor, depth: number) {
     const { $from } = instance.state.selection;
     return { from: $from.start(depth), to: $from.end(depth) };
@@ -1104,7 +1103,7 @@ describe('Container Node', () => {
     pressSelectAll(instance);
 
     instance.commands.toggleBold();
-    // An edit elsewhere, as a collaborator's or an image upload would make.
+    // An edit elsewhere.
     instance.view.dispatch(instance.state.tr.insertText('!', 4));
     instance.commands.toggleItalic();
 
