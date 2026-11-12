@@ -44,9 +44,7 @@ export function createPasteHandler({
 
       const sanitizedHtml = sanitizePastedHtml(html);
 
-      // Parsed where the paste lands, not at the document level, so the
-      // container and the theme of a whole-document copy are not recreated
-      // inside the body.
+      // Parse where the paste lands, so a copied container or theme is dropped.
       const jsonContent = generateJSON(sanitizedHtml, extensions, {
         context: view.state.selection.$from,
       });

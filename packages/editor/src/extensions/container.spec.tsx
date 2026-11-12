@@ -1046,8 +1046,7 @@ describe('Container Node', () => {
     };
   }
 
-  // The editor as EmailEditor builds it: with the paste handler, whose HTML
-  // branch re-parses the clipboard itself.
+  // With the paste handler, as EmailEditor builds it.
   function createPastingEditor(
     content: JSONContent,
     extensions: Extensions = [StarterKit],
@@ -1128,9 +1127,7 @@ describe('Container Node', () => {
   });
 
   it('pastes a whole-document copy as plain blocks in an editor without the theme node', () => {
-    // The container div is the first clipboard element here, so it carries
-    // data-pm-slice itself. It is closed ("0 0"), unlike the wrapper of a
-    // body copy, and must not parse as one.
+    // Here the container div carries a closed data-pm-slice ("0 0").
     const extensions = [StarterKit.configure({ GlobalContent: false })];
     const containerOf = (texts: string[]): JSONContent => ({
       type: 'doc',
@@ -1159,17 +1156,13 @@ describe('Container Node', () => {
   });
 
   it('pastes paragraphs copied in the body into the paragraph under the cursor', () => {
-    // The everyday copy: a text selection across two paragraphs. Its
-    // clipboard is wrapped in the container div, and it has to keep pasting
-    // the way ProseMirror pastes its own slice.
     const source = createPastingEditor(email('minimal', ['First', 'Second']));
     source.commands.setTextSelection({ from: 3, to: 16 });
     const target = createPastingEditor(
       email('basic', ['Hello world', 'Outro']),
     );
 
-    // At "Hello |world": "First" joins the text before the cursor, "Second"
-    // the text after it, and the cursor ends between the two.
+    // At "Hello |world".
     pasteInto(target, clipboardOf(source, source.state.selection), 9);
 
     expect(target.getJSON().content?.[1]).toMatchObject({
@@ -1187,8 +1180,6 @@ describe('Container Node', () => {
   });
 
   it('keeps one container when body paragraphs are pasted at the start of a paragraph', () => {
-    // ProseMirror keeps a `defining` node around its content when the content
-    // is pasted, and at the start of a line it had room for a whole container.
     const source = createPastingEditor(email('minimal', ['First', 'Second']));
     source.commands.setTextSelection({ from: 3, to: 16 });
     const target = createPastingEditor(
@@ -1210,7 +1201,6 @@ describe('Container Node', () => {
   });
 
   it('keeps one container when body text is dragged to the start of a paragraph', () => {
-    // ProseMirror drops a dragged selection the way it pastes one.
     const target = createPastingEditor(
       email('basic', ['First', 'Second', 'Target']),
     );
@@ -1230,9 +1220,7 @@ describe('Container Node', () => {
   });
 
   it('keeps the text after the cursor out of a button that ends the copy', () => {
-    // The copy ends inside the button label. Its container wrapper says how
-    // deep the copy is open, so the wrapper has to parse as a container for
-    // the button to come out closed.
+    // The copy ends inside the button label.
     const source = createPastingEditor({
       type: 'doc',
       content: [
@@ -1271,8 +1259,6 @@ describe('Container Node', () => {
   });
 
   it('still parses the container and the theme of a whole document from HTML', () => {
-    // The two rules are limited to the doc level, where a loaded document
-    // has them.
     const json = generateJSON(
       '<div data-type="globalContent"></div><div data-type="container"><p>Loaded</p></div>',
       [StarterKit],
@@ -1285,9 +1271,6 @@ describe('Container Node', () => {
   });
 
   it('parses the container table below the Body wrapper table of a sent email', () => {
-    // react-email's Body renders a full-width presentation table around the
-    // Container, so an imported email's container table is never directly
-    // under the doc. The table rule has to match it there.
     const json = generateJSON(
       '<table role="presentation" width="100%"><tbody><tr><td><table role="presentation" style="max-width:600px"><tbody><tr><td><p>Imported</p></td></tr></tbody></table></td></tr></tbody></table>',
       [StarterKit],
