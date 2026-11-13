@@ -69,7 +69,7 @@ function Root({
           },
         }}
       >
-        {/* React sets these props, because Turbopack in Next.js 16.4 drops TipTap's prop sync in production builds. */}
+        {/* React sets these props, because Turbopack before Next.js 16.5 drops TipTap's attribute and style sync. */}
         <div data-re-bubble-menu="" className={className} {...rest}>
           <BubbleMenuContext.Provider
             value={{ editor, isEditing, setIsEditing }}

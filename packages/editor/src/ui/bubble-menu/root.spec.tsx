@@ -9,12 +9,20 @@ vi.mock('@tiptap/react/menus', () => ({
     children,
     options,
     ref,
-  }: {
+    editor: _editor,
+    pluginKey: _pluginKey,
+    shouldShow: _shouldShow,
+    ...rest
+  }: React.HTMLAttributes<HTMLDivElement> & {
     children: React.ReactNode;
     options?: { placement?: string; offset?: number; onHide?: () => void };
     ref?: React.Ref<HTMLDivElement>;
+    editor?: unknown;
+    pluginKey?: unknown;
+    shouldShow?: unknown;
   }) => (
     <div
+      {...rest}
       ref={ref}
       data-testid="bubble-menu-root"
       data-placement={options?.placement}
@@ -160,6 +168,8 @@ describe('BubbleMenuRoot', () => {
       expect(menu.style.color).toBe('red');
       expect(menu.getAttribute('aria-label')).toBe('Formatting');
       expect(root.hasAttribute('data-re-bubble-menu')).toBe(false);
+      expect(root.className).toBe('');
+      expect(root.style.color).toBe('');
     });
   });
 });
