@@ -26,8 +26,6 @@ We have also created a Development workflow guide to help you get familiar with 
 
 You're welcome to use AI tools to explore the codebase, draft changes, and write tests. You are still responsible for everything you submit.
 
-1. **Write the description yourself.** Pull request descriptions, issues, and comments should be in your own words. Using AI to translate is fine.
-2. **Don't let agents open pull requests on their own.** A person must review and submit every contribution.
-3. **Don't mass-submit low-quality pull requests.** We treat that as spam and may close the pull requests and block the account.
+- Don't mass-submit low-quality pull requests. We treat that as spam and may close them and block the account.
 
-If you're using a coding agent, it will pick up the rules in [AGENTS.md](./AGENTS.md).
+Coding agents pick up these rules from [AGENTS.md](https://github.com/resend/react-email/blob/canary/AGENTS.md).
