@@ -89,6 +89,49 @@ describe('email fonts', () => {
     expect(html).not.toContain('family=Roboto');
   });
 
+  it('links a web font set on a theme component other than the body', async () => {
+    editor = new Editor({
+      extensions: [StarterKit, EmailTheming.configure({ theme: 'basic' })],
+      content: {
+        type: 'doc',
+        content: [
+          {
+            type: 'globalContent',
+            attrs: {
+              data: {
+                theme: 'basic',
+                styles: EDITOR_THEMES.basic.map((group) =>
+                  group.id === 'h1'
+                    ? {
+                        ...group,
+                        inputs: [
+                          {
+                            label: 'Font',
+                            type: 'select',
+                            prop: 'fontFamily',
+                            classReference: 'h1',
+                            value: EMAIL_FONTS[11].value,
+                          },
+                        ],
+                      }
+                    : group,
+                ),
+              },
+            },
+          },
+          {
+            type: 'heading',
+            attrs: { level: 1 },
+            content: [{ type: 'text', text: 'Title' }],
+          },
+        ],
+      },
+    });
+    const { html } = await composeReactEmail({ editor, preview: '' });
+    expect(EMAIL_FONTS[11].label).toBe('Open Sans');
+    expect(html).toContain('family=Open+Sans');
+  });
+
   it('links a web font used only on a text mark', async () => {
     const html = await render(undefined, [
       {

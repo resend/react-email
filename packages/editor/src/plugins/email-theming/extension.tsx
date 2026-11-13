@@ -111,9 +111,14 @@ export function getMergedCssJs(
   return merged;
 }
 
-/** Every `font-family` the email uses: the body font and any `fontFamily` mark attribute. */
-function getUsedFontFamilies(editor: Editor, bodyFont: unknown): Set<unknown> {
-  const fonts = new Set<unknown>([bodyFont]);
+/** Every `font-family` the email uses: theme components and any `fontFamily` mark attribute. */
+function getUsedFontFamilies(
+  editor: Editor,
+  mergedStyles: CssJs,
+): Set<unknown> {
+  const fonts = new Set<unknown>(
+    Object.values(mergedStyles).map((style) => style?.fontFamily),
+  );
   editor.state.doc.descendants((node) => {
     for (const mark of node.marks) {
       fonts.add(mark.attrs.fontFamily);
@@ -315,7 +320,7 @@ export const EmailTheming = Extension.create<{
           const { css: globalCss, styles, theme } = getEmailTheming(editor);
           const mergedStyles = getMergedCssJs(theme, styles);
           const webFontUrls = getWebFontUrls(
-            getUsedFontFamilies(editor, mergedStyles.body?.fontFamily),
+            getUsedFontFamilies(editor, mergedStyles),
           );
 
           return (
