@@ -1,3 +1,4 @@
+import { DEFAULT_FONT_FAMILY, EMAIL_FONTS } from './fonts';
 import type {
   EditorTheme,
   PanelGroup,
@@ -11,6 +12,10 @@ import type {
  * Titles are resolved from here at render time via `getPanelTitle`,
  * so they never depend on what's persisted in the DB.
  */
+const FONT_OPTIONS = Object.fromEntries(
+  EMAIL_FONTS.map((font) => [font.value, font.label]),
+);
+
 const PANEL_SECTION_TITLES: Record<PanelSectionId, string> = {
   body: 'Background',
   container: 'Body',
@@ -188,6 +193,14 @@ const THEME_BASIC: PanelGroup[] = [
     title: 'Text',
     classReference: 'body',
     inputs: [
+      {
+        label: 'Font',
+        type: 'select',
+        value: DEFAULT_FONT_FAMILY,
+        prop: 'fontFamily',
+        classReference: 'body',
+        options: FONT_OPTIONS,
+      },
       {
         label: 'Font size',
         type: 'number',
@@ -677,8 +690,7 @@ const RESET_BASIC: ResetTheme = {
     padding: '0',
   },
   body: {
-    fontFamily:
-      "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
+    fontFamily: DEFAULT_FONT_FAMILY,
     fontSize: '14px',
     minHeight: '100%',
     lineHeight: '155%',
@@ -733,8 +745,6 @@ const RESET_BASIC: ResetTheme = {
     marginLeft: 0,
     paddingLeft: '0.8em',
     fontSize: '1.1em',
-    fontFamily:
-      "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
   },
   link: { color: '#0670DB', textDecoration: 'underline' },
   footer: {
@@ -869,8 +879,7 @@ export const DEFAULT_INBOX_FONT_SIZE_PX = 14;
 export const INBOX_EMAIL_DEFAULTS: Partial<ResetTheme> = {
   body: {
     color: '#000000',
-    fontFamily:
-      "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
+    fontFamily: DEFAULT_FONT_FAMILY,
     fontSize: `${DEFAULT_INBOX_FONT_SIZE_PX}px`,
   },
   container: {
@@ -902,6 +911,14 @@ export const SUPPORTED_CSS_PROPERTIES: SupportedCssProperties = {
     type: 'color',
     excludeNodes: ['image', 'youtube'],
     defaultValue: '#000000',
+    category: 'typography',
+  },
+  fontFamily: {
+    label: 'Font',
+    type: 'select',
+    options: FONT_OPTIONS,
+    excludeNodes: ['image', 'youtube'],
+    defaultValue: DEFAULT_FONT_FAMILY,
     category: 'typography',
   },
   fontSize: {

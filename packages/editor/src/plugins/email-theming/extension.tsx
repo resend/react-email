@@ -13,6 +13,7 @@ import {
   mergeCssJs,
   transformToCssJs,
 } from './css-transforms';
+import { getWebFontUrls } from './fonts';
 import {
   inferThemeFromPanelStyles,
   normalizeThemePanelStyles,
@@ -99,7 +100,26 @@ export function getMergedCssJs(
   const parsed = transformToCssJs(panels, DEFAULT_INBOX_FONT_SIZE_PX);
   const merged = mergeCssJs(RESET_THEMES[theme], parsed);
 
+  // Outlook does not inherit the <body> font into tables, so repeat it on the container table.
+  if (merged.body?.fontFamily && !merged.container?.fontFamily) {
+    merged.container = {
+      ...merged.container,
+      fontFamily: merged.body.fontFamily,
+    };
+  }
+
   return merged;
+}
+
+/** Every `font-family` the email uses: the body font and any `fontFamily` mark attribute. */
+function getUsedFontFamilies(editor: Editor, bodyFont: unknown): Set<unknown> {
+  const fonts = new Set<unknown>([bodyFont]);
+  editor.state.doc.descendants((node) => {
+    for (const mark of node.marks) {
+      fonts.add(mark.attrs.fontFamily);
+    }
+  });
+  return fonts;
 }
 
 /**
@@ -294,6 +314,9 @@ export const EmailTheming = Extension.create<{
         BaseTemplate({ previewText, children, editor, previewMode = false }) {
           const { css: globalCss, styles, theme } = getEmailTheming(editor);
           const mergedStyles = getMergedCssJs(theme, styles);
+          const webFontUrls = getWebFontUrls(
+            getUsedFontFamilies(editor, mergedStyles.body?.fontFamily),
+          );
 
           return (
             <Html>
@@ -306,6 +329,9 @@ export const EmailTheming = Extension.create<{
                   name="format-detection"
                 />
 
+                {webFontUrls.map((href) => (
+                  <link href={href} key={href} rel="stylesheet" />
+                ))}
                 {!previewMode && <style>{DARK_MODE_CSS}</style>}
                 {globalCss && <style>{globalCss}</style>}
               </Head>

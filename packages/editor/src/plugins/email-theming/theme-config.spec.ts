@@ -70,6 +70,18 @@ describe('isThemeConfig', () => {
 });
 
 describe('themeStylesToPanelOverrides', () => {
+  it('overrides the body font on its typography input instead of adding a duplicate', () => {
+    const result = themeStylesToPanelOverrides(
+      { body: { fontFamily: 'Georgia, serif' } },
+      EDITOR_THEMES.basic,
+    );
+    const fontInputs = result
+      .flatMap((g) => g.inputs)
+      .filter((i) => i.prop === 'fontFamily');
+    expect(fontInputs).toHaveLength(1);
+    expect(fontInputs[0].value).toBe('Georgia, serif');
+  });
+
   it('overrides body background on basic theme', () => {
     const base = EDITOR_THEMES.basic;
     const result = themeStylesToPanelOverrides(

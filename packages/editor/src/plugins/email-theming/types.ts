@@ -50,6 +50,7 @@ export type KnownCssProperties =
   | 'align'
   | 'backgroundColor'
   | 'color'
+  | 'fontFamily'
   | 'fontSize'
   | 'fontWeight'
   | 'letterSpacing'
