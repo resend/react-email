@@ -2,6 +2,59 @@ import { generate, parse } from 'css-tree';
 import { resolveAllCssVariables } from './resolve-all-css-variables.js';
 
 describe('resolveAllCSSVariables', () => {
+  it.each([
+    ':root',
+    '*',
+  ])('prefers a local definition over an earlier %s default', (selector) => {
+    const root = parse(`${selector} { --brand: red; }
+      .card { --brand: blue; color: var(--brand); }
+      .default { color: var(--brand); }`);
+    resolveAllCssVariables(root);
+    expect(generate(root)).toContain('.card{--brand: blue;color:blue}');
+    expect(generate(root)).toContain('.default{color:red}');
+  });
+
+  it.each([
+    ['--brand: red; --brand: blue;', 'blue'],
+    ['--brand: red !important; --brand: blue;', 'red'],
+    ['--brand: red; --brand: blue !important;', 'blue'],
+    ['--brand: red !important; --brand: blue !important;', 'blue'],
+  ])('uses the winning local declaration in %s', (declarations, expected) => {
+    const root = parse(`:root { --brand: green; }
+      .card { ${declarations} color: var(--brand); }`);
+    resolveAllCssVariables(root);
+    expect(generate(root)).toContain(`color:${expected}`);
+  });
+
+  it.each([
+    '*',
+    '*, .other',
+    ':where(*)',
+    ':is(*)',
+    '.card',
+  ])('preserves an earlier important definition on %s', (selector) => {
+    const root = parse(`${selector} { --brand: red !important; }
+        .card { --brand: blue; color: var(--brand); }`);
+    resolveAllCssVariables(root);
+    expect(generate(root)).toContain('.card{--brand: blue;color:red}');
+  });
+
+  it('prefers a local declaration over an inherited important root default', () => {
+    const root = parse(`:root { --brand: red !important; }
+      .card { --brand: blue; color: var(--brand); }`);
+    resolveAllCssVariables(root);
+    expect(generate(root)).toContain('.card{--brand: blue;color:blue}');
+  });
+
+  it('prefers a local important declaration over a universal important default', () => {
+    const root = parse(`* { --brand: red !important; }
+      .card { --brand: blue !important; color: var(--brand); }`);
+    resolveAllCssVariables(root);
+    expect(generate(root)).toContain(
+      '.card{--brand: blue !important;color:blue}',
+    );
+  });
+
   it('ignores @layer (properties) defined for browser compatibility', () => {
     const root =
       parse(`/*! tailwindcss v4.1.12 | MIT License | https://tailwindcss.com */
@@ -185,6 +238,25 @@ describe('resolveAllCSSVariables', () => {
     resolveAllCssVariables(root);
     expect(generate(root)).toMatchInlineSnapshot(
       `"@layer theme{:root{--color-blue-300: blue}}@layer utilities{.sm\\\\:bg-blue-300{@media (width>=40rem){background-color:blue}}}"`,
+    );
+  });
+
+  it('resolves variables used inside custom property definitions', () => {
+    const root = parse(`:root {
+  --color-red-500: red;
+  --blur-sm: 8px;
+}
+.from-red-500 {
+  --tw-gradient-from: var(--color-red-500);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent);
+}
+.blur-sm {
+  --tw-blur: blur(var(--blur-sm));
+  filter: var(--tw-blur,) var(--tw-drop-shadow,);
+}`);
+    resolveAllCssVariables(root);
+    expect(generate(root)).toMatchInlineSnapshot(
+      `":root{--color-red-500: red;--blur-sm: 8px}.from-red-500{--tw-gradient-from:red;--tw-gradient-stops:red,var(--tw-gradient-to, transparent)}.blur-sm{--tw-blur:blur(8px);filter:blur(8px) var(--tw-drop-shadow,)}"`,
     );
   });
 

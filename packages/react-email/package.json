@@ -1,12 +1,15 @@
 {
   "name": "react-email",
-  "version": "6.11.6",
+  "version": "6.11.12",
   "description": "A live preview of your emails right in your browser.",
   "bin": {
     "email": "./dist/cli/index.mjs"
   },
   "type": "module",
   "sideEffects": false,
+  "files": [
+    "dist/**"
+  ],
   "types": "./dist/index.d.mts",
   "scripts": {
     "build": "tsdown",
@@ -47,14 +50,13 @@
   "dependencies": {
     "@babel/parser": "catalog:",
     "@babel/traverse": "catalog:",
-    "@react-email/render": "workspace:>=2.2.0",
+    "@react-email/render": "workspace:>=2.3.1",
     "chokidar": "^5.0.0",
     "commander": "catalog:",
     "conf": "^15.0.2",
     "css-tree": "3.2.1",
-    "debounce": "^2.0.0",
     "esbuild": "^0.28.0",
-    "glob": "^13.0.6",
+    "glob": "^14.0.3",
     "jiti": "2.6.1",
     "log-symbols": "catalog:",
     "marked": "^15.0.12",

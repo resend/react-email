@@ -51,6 +51,27 @@ function registeredLang(aliasOrLanguage: string) {
   return Boolean(allSupportLang.find((x) => x === aliasOrLanguage));
 }
 
+// Prism's own metadata resolves aliases (`shell` is defined by `bash`) and
+// requirements (`php` needs `markup-templating` first). It is loaded on demand,
+// the first time a code block uses a grammar that isn't registered yet.
+export async function loadPrismLanguage(language: string) {
+  const [{ default: components }, { default: getLoader }] = await Promise.all([
+    import('prismjs/components.js'),
+    import('prismjs/dependencies.js'),
+  ]);
+  const ids = getLoader(components, [language])
+    .getIds()
+    .filter((id) => id in components.languages && !registeredLang(id));
+
+  for (const id of ids) {
+    await import(/* @vite-ignore */ `prismjs/components/prism-${id}`);
+  }
+
+  if (!registeredLang(language)) {
+    throw new Error(`Prism has no grammar for "${language}"`);
+  }
+}
+
 function getDecorations({
   doc,
   name,
@@ -77,7 +98,7 @@ function getDecorations({
     try {
       if (!registeredLang(language) && !loadingLanguages.has(language)) {
         loadingLanguages.add(language);
-        import(/* @vite-ignore */ `prismjs/components/prism-${language}`)
+        loadPrismLanguage(language)
           .then(() => {
             loadingLanguages.delete(language);
             onLanguageLoaded(language);
@@ -97,11 +118,15 @@ function getDecorations({
         language,
       );
     } catch {
-      html = Prism.highlight(
-        block.node.textContent,
-        Prism.languages.javascript,
-        'js',
-      );
+      try {
+        html = Prism.highlight(
+          block.node.textContent,
+          Prism.languages.javascript,
+          'js',
+        );
+      } catch {
+        return;
+      }
     }
 
     const nodes = getHighlightNodes(html);

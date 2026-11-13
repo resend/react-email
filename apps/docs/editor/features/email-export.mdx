@@ -71,7 +71,7 @@ function ExportPanel() {
   const handleExport = async () => {
     if (!editor) return;
     setExporting(true);
-    const result = await composeReactEmail({ editor, preview: null });
+    const result = await composeReactEmail({ editor });
     setHtml(result.html);
     setExporting(false);
   };
@@ -112,11 +112,14 @@ The `composeReactEmail` function follows this pipeline:
 The return value is:
 
 ```tsx
-const { html, text } = await composeReactEmail({ editor, preview: null });
+const { html, text, unformattedHtml } = await composeReactEmail({ editor });
 
-// html  — Full HTML email string, ready to send
-// text  — Plain text version for email clients that don't support HTML
+// html: full HTML email string, formatted with Prettier
+// text: plain text version for email clients that don't support HTML
+// unformattedHtml: full HTML email string without formatting, best for sending
 ```
+
+Pass `pretty: false` to skip formatting. See [composeReactEmail](/editor/api-reference/compose-react-email#without-formatting).
 
 ## Preview text
 
@@ -131,7 +134,7 @@ const result = await composeReactEmail({
 });
 ```
 
-Pass `null` to omit preview text.
+Leave out `preview` to omit preview text.
 
 ## Using with theming
 
@@ -145,7 +148,7 @@ document tree.
 const extensions = [StarterKit, EmailTheming.configure({ theme: 'basic' })];
 
 // Later, when exporting:
-const { html } = await composeReactEmail({ editor, preview: null });
+const { html } = await composeReactEmail({ editor });
 // ...the html includes all theme styles inline
 ```
 
@@ -175,7 +178,7 @@ function ControlPanel() {
   const handleExport = async () => {
     if (!editor) return;
     setExporting(true);
-    const result = await composeReactEmail({ editor, preview: null });
+    const result = await composeReactEmail({ editor });
     setHtml(result.html);
     setExporting(false);
   };

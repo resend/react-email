@@ -1,5 +1,25 @@
 # @react-email/ui
 
+## 6.11.12
+
+## 6.11.11
+
+## 6.11.10
+
+### Patch Changes
+
+- 92484bd: Fix `email build` failing at random with `(void 0) is not a function` when Next.js prerenders pages in several workers. Each worker now writes the JSX runtime to a temporary file and renames it into place, so no worker reads a half-written runtime.
+
+## 6.11.9
+
+### Patch Changes
+
+- 44169a6: Scanning the emails directory no longer leaves a file handle open when a file can't be read, which crashed `email dev` on Node.js 25 and later. An unreadable file is now skipped with a warning instead of failing the whole scan.
+
+## 6.11.8
+
+## 6.11.7
+
 ## 6.11.6
 
 ### Patch Changes

@@ -35,7 +35,10 @@ function sortMarksBySchema(
 }
 
 interface ComposeReactEmailResult {
-  /** Prettier-formatted HTML, suitable for displaying in a source-code view. */
+  /**
+   * Prettier-formatted HTML, suitable for displaying in a source-code view.
+   * Equal to `unformattedHtml` when `pretty` is `false`.
+   */
   html: string;
   /** Plain-text version of the email body. */
   text: string;
@@ -53,10 +56,18 @@ export const composeReactEmail = async ({
   editor,
   preview,
   previewMode = false,
+  pretty: shouldPrettify = true,
 }: {
   editor: Editor;
   preview?: string;
   previewMode?: boolean;
+  /**
+   * Run Prettier on the rendered HTML to produce `html`. Defaults to `true`.
+   * Set to `false` when only `unformattedHtml` is needed: it skips the
+   * Prettier pass, which is slow on large emails and overflows the call
+   * stack on very deeply nested layouts.
+   */
+  pretty?: boolean;
 }): Promise<ComposeReactEmailResult> => {
   const data = editor.getJSON();
   const extensions = editor.extensionManager.extensions;
@@ -177,7 +188,7 @@ export const composeReactEmail = async ({
   );
 
   const [prettyHtml, text] = await Promise.all([
-    pretty(unformattedHtml),
+    shouldPrettify ? pretty(unformattedHtml) : unformattedHtml,
     toPlainText(unformattedHtml),
   ]);
 

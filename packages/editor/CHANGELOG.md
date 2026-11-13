@@ -1,5 +1,85 @@
 # @react-email/editor
 
+## 1.8.6
+
+### Patch Changes
+
+- Updated dependencies [303f790]
+  - react-email@6.11.12
+
+## 1.8.5
+
+### Patch Changes
+
+- 8503517: Fix pasted or dragged content nesting a second container and theme inside the email body.
+- d1e3c79: Select all (Mod-a) in the email body now selects the body instead of the whole document.
+
+## 1.8.4
+
+### Patch Changes
+
+- Updated dependencies [9f75920]
+  - react-email@6.11.11
+
+## 1.8.3
+
+### Patch Changes
+
+- Updated dependencies [64fa975]
+- Updated dependencies [f20a697]
+  - react-email@6.11.10
+
+## 1.8.2
+
+### Patch Changes
+
+- 927ce0d: The bubble menu, slash command menu, inspector and placeholder styles now use logical CSS properties, so they mirror correctly when the editor sits in a right-to-left (`dir="rtl"`) page. Left-to-right layouts are unchanged.
+- Updated dependencies [bc2becd]
+- Updated dependencies [44169a6]
+- Updated dependencies [de32c06]
+- Updated dependencies [d38e9a2]
+  - react-email@6.11.9
+
+## 1.8.1
+
+### Patch Changes
+
+- Updated dependencies [2cf6a55]
+- Updated dependencies [e3121ee]
+  - react-email@6.11.8
+
+## 1.8.0
+
+### Minor Changes
+
+- 36b931d: add a `pretty` option to `composeReactEmail` (defaults to `true`). Pass `pretty: false` to skip the Prettier pass when only `unformattedHtml` is needed; `html` then equals `unformattedHtml`. Prettier is slow on large emails and overflows the call stack on very deeply nested layouts (e.g. Stripo or Mailchimp imports), which made the whole compose reject even though the caller never used the formatted output.
+
+## 1.7.22
+
+### Patch Changes
+
+- Updated dependencies [d8a0778]
+- Updated dependencies [2b3d241]
+  - react-email@6.11.7
+
+## 1.7.21
+
+### Patch Changes
+
+- 8270604: Skip the deferred class, style and alignment resets on Enter when the editor is destroyed before the next frame, and raise the tiptap ranges to ^3.32.2
+
+## 1.7.20
+
+### Patch Changes
+
+- 5a6605d: Keep the default button readable in Apple Mail dark mode by serializing a pure black background as `#010101` and pinning a light label with `-webkit-text-fill-color`.
+
+## 1.7.19
+
+### Patch Changes
+
+- 7ccccf8: Load the Prism grammars a code block language depends on, and resolve language aliases, before highlighting it. `shell` code blocks now highlight as Bash, and a `php` block no longer loads PHP without `markup-templating`, which made every later highlight on the page throw.
+
 ## 1.7.18
 
 ### Patch Changes

@@ -2,6 +2,8 @@ import { decodeHTML, decodeHTMLAttribute } from 'entities/lib/decode.js';
 import { type INode, type ITag, parse, SyntaxKind } from 'html5parser';
 
 const SKIPPED_TAGS = new Set([
+  // html5parser parses `<!-- ... -->` as a tag named `!--`
+  '!--',
   'img',
   'noscript',
   'script',
@@ -19,11 +21,11 @@ type BlockPrefix = { first: string; rest: string };
 // Everything tag-specific about how a block separates from its surroundings.
 type Block = { open: number; close: number; prefix?: BlockPrefix };
 
-// html-to-text's default separation for the block tags implemented so far.
-// Tags absent here (and not handled in `enterNode`) are treated as inline
-// and contribute no separation — notably td/tr, which is why table cells run
-// together, matching `toPlainText` today. Only extend this alongside a spec
-// case verifying the behavior against `toPlainText`.
+// Mirrors the block separation `toPlainText` applies: html-to-text's defaults
+// plus react-email's own selectors (td/th). Tags absent here (and not handled
+// in `enterNode`) are treated as inline and contribute no separation. Only
+// extend this alongside a spec case verifying the behavior against
+// `toPlainText`.
 const TAG_BLOCKS: Record<string, Block> = {
   article: { open: 2, close: 2 },
   aside: { open: 2, close: 2 },
@@ -45,6 +47,8 @@ const TAG_BLOCKS: Record<string, Block> = {
   pre: { open: 2, close: 2 },
   section: { open: 2, close: 2 },
   table: { open: 2, close: 2 },
+  td: { open: 1, close: 1 },
+  th: { open: 1, close: 1 },
 };
 
 interface OpenBlock {
@@ -76,7 +80,7 @@ interface WalkFrame {
 }
 
 export function unstableToPlainText(html: string): string {
-  const tree = parse(html, { setAttributeMap: true });
+  const tree = parse(html);
   const body = findBody(tree);
 
   const blocks: OpenBlock[] = [
@@ -155,6 +159,12 @@ export function unstableToPlainText(html: string): string {
       }
       return;
     }
+    node.attributeMap = Object.fromEntries(
+      node.attributes.map((attribute) => [
+        attribute.name.value.toLowerCase(),
+        attribute,
+      ]),
+    );
     if (
       SKIPPED_TAGS.has(node.name) ||
       decodeHTMLAttribute(
@@ -259,7 +269,7 @@ export function unstableToPlainText(html: string): string {
         // compared against the href to decide whether to append it
         // (html-to-text's hideLinkHrefIfSameAsText, which `toPlainText`
         // enables)
-        const anchorText = top().text.slice(frame.textFrom).join('');
+        const anchorText = top().text.slice(frame.textFrom).join('').trim();
         if (anchorText !== href) {
           if (anchorText.length > 0) top().space = true;
           writeWord(href);

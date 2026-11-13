@@ -7,6 +7,7 @@ import { downlevelForEmailClients } from './utils/css/downlevel-for-email-client
 import { extractRulesPerClass } from './utils/css/extract-rules-per-class.js';
 import { getCustomProperties } from './utils/css/get-custom-properties.js';
 import { sanitizeNonInlinableRules } from './utils/css/sanitize-non-inlinable-rules.js';
+import { separateAdjacentClosingBraces } from './utils/css/separate-adjacent-closing-braces.js';
 import { mapReactTree } from './utils/react/map-react-tree.js';
 import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element-with-inlined-styles.js';
 import { setupTailwind } from './utils/tailwindcss/setup-tailwind.js';
@@ -173,7 +174,11 @@ export function Tailwind({ children, config, theme, utility }: TailwindProps) {
 
         const styleElement = (
           <style
-            dangerouslySetInnerHTML={{ __html: generate(nonInlineStyles) }}
+            dangerouslySetInnerHTML={{
+              __html: generate(nonInlineStyles, {
+                decorator: separateAdjacentClosingBraces,
+              }),
+            }}
           />
         );
 

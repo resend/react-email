@@ -80,6 +80,7 @@ export const AlignmentAttribute = Extension.create<AlignmentOptions>({
 
         if (currentAlignment) {
           requestAnimationFrame(() => {
+            if (this.editor.isDestroyed) return;
             // Preserve the current alignment when creating new nodes
             this.editor.commands.setAlignment(currentAlignment);
           });

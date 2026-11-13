@@ -1,5 +1,52 @@
 # react-email
 
+## 6.11.12
+
+### Patch Changes
+
+- 303f790: `<Tailwind>` now writes `} }` instead of `}}` in the `<style>` it generates. Outlook.com drops everything in a `<style>` after a `}}`, so only the first responsive (`sm:`, `md:`, …) or `dark:` class in an email worked there.
+
+## 6.11.11
+
+### Patch Changes
+
+- 9f75920: Remove the `debounce` dependency.
+- Updated dependencies [a126e56]
+- Updated dependencies [f147c14]
+  - @react-email/render@2.3.1
+
+## 6.11.10
+
+### Patch Changes
+
+- 64fa975: Render `<CodeInline>` as a single `<code>` element, so its text no longer shows up twice in inbox previews and plain text
+- f20a697: `<Markdown>` now escapes HTML inside code blocks and inline code. Code samples like `<b>bold</b>` were rendered as real HTML instead of showing the snippet.
+- Updated dependencies [fe6b066]
+  - @react-email/render@2.3.0
+
+## 6.11.9
+
+### Patch Changes
+
+- bc2becd: `<Button>` now converts `pt` padding values to `px` instead of treating them as `0`, so `style={{ padding: '9pt 15pt' }}` or `className="px-[15pt] py-[9pt]"` keeps its padding in every client and in the Outlook spacers.
+- 44169a6: The preview server no longer leaves a file handle open when a file under `static/` can't be read (for example a file locked by another program on Windows). On Node.js 25 and later, that leaked handle crashed `email dev` with `ERR_INVALID_STATE` the next time the garbage collector ran. Requesting a directory under `/static` now returns a 404 instead of a 500.
+- de32c06: `<Tailwind>` now resolves theme values that utilities pass through their own variables, so gradients (`from-red-500`), shadow and ring colors (`shadow-red-500`, `ring-blue-500`), `blur-*`, `drop-shadow-*` and `translate-*` no longer inline an unresolvable `var(--color-…)` or `var(--spacing)`.
+- d38e9a2: render block tokens in tight list items
+
+## 6.11.8
+
+### Patch Changes
+
+- 2cf6a55: Update `glob` to `^14.0.3`, so installs no longer pull the vulnerable `minimatch@10` through `glob@13`.
+- e3121ee: Only publish `dist/` in the `react-email` npm package. The tarball no longer ships `src/`, tests, `dev/`, and build configs, which also stops editors on TypeScript 6 from reading the published `tsconfig.json`.
+
+## 6.11.7
+
+### Patch Changes
+
+- d8a0778: Preserve custom utility theme-variable overrides when resolving email styles, including local declaration order and importance.
+- 2b3d241: Resolve tsconfig path aliases in dynamic import template literals on Windows, so editing a file inside an aliased directory reloads the preview.
+
 ## 6.11.6
 
 ### Patch Changes

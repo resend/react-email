@@ -1,11 +1,10 @@
 // @vitest-environment node
 import type { Package } from '@manypkg/get-packages';
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
+  buildManifest,
   buildPublishGraph,
   parseNpmVersions,
-  publishInOrder,
-  publishPackages,
   selectDistTag,
   topologicalSort,
 } from './release.mts';
@@ -134,65 +133,8 @@ describe('topologicalSort', () => {
   });
 });
 
-describe('publishInOrder', () => {
-  it('publishes every package when none fail', async () => {
-    const graph = new Map([
-      ['button', new Set<string>()],
-      ['components', new Set(['button'])],
-    ]);
-    const publish = vi.fn().mockResolvedValue(true);
-
-    const result = await publishInOrder(
-      ['button', 'components'],
-      graph,
-      publish,
-    );
-
-    expect(result).toEqual({
-      published: ['button', 'components'],
-      failed: [],
-    });
-    expect(publish).toHaveBeenCalledTimes(2);
-  });
-
-  it('skips dependents when a dependency fails (the #3045 fix)', async () => {
-    const graph = new Map([
-      ['button', new Set<string>()],
-      ['text', new Set<string>()],
-      ['components', new Set(['button', 'text'])],
-    ]);
-    const publish = vi.fn(async (name: string) => name !== 'button');
-
-    const result = await publishInOrder(
-      ['button', 'text', 'components'],
-      graph,
-      publish,
-    );
-
-    expect(result.published).toEqual(['text']);
-    expect(result.failed).toEqual(['button', 'components']);
-    // components must never be attempted once its dependency failed.
-    expect(publish).not.toHaveBeenCalledWith('components');
-  });
-
-  it('propagates failures transitively down the dependency chain', async () => {
-    const graph = new Map([
-      ['a', new Set<string>()],
-      ['b', new Set(['a'])],
-      ['c', new Set(['b'])],
-    ]);
-    const publish = vi.fn(async (name: string) => name !== 'a');
-
-    const result = await publishInOrder(['a', 'b', 'c'], graph, publish);
-
-    expect(result.published).toEqual([]);
-    expect(result.failed).toEqual(['a', 'b', 'c']);
-    expect(publish).toHaveBeenCalledTimes(1);
-  });
-});
-
-describe('publishPackages', () => {
-  it('publishes only unpublished versions, in dependency order', async () => {
+describe('buildManifest', () => {
+  it('lists only unpublished versions, in dependency order', async () => {
     const packages = [
       pkg('@react-email/components', {
         name: '@react-email/components',
@@ -204,28 +146,41 @@ describe('publishPackages', () => {
         private: true,
       }),
     ];
-    const publishOrder: string[] = [];
 
-    const result = await publishPackages({
+    const manifest = await buildManifest({
       packages,
-      // button is new, components already has this version on npm.
       getPublishedVersions: async (name) =>
         name === '@react-email/components' ? ['1.0.0'] : [],
-      publish: async (target) => {
-        publishOrder.push(target.packageJson.name);
-        return true;
-      },
     });
 
-    expect(publishOrder).toEqual(['@react-email/button']);
-    expect(result.published).toEqual(['@react-email/button']);
-    expect(result.failed).toEqual([]);
+    expect(manifest.map((entry) => entry.name)).toEqual([
+      '@react-email/button',
+    ]);
   });
 
-  it('passes the version-derived dist-tag through to publish', async () => {
-    const tags: Record<string, string> = {};
+  it('records in-set dependencies so dependents can be skipped', async () => {
+    const manifest = await buildManifest({
+      packages: [
+        pkg('@react-email/components', {
+          name: '@react-email/components',
+          dependencies: {
+            '@react-email/button': '1.0.0',
+            react: '19.0.0',
+          },
+        }),
+        pkg('@react-email/button', { name: '@react-email/button' }),
+      ],
+      getPublishedVersions: async () => [],
+    });
 
-    await publishPackages({
+    expect(manifest).toMatchObject([
+      { name: '@react-email/button', dependsOn: [] },
+      { name: '@react-email/components', dependsOn: ['@react-email/button'] },
+    ]);
+  });
+
+  it('derives the dist-tag from the version', async () => {
+    const manifest = await buildManifest({
       packages: [
         pkg('@react-email/button', {
           name: '@react-email/button',
@@ -237,12 +192,11 @@ describe('publishPackages', () => {
         }),
       ],
       getPublishedVersions: async () => [],
-      publish: async (target, distTag) => {
-        tags[target.packageJson.name] = distTag;
-        return true;
-      },
     });
 
+    const tags = Object.fromEntries(
+      manifest.map((entry) => [entry.name, entry.distTag]),
+    );
     expect(tags['@react-email/button']).toBe('canary');
     expect(tags['@react-email/render']).toBe('latest');
   });

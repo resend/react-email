@@ -16,14 +16,14 @@ jobs:
     timeout-minutes: 15
     runs-on: depot-ubuntu-22.04-2
     container:
-      image: node:24-slim
+      image: node:24-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
     steps:
       - name: Checkout Repo
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
         with:
           fetch-depth: 1
       - name: pnpm setup
-        uses: pnpm/action-setup@738f428026a1f5a72398de22aeed83d859c4a660
+        uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115
       - name: Install root dependencies only
         run: pnpm install --frozen-lockfile --filter . --ignore-scripts
       - name: Check for pinned dependencies
