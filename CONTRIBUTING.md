@@ -21,3 +21,11 @@ We have also created a Development workflow guide to help you get familiar with 
 4. [Building](https://react.email/docs/contributing/development-workflow/4-building)
 5. [Writing documentation](https://react.email/docs/contributing/development-workflow/5-writing-docs)
 
+
+## AI-assisted contributions
+
+You're welcome to use AI tools to explore the codebase, draft changes, and write tests. You are still responsible for everything you submit.
+
+- Don't mass-submit low-quality pull requests. We treat that as spam and may close them and block the account.
+
+Coding agents should read rules from [AGENTS.md](https://github.com/resend/react-email/blob/canary/AGENTS.md).
