@@ -1,4 +1,4 @@
-import { decodeHTML, decodeHTMLAttribute } from 'entities/lib/decode.js';
+import { decodeHTML, decodeHTMLAttribute } from 'entities/decode';
 import { type INode, type ITag, parse, SyntaxKind } from 'html5parser';
 
 const SKIPPED_TAGS = new Set([
