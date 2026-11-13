@@ -13,7 +13,6 @@ import {
   mergeCssJs,
   transformToCssJs,
 } from './css-transforms';
-import { getWebFontUrls } from './fonts';
 import {
   inferThemeFromPanelStyles,
   normalizeThemePanelStyles,
@@ -109,22 +108,6 @@ export function getMergedCssJs(
   }
 
   return merged;
-}
-
-/** Every `font-family` the email uses: theme components and any `fontFamily` mark attribute. */
-function getUsedFontFamilies(
-  editor: Editor,
-  mergedStyles: CssJs,
-): Set<unknown> {
-  const fonts = new Set<unknown>(
-    Object.values(mergedStyles).map((style) => style?.fontFamily),
-  );
-  editor.state.doc.descendants((node) => {
-    for (const mark of node.marks) {
-      fonts.add(mark.attrs.fontFamily);
-    }
-  });
-  return fonts;
 }
 
 /**
@@ -319,9 +302,6 @@ export const EmailTheming = Extension.create<{
         BaseTemplate({ previewText, children, editor, previewMode = false }) {
           const { css: globalCss, styles, theme } = getEmailTheming(editor);
           const mergedStyles = getMergedCssJs(theme, styles);
-          const webFontUrls = getWebFontUrls(
-            getUsedFontFamilies(editor, mergedStyles),
-          );
 
           return (
             <Html>
@@ -334,9 +314,6 @@ export const EmailTheming = Extension.create<{
                   name="format-detection"
                 />
 
-                {webFontUrls.map((href) => (
-                  <link href={href} key={href} rel="stylesheet" />
-                ))}
                 {!previewMode && <style>{DARK_MODE_CSS}</style>}
                 {globalCss && <style>{globalCss}</style>}
               </Head>
