@@ -25,4 +25,4 @@ pnpm test
 
 ## Pull request title
 
-Titles follow `<type>(<scope>): <message>`, where type is `feat`, `fix`, `chore`, or `refactor` and the message starts lowercase. For example: `fix(tailwind): flatten nested @media rules`. CI checks this.
+Titles follow `<type>(<scope>): <message>`, where type is `feat`, `fix`, `chore`, or `refactor`, the scope is optional, and the message starts lowercase. For example: `fix(tailwind): flatten nested @media rules`. CI checks this.
