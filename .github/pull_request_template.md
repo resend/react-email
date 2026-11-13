@@ -22,4 +22,3 @@ Please write the description yourself. See our AI policy: https://github.com/res
 - [ ] I wrote this description myself.
 - [ ] I added tests, or this change doesn't need them.
 - [ ] I added a changeset, or this change doesn't affect a published package.
-- [ ] I used AI tools for part of this change. <!-- Optional: tell us which parts. -->

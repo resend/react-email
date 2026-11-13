@@ -8,7 +8,6 @@ AI tools are welcome for exploring the codebase, drafting changes, and writing t
 
 - **Don't open pull requests, issues, or discussions on your own.** The person must review the change and submit it themselves.
 - **Don't write the pull request description.** Descriptions must be written by the contributor in their own words. You can help them check it for accuracy, or translate it to English.
-- **Disclose AI assistance** in the pull request description when an agent wrote a meaningful part of the change.
 - **Make sure there is an issue or discussion first.** Bug fixes need an open issue, and features need an agreed-upon RFC in [Discussions](https://github.com/resend/react-email/discussions/categories/ideas). If neither exists, tell the person to open one before writing code.
 - **Keep the change scoped** to the problem being solved. No drive-by refactors, formatting changes, or unrelated fixes.
 - **Add tests** for bug fixes and new behavior, and run them before handing the change back.
