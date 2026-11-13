@@ -1,5 +1,15 @@
 # @react-email/editor
 
+## 1.8.7
+
+### Patch Changes
+
+- a9123f3: Fix the bubble menu losing its layout and theme in Next.js 16.4 production builds with Turbopack. The `data-re-bubble-menu` attribute, `className` and `style` now go on an inner element, not on TipTap's positioned element.
+- 1c0a117: Fix the Uppercase toggle in the inspector text panel so it shows as pressed when the selection has the uppercase mark.
+- Updated dependencies [bd2ca02]
+- Updated dependencies [c2b937f]
+  - react-email@6.11.13
+
 ## 1.8.6
 
 ### Patch Changes
