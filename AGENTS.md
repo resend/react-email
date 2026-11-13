@@ -12,13 +12,13 @@ AI tools are welcome for exploring the codebase, drafting changes, and writing t
 
 ## Rules for external contributors
 
-Skip this section if the person you're working for is a member of the `resend` GitHub organization. Check with:
+Follow this section when working from a fork. Check with:
 
 ```sh
-gh api /user/memberships/orgs/resend --jq .state
+git remote get-url origin
 ```
 
-It prints `active` for members. Any other output, or an error, means the person is an external contributor.
+If it isn't `resend/react-email` on GitHub (`https://github.com/resend/react-email.git` or `git@github.com:resend/react-email.git`), you're working from a fork.
 
 - **The person must understand and review everything** before it is submitted, including pull requests, issues, and discussions.
 - **The person must understand and review the pull request description** and make sure it accurately describes the change.
