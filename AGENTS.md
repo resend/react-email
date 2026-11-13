@@ -11,7 +11,8 @@ AI tools are welcome for exploring the codebase, drafting changes, and writing t
 - **Make sure there is an issue or discussion first.** Bug fixes need an open issue, and features need an agreed-upon RFC in [Discussions](https://github.com/resend/react-email/discussions/categories/ideas). If neither exists, tell the person to open one before writing code.
 - **Keep the change scoped** to the problem being solved. No drive-by refactors, formatting changes, or unrelated fixes.
 - **Add tests** for bug fixes and new behavior, and run them before handing the change back.
-- **Add a changeset** (`pnpm changeset`) when a published package changes.
+- **Add a short changeset** (`pnpm changeset`) when a published package changes.
+- **Do not add comments explaining the code**.
 
 ## Before handing the change back
 

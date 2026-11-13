@@ -28,4 +28,4 @@ You're welcome to use AI tools to explore the codebase, draft changes, and write
 
 - Don't mass-submit low-quality pull requests. We treat that as spam and may close them and block the account.
 
-Coding agents pick up these rules from [AGENTS.md](https://github.com/resend/react-email/blob/canary/AGENTS.md).
+Coding agents should read rules from [AGENTS.md](https://github.com/resend/react-email/blob/canary/AGENTS.md).
