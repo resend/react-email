@@ -1,8 +1,6 @@
-import type { ReactDOMServerReadableStream } from 'react-dom/server.browser';
-
 const decoder = new TextDecoder('utf-8');
 
-export const readStream = async (stream: ReactDOMServerReadableStream) => {
+export const readStream = async (stream: ReadableStream<Uint8Array>) => {
   const chunks: Uint8Array[] = [];
 
   const writableStream = new WritableStream({

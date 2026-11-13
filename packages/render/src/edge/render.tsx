@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
-import { pretty } from '../node';
 import { createErrorBoundary } from '../shared/error-boundary';
 import type { Options } from '../shared/options';
 import { readStream } from '../shared/read-stream.browser';
+import { pretty } from '../shared/utils/pretty';
 import { stripImagePreloadLinks } from '../shared/utils/strip-image-preload-links';
 import { toPlainText } from '../shared/utils/to-plain-text';
 import { unstableToPlainText } from '../shared/utils/unstable-to-plain-text';
@@ -22,22 +22,30 @@ export const render = async (
 
   const html = await new Promise<string>((resolve, reject) => {
     const ErrorBoundary = createErrorBoundary(reject);
-    reactDOMServer
-      .renderToReadableStream(
-        <ErrorBoundary>
-          <Suspense>{element}</Suspense>
-        </ErrorBoundary>,
-        {
-          onError(error: unknown) {
-            reject(error);
-          },
-          progressiveChunkSize: Number.POSITIVE_INFINITY,
-        },
-      )
-      .then(async (stream) => {
-        await stream.allReady;
-        return readStream(stream);
-      })
+    const tree = (
+      <ErrorBoundary>
+        <Suspense>{element}</Suspense>
+      </ErrorBoundary>
+    );
+    const renderOptions = {
+      onError(error: unknown) {
+        reject(error);
+      },
+      progressiveChunkSize: Number.POSITIVE_INFINITY,
+    };
+    const stream =
+      'prerender' in reactDOMServer
+        ? reactDOMServer
+            .prerender(tree, renderOptions)
+            .then(({ prelude }) => prelude)
+        : reactDOMServer
+            .renderToReadableStream(tree, renderOptions)
+            .then(async (stream) => {
+              await stream.allReady;
+              return stream;
+            });
+    stream
+      .then(readStream)
       .then((result) => resolve(stripImagePreloadLinks(result)))
       .catch(reject);
   });
