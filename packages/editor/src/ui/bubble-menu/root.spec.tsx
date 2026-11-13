@@ -7,22 +7,18 @@ import { BubbleMenuRoot } from './root';
 vi.mock('@tiptap/react/menus', () => ({
   BubbleMenu: ({
     children,
-    className,
     options,
     ref,
   }: {
     children: React.ReactNode;
-    className?: string;
     options?: { placement?: string; offset?: number; onHide?: () => void };
     ref?: React.Ref<HTMLDivElement>;
   }) => (
     <div
       ref={ref}
       data-testid="bubble-menu-root"
-      data-re-bubble-menu=""
       data-placement={options?.placement}
       data-offset={options?.offset}
-      className={className}
     >
       {children}
     </div>
@@ -148,11 +144,22 @@ describe('BubbleMenuRoot', () => {
       expect(root.dataset.offset).toBe('16');
     });
 
-    it('forwards className to the BubbleMenu', () => {
-      renderWithEditor(<BubbleMenuRoot className="custom-class" />);
+    it('renders className, style and attributes on its own menu element', () => {
+      renderWithEditor(
+        <BubbleMenuRoot
+          className="custom-class"
+          style={{ color: 'red' }}
+          aria-label="Formatting"
+        />,
+      );
 
       const root = screen.getByTestId('bubble-menu-root');
-      expect(root.className).toBe('custom-class');
+      const menu = root.firstElementChild as HTMLElement;
+      expect(menu.hasAttribute('data-re-bubble-menu')).toBe(true);
+      expect(menu.className).toBe('custom-class');
+      expect(menu.style.color).toBe('red');
+      expect(menu.getAttribute('aria-label')).toBe('Formatting');
+      expect(root.hasAttribute('data-re-bubble-menu')).toBe(false);
     });
   });
 });

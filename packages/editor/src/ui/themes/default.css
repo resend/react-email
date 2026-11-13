@@ -83,6 +83,7 @@
   border: 1px solid var(--re-border);
   border-radius: var(--re-radius);
   box-shadow: var(--re-shadow);
+  position: relative;
   z-index: 50;
   padding: 0 0.125rem;
   font-family: system-ui, -apple-system, sans-serif;

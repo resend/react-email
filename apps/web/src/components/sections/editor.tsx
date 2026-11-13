@@ -51,7 +51,7 @@ export const EditorHomepage = () => {
       <div className="md:w-4/6 bg-white md:aspect-video z-20 relative border border-slate-4 grow rounded-2xl sm:rounded-3xl overflow-hidden [overflow-anchor:none] -order-1 md:order-0 flex flex-col">
         <EmailEditor
           content={INITIAL_CONTENT}
-          className="flex-1 overflow-auto px-6 w-full [&>div]:w-full [&_div]:outline-none"
+          className="flex-1 overflow-auto px-6 w-full [&>.tiptap]:w-full [&_div]:outline-none"
           onReady={async (editor) => {
             const html = await editor.getEmailHTML();
             setHtml(html);
