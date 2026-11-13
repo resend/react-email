@@ -1,9 +1,10 @@
 import { Suspense } from 'react';
-import { pretty, toPlainText, unstableToPlainText } from '../node';
 import { createErrorBoundary } from '../shared/error-boundary';
 import type { Options } from '../shared/options';
 import { readStream } from '../shared/read-stream.browser';
+import { pretty } from '../shared/utils/pretty';
 import { stripImagePreloadLinks } from '../shared/utils/strip-image-preload-links';
+import { toPlainText } from '../shared/utils/to-plain-text';
 
 export const render = async (node: React.ReactNode, options?: Options) => {
   const reactDOMServer = await import('react-dom/server').then((m) => {
@@ -36,9 +37,13 @@ export const render = async (node: React.ReactNode, options?: Options) => {
   });
 
   if (options?.plainText) {
-    return options.unstableTextConversion
-      ? unstableToPlainText(html)
-      : toPlainText(html, options.htmlToTextOptions);
+    if (options.unstableTextConversion) {
+      const { unstableToPlainText } = await import(
+        '../shared/utils/unstable-to-plain-text'
+      );
+      return unstableToPlainText(html);
+    }
+    return toPlainText(html, options.htmlToTextOptions);
   }
 
   const doctype =
