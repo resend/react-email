@@ -7,7 +7,7 @@ Instructions for AI coding agents working in this repository.
 AI tools are welcome for exploring the codebase, drafting changes, and writing tests. The person you're working for is responsible for the result.
 
 - **The person must understand and review everything** before it is submitted, including pull requests, issues, and discussions.
-- **Don't write the pull request description.** Descriptions must be written by the contributor in their own words. You can help them check it for accuracy, or translate it to English.
+- **The person must understand and review the pull request description** and make sure it accurately describes the change.
 - **Make sure there is an issue or discussion first.** Bug fixes need an open issue, and features need an agreed-upon RFC in [Discussions](https://github.com/resend/react-email/discussions/categories/ideas). If neither exists, tell the person to open one before writing code.
 - **Keep the change scoped** to the problem being solved. No drive-by refactors, formatting changes, or unrelated fixes.
 - **Add tests** for bug fixes and new behavior, and run them before handing the change back.

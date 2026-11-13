@@ -7,7 +7,7 @@ Examples:
 - Fix: `fix(react-email): dev command`
 - Misc/Chore: `chore(root): update readme.md`
 
-Please write the description yourself. See our AI policy: https://github.com/resend/react-email/blob/canary/CONTRIBUTING.md#ai-assisted-contributions
+See our AI policy: https://github.com/resend/react-email/blob/canary/CONTRIBUTING.md#ai-assisted-contributions
 -->
 
 ## Related issue or discussion
@@ -19,6 +19,6 @@ Please write the description yourself. See our AI policy: https://github.com/res
 ## Checklist
 
 - [ ] I understand the code in this PR and the problem it solves.
-- [ ] I wrote this description myself.
+- [ ] I reviewed this description, and it accurately describes the change.
 - [ ] I added tests, or this change doesn't need them.
 - [ ] I added a changeset, or this change doesn't affect a published package.
