@@ -77,9 +77,10 @@ export function themeStylesToPanelOverrides(
     ][]) {
       if (cssValue === undefined) continue;
 
-      const existingInput = group.inputs.find(
-        (i) => i.prop === cssProp && i.classReference === component,
-      );
+      // Body text inputs live in the `typography` group, so look across all groups.
+      const existingInput = result
+        .flatMap((g) => g.inputs)
+        .find((i) => i.prop === cssProp && i.classReference === component);
 
       const parsed = parseCssValue(cssValue);
 

@@ -99,6 +99,14 @@ export function getMergedCssJs(
   const parsed = transformToCssJs(panels, DEFAULT_INBOX_FONT_SIZE_PX);
   const merged = mergeCssJs(RESET_THEMES[theme], parsed);
 
+  // Outlook does not inherit the <body> font into tables, so repeat it on the container table.
+  if (merged.body?.fontFamily && !merged.container?.fontFamily) {
+    merged.container = {
+      ...merged.container,
+      fontFamily: merged.body.fontFamily,
+    };
+  }
+
   return merged;
 }
 

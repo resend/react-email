@@ -306,7 +306,7 @@ describe('Container Node', () => {
                     cellpadding="0"
                     cellspacing="0"
                     role="presentation"
-                    style="max-width:600px;align:center;width:100%;color:#000000;background-color:#ffffff;border-radius:0px;border-color:#000000;line-height:155%">
+                    style="max-width:600px;align:center;width:100%;color:#000000;background-color:#ffffff;border-radius:0px;border-color:#000000;line-height:155%;font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif">
                     <tbody>
                       <tr style="width:100%">
                         <td
@@ -2006,7 +2006,7 @@ describe('Container Node', () => {
                     cellpadding="0"
                     cellspacing="0"
                     role="presentation"
-                    style="max-width:600px;align:center;width:100%">
+                    style="max-width:600px;align:center;width:100%;font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif">
                     <tbody>
                       <tr style="width:100%">
                         <td>
@@ -2124,7 +2124,7 @@ describe('Container Node', () => {
                     cellpadding="0"
                     cellspacing="0"
                     role="presentation"
-                    style="max-width:600px;align:left;width:100%">
+                    style="max-width:600px;align:left;width:100%;font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif">
                     <tbody>
                       <tr style="width:100%">
                         <td>
@@ -2210,7 +2210,7 @@ describe('Container Node', () => {
                     cellpadding="0"
                     cellspacing="0"
                     role="presentation"
-                    style="max-width:600px;align:center;width:100%;color:#000000;background-color:#ffffff;border-radius:0px;border-color:#000000;line-height:155%">
+                    style="max-width:600px;align:center;width:100%;color:#000000;background-color:#ffffff;border-radius:0px;border-color:#000000;line-height:155%;font-family:-apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, &#x27;Roboto&#x27;, &#x27;Oxygen&#x27;, &#x27;Ubuntu&#x27;, &#x27;Cantarell&#x27;, &#x27;Fira Sans&#x27;, &#x27;Droid Sans&#x27;, &#x27;Helvetica Neue&#x27;, sans-serif">
                     <tbody>
                       <tr style="width:100%">
                         <td
