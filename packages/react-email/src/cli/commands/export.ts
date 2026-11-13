@@ -4,7 +4,6 @@ import path from 'node:path';
 import { Worker } from 'node:worker_threads';
 import type { Options } from '@react-email/render';
 import { type BuildFailure, build, stop } from 'esbuild';
-import { glob } from 'glob';
 import logSymbols from 'log-symbols';
 import { inlineCssLoader } from '../utils/esbuild/inline-css-loader.js';
 import { loadEsbuildPlugins } from '../utils/esbuild/load-esbuild-plugins.js';
@@ -246,10 +245,15 @@ export const exportTemplates = async (
     spinner.succeed();
   }
 
-  const allBuiltTemplates = glob.sync('**/*.cjs', {
-    cwd: pathToWhereEmailMarkupShouldBeDumped,
-    absolute: true,
-  });
+  const allBuiltTemplates = fs
+    .readdirSync(resolvedPathToWhereEmailMarkupShouldBeDumped, {
+      encoding: 'utf8',
+      recursive: true,
+    })
+    .filter((file) => file.endsWith('.cjs'))
+    .map((file) =>
+      path.join(resolvedPathToWhereEmailMarkupShouldBeDumped, file),
+    );
 
   const extension =
     options.extension && options.extension.length > 0
