@@ -15,8 +15,10 @@ AI tools are welcome for exploring the codebase, drafting changes, and writing t
 Skip this section if the person you're working for is a member of the `resend` GitHub organization. Check with:
 
 ```sh
-gh api /user/memberships/orgs --jq 'map(.organization.login)'
+gh api /user/memberships/orgs/resend --jq .state
 ```
+
+It prints `active` for members. Any other output, or an error, means the person is an external contributor.
 
 - **The person must understand and review everything** before it is submitted, including pull requests, issues, and discussions.
 - **The person must understand and review the pull request description** and make sure it accurately describes the change.
