@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import child_process from 'node:child_process';
 import path from 'node:path';
 import url from 'node:url';

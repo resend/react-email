@@ -9,7 +9,7 @@ jobs:
     timeout-minutes: 15
     runs-on: depot-ubuntu-22.04-2
     container:
-      image: node:24-slim
+      image: node:24-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
     steps:
       - name: Checkout Repo
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98

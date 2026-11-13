@@ -14,7 +14,7 @@ jobs:
       contents: write
       pull-requests: write
     container:
-      image: node:24
+      image: node:24@sha256:9d266751ca3d7fdbe651c878ffd5ad0a42fed49a18c283509267c97f025b7496
     steps:
       - name: Checkout Repo
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
@@ -22,7 +22,7 @@ jobs:
           fetch-depth: 2
       - run: git config --global --add safe.directory $GITHUB_WORKSPACE
       - name: pnpm setup
-        uses: pnpm/action-setup@738f428026a1f5a72398de22aeed83d859c4a660
+        uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115
       - name: Install packages
         run: pnpm install --frozen-lockfile --prefer-offline
       - name: Find changed packages
@@ -42,5 +42,7 @@ jobs:
           TURBO_TEAM: ${{ github.event.pull_request.head.repo.full_name == github.repository && secrets.TURBO_TEAM || '' }}
           REDIS_URL: redis://localhost:6379
       - name: Publish changed packages to pkg.pr.new
-        if: steps.changed_packages.outputs.all_changed_and_modified_files != ''
-        run: pnpm pkg-pr-new publish ${{ steps.changed_packages.outputs.all_changed_and_modified_files }} --pnpm
+        if: steps.changed_packages.outputs.all_changed_and_modified_files != '' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          CHANGED_PACKAGES: ${{ steps.changed_packages.outputs.all_changed_and_modified_files }}
+        run: pnpm pkg-pr-new publish $CHANGED_PACKAGES --pnpm

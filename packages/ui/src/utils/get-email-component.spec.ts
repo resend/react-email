@@ -66,7 +66,7 @@ describe('getEmailComponent()', () => {
                       cellpadding="0"
                       cellspacing="0"
                       role="presentation"
-                      style="max-width:465px;margin-right:auto;margin-left:auto;margin-bottom:40px;margin-top:40px;border-radius:0.25rem;border-style:solid;border-width:1px;border-color:rgb(234,234,234)">
+                      style="max-width:465px;margin-right:auto;margin-left:auto;margin-bottom:40px;margin-top:40px;border-radius:4px;border-style:solid;border-width:1px;border-color:rgb(234,234,234)">
                       <tbody>
                         <tr style="width:100%">
                           <td style="padding:20px">
@@ -179,7 +179,7 @@ describe('getEmailComponent()', () => {
                                   <td>
                                     <a
                                       href="https://vercel.com"
-                                      style="line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;border-radius:0.25rem;background-color:rgb(0,0,0);padding-right:20px;padding-left:20px;padding-bottom:12px;padding-top:12px;text-align:center;font-weight:600;font-size:12px;color:rgb(255,255,255);text-decoration-line:none"
+                                      style="line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;border-radius:4px;background-color:rgb(0,0,0);padding-right:20px;padding-left:20px;padding-bottom:12px;padding-top:12px;text-align:center;font-weight:600;font-size:12px;color:rgb(255,255,255);text-decoration-line:none"
                                       target="_blank"
                                       ><span
                                         ><!--[if mso]><i style="mso-font-width:500%;mso-text-raise:18px" hidden>&#8202;&#8202;</i><![endif]--></span

@@ -13,7 +13,7 @@ import { Link } from '../link/index.js';
 import { Row } from '../row/index.js';
 import { Section } from '../section/index.js';
 import type { TailwindConfig } from './tailwind.js';
-import { Tailwind } from './tailwind.js';
+import { pixelBasedPreset, Tailwind } from './tailwind.js';
 
 describe('Tailwind component', () => {
   const headMissingError =
@@ -31,6 +31,191 @@ describe('Tailwind component', () => {
     expect(actualOutput).toMatchInlineSnapshot(
       `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="text-align:center;font-size:0"><tbody><tr><td style="padding:0px 0px 0px 0px"><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="max-width:300px;display:inline-block;vertical-align:top;font-size:16px;box-sizing:border-box"><tbody><tr><td>This is the first column</td></tr></tbody></table><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" style="max-width:300px;display:inline-block;vertical-align:top;font-size:16px;box-sizing:border-box"><tbody><tr><td>This is the second column</td></tr></tbody></table></td></tr></tbody></table><!--/$-->"`,
     );
+  });
+
+  it('never writes adjacent closing braces in the <style> so Outlook.com keeps every rule', async () => {
+    const actualOutput = await render(
+      <Tailwind>
+        <Html>
+          <Head />
+          <Body>
+            <a
+              className="hover:underline sm:hover:bg-red-200"
+              href="https://example.com"
+            >
+              link
+            </a>
+            <div className="bg-red-500 sm:bg-green-500">box</div>
+            <div className="dark:bg-black">box</div>
+          </Body>
+        </Html>
+      </Tailwind>,
+    );
+    const styleContent = actualOutput.match(/<style>(.*?)<\/style>/)?.[1];
+
+    expect(styleContent).toContain('@media (min-width:40rem)');
+    expect(styleContent).toContain('@media (prefers-color-scheme:dark)');
+    expect(styleContent).not.toContain('}}');
+  });
+
+  describe('variants that Tailwind writes as nested CSS', () => {
+    async function styleFor(className: string) {
+      const html = await render(
+        <Tailwind>
+          <Html>
+            <Head />
+            <Body>
+              <div className={className}>content</div>
+            </Body>
+          </Html>
+        </Tailwind>,
+      );
+      return html.match(/<style>(.*?)<\/style>/)?.[1];
+    }
+
+    it.each([
+      [
+        'hover:underline',
+        '@media (hover:hover){.hover_underline:hover{text-decoration-line:underline!important} }',
+      ],
+      [
+        'focus:underline',
+        '.focus_underline:focus{text-decoration-line:underline!important}',
+      ],
+      [
+        'first:underline',
+        '.first_underline:first-child{text-decoration-line:underline!important}',
+      ],
+      [
+        'hover:focus:underline',
+        '@media (hover:hover){.hover_focus_underline:hover:focus{text-decoration-line:underline!important} }',
+      ],
+      [
+        'group-hover:underline',
+        '@media (hover:hover){.group-hover_underline:is(:where(.group):hover *){text-decoration-line:underline!important} }',
+      ],
+      [
+        'peer-hover:underline',
+        '@media (hover:hover){.peer-hover_underline:is(:where(.peer):hover~*){text-decoration-line:underline!important} }',
+      ],
+      [
+        '[&:hover,&:focus]:underline',
+        '.__hover___focus_underline:hover,.__hover___focus_underline:focus{text-decoration-line:underline!important}',
+      ],
+      [
+        '[&:hover,&:focus]:[&_p]:underline',
+        ':is(.__hover___focus___p_underline:hover,.__hover___focus___p_underline:focus) p{text-decoration-line:underline!important}',
+      ],
+    ])('flattens %s into a single rule', async (className, expected) => {
+      expect(await styleFor(className)).toBe(expected);
+    });
+
+    it.each([
+      [
+        'sm:dark:bg-[#000]',
+        '@media (min-width:40rem) and (prefers-color-scheme:dark){.sm_dark_bg-_000{background-color:rgb(0,0,0)!important} }',
+      ],
+      [
+        'sm:max-lg:bg-[#000]',
+        '@media (min-width:40rem) and (max-width:64rem){.sm_max-lg_bg-_000{background-color:rgb(0,0,0)!important} }',
+      ],
+      [
+        'sm:hover:bg-[#000]',
+        '@media (min-width:40rem) and (hover:hover){.sm_hover_bg-_000:hover{background-color:rgb(0,0,0)!important} }',
+      ],
+      [
+        'dark:hover:bg-[#000]',
+        '@media (prefers-color-scheme:dark) and (hover:hover){.dark_hover_bg-_000:hover{background-color:rgb(0,0,0)!important} }',
+      ],
+      [
+        'sm:dark:hover:bg-[#000]',
+        '@media (min-width:40rem) and (prefers-color-scheme:dark) and (hover:hover){.sm_dark_hover_bg-_000:hover{background-color:rgb(0,0,0)!important} }',
+      ],
+      [
+        'md:group-hover:underline',
+        '@media (min-width:48rem) and (hover:hover){.md_group-hover_underline:is(:where(.group):hover *){text-decoration-line:underline!important} }',
+      ],
+      [
+        'sm:print:hidden',
+        '@media print and (min-width:40rem){.sm_print_hidden{display:none!important} }',
+      ],
+      [
+        '[@media_only_screen]:dark:bg-[#000]',
+        '@media only screen and (prefers-color-scheme:dark){._media_only_screen_dark_bg-_000{background-color:rgb(0,0,0)!important} }',
+      ],
+    ])('combines the media queries of %s with and', async (className, expected) => {
+      expect(await styleFor(className)).toBe(expected);
+    });
+
+    it.each([
+      [
+        'not-sm:dark:bg-[#000]',
+        '@media not (min-width:40rem){@media (prefers-color-scheme:dark){.not-sm_dark_bg-_000{background-color:rgb(0,0,0)!important} } }',
+      ],
+      [
+        'sm:not-print:hidden',
+        '@media (min-width:40rem){@media not print{.sm_not-print_hidden{display:none!important} } }',
+      ],
+      [
+        '[@media_screen]:print:hidden',
+        '@media screen{@media print{._media_screen_print_hidden{display:none!important} } }',
+      ],
+      [
+        '[@media(min-width:1px)_or_(max-width:2px)]:dark:bg-[#000]',
+        '@media (min-width:1px) or (max-width:2px){@media (prefers-color-scheme:dark){._mediamin-width_1px_or_max-width_2px_dark_bg-_000{background-color:rgb(0,0,0)!important} } }',
+      ],
+      [
+        '[@media(min-width:1px),(max-width:2px)]:dark:bg-[#000]',
+        '@media (min-width:1px),(max-width:2px){@media (prefers-color-scheme:dark){._mediamin-width_1px_max-width_2px_dark_bg-_000{background-color:rgb(0,0,0)!important} } }',
+      ],
+      [
+        'sm:supports-[display:grid]:grid',
+        '@media (min-width:40rem){@supports (display:grid){.sm_supports-display_grid_grid{display:grid!important} } }',
+      ],
+    ])('keeps the at-rules of %s separate when "and" would change their meaning', async (className, expected) => {
+      expect(await styleFor(className)).toBe(expected);
+    });
+
+    it.each([
+      [
+        '@sm:underline',
+        '@container (min-width:24rem){._sm_underline{text-decoration-line:underline!important} }',
+      ],
+      [
+        '@sm:hover:underline',
+        '@container (min-width:24rem){@media (hover:hover){._sm_hover_underline:hover{text-decoration-line:underline!important} } }',
+      ],
+      [
+        'sm:@md:underline',
+        '@media (min-width:40rem){@container (min-width:28rem){.sm__md_underline{text-decoration-line:underline!important} } }',
+      ],
+      [
+        'starting:opacity-0',
+        '@starting-style{.starting_opacity-0{opacity:0%!important} }',
+      ],
+    ])('moves the other at-rules of %s out of the rule', async (className, expected) => {
+      expect(await styleFor(className)).toBe(expected);
+    });
+
+    it('inlines the declarations of a custom utility and flattens its nested rules', async () => {
+      const html = await render(
+        <Tailwind utility=".link-swap { color: #f00; &:hover { color: #00f; } }">
+          <Html>
+            <Head />
+            <Body>
+              <div className="link-swap">content</div>
+            </Body>
+          </Html>
+        </Tailwind>,
+      );
+
+      expect(html).toContain(
+        '<div class="link-swap" style="color:rgb(255,0,0)">',
+      );
+      expect(html.match(/<style>(.*?)<\/style>/)?.[1]).toBe(
+        '.link-swap:hover{color:rgb(0,0,255)!important}',
+      );
+    });
   });
 
   it('works with blocklist', async () => {
@@ -56,7 +241,7 @@ describe('Tailwind component', () => {
         <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
         <meta name="x-apple-disable-message-reformatting" />
         <style>
-          @media (min-width:48rem){.md_p-4{padding:1rem!important}}
+          @media (min-width:48rem){.md_p-4{padding:1rem!important} }
         </style>
       </head>
       <body>
@@ -368,7 +553,7 @@ describe('Tailwind component', () => {
     );
 
     expect(html).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><style>@media (max-width:40rem){.max-sm_bg-red-500{background-color:rgb(251,44,54)!important}}@media (max-width:40rem){.max-sm_px-5{padding-right:1.25rem!important;padding-left:1.25rem!important}}</style></head><!--$--><!--head--><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" class="max-sm_bg-red-500"><tbody><tr><td class="max-sm_px-5" style="padding-right:2.25rem;padding-left:2.25rem">x</td></tr></tbody></table><!--/$-->"`,
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><style>@media (max-width:40rem){.max-sm_bg-red-500{background-color:rgb(251,44,54)!important} }@media (max-width:40rem){.max-sm_px-5{padding-right:1.25rem!important;padding-left:1.25rem!important} }</style></head><!--$--><!--head--><table align="center" width="100%" border="0" cellPadding="0" cellSpacing="0" role="presentation" class="max-sm_bg-red-500"><tbody><tr><td class="max-sm_px-5" style="padding-right:2.25rem;padding-left:2.25rem">x</td></tr></tbody></table><!--/$-->"`,
     );
   });
 
@@ -495,7 +680,7 @@ describe('Tailwind component', () => {
           <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
           <meta name="x-apple-disable-message-reformatting" />
           <style>
-            @media (min-width:40rem){.sm_bg-red-50{background-color:rgb(254,242,242)!important}}@media (min-width:40rem){.sm_text-sm{font-size:0.875rem!important;line-height:1.4285714285714286!important}}@media (min-width:48rem){.md_text-lg{font-size:1.125rem!important;line-height:1.5555555555555556!important}}
+            @media (min-width:40rem){.sm_bg-red-50{background-color:rgb(254,242,242)!important} }@media (min-width:40rem){.sm_text-sm{font-size:0.875rem!important;line-height:1.4285714285714286!important} }@media (min-width:48rem){.md_text-lg{font-size:1.125rem!important;line-height:1.5555555555555556!important} }
           </style></head
         ><!--$--><!--html--><!--head--><span
           ><!--[if mso]><i style="letter-spacing: 10px;mso-font-width:-100%;" hidden>&nbsp;</i><![endif]--></span
@@ -533,7 +718,7 @@ describe('Tailwind component', () => {
     );
 
     expect(actualOutput).toMatchInlineSnapshot(
-      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><style>@media (prefers-color-scheme:dark){.text-body{color:orange!important}}</style></head><body class="text-body" dir="ltr" lang="en"><!--$--><!--html--><!--head--><!--body--><table border="0" width="100%" cellPadding="0" cellSpacing="0" role="presentation" align="center"><tbody><tr><td dir="ltr" lang="en" style="color:green">this is the body</td></tr></tbody></table><!--/$--></body></html>"`,
+      `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html dir="ltr" lang="en"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/><meta name="x-apple-disable-message-reformatting"/><style>@media (prefers-color-scheme:dark){.text-body{color:orange!important} }</style></head><body class="text-body" dir="ltr" lang="en"><!--$--><!--html--><!--head--><!--body--><table border="0" width="100%" cellPadding="0" cellSpacing="0" role="presentation" align="center"><tbody><tr><td dir="ltr" lang="en" style="color:green">this is the body</td></tr></tbody></table><!--/$--></body></html>"`,
     );
   });
 
@@ -559,7 +744,7 @@ describe('Tailwind component', () => {
           <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
           <meta name="x-apple-disable-message-reformatting" />
           <style>
-            .group-hover_underline{@media (hover:hover){&:is(:where(.group):hover *){text-decoration-line:underline!important}}}
+            @media (hover:hover){.group-hover_underline:is(:where(.group):hover *){text-decoration-line:underline!important} }
           </style></head
         ><!--$--><!--html--><!--head-->
         <div class="group">
@@ -601,7 +786,7 @@ describe('Tailwind component', () => {
           <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
           <meta name="x-apple-disable-message-reformatting" />
           <style>
-            @media (min-width:1280px){.xl_bg-green-500{background-color:rgb(0,201,80)!important}}@media (min-width:1536px){.twoxl_bg-blue-500{background-color:rgb(43,127,255)!important}}
+            @media (min-width:1280px){.xl_bg-green-500{background-color:rgb(0,201,80)!important} }@media (min-width:1536px){.twoxl_bg-blue-500{background-color:rgb(43,127,255)!important} }
           </style></head
         ><!--$--><!--html--><!--head-->
         <div class="xl_bg-green-500" style="background-color:rgb(255,226,226)">
@@ -628,7 +813,7 @@ describe('Tailwind component', () => {
       "<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <head>
         <style>
-          @media (min-width:64rem){.lg_max-h-calc50pxplus5rem{max-height:calc(50px + 5rem)!important}}
+          @media (min-width:64rem){.lg_max-h-calc50pxplus5rem{max-height:calc(50px + 5rem)!important} }
         </style></head
       ><!--$--><!--head-->
       <div
@@ -670,7 +855,7 @@ describe('Tailwind component', () => {
         <html lang="en">
           <head>
             <style>
-              @media (min-width:40rem){.sm_bg-red-300{background-color:rgb(255,162,162)!important}}@media (min-width:48rem){.md_bg-red-400{background-color:rgb(255,100,103)!important}}@media (min-width:64rem){.lg_bg-red-500{background-color:rgb(251,44,54)!important}}
+              @media (min-width:40rem){.sm_bg-red-300{background-color:rgb(255,162,162)!important} }@media (min-width:48rem){.md_bg-red-400{background-color:rgb(255,100,103)!important} }@media (min-width:64rem){.lg_bg-red-500{background-color:rgb(251,44,54)!important} }
             </style>
           </head>
           <body>
@@ -700,7 +885,7 @@ describe('Tailwind component', () => {
           </Tailwind>,
         ),
       ).toMatchInlineSnapshot(
-        `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><style>@media (min-width:40rem){.sm_bg-red-300{background-color:rgb(255,162,162)!important}}@media (min-width:48rem){.md_bg-red-400{background-color:rgb(255,100,103)!important}}@media (min-width:64rem){.lg_bg-red-500{background-color:rgb(251,44,54)!important}}</style></head><body><!--$--><!--html--><!--head--><!--body--><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(255,201,201)"></div><!--/$--></body></html>"`,
+        `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html lang="en"><head><style>@media (min-width:40rem){.sm_bg-red-300{background-color:rgb(255,162,162)!important} }@media (min-width:48rem){.md_bg-red-400{background-color:rgb(255,100,103)!important} }@media (min-width:64rem){.lg_bg-red-500{background-color:rgb(251,44,54)!important} }</style></head><body><!--$--><!--html--><!--head--><!--body--><div class="sm_bg-red-300 md_bg-red-400 lg_bg-red-500" style="background-color:rgb(255,201,201)"></div><!--/$--></body></html>"`,
       );
     });
 
@@ -734,7 +919,7 @@ describe('Tailwind component', () => {
         <html lang="en">
           <head>
             <style>
-              @media (min-width:40rem){.text-body{color:darkgreen!important}}
+              @media (min-width:40rem){.text-body{color:darkgreen!important} }
             </style>
           </head>
           <body>
@@ -764,7 +949,7 @@ describe('Tailwind component', () => {
         <html lang="en">
           <head>
             <style>
-              .hover_bg-red-600{@media (hover:hover){&:hover{background-color:rgb(231,0,11)!important}}}.focus_bg-red-700{&:focus{background-color:rgb(193,0,7)!important}}@media (min-width:40rem){.sm_bg-red-300{background-color:rgb(255,162,162)!important}}@media (min-width:40rem){.sm_hover_bg-red-200{@media (hover:hover){&:hover{background-color:rgb(255,201,201)!important}}}}@media (min-width:48rem){.md_bg-red-400{background-color:rgb(255,100,103)!important}}@media (min-width:64rem){.lg_bg-red-500{background-color:rgb(251,44,54)!important}}
+              @media (hover:hover){.hover_bg-red-600:hover{background-color:rgb(231,0,11)!important} }.focus_bg-red-700:focus{background-color:rgb(193,0,7)!important}@media (min-width:40rem){.sm_bg-red-300{background-color:rgb(255,162,162)!important} }@media (min-width:40rem) and (hover:hover){.sm_hover_bg-red-200:hover{background-color:rgb(255,201,201)!important} }@media (min-width:48rem){.md_bg-red-400{background-color:rgb(255,100,103)!important} }@media (min-width:64rem){.lg_bg-red-500{background-color:rgb(251,44,54)!important} }
             </style>
           </head>
           <body>
@@ -835,7 +1020,7 @@ describe('Tailwind component', () => {
           <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
           <meta name="x-apple-disable-message-reformatting" />
           <style>
-            @media (max-width:40rem){.max-sm_text-red-600{color:rgb(231,0,11)!important}}
+            @media (max-width:40rem){.max-sm_text-red-600{color:rgb(231,0,11)!important} }
           </style></head
         ><!--$--><!--head-->
         <p class="max-sm_text-red-600" style="color:rgb(20,71,230)">I am some text</p>
@@ -899,7 +1084,7 @@ describe('Tailwind component', () => {
         <html lang="en">
           <head>
             <style>
-              @media (min-width:40rem){.sm_bg-red-500{background-color:rgb(251,44,54)!important}}
+              @media (min-width:40rem){.sm_bg-red-500{background-color:rgb(251,44,54)!important} }
             </style>
             <style></style>
             <link />
@@ -1497,7 +1682,7 @@ describe('Tailwind component', () => {
         <html lang="en">
           <head>
             <style>
-              @media (min-width:40rem){.sm_border-custom{border:2px solid!important}}
+              @media (min-width:40rem){.sm_border-custom{border:2px solid!important} }
             </style>
           </head>
           <body>
@@ -1508,6 +1693,55 @@ describe('Tailwind component', () => {
         </html>
         "
       `);
+    });
+  });
+
+  describe('with pixelBasedPreset', () => {
+    const styleFor = async (className: string) => {
+      const html = await render(
+        <Tailwind config={{ presets: [pixelBasedPreset] }}>
+          <div className={className} />
+        </Tailwind>,
+      );
+      return html.match(/style="([^"]*)"/)?.[1];
+    };
+
+    it.each([
+      ['rounded', 'border-radius:4px'],
+      ['rounded-sm', 'border-radius:4px'],
+      ['rounded-md', 'border-radius:6px'],
+      ['rounded-lg', 'border-radius:8px'],
+      ['rounded-4xl', 'border-radius:32px'],
+      ['max-w-md', 'max-width:448px'],
+      ['max-w-7xl', 'max-width:1280px'],
+    ])('converts %s to pixels', async (className, expected) => {
+      expect(await styleFor(className)).toBe(expected);
+    });
+
+    it('does not leave rem in the radius or max-width scales', async () => {
+      const classes = [
+        ...['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'].map(
+          (size) => `rounded-${size}`,
+        ),
+        ...[
+          '3xs',
+          '2xs',
+          'xs',
+          'sm',
+          'md',
+          'lg',
+          'xl',
+          '2xl',
+          '3xl',
+          '4xl',
+          '5xl',
+          '6xl',
+          '7xl',
+        ].map((size) => `max-w-${size}`),
+      ];
+      for (const className of classes) {
+        expect(await styleFor(className), className).not.toContain('rem');
+      }
     });
   });
 });

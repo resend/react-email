@@ -12,7 +12,7 @@ jobs:
       contents: write
       pull-requests: write
     container:
-      image: node:24
+      image: node:24@sha256:9d266751ca3d7fdbe651c878ffd5ad0a42fed49a18c283509267c97f025b7496
     steps:
       - name: Generate GitHub App token
         id: app-token
@@ -29,7 +29,7 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
       - run: git config --global --add safe.directory $GITHUB_WORKSPACE
       - name: pnpm setup
-        uses: pnpm/action-setup@738f428026a1f5a72398de22aeed83d859c4a660
+        uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115
       - name: Install packages
         run: pnpm install --frozen-lockfile --prefer-offline
       - name: Configure version bump git user

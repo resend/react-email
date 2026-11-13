@@ -13,6 +13,14 @@ allowBuilds:
 
 autoInstallPeers: true
 
+trustPolicy: no-downgrade
+
+trustPolicyExclude:
+  - semver@6.3.1
+  - undici-types@6.21.0
+
+minimumReleaseAge: 1440
+
 peerDependencyRules:
   allowedVersions:
     '@tiptap/html>happy-dom': '21'
@@ -82,3 +90,5 @@ overrides:
   react-dom: 19.2.4
   socket.io>socket.io-parser: ^4.2.6
   uuid@<14.0.0: ^14.0.0
+
+preferSymlinkedExecutables: true

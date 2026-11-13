@@ -8,9 +8,10 @@
     "canary:exit": "changeset pre exit",
     "lint": "biome check",
     "lint:fix": "biome check --write .",
-    "release": "node --import tsx/esm ./scripts/release.mts",
     "release:build": "turbo run build --filter=./packages/*",
     "release:dry-run": "node --import tsx/esm ./scripts/release.mts --dry-run",
+    "release:github": "node --import tsx/esm ./scripts/release.mts",
+    "release:pack": "node --import tsx/esm ./scripts/release.mts --pack",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
     "typecheck": "turbo run typecheck",
@@ -26,6 +27,7 @@
     "@changesets/pre": "2.0.2",
     "@manypkg/get-packages": "3.1.0",
     "@octokit/core": "7.0.6",
+    "@tsdown/css": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
@@ -38,12 +40,11 @@
     "rollup": "4.60.1",
     "tsconfig": "workspace:*",
     "tsdown": "catalog:",
-    "@tsdown/css": "catalog:",
     "tsx": "catalog:",
     "turbo": "2.9.14",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vitest": "4.1.12"
   },
-  "packageManager": "pnpm@11.0.0+sha512.5bd187500e49cc6c3d891d973b432c02b844a5eb7209172c90a517a3ef4f579ed5c23d409b699e6a9dc418ff7b2b1890e63f6d74f1d3fc49848f37779c89c84c"
+  "packageManager": "pnpm@12.18.0"
 }

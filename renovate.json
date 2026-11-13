@@ -3,10 +3,17 @@
   "extends": ["config:recommended"],
   "ignorePaths": ["benchmarks"],
   "rebaseWhen": "never",
+  "minimumReleaseAge": "3 days",
   "vulnerabilityAlerts": {
     "groupName": "security updates"
   },
   "packageRules": [
+    {
+      "description": "MCR publishes no release timestamps, so the release age wait cannot apply to the Playwright image.",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["mcr.microsoft.com/playwright"],
+      "minimumReleaseAgeBehaviour": "timestamp-optional"
+    },
     {
       "description": "Group routine non-major dev-only updates to reduce PR noise.",
       "matchDepTypes": ["devDependencies"],

@@ -7,6 +7,7 @@ import { downlevelForEmailClients } from './utils/css/downlevel-for-email-client
 import { extractRulesPerClass } from './utils/css/extract-rules-per-class.js';
 import { getCustomProperties } from './utils/css/get-custom-properties.js';
 import { sanitizeNonInlinableRules } from './utils/css/sanitize-non-inlinable-rules.js';
+import { separateAdjacentClosingBraces } from './utils/css/separate-adjacent-closing-braces.js';
 import { mapReactTree } from './utils/react/map-react-tree.js';
 import { cloneElementWithInlinedStyles } from './utils/tailwindcss/clone-element-with-inlined-styles.js';
 import { setupTailwind } from './utils/tailwindcss/setup-tailwind.js';
@@ -73,6 +74,32 @@ export const pixelBasedPreset: TailwindConfig = {
         72: '288px',
         80: '320px',
         96: '384px',
+      },
+      borderRadius: {
+        DEFAULT: '4px',
+        xs: '2px',
+        sm: '4px',
+        md: '6px',
+        lg: '8px',
+        xl: '12px',
+        '2xl': '16px',
+        '3xl': '24px',
+        '4xl': '32px',
+      },
+      maxWidth: {
+        '3xs': '256px',
+        '2xs': '288px',
+        xs: '320px',
+        sm: '384px',
+        md: '448px',
+        lg: '512px',
+        xl: '576px',
+        '2xl': '672px',
+        '3xl': '768px',
+        '4xl': '896px',
+        '5xl': '1024px',
+        '6xl': '1152px',
+        '7xl': '1280px',
       },
     },
   },
@@ -147,7 +174,11 @@ export function Tailwind({ children, config, theme, utility }: TailwindProps) {
 
         const styleElement = (
           <style
-            dangerouslySetInnerHTML={{ __html: generate(nonInlineStyles) }}
+            dangerouslySetInnerHTML={{
+              __html: generate(nonInlineStyles, {
+                decorator: separateAdjacentClosingBraces,
+              }),
+            }}
           />
         );
 
