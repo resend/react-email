@@ -2,4 +2,4 @@
 "@react-email/editor": patch
 ---
 
-Show the uppercase mark toggle in the inspector text panel, matching the bubble menu.
+Fix the Uppercase toggle in the inspector text panel so it shows as pressed when the selection has the uppercase mark.
