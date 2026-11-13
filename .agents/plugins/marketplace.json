@@ -1,0 +1,20 @@
+{
+  "name": "react-email",
+  "interface": {
+    "displayName": "React Email"
+  },
+  "plugins": [
+    {
+      "name": "react-email",
+      "source": {
+        "source": "local",
+        "path": "./skills"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

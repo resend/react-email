@@ -1,0 +1,36 @@
+{
+  "name": "react-email",
+  "description": "The React Email agent skill",
+  "owner": {
+    "name": "Resend",
+    "url": "https://react.email"
+  },
+  "plugins": [
+    {
+      "name": "react-email",
+      "displayName": "React Email",
+      "description": "Teaches coding agents how to build HTML emails with React Email components, add the visual editor, render to HTML, and send with Resend. Use when building transactional or marketing emails, styling with Tailwind, or embedding the React Email editor.",
+      "version": "0.1.1",
+      "source": "./skills",
+      "strict": false,
+      "author": {
+        "name": "Resend",
+        "url": "https://react.email"
+      },
+      "homepage": "https://react.email",
+      "repository": "https://github.com/resend/react-email",
+      "license": "MIT",
+      "keywords": [
+        "react-email",
+        "email",
+        "resend",
+        "react",
+        "templates",
+        "transactional",
+        "coding-agents"
+      ],
+      "category": "development",
+      "skills": ["./react-email"]
+    }
+  ]
+}
