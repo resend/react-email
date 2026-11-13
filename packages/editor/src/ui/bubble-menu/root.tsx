@@ -59,7 +59,6 @@ function Root({
       <BubbleMenu
         editor={editor}
         pluginKey={pluginKey}
-        data-re-bubble-menu=""
         shouldShow={resolvedTrigger}
         options={{
           placement,
@@ -69,11 +68,12 @@ function Root({
             onHide?.();
           },
         }}
-        className={className}
-        {...rest}
       >
         <BubbleMenuContext.Provider value={{ editor, isEditing, setIsEditing }}>
-          {children}
+          {/* React sets these props, because Turbopack before Next.js 16.5 drops TipTap's attribute and style sync. */}
+          <div data-re-bubble-menu="" className={className} {...rest}>
+            {children}
+          </div>
         </BubbleMenuContext.Provider>
       </BubbleMenu>
     </EditorFocusScope>
