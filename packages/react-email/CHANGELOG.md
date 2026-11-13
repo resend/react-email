@@ -1,5 +1,12 @@
 # react-email
 
+## 6.11.13
+
+### Patch Changes
+
+- bd2ca02: Make `pixelBasedPreset` also convert the border radius and max width scales to pixels, so `rounded-*` and `max-w-*` no longer emit `rem`.
+- c2b937f: Fix `<Tailwind>` styles being dropped by Gmail when using variants like `hover:` or `sm:dark:`
+
 ## 6.11.12
 
 ### Patch Changes
