@@ -18,7 +18,7 @@ Follow this section when working from a fork. Check with:
 git remote get-url origin
 ```
 
-If it isn't `resend/react-email` on GitHub (`https://github.com/resend/react-email.git` or `git@github.com:resend/react-email.git`), you're working from a fork.
+If it doesn't point to the `resend/react-email` repository on GitHub (over HTTPS or SSH, with or without `.git`), you're working from a fork.
 
 - **The person must understand and review everything** before it is submitted, including pull requests, issues, and discussions.
 - **The person must understand and review the pull request description** and make sure it accurately describes the change.
