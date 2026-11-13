@@ -19,6 +19,6 @@ See our AI policy: https://github.com/resend/react-email/blob/canary/CONTRIBUTIN
 ## Checklist
 
 - [ ] I understand the code in this PR and the problem it solves.
-- [ ] I reviewed this description, and it accurately describes the change.
+- [ ] I read this description, and it accurately describes the change.
 - [ ] I added tests, or this change doesn't need them.
 - [ ] I added a changeset, or this change doesn't affect a published package.
