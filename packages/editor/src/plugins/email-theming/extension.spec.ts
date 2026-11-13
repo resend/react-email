@@ -1,7 +1,8 @@
 import { Editor, type JSONContent } from '@tiptap/core';
 import { afterEach, describe, expect, it } from 'vitest';
 import { StarterKit } from '../../extensions';
-import { EmailTheming } from './extension';
+import { EmailTheming, stylesToCss } from './extension';
+import { EDITOR_THEMES } from './themes';
 import type { ThemeConfig } from './types';
 
 vi.mock('@tiptap/react', () => ({
@@ -401,5 +402,31 @@ describe('EmailTheming with ThemeConfig', () => {
     expect(themeStyleTag?.textContent).not.toContain(
       'background-color:#000000;',
     );
+  });
+});
+
+describe('list spacing', () => {
+  const em = (value: unknown) => Number.parseFloat(String(value ?? 0)) || 0;
+
+  it.each([
+    'basic',
+    'minimal',
+  ] as const)('keeps the same gap around nested list items in the %s theme', (theme) => {
+    const css = stylesToCss(EDITOR_THEMES[theme], theme);
+    const item = css.listItem;
+    const nested = css.nestedList;
+
+    const itemToItem = em(item.paddingBottom) + em(item.paddingTop);
+    // The nested list sits inside the parent item, after its paragraph.
+    const parentToNested = em(nested.paddingTop) + em(item.paddingTop);
+    const nestedToNext =
+      em(item.paddingBottom) +
+      em(nested.paddingBottom) +
+      em(item.paddingBottom) +
+      em(item.paddingTop);
+
+    expect(itemToItem).toBeGreaterThan(0);
+    expect(parentToNested).toBe(itemToItem);
+    expect(nestedToNext).toBe(itemToItem);
   });
 });

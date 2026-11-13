@@ -709,7 +709,7 @@ const RESET_BASIC: ResetTheme = {
   },
   list: {
     paddingLeft: '1.1em',
-    paddingBottom: '1em',
+    paddingBottom: '1.3em',
   },
   bulletList: {
     listStyleType: 'disc',
@@ -721,10 +721,12 @@ const RESET_BASIC: ResetTheme = {
     paddingLeft: '1.1em',
     paddingBottom: '0',
   },
+  // All item spacing sits on top: a nested list lives inside its parent
+  // item, so split top/bottom padding would stack unevenly around it.
   listItem: {
     marginLeft: '1em',
-    paddingBottom: '0.3em',
-    paddingTop: '0.3em',
+    paddingTop: '0.6em',
+    paddingBottom: '0',
   },
   listParagraph: { padding: '0', margin: '0' },
   blockquote: {
