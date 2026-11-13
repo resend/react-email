@@ -4,7 +4,7 @@ Instructions for AI coding agents working in this repository.
 
 ## Contributing on someone's behalf
 
-AI tools are welcome for exploring the codebase, drafting changes, and writing tests. The person you're working for is responsible for the result and must understand every line before it is submitted.
+AI tools are welcome for exploring the codebase, drafting changes, and writing tests. The person you're working for is responsible for the result.
 
 - **Don't open pull requests, issues, or discussions on your own.** The person must review the change and submit it themselves.
 - **Don't write the pull request description.** Descriptions must be written by the contributor in their own words. You can help them check it for accuracy, or translate it to English.
