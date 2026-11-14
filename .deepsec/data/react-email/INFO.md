@@ -15,10 +15,15 @@ docs, samples and tooling.
 
 ## Auth shape
 
-- There are no users, sessions, cookies or API tokens in this repo, so the
-  controls below stand in for auth; a change that drops or bypasses one is
-  the finding. For the preview and dev servers the question is who can reach
-  them, not whether they have a login.
+- Nothing authenticates callers: there are no users, sessions, cookies or
+  request tokens, so the controls below stand in for auth and a change that
+  drops or bypasses one is the finding. For the preview and dev servers the
+  question is who can reach them, not whether they have a login.
+- Secrets exist only server-side and must stay there: the developer's Resend
+  API key (`email resend setup` stores it via `conf`; the CLI hands it to the
+  preview server as `resendApiKey` for `exportSingleTemplate`, and pages only
+  learn whether one is set) and the hosted app's env (`RESEND_API_KEY`,
+  Supabase, Redis).
 - `checkRateLimit('test-email-sending')` (`@vercel/firewall`), then
   `tryConsume` with `sendTestIpRatelimit` and `sendTestRecipientRatelimit`:
   the only gates on `/api/send/test`. Check what each does when its backend
@@ -28,10 +33,10 @@ docs, samples and tooling.
   `renderEmailByPath` and `getEmailPathFromSlug` do), `serveStaticFile` for
   `/static/*` on the CLI dev server, and `getUnsafeOutDirMessage` before the
   recursive delete in `email export`.
-- The `sandbox` attribute on the preview iframe in `email-frame.tsx` (no
-  `allow-scripts`) keeps template markup from scripting the preview origin.
-- `sanitizePastedHtml` and `getUrlFromString` (`SAFE_PROTOCOLS`) are the
-  editor's HTML and URL-scheme filters.
+- Markup and URL filters: the `sandbox` attribute on the preview iframe in
+  `email-frame.tsx` (no `allow-scripts`) keeps template markup from scripting
+  the preview origin; `sanitizePastedHtml` and `getUrlFromString`
+  (`SAFE_PROTOCOLS`) filter HTML and URL schemes in the editor.
 
 ## Threat model
 
@@ -73,7 +78,8 @@ integrity: packages are published from CI with npm provenance.
 - "Missing auth" on `/api/send/test` and `/api/check-spam`, and
   `Access-Control-Allow-Origin: *` in `apps/web/next.config.ts`. These are
   intentional: preview servers on developers' machines call them
-  cross-origin and no credentials exist. Judge the abuse controls instead.
+  cross-origin, and no cookies or other caller credentials are involved.
+  Judge the abuse controls instead.
 - Executing templates is the product: esbuild and `node:vm` in
   `getEmailComponent` / `runBundledCode`, `jiti` imports for
   `--esbuild-plugins`, `require` of built templates in `email export`. `vm`
