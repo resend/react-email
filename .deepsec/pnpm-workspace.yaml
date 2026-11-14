@@ -1,2 +1,7 @@
 packages: []
 strictDepBuilds: false
+
+# Same install policy as the repo root. This directory is its own workspace
+# root, so the root pnpm-workspace.yaml does not apply here.
+minimumReleaseAge: 1440
+trustPolicy: no-downgrade

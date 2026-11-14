@@ -5,7 +5,7 @@
   "description": "deepsec scanning workspace",
   "type": "module",
   "workspaces": [],
-  "packageManager": "pnpm@9.15.4",
+  "packageManager": "pnpm@12.18.0",
   "dependencies": {
     "deepsec": "2.3.12"
   }
