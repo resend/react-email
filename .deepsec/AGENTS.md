@@ -4,6 +4,12 @@ This is a deepsec scanning workspace. Each registered project has its
 own setup prompt at `data/<id>/SETUP.md` — open the relevant one when
 asked to set a project up.
 
+Read `README.md` in this directory first. It lists behaviour specific to
+this repository. In short: `react-email` has no `SETUP.md` because its
+`INFO.md` is already written, so use `pnpm deepsec setup` and never
+`deepsec init` here (`init --force` resets `INFO.md`), and never commit
+findings, because this repository is public.
+
 ## Common tasks
 
 - **Set up or resume a project**: run `pnpm deepsec setup`. For a
