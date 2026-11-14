@@ -111,7 +111,7 @@ const { templates, options, extension } = workerData;
         emailModule.reactEmailCreateReactElement(emailModule.default, {}),
         options,
       );
-      const htmlPath = template.replace('.cjs', extension);
+      const htmlPath = template.replace(/\\.cjs$/, extension);
       writeFileSync(htmlPath, rendered);
       unlinkSync(template);
       parentPort.postMessage({ type: 'progress', template });
@@ -217,6 +217,7 @@ export const exportTemplates = async (
         loader: { '.js': 'jsx' },
         logLevel: 'silent',
         outExtension: { '.js': '.cjs' },
+        outbase: emailsDirectoryMetadata.absolutePath,
         outdir: pathToWhereEmailMarkupShouldBeDumped,
         platform: 'node',
         plugins: [
@@ -249,6 +250,7 @@ export const exportTemplates = async (
   const allBuiltTemplates = glob.sync('**/*.cjs', {
     cwd: pathToWhereEmailMarkupShouldBeDumped,
     absolute: true,
+    nodir: true,
   });
 
   const extension =
