@@ -96,6 +96,7 @@
       "!**/public",
       "!packages/ui/src/actions/email-validation/caniemail-data.ts",
       "!**/.react-email/**/*",
+      "!**/.deepsec",
       "!**/node_modules/**/*",
       "!**/*.d.ts",
       "!**/out",
