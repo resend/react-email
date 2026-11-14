@@ -10,3 +10,9 @@ data/*/runs/
 data/*/reports/
 data/*/project.json
 data/*/setup/
+data/*/tech.json
+
+# Exported findings. This repository is public, so scan results must not be
+# committed. These are the output paths the deepsec docs suggest.
+findings/
+findings.json
