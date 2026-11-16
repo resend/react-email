@@ -52,7 +52,7 @@ catalog:
   log-symbols: ^7.0.0
   motion-dom: 12.38.0
   motion-utils: 12.36.0
-  next: 16.4.3
+  next: 16.4.5
   nypm: 0.6.6
   ora: ^8.0.0
   picospinner: ^3.0.0
@@ -81,6 +81,8 @@ minimumReleaseAgeExclude:
   - uuid@14.0.0
   - postcss@8.5.10
   - '@supabase/auth-js@2.69.2'
+  # Renovate security update: next@16.4.5
+  - next@16.4.5
 
 overrides:
   '@supabase/auth-js@<=2.69.1': ^2.69.2
