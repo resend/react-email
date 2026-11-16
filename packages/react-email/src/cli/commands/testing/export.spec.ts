@@ -255,3 +255,33 @@ test('email export to an outDir with glob syntax', { retry: 3 }, async () => {
     fs.rmSync(parentDirectory, { recursive: true, force: true });
   }
 });
+
+test('email export of a Tailwind template to an outDir outside the project', async () => {
+  // This template imports the published `react-email` entry, whose Tailwind
+  // code loads css-tree, as an installed project does.
+  const pathToEmailsDirectory = path.resolve(
+    __dirname,
+    './tailwind-package-emails',
+  );
+  const parentDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'export-'));
+  const pathToDumpMarkup = path.join(parentDirectory, 'templates');
+  // pnpm puts its store on NODE_PATH, which would let a bare `css-tree`
+  // resolve from anywhere and hide the failure.
+  vi.stubEnv('NODE_PATH', '');
+
+  try {
+    await exportTemplates(pathToDumpMarkup, pathToEmailsDirectory, {
+      silent: true,
+    });
+
+    expect(
+      await fs.promises.readFile(
+        path.join(pathToDumpMarkup, 'welcome.html'),
+        'utf8',
+      ),
+    ).toContain('Hello');
+  } finally {
+    vi.unstubAllEnvs();
+    fs.rmSync(parentDirectory, { recursive: true, force: true });
+  }
+});

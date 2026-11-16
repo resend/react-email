@@ -6,6 +6,7 @@ import type { Options } from '@react-email/render';
 import { type BuildFailure, build, stop } from 'esbuild';
 import { glob } from 'glob';
 import logSymbols from 'log-symbols';
+import { externalCssTree } from '../utils/esbuild/external-css-tree.js';
 import { inlineCssLoader } from '../utils/esbuild/inline-css-loader.js';
 import { loadEsbuildPlugins } from '../utils/esbuild/load-esbuild-plugins.js';
 import { renderingUtilitiesExporter } from '../utils/esbuild/renderring-utilities-exporter.js';
@@ -211,7 +212,6 @@ export const exportTemplates = async (
       await build({
         bundle: true,
         entryPoints: batch,
-        external: ['css-tree'],
         format: 'cjs',
         jsx: 'automatic',
         loader: { '.js': 'jsx' },
@@ -220,6 +220,7 @@ export const exportTemplates = async (
         outdir: pathToWhereEmailMarkupShouldBeDumped,
         platform: 'node',
         plugins: [
+          externalCssTree(),
           inlineCssLoader(),
           renderingUtilitiesExporter(batch),
           ...userPlugins,
