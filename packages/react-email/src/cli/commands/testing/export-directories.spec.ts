@@ -2,64 +2,53 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { exportTemplates } from '../export.js';
 
-test.each([
-  false,
-  true,
-])('email export preserves directories across batches, root %s', async (includeRootTemplate) => {
-  const projectDirectory = fs.mkdtempSync(
-    path.join(__dirname, 'export-directories-'),
+function templatesIn(folder: string, count: number) {
+  return Object.fromEntries(
+    Array.from({ length: count }, (_, index) => [
+      `${folder}/email-${index}`,
+      `${folder} email ${index}`,
+    ]),
   );
-  const emailsDirectory = path.join(projectDirectory, 'emails');
-  const outputDirectory = path.join(projectDirectory, 'out');
-  const templates = new Map<string, string>();
+}
 
-  for (const folder of ['a', 'b']) {
-    for (let index = 0; index < 10; index++) {
-      templates.set(
-        path.join(folder, `email-${index}`),
-        `${folder} email ${index}`,
-      );
-    }
-  }
-  if (includeRootTemplate) {
-    templates.set('welcome', 'Root welcome');
-  }
+function stripFolder(templates: Record<string, string>, folder: string) {
+  return Object.fromEntries(
+    Object.entries(templates).map(([name, text]) => [
+      name.replace(`${folder}/`, ''),
+      text,
+    ]),
+  );
+}
 
-  try {
-    for (const [name, text] of templates) {
-      const filename = path.join(emailsDirectory, `${name}.tsx`);
-      fs.mkdirSync(path.dirname(filename), { recursive: true });
-      fs.writeFileSync(
-        filename,
-        `export default function Email() { return ${JSON.stringify(text)}; }`,
-      );
-    }
-
-    await exportTemplates(outputDirectory, emailsDirectory, {
-      silent: true,
-    });
-
-    for (const [name, text] of templates) {
-      const html = fs.readFileSync(
-        path.join(outputDirectory, `${name}.html`),
-        'utf8',
-      );
-      expect(html).toContain(text);
-    }
-    expect(
-      fs
-        .readdirSync(outputDirectory, { recursive: true })
-        .filter((name) => String(name).endsWith('.html')),
-    ).toHaveLength(templates.size);
-  } finally {
-    fs.rmSync(projectDirectory, { recursive: true, force: true });
-  }
-});
+const siblingFolders = { ...templatesIn('a', 10), ...templatesIn('b', 10) };
+const nestedSiblingFolders = {
+  ...templatesIn('brand/a', 6),
+  ...templatesIn('brand/b', 6),
+};
 
 test.each([
-  'nested',
-  'marketing.cjs',
-])('email export preserves a single nested source directory %s', async (directory) => {
+  ['sibling folders with the same filenames', siblingFolders, siblingFolders],
+  [
+    'sibling folders and a root template',
+    { welcome: 'Root welcome', ...siblingFolders },
+    { welcome: 'Root welcome', ...siblingFolders },
+  ],
+  [
+    'sibling folders inside one shared folder',
+    nestedSiblingFolders,
+    stripFolder(nestedSiblingFolders, 'brand'),
+  ],
+  [
+    'a single nested folder',
+    { 'nested/welcome': 'Nested welcome' },
+    { welcome: 'Nested welcome' },
+  ],
+  [
+    'a folder named like a bundle',
+    { welcome: 'Root welcome', 'marketing.cjs/welcome': 'Marketing welcome' },
+    { welcome: 'Root welcome', 'marketing.cjs/welcome': 'Marketing welcome' },
+  ],
+])('email export keeps every template with %s, relative to the folder they all share', async (_, templates, expectedOutput) => {
   const projectDirectory = fs.mkdtempSync(
     path.join(__dirname, 'export-directories-'),
   );
@@ -70,20 +59,33 @@ test.each([
   });
 
   try {
-    fs.mkdirSync(path.join(emailsDirectory, directory), { recursive: true });
-    fs.writeFileSync(
-      path.join(emailsDirectory, directory, 'welcome.tsx'),
-      "export default function Email() { return 'Nested welcome'; }",
-    );
+    for (const [name, text] of Object.entries(templates)) {
+      const filename = path.join(emailsDirectory, `${name}.tsx`);
+      fs.mkdirSync(path.dirname(filename), { recursive: true });
+      fs.writeFileSync(
+        filename,
+        `export default function Email() { return ${JSON.stringify(text)}; }`,
+      );
+    }
 
     await exportTemplates(outputDirectory, emailsDirectory, { silent: true });
 
-    expect(
-      fs.readFileSync(
-        path.join(outputDirectory, directory, 'welcome.html'),
-        'utf8',
-      ),
-    ).toContain('Nested welcome');
+    const outputFiles = fs
+      .readdirSync(outputDirectory, { recursive: true })
+      .map(String)
+      .filter((name) => name.endsWith('.html'))
+      .map((name) => name.split(path.sep).join('/'))
+      .sort();
+    expect(outputFiles).toEqual(
+      Object.keys(expectedOutput)
+        .map((name) => `${name}.html`)
+        .sort(),
+    );
+    for (const [name, text] of Object.entries(expectedOutput)) {
+      expect(
+        fs.readFileSync(path.join(outputDirectory, `${name}.html`), 'utf8'),
+      ).toContain(text);
+    }
   } finally {
     exitSpy.mockRestore();
     fs.rmSync(projectDirectory, { recursive: true, force: true });

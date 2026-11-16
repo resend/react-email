@@ -33,6 +33,22 @@ const getEmailTemplatesFromDirectory = (emailDirectory: EmailsDirectory) => {
   return templatePaths;
 };
 
+// The deepest folder containing every template, which is the output root
+// esbuild picks when it builds all templates at once.
+const getCommonDirectory = (filePaths: string[]) =>
+  filePaths
+    .map((filePath) => path.dirname(filePath))
+    .reduce((common, directory) => {
+      let shared = common;
+      while (
+        directory !== shared &&
+        !directory.startsWith(`${shared}${path.sep}`)
+      ) {
+        shared = path.dirname(shared);
+      }
+      return shared;
+    });
+
 type ExportTemplatesOptions = Options & {
   extension?: string;
   silent?: boolean;
@@ -206,6 +222,13 @@ export const exportTemplates = async (
         )
       : [];
 
+    // Each batch would otherwise pick its own root from only its templates,
+    // and batches from different folders could write to the same paths.
+    const outputRoot =
+      allTemplates.length > 0
+        ? getCommonDirectory(allTemplates)
+        : emailsDirectoryMetadata.absolutePath;
+
     for (let i = 0; i < allTemplates.length; i += BUILD_BATCH_SIZE) {
       const batch = allTemplates.slice(i, i + BUILD_BATCH_SIZE);
       await build({
@@ -217,7 +240,7 @@ export const exportTemplates = async (
         loader: { '.js': 'jsx' },
         logLevel: 'silent',
         outExtension: { '.js': '.cjs' },
-        outbase: emailsDirectoryMetadata.absolutePath,
+        outbase: outputRoot,
         outdir: pathToWhereEmailMarkupShouldBeDumped,
         platform: 'node',
         plugins: [
