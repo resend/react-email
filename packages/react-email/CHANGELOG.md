@@ -1,5 +1,11 @@
 # react-email
 
+## 6.11.14
+
+### Patch Changes
+
+- a560d38: Fix `email export` overwriting templates with the same filename in different folders when exporting more than 10 templates
+
 ## 6.11.13
 
 ### Patch Changes
