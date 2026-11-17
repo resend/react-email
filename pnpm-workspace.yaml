@@ -54,7 +54,6 @@ catalog:
   motion-utils: 12.36.0
   next: 16.4.3
   nypm: 0.6.6
-  ora: ^8.0.0
   picospinner: ^3.0.0
   postcss: 8.5.29
   prism-react-renderer: 2.4.1

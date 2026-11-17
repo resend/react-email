@@ -4,8 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Command } from 'commander';
 import fse from 'fs-extra';
-import logSymbols from 'log-symbols';
-import ora from 'ora';
+import { Spinner } from 'picospinner';
 import { tree } from './tree.js';
 
 const filename = fileURLToPath(import.meta.url);
@@ -42,6 +41,13 @@ const getLatestVersionOfTag = async (packageName, tag) => {
   return version;
 };
 
+const isInteractiveStream = (stream) => {
+  if (!stream.isTTY) return false;
+  if (process.env.TERM === 'dumb') return false;
+  if (process.env.CI) return false;
+  return true;
+};
+
 const init = async (name, { tag }) => {
   let projectPath = name;
 
@@ -61,9 +67,10 @@ const init = async (name, { tag }) => {
     process.exit(1);
   }
 
-  const spinner = ora({
-    text: 'Preparing files...\n',
-  }).start();
+  const spinner = isInteractiveStream(process.stdout)
+    ? new Spinner('Preparing files...')
+    : undefined;
+  spinner?.start();
 
   fse.copySync(templatePath, resolvedProjectPath, {
     recursive: true,
@@ -82,10 +89,9 @@ const init = async (name, { tag }) => {
     'utf8',
   );
 
-  spinner.stopAndPersist({
-    symbol: logSymbols.success,
-    text: 'React Email Starter files ready',
-  });
+  const readyText = 'React Email Starter files ready';
+  if (spinner) spinner.succeed(readyText);
+  else console.info(`✔ ${readyText}`);
 
   console.info(
     await tree(resolvedProjectPath, 4, (dirent) => {
