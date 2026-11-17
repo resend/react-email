@@ -271,13 +271,11 @@ export const exportTemplates = async (
 
   const allBuiltTemplates = fs
     .readdirSync(resolvedPathToWhereEmailMarkupShouldBeDumped, {
-      encoding: 'utf8',
       recursive: true,
+      withFileTypes: true,
     })
-    .filter((file) => file.endsWith('.cjs'))
-    .map((file) =>
-      path.join(resolvedPathToWhereEmailMarkupShouldBeDumped, file),
-    );
+    .filter((entry) => entry.isFile() && entry.name.endsWith('.cjs'))
+    .map((entry) => path.join(entry.parentPath, entry.name));
 
   const extension =
     options.extension && options.extension.length > 0
