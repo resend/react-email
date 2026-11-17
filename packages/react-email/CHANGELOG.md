@@ -1,5 +1,7 @@
 # react-email
 
+## 6.11.16
+
 ## 6.11.15
 
 ### Patch Changes
