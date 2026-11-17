@@ -41,6 +41,13 @@ const getLatestVersionOfTag = async (packageName, tag) => {
   return version;
 };
 
+const isInteractiveStream = (stream) => {
+  if (!stream.isTTY) return false;
+  if (process.env.TERM === 'dumb') return false;
+  if (process.env.CI) return false;
+  return true;
+};
+
 const init = async (name, { tag }) => {
   let projectPath = name;
 
@@ -60,8 +67,7 @@ const init = async (name, { tag }) => {
     process.exit(1);
   }
 
-  // picospinner would write every frame to non-TTY output (CI logs, pipes)
-  const spinner = process.stdout.isTTY
+  const spinner = isInteractiveStream(process.stdout)
     ? new Spinner('Preparing files...')
     : undefined;
   spinner?.start();
