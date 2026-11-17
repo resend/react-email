@@ -1,5 +1,11 @@
 # @react-email/ui
 
+## 6.11.16
+
+### Patch Changes
+
+- 95301c4: Bump `next` to 16.4.6 to pick up the fixes for GHSA-mfr8-8qww-v76h and GHSA-vc7v-qv4w-wrv8.
+
 ## 6.11.15
 
 ## 6.11.14
