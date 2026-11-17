@@ -1,5 +1,11 @@
 # create-email
 
+## 1.2.8
+
+### Patch Changes
+
+- 63a03dc: Replace the `ora` and `log-symbols` dependencies with `picospinner`.
+
 ## 1.2.7
 
 ### Patch Changes
