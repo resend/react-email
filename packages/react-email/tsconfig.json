@@ -38,6 +38,7 @@
   "exclude": [
     "dist",
     "node_modules",
+    "src/cli/commands/testing/tailwind-package-emails",
     "src/cli/utils/preview/hot-reloading/test",
     "src/components/tailwind/e2e"
   ]
