@@ -1,5 +1,11 @@
 # react-email
 
+## 6.11.15
+
+### Patch Changes
+
+- 07931a7: Remove the `glob` dependency.
+
 ## 6.11.14
 
 ### Patch Changes
