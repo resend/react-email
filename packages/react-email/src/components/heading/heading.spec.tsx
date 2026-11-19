@@ -29,4 +29,15 @@ describe('render', () => {
       `"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--$--><h2 style="margin-left:4px;margin-right:4px">Lorem ipsum</h2><!--/$-->"`,
     );
   });
+
+  it('keeps the units of margin shortcut values', async () => {
+    const html = await render(
+      <Heading mt="1.5rem" mb="10px" mx="auto">
+        Lorem ipsum
+      </Heading>,
+    );
+    expect(html).toContain(
+      'style="margin-left:auto;margin-right:auto;margin-top:1.5rem;margin-bottom:10px"',
+    );
+  });
 });

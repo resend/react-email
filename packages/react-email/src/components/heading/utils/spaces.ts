@@ -41,6 +41,30 @@ export const withMargin = (props: Margin): MarginStyles => {
   return mergedStyles;
 };
 
+const unitlessNumber = /^[+-]?(?:\d+\.?\d*|\.\d+)$/;
+const lengthWithUnit = /^[+-]?(?:\d+\.?\d*|\.\d+)(?:%|[a-z]+)$/i;
+
+const toCssSpace = (value: number | string) => {
+  if (typeof value === 'number') {
+    return Number.isFinite(value) ? `${value}px` : undefined;
+  }
+
+  const parts = value.trim().split(/\s+/);
+  const cssParts: string[] = [];
+
+  for (const part of parts) {
+    if (unitlessNumber.test(part)) {
+      cssParts.push(`${part}px`);
+    } else if (lengthWithUnit.test(part) || part === 'auto') {
+      cssParts.push(part);
+    } else {
+      return undefined;
+    }
+  }
+
+  return cssParts.join(' ');
+};
+
 export const withSpace = (
   value: number | string | undefined,
   properties: MarginCSSProperty[],
@@ -51,13 +75,14 @@ export const withSpace = (
     return styles;
   }
 
-  // Check to ensure string value is a valid number
-  if (Number.isNaN(Number.parseFloat(String(value)))) {
+  const cssValue = toCssSpace(value);
+
+  if (cssValue === undefined) {
     return styles;
   }
 
   for (const property of properties) {
-    styles[property] = `${value}px` as React.CSSProperties[MarginCSSProperty];
+    styles[property] = cssValue as React.CSSProperties[MarginCSSProperty];
   }
 
   return styles;
