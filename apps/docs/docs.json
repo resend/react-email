@@ -127,7 +127,8 @@
               "integrations/brevo",
               "integrations/mailtrap",
               "integrations/zeptomail",
-              "integrations/mailchimp-transactional"
+              "integrations/mailchimp-transactional",
+              "integrations/sendora"
             ]
           },
           {

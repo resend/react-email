@@ -1,0 +1,87 @@
+---
+title: "Send email using Sendora"
+sidebarTitle: "Sendora"
+description: "Learn how to send an email using React Email and the Sendora Node.js SDK."
+"og:image": "https://react.email/static/covers/react-email.png"
+---
+
+## 1. Install dependencies
+
+Get the [react-email](https://www.npmjs.com/package/react-email) package and the [Sendora Node.js SDK](https://www.npmjs.com/package/@sendora/sdk).
+
+Make sure you have an account on [Sendora](https://sendorahq.com), you will need a server key and a verified sending domain.
+
+<CodeGroup>
+
+```sh npm
+npm install @sendora/sdk react-email
+```
+
+```sh yarn
+yarn add @sendora/sdk react-email
+```
+
+```sh pnpm
+pnpm add @sendora/sdk react-email
+```
+
+```sh bun
+bun add @sendora/sdk react-email
+```
+
+</CodeGroup>
+
+## 2. Create an email using React
+
+Start by building your email template in a `.jsx` or `.tsx` file.
+
+```tsx email.tsx
+import { Button, Html } from "react-email";
+
+interface EmailProps {
+  url: string;
+}
+
+export function Email({ url }: EmailProps) {
+  return (
+    <Html lang="en">
+      <Button href={url}>Click me</Button>
+    </Html>
+  );
+}
+```
+
+## 3. Convert to HTML and send email
+
+Import the email template you just built, convert it into HTML and plain text, and use the Sendora SDK to send both.
+
+<Info>While you develop, use the key of a Sendora test server. Sendora checks and logs each email sent with it, but delivers none.</Info>
+
+```tsx
+import { Sendora } from "@sendora/sdk";
+import { render, toPlainText } from "react-email";
+import { Email } from "./email";
+
+const sendora = new Sendora({ token: process.env.SENDORA_API_TOKEN });
+
+const html = await render(<Email url="https://example.com" />);
+
+await sendora.email.send({
+  from: "you@example.com",
+  to: ["user@gmail.com"],
+  subject: "hello world",
+  html,
+  text: toPlainText(html),
+});
+```
+
+## Try it yourself
+
+<Card
+  title="Sendora example"
+  icon="arrow-up-right-from-square"
+  iconType="duotone"
+  href="https://github.com/resend/react-email/tree/main/examples/sendora"
+>
+  See the full source code.
+</Card>
