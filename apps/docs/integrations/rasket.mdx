@@ -1,0 +1,79 @@
+---
+title: "Send email using Rasket"
+sidebarTitle: "Rasket"
+description: "Learn how to send an email using React Email and the Rasket Node.js SDK."
+"og:image": "https://react.email/static/covers/react-email.png"
+---
+
+## 1. Install dependencies
+
+Get the [react-email](https://www.npmjs.com/package/react-email) package and the [Rasket Node.js SDK](https://www.npmjs.com/package/rasket).
+
+<CodeGroup>
+
+```sh npm
+npm install rasket react-email
+```
+
+```sh yarn
+yarn add rasket react-email
+```
+
+```sh pnpm
+pnpm add rasket react-email
+```
+
+</CodeGroup>
+
+## 2. Create an email using React
+
+Start by building your email template in a `.jsx` or `.tsx` file.
+
+```tsx email.tsx
+import * as React from "react";
+import { Html, Button } from "react-email";
+
+export function Email(props) {
+  const { url } = props;
+
+  return (
+    <Html lang="en">
+      <Button href={url}>Click me</Button>
+    </Html>
+  );
+}
+
+export default Email;
+```
+
+## 3. Convert to HTML and send email
+
+Import the email template you just built, convert into an HTML string, and use the Rasket SDK to send it. The `from` address has to be on a domain you have [verified in Rasket](https://www.rasket.com/docs/domains).
+
+```tsx
+import { Rasket } from "rasket";
+import { render } from "react-email";
+import { Email } from "./email";
+
+const rasket = new Rasket({ apiKey: process.env.RASKET_API_KEY });
+
+const emailHtml = await render(<Email url="https://example.com" />);
+
+await rasket.emails.send({
+  from: "you@example.com",
+  to: ["user@gmail.com"],
+  subject: "hello world",
+  html: emailHtml,
+});
+```
+
+## Try it yourself
+
+<Card
+  title="Rasket example"
+  icon="arrow-up-right-from-square"
+  iconType="duotone"
+  href="https://github.com/resend/react-email/tree/main/examples/rasket"
+>
+  See the full source code.
+</Card>
