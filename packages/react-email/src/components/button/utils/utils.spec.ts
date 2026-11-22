@@ -153,7 +153,30 @@ describe('parsePadding', () => {
     };
     expect(parsePadding({ padding: 'calc(8px + 4px)' })).toEqual(untouched);
     expect(parsePadding({ padding: 'var(--space-3)' })).toEqual(untouched);
-    expect(parsePadding({ padding: '8px calc(4px + 4px)' })).toEqual(untouched);
+    expect(parsePadding({ padding: '8px calc(4px + 4px)' })).toEqual({
+      paddingTop: 8,
+      paddingRight: undefined,
+      paddingBottom: 8,
+      paddingLeft: undefined,
+    });
+    expect(parsePadding({ padding: 'calc(8px + 4px) 12px' })).toEqual({
+      paddingTop: undefined,
+      paddingRight: 12,
+      paddingBottom: undefined,
+      paddingLeft: 12,
+    });
+    expect(parsePadding({ padding: '0 20px' })).toEqual({
+      paddingTop: 0,
+      paddingRight: 20,
+      paddingBottom: 0,
+      paddingLeft: 20,
+    });
+    expect(parsePadding({ padding: '20px 0 48px' })).toEqual({
+      paddingTop: 20,
+      paddingRight: 0,
+      paddingBottom: 48,
+      paddingLeft: 0,
+    });
     expect(parsePadding({ paddingTop: 'var(--space-3)' })).toEqual({
       ...untouched,
       paddingTop: undefined,
