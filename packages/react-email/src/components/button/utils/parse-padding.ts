@@ -56,8 +56,10 @@ function resolvedLength(value: PaddingType): number | undefined {
 
   const trimmed = value.trim();
   const matches = /^([\d.]+)(px|pt|em|rem|%)$/.exec(trimmed);
-  if (!matches) return undefined;
-  return convertToPx(trimmed);
+  if (matches) return convertToPx(trimmed);
+  // CSS lengths allow a unitless zero. Any other unitless number is not a length.
+  if (/^[+-]?(?:0+(?:\.0+)?|\.0+)$/.test(trimmed)) return 0;
+  return undefined;
 }
 
 // Whitespace inside calc() or var() is not a shorthand separator.
@@ -89,9 +91,7 @@ function shorthandLengths(value: string) {
   if (!tokens) return undefined;
 
   const lengths = tokens.map((token) => resolvedLength(token));
-  if (lengths.some((length) => length === undefined)) return undefined;
-
-  const [top, second, third, fourth] = lengths as number[];
+  const [top, second, third, fourth] = lengths;
   if (tokens.length === 1) {
     return {
       paddingTop: top,
