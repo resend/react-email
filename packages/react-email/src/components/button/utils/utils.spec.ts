@@ -143,6 +143,22 @@ describe('parsePadding', () => {
       paddingLeft: 10,
     });
   });
+
+  it('does not turn calc() or var() padding into 0', () => {
+    const untouched = {
+      paddingTop: undefined,
+      paddingRight: undefined,
+      paddingBottom: undefined,
+      paddingLeft: undefined,
+    };
+    expect(parsePadding({ padding: 'calc(8px + 4px)' })).toEqual(untouched);
+    expect(parsePadding({ padding: 'var(--space-3)' })).toEqual(untouched);
+    expect(parsePadding({ padding: '8px calc(4px + 4px)' })).toEqual(untouched);
+    expect(parsePadding({ paddingTop: 'var(--space-3)' })).toEqual({
+      ...untouched,
+      paddingTop: undefined,
+    });
+  });
 });
 
 describe('pxToPt', () => {

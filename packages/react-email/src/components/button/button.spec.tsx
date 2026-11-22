@@ -62,6 +62,26 @@ describe('<Button> component', () => {
     );
   });
 
+  it('keeps calc() and var() padding instead of writing 0 longhands', async () => {
+    const calc = await render(
+      <Button href="https://example.com/pay" style={{ padding: 'calc(8px + 4px)' }}>
+        Pay invoice
+      </Button>,
+    );
+    expect(calc).toContain('padding:calc(8px + 4px)');
+    expect(calc).toContain('Pay invoice');
+    expect(calc).not.toContain('padding-top:0');
+
+    const variable = await render(
+      <Button
+        href="https://example.com"
+        style={{ padding: 'var(--space-3)' }}
+      />,
+    );
+    expect(variable).toContain('padding:var(--space-3)');
+    expect(variable).not.toContain('padding-top:0');
+  });
+
   it('converts pt padding values instead of zeroing them', async () => {
     const html = await render(
       <Button href="https://example.com" style={{ padding: '9pt 15pt' }} />,
