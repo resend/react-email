@@ -42,6 +42,14 @@ export const Button = React.forwardRef<HTMLAnchorElement, ButtonProps>(
   ({ children, style, target = '_blank', ...props }, ref) => {
     const { paddingTop, paddingRight, paddingBottom, paddingLeft } =
       parsePadding(style ?? {});
+    // An unparsed length stays on the author's declaration. Writing 0 here
+    // would replace calc() and var() with longhands that win in every client.
+    const parsedPadding = {
+      ...(typeof paddingTop === 'number' ? { paddingTop } : {}),
+      ...(typeof paddingRight === 'number' ? { paddingRight } : {}),
+      ...(typeof paddingBottom === 'number' ? { paddingBottom } : {}),
+      ...(typeof paddingLeft === 'number' ? { paddingLeft } : {}),
+    };
 
     const y = (paddingTop ?? 0) + (paddingBottom ?? 0);
     const textRaise = pxToPt(y);
@@ -64,10 +72,7 @@ export const Button = React.forwardRef<HTMLAnchorElement, ButtonProps>(
           maxWidth: '100%',
           msoPaddingAlt: '0px',
           ...style,
-          paddingTop,
-          paddingRight,
-          paddingBottom,
-          paddingLeft,
+          ...parsedPadding,
         }}
         target={target}
       >

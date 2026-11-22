@@ -48,60 +48,79 @@ export function convertToPx(value: PaddingType) {
   return 0;
 }
 
-function parsePaddingValue(value: PaddingType) {
-  if (typeof value === 'number')
-    return {
-      paddingTop: value,
-      paddingBottom: value,
-      paddingLeft: value,
-      paddingRight: value,
-    };
-
-  if (typeof value === 'string') {
-    const values = value.toString().trim().split(/\s+/);
-
-    if (values.length === 1) {
-      return {
-        paddingTop: values[0],
-        paddingBottom: values[0],
-        paddingLeft: values[0],
-        paddingRight: values[0],
-      };
-    }
-
-    if (values.length === 2) {
-      return {
-        paddingTop: values[0],
-        paddingRight: values[1],
-        paddingBottom: values[0],
-        paddingLeft: values[1],
-      };
-    }
-
-    if (values.length === 3) {
-      return {
-        paddingTop: values[0],
-        paddingRight: values[1],
-        paddingBottom: values[2],
-        paddingLeft: values[1],
-      };
-    }
-
-    if (values.length === 4) {
-      return {
-        paddingTop: values[0],
-        paddingRight: values[1],
-        paddingBottom: values[2],
-        paddingLeft: values[3],
-      };
-    }
+function resolvedLength(value: PaddingType): number | undefined {
+  if (typeof value === 'number') {
+    return Number.isFinite(value) ? value : undefined;
   }
+  if (typeof value !== 'string') return undefined;
 
+  const trimmed = value.trim();
+  const matches = /^([\d.]+)(px|pt|em|rem|%)$/.exec(trimmed);
+  if (!matches) return undefined;
+  return convertToPx(trimmed);
+}
+
+// Whitespace inside calc() or var() is not a shorthand separator.
+function paddingTokens(value: string): string[] | undefined {
+  const tokens: string[] = [];
+  let token = '';
+  let depth = 0;
+
+  for (const character of value.trim()) {
+    if (character === '(') depth += 1;
+    else if (character === ')' && depth > 0) depth -= 1;
+
+    if (character.trim() === '' && depth === 0) {
+      if (token) {
+        tokens.push(token);
+        token = '';
+      }
+      continue;
+    }
+    token += character;
+  }
+  if (token) tokens.push(token);
+  if (tokens.length === 0 || tokens.length > 4) return undefined;
+  return tokens;
+}
+
+function shorthandLengths(value: string) {
+  const tokens = paddingTokens(value);
+  if (!tokens) return undefined;
+
+  const lengths = tokens.map((token) => resolvedLength(token));
+  if (lengths.some((length) => length === undefined)) return undefined;
+
+  const [top, second, third, fourth] = lengths as number[];
+  if (tokens.length === 1) {
+    return {
+      paddingTop: top,
+      paddingRight: top,
+      paddingBottom: top,
+      paddingLeft: top,
+    };
+  }
+  if (tokens.length === 2) {
+    return {
+      paddingTop: top,
+      paddingRight: second,
+      paddingBottom: top,
+      paddingLeft: second,
+    };
+  }
+  if (tokens.length === 3) {
+    return {
+      paddingTop: top,
+      paddingRight: second,
+      paddingBottom: third,
+      paddingLeft: second,
+    };
+  }
   return {
-    paddingTop: undefined,
-    paddingBottom: undefined,
-    paddingLeft: undefined,
-    paddingRight: undefined,
+    paddingTop: top,
+    paddingRight: second,
+    paddingBottom: third,
+    paddingLeft: fourth,
   };
 }
 
@@ -110,30 +129,39 @@ function parsePaddingValue(value: PaddingType) {
  * @example e.g. "10px" =\> pt: 10, pr: 10, pb: 10, pl: 10
  */
 export function parsePadding(properties: PaddingProperties) {
-  let paddingTop: string | number | undefined;
-  let paddingRight: string | number | undefined;
-  let paddingBottom: string | number | undefined;
-  let paddingLeft: string | number | undefined;
+  let paddingTop: number | undefined;
+  let paddingRight: number | undefined;
+  let paddingBottom: number | undefined;
+  let paddingLeft: number | undefined;
 
   for (const [key, value] of Object.entries(properties)) {
-    if (key === 'padding') {
-      ({ paddingTop, paddingBottom, paddingLeft, paddingRight } =
-        parsePaddingValue(value));
+    if (key === 'padding' && typeof value === 'number') {
+      const length = resolvedLength(value);
+      paddingTop = length;
+      paddingRight = length;
+      paddingBottom = length;
+      paddingLeft = length;
+    } else if (key === 'padding' && typeof value === 'string') {
+      const sides = shorthandLengths(value);
+      paddingTop = sides?.paddingTop;
+      paddingRight = sides?.paddingRight;
+      paddingBottom = sides?.paddingBottom;
+      paddingLeft = sides?.paddingLeft;
     } else if (key === 'paddingTop') {
-      paddingTop = value;
+      paddingTop = resolvedLength(value);
     } else if (key === 'paddingRight') {
-      paddingRight = value;
+      paddingRight = resolvedLength(value);
     } else if (key === 'paddingBottom') {
-      paddingBottom = value;
+      paddingBottom = resolvedLength(value);
     } else if (key === 'paddingLeft') {
-      paddingLeft = value;
+      paddingLeft = resolvedLength(value);
     }
   }
 
   return {
-    paddingTop: convertToPx(paddingTop),
-    paddingRight: convertToPx(paddingRight),
-    paddingBottom: convertToPx(paddingBottom),
-    paddingLeft: convertToPx(paddingLeft),
+    paddingTop,
+    paddingRight,
+    paddingBottom,
+    paddingLeft,
   };
 }
