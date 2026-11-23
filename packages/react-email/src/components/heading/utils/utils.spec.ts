@@ -55,6 +55,18 @@ describe('withMargin', () => {
       marginTop: '5px',
     });
   });
+
+  it('passes through values that already carry a unit', () => {
+    expect(withMargin({ mt: '1.5rem' })).toEqual({ marginTop: '1.5rem' });
+    expect(withMargin({ m: '10%' })).toEqual({ margin: '10%' });
+    expect(withMargin({ mb: '10px' })).toEqual({ marginBottom: '10px' });
+  });
+
+  it('passes through auto and multi-value shorthands', () => {
+    expect(withMargin({ m: 'auto' })).toEqual({ margin: 'auto' });
+    expect(withMargin({ m: '0 auto' })).toEqual({ margin: '0 auto' });
+    expect(withMargin({ m: '10px 20px' })).toEqual({ margin: '10px 20px' });
+  });
 });
 
 describe('withSpace', () => {
@@ -66,5 +78,27 @@ describe('withSpace', () => {
   it('applies space to the specified properties', () => {
     const result = withSpace(15, ['marginTop', 'marginLeft']);
     expect(result).toEqual({ marginTop: '15px', marginLeft: '15px' });
+  });
+
+  it('appends px to numeric strings', () => {
+    expect(withSpace('10', ['margin'])).toEqual({ margin: '10px' });
+    expect(withSpace('-5', ['marginTop'])).toEqual({ marginTop: '-5px' });
+  });
+
+  it('emits values with units unchanged', () => {
+    expect(withSpace('1.5rem', ['marginTop'])).toEqual({ marginTop: '1.5rem' });
+    expect(withSpace('10px', ['margin'])).toEqual({ margin: '10px' });
+    expect(withSpace('10%', ['margin'])).toEqual({ margin: '10%' });
+  });
+
+  it('emits auto and multi-value shorthands unchanged', () => {
+    expect(withSpace('auto', ['margin'])).toEqual({ margin: 'auto' });
+    expect(withSpace('0 auto', ['margin'])).toEqual({ margin: '0 auto' });
+  });
+
+  it('returns an empty object for values that are not CSS lengths', () => {
+    expect(withSpace('invalid', ['margin'])).toEqual({});
+    expect(withSpace('10 px', ['margin'])).toEqual({});
+    expect(withSpace('', ['margin'])).toEqual({});
   });
 });

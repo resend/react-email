@@ -41,6 +41,11 @@ export const withMargin = (props: Margin): MarginStyles => {
   return mergedStyles;
 };
 
+const NUMBER_PATTERN = /^-?(\d+\.?\d*|\.\d+)$/;
+
+const CSS_VALUE_PATTERN =
+  /^auto$|^-?(\d+\.?\d*|\.\d+)(px|em|rem|%|vh|vw|vmin|vmax|svh|svw|lvh|lvw|dvh|dvw|in|cm|mm|pt|pc|q|ex|ch|cap|ic|lh|rlh|vi|vb|cqw|cqh|cqi|cqb|cqmin|cqmax)?$/;
+
 export const withSpace = (
   value: number | string | undefined,
   properties: MarginCSSProperty[],
@@ -51,13 +56,17 @@ export const withSpace = (
     return styles;
   }
 
-  // Check to ensure string value is a valid number
-  if (Number.isNaN(Number.parseFloat(String(value)))) {
+  const trimmed = String(value).trim();
+  const tokens = trimmed.split(/\s+/);
+
+  if (!tokens.every((token) => CSS_VALUE_PATTERN.test(token))) {
     return styles;
   }
 
+  const resolved = NUMBER_PATTERN.test(trimmed) ? `${trimmed}px` : trimmed;
+
   for (const property of properties) {
-    styles[property] = `${value}px` as React.CSSProperties[MarginCSSProperty];
+    styles[property] = resolved as React.CSSProperties[MarginCSSProperty];
   }
 
   return styles;
