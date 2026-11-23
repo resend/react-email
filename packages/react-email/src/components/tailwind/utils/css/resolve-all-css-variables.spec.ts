@@ -272,6 +272,35 @@ describe('resolveAllCSSVariables', () => {
     );
   });
 
+  it('leaves a fallback for inlining when another class defines the variable', () => {
+    const root = parse(`.text-shadow-lg {
+  text-shadow: 0px 1px 2px var(--tw-text-shadow-color, rgb(0 0 0 / 0.1));
+}
+.text-shadow-red-500 {
+  --tw-text-shadow-color: red;
+}`);
+    resolveAllCssVariables(root);
+    expect(generate(root)).toMatchInlineSnapshot(
+      `".text-shadow-lg{text-shadow:0px 1px 2px var(--tw-text-shadow-color, rgb(0 0 0 / 0.1))}.text-shadow-red-500{--tw-text-shadow-color: red}"`,
+    );
+  });
+
+  it('does not wait for definitions in descendant or attribute rules', () => {
+    const root = parse(`.card {
+  background-color: var(--card-bg, white);
+}
+.dark .card {
+  --card-bg: black;
+}
+.card[data-theme='dark'] {
+  --card-bg: black;
+}`);
+    resolveAllCssVariables(root);
+    expect(generate(root)).toMatchInlineSnapshot(
+      `".card{background-color:white}.dark .card{--card-bg: black}.card[data-theme="dark"]{--card-bg: black}"`,
+    );
+  });
+
   it('handles nested var() functions in fallbacks', () => {
     const root = parse(`:root {
   --fallback-width: 300px;

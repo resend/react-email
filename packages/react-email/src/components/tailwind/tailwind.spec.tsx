@@ -345,6 +345,50 @@ describe('Tailwind component', () => {
     expect(transformed?.getAttribute('style')).toContain('translate:0.5rem 0');
   });
 
+  it('uses values that another class on the element defines', async () => {
+    const html = await render(
+      <Tailwind>
+        <p className="text-shadow-lg text-shadow-red-500">colored</p>
+        <p className="text-shadow-lg">default</p>
+        <p className="leading-[24px] text-sm">leading</p>
+        <div className="bg-radial-[at_25%_25%] from-red-500 to-blue-500">
+          gradient
+        </div>
+      </Tailwind>,
+    );
+    const document = new DOMParser().parseFromString(html, 'text/html');
+    const [colored, defaultShadow, leading] = document.querySelectorAll('p');
+    const gradient = document.querySelector('div');
+
+    expect(html).not.toContain('var(');
+    expect(colored?.getAttribute('style')).toContain('rgb(251,44,54');
+    expect(defaultShadow?.getAttribute('style')).toContain('rgb(0,0,0,0.1)');
+    expect(defaultShadow?.getAttribute('style')).not.toContain('rgb(251,44,54');
+    expect(leading?.getAttribute('style')).toContain('line-height:24px');
+    expect(gradient?.getAttribute('style')).toContain(
+      'radial-gradient(at 25% 25%,rgb(251,44,54) 0%,rgb(43,127,255) 100%)',
+    );
+  });
+
+  it('does not depend on classes added by earlier renders', async () => {
+    const config: TailwindConfig = { theme: { extend: {} } };
+    const defaults = (
+      <Tailwind config={config}>
+        <p className="text-shadow-lg">text</p>
+        <p className="text-sm">leading</p>
+      </Tailwind>
+    );
+    const before = await render(defaults);
+    await render(
+      <Tailwind config={config}>
+        <p className="text-shadow-lg text-shadow-red-500">text</p>
+        <p className="leading-[24px] text-sm">leading</p>
+      </Tailwind>,
+    );
+
+    expect(await render(defaults)).toBe(before);
+  });
+
   it('does not use hover shadow colors for the inline default', async () => {
     const html = await render(
       <Tailwind>

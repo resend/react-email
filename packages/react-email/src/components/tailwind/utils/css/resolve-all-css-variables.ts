@@ -6,10 +6,13 @@ import {
   type ListItem,
   parse,
   type Raw,
+  type Rule,
   type SelectorList,
   type Value,
   walk,
 } from 'css-tree';
+import { NON_INLINABLE_ATRULES } from './constants.js';
+import { isRuleInlinable } from './is-rule-inlinable.js';
 
 interface VariableUse {
   declaration: Declaration;
@@ -64,6 +67,35 @@ function doSelectorsIntersect(
     hasUniversalSelector(first, true) ||
     hasUniversalSelector(second, true)
   );
+}
+
+function isSingleClassSelector(selector: SelectorList | Raw) {
+  const [only, ...rest] =
+    selector.type === 'SelectorList' ? selector.children.toArray() : [];
+  return (
+    rest.length === 0 &&
+    only?.type === 'Selector' &&
+    only.children.size === 1 &&
+    only.children.first?.type === 'ClassSelector'
+  );
+}
+
+function getClassRule(path: CssNode[]) {
+  const [block, rule] = path;
+  if (
+    block?.type !== 'Block' ||
+    rule?.type !== 'Rule' ||
+    !isSingleClassSelector(rule.prelude) ||
+    !isRuleInlinable(rule) ||
+    path.some(
+      (ancestor) =>
+        ancestor.type === 'Atrule' &&
+        NON_INLINABLE_ATRULES.has(ancestor.name.toLowerCase()),
+    )
+  ) {
+    return undefined;
+  }
+  return rule;
 }
 
 export function resolveAllCssVariables(node: CssNode) {
@@ -162,12 +194,30 @@ export function resolveAllCssVariables(node: CssNode) {
     }
   }
 
+  const definingClassRules = new Map<string, Rule[]>();
+  for (const definition of variableDefinitions) {
+    const rule = getClassRule(definition.path);
+    if (!rule) continue;
+    let rules = definingClassRules.get(definition.variableName);
+    if (!rules) {
+      rules = [];
+      definingClassRules.set(definition.variableName, rules);
+    }
+    rules.push(rule);
+  }
+
   for (const use of variableUses) {
     let hasReplaced = false;
     const localDefinition = use.path[0]
       ? localDefinitions.get(use.path[0])?.get(use.variableName)
       : undefined;
     const useRule = use.path.find((ancestor) => ancestor.type === 'Rule');
+    const useClassRule = getClassRule(use.path);
+    const mayBeDefinedByOtherClass =
+      useClassRule !== undefined &&
+      (definingClassRules.get(use.variableName) ?? []).some(
+        (rule) => !doSelectorsIntersect(useClassRule.prelude, rule.prelude),
+      );
 
     for (const definition of variableDefinitions) {
       if (use.variableName !== definition.variableName) {
@@ -280,7 +330,8 @@ export function resolveAllCssVariables(node: CssNode) {
     if (
       !hasReplaced &&
       use.fallback &&
-      !use.declaration.property.startsWith('--')
+      !use.declaration.property.startsWith('--') &&
+      !mayBeDefinedByOtherClass
     ) {
       use.declaration.value = parse(
         generate(use.declaration.value).replaceAll(use.raw, use.fallback),
