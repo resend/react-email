@@ -121,13 +121,18 @@ describe('makeInlineStylesFor()', async () => {
       }
     `);
   });
-  it('treats a variable set to a CSS-wide keyword as unset', () => {
+
+  it('falls back when a variable is set to a CSS-wide keyword', () => {
     const tailwindStyles = parse(`
       .text-shadow-lg {
         text-shadow: 0px 1px 2px var(--tw-text-shadow-color, black);
       }
       .text-shadow-initial {
         --tw-text-shadow-color: initial;
+      }
+      .bg-custom {
+        background-color: var(--bg);
+        --bg: initial;
       }
     `) as StyleSheet;
 
@@ -138,6 +143,7 @@ describe('makeInlineStylesFor()', async () => {
       ),
     ).toMatchInlineSnapshot(`
       {
+        "backgroundColor": "initial",
         "textShadow": "0px 1px 2px black",
       }
     `);

@@ -66,16 +66,17 @@ export function makeInlineStylesFor(
         const name = children[0] ? generate(children[0]).trim() : '';
         if (resolving.has(name)) return;
 
-        const declared = localVariableDeclarations.get(name);
-        const definition =
-          declared &&
-          CSS_WIDE_KEYWORDS.has(generate(declared.value).trim().toLowerCase())
-            ? undefined
-            : declared;
         const initialValue = customProperties.get(name)?.initialValue;
         const comma = children.findIndex(
           (child) => child.type === 'Operator' && child.value === ',',
         );
+        const declared = localVariableDeclarations.get(name);
+        const definition =
+          declared &&
+          (comma !== -1 || initialValue) &&
+          CSS_WIDE_KEYWORDS.has(generate(declared.value).trim().toLowerCase())
+            ? undefined
+            : declared;
         const fallback =
           comma === -1
             ? undefined
