@@ -6,7 +6,6 @@ import {
   type ListItem,
   parse,
   type Raw,
-  type Rule,
   type SelectorList,
   type Value,
   walk,
@@ -80,22 +79,19 @@ function isSingleClassSelector(selector: SelectorList | Raw) {
   );
 }
 
-function getClassRule(path: CssNode[]) {
+function isInClassRule(path: CssNode[]) {
   const [block, rule] = path;
-  if (
-    block?.type !== 'Block' ||
-    rule?.type !== 'Rule' ||
-    !isSingleClassSelector(rule.prelude) ||
-    !isRuleInlinable(rule) ||
-    path.some(
+  return (
+    block?.type === 'Block' &&
+    rule?.type === 'Rule' &&
+    isSingleClassSelector(rule.prelude) &&
+    isRuleInlinable(rule) &&
+    !path.some(
       (ancestor) =>
         ancestor.type === 'Atrule' &&
         NON_INLINABLE_ATRULES.has(ancestor.name.toLowerCase()),
     )
-  ) {
-    return undefined;
-  }
-  return rule;
+  );
 }
 
 export function resolveAllCssVariables(node: CssNode) {
@@ -194,16 +190,11 @@ export function resolveAllCssVariables(node: CssNode) {
     }
   }
 
-  const definingClassRules = new Map<string, Rule[]>();
+  const variablesDefinedByClasses = new Set<string>();
   for (const definition of variableDefinitions) {
-    const rule = getClassRule(definition.path);
-    if (!rule) continue;
-    let rules = definingClassRules.get(definition.variableName);
-    if (!rules) {
-      rules = [];
-      definingClassRules.set(definition.variableName, rules);
+    if (isInClassRule(definition.path)) {
+      variablesDefinedByClasses.add(definition.variableName);
     }
-    rules.push(rule);
   }
 
   for (const use of variableUses) {
@@ -212,12 +203,9 @@ export function resolveAllCssVariables(node: CssNode) {
       ? localDefinitions.get(use.path[0])?.get(use.variableName)
       : undefined;
     const useRule = use.path.find((ancestor) => ancestor.type === 'Rule');
-    const useClassRule = getClassRule(use.path);
     const mayBeDefinedByOtherClass =
-      useClassRule !== undefined &&
-      (definingClassRules.get(use.variableName) ?? []).some(
-        (rule) => !doSelectorsIntersect(useClassRule.prelude, rule.prelude),
-      );
+      isInClassRule(use.path) &&
+      variablesDefinedByClasses.has(use.variableName);
 
     for (const definition of variableDefinitions) {
       if (use.variableName !== definition.variableName) {

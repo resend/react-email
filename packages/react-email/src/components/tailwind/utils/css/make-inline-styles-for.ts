@@ -13,6 +13,14 @@ import { sanitizeDeclarations } from './sanitize-declarations.js';
 import { stripEmptyTailwindVars } from './strip-empty-tailwind-vars.js';
 import { unwrapValue } from './unwrap-value.js';
 
+const CSS_WIDE_KEYWORDS = new Set([
+  'initial',
+  'inherit',
+  'unset',
+  'revert',
+  'revert-layer',
+]);
+
 function hasVarFunction(node: CssNode) {
   let found = false;
   walk(node, {
@@ -58,7 +66,12 @@ export function makeInlineStylesFor(
         const name = children[0] ? generate(children[0]).trim() : '';
         if (resolving.has(name)) return;
 
-        const definition = localVariableDeclarations.get(name);
+        const declared = localVariableDeclarations.get(name);
+        const definition =
+          declared &&
+          CSS_WIDE_KEYWORDS.has(generate(declared.value).trim().toLowerCase())
+            ? undefined
+            : declared;
         const initialValue = customProperties.get(name)?.initialValue;
         const comma = children.findIndex(
           (child) => child.type === 'Operator' && child.value === ',',

@@ -121,4 +121,25 @@ describe('makeInlineStylesFor()', async () => {
       }
     `);
   });
+  it('treats a variable set to a CSS-wide keyword as unset', () => {
+    const tailwindStyles = parse(`
+      .text-shadow-lg {
+        text-shadow: 0px 1px 2px var(--tw-text-shadow-color, black);
+      }
+      .text-shadow-initial {
+        --tw-text-shadow-color: initial;
+      }
+    `) as StyleSheet;
+
+    expect(
+      makeInlineStylesFor(
+        tailwindStyles.children.toArray(),
+        getCustomProperties(tailwindStyles),
+      ),
+    ).toMatchInlineSnapshot(`
+      {
+        "textShadow": "0px 1px 2px black",
+      }
+    `);
+  });
 });
