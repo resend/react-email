@@ -68,23 +68,16 @@ function doSelectorsIntersect(
   );
 }
 
-function isSingleClassSelector(selector: SelectorList | Raw) {
-  const [only, ...rest] =
-    selector.type === 'SelectorList' ? selector.children.toArray() : [];
-  return (
-    rest.length === 0 &&
-    only?.type === 'Selector' &&
-    only.children.size === 1 &&
-    only.children.first?.type === 'ClassSelector'
-  );
-}
-
 function isInClassRule(path: CssNode[]) {
   const [block, rule] = path;
+  if (block?.type !== 'Block' || rule?.type !== 'Rule') return false;
+  const [selector, ...others] =
+    rule.prelude.type === 'SelectorList' ? rule.prelude.children.toArray() : [];
   return (
-    block?.type === 'Block' &&
-    rule?.type === 'Rule' &&
-    isSingleClassSelector(rule.prelude) &&
+    others.length === 0 &&
+    selector?.type === 'Selector' &&
+    selector.children.size === 1 &&
+    selector.children.first?.type === 'ClassSelector' &&
     isRuleInlinable(rule) &&
     !path.some(
       (ancestor) =>
