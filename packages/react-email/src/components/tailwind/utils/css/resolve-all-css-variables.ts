@@ -162,7 +162,33 @@ export function resolveAllCssVariables(node: CssNode) {
     }
   }
 
+  const definitionUses = new Map<string, VariableUse[]>();
   for (const use of variableUses) {
+    const property = use.declaration.property;
+    if (!property.startsWith('--')) continue;
+    let uses = definitionUses.get(property);
+    if (!uses) {
+      uses = [];
+      definitionUses.set(property, uses);
+    }
+    uses.push(use);
+  }
+
+  const visitedUses = new Set<VariableUse>();
+  const orderedUses: VariableUse[] = [];
+  function addInDependencyOrder(use: VariableUse) {
+    if (visitedUses.has(use)) return;
+    visitedUses.add(use);
+    for (const dependency of definitionUses.get(use.variableName) ?? []) {
+      addInDependencyOrder(dependency);
+    }
+    orderedUses.push(use);
+  }
+  for (const use of variableUses) {
+    addInDependencyOrder(use);
+  }
+
+  for (const use of orderedUses) {
     let hasReplaced = false;
     const localDefinition = use.path[0]
       ? localDefinitions.get(use.path[0])?.get(use.variableName)

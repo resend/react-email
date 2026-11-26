@@ -330,10 +330,12 @@ describe('Tailwind component', () => {
           colored
         </div>
         <div className="blur-sm translate-x-2">transformed</div>
+        <div className="mask-b-from-6 mask-t-from-red-600">masked</div>
       </Tailwind>,
     );
     const document = new DOMParser().parseFromString(html, 'text/html');
-    const [gradient, colored, transformed] = document.querySelectorAll('div');
+    const [gradient, colored, transformed, masked] =
+      document.querySelectorAll('div');
 
     expect(html).not.toContain('var(');
     expect(gradient?.getAttribute('style')).toContain(
@@ -343,6 +345,12 @@ describe('Tailwind component', () => {
     expect(colored?.getAttribute('style')).toContain('rgb(43,127,255)');
     expect(transformed?.getAttribute('style')).toContain('filter:blur(8px)');
     expect(transformed?.getAttribute('style')).toContain('translate:0.5rem 0');
+    expect(masked?.getAttribute('style')).toContain(
+      'linear-gradient(to bottom,black 1.5rem,transparent 100%)',
+    );
+    expect(masked?.getAttribute('style')).toContain(
+      'linear-gradient(to top,rgb(231,0,11) 0%,transparent 100%)',
+    );
   });
 
   it('does not use hover shadow colors for the inline default', async () => {

@@ -260,6 +260,22 @@ describe('resolveAllCSSVariables', () => {
     );
   });
 
+  it('resolves custom property definitions that come after their use', () => {
+    const root = parse(`:root {
+  --color-red-600: red;
+}
+.mask-b-from-red-600 {
+  mask-image: var(--tw-mask-linear);
+  --tw-mask-linear: var(--tw-mask-bottom);
+  --tw-mask-bottom: linear-gradient(to bottom, var(--tw-mask-bottom-from-color) 0%, transparent 100%);
+  --tw-mask-bottom-from-color: var(--color-red-600);
+}`);
+    resolveAllCssVariables(root);
+    expect(generate(root)).toMatchInlineSnapshot(
+      `":root{--color-red-600: red}.mask-b-from-red-600{mask-image:linear-gradient(to bottom,red 0%,transparent 100%);--tw-mask-linear:linear-gradient(to bottom,red 0%,transparent 100%);--tw-mask-bottom:linear-gradient(to bottom,red 0%,transparent 100%);--tw-mask-bottom-from-color:red}"`,
+    );
+  });
+
   it('uses fallback values when variable definition is not found', () => {
     const root = parse(`.box {
   width: var(--undefined-width, 150px);
