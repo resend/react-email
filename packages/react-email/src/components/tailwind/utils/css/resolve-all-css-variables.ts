@@ -10,6 +10,8 @@ import {
   type Value,
   walk,
 } from 'css-tree';
+import { NON_INLINABLE_ATRULES } from './constants.js';
+import { isRuleInlinable } from './is-rule-inlinable.js';
 
 interface VariableUse {
   declaration: Declaration;
@@ -63,6 +65,25 @@ function doSelectorsIntersect(
     generate(first) === generate(second) ||
     hasUniversalSelector(first, true) ||
     hasUniversalSelector(second, true)
+  );
+}
+
+function isInClassRule(path: CssNode[]) {
+  const [block, rule] = path;
+  if (block?.type !== 'Block' || rule?.type !== 'Rule') return false;
+  const [selector, ...others] =
+    rule.prelude.type === 'SelectorList' ? rule.prelude.children.toArray() : [];
+  return (
+    others.length === 0 &&
+    selector?.type === 'Selector' &&
+    selector.children.size === 1 &&
+    selector.children.first?.type === 'ClassSelector' &&
+    isRuleInlinable(rule) &&
+    !path.some(
+      (ancestor) =>
+        ancestor.type === 'Atrule' &&
+        NON_INLINABLE_ATRULES.has(ancestor.name.toLowerCase()),
+    )
   );
 }
 
@@ -162,12 +183,22 @@ export function resolveAllCssVariables(node: CssNode) {
     }
   }
 
+  const variablesDefinedByClasses = new Set<string>();
+  for (const definition of variableDefinitions) {
+    if (isInClassRule(definition.path)) {
+      variablesDefinedByClasses.add(definition.variableName);
+    }
+  }
+
   for (const use of variableUses) {
     let hasReplaced = false;
     const localDefinition = use.path[0]
       ? localDefinitions.get(use.path[0])?.get(use.variableName)
       : undefined;
     const useRule = use.path.find((ancestor) => ancestor.type === 'Rule');
+    const mayBeDefinedByOtherClass =
+      isInClassRule(use.path) &&
+      variablesDefinedByClasses.has(use.variableName);
 
     for (const definition of variableDefinitions) {
       if (use.variableName !== definition.variableName) {
@@ -280,7 +311,8 @@ export function resolveAllCssVariables(node: CssNode) {
     if (
       !hasReplaced &&
       use.fallback &&
-      !use.declaration.property.startsWith('--')
+      !use.declaration.property.startsWith('--') &&
+      !mayBeDefinedByOtherClass
     ) {
       use.declaration.value = parse(
         generate(use.declaration.value).replaceAll(use.raw, use.fallback),
