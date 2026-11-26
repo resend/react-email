@@ -64,7 +64,10 @@ describe('<Button> component', () => {
 
   it('keeps calc() and var() padding instead of writing 0 longhands', async () => {
     const calc = await render(
-      <Button href="https://example.com/pay" style={{ padding: 'calc(8px + 4px)' }}>
+      <Button
+        href="https://example.com/pay"
+        style={{ padding: 'calc(8px + 4px)' }}
+      >
         Pay invoice
       </Button>,
     );
