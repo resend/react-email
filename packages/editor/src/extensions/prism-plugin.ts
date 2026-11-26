@@ -3,8 +3,7 @@ import type { Node as ProsemirrorNode } from '@tiptap/pm/model';
 import { Plugin, PluginKey } from '@tiptap/pm/state';
 import type { EditorView } from '@tiptap/pm/view';
 import { Decoration, DecorationSet } from '@tiptap/pm/view';
-import { fromHtml } from 'hast-util-from-html';
-import Prism from 'prismjs';
+import Prism, { type TokenStream } from 'prismjs';
 import {
   hasPrismThemeLoaded,
   loadPrismTheme,
@@ -13,42 +12,56 @@ import {
 
 const PRISM_LANGUAGE_LOADED_META = 'prismLanguageLoaded';
 
-interface RefractorNode {
-  properties?: { className: string[] };
-  children?: RefractorNode[];
-  value?: string;
-}
-
-function parseNodes(
-  nodes: RefractorNode[],
-  className: string[] = [],
+function flattenTokens(
+  tokens: TokenStream,
+  classes: string[] = [],
 ): { text: string; classes: string[] }[] {
-  return nodes.flatMap((node) => {
-    const classes = [
-      ...className,
-      ...(node.properties ? node.properties.className : []),
-    ];
+  if (typeof tokens === 'string') {
+    return [{ text: tokens, classes }];
+  }
 
-    if (node.children) {
-      return parseNodes(node.children, classes);
-    }
+  if (Array.isArray(tokens)) {
+    return tokens.flatMap((token) => flattenTokens(token, classes));
+  }
 
-    return {
-      text: node.value ?? '',
-      classes,
-    };
-  });
+  return flattenTokens(tokens.content, [
+    ...classes,
+    'token',
+    tokens.type,
+    ...[tokens.alias ?? []].flat(),
+  ]);
 }
 
-function getHighlightNodes(html: string) {
-  return fromHtml(html, { fragment: true }).children;
+// Returns undefined, leaving the code unhighlighted, until the language's
+// grammar has loaded. `Prism.tokenize` alone skips the hooks `Prism.highlight`
+// runs, which templating grammars (php, handlebars, ...) rely on to tokenize
+// the surrounding markup separately from the embedded template code.
+function tokenize(code: string, language: string) {
+  if (!isLanguageLoaded(language)) {
+    return undefined;
+  }
+
+  const env: Prism.hooks.TokenizeEnvironment & { tokens?: TokenStream } = {
+    code,
+    grammar: Prism.languages[language],
+    language,
+  };
+
+  try {
+    Prism.hooks.run('before-tokenize', env);
+    env.tokens = Prism.tokenize(env.code, env.grammar);
+    Prism.hooks.run('after-tokenize', env);
+  } catch {
+    // A throwing grammar or hook shouldn't break the editor transaction.
+    return undefined;
+  }
+
+  return env.tokens;
 }
 
-function registeredLang(aliasOrLanguage: string) {
-  const allSupportLang = Object.keys(Prism.languages).filter(
-    (id) => typeof Prism.languages[id] === 'object',
-  );
-  return Boolean(allSupportLang.find((x) => x === aliasOrLanguage));
+// `Prism.languages` also holds helper functions like `extend`.
+function isLanguageLoaded(language: string) {
+  return typeof Prism.languages[language] === 'object';
 }
 
 // Prism's own metadata resolves aliases (`shell` is defined by `bash`) and
@@ -61,13 +74,13 @@ export async function loadPrismLanguage(language: string) {
   ]);
   const ids = getLoader(components, [language])
     .getIds()
-    .filter((id) => id in components.languages && !registeredLang(id));
+    .filter((id) => id in components.languages && !isLanguageLoaded(id));
 
   for (const id of ids) {
     await import(/* @vite-ignore */ `prismjs/components/prism-${id}`);
   }
 
-  if (!registeredLang(language)) {
+  if (!isLanguageLoaded(language)) {
     throw new Error(`Prism has no grammar for "${language}"`);
   }
 }
@@ -90,60 +103,44 @@ function getDecorations({
   const decorations: Decoration[] = [];
 
   findChildren(doc, (node) => node.type.name === name).forEach((block) => {
-    let from = block.pos + 1;
     const language = block.node.attrs.language || defaultLanguage;
     const theme = block.node.attrs.theme || defaultTheme;
-    let html = '';
+
+    if (!isLanguageLoaded(language) && !loadingLanguages.has(language)) {
+      loadingLanguages.add(language);
+      loadPrismLanguage(language)
+        .then(() => onLanguageLoaded(language))
+        .catch(() => {})
+        .finally(() => loadingLanguages.delete(language));
+    }
 
     try {
-      if (!registeredLang(language) && !loadingLanguages.has(language)) {
-        loadingLanguages.add(language);
-        loadPrismLanguage(language)
-          .then(() => {
-            loadingLanguages.delete(language);
-            onLanguageLoaded(language);
-          })
-          .catch(() => {
-            loadingLanguages.delete(language);
-          });
-      }
-
       if (!hasPrismThemeLoaded(theme)) {
         loadPrismTheme(theme);
       }
-
-      html = Prism.highlight(
-        block.node.textContent,
-        Prism.languages[language],
-        language,
-      );
     } catch {
-      try {
-        html = Prism.highlight(
-          block.node.textContent,
-          Prism.languages.javascript,
-          'js',
-        );
-      } catch {
-        return;
-      }
+      // Without a DOM there is no theme stylesheet to load; tokens still apply.
     }
 
-    const nodes = getHighlightNodes(html);
+    const tokens = tokenize(block.node.textContent, language);
 
-    parseNodes(nodes as RefractorNode[]).forEach((node) => {
-      const to = from + node.text.length;
+    if (!tokens) {
+      return;
+    }
 
-      if (node.classes.length) {
-        const decoration = Decoration.inline(from, to, {
-          class: node.classes.join(' '),
-        });
+    let from = block.pos + 1;
 
-        decorations.push(decoration);
+    for (const { text, classes } of flattenTokens(tokens)) {
+      const to = from + text.length;
+
+      if (classes.length) {
+        decorations.push(
+          Decoration.inline(from, to, { class: classes.join(' ') }),
+        );
       }
 
       from = to;
-    });
+    }
   });
 
   return DecorationSet.create(doc, decorations);
@@ -173,6 +170,16 @@ export function PrismPlugin({
     }
   };
 
+  const decorate = (doc: ProsemirrorNode) =>
+    getDecorations({
+      doc,
+      name,
+      defaultLanguage,
+      defaultTheme,
+      loadingLanguages,
+      onLanguageLoaded,
+    });
+
   const prismjsPlugin: Plugin<DecorationSet> = new Plugin({
     key: new PluginKey('prism'),
 
@@ -186,16 +193,7 @@ export function PrismPlugin({
     },
 
     state: {
-      init: (_, { doc }) => {
-        return getDecorations({
-          doc,
-          name,
-          defaultLanguage,
-          defaultTheme,
-          loadingLanguages,
-          onLanguageLoaded,
-        });
-      },
+      init: (_, { doc }) => decorate(doc),
       apply: (transaction, decorationSet, oldState, newState) => {
         const oldNodeName = oldState.selection.$head.parent.type.name;
         const newNodeName = newState.selection.$head.parent.type.name;
@@ -237,14 +235,7 @@ export function PrismPlugin({
                 );
               })))
         ) {
-          return getDecorations({
-            doc: transaction.doc,
-            name,
-            defaultLanguage,
-            defaultTheme,
-            loadingLanguages,
-            onLanguageLoaded,
-          });
+          return decorate(transaction.doc);
         }
 
         return decorationSet.map(transaction.mapping, transaction.doc);

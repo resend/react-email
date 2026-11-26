@@ -133,7 +133,6 @@
     "@tiptap/react": "^3.32.2",
     "@tiptap/starter-kit": "^3.32.2",
     "@tiptap/suggestion": "^3.32.2",
-    "hast-util-from-html": "^2.0.3",
     "prismjs": "^1.30.0"
   },
   "devDependencies": {
