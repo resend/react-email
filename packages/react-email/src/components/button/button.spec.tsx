@@ -62,6 +62,50 @@ describe('<Button> component', () => {
     );
   });
 
+  it('keeps calc() and var() padding instead of writing 0 longhands', async () => {
+    const calc = await render(
+      <Button
+        href="https://example.com/pay"
+        style={{ padding: 'calc(8px + 4px)' }}
+      >
+        Pay invoice
+      </Button>,
+    );
+    expect(calc).toContain('padding:calc(8px + 4px)');
+    expect(calc).toContain('Pay invoice');
+    expect(calc).not.toContain('padding-top:0');
+
+    const variable = await render(
+      <Button
+        href="https://example.com"
+        style={{ padding: 'var(--space-3)' }}
+      />,
+    );
+    expect(variable).toContain('padding:var(--space-3)');
+    expect(variable).not.toContain('padding-top:0');
+
+    const unitless = await render(
+      <Button href="https://example.com" style={{ padding: '0 20px' }} />,
+    );
+    expect(unitless).toContain(
+      'padding:0 20px;padding-top:0;padding-right:20px;padding-bottom:0;padding-left:20px',
+    );
+    expect(unitless).toContain('mso-font-width:500%');
+
+    const mixed = await render(
+      <Button
+        href="https://example.com"
+        style={{ padding: '8px calc(4px + 4px)' }}
+      />,
+    );
+    expect(mixed).toContain('padding:8px calc(4px + 4px)');
+    expect(mixed).toContain('padding-top:8px');
+    expect(mixed).toContain('padding-bottom:8px');
+    expect(mixed).not.toContain('padding-left:0');
+    expect(mixed).not.toContain('padding-right:0');
+    expect(mixed).toContain('mso-text-raise:12px');
+  });
+
   it('converts pt padding values instead of zeroing them', async () => {
     const html = await render(
       <Button href="https://example.com" style={{ padding: '9pt 15pt' }} />,
