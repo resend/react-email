@@ -1,5 +1,11 @@
 # @react-email/editor
 
+## 1.8.11
+
+### Patch Changes
+
+- 20695c6: Even out the spacing around nested list items in the default themes. Top-level lists now have a bit more space above them.
+
 ## 1.8.10
 
 ### Patch Changes
