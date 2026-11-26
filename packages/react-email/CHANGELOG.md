@@ -1,5 +1,12 @@
 # react-email
 
+## 6.11.17
+
+### Patch Changes
+
+- 742923e: Fix `Button` replacing `calc()` and `var()` padding with `0`
+- ec221a5: fix(heading): keep units and `auto` in margin shortcut props instead of always appending `px`
+
 ## 6.11.16
 
 ## 6.11.15
