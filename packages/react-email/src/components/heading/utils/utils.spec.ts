@@ -64,7 +64,7 @@ describe('withMargin', () => {
 
   it('passes through auto and multi-value shorthands', () => {
     expect(withMargin({ m: 'auto' })).toEqual({ margin: 'auto' });
-    expect(withMargin({ m: '0 auto' })).toEqual({ margin: '0 auto' });
+    expect(withMargin({ m: '0 auto' })).toEqual({ margin: '0px auto' });
     expect(withMargin({ m: '10px 20px' })).toEqual({ margin: '10px 20px' });
   });
 });
@@ -93,7 +93,24 @@ describe('withSpace', () => {
 
   it('emits auto and multi-value shorthands unchanged', () => {
     expect(withSpace('auto', ['margin'])).toEqual({ margin: 'auto' });
-    expect(withSpace('0 auto', ['margin'])).toEqual({ margin: '0 auto' });
+    expect(withSpace('0 auto', ['margin'])).toEqual({ margin: '0px auto' });
+  });
+
+  it('appends px to each unitless number in a shorthand', () => {
+    expect(withSpace('0 10', ['margin'])).toEqual({ margin: '0px 10px' });
+    expect(withSpace('10 20', ['margin'])).toEqual({ margin: '10px 20px' });
+    expect(withSpace('10 1.5rem auto -5', ['margin'])).toEqual({
+      margin: '10px 1.5rem auto -5px',
+    });
+  });
+
+  it('only accepts multiple values for the margin shorthand', () => {
+    expect(withSpace('0 auto', ['marginLeft', 'marginRight'])).toEqual({});
+    expect(withSpace('10 20', ['marginTop'])).toEqual({});
+  });
+
+  it('drops a shorthand with more than four values', () => {
+    expect(withSpace('1 2 3 4 5', ['margin'])).toEqual({});
   });
 
   it('returns an empty object for values that are not CSS lengths', () => {

@@ -19,6 +19,23 @@ describe('render', () => {
     expect(html).toContain('data-testid="heading-test"');
   });
 
+  it.each([
+    [{ mt: '1.5rem' }, 'margin-top:1.5rem'],
+    [{ mb: '10px' }, 'margin-bottom:10px'],
+    [{ m: 'auto' }, 'margin:auto'],
+    [{ m: '0 auto' }, 'margin:0px auto'],
+    [{ m: '0 10' }, 'margin:0px 10px'],
+    [{ m: '10 1.5rem auto' }, 'margin:10px 1.5rem auto'],
+  ])('renders the margin shortcut %o as %s', async (margin, expectedStyle) => {
+    const html = await render(<Heading {...margin}>Hello</Heading>);
+    expect(html).toContain(`style="${expectedStyle}"`);
+  });
+
+  it('drops multiple values on single-side margin shortcuts', async () => {
+    const html = await render(<Heading mx="0 auto">Hello</Heading>);
+    expect(html).toContain('<h1>Hello</h1>');
+  });
+
   it('renders the <Heading> component', async () => {
     const actualOutput = await render(
       <Heading as="h2" mx={4}>

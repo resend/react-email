@@ -56,14 +56,19 @@ export const withSpace = (
     return styles;
   }
 
-  const trimmed = String(value).trim();
-  const tokens = trimmed.split(/\s+/);
+  const tokens = String(value).trim().split(/\s+/);
+  const maxTokens = properties.includes('margin') ? 4 : 1;
 
-  if (!tokens.every((token) => CSS_VALUE_PATTERN.test(token))) {
+  if (
+    tokens.length > maxTokens ||
+    !tokens.every((token) => CSS_VALUE_PATTERN.test(token))
+  ) {
     return styles;
   }
 
-  const resolved = NUMBER_PATTERN.test(trimmed) ? `${trimmed}px` : trimmed;
+  const resolved = tokens
+    .map((token) => (NUMBER_PATTERN.test(token) ? `${token}px` : token))
+    .join(' ');
 
   for (const property of properties) {
     styles[property] = resolved as React.CSSProperties[MarginCSSProperty];
