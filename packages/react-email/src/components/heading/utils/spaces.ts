@@ -41,10 +41,10 @@ export const withMargin = (props: Margin): MarginStyles => {
   return mergedStyles;
 };
 
-const NUMBER_PATTERN = /^-?(\d+\.?\d*|\.\d+)$/;
+const NUMBER_PATTERN = /^-?(\d+(\.\d*)?|\.\d+)$/;
 
 const CSS_VALUE_PATTERN =
-  /^auto$|^-?(\d+\.?\d*|\.\d+)(px|em|rem|%|vh|vw|vmin|vmax|svh|svw|lvh|lvw|dvh|dvw|in|cm|mm|pt|pc|q|ex|ch|cap|ic|lh|rlh|vi|vb|cqw|cqh|cqi|cqb|cqmin|cqmax)?$/;
+  /^auto$|^-?(\d+(\.\d*)?|\.\d+)(px|em|rem|%|vh|vw|vmin|vmax|svh|svw|lvh|lvw|dvh|dvw|in|cm|mm|pt|pc|q|ex|ch|cap|ic|lh|rlh|vi|vb|cqw|cqh|cqi|cqb|cqmin|cqmax)?$/;
 
 export const withSpace = (
   value: number | string | undefined,

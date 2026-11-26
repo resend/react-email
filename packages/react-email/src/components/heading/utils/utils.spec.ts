@@ -118,4 +118,10 @@ describe('withSpace', () => {
     expect(withSpace('10 px', ['margin'])).toEqual({});
     expect(withSpace('', ['margin'])).toEqual({});
   });
+
+  it('rejects a long almost-valid value in linear time', () => {
+    const start = performance.now();
+    expect(withSpace(`${'1'.repeat(50_000)}x`, ['margin'])).toEqual({});
+    expect(performance.now() - start).toBeLessThan(100);
+  });
 });
