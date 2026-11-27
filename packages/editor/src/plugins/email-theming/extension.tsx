@@ -21,6 +21,7 @@ import { isThemeConfig, themeStylesToPanelOverrides } from './theme-config';
 import {
   DEFAULT_INBOX_FONT_SIZE_PX,
   EDITOR_THEMES,
+  getThemeBodyFontSizePx,
   RESET_THEMES,
 } from './themes';
 import type {
@@ -86,6 +87,14 @@ export function getThemeComponentKey(
   }
 }
 
+// shortcut: link, inlineCode and items of a nested list resolve against one static parent so mixed explicit sizes there still compound, resolve per node in the serializer when that matters
+const FONT_SIZE_PARENTS: Partial<
+  Record<KnownThemeComponents, KnownThemeComponents>
+> = {
+  listItem: 'list',
+  nestedList: 'listItem',
+};
+
 /**
  * Returns merged theme styles (reset + panel styles) for the given editor.
  * Use when you have editor access and need the full CssJs map.
@@ -98,6 +107,52 @@ export function getMergedCssJs(
     normalizeThemePanelStyles(theme, panelStyles) ?? EDITOR_THEMES[theme];
   const parsed = transformToCssJs(panels, DEFAULT_INBOX_FONT_SIZE_PX);
   const merged = mergeCssJs(RESET_THEMES[theme], parsed);
+
+  const explicitPx = new Map<KnownThemeComponents, number>();
+  for (const group of panels) {
+    for (const input of group.inputs) {
+      if (
+        input.prop === 'fontSize' &&
+        input.unit &&
+        typeof input.value === 'number' &&
+        input.classReference
+      ) {
+        explicitPx.set(input.classReference, input.value);
+      } else if (input.prop === 'fontSize' && input.classReference) {
+        explicitPx.delete(input.classReference);
+      }
+    }
+  }
+
+  const getEffectivePx = (key: KnownThemeComponents): number => {
+    const explicit = explicitPx.get(key);
+    if (explicit !== undefined) {
+      return explicit;
+    }
+    if (key === 'body') {
+      return getThemeBodyFontSizePx(theme);
+    }
+    const ratio = /^([\d.]+)em$/.exec(
+      String(RESET_THEMES[theme][key]?.fontSize),
+    );
+    return (
+      getEffectivePx(FONT_SIZE_PARENTS[key] ?? 'body') *
+      (ratio ? Number.parseFloat(ratio[1]) : 1)
+    );
+  };
+
+  for (const [key, px] of explicitPx) {
+    if (key === 'body') {
+      continue;
+    }
+    const parentPx = getEffectivePx(FONT_SIZE_PARENTS[key] ?? 'body');
+    if (parentPx > 0) {
+      merged[key].fontSize = `${px / parentPx}em`;
+    }
+    if (key === 'codeBlock' && merged.codeTag?.fontSize) {
+      merged.codeTag = { ...merged.codeTag, fontSize: '1em' };
+    }
+  }
 
   return merged;
 }
@@ -167,11 +222,7 @@ export function stylesToCss(
   styles: PanelGroup[],
   theme: EditorTheme,
 ): Record<KnownThemeComponents, React.CSSProperties> {
-  const parsed = transformToCssJs(
-    normalizeThemePanelStyles(theme, styles) ?? EDITOR_THEMES[theme],
-    DEFAULT_INBOX_FONT_SIZE_PX,
-  );
-  return mergeCssJs(RESET_THEMES[theme], parsed);
+  return getMergedCssJs(theme, styles);
 }
 
 function resolveThemeConfig(config: EditorThemeInput): {

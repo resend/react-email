@@ -97,6 +97,7 @@ export function injectThemeCss(
   const styleId = options.styleId ?? 'tiptap-extended-theme-css';
   const getNodeSelector = (classReference: string) =>
     `${container} ${prefix}${classReference}`;
+  const outsideList = ':not(:where(.node-list *))';
   const getSelectors = (classReference: KnownThemeComponents) => {
     switch (classReference) {
       case 'body':
@@ -105,10 +106,12 @@ export function injectThemeCss(
         return [];
       case 'list':
         return [
-          getNodeSelector('list'),
-          getNodeSelector('bulletList'),
-          getNodeSelector('orderedList'),
+          `${getNodeSelector('list')}${outsideList}`,
+          `${getNodeSelector('bulletList')}${outsideList}`,
+          `${getNodeSelector('orderedList')}${outsideList}`,
         ];
+      case 'paragraph':
+        return [`${getNodeSelector('paragraph')}${outsideList}`];
       case 'bulletList':
         return [getNodeSelector('bulletList')];
       case 'orderedList':
@@ -123,7 +126,7 @@ export function injectThemeCss(
           `${container} .node-orderedList .node-orderedList`,
         ];
       case 'listParagraph':
-        return [`${container} .node-listItem > .node-paragraph`];
+        return [`${container} .node-list .node-paragraph`];
       default:
         return [getNodeSelector(classReference)];
     }
