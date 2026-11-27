@@ -448,17 +448,20 @@ describe('font sizes', () => {
       KnownThemeComponents,
       number,
     ][]) {
-      panels
-        .filter((group) => group.classReference === classReference)
-        .at(-1)
-        ?.inputs.push({
-          label: 'Font size',
-          type: 'number',
-          unit: 'px',
-          prop: 'fontSize',
-          classReference,
-          value,
-        });
+      const group = panels.findLast(
+        (candidate) => candidate.classReference === classReference,
+      );
+      if (!group) {
+        throw new Error(`no panel group for ${classReference}`);
+      }
+      group.inputs.push({
+        label: 'Font size',
+        type: 'number',
+        unit: 'px',
+        prop: 'fontSize',
+        classReference,
+        value,
+      });
     }
     return panels;
   }

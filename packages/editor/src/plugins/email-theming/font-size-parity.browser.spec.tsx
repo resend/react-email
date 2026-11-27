@@ -156,5 +156,11 @@ describe('canvas and email font size parity (browser)', () => {
     }
     expect(sizes[1].canvas).toBeCloseTo(fontSizes.paragraph);
     expect(sizes[2].canvas).toBeCloseTo(fontSizes.list);
+    if (fontSizes.listItem !== undefined) {
+      expect(sizes[3].canvas).toBeCloseTo(fontSizes.listItem);
+    }
+    if (fontSizes.nestedList !== undefined) {
+      expect(sizes[5].canvas).toBeCloseTo(fontSizes.nestedList);
+    }
   });
 });
