@@ -401,10 +401,10 @@ describe('injectThemeCss', () => {
     const styleTag = document.getElementById(STYLE_ID);
 
     expect(styleTag?.textContent).toContain(
-      '.editor-scope .node-paragraph{margin:0;padding:0;font-size:1em;}',
+      '.editor-scope .node-paragraph:not(:where(.node-list *)){margin:0;padding:0;font-size:1em;}',
     );
     expect(styleTag?.textContent).toContain(
-      '.editor-scope .node-list,.editor-scope .node-bulletList,.editor-scope .node-orderedList{margin:0;padding:0;padding-left:1.1em;}',
+      '.editor-scope .node-list:not(:where(.node-list *)),.editor-scope .node-bulletList:not(:where(.node-list *)),.editor-scope .node-orderedList:not(:where(.node-list *)){margin:0;padding:0;padding-left:1.1em;}',
     );
     expect(styleTag?.textContent).toContain(
       '.editor-scope .node-bulletList{list-style-type:disc;}',
@@ -416,7 +416,7 @@ describe('injectThemeCss', () => {
       '.editor-scope .node-nestedList,.editor-scope .node-list .node-list',
     );
     expect(styleTag?.textContent).toContain(
-      '.editor-scope .node-listItem > .node-paragraph{margin:0;padding:0;}',
+      '.editor-scope .node-list .node-paragraph{margin:0;padding:0;}',
     );
     expect(styleTag?.textContent).not.toContain('.node-reset');
   });
