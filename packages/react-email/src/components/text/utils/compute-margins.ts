@@ -15,6 +15,35 @@ interface MarginResult {
   marginLeft: MarginType;
 }
 
+function splitMarginValues(value: string): string[] {
+  const values: string[] = [];
+  let current = '';
+  let depth = 0;
+
+  for (const char of value) {
+    if (char === '(') {
+      depth++;
+    } else if (char === ')' && depth > 0) {
+      depth--;
+    }
+
+    if (depth === 0 && /\s/.test(char)) {
+      if (current) {
+        values.push(current);
+        current = '';
+      }
+    } else {
+      current += char;
+    }
+  }
+
+  if (current) {
+    values.push(current);
+  }
+
+  return values;
+}
+
 function parseMarginValue(value: MarginType): MarginResult {
   if (typeof value === 'number')
     return {
@@ -25,7 +54,7 @@ function parseMarginValue(value: MarginType): MarginResult {
     };
 
   if (typeof value === 'string') {
-    const values = value.toString().trim().split(/\s+/);
+    const values = splitMarginValues(value);
 
     if (values.length === 1) {
       return {

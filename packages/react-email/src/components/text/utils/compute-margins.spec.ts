@@ -24,6 +24,40 @@ describe('parseMargins()', () => {
     });
   });
 
+  it('keeps spaces inside CSS functions in the margin shorthand', () => {
+    expect(computeMargins({ margin: 'calc(10px + 2px) 0' })).toEqual({
+      marginTop: 'calc(10px + 2px)',
+      marginRight: '0',
+      marginBottom: 'calc(10px + 2px)',
+      marginLeft: '0',
+    });
+
+    expect(computeMargins({ margin: 'max(8px, 2vw) auto' })).toEqual({
+      marginTop: 'max(8px, 2vw)',
+      marginRight: 'auto',
+      marginBottom: 'max(8px, 2vw)',
+      marginLeft: 'auto',
+    });
+
+    expect(
+      computeMargins({
+        margin: '0 calc(var(--gap) * 2) 4px clamp(1px, 2vw, 3px)',
+      }),
+    ).toEqual({
+      marginTop: '0',
+      marginRight: 'calc(var(--gap) * 2)',
+      marginBottom: '4px',
+      marginLeft: 'clamp(1px, 2vw, 3px)',
+    });
+
+    expect(computeMargins({ margin: '  10px\n\t20px  ' })).toEqual({
+      marginTop: '10px',
+      marginRight: '20px',
+      marginBottom: '10px',
+      marginLeft: '20px',
+    });
+  });
+
   it('computes the margins according to the order of styles', () => {
     expect(
       computeMargins({

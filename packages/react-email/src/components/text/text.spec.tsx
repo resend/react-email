@@ -26,6 +26,15 @@ describe('<Text> component', () => {
     );
   });
 
+  it('keeps CSS functions in the margin shorthand intact', async () => {
+    const html = await render(
+      <Text style={{ margin: 'calc(10px + 2px) 0' }}>Test</Text>,
+    );
+    expect(html).toContain('margin-top:calc(10px + 2px)');
+    expect(html).toContain('margin-bottom:calc(10px + 2px)');
+    expect(html).toContain('margin-right:0');
+  });
+
   it('renders correctly', async () => {
     const actualOutput = await render(<Text>Lorem ipsum</Text>);
     expect(actualOutput).toMatchInlineSnapshot(
